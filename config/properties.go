@@ -1,3 +1,4 @@
+// +build !dev
 package config
 
 const (
