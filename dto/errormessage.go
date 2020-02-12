@@ -10,8 +10,8 @@ import (
 
 //ErrorMessage represents API response error messages.
 type ErrorMessage struct {
-	Message          string `json:"message"`
-	ValidationErrors string `json:"validationErrors"`
+	Message          string   `json:"message"`
+	ValidationErrors []string `json:"validationErrors"`
 }
 
 //FromBytes performs conversion of http response to the representing struct
