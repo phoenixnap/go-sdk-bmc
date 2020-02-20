@@ -12,18 +12,18 @@ import (
 
 //LongServer represents server
 type LongServer struct {
-	ID                 string   `header:"id"`
-	Status             string   `header:"status"`
-	Name               string   `header:"name"`
-	Description        string   `header:"description"`
-	PrivateIPAddresses []string `header:"Private Ips"`
-	PublicIPAddresses  []string `header:"Public Ips"`
-	Os                 string   `header:"os"`
-	Type               string   `header:"type"`
-	Location           string   `header:"location"`
-	CPU                string   `header:"cpu"`
-	RAM                string   `header:"ram"`
-	Storage            string   `header:"storage"`
+	ID                 string   `json:"id"`
+	Status             string   `json:"status"`
+	Name               string   `json:"hostname"`
+	Description        string   `json:"description"`
+	PrivateIPAddresses []string `json:"Private Ips"`
+	PublicIPAddresses  []string `json:"Public Ips"`
+	Os                 string   `json:"os"`
+	Type               string   `json:"type"`
+	Location           string   `json:"location"`
+	CPU                string   `json:"cpu"`
+	RAM                string   `json:"ram"`
+	Storage            string   `json:"storage"`
 }
 
 //ToBytes performs conversion of struct to the io.Reader
