@@ -16,8 +16,8 @@ type LongServer struct {
 	Status             string   `json:"status"`
 	Name               string   `json:"hostname"`
 	Description        string   `json:"description"`
-	PrivateIPAddresses []string `json:"Private Ips"`
-	PublicIPAddresses  []string `json:"Public Ips"`
+	PrivateIPAddresses []string `json:"privateIpAddresses"`
+	PublicIPAddresses  []string `json:"publicIpAddresses"`
 	Os                 string   `json:"os"`
 	Type               string   `json:"type"`
 	Location           string   `json:"location"`
