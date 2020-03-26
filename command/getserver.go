@@ -27,3 +27,9 @@ func (command *GetServerCommand) SetRequester(requester client.Requester) {
 func (command *GetServerCommand) SetServerID(id string) {
 	command.serverID = id
 }
+
+//NewGetServerCommand constructs new commmand of this type
+func NewGetServerCommand(requester client.Requester, serverID string) *GetServerCommand {
+
+	return &GetServerCommand{requester, serverID}
+}

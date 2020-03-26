@@ -7,7 +7,7 @@ import (
 	"github.com/PNAP/bmc-api-sdk/dto"
 )
 
-// CreateServerCommand represents command for server provisioning
+// CreateServerCommand represents command for server provisioning. Use NewCreateServerCommand to initilize command properly.
 type CreateServerCommand struct {
 	requester client.Requester
 	server    dto.ProvisionedServer
@@ -27,4 +27,10 @@ func (command *CreateServerCommand) SetRequester(requester client.Requester) {
 // SetServer sets server details to the command
 func (command *CreateServerCommand) SetServer(server dto.ProvisionedServer) {
 	command.server = server
+}
+
+//NewCreateServerCommand constructs new commmand of this type
+func NewCreateServerCommand(requester client.Requester, server dto.ProvisionedServer) *CreateServerCommand {
+
+	return &CreateServerCommand{requester, server}
 }

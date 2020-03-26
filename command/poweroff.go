@@ -27,3 +27,9 @@ func (command *PowerOffCommand) SetRequester(requester client.Requester) {
 func (command *PowerOffCommand) SetServerID(id string) {
 	command.serverID = id
 }
+
+//NewPowerOffCommand constructs new commmand of this type
+func NewPowerOffCommand(requester client.Requester, serverID string) *PowerOffCommand {
+
+	return &PowerOffCommand{requester, serverID}
+}

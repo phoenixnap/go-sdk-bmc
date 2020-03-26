@@ -21,3 +21,9 @@ func (command *GetServersCommand) Execute() (*http.Response, error) {
 func (command *GetServersCommand) SetRequester(requester client.Requester) {
 	command.requester = requester
 }
+
+//NewGetServersCommand constructs new commmand of this type
+func NewGetServersCommand(requester client.Requester) *GetServersCommand {
+
+	return &GetServersCommand{requester}
+}

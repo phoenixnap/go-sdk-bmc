@@ -26,6 +26,19 @@ func Create() PNAPClient {
 	return pnapClient
 }
 
+// NewPNAPClient creates a new PNAPClient with forwarded credentials
+func NewPNAPClient(clientID string, clientSecret string) PNAPClient {
+	config := clientcredentials.Config{
+		ClientID:     clientID,
+		ClientSecret: clientSecret,
+		TokenURL:     config.TokenURL,
+		Scopes:       []string{"bmc", "bmc.read"},
+	}
+	httpClient := config.Client(context.Background())
+	pnapClient := PNAPClient{httpClient}
+	return pnapClient
+}
+
 func loadConfiguration() clientcredentials.Config {
 	// Find home directory
 	home, err := homedir.Dir()

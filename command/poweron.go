@@ -27,3 +27,9 @@ func (command *PowerOnCommand) SetRequester(requester client.Requester) {
 func (command *PowerOnCommand) SetServerID(id string) {
 	command.serverID = id
 }
+
+//NewPowerOnCommand constructs new commmand of this type
+func NewPowerOnCommand(requester client.Requester, serverID string) *PowerOnCommand {
+
+	return &PowerOnCommand{requester, serverID}
+}

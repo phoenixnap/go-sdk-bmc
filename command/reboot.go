@@ -27,3 +27,9 @@ func (command *RebootCommand) SetRequester(requester client.Requester) {
 func (command *RebootCommand) SetServerID(id string) {
 	command.serverID = id
 }
+
+//NewRebootCommand constructs new commmand of this type
+func NewRebootCommand(requester client.Requester, serverID string) *RebootCommand {
+
+	return &RebootCommand{requester, serverID}
+}

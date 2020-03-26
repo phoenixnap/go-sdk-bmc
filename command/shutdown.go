@@ -27,3 +27,9 @@ func (command *ShutDownCommand) SetRequester(requester client.Requester) {
 func (command *ShutDownCommand) SetServerID(id string) {
 	command.serverID = id
 }
+
+//NewShutDownCommand constructs new commmand of this type
+func NewShutDownCommand(requester client.Requester, serverID string) *ShutDownCommand {
+
+	return &ShutDownCommand{requester, serverID}
+}

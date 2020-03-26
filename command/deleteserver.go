@@ -27,3 +27,9 @@ func (command *DeleteServerCommand) SetRequester(requester client.Requester) {
 func (command *DeleteServerCommand) SetServerID(id string) {
 	command.serverID = id
 }
+
+//NewDeleteServerCommand constructs new commmand of this type
+func NewDeleteServerCommand(requester client.Requester, serverID string) *DeleteServerCommand {
+
+	return &DeleteServerCommand{requester, serverID}
+}

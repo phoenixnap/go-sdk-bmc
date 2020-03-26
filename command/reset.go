@@ -28,3 +28,9 @@ func (command *ResetCommand) SetRequester(requester client.Requester) {
 func (command *ResetCommand) SetServer(server dto.ProvisionedServer) {
 	command.server = server
 }
+
+//NewResetCommand constructs new commmand of this type
+func NewResetCommand(requester client.Requester, server dto.ProvisionedServer) *ResetCommand {
+
+	return &ResetCommand{requester, server}
+}
