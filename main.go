@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/PNAP/bmc-api-sdk/client"
 	"github.com/PNAP/bmc-api-sdk/command"
@@ -10,7 +11,11 @@ import (
 
 func main() {
 
-	client := client.Create()
+	client, confError := client.Create()
+	if confError != nil {
+		fmt.Println("Error reading config file:", confError)
+		os.Exit(3)
+	}
 	requestCommand := &command.GetServersCommand{}
 	requestCommand.SetRequester(client)
 	resp, err := requestCommand.Execute()

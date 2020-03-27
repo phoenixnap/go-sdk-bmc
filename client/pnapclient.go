@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"os"
 
 	"github.com/PNAP/bmc-api-sdk/config"
 	"github.com/mitchellh/go-homedir"
@@ -18,12 +17,17 @@ type PNAPClient struct {
 	client *http.Client
 }
 
-// Create creates a new PNAPClient
-func Create() PNAPClient {
+// Create creates a new PNAPClient. Verification of configuration will be done prior to creation
+//and error will be returned in case credentials or whole configuration file is missing
+func Create() (PNAPClient, error) {
+	err := VerifyConfiguration()
+	if err != nil {
+		return PNAPClient{}, err
+	}
 	config := loadConfiguration()
 	httpClient := config.Client(context.Background())
 	pnapClient := PNAPClient{httpClient}
-	return pnapClient
+	return pnapClient, err
 }
 
 // NewPNAPClient creates a new PNAPClient with forwarded credentials
@@ -41,34 +45,12 @@ func NewPNAPClient(clientID string, clientSecret string) PNAPClient {
 
 func loadConfiguration() clientcredentials.Config {
 	// Find home directory
-	home, err := homedir.Dir()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-	fmt.Println(home)
+	home, _ := homedir.Dir()
+
 	configPath := home + config.DefaultConfigPath
-	fmt.Println(configPath)
 	viper.AddConfigPath(configPath)
 	viper.SetConfigName("config")
-	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err != nil {
-		// Checks whether the config file exists, by attempting to cast the error.
-		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
-			fmt.Println("A config file is required in order to proceed.\n" +
-				"Config file path is the home directory (" + configPath + "config.yaml)\n\n" +
-				"The following shows a sample config file:\n\n" +
-				"# =====================================================\n" +
-				"# Sample yaml config file\n" +
-				"# =====================================================\n\n" +
-				"# Authentication\n" +
-				"clientId: <enter your client id>\n" +
-				"clientSecret: <enter your client secret>")
-		} else {
-			fmt.Println("Error reading config file:", err)
-		}
-		os.Exit(1)
-	}
+	viper.ReadInConfig()
 	clientID := viper.GetString("clientId")
 	clientSecret := viper.GetString("clientSecret")
 	tokenURL := config.TokenURL
@@ -82,16 +64,49 @@ func loadConfiguration() clientcredentials.Config {
 	return config
 }
 
+//VerifyConfiguration verifies existence of configuration file and credentials
+func VerifyConfiguration() error {
+	// Find home directory
+	home, err := homedir.Dir()
+	if err != nil {
+		return err
+	}
+
+	configPath := home + config.DefaultConfigPath
+
+	viper.AddConfigPath(configPath)
+	viper.SetConfigName("config")
+	// If a config file is found, read it in.
+	if err := viper.ReadInConfig(); err != nil {
+		// Checks whether the config file exists, by attempting to cast the error.
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+			return fmt.Errorf("A config file is required in order to proceed.\n" +
+				"Config file path is the home directory (" + configPath + "config.yaml)\n\n" +
+				"The following shows a sample config file:\n\n" +
+				"# =====================================================\n" +
+				"# Sample yaml config file\n" +
+				"# =====================================================\n\n" +
+				"# Authentication\n" +
+				"clientId: <enter your client id>\n" +
+				"clientSecret: <enter your client secret>")
+		}
+		return err
+	}
+	clientID := viper.GetString("clientId")
+	if clientID == "" {
+		return fmt.Errorf("API client ID not found in configuration")
+	}
+	clientSecret := viper.GetString("clientSecret")
+	if clientSecret == "" {
+		return fmt.Errorf("API clientSecret not found in configuration")
+	}
+	return nil
+}
+
 // Get performs a Get request and check for auth errors
 func (pnapClient PNAPClient) Get(resource string) (*http.Response, error) {
 
 	response, err := pnapClient.client.Get(buildURI(resource))
-
-	// if e, isUrlError := err.(*url.Error); isUrlError && strings.Contains(err.Error(), "oauth2: cannot fetch token") {
-	// 	//Timeout If there is an error it must have happened while resolving token
-	// 	// ErrorURLs frome the actual request should be represented in the body
-	// 	return response, ctlerrors.Error{Msg: "Failed to resolve provided credentials", Cause: e}
-	// }
 
 	return response, err
 }
