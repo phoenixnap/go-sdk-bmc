@@ -20,7 +20,6 @@ type ProvisionedServer struct {
 	Location string `json:"location"`
 
 	SSHKeys []string `json:"sshKeys"`
-	Public  bool     `json:"public"`
 }
 
 //ToBytes performs conversion of struct to the io.Reader
