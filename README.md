@@ -70,5 +70,5 @@ Get in touch with us if you have questions or need help with Bare Metal Cloud.
 
 <p align="center">
   <br>
-  <a href="https://phoenixnap.com/bare-metal-cloud"><img src="https://user-images.githubusercontent.com/78744488/109779474-47222480-7c06-11eb-8ed6-91e28af3a79c.jpg" alt="phoenixnap Bare Metal Cloud"></a>
+  <a href="https://phoenixnap.com/bare-metal-cloud"><img src="https://user-images.githubusercontent.com/81640346/115057777-c03eb800-9ee4-11eb-8fb0-5ff7958bb25b.jpg" alt="phoenixnap Bare Metal Cloud"></a>
 </p>
