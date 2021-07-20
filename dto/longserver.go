@@ -24,6 +24,13 @@ type LongServer struct {
 	CPU                string   `json:"cpu"`
 	RAM                string   `json:"ram"`
 	Storage            string   `json:"storage"`
+	CPUCount           int32    `json:"cpuCount"`
+	CoresPerCpu        int32    `json:"coresPerCpu"`
+	CPUFrequency       float32  `json:"cpuFrequency"`
+	ReservationID      string   `json:"reservationId"`
+	PricingModel       string   `json:"pricingModel"`
+	Password           string   `json:"password"`
+	NetworkType        string   `json:"networkType"`
 }
 
 //ToBytes performs conversion of struct to the io.Reader
