@@ -10,4 +10,5 @@ type Requester interface {
 	Get(resource string) (*http.Response, error)
 	Post(resource string, body io.Reader) (*http.Response, error)
 	Delete(resource string) (*http.Response, error)
+	Put(resource string, body io.Reader) (*http.Response, error)
 }
