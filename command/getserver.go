@@ -3,7 +3,7 @@ package command
 import (
 	"net/http"
 
-	"github.com/PNAP/bmc-api-sdk/client"
+	"github.com/phoenixnap/go-sdk-bmc/client"
 )
 
 // GetServerCommand represents command that pulls details about specific server

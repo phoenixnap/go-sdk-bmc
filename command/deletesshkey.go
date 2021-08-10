@@ -3,7 +3,7 @@ package command
 import (
 	"net/http"
 
-	"github.com/PNAP/bmc-api-sdk/client"
+	"github.com/phoenixnap/go-sdk-bmc/client"
 )
 
 // DeleteSshKeyCommand represents command for sshkey deleting
