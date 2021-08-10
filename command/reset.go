@@ -3,8 +3,8 @@ package command
 import (
 	"net/http"
 
-	"github.com/PNAP/bmc-api-sdk/client"
-	"github.com/PNAP/bmc-api-sdk/dto"
+	"github.com/phoenixnap/go-sdk-bmc/client"
+	"github.com/phoenixnap/go-sdk-bmc/dto"
 )
 
 // ResetCommand represents command that resets the server

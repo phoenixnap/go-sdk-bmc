@@ -3,8 +3,8 @@ package command
 import (
 	"net/http"
 
-	"github.com/PNAP/bmc-api-sdk/client"
-	"github.com/PNAP/bmc-api-sdk/dto"
+	"github.com/phoenixnap/go-sdk-bmc/client"
+	"github.com/phoenixnap/go-sdk-bmc/dto"
 )
 
 // UpdateSshKeyCommand represents command for sshkey updating. Use NewUpdateSshKeyCommand to initilize command properly.

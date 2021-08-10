@@ -3,8 +3,8 @@ package command
 import (
 	"net/http"
 
-	"github.com/PNAP/bmc-api-sdk/client"
-	"github.com/PNAP/bmc-api-sdk/dto"
+	"github.com/phoenixnap/go-sdk-bmc/client"
+	"github.com/phoenixnap/go-sdk-bmc/dto"
 )
 
 // CreateServerCommand represents command for server provisioning. Use NewCreateServerCommand to initilize command properly.

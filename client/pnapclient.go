@@ -6,7 +6,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/PNAP/bmc-api-sdk/config"
+	"github.com/phoenixnap/go-sdk-bmc/config"
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 	"golang.org/x/oauth2/clientcredentials"
