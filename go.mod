@@ -1,4 +1,4 @@
-module github.com/PNAP/bmc-api-sdk
+module github.com/phoenixnap/go-sdk-bmc
 
 go 1.13
 
