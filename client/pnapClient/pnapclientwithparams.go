@@ -1,6 +1,7 @@
-package client
+package pnapClient
 
 import (
+	"github.com/PNAP/bmc-api-sdk/dto"
 	"context"
 	"fmt"
 	"io"
@@ -15,39 +16,58 @@ import (
 // PNAPClient is a Client that performs HTTP requests.
 type PNAPClient struct {
 	client *http.Client
+	auth dto.Authentication
 }
 
-// Create creates a new PNAPClient. Verification of configuration will be done prior to creation
+//NewPNAPClientWithDefaultConfig creates a new PNAPClient. Verification of configuration will be done prior to creation
 //and error will be returned in case credentials or whole configuration file is missing
-func Create() (PNAPClient, error) {
-	err := VerifyConfiguration()
+func NewPNAPClientWithDefaultConfig() (PNAPClient, error) {
+	// Find home directory
+	home, err := homedir.Dir()
 	if err != nil {
 		return PNAPClient{}, err
 	}
-	config := loadConfiguration()
+
+	configPath := home + config.DefaultConfigPath
+	confPathErr := Verify(configPath)
+	if confPathErr != nil {
+		return PNAPClient{}, confPathErr
+	}
+
+
+	config := load(configPath)
 	httpClient := config.Client(context.Background())
-	pnapClient := PNAPClient{httpClient}
+	pnapClient := PNAPClient{httpClient, dto.Authentication{}}
 	return pnapClient, err
 }
 
 // NewPNAPClient creates a new PNAPClient with forwarded credentials
-func NewPNAPClient(clientID string, clientSecret string) PNAPClient {
+func NewPNAPClient(auth dto.Authentication) PNAPClient {
 	config := clientcredentials.Config{
-		ClientID:     clientID,
-		ClientSecret: clientSecret,
-		TokenURL:     config.TokenURL,
+		ClientID:     auth.ClientID,
+		ClientSecret: auth.ClientSecret,
+		TokenURL:     auth.TokenURL,
 		Scopes:       []string{"bmc", "bmc.read"},
 	}
 	httpClient := config.Client(context.Background())
-	pnapClient := PNAPClient{httpClient}
+	pnapClient := PNAPClient{httpClient, auth}
 	return pnapClient
 }
+//NewPNAPClientWithCustomConfig creates a new PNAPClient. Verification of configuration will be done prior to creation
+//and error will be returned in case credentials or whole configuration file is missing
+func NewPNAPClientWithCustomConfig(path string) (PNAPClient, error) {
+	err := Verify(path)
+	if err != nil {
+		return PNAPClient{}, err
+	}
+	config := load(path)
+	httpClient := config.Client(context.Background())
+	pnapClient := PNAPClient{httpClient, dto.Authentication{}}
+	return pnapClient, err
+}
 
-func loadConfiguration() clientcredentials.Config {
-	// Find home directory
-	home, _ := homedir.Dir()
-
-	configPath := home + config.DefaultConfigPath
+func load(configPath string) clientcredentials.Config {
+	
 	viper.AddConfigPath(configPath)
 	viper.SetConfigName("config")
 	viper.ReadInConfig()
@@ -64,15 +84,9 @@ func loadConfiguration() clientcredentials.Config {
 	return config
 }
 
-//VerifyConfiguration verifies existence of configuration file and credentials
-func VerifyConfiguration() error {
-	// Find home directory
-	home, err := homedir.Dir()
-	if err != nil {
-		return err
-	}
-
-	configPath := home + config.DefaultConfigPath
+//Verify verifies existence of configuration file and credentials
+func Verify(configPath string) error {
+	
 
 	viper.AddConfigPath(configPath)
 	viper.SetConfigName("config")
@@ -106,14 +120,14 @@ func VerifyConfiguration() error {
 // Get performs a Get request and check for auth errors
 func (pnapClient PNAPClient) Get(resource string) (*http.Response, error) {
 
-	response, err := pnapClient.client.Get(buildURI(resource))
+	response, err := pnapClient.client.Get(buildURI(resource, pnapClient.auth))
 
 	return response, err
 }
 
 // Delete performs a Delete request and check for auth errors
 func (pnapClient PNAPClient) Delete(resource string) (*http.Response, error) {
-	req, err := http.NewRequest("DELETE", buildURI(resource), nil)
+	req, err := http.NewRequest("DELETE", buildURI(resource, pnapClient.auth), nil)
 	// replicating Get/Post error handling
 	if err != nil {
 		return nil, err
@@ -123,12 +137,12 @@ func (pnapClient PNAPClient) Delete(resource string) (*http.Response, error) {
 
 // Post performs a Post request and check for auth errors
 func (pnapClient PNAPClient) Post(resource string, body io.Reader) (*http.Response, error) {
-	return pnapClient.client.Post(buildURI(resource), "application/json", body)
+	return pnapClient.client.Post(buildURI(resource, pnapClient.auth), "application/json", body)
 }
 
 // Put performs a Put request and check for auth errors
 func (pnapClient PNAPClient) Put(resource string, body io.Reader) (*http.Response, error) {
-	req, err := http.NewRequest("PUT", buildURI(resource), body)
+	req, err := http.NewRequest("PUT", buildURI(resource, pnapClient.auth), body)
 	if err != nil {
 		return nil, err
 	}
@@ -137,6 +151,14 @@ func (pnapClient PNAPClient) Put(resource string, body io.Reader) (*http.Respons
 	return pnapClient.client.Do(req)
 }
 
-func buildURI(resource string) string {
+/* func buildURI(resource string) string {
+	return config.Hostname + resource
+} */
+func buildURI(resource string, auth dto.Authentication) string {
+	if auth.ApiHostName != "" && auth.PoweredBy != ""{
+		return auth.ApiHostName + resource + "?_xPoweredBy=" + auth.PoweredBy
+	}else if auth.ApiHostName != ""{
+		return auth.ApiHostName + resource
+	}
 	return config.Hostname + resource
 }

@@ -15,7 +15,8 @@ type GetServerCommand struct {
 // Execute pulls details about specific server
 func (command *GetServerCommand) Execute() (*http.Response, error) {
 	var req = command.requester
-	return req.Get("servers/" + command.serverID)
+	var apiPrefix = "bmc/v1/"
+	return req.Get(apiPrefix + "servers/" + command.serverID)
 }
 
 // SetRequester sets requester to the command

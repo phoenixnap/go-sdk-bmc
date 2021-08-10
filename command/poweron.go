@@ -15,7 +15,8 @@ type PowerOnCommand struct {
 // Execute powers on the server
 func (command *PowerOnCommand) Execute() (*http.Response, error) {
 	var req = command.requester
-	return req.Post("servers/"+command.serverID+"/actions/power-on", nil)
+	var apiPrefix = "bmc/v1/"
+	return req.Post(apiPrefix+"servers/"+command.serverID+"/actions/power-on", nil)
 }
 
 // SetRequester sets requester to the command

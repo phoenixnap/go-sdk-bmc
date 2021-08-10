@@ -14,7 +14,8 @@ type GetServersCommand struct {
 // Execute retrieves all servers
 func (command *GetServersCommand) Execute() (*http.Response, error) {
 	var req = command.requester
-	return req.Get("servers")
+	var apiPrefix = "bmc/v1/"
+	return req.Get(apiPrefix + "servers")
 }
 
 // SetRequester sets requester to the command

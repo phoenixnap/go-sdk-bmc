@@ -16,7 +16,8 @@ type CreateServerCommand struct {
 // Execute provisions new server
 func (command *CreateServerCommand) Execute() (*http.Response, error) {
 	var req = command.requester
-	return req.Post("servers", command.server.ToBytes())
+	var apiPrefix = "bmc/v1/"
+	return req.Post(apiPrefix + "servers", command.server.ToBytes())
 }
 
 // SetRequester sets requester to the command

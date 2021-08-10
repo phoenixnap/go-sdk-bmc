@@ -15,7 +15,8 @@ type RebootCommand struct {
 // Execute reboot on the server
 func (command *RebootCommand) Execute() (*http.Response, error) {
 	var req = command.requester
-	return req.Post("servers/"+command.serverID+"/actions/reboot", nil)
+	var apiPrefix = "bmc/v1/"
+	return req.Post(apiPrefix+"servers/"+command.serverID+"/actions/reboot", nil)
 }
 
 // SetRequester sets requester to the command

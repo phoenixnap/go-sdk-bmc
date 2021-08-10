@@ -15,7 +15,8 @@ type DeleteServerCommand struct {
 // Execute deprovisions the server
 func (command *DeleteServerCommand) Execute() (*http.Response, error) {
 	var req = command.requester
-	return req.Delete("servers/" + command.serverID)
+	var apiPrefix = "bmc/v1/"
+	return req.Delete(apiPrefix + "servers/" + command.serverID)
 }
 
 // SetRequester sets requester to the command
