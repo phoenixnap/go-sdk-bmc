@@ -16,7 +16,8 @@ type UpdateSshKeyCommand struct {
 // Execute update the ssh key
 func (command *UpdateSshKeyCommand) Execute() (*http.Response, error) {
 	var req = command.requester
-	return req.Put("ssh-keys/"+command.sshKey.ID, command.sshKey.ToBytes())
+	var apiPrefix = "bmc/v1/"
+	return req.Put(apiPrefix+"ssh-keys/"+command.sshKey.ID, command.sshKey.ToBytes())
 }
 
 // SetRequester - sets requester to the command

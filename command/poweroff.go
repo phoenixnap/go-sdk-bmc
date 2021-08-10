@@ -15,7 +15,8 @@ type PowerOffCommand struct {
 // Execute powers off the server
 func (command *PowerOffCommand) Execute() (*http.Response, error) {
 	var req = command.requester
-	return req.Post("servers/"+command.serverID+"/actions/power-off", nil)
+	var apiPrefix = "bmc/v1/"
+	return req.Post(apiPrefix + "servers/"+command.serverID+"/actions/power-off", nil)
 }
 
 // SetRequester sets requester to the command

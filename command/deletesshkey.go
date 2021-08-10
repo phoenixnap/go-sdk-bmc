@@ -15,7 +15,8 @@ type DeleteSshKeyCommand struct {
 // Execute deleting the sshkey
 func (command *DeleteSshKeyCommand) Execute() (*http.Response, error) {
 	var req = command.requester
-	return req.Delete("ssh-keys/" + command.sshKeyID)
+	var apiPrefix = "bmc/v1/"
+	return req.Delete(apiPrefix + "ssh-keys/" + command.sshKeyID)
 }
 
 // SetRequester sets requester to the command

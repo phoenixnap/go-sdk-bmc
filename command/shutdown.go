@@ -15,7 +15,8 @@ type ShutDownCommand struct {
 // Execute reboot on the server
 func (command *ShutDownCommand) Execute() (*http.Response, error) {
 	var req = command.requester
-	return req.Post("servers/"+command.serverID+"/actions/shutdown", nil)
+	var apiPrefix = "bmc/v1/"
+	return req.Post(apiPrefix+"servers/"+command.serverID+"/actions/shutdown", nil)
 }
 
 // SetRequester sets requester to the command

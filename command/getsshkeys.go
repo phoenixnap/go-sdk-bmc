@@ -14,7 +14,8 @@ type GetSshKeysCommand struct {
 // Execute retrieves all ssh-keys
 func (command *GetSshKeysCommand) Execute() (*http.Response, error) {
 	var req = command.requester
-	return req.Get("ssh-keys")
+	var apiPrefix = "bmc/v1/"
+	return req.Get(apiPrefix + "ssh-keys")
 }
 
 // SetRequester sets requester to the command
