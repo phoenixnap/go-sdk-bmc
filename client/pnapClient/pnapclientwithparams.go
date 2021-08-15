@@ -117,6 +117,11 @@ func Verify(configPath string) error {
 	return nil
 }
 
+// SetAuthentication offers option to override initially set authentication object with new values
+func (pnapClient PNAPClient) SetAuthentication(auth dto.Authentication) {
+	pnapClient.auth = auth
+}
+
 // Get performs a Get request and check for auth errors
 func (pnapClient PNAPClient) Get(resource string) (*http.Response, error) {
 
