@@ -12,19 +12,14 @@ import (
 
 func main() {
 
-	auth := dto.Authentication{ClientID : "05cd8e97-3945-433d-9e67-a0ca71ebc324",
-	ClientSecret: "893f4436-8a52-4c53-9fbc-0313a4324b70",
+	auth := dto.Authentication{ClientID : "",
+	ClientSecret: "",
 	TokenURL: "https://auth-dev.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token",
 	ApiHostName:"https://api-dev.phoenixnap.com/",
 	PoweredBy: "go-sdk"}
 	cl := newClient.NewPNAPClient(auth)
 	cl.SetAuthentication(auth)
 
-	//client, confError := client.Create()
-	//if confError != nil {
-	//	fmt.Println("Error reading config file:", confError)
-	//	os.Exit(3)
-	//}
 
 	requestCommand0 := &command.CreateServerCommand{}
 	requestCommand0.SetRequester(cl)
@@ -62,19 +57,5 @@ func main() {
 
 	
 
-	for _, instance := range *response {
-		
-		requestCommand1 := &command.ReserveCommand{}
-		server := dto.ProvisionedServer{}
-		server.ID = instance.ID
-		server.PricingModel = "ONE_MONTH_RESERVATION"
-		requestCommand1.SetServer(server)
-		requestCommand1.SetRequester(cl)
-			resp1, err1 := requestCommand1.Execute()
-			response1 := &dto.LongServer{}
-			if err1 == nil {
-				response1.FromBytes(resp1)
-				fmt.Println("Done!")
-			}	
-	}
+	
 }
