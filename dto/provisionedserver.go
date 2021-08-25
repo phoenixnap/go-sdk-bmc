@@ -21,8 +21,8 @@ type ProvisionedServer struct {
 	SshKeys               []string        `json:"sshKeys"`
 	SshKeyIds             []string        `json:"sshKeyIds"`
 	ReservationId         string          `json:"reservationId"`
-	PricingModel          string          `json:"pricingModel"`
-	NetworkType           string          `json:"networkType"`
+	PricingModel          string          `json:"pricingModel,omitempty"`
+	NetworkType           string          `json:"networkType,omitempty"`
 	OsConfiguration       OsConfiguration `json:"osConfiguration"`
 }
 
