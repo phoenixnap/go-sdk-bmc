@@ -10,7 +10,7 @@ import (
 
 //Windows
 type Windows struct {
-	RdpAllowedIps []string `json:"rdpAllowedIps"`
+	RdpAllowedIps []string `json:"rdpAllowedIps,omitempty"`
 }
 
 //ToBytes performs conversion of struct to the io.Reader
