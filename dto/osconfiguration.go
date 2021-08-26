@@ -10,7 +10,7 @@ import (
 
 //OsConfiguration
 type OsConfiguration struct {
-	Windows Windows `json:"windows"`
+	Windows Windows `json:"windows,omitempty"`
 }
 
 //ToBytes performs conversion of struct to the io.Reader
