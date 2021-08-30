@@ -20,7 +20,7 @@ type ProvisionedServer struct {
 	InstallDefaultSshKeys bool            `json:"installDefaultSshKeys"`
 	SshKeys               []string        `json:"sshKeys"`
 	SshKeyIds             []string        `json:"sshKeyIds"`
-	ReservationId         string          `json:"reservationId"`
+	ReservationId         string          `json:"reservationId,omitempty"`
 	PricingModel          string          `json:"pricingModel,omitempty"`
 	NetworkType           string          `json:"networkType,omitempty"`
 	OsConfiguration       OsConfiguration `json:"osConfiguration,omitempty"`
