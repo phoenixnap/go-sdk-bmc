@@ -18,7 +18,7 @@ type SshKey struct {
 	Key           string `json:"key"`
 	Fingerprint   string `json:"fingerprint"`
 	CreatedOn     string `json:"createdOn"`
-	LastUpdatedOn string `jason:"lastUpdatedOn"`
+	LastUpdatedOn string `json:"lastUpdatedOn"`
 }
 
 //FromBytes performs conversion of http response to the representing struct

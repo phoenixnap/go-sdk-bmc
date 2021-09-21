@@ -32,6 +32,8 @@ type LongServer struct {
 	Password           string   `json:"password"`
 	NetworkType        string   `json:"networkType"`
 	ClusterID          string   `json:"clusterId"`
+	OsConfiguration    OsConfiguration `json:"osConfiguration,omitempty"`
+	ProvisionedOn      string   `json:"provisionedOn"`
 }
 
 //ToBytes performs conversion of struct to the io.Reader
