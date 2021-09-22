@@ -13,6 +13,7 @@ type ServerActionResponse struct {
 	Result   string `json:"result"`
 	Password string `json:"password"`
 	ServerID string `json:"serverId"`
+	OsConfiguration    OsConfiguration `json:"osConfiguration,omitempty"`
 }
 
 //FromBytes performs conversion of http response to the representing struct
