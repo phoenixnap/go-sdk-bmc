@@ -10,8 +10,8 @@ import (
 
 //OsConfiguration
 type OsConfiguration struct {
-	Windows Windows `json:"windows,omitempty"`
-	Esxi Esxi `json:"esxi,omitempty"`
+	Windows *Windows `json:"windows,omitempty"`
+	Esxi *Esxi `json:"esxi,omitempty"`
 	RootPassword string `json:"rootPassword,omitempty"`
 	ManagementUiUrl string `json:"managementUiUrl,omitempty"`
 	ManagementAccessAllowedIps []string `json:"managementAccessAllowedIps,omitempty"`
