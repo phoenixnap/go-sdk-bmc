@@ -67,7 +67,6 @@ Get in touch with us if you have questions or need help with Bare Metal Cloud.
   <a href="https://www.youtube.com/user/PhoenixNAPdatacenter">YouTube</a> •
   <a href="https://developers.phoenixnap.com/support">Email</a> 
 </p>
-
 <p align="center">
   <br>
   <a href="https://phoenixnap.com/bare-metal-cloud"><img src="https://user-images.githubusercontent.com/81640346/115243282-0c773b80-a123-11eb-9de7-59e3934a5712.jpg" alt="phoenixnap Bare Metal Cloud"></a>
