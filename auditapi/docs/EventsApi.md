@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## EventsGet
 
-> []Event EventsGet(ctx).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Execute()
+> []Event EventsGet(ctx).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
 
 List event logs.
 
@@ -36,10 +36,11 @@ func main() {
     order := "order_example" // string | Ordering of the event's time. SortBy can be introduced later on. (optional) (default to "ASC")
     username := "johnd@phoenixnap.com" // string | The username that did the actions. (optional)
     verb := "verb_example" // string | The HTTP verb corresponding to the action. (optional)
+    uri := "/ams/v1/clients/12345" // string | The request uri. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EventsApi.EventsGet(context.Background()).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Execute()
+    resp, r, err := api_client.EventsApi.EventsGet(context.Background()).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.EventsGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -66,6 +67,7 @@ Name | Type | Description  | Notes
  **order** | **string** | Ordering of the event&#39;s time. SortBy can be introduced later on. | [default to &quot;ASC&quot;]
  **username** | **string** | The username that did the actions. | 
  **verb** | **string** | The HTTP verb corresponding to the action. | 
+ **uri** | **string** | The request uri. | 
 
 ### Return type
 

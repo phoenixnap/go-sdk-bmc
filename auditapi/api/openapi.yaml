@@ -93,6 +93,15 @@ paths:
           - DELETE
           type: string
         style: form
+      - description: The request uri.
+        example: /ams/v1/clients/12345
+        explode: true
+        in: query
+        name: uri
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         "200":
           content:

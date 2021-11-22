@@ -54,6 +54,7 @@ type ApiEventsGetRequest struct {
 	order      *string
 	username   *string
 	verb       *string
+	uri        *string
 }
 
 // From the date and time (inclusive) to filter event log records by.
@@ -89,6 +90,12 @@ func (r ApiEventsGetRequest) Username(username string) ApiEventsGetRequest {
 // The HTTP verb corresponding to the action.
 func (r ApiEventsGetRequest) Verb(verb string) ApiEventsGetRequest {
 	r.verb = &verb
+	return r
+}
+
+// The request uri.
+func (r ApiEventsGetRequest) Uri(uri string) ApiEventsGetRequest {
+	r.uri = &uri
 	return r
 }
 
@@ -151,6 +158,9 @@ func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *_n
 	}
 	if r.verb != nil {
 		localVarQueryParams.Add("verb", parameterToString(*r.verb, ""))
+	}
+	if r.uri != nil {
+		localVarQueryParams.Add("uri", parameterToString(*r.uri, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
