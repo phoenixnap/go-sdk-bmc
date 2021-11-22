@@ -30,7 +30,7 @@ This SDK allows you to provision and manage Bare Metal Cloud servers via API wit
 3. Use your credentials to [log in to Bare Metal Cloud portal](https://bmc.phoenixnap.com).
 
 :arrow_forward: **Video tutorial:** [How to Create a Bare Metal Cloud Account](https://www.youtube.com/watch?v=RLRQOisEB-k)
-<br>
+<br><br>
 
 :arrow_forward: **Video tutorial:** [Introduction to Bare Metal Cloud](https://www.youtube.com/watch?v=8TLsqgLDMN4)
 
