@@ -34,6 +34,47 @@ This SDK allows you to provision and manage Bare Metal Cloud servers via API wit
 
 :arrow_forward: **Video tutorial:** [Introduction to Bare Metal Cloud](https://www.youtube.com/watch?v=8TLsqgLDMN4)
 
+## SDK Usage Example
+
+Bare Metal Cloud Go SDK provides a library of resources and APIs that can be used to interact with the platform. Below is a sample code to create dependancy: 
+
+```
+package main
+
+import (
+	"context"
+
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
+	"golang.org/x/oauth2/clientcredentials"
+)
+
+func main() {
+
+	configuration := bmcapiclient.NewConfiguration()
+
+	config := clientcredentials.Config{
+		ClientID:     "<Client ID>",
+		ClientSecret: "<Client Secret>",
+		TokenURL:     "<Token URL>",
+		Scopes:       []string{"bmc", "bmc.read"},
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
+
+	api_client := bmcapiclient.NewAPIClient(configuration)
+
+	resp, r, err := api_client.ServersApi.ServersGet(context.Background()).Execute()
+
+```
+
+:bulb: For each submodule, API-specific documentation is available as follows: 
+
+- [Audit Logs API](auditapi/README.md): read audit log entries and track API calls and activities in the BMC Portal
+- [BMC API](bmcapi/README.md): create, power on, power off, reset, reboot or shut down your servers. Deprovision your servers, get SSH keys, and more. 
+- [Network API](networkapi/README.md): create, list, edit, and delete private networks. 
+- [Rancher solutions API](ranchersolutionapi/README.md): deploy Kubernetes clusters faster using BMC integration with Rancher. 
+- [Tag API](tagapi/README.md): assign tags to relevant resources in your BMC portal to group and categorize them. 
+
 ## Bare Metal Cloud community
 
 Become part of the Bare Metal Cloud community to get updates on new features, help us improve the platform, and engage with developers and other users.

@@ -1,0 +1,2600 @@
+openapi: 3.0.2
+info:
+  contact:
+    email: support@phoenixnap.com
+    name: PhoenixNAP Team
+    url: https://phoenixnap.com/
+  description: Bare Metal Cloud API allows you to create, power off, power on, reset,
+    reboot, or shut down your server. Also deprovision servers, manage SSH key details,
+    and a lot more. Manage your infrastructure more efficiently using just a few simple
+    API calls. </br></br>**All URLs are relative to (https://api.phoenixnap.com/bmc/v0/)**
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
+  title: Bare Metal Cloud API
+  version: "0.1"
+servers:
+- url: https://api.phoenixnap.com/bmc/v0
+security:
+- OAuth2:
+  - bmc
+  - bmc.read
+tags:
+- description: Server operations
+  name: Servers
+- description: Quota operations
+  name: Quotas
+- description: SSH Key operations
+  name: SSH Keys
+paths:
+  /servers:
+    get:
+      description: List all servers owned by account.
+      operationId: serversGet
+      parameters:
+      - description: A list of queryparameters related to tags in the form of tagName.tagValue
+        example: env.dev
+        explode: true
+        in: query
+        name: tag
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Server'
+                type: array
+          description: List of all the servers owned by account.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc.read
+      summary: List servers.
+      tags:
+      - Servers
+    post:
+      description: Create (request) new server for account. Server DNS will be configured
+        to access Google's public DNS at 8.8.8.8 .
+      operationId: serversPost
+      requestBody:
+        content:
+          application/json:
+            examples:
+              RequiredPropertiesProvidedOnly:
+                value:
+                  hostname: my-server-1
+                  location: PHX
+                  os: ubuntu/bionic
+                  type: s1.c1.small
+              GatewayAddressProvidedWithPrivateOnlyNetworkType:
+                value:
+                  hostname: my-server-1
+                  location: PHX
+                  os: ubuntu/bionic
+                  type: s1.c1.small
+                  networkType: PRIVATE_ONLY
+                  networkConfiguration:
+                    privateNetworkConfiguration:
+                      gatewayAddress: 10.0.0.10
+              UserDefinedPrivateNetworkConfiguration_AllIpsProvided_DhcpFalse:
+                value:
+                  hostname: my-server-1
+                  description: 'My custom server #1'
+                  location: PHX
+                  os: ubuntu/bionic
+                  type: s1.c1.small
+                  installDefaultSshKeys: true
+                  sshKeys:
+                  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+                    user@my_ip
+                  sshKeyIds:
+                  - 5fa54d1e91867c03a0a7b4a4
+                  reservationId: x78sdkjds879sd7cx8
+                  pricingModel: HOURLY
+                  networkType: PUBLIC_AND_PRIVATE
+                  networkConfiguration:
+                    privateNetworkConfiguration:
+                      configurationType: USER_DEFINED
+                      privateNetworks:
+                      - id: 60f81608e2f4665962b214db
+                        ips:
+                        - 10.0.0.11
+                        - 10.0.0.12
+                        dhcp: false
+                      - id: 60f93142c5c1d6082d31382a
+                        ips:
+                        - 10.0.0.13 - 10.0.0.17
+                        dhcp: false
+              UserDefinedPrivateNetworkConfiguration_IpsAndDhcpNotProvided:
+                value:
+                  hostname: my-server-1
+                  description: 'My custom server #1'
+                  location: PHX
+                  os: ubuntu/bionic
+                  type: s1.c1.small
+                  installDefaultSshKeys: true
+                  sshKeys:
+                  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+                    user@my_ip
+                  sshKeyIds:
+                  - 5fa54d1e91867c03a0a7b4a4
+                  reservationId: x78sdkjds879sd7cx8
+                  pricingModel: HOURLY
+                  networkType: PRIVATE_ONLY
+                  networkConfiguration:
+                    privateNetworkConfiguration:
+                      gatewayAddress: 10.0.0.10
+                      configurationType: USER_DEFINED
+                      privateNetworks:
+                      - id: 60f81608e2f4665962b214db
+                      - id: 60f93142c5c1d6082d31382a
+              NoGatewayAddressProvided_UserDefinedPrivateNetworkConfiguration_DhcpTrue:
+                value:
+                  hostname: my-server-1
+                  description: 'My custom server #1'
+                  location: PHX
+                  os: ubuntu/bionic
+                  type: s1.c1.small
+                  installDefaultSshKeys: true
+                  sshKeys:
+                  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+                    user@my_ip
+                  sshKeyIds:
+                  - 5fa54d1e91867c03a0a7b4a4
+                  reservationId: x78sdkjds879sd7cx8
+                  pricingModel: HOURLY
+                  networkType: PRIVATE_ONLY
+                  networkConfiguration:
+                    privateNetworkConfiguration:
+                      configurationType: USER_DEFINED
+                      privateNetworks:
+                      - id: 60f81608e2f4665962b214db
+                        dhcp: true
+                      - id: 60f93142c5c1d6082d31382a
+                        dhcp: true
+              ExplicitlyUseOrCreateDefaultPrivateNetworkForServerProvision:
+                value:
+                  hostname: my-server-1
+                  description: 'My custom server #1'
+                  location: PHX
+                  os: ubuntu/bionic
+                  type: s1.c1.small
+                  installDefaultSshKeys: true
+                  sshKeys:
+                  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+                    user@my_ip
+                  sshKeyIds:
+                  - 5fa54d1e91867c03a0a7b4a4
+                  reservationId: x78sdkjds879sd7cx8
+                  pricingModel: HOURLY
+                  networkType: PUBLIC_AND_PRIVATE
+                  networkConfiguration:
+                    privateNetworkConfiguration:
+                      configurationType: USE_OR_CREATE_DEFAULT
+              NetworkConfigurationNotProvided_ImplicitlyUseOrCreateDefaultPrivateNetworkForServerProvision:
+                value:
+                  hostname: my-server-1
+                  description: 'My custom server #1'
+                  location: PHX
+                  os: ubuntu/bionic
+                  type: s1.c1.small
+                  installDefaultSshKeys: true
+                  sshKeys:
+                  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+                    user@my_ip
+                  sshKeyIds:
+                  - 5fa54d1e91867c03a0a7b4a4
+                  reservationId: x78sdkjds879sd7cx8
+                  pricingModel: HOURLY
+                  networkType: PUBLIC_AND_PRIVATE
+            schema:
+              $ref: '#/components/schemas/ServerCreate'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+          description: Request to create server is accepted.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: No server available of type server.type.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Create new server.
+      tags:
+      - Servers
+  /servers/{serverId}:
+    delete:
+      description: Deprovision specific server.
+      operationId: serversServerIdDelete
+      parameters:
+      - description: The server's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResult'
+          description: Deprovisioned server.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Delete server.
+      tags:
+      - Servers
+    get:
+      description: Get server properties.
+      operationId: serversServerIdGet
+      parameters:
+      - description: The server's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+          description: Specific server details.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc.read
+      summary: Get server.
+      tags:
+      - Servers
+    patch:
+      description: Any changes to the hostname or description using the BMC API will
+        reflect solely in the BMC API and portal. The changes are intended to keep
+        the BMC data up to date with your server. We do not have access to your server's
+        settings. Local changes to the server's hostname will not be reflected in
+        the API or portal.
+      operationId: serversServerIdPatch
+      parameters:
+      - description: The server's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              description: My custom server edit
+              hostname: my-server
+            schema:
+              $ref: '#/components/schemas/ServerPatch'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+          description: Updated server.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since the resource could not been found.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Patch a Server.
+      tags:
+      - Servers
+  /servers/{serverId}/network-configuration/private-network-configuration/private-networks:
+    post:
+      description: Adds the server to a private network.
+      operationId: serversServerIdPrivateNetworksPost
+      parameters:
+      - description: The server's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            examples:
+              DhcpFalseIpsProvided:
+                value:
+                  id: 60473a6115e34466c9f8f083
+                  ips:
+                  - 10.0.0.1
+                  - 10.0.0.2
+                  dhcp: false
+              PrivateNetworkIdProvidedOnly:
+                value:
+                  id: 60473a6115e34466c9f8f083
+              DhcpFalseIpsNotProvided:
+                value:
+                  id: 60473a6115e34466c9f8f083
+                  dhcp: false
+              DhcpTrueIpsEmpty:
+                value:
+                  id: 60473a6115e34466c9f8f083
+                  ips: []
+                  dhcp: true
+              DhcpTrueIpsNull:
+                value:
+                  id: 60473a6115e34466c9f8f083
+                  ips: []
+                  dhcp: true
+              DhcpTrueIpsNotProvided:
+                value:
+                  id: 60473a6115e34466c9f8f083
+                  dhcp: true
+            schema:
+              $ref: '#/components/schemas/ServerPrivateNetwork'
+      responses:
+        "202":
+          content:
+            application/json:
+              examples:
+                DhcpFalse:
+                  value:
+                    id: 60473a6115e34466c9f8f083
+                    ips:
+                    - 10.0.0.1
+                    - 10.0.0.2
+                    dhcp: false
+                    statusDescription: in-progress
+                DhcpTrue:
+                  value:
+                    id: 60473a6115e34466c9f8f083
+                    ips: []
+                    dhcp: true
+                    statusDescription: in-progress
+              schema:
+                $ref: '#/components/schemas/ServerPrivateNetwork'
+          description: The server is being added to the specified private network.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Adds the server to a private network.
+      tags:
+      - Servers
+  /servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId}:
+    delete:
+      description: Removes the server from private network. <b>No actual configuration
+        is performed on the operating system.</b> BMC configures exclusively the networking
+        devices in the datacenter infrastructure. You are expected to perform network
+        configuration changes in the operating system of this server. <b>This is an
+        advanced network action that can make your server completely unavailable over
+        any network. Make sure you are able to access this server over remote console
+        in case of misconfiguration.</b>
+      operationId: deletePrivateNetwork
+      parameters:
+      - description: The server's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The private network identifier.
+        example: 603f3b2cfcaf050643b89a4b
+        explode: false
+        in: path
+        name: privateNetworkId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "202":
+          content:
+            application/json:
+              example: The server is being removed from the specified private network.
+              schema:
+                description: The server is being removed from the specified private
+                  network.
+                example: The server is being removed from the specified private network.
+                type: string
+          description: The server is being removed from the specified private network.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Removes the server from private network.
+      tags:
+      - Servers
+  /servers/{serverId}/tags:
+    put:
+      description: Set tags for server.
+      operationId: serversServerIdTagsPut
+      parameters:
+      - description: The server's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/TagAssignmentRequest'
+              type: array
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+          description: Server tags set.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Set server tags.
+      tags:
+      - Servers
+  /servers/{serverId}/actions/power-on:
+    post:
+      description: Power on specific server.
+      operationId: serversServerIdActionsPowerOnPost
+      parameters:
+      - description: The server's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResult'
+          description: Powering on server.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Power on server.
+      tags:
+      - Servers
+  /servers/{serverId}/actions/power-off:
+    post:
+      description: Power off specific server.
+      operationId: serversServerIdActionsPowerOffPost
+      parameters:
+      - description: The server's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResult'
+          description: Powering off server.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Power off server.
+      tags:
+      - Servers
+  /servers/{serverId}/actions/reboot:
+    post:
+      description: Reboot specific server.
+      operationId: serversServerIdActionsRebootPost
+      parameters:
+      - description: The server's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResult'
+          description: Rebooting server.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Reboot server.
+      tags:
+      - Servers
+  /servers/{serverId}/actions/shutdown:
+    post:
+      description: Shut down specific server.
+      operationId: serversServerIdActionsShutdownPost
+      parameters:
+      - description: The server's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResult'
+          description: Shutting down server.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Shutdown server.
+      tags:
+      - Servers
+  /servers/{serverId}/actions/reset:
+    post:
+      description: Reset specific server.
+      operationId: serversServerIdActionsResetPost
+      parameters:
+      - description: The server's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              installDefaultSshKeys: true
+              sshKeys:
+              - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+                user@my_ip
+              sshKeyIds:
+              - 5fa54d1e91867c03a0a7b4a4
+            schema:
+              $ref: '#/components/schemas/ServerReset'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResetResult'
+          description: Resetting server.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Reset server.
+      tags:
+      - Servers
+  /servers/{serverId}/actions/reserve:
+    post:
+      description: Reserve specific server.
+      operationId: serversServerIdActionsReservePost
+      parameters:
+      - description: The server's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              pricingModel: ONE_MONTH_RESERVATION
+            schema:
+              $ref: '#/components/schemas/ServerReserve'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+          description: Reserved server details.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Reserve server.
+      tags:
+      - Servers
+  /ssh-keys:
+    get:
+      description: List all SSH Keys.
+      operationId: sshKeysGet
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SshKey'
+                type: array
+          description: List of all the SSH Keys owned by account.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc.read
+      summary: List SSH Keys.
+      tags:
+      - SSH Keys
+    post:
+      description: Create an SSH Key. SSH Keys created can be used for server creation
+        and reset functionality.
+      operationId: sshKeysPost
+      requestBody:
+        content:
+          application/json:
+            example:
+              name: my-sshkey-01
+              default: false
+              key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+                user@my_ip
+            schema:
+              $ref: '#/components/schemas/SshKeyCreate'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SshKey'
+          description: SSH Key successfully created.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Create SSH Key.
+      tags:
+      - SSH Keys
+  /ssh-keys/{sshKeyId}:
+    delete:
+      description: Delete an SSH Key.
+      operationId: sshKeysSshKeyIdDelete
+      parameters:
+      - description: The SSH Key's ID.
+        example: 5fa54d1e91867c03a0a7b4a4
+        explode: false
+        in: path
+        name: sshKeyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteSshKeyResult'
+          description: SSH Key deleted.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Delete SSH Key.
+      tags:
+      - SSH Keys
+    get:
+      description: Get SSH Key details.
+      operationId: sshKeysSshKeyIdGet
+      parameters:
+      - description: The SSH Key's ID.
+        example: 5fa54d1e91867c03a0a7b4a4
+        explode: false
+        in: path
+        name: sshKeyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SshKey'
+          description: Specific SSH Key details.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since the resource could not been found.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc.read
+      summary: Get SSH Key.
+      tags:
+      - SSH Keys
+    put:
+      description: Edit SSH Key details.
+      operationId: sshKeysSshKeyIdPut
+      parameters:
+      - description: The SSH Key's ID.
+        example: 5fa54d1e91867c03a0a7b4a4
+        explode: false
+        in: path
+        name: sshKeyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              name: my-sshkey-01
+              default: false
+            schema:
+              $ref: '#/components/schemas/SshKeyUpdate'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SshKey'
+          description: Specific SSH Key details.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since the resource could not been found.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Edit SSH Key.
+      tags:
+      - SSH Keys
+  /quotas:
+    get:
+      description: Get account quota details.
+      operationId: quotasGet
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Quota'
+                type: array
+          description: Specific account quota details.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since the resource could not been found.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc.read
+      summary: List quotas
+      tags:
+      - Quotas
+  /quotas/{quotaId}:
+    get:
+      description: Get account quota details.
+      operationId: quotasQuotaIdGet
+      parameters:
+      - description: The ID of the Quota.
+        example: bmc.servers.max_count
+        explode: false
+        in: path
+        name: quotaId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quota'
+          description: Specific account quota details.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since the resource could not been found.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc.read
+      summary: Get a quota.
+      tags:
+      - Quotas
+  /quotas/{quotaId}/actions/request-edit:
+    post:
+      description: Sends a request to edit the limit of a quota.
+      operationId: quotasQuotaIdActionsRequestEditPost
+      parameters:
+      - description: The ID of the Quota.
+        example: bmc.servers.max_count
+        explode: false
+        in: path
+        name: quotaId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuotaEditLimitRequest'
+      responses:
+        "202":
+          description: Accepted request for editing the limit.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Request quota limit change.
+      tags:
+      - Quotas
+components:
+  parameters:
+    serverIdPathParam:
+      description: The server's ID.
+      example: e6afba51-7de8-4080-83ab-0f915570659c
+      explode: false
+      in: path
+      name: serverId
+      required: true
+      schema:
+        type: string
+      style: simple
+    privateNetworkIdPathParam:
+      description: The private network identifier.
+      example: 603f3b2cfcaf050643b89a4b
+      explode: false
+      in: path
+      name: privateNetworkId
+      required: true
+      schema:
+        type: string
+      style: simple
+  responses:
+    Unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed due to invalid credentials. Please check the
+        provided credentials and try again.
+    Forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed since this resource cannot be accessed by the
+        provided credentials.
+    InternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server encountered an unexpected condition that prevented it
+        from fulfilling the request.
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed due to wrong data. Please check the provided
+        parameters and try again.
+    NotAccepted:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: No server available of type server.type.
+    Conflict:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The resource is in an incompatible state.
+    NotFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed since the resource could not been found.
+  schemas:
+    TagAssignment:
+      description: Tag assigned to resource.
+      example:
+        name: Environment
+        id: 60ffafcdffb8b074c7968dad
+        value: PROD
+        isBillingTag: true
+      properties:
+        id:
+          description: The unique id of the tag.
+          example: 60ffafcdffb8b074c7968dad
+          type: string
+        name:
+          description: The name of the tag.
+          example: Environment
+          type: string
+        value:
+          description: The value of the tag assigned to the resource.
+          example: PROD
+          type: string
+        isBillingTag:
+          description: Whether or not to show the tag as part of billing and invoices
+          example: true
+          type: boolean
+      required:
+      - id
+      - isBillingTag
+      - name
+      type: object
+    OsConfiguration:
+      description: OS specific configuration properties.
+      example:
+        managementUiUrl: https://172.217.22.14
+        windows:
+          rdpAllowedIps:
+          - 172.217.22.14
+          - 10.111.14.40/29
+          - 10.111.14.66 - 10.111.14.71
+        rootPassword: MyP@ssw0rd_01
+        managementAccessAllowedIps:
+        - 172.217.22.14
+        - 10.111.14.40/29
+        - 10.111.14.66 - 10.111.14.71
+      properties:
+        windows:
+          $ref: '#/components/schemas/OsConfiguration_windows'
+        rootPassword:
+          description: Password set for user root on an ESXi server which will only
+            be returned in response to provisioning a server.
+          example: MyP@ssw0rd_01
+          readOnly: true
+          type: string
+        managementUiUrl:
+          description: The URL of the management UI which will only be returned in
+            response to provisioning a server.
+          example: https://172.217.22.14
+          readOnly: true
+          type: string
+        managementAccessAllowedIps:
+          description: List of IPs allowed to access the Management UI. Supported
+            in single IP, CIDR and range format. When undefined, Management UI is
+            disabled. This will only be returned in response to provisioning a server.
+          example:
+          - 172.217.22.14
+          - 10.111.14.40/29
+          - 10.111.14.66 - 10.111.14.71
+          items:
+            example: 172.217.22.14
+            type: string
+          minItems: 1
+          type: array
+      type: object
+    ServerPrivateNetwork:
+      description: Private network details of bare metal server.
+      example:
+        statusDescription: assigned
+        id: 603f3b2cfcaf050643b89a4b
+        ips:
+        - 10.1.1.1
+        - 10.1.1.2
+        dhcp: false
+      properties:
+        id:
+          description: The network identifier.
+          example: 603f3b2cfcaf050643b89a4b
+          type: string
+        ips:
+          description: IPs to configure/configured on the server. Should be null or
+            empty list if DHCP is true.
+          example:
+          - 10.1.1.1
+          - 10.1.1.2
+          items:
+            example: 10.1.1.1
+            type: string
+          maxItems: 10
+          type: array
+        dhcp:
+          default: false
+          description: Determines whether DHCP is enabled for this server. Should
+            be false if ips is not an empty list.
+          example: false
+          type: boolean
+        statusDescription:
+          description: The status of the network.
+          example: assigned
+          readOnly: true
+          type: string
+      required:
+      - id
+      type: object
+    PrivateNetworkConfiguration:
+      description: Private network details of bare metal server.
+      example:
+        gatewayAddress: 10.0.0.10
+        configurationType: USER_DEFINED
+        privateNetworks:
+        - id: 60f81608e2f4665962b214db
+          ips:
+          - 10.0.0.11 - 10.0.0.15
+          dhcp: false
+        - id: 60f93142c5c1d6082d31382a
+          ips:
+          - 10.0.0.16
+          - 10.0.0.17
+          dhcp: false
+      properties:
+        gatewayAddress:
+          description: The address of the gateway assigned / to assign to the server.
+            It'll be null and won't be displayed as part of response body if server
+            is a member of both public and private networks. When used as part of
+            request body, it has to match one of the IP addresses used in the existing
+            assigned private networks for the relevant location. Also, this field
+            can be submitted only when provisioning a server without being a member
+            of any public network.
+          example: 10.0.0.10
+          type: string
+        configurationType:
+          default: USE_OR_CREATE_DEFAULT
+          description: Determines the approach for configuring IP blocks for the server
+            being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT`
+            or `USER_DEFINED`.
+          example: USER_DEFINED
+          type: string
+          writeOnly: true
+        privateNetworks:
+          description: The list of private networks this server is member of. When
+            this field is part of request body, it'll be used to specify the private
+            networks to assign to this server upon provisioning. Used alongside the
+            `USER_DEFINED` configurationType.
+          example:
+          - id: 60f81608e2f4665962b214db
+            ips:
+            - 10.0.0.11 - 10.0.0.15
+            dhcp: false
+          - id: 60f93142c5c1d6082d31382a
+            ips:
+            - 10.0.0.16
+            - 10.0.0.17
+            dhcp: false
+          items:
+            $ref: '#/components/schemas/ServerPrivateNetwork'
+          type: array
+      type: object
+    NetworkConfiguration:
+      description: Entire network details of bare metal server.
+      example:
+        privateNetworkConfiguration:
+          gatewayAddress: 10.0.0.10
+          configurationType: USER_DEFINED
+          privateNetworks:
+          - id: 60f81608e2f4665962b214db
+            ips:
+            - 10.0.0.11 - 10.0.0.15
+            dhcp: false
+          - id: 60f93142c5c1d6082d31382a
+            ips:
+            - 10.0.0.16
+            - 10.0.0.17
+            dhcp: false
+      properties:
+        privateNetworkConfiguration:
+          $ref: '#/components/schemas/PrivateNetworkConfiguration'
+      type: object
+    Server:
+      description: Bare metal server.
+      example:
+        privateIpAddresses:
+        - 172.16.0.1
+        pricingModel: HOURLY
+        cpuFrequency: 3.6
+        os: ubuntu/bionic
+        osConfiguration:
+          managementUiUrl: https://172.217.22.14
+          windows:
+            rdpAllowedIps:
+            - 172.217.22.14
+            - 10.111.14.40/29
+            - 10.111.14.66 - 10.111.14.71
+          rootPassword: MyP@ssw0rd_01
+          managementAccessAllowedIps:
+          - 172.217.22.14
+          - 10.111.14.40/29
+          - 10.111.14.66 - 10.111.14.71
+        networkConfiguration:
+          privateNetworkConfiguration:
+            gatewayAddress: 10.0.0.10
+            configurationType: USER_DEFINED
+            privateNetworks:
+            - id: 60f81608e2f4665962b214db
+              ips:
+              - 10.0.0.11 - 10.0.0.15
+              dhcp: false
+            - id: 60f93142c5c1d6082d31382a
+              ips:
+              - 10.0.0.16
+              - 10.0.0.17
+              dhcp: false
+        description: 'Server #1 used for computing.'
+        cpu: E-2276G
+        storage: 1x 960GB NVMe
+        clusterId: x78sdkjds879sd7cx8
+        type: s1.c1.small
+        tags:
+        - name: Environment
+          id: 60ffafcdffb8b074c7968dad
+          value: PROD
+          isBillingTag: true
+        - name: Environment
+          id: 60ffafcdffb8b074c7968dad
+          value: PROD
+          isBillingTag: true
+        hostname: my-server-1
+        coresPerCpu: 28
+        password: MyP@ssw0rd_01
+        provisionedOn: 2021-03-13T20:24:32.491Z
+        publicIpAddresses:
+        - 182.16.0.1
+        - 183.16.0.1
+        reservationId: x78sdkjds879sd7cx8
+        location: PHX
+        id: x78sdkjds879sd7cx8
+        networkType: PUBLIC_AND_PRIVATE
+        cpuCount: 2
+        status: creating
+        ram: 64GB RAM
+      properties:
+        id:
+          description: The unique identifier of the server.
+          example: x78sdkjds879sd7cx8
+          type: string
+        status:
+          description: The status of the server.
+          example: creating
+          type: string
+        hostname:
+          description: Hostname of server.
+          example: my-server-1
+          maxLength: 100
+          minLength: 1
+          pattern: ^(?=.*[a-zA-Z])([a-zA-Z0-9().-])+$
+          type: string
+        description:
+          description: Description of server.
+          example: 'Server #1 used for computing.'
+          maxLength: 250
+          type: string
+        os:
+          description: The server’s OS ID used when the server was created. Currently
+            this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `centos/centos7`,
+            `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2` or `debian/bullseye`.
+          example: ubuntu/bionic
+          type: string
+        type:
+          description: Server type ID. Cannot be changed once a server is created.
+            Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`,
+            `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `d1.c1.small`,
+            `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`,
+            `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`,
+            `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`,
+            `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c3.large`, `d2.c4.large`,
+            `d2.c5.large`, `d2.m2.medium`, `d2.m2.large` or `d2.m2.xlarge`.
+          example: s1.c1.small
+          type: string
+        location:
+          description: Server location ID. Cannot be changed once a server is created.
+            Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`
+            or `SEA`.
+          example: PHX
+          type: string
+        cpu:
+          description: A description of the machine CPU.
+          example: E-2276G
+          type: string
+        cpuCount:
+          description: The number of CPUs available in the system.
+          example: 2
+          format: int32
+          minimum: 1
+          type: integer
+        coresPerCpu:
+          description: The number of physical cores present on each CPU.
+          example: 28
+          format: int32
+          minimum: 1
+          type: integer
+        cpuFrequency:
+          description: The CPU frequency in GHz.
+          example: 3.6
+          minimum: 0
+          type: number
+        ram:
+          description: A description of the machine RAM.
+          example: 64GB RAM
+          type: string
+        storage:
+          description: A description of the machine storage.
+          example: 1x 960GB NVMe
+          type: string
+        privateIpAddresses:
+          description: Private IP addresses assigned to server.
+          example:
+          - 172.16.0.1
+          items:
+            example: 172.16.0.1
+            type: string
+          minItems: 1
+          type: array
+        publicIpAddresses:
+          description: Public IP addresses assigned to server.
+          example:
+          - 182.16.0.1
+          - 183.16.0.1
+          items:
+            example: 182.16.0.1
+            type: string
+          minItems: 1
+          type: array
+        reservationId:
+          description: The reservation reference id if any.
+          example: x78sdkjds879sd7cx8
+          type: string
+        pricingModel:
+          default: HOURLY
+          description: The pricing model this server is being billed. Currently this
+            field should be set to `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`,
+            `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`.
+          example: HOURLY
+          type: string
+        password:
+          description: Password set for user Admin on Windows server or user root
+            on ESXi server which will only be returned in response to provisioning
+            a server.
+          example: MyP@ssw0rd_01
+          type: string
+        networkType:
+          default: PUBLIC_AND_PRIVATE
+          description: The type of network configuration for this server. Currently
+            this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
+          example: PUBLIC_AND_PRIVATE
+          type: string
+        clusterId:
+          description: The cluster reference id if any.
+          example: x78sdkjds879sd7cx8
+          type: string
+        tags:
+          description: The tags assigned if any.
+          items:
+            $ref: '#/components/schemas/TagAssignment'
+          type: array
+        provisionedOn:
+          description: Date and time when server was provisioned.
+          example: 2021-03-13T20:24:32.491Z
+          format: date-time
+          type: string
+        osConfiguration:
+          $ref: '#/components/schemas/OsConfiguration'
+        networkConfiguration:
+          $ref: '#/components/schemas/NetworkConfiguration'
+      required:
+      - coresPerCpu
+      - cpu
+      - cpuCount
+      - cpuFrequency
+      - hostname
+      - id
+      - location
+      - networkConfiguration
+      - os
+      - pricingModel
+      - privateIpAddresses
+      - publicIpAddresses
+      - ram
+      - status
+      - storage
+      - type
+      type: object
+    Error:
+      properties:
+        message:
+          description: The description detailing the cause of the error code.
+          readOnly: true
+          type: string
+        validationErrors:
+          description: Validation errors, if any.
+          items:
+            type: string
+          readOnly: true
+          type: array
+      required:
+      - message
+      type: object
+    TagAssignmentRequest:
+      description: Tag request to assign to resource.
+      example:
+        name: Environment
+        value: PROD
+      properties:
+        name:
+          description: 'The name of the tag. Tag names are case-sensitive, and should
+            be composed of a maximum of 100 characters including UTF-8 Unicode letters,
+            numbers, and the following symbols: ''-'', ''_''. Regex: [A-zÀ-ú0-9_-]{1,100}.'
+          example: Environment
+          type: string
+        value:
+          description: 'The value of the tag assigned to the resource. Tag values
+            are case-sensitive, and should be composed of a maximum of 100 characters
+            including UTF-8 Unicode letters, numbers, and the following symbols: ''-'',
+            ''_''. Regex: [A-zÀ-ú0-9_-]{1,100}.'
+          example: PROD
+          type: string
+      required:
+      - name
+      type: object
+    ServerCreate:
+      description: Provision bare metal server.
+      example:
+        pricingModel: ONE_MONTH_RESERVATION
+        os: ubuntu/bionic
+        osConfiguration:
+          managementUiUrl: https://172.217.22.14
+          windows:
+            rdpAllowedIps:
+            - 172.217.22.14
+            - 10.111.14.40/29
+            - 10.111.14.66 - 10.111.14.71
+          rootPassword: MyP@ssw0rd_01
+          managementAccessAllowedIps:
+          - 172.217.22.14
+          - 10.111.14.40/29
+          - 10.111.14.66 - 10.111.14.71
+        networkConfiguration:
+          privateNetworkConfiguration:
+            gatewayAddress: 10.0.0.10
+            configurationType: USER_DEFINED
+            privateNetworks:
+            - id: 60f81608e2f4665962b214db
+              ips:
+              - 10.0.0.11 - 10.0.0.15
+              dhcp: false
+            - id: 60f93142c5c1d6082d31382a
+              ips:
+              - 10.0.0.16
+              - 10.0.0.17
+              dhcp: false
+        description: 'Server #1 used for computing.'
+        type: s1.c1.small
+        sshKeyIds:
+        - 5fa942e71c16abcfbead275f
+        - 5fa94303cc6dc49346404fca
+        - 5fa943127bda760ad80c237e
+        tags:
+        - name: Environment
+          value: PROD
+        - name: Environment
+          value: PROD
+        hostname: my-server-1
+        installDefaultSshKeys: false
+        reservationId: 5f622c8032b458306b40d824
+        location: PHX
+        sshKeys:
+        - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+          user@my_ip
+        networkType: PUBLIC_AND_PRIVATE
+      properties:
+        hostname:
+          description: Hostname of server.
+          example: my-server-1
+          maxLength: 100
+          minLength: 1
+          pattern: ^(?=.*[a-zA-Z])([a-zA-Z0-9().-])+$
+          type: string
+        description:
+          description: Description of server.
+          example: 'Server #1 used for computing.'
+          maxLength: 250
+          type: string
+        os:
+          description: The server’s OS ID used when the server was created. Currently
+            this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `centos/centos7`,
+            `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2` or `debian/bullseye`.
+          example: ubuntu/bionic
+          type: string
+        type:
+          description: Server type ID. Cannot be changed once a server is created.
+            Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`,
+            `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `d1.c1.small`,
+            `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`,
+            `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`,
+            `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`,
+            `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c3.large`, `d2.c4.large`,
+            `d2.c5.large`, `d2.m2.medium`, `d2.m2.large` or `d2.m2.xlarge`.
+          example: s1.c1.small
+          type: string
+        location:
+          description: Server location ID. Cannot be changed once a server is created.
+            Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`
+            or `SEA`.
+          example: PHX
+          type: string
+        installDefaultSshKeys:
+          default: true
+          description: Whether or not to install SSH keys marked as default in addition
+            to any SSH keys specified in this request.
+          example: false
+          type: boolean
+        sshKeys:
+          description: A list of SSH keys that will be installed on the server.
+          example:
+          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+            user@my_ip
+          items:
+            example: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+              user@my_ip
+            type: string
+          type: array
+        sshKeyIds:
+          description: A list of SSH key IDs that will be installed on the server
+            in addition to any SSH keys specified in this request.
+          example:
+          - 5fa942e71c16abcfbead275f
+          - 5fa94303cc6dc49346404fca
+          - 5fa943127bda760ad80c237e
+          items:
+            example: 5fa942e71c16abcfbead275f
+            type: string
+          type: array
+        reservationId:
+          description: Server reservation ID.
+          example: 5f622c8032b458306b40d824
+          type: string
+        pricingModel:
+          default: HOURLY
+          description: Server pricing model. Currently this field should be set to
+            `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION`
+            or `THIRTY_SIX_MONTHS_RESERVATION`.
+          example: ONE_MONTH_RESERVATION
+          type: string
+        networkType:
+          default: PUBLIC_AND_PRIVATE
+          description: The type of network configuration for this server. Currently
+            this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
+          example: PUBLIC_AND_PRIVATE
+          type: string
+        osConfiguration:
+          $ref: '#/components/schemas/OsConfiguration'
+        tags:
+          description: Tags to set to server, if any.
+          items:
+            $ref: '#/components/schemas/TagAssignmentRequest'
+          type: array
+        networkConfiguration:
+          $ref: '#/components/schemas/NetworkConfiguration'
+      required:
+      - hostname
+      - location
+      - os
+      - type
+      type: object
+    DeleteResult:
+      description: Result of a successful delete action.
+      example:
+        result: Server has been deleted.
+        serverId: x78sdkjds879sd7cx8
+      properties:
+        result:
+          description: Server has been deleted.
+          example: Server has been deleted.
+          type: string
+        serverId:
+          description: The unique identifier of the server.
+          example: x78sdkjds879sd7cx8
+          type: string
+      required:
+      - result
+      - serverId
+      type: object
+    ServerPatch:
+      description: Server patch.
+      example:
+        hostname: my-server
+        description: 'Server #1 used for computing.'
+      properties:
+        description:
+          description: Description of server.
+          example: 'Server #1 used for computing.'
+          maxLength: 250
+          type: string
+        hostname:
+          description: Hostname of server
+          example: my-server
+          maxLength: 100
+          minLength: 1
+          pattern: '[a-zA-Z0-9().-]+'
+          type: string
+      type: object
+    ActionResult:
+      description: Result of a successful action.
+      example:
+        result: Powering on server.
+      properties:
+        result:
+          description: Message describing the action's result.
+          example: Powering on server.
+          type: string
+      required:
+      - result
+      type: object
+    OsConfigurationMap:
+      description: OS specific configuration properties.
+      example:
+        esxi:
+          managementUiUrl: https://172.217.22.14
+          rootPassword: MyP@ssw0rd_01
+          managementAccessAllowedIps:
+          - 172.217.22.14
+          - 10.111.14.40/29
+          - 10.111.14.66 - 10.111.14.71
+        windows:
+          rdpAllowedIps:
+          - 172.217.22.14
+          - 10.111.14.40/29
+          - 10.111.14.66 - 10.111.14.71
+      properties:
+        windows:
+          $ref: '#/components/schemas/OsConfiguration_windows'
+        esxi:
+          $ref: '#/components/schemas/OsConfigurationMap_esxi'
+      type: object
+    ServerReset:
+      description: Reset bare metal server.
+      example:
+        installDefaultSshKeys: false
+        osConfiguration:
+          esxi:
+            managementUiUrl: https://172.217.22.14
+            rootPassword: MyP@ssw0rd_01
+            managementAccessAllowedIps:
+            - 172.217.22.14
+            - 10.111.14.40/29
+            - 10.111.14.66 - 10.111.14.71
+          windows:
+            rdpAllowedIps:
+            - 172.217.22.14
+            - 10.111.14.40/29
+            - 10.111.14.66 - 10.111.14.71
+        sshKeys:
+        - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+          user@my_ip
+        sshKeyIds:
+        - 5fa942e71c16abcfbead275f
+        - 5fa94303cc6dc49346404fca
+        - 5fa943127bda760ad80c237e
+      properties:
+        installDefaultSshKeys:
+          default: true
+          description: Whether or not to install SSH keys marked as default in addition
+            to any SSH keys specified in this request.
+          example: false
+          type: boolean
+        sshKeys:
+          description: A list of SSH keys that will be installed on the server.
+          example:
+          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+            user@my_ip
+          items:
+            example: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+              user@my_ip
+            type: string
+          type: array
+        sshKeyIds:
+          description: A list of SSH key IDs that will be installed on the server
+            in addition to any SSH keys specified in this request.
+          example:
+          - 5fa942e71c16abcfbead275f
+          - 5fa94303cc6dc49346404fca
+          - 5fa943127bda760ad80c237e
+          items:
+            example: 5fa942e71c16abcfbead275f
+            type: string
+          type: array
+        osConfiguration:
+          $ref: '#/components/schemas/OsConfigurationMap'
+      type: object
+    ResetResult:
+      description: Result of a successful reset action.
+      example:
+        result: Resetting server.
+        password: MyP@ssw0rd_01
+        osConfiguration:
+          esxi:
+            managementUiUrl: https://172.217.22.14
+            rootPassword: MyP@ssw0rd_01
+            managementAccessAllowedIps:
+            - 172.217.22.14
+            - 10.111.14.40/29
+            - 10.111.14.66 - 10.111.14.71
+          windows:
+            rdpAllowedIps:
+            - 172.217.22.14
+            - 10.111.14.40/29
+            - 10.111.14.66 - 10.111.14.71
+      properties:
+        result:
+          description: Message describing the reset result.
+          example: Resetting server.
+          type: string
+        password:
+          description: Password set for user Admin on Windows server or user root
+            on ESXi server.
+          example: MyP@ssw0rd_01
+          type: string
+        osConfiguration:
+          $ref: '#/components/schemas/OsConfigurationMap'
+      required:
+      - result
+      type: object
+    ServerReserve:
+      description: Bare metal server reservation.
+      example:
+        pricingModel: ONE_MONTH_RESERVATION
+      properties:
+        pricingModel:
+          description: Server pricing model. Currently this field should be set to
+            `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION`
+            or `THIRTY_SIX_MONTHS_RESERVATION`.
+          example: ONE_MONTH_RESERVATION
+          type: string
+      required:
+      - pricingModel
+      type: object
+    SshKey:
+      description: SSH Key.
+      example:
+        default: true
+        name: sshkey-name-01
+        fingerprint: iL4k5YTrOnzvlxFMN+WU4BPI/QqrMcvvhU0xlfeMwZI
+        lastUpdatedOn: 2020-03-19T16:39:00Z
+        id: 5fa54d1e91867c03a0a7b4a4
+        createdOn: 2020-03-19T16:39:00Z
+        key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+          user@my_ip
+      properties:
+        id:
+          description: The unique identifier of the SSH Key.
+          example: 5fa54d1e91867c03a0a7b4a4
+          type: string
+        default:
+          description: Keys marked as default are always included on server creation
+            and reset unless toggled off in creation/reset request.
+          example: true
+          type: boolean
+        name:
+          description: Friendly SSH key name to represent an SSH key.
+          example: sshkey-name-01
+          type: string
+        key:
+          description: SSH Key value.
+          example: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+            user@my_ip
+          type: string
+        fingerprint:
+          description: SSH key auto-generated SHA-256 fingerprint.
+          example: iL4k5YTrOnzvlxFMN+WU4BPI/QqrMcvvhU0xlfeMwZI
+          type: string
+        createdOn:
+          description: Date and time of creation.
+          example: 2020-03-19T16:39:00Z
+          format: date-time
+          type: string
+        lastUpdatedOn:
+          description: Date and time of last update.
+          example: 2020-03-19T16:39:00Z
+          format: date-time
+          type: string
+      required:
+      - createdOn
+      - default
+      - fingerprint
+      - id
+      - key
+      - lastUpdatedOn
+      - name
+      type: object
+    SshKeyCreate:
+      description: SSH key creation model.
+      example:
+        default: true
+        name: sshkey-name-01
+        key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+          user@my_ip
+      properties:
+        default:
+          description: Keys marked as default are always included on server creation
+            and reset unless toggled off in creation/reset request.
+          example: true
+          type: boolean
+        name:
+          description: Friendly SSH key name to represent an SSH key.
+          example: sshkey-name-01
+          maxLength: 100
+          minLength: 1
+          type: string
+        key:
+          description: SSH key actual key value.
+          example: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+            user@my_ip
+          type: string
+      required:
+      - default
+      - key
+      - name
+      type: object
+    SshKeyUpdate:
+      description: SSH key modification model.
+      example:
+        default: true
+        name: sshkey-name-01
+      properties:
+        default:
+          description: Keys marked as default are always included on server creation
+            and reset unless toggled off in creation/reset request.
+          example: true
+          type: boolean
+        name:
+          description: SSH key name that can represent the key as an alternative to
+            its ID.
+          example: sshkey-name-01
+          maxLength: 100
+          minLength: 1
+          type: string
+      required:
+      - default
+      - name
+      type: object
+    DeleteSshKeyResult:
+      description: Result of a successful delete action on a SSH key.
+      example:
+        result: Resource has been deleted.
+        sshKeyId: 5fa54d1e91867c03a0a7b4a4
+      properties:
+        result:
+          description: Resource has been deleted.
+          example: Resource has been deleted.
+          type: string
+        sshKeyId:
+          description: The unique identifier of the deleted resource.
+          example: 5fa54d1e91867c03a0a7b4a4
+          type: string
+      required:
+      - result
+      - sshKeyId
+      type: object
+    QuotaEditLimitRequest:
+      description: A request to change the limit on a quota.
+      example:
+        reason: I need more servers for my cluster.
+        limit: 10
+      properties:
+        limit:
+          description: The new limit that is requested.
+          example: 10
+          format: int32
+          minimum: 0
+          type: integer
+        reason:
+          description: The reason for changing the limit.
+          example: I need more servers for my cluster.
+          type: string
+      required:
+      - limit
+      - reason
+      type: object
+    QuotaEditLimitRequestDetails:
+      allOf:
+      - $ref: '#/components/schemas/QuotaEditLimitRequest'
+      - $ref: '#/components/schemas/QuotaEditLimitRequestDetails_allOf'
+    Quota:
+      description: Quota.
+      example:
+        unit: COUNT
+        quotaEditLimitRequestDetails:
+        - null
+        - null
+        name: Servers
+        limit: 2
+        description: Maximum number of BMC servers
+        id: bmc.servers.max_count
+        used: 2
+        status: OVER_LIMIT
+      properties:
+        id:
+          description: The ID of the Quota.
+          example: bmc.servers.max_count
+          type: string
+        name:
+          description: The name of the Quota.
+          example: Servers
+          type: string
+        description:
+          description: The Quota description.
+          example: Maximum number of BMC servers
+          type: string
+        status:
+          description: The status of the quota resource usage.
+          enum:
+          - WITHIN_LIMIT
+          - OVER_LIMIT
+          - ON_LIMIT
+          example: OVER_LIMIT
+          type: string
+        limit:
+          description: The limit set for the quota.
+          example: 2
+          format: int32
+          minimum: 0
+          type: integer
+        unit:
+          description: An enum field describing what the limit is measured in.
+          enum:
+          - COUNT
+          type: string
+        used:
+          description: The quota used expressed as a number.
+          example: 2
+          format: int32
+          minimum: 0
+          type: integer
+        quotaEditLimitRequestDetails:
+          items:
+            $ref: '#/components/schemas/QuotaEditLimitRequestDetails'
+          type: array
+      required:
+      - description
+      - id
+      - limit
+      - name
+      - quotaEditLimitRequestDetails
+      - status
+      - unit
+      - used
+      type: object
+    OsConfiguration_windows:
+      description: Windows OS configuration properties.
+      example:
+        rdpAllowedIps:
+        - 172.217.22.14
+        - 10.111.14.40/29
+        - 10.111.14.66 - 10.111.14.71
+      properties:
+        rdpAllowedIps:
+          description: List of IPs allowed for RDP access to Windows OS. Supported
+            in single IP, CIDR and range format. When undefined, RDP is disabled.
+            To allow RDP access from any IP use 0.0.0.0/0. This will only be returned
+            in response to provisioning a server.
+          example:
+          - 172.217.22.14
+          - 10.111.14.40/29
+          - 10.111.14.66 - 10.111.14.71
+          items:
+            example: 172.217.22.14
+            type: string
+          minItems: 1
+          type: array
+      type: object
+    OsConfigurationMap_esxi:
+      description: VMWare ESXi configuration properties.
+      example:
+        managementUiUrl: https://172.217.22.14
+        rootPassword: MyP@ssw0rd_01
+        managementAccessAllowedIps:
+        - 172.217.22.14
+        - 10.111.14.40/29
+        - 10.111.14.66 - 10.111.14.71
+      properties:
+        rootPassword:
+          description: Password set for user root on an ESXi server which will only
+            be returned in response to provisioning a server.
+          example: MyP@ssw0rd_01
+          readOnly: true
+          type: string
+        managementUiUrl:
+          description: The URL of the management UI which will only be returned in
+            response to provisioning a server.
+          example: https://172.217.22.14
+          readOnly: true
+          type: string
+        managementAccessAllowedIps:
+          description: List of IPs allowed to access the Management UI. Supported
+            in single IP, CIDR and range format. When undefined, Management UI is
+            disabled. This will only be returned in response to provisioning a server.
+          example:
+          - 172.217.22.14
+          - 10.111.14.40/29
+          - 10.111.14.66 - 10.111.14.71
+          items:
+            example: 172.217.22.14
+            type: string
+          minItems: 1
+          type: array
+      type: object
+    QuotaEditLimitRequestDetails_allOf:
+      description: Pending quota modification requests yet to be reviewed.
+      properties:
+        requestedOn:
+          description: The point in time the request was submitted.
+          example: 2021-09-01T10:10:10Z
+          format: date-time
+          type: string
+      required:
+      - requestedOn
+      type: object
+  securitySchemes:
+    OAuth2:
+      flows:
+        clientCredentials:
+          scopes:
+            bmc: Grants full access to bmc-api.
+            bmc.read: Grants read only access to bmc-api.
+          tokenUrl: https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
+      type: oauth2
