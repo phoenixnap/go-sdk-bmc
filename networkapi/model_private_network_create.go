@@ -17,7 +17,7 @@ import (
 
 // PrivateNetworkCreate Details of Private Network to be created.
 type PrivateNetworkCreate struct {
-	// The friendly name of this private network.
+	// The friendly name of this private network. This name should be unique.
 	Name string `json:"name"`
 	// The description of this private network.
 	Description *string `json:"description,omitempty"`

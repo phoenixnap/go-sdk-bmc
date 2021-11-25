@@ -588,7 +588,8 @@ components:
         locationDefault: true
       properties:
         name:
-          description: The friendly name of this private network.
+          description: The friendly name of this private network. This name should
+            be unique.
           example: Sample Network
           type: string
         description:
