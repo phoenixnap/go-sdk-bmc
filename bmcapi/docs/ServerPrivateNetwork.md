@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | The network identifier. | 
 **Ips** | Pointer to **[]string** | IPs to configure/configured on the server. Should be null or empty list if DHCP is true. | [optional] 
-**Dhcp** | Pointer to **bool** | Determines whether DHCP is enabled for this server. Should be false if ips is not an empty list. | [optional] [default to false]
+**Dhcp** | Pointer to **bool** | Determines whether DHCP is enabled for this server. Should be false if ips is not an empty list. Not supported for proxmox OS. | [optional] [default to false]
 **StatusDescription** | Pointer to **string** | The status of the network. | [optional] [readonly] 
 
 ## Methods

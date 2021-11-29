@@ -1657,7 +1657,7 @@ components:
         dhcp:
           default: false
           description: Determines whether DHCP is enabled for this server. Should
-            be false if ips is not an empty list.
+            be false if ips is not an empty list. Not supported for proxmox OS.
           example: false
           type: boolean
         statusDescription:
@@ -1827,7 +1827,8 @@ components:
         os:
           description: The server’s OS ID used when the server was created. Currently
             this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `centos/centos7`,
-            `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2` or `debian/bullseye`.
+            `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2`, `debian/bullseye`
+            or `proxmox/bullseye`.
           example: ubuntu/bionic
           type: string
         type:
@@ -2058,7 +2059,8 @@ components:
         os:
           description: The server’s OS ID used when the server was created. Currently
             this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `centos/centos7`,
-            `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2` or `debian/bullseye`.
+            `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2`, `debian/bullseye`
+            or `proxmox/bullseye`.
           example: ubuntu/bionic
           type: string
         type:
@@ -2202,11 +2204,20 @@ components:
           - 172.217.22.14
           - 10.111.14.40/29
           - 10.111.14.66 - 10.111.14.71
+        proxmox:
+          managementUiUrl: https://172.217.22.14:8006
+          rootPassword: MyP@ssw0rd_01
+          managementAccessAllowedIps:
+          - 172.217.22.14
+          - 10.111.14.40/29
+          - 10.111.14.66 - 10.111.14.71
       properties:
         windows:
           $ref: '#/components/schemas/OsConfiguration_windows'
         esxi:
           $ref: '#/components/schemas/OsConfigurationMap_esxi'
+        proxmox:
+          $ref: '#/components/schemas/OsConfigurationMap_proxmox'
       type: object
     ServerReset:
       description: Reset bare metal server.
@@ -2222,6 +2233,13 @@ components:
             - 10.111.14.66 - 10.111.14.71
           windows:
             rdpAllowedIps:
+            - 172.217.22.14
+            - 10.111.14.40/29
+            - 10.111.14.66 - 10.111.14.71
+          proxmox:
+            managementUiUrl: https://172.217.22.14:8006
+            rootPassword: MyP@ssw0rd_01
+            managementAccessAllowedIps:
             - 172.217.22.14
             - 10.111.14.40/29
             - 10.111.14.66 - 10.111.14.71
@@ -2278,6 +2296,13 @@ components:
             - 10.111.14.66 - 10.111.14.71
           windows:
             rdpAllowedIps:
+            - 172.217.22.14
+            - 10.111.14.40/29
+            - 10.111.14.66 - 10.111.14.71
+          proxmox:
+            managementUiUrl: https://172.217.22.14:8006
+            rootPassword: MyP@ssw0rd_01
+            managementAccessAllowedIps:
             - 172.217.22.14
             - 10.111.14.40/29
             - 10.111.14.66 - 10.111.14.71
@@ -2564,6 +2589,42 @@ components:
           description: The URL of the management UI which will only be returned in
             response to provisioning a server.
           example: https://172.217.22.14
+          readOnly: true
+          type: string
+        managementAccessAllowedIps:
+          description: List of IPs allowed to access the Management UI. Supported
+            in single IP, CIDR and range format. When undefined, Management UI is
+            disabled. This will only be returned in response to provisioning a server.
+          example:
+          - 172.217.22.14
+          - 10.111.14.40/29
+          - 10.111.14.66 - 10.111.14.71
+          items:
+            example: 172.217.22.14
+            type: string
+          minItems: 1
+          type: array
+      type: object
+    OsConfigurationMap_proxmox:
+      description: Proxmox VE configuration properties.
+      example:
+        managementUiUrl: https://172.217.22.14:8006
+        rootPassword: MyP@ssw0rd_01
+        managementAccessAllowedIps:
+        - 172.217.22.14
+        - 10.111.14.40/29
+        - 10.111.14.66 - 10.111.14.71
+      properties:
+        rootPassword:
+          description: Password set for user root on a Proxmox server which will only
+            be returned in response to provisioning a server.
+          example: MyP@ssw0rd_01
+          readOnly: true
+          type: string
+        managementUiUrl:
+          description: The URL of the management UI which will only be returned in
+            response to provisioning a server.
+          example: https://172.217.22.14:8006
           readOnly: true
           type: string
         managementAccessAllowedIps:

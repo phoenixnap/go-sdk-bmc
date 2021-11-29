@@ -21,7 +21,7 @@ type ServerPrivateNetwork struct {
 	Id string `json:"id"`
 	// IPs to configure/configured on the server. Should be null or empty list if DHCP is true.
 	Ips *[]string `json:"ips,omitempty"`
-	// Determines whether DHCP is enabled for this server. Should be false if ips is not an empty list.
+	// Determines whether DHCP is enabled for this server. Should be false if ips is not an empty list. Not supported for proxmox OS.
 	Dhcp *bool `json:"dhcp,omitempty"`
 	// The status of the network.
 	StatusDescription *string `json:"statusDescription,omitempty"`

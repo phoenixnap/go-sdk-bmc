@@ -13,6 +13,7 @@ docs/NetworkConfiguration.md
 docs/OsConfiguration.md
 docs/OsConfigurationMap.md
 docs/OsConfigurationMapEsxi.md
+docs/OsConfigurationMapProxmox.md
 docs/OsConfigurationWindows.md
 docs/PrivateNetworkConfiguration.md
 docs/Quota.md
@@ -43,6 +44,7 @@ model_network_configuration.go
 model_os_configuration.go
 model_os_configuration_map.go
 model_os_configuration_map_esxi.go
+model_os_configuration_map_proxmox.go
 model_os_configuration_windows_.go
 model_private_network_configuration.go
 model_quota.go
