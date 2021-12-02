@@ -19,7 +19,7 @@ import (
 type NodePool struct {
 	// The name of the node pool.
 	Name *string `json:"name,omitempty"`
-	// (Read-only) Number of configured nodes
+	// Number of configured nodes, currently only node counts of 1 and 3 are possible.
 	NodeCount *int32 `json:"nodeCount,omitempty"`
 	// Node server type.
 	ServerType *string    `json:"serverType,omitempty"`

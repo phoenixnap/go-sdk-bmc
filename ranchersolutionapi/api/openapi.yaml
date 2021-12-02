@@ -427,8 +427,8 @@ components:
           example: Rancher Server node pool.
           type: string
         nodeCount:
-          description: (Read-only) Number of configured nodes
-          readOnly: true
+          description: Number of configured nodes, currently only node counts of 1
+            and 3 are possible.
           type: integer
         serverType:
           default: s0.d1.small
