@@ -115,7 +115,7 @@ import (
 )
 
 func main() {
-    tag := []string{"Inner_example"} // []string | A list of queryparameters related to tags in the form of tagName.tagValue (optional)
+    tag := []string{"Inner_example"} // []string | A list of query parameters related to tags in the form of tagName.tagValue (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -140,7 +140,7 @@ Other parameters are passed through a pointer to a apiServersGetRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tag** | **[]string** | A list of queryparameters related to tags in the form of tagName.tagValue | 
+ **tag** | **[]string** | A list of query parameters related to tags in the form of tagName.tagValue | 
 
 ### Return type
 

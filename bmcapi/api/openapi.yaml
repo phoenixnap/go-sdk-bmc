@@ -33,7 +33,7 @@ paths:
       description: List all servers owned by account.
       operationId: serversGet
       parameters:
-      - description: A list of queryparameters related to tags in the form of tagName.tagValue
+      - description: A list of query parameters related to tags in the form of tagName.tagValue
         example: env.dev
         explode: true
         in: query

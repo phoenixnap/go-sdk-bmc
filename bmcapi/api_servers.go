@@ -356,7 +356,7 @@ type ApiServersGetRequest struct {
 	tag        *[]string
 }
 
-// A list of queryparameters related to tags in the form of tagName.tagValue
+// A list of query parameters related to tags in the form of tagName.tagValue
 func (r ApiServersGetRequest) Tag(tag []string) ApiServersGetRequest {
 	r.tag = &tag
 	return r

@@ -440,6 +440,12 @@ components:
           - s1.c1.medium
           - s1.c2.medium
           - s1.c2.large
+          - s2.c1.small
+          - s2.c1.medium
+          - s2.c1.large
+          - s2.c2.small
+          - s2.c2.medium
+          - s2.c2.large
           example: s0.d1.small
           type: string
         sshConfig:
