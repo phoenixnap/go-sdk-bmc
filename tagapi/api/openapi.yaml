@@ -325,6 +325,7 @@ components:
     Tag:
       description: Tag model.
       example:
+        createdBy: USER
         values: '[DEV, PROD]'
         name: Environment
         description: This tag is used for all resources that need to be assigned to
@@ -365,6 +366,13 @@ components:
           items:
             $ref: '#/components/schemas/ResourceAssignment'
           type: array
+        createdBy:
+          default: USER
+          description: The tag's creator.
+          enum:
+          - USER
+          - SYSTEM
+          type: string
       required:
       - id
       - isBillingTag
