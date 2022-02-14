@@ -1,7 +1,7 @@
 /*
 Rancher Solution API
 
-Create and manage Rancher clusters. </br></br>**All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v0)**
+Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls. </br></br>**Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a>**</br></br>**All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)**
 
 API version: 0.1
 Contact: support@phoenixnap.com

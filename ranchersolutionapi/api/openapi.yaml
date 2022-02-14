@@ -4,8 +4,10 @@ info:
     email: support@phoenixnap.com
     name: PhoenixNAP Team
     url: https://phoenixnap.com/
-  description: Create and manage Rancher clusters. </br></br>**All URLs are relative
-    to (https://api.phoenixnap.com/solutions/rancher/v0)**
+  description: Simplify enterprise-grade Kubernetes cluster operations and management
+    with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.
+    </br></br>**Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes'
+    target='_blank'>here</a>**</br></br>**All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)**
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html

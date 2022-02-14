@@ -4,10 +4,11 @@ info:
     email: support@phoenixnap.com
     name: PhoenixNAP Team
     url: https://phoenixnap.com/
-  description: Bare Metal Cloud API allows you to create, power off, power on, reset,
-    reboot, or shut down your server. Also deprovision servers, manage SSH key details,
+  description: Create, power off, power on, reset, reboot, or shut down your server
+    with the Bare Metal Cloud API. Deprovision servers, get or edit SSH key details,
     and a lot more. Manage your infrastructure more efficiently using just a few simple
-    API calls. </br></br>**All URLs are relative to (https://api.phoenixnap.com/bmc/v0/)**
+    api calls. <br/></br>**Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server'
+    target='_blank'>here</a>**</br></br>**All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)**
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
