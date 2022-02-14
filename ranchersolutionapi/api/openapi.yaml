@@ -330,7 +330,7 @@ components:
             certificateKey: certificateKey
             caCertificate: caCertificate
           clusterDomain: cluster.local
-          etcdSnapshotScheduleCron: '* */12 * * *'
+          etcdSnapshotScheduleCron: 0 0,12 * * *
           tlsSan: mydomain.com
           etcdSnapshotRetention: 5
           token: gS7SnDnY5st0ryJxMXA7
@@ -476,7 +476,7 @@ components:
           certificateKey: certificateKey
           caCertificate: caCertificate
         clusterDomain: cluster.local
-        etcdSnapshotScheduleCron: '* */12 * * *'
+        etcdSnapshotScheduleCron: 0 0,12 * * *
         tlsSan: mydomain.com
         etcdSnapshotRetention: 5
         token: gS7SnDnY5st0ryJxMXA7
@@ -491,10 +491,11 @@ components:
           example: mydomain.com
           type: string
         etcdSnapshotScheduleCron:
-          default: '* */12 * * *'
-          description: This maps to ranchers `etcd-snapshot-schedule-cron`. Snapshot
-            interval time in cron spec. eg. every 5 hours ‘* */5 * * *’
-          example: '* */12 * * *'
+          default: 0 0,12 * * *
+          description: 'This maps to ranchers `etcd-snapshot-schedule-cron`. Snapshot
+            interval time in cron spec. eg. every 5 hours ‘0 */5 * * *’. Default:
+            at 12 am/pm'
+          example: 0 0,12 * * *
           type: string
         etcdSnapshotRetention:
           default: 5
