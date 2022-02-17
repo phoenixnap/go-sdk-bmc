@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 )
 
-// Response The response received from the cluster.
+// Response The response returned from the API.
 type Response struct {
 	// The status code returned in the response sent to the API.
 	StatusCode int32 `json:"statusCode"`

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Limit** | **int32** | The limit set for the quota. | 
 **Unit** | **string** | An enum field describing what the limit is measured in. | 
 **Used** | **int32** | The quota used expressed as a number. | 
-**QuotaEditLimitRequestDetails** | [**[]QuotaEditLimitRequestDetails**](QuotaEditLimitRequestDetails.md) |  | 
+**QuotaEditLimitRequestDetails** | [**[]QuotaEditLimitRequestDetails**](QuotaEditLimitRequestDetails.md) |  | [readonly] 
 
 ## Methods
 

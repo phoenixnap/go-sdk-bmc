@@ -320,22 +320,9 @@ components:
     Cluster:
       description: Cluster details.
       example:
-        metadata:
-          password: 1234567890abcd!
-          url: https://rancher/
-          username: admin
+        metadata: ""
         statusDescription: Creating
-        configuration:
-          nodeTaint: CriticalAddonsOnly=true:NoExecute
-          certificates:
-            certificate: certificate
-            certificateKey: certificateKey
-            caCertificate: caCertificate
-          clusterDomain: cluster.local
-          etcdSnapshotScheduleCron: 0 0,12 * * *
-          tlsSan: mydomain.com
-          etcdSnapshotRetention: 5
-          token: gS7SnDnY5st0ryJxMXA7
+        configuration: ""
         name: Rancher Management Cluster
         description: My first Rancher Server Cluster.
         location: PHX
@@ -347,13 +334,7 @@ components:
           serverType: s0.d1.small
           name: Rancher Server node pool.
           nodeCount: 0
-          sshConfig:
-            keyIds:
-            - 5fa54d1e91867c03a0a7b4a4
-            keys:
-            - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-              user
-            installDefaultKeys: true
+          sshConfig: ""
         initialClusterVersion: v2.5.9
       properties:
         id:
@@ -394,9 +375,13 @@ components:
           minItems: 1
           type: array
         configuration:
-          $ref: '#/components/schemas/RancherClusterConfig'
+          allOf:
+          - $ref: '#/components/schemas/RancherClusterConfig'
+          writeOnly: true
         metadata:
-          $ref: '#/components/schemas/RancherServerMetadata'
+          allOf:
+          - $ref: '#/components/schemas/RancherServerMetadata'
+          readOnly: true
         statusDescription:
           description: The cluster status
           example: Creating
@@ -416,13 +401,7 @@ components:
         serverType: s0.d1.small
         name: Rancher Server node pool.
         nodeCount: 0
-        sshConfig:
-          keyIds:
-          - 5fa54d1e91867c03a0a7b4a4
-          keys:
-          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-            user
-          installDefaultKeys: true
+        sshConfig: ""
       properties:
         name:
           description: The name of the node pool.
@@ -451,7 +430,9 @@ components:
           example: s0.d1.small
           type: string
         sshConfig:
-          $ref: '#/components/schemas/SshConfig'
+          allOf:
+          - $ref: '#/components/schemas/SshConfig'
+          writeOnly: true
         nodes:
           description: (Read-only) The nodes associated with this node pool.
           items:
@@ -471,17 +452,6 @@ components:
       type: object
     RancherClusterConfig:
       description: (Write-only) Rancher configuration parameters.
-      example:
-        nodeTaint: CriticalAddonsOnly=true:NoExecute
-        certificates:
-          certificate: certificate
-          certificateKey: certificateKey
-          caCertificate: caCertificate
-        clusterDomain: cluster.local
-        etcdSnapshotScheduleCron: 0 0,12 * * *
-        tlsSan: mydomain.com
-        etcdSnapshotRetention: 5
-        token: gS7SnDnY5st0ryJxMXA7
       properties:
         token:
           description: Shared secret used to join a server or agent to a cluster.
@@ -517,19 +487,13 @@ components:
           example: cluster.local
           type: string
         certificates:
-          $ref: '#/components/schemas/RancherClusterCertificates'
+          allOf:
+          - $ref: '#/components/schemas/RancherClusterCertificates'
+          writeOnly: true
       type: object
     SshConfig:
-      description: Configuration defining which public SSH keys are pre-installed
-        as authorized on the server. Any manual configuration done on the server after
-        installation is not reflected by this configuration.
-      example:
-        keyIds:
-        - 5fa54d1e91867c03a0a7b4a4
-        keys:
-        - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-          user
-        installDefaultKeys: true
+      description: (Write-only) Configuration defining which public SSH keys are pre-installed
+        as authorized on the server.
       properties:
         installDefaultKeys:
           default: true
@@ -560,10 +524,6 @@ components:
     RancherServerMetadata:
       description: (Read Only) Connection parameters to use to connect to the Rancher
         Server Administrative GUI.
-      example:
-        password: 1234567890abcd!
-        url: https://rancher/
-        username: admin
       properties:
         url:
           description: The Rancher Server URL.
@@ -583,11 +543,8 @@ components:
           type: string
       type: object
     RancherClusterCertificates:
-      description: Define the custom SSL certificates to be used instead of defaults.
-      example:
-        certificate: certificate
-        certificateKey: certificateKey
-        caCertificate: caCertificate
+      description: (Write-only) Define the custom SSL certificates to be used instead
+        of defaults.
       properties:
         caCertificate:
           description: The SSL CA certificate to be used for rancher admin.

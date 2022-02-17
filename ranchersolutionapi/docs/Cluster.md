@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **InitialClusterVersion** | Pointer to **string** | (Read-only) The Rancher version that was installed on the cluster during the first creation process. | [optional] [readonly] 
 **NodePools** | Pointer to [**[]NodePool**](NodePool.md) | The node pools associated with the cluster. | [optional] 
 **Configuration** | Pointer to [**RancherClusterConfig**](RancherClusterConfig.md) |  | [optional] 
-**Metadata** | Pointer to [**RancherServerMetadata**](RancherServerMetadata.md) |  | [optional] 
+**Metadata** | Pointer to [**RancherServerMetadata**](RancherServerMetadata.md) |  | [optional] [readonly] 
 **StatusDescription** | Pointer to **string** | The cluster status | [optional] [readonly] 
 
 ## Methods

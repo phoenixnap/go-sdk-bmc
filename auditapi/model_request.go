@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 )
 
-// Request The request details sent by the user.
+// Request The request sent by the user / application.
 type Request struct {
 	Headers Headers `json:"headers"`
 	// The request URI.

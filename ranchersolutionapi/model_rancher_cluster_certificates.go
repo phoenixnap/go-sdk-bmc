@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 )
 
-// RancherClusterCertificates Define the custom SSL certificates to be used instead of defaults.
+// RancherClusterCertificates (Write-only) Define the custom SSL certificates to be used instead of defaults.
 type RancherClusterCertificates struct {
 	// The SSL CA certificate to be used for rancher admin.
 	CaCertificate *string `json:"caCertificate,omitempty"`

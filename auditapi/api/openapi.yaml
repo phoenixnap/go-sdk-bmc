@@ -154,7 +154,7 @@ components:
       - userInfo
       type: object
     Request:
-      description: The request details sent by the user.
+      description: The request sent by the user / application.
       properties:
         headers:
           $ref: '#/components/schemas/Headers'
@@ -181,7 +181,7 @@ components:
       - $ref: '#/components/schemas/Event'
       - $ref: '#/components/schemas/ApiAction_allOf'
     Response:
-      description: The response received from the cluster.
+      description: The response returned from the API.
       properties:
         statusCode:
           description: The status code returned in the response sent to the API.
@@ -218,7 +218,7 @@ components:
       - username
       type: object
     Headers:
-      description: Headers request to be sent in the event log.
+      description: The headers received as part of this request.
       properties:
         userAgent:
           description: The UA String

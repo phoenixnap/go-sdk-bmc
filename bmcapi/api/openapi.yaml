@@ -2536,6 +2536,7 @@ components:
         quotaEditLimitRequestDetails:
           items:
             $ref: '#/components/schemas/QuotaEditLimitRequestDetails'
+          readOnly: true
           type: array
       required:
       - description

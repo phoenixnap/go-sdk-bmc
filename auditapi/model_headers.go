@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 )
 
-// Headers Headers request to be sent in the event log.
+// Headers The headers received as part of this request.
 type Headers struct {
 	// The UA String
 	UserAgent string `json:"userAgent"`
