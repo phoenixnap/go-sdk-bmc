@@ -1561,6 +1561,7 @@ components:
     TagAssignment:
       description: Tag assigned to resource.
       example:
+        createdBy: USER
         name: Environment
         id: 60ffafcdffb8b074c7968dad
         value: PROD
@@ -1582,6 +1583,12 @@ components:
           description: Whether or not to show the tag as part of billing and invoices
           example: true
           type: boolean
+        createdBy:
+          description: Who the tag was created by.
+          enum:
+          - USER
+          - SYSTEM
+          type: string
       required:
       - id
       - isBillingTag
@@ -1782,11 +1789,13 @@ components:
         clusterId: x78sdkjds879sd7cx8
         type: s1.c1.small
         tags:
-        - name: Environment
+        - createdBy: USER
+          name: Environment
           id: 60ffafcdffb8b074c7968dad
           value: PROD
           isBillingTag: true
-        - name: Environment
+        - createdBy: USER
+          name: Environment
           id: 60ffafcdffb8b074c7968dad
           value: PROD
           isBillingTag: true

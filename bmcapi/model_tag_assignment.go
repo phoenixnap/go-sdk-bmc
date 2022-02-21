@@ -25,6 +25,8 @@ type TagAssignment struct {
 	Value *string `json:"value,omitempty"`
 	// Whether or not to show the tag as part of billing and invoices
 	IsBillingTag bool `json:"isBillingTag"`
+	// Who the tag was created by.
+	CreatedBy *string `json:"createdBy,omitempty"`
 }
 
 // NewTagAssignment instantiates a new TagAssignment object
@@ -151,6 +153,38 @@ func (o *TagAssignment) SetIsBillingTag(v bool) {
 	o.IsBillingTag = v
 }
 
+// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
+func (o *TagAssignment) GetCreatedBy() string {
+	if o == nil || o.CreatedBy == nil {
+		var ret string
+		return ret
+	}
+	return *o.CreatedBy
+}
+
+// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TagAssignment) GetCreatedByOk() (*string, bool) {
+	if o == nil || o.CreatedBy == nil {
+		return nil, false
+	}
+	return o.CreatedBy, true
+}
+
+// HasCreatedBy returns a boolean if a field has been set.
+func (o *TagAssignment) HasCreatedBy() bool {
+	if o != nil && o.CreatedBy != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
+func (o *TagAssignment) SetCreatedBy(v string) {
+	o.CreatedBy = &v
+}
+
 func (o TagAssignment) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -164,6 +198,9 @@ func (o TagAssignment) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["isBillingTag"] = o.IsBillingTag
+	}
+	if o.CreatedBy != nil {
+		toSerialize["createdBy"] = o.CreatedBy
 	}
 	return json.Marshal(toSerialize)
 }
