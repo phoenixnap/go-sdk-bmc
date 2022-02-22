@@ -1704,9 +1704,9 @@ components:
           type: string
         configurationType:
           default: USE_OR_CREATE_DEFAULT
-          description: Determines the approach for configuring IP blocks for the server
-            being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT`
-            or `USER_DEFINED`.
+          description: Determines the approach for configuring private network(s)
+            for the server being provisioned. Currently this field should be set to
+            `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.
           example: USER_DEFINED
           type: string
           writeOnly: true
