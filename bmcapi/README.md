@@ -90,6 +90,7 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**DeletePrivateNetwork**](docs/ServersApi.md#deleteprivatenetwork) | **Delete** /servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId} | Removes the server from private network.
 *ServersApi* | [**ServersGet**](docs/ServersApi.md#serversget) | **Get** /servers | List servers.
 *ServersApi* | [**ServersPost**](docs/ServersApi.md#serverspost) | **Post** /servers | Create new server.
+*ServersApi* | [**ServersServerIdActionsDeprovisionPost**](docs/ServersApi.md#serversserveridactionsdeprovisionpost) | **Post** /servers/{serverId}/actions/deprovision | Deprovision a server.
 *ServersApi* | [**ServersServerIdActionsPowerOffPost**](docs/ServersApi.md#serversserveridactionspoweroffpost) | **Post** /servers/{serverId}/actions/power-off | Power off server.
 *ServersApi* | [**ServersServerIdActionsPowerOnPost**](docs/ServersApi.md#serversserveridactionspoweronpost) | **Post** /servers/{serverId}/actions/power-on | Power on server.
 *ServersApi* | [**ServersServerIdActionsRebootPost**](docs/ServersApi.md#serversserveridactionsrebootpost) | **Post** /servers/{serverId}/actions/reboot | Reboot server.
@@ -98,6 +99,8 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**ServersServerIdActionsShutdownPost**](docs/ServersApi.md#serversserveridactionsshutdownpost) | **Post** /servers/{serverId}/actions/shutdown | Shutdown server.
 *ServersApi* | [**ServersServerIdDelete**](docs/ServersApi.md#serversserveriddelete) | **Delete** /servers/{serverId} | Delete server.
 *ServersApi* | [**ServersServerIdGet**](docs/ServersApi.md#serversserveridget) | **Get** /servers/{serverId} | Get server.
+*ServersApi* | [**ServersServerIdIpBlocksIpBlockIdDelete**](docs/ServersApi.md#serversserveridipblocksipblockiddelete) | **Delete** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks/{ipBlockId} | Unassign IP Block from Server.
+*ServersApi* | [**ServersServerIdIpBlocksPost**](docs/ServersApi.md#serversserveridipblockspost) | **Post** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks | Assign IP Block to Server.
 *ServersApi* | [**ServersServerIdPatch**](docs/ServersApi.md#serversserveridpatch) | **Patch** /servers/{serverId} | Patch a Server.
 *ServersApi* | [**ServersServerIdPrivateNetworksPost**](docs/ServersApi.md#serversserveridprivatenetworkspost) | **Post** /servers/{serverId}/network-configuration/private-network-configuration/private-networks | Adds the server to a private network.
 *ServersApi* | [**ServersServerIdTagsPut**](docs/ServersApi.md#serversserveridtagsput) | **Put** /servers/{serverId}/tags | Set server tags.
@@ -109,6 +112,7 @@ Class | Method | HTTP request | Description
  - [DeleteResult](docs/DeleteResult.md)
  - [DeleteSshKeyResult](docs/DeleteSshKeyResult.md)
  - [Error](docs/Error.md)
+ - [IpBlocksConfiguration](docs/IpBlocksConfiguration.md)
  - [NetworkConfiguration](docs/NetworkConfiguration.md)
  - [OsConfiguration](docs/OsConfiguration.md)
  - [OsConfigurationMap](docs/OsConfigurationMap.md)
@@ -120,9 +124,11 @@ Class | Method | HTTP request | Description
  - [QuotaEditLimitRequest](docs/QuotaEditLimitRequest.md)
  - [QuotaEditLimitRequestDetails](docs/QuotaEditLimitRequestDetails.md)
  - [QuotaEditLimitRequestDetailsAllOf](docs/QuotaEditLimitRequestDetailsAllOf.md)
+ - [RelinquishIpBlock](docs/RelinquishIpBlock.md)
  - [ResetResult](docs/ResetResult.md)
  - [Server](docs/Server.md)
  - [ServerCreate](docs/ServerCreate.md)
+ - [ServerIpBlock](docs/ServerIpBlock.md)
  - [ServerPatch](docs/ServerPatch.md)
  - [ServerPrivateNetwork](docs/ServerPrivateNetwork.md)
  - [ServerReserve](docs/ServerReserve.md)
