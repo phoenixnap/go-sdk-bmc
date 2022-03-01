@@ -1,4 +1,4 @@
-module github.com/GIT_USER_ID/GIT_REPO_ID/ipapi
+module github.com/phoenixnap/go-sdk-bmc/ipapi
 
 go 1.17
 
