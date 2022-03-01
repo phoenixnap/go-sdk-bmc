@@ -1,6 +1,1 @@
-auditapi/** linguist-generated=true
-bmcapi/** linguist-generated=true
-ipapi/** linguist-generated=true
-networkapi/** linguist-generated=true
-ranchersolutionapi/** linguist-generated=true
-tagapi/** linguist-generated=true
+*.go linguist-generated=true
