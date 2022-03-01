@@ -38,8 +38,8 @@ paths:
         name: location
         required: false
         schema:
-          description: Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and
-            `SEA`.
+          description: Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA`
+            and `AUS`.
           type: string
         style: form
       responses:
@@ -602,7 +602,7 @@ components:
           type: string
         location:
           description: The location of this private network. Supported values are
-            `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`.
+            `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
           example: PHX
           type: string
         locationDefault:

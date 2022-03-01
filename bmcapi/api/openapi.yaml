@@ -2141,8 +2141,8 @@ components:
           type: string
         location:
           description: Server location ID. Cannot be changed once a server is created.
-            Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`
-            or `SEA`.
+            Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`,
+            `SEA` or `AUS`.
           example: PHX
           type: string
         cpu:
@@ -2378,8 +2378,8 @@ components:
           type: string
         location:
           description: Server location ID. Cannot be changed once a server is created.
-            Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`
-            or `SEA`.
+            Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`,
+            `SEA` or `AUS`.
           example: PHX
           type: string
         installDefaultSshKeys:

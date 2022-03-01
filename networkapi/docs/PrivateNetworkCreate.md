@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | The friendly name of this private network. This name should be unique. | 
 **Description** | Pointer to **string** | The description of this private network. | [optional] 
-**Location** | **string** | The location of this private network. Supported values are &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60; and &#x60;SEA&#x60;. | 
+**Location** | **string** | The location of this private network. Supported values are &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60;, &#x60;SEA&#x60; and &#x60;AUS&#x60;. | 
 **LocationDefault** | Pointer to **bool** | Identifies network as the default private network for the specified location. | [optional] [default to false]
 **Cidr** | **string** | IP range associated with this private network in CIDR notation. | 
 

@@ -21,7 +21,7 @@ type PrivateNetworkCreate struct {
 	Name string `json:"name"`
 	// The description of this private network.
 	Description *string `json:"description,omitempty"`
-	// The location of this private network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`.
+	// The location of this private network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
 	Location string `json:"location"`
 	// Identifies network as the default private network for the specified location.
 	LocationDefault *bool `json:"locationDefault,omitempty"`
