@@ -1,7 +1,7 @@
 /*
 Audit Log API
 
-The API that receives and shows actions that an account has taken in the system. </br></br>**All URLs are relative to (https://api.phoenixnap.com/audit/v1/)**
+The Audit Logs API lets you read audit log entries and track API calls or activities in the Bare Metal Cloud Portal. <br/></br>**Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#audit-log-api' target='_blank'>here</a>**<br></br>**All URLs are relative to (https://api.phoenixnap.com/audit/v1/)**
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 )
 
-// Headers Headers request to be sent in the event log.
+// Headers The headers received as part of this request.
 type Headers struct {
 	// The UA String
 	UserAgent string `json:"userAgent"`

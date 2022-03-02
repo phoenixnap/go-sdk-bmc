@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | The name of the node pool. | [optional] 
-**NodeCount** | Pointer to **int32** | (Read-only) Number of configured nodes | [optional] [readonly] 
+**NodeCount** | Pointer to **int32** | Number of configured nodes, currently only node counts of 1 and 3 are possible. | [optional] 
 **ServerType** | Pointer to **string** | Node server type. | [optional] [default to "s0.d1.small"]
 **SshConfig** | Pointer to [**SshConfig**](SshConfig.md) |  | [optional] 
 **Nodes** | Pointer to [**[]Node**](Node.md) | (Read-only) The nodes associated with this node pool. | [optional] [readonly] 

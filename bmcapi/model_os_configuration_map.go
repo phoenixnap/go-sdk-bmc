@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Bare Metal Cloud API allows you to create, power off, power on, reset, reboot, or shut down your server. Also deprovision servers, manage SSH key details, and a lot more. Manage your infrastructure more efficiently using just a few simple API calls. </br></br>**All URLs are relative to (https://api.phoenixnap.com/bmc/v0/)**
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API. Deprovision servers, get or edit SSH key details, and a lot more. Manage your infrastructure more efficiently using just a few simple api calls. <br/></br>**Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a>**</br></br>**All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)**
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -17,8 +17,9 @@ import (
 
 // OsConfigurationMap OS specific configuration properties.
 type OsConfigurationMap struct {
-	Windows *OsConfigurationWindows `json:"windows,omitempty"`
-	Esxi    *OsConfigurationMapEsxi `json:"esxi,omitempty"`
+	Windows *OsConfigurationWindows    `json:"windows,omitempty"`
+	Esxi    *OsConfigurationMapEsxi    `json:"esxi,omitempty"`
+	Proxmox *OsConfigurationMapProxmox `json:"proxmox,omitempty"`
 }
 
 // NewOsConfigurationMap instantiates a new OsConfigurationMap object
@@ -102,6 +103,38 @@ func (o *OsConfigurationMap) SetEsxi(v OsConfigurationMapEsxi) {
 	o.Esxi = &v
 }
 
+// GetProxmox returns the Proxmox field value if set, zero value otherwise.
+func (o *OsConfigurationMap) GetProxmox() OsConfigurationMapProxmox {
+	if o == nil || o.Proxmox == nil {
+		var ret OsConfigurationMapProxmox
+		return ret
+	}
+	return *o.Proxmox
+}
+
+// GetProxmoxOk returns a tuple with the Proxmox field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OsConfigurationMap) GetProxmoxOk() (*OsConfigurationMapProxmox, bool) {
+	if o == nil || o.Proxmox == nil {
+		return nil, false
+	}
+	return o.Proxmox, true
+}
+
+// HasProxmox returns a boolean if a field has been set.
+func (o *OsConfigurationMap) HasProxmox() bool {
+	if o != nil && o.Proxmox != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProxmox gets a reference to the given OsConfigurationMapProxmox and assigns it to the Proxmox field.
+func (o *OsConfigurationMap) SetProxmox(v OsConfigurationMapProxmox) {
+	o.Proxmox = &v
+}
+
 func (o OsConfigurationMap) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Windows != nil {
@@ -109,6 +142,9 @@ func (o OsConfigurationMap) MarshalJSON() ([]byte, error) {
 	}
 	if o.Esxi != nil {
 		toSerialize["esxi"] = o.Esxi
+	}
+	if o.Proxmox != nil {
+		toSerialize["proxmox"] = o.Proxmox
 	}
 	return json.Marshal(toSerialize)
 }

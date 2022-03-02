@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Bare Metal Cloud API allows you to create, power off, power on, reset, reboot, or shut down your server. Also deprovision servers, manage SSH key details, and a lot more. Manage your infrastructure more efficiently using just a few simple API calls. </br></br>**All URLs are relative to (https://api.phoenixnap.com/bmc/v0/)**
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API. Deprovision servers, get or edit SSH key details, and a lot more. Manage your infrastructure more efficiently using just a few simple api calls. <br/></br>**Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a>**</br></br>**All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)**
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -19,7 +19,7 @@ import (
 type PrivateNetworkConfiguration struct {
 	// The address of the gateway assigned / to assign to the server. It'll be null and won't be displayed as part of response body if server is a member of both public and private networks. When used as part of request body, it has to match one of the IP addresses used in the existing assigned private networks for the relevant location. Also, this field can be submitted only when provisioning a server without being a member of any public network.
 	GatewayAddress *string `json:"gatewayAddress,omitempty"`
-	// Determines the approach for configuring IP blocks for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.
+	// Determines the approach for configuring private network(s) for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.
 	ConfigurationType *string `json:"configurationType,omitempty"`
 	// The list of private networks this server is member of. When this field is part of request body, it'll be used to specify the private networks to assign to this server upon provisioning. Used alongside the `USER_DEFINED` configurationType.
 	PrivateNetworks *[]ServerPrivateNetwork `json:"privateNetworks,omitempty"`

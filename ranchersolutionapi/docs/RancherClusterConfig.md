@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Token** | Pointer to **string** | Shared secret used to join a server or agent to a cluster. | [optional] 
 **TlsSan** | Pointer to **string** | This maps to ranchers &#x60;tls-san&#x60;. Add additional hostname or IP as a Subject Alternative Name in the TLS cert. | [optional] 
-**EtcdSnapshotScheduleCron** | Pointer to **string** | This maps to ranchers &#x60;etcd-snapshot-schedule-cron&#x60;. Snapshot interval time in cron spec. eg. every 5 hours ‘* *_/5 * * *’ | [optional] [default to "* *_/12 * * *"]
+**EtcdSnapshotScheduleCron** | Pointer to **string** | This maps to ranchers &#x60;etcd-snapshot-schedule-cron&#x60;. Snapshot interval time in cron spec. eg. every 5 hours ‘0 *_/5 * * *’. Default: at 12 am/pm | [optional] [default to "0 0,12 * * *"]
 **EtcdSnapshotRetention** | Pointer to **int32** | This maps to ranchers &#x60;etcd-snapshot-retention&#x60;. Number of snapshots to retain. | [optional] [default to 5]
 **NodeTaint** | Pointer to **string** | This maps to ranchers &#x60;node-taint&#x60;. Registering kubelet with set of taints. By default, server nodes will be schedulable and thus your workloads can get launched on them. If you wish to have a dedicated control plane where no user workloads will run, you can use taints. | [optional] 
 **ClusterDomain** | Pointer to **string** | This maps to ranchers &#x60;cluster-domain&#x60;. Cluster Domain. | [optional] 

@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Name** | **string** | The name of the tag. | 
 **Value** | Pointer to **string** | The value of the tag assigned to the resource. | [optional] 
 **IsBillingTag** | **bool** | Whether or not to show the tag as part of billing and invoices | 
+**CreatedBy** | Pointer to **string** | Who the tag was created by. | [optional] 
 
 ## Methods
 
@@ -112,6 +113,31 @@ and a boolean to check if the value has been set.
 
 SetIsBillingTag sets IsBillingTag field to given value.
 
+
+### GetCreatedBy
+
+`func (o *TagAssignment) GetCreatedBy() string`
+
+GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
+
+### GetCreatedByOk
+
+`func (o *TagAssignment) GetCreatedByOk() (*string, bool)`
+
+GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedBy
+
+`func (o *TagAssignment) SetCreatedBy(v string)`
+
+SetCreatedBy sets CreatedBy field to given value.
+
+### HasCreatedBy
+
+`func (o *TagAssignment) HasCreatedBy() bool`
+
+HasCreatedBy returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

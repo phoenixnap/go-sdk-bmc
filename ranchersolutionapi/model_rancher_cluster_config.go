@@ -1,7 +1,7 @@
 /*
 Rancher Solution API
 
-Create and manage Rancher clusters. </br></br>**All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v0)**
+Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls. </br></br>**Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a>**</br></br>**All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)**
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -21,7 +21,7 @@ type RancherClusterConfig struct {
 	Token *string `json:"token,omitempty"`
 	// This maps to ranchers `tls-san`. Add additional hostname or IP as a Subject Alternative Name in the TLS cert.
 	TlsSan *string `json:"tlsSan,omitempty"`
-	// This maps to ranchers `etcd-snapshot-schedule-cron`. Snapshot interval time in cron spec. eg. every 5 hours ‘* *_/5 * * *’
+	// This maps to ranchers `etcd-snapshot-schedule-cron`. Snapshot interval time in cron spec. eg. every 5 hours ‘0 *_/5 * * *’. Default: at 12 am/pm
 	EtcdSnapshotScheduleCron *string `json:"etcdSnapshotScheduleCron,omitempty"`
 	// This maps to ranchers `etcd-snapshot-retention`. Number of snapshots to retain.
 	EtcdSnapshotRetention *int32 `json:"etcdSnapshotRetention,omitempty"`
@@ -38,7 +38,7 @@ type RancherClusterConfig struct {
 // will change when the set of required properties is changed
 func NewRancherClusterConfig() *RancherClusterConfig {
 	this := RancherClusterConfig{}
-	var etcdSnapshotScheduleCron string = "* *_/12 * * *"
+	var etcdSnapshotScheduleCron string = "0 0,12 * * *"
 	this.EtcdSnapshotScheduleCron = &etcdSnapshotScheduleCron
 	var etcdSnapshotRetention int32 = 5
 	this.EtcdSnapshotRetention = &etcdSnapshotRetention
@@ -50,7 +50,7 @@ func NewRancherClusterConfig() *RancherClusterConfig {
 // but it doesn't guarantee that properties required by API are set
 func NewRancherClusterConfigWithDefaults() *RancherClusterConfig {
 	this := RancherClusterConfig{}
-	var etcdSnapshotScheduleCron string = "* *_/12 * * *"
+	var etcdSnapshotScheduleCron string = "0 0,12 * * *"
 	this.EtcdSnapshotScheduleCron = &etcdSnapshotScheduleCron
 	var etcdSnapshotRetention int32 = 5
 	this.EtcdSnapshotRetention = &etcdSnapshotRetention

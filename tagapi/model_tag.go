@@ -1,7 +1,7 @@
 /*
 Tags API
 
-The Tags Manager API. </br></br>**All URLs are relative to (https://api.phoenixnap.com/tag-manager/v1/)**
+Tags are case-sensitive key-value pairs that simplify resource management.  The Tag Manager API allows you to create and manage such tags to later assign them to related resources in your Bare Metal Cloud (through the respective resource apis) in order to group and categorize them.</br></br>**Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#server-tag-manager-api' target='_blank'>here</a>** </br></br>**All URLs are relative to (https://api.phoenixnap.com/tag-manager/v1/)**
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -29,6 +29,8 @@ type Tag struct {
 	IsBillingTag bool `json:"isBillingTag"`
 	// The tag's assigned resources.
 	ResourceAssignments *[]ResourceAssignment `json:"resourceAssignments,omitempty"`
+	// The tag's creator.
+	CreatedBy *string `json:"createdBy,omitempty"`
 }
 
 // NewTag instantiates a new Tag object
@@ -40,6 +42,8 @@ func NewTag(id string, name string, isBillingTag bool) *Tag {
 	this.Id = id
 	this.Name = name
 	this.IsBillingTag = isBillingTag
+	var createdBy string = "USER"
+	this.CreatedBy = &createdBy
 	return &this
 }
 
@@ -48,6 +52,8 @@ func NewTag(id string, name string, isBillingTag bool) *Tag {
 // but it doesn't guarantee that properties required by API are set
 func NewTagWithDefaults() *Tag {
 	this := Tag{}
+	var createdBy string = "USER"
+	this.CreatedBy = &createdBy
 	return &this
 }
 
@@ -219,6 +225,38 @@ func (o *Tag) SetResourceAssignments(v []ResourceAssignment) {
 	o.ResourceAssignments = &v
 }
 
+// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
+func (o *Tag) GetCreatedBy() string {
+	if o == nil || o.CreatedBy == nil {
+		var ret string
+		return ret
+	}
+	return *o.CreatedBy
+}
+
+// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tag) GetCreatedByOk() (*string, bool) {
+	if o == nil || o.CreatedBy == nil {
+		return nil, false
+	}
+	return o.CreatedBy, true
+}
+
+// HasCreatedBy returns a boolean if a field has been set.
+func (o *Tag) HasCreatedBy() bool {
+	if o != nil && o.CreatedBy != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
+func (o *Tag) SetCreatedBy(v string) {
+	o.CreatedBy = &v
+}
+
 func (o Tag) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -238,6 +276,9 @@ func (o Tag) MarshalJSON() ([]byte, error) {
 	}
 	if o.ResourceAssignments != nil {
 		toSerialize["resourceAssignments"] = o.ResourceAssignments
+	}
+	if o.CreatedBy != nil {
+		toSerialize["createdBy"] = o.CreatedBy
 	}
 	return json.Marshal(toSerialize)
 }

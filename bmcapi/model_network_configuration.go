@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Bare Metal Cloud API allows you to create, power off, power on, reset, reboot, or shut down your server. Also deprovision servers, manage SSH key details, and a lot more. Manage your infrastructure more efficiently using just a few simple API calls. </br></br>**All URLs are relative to (https://api.phoenixnap.com/bmc/v0/)**
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API. Deprovision servers, get or edit SSH key details, and a lot more. Manage your infrastructure more efficiently using just a few simple api calls. <br/></br>**Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a>**</br></br>**All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)**
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -18,6 +18,7 @@ import (
 // NetworkConfiguration Entire network details of bare metal server.
 type NetworkConfiguration struct {
 	PrivateNetworkConfiguration *PrivateNetworkConfiguration `json:"privateNetworkConfiguration,omitempty"`
+	IpBlocksConfiguration       *IpBlocksConfiguration       `json:"ipBlocksConfiguration,omitempty"`
 }
 
 // NewNetworkConfiguration instantiates a new NetworkConfiguration object
@@ -69,10 +70,45 @@ func (o *NetworkConfiguration) SetPrivateNetworkConfiguration(v PrivateNetworkCo
 	o.PrivateNetworkConfiguration = &v
 }
 
+// GetIpBlocksConfiguration returns the IpBlocksConfiguration field value if set, zero value otherwise.
+func (o *NetworkConfiguration) GetIpBlocksConfiguration() IpBlocksConfiguration {
+	if o == nil || o.IpBlocksConfiguration == nil {
+		var ret IpBlocksConfiguration
+		return ret
+	}
+	return *o.IpBlocksConfiguration
+}
+
+// GetIpBlocksConfigurationOk returns a tuple with the IpBlocksConfiguration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NetworkConfiguration) GetIpBlocksConfigurationOk() (*IpBlocksConfiguration, bool) {
+	if o == nil || o.IpBlocksConfiguration == nil {
+		return nil, false
+	}
+	return o.IpBlocksConfiguration, true
+}
+
+// HasIpBlocksConfiguration returns a boolean if a field has been set.
+func (o *NetworkConfiguration) HasIpBlocksConfiguration() bool {
+	if o != nil && o.IpBlocksConfiguration != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIpBlocksConfiguration gets a reference to the given IpBlocksConfiguration and assigns it to the IpBlocksConfiguration field.
+func (o *NetworkConfiguration) SetIpBlocksConfiguration(v IpBlocksConfiguration) {
+	o.IpBlocksConfiguration = &v
+}
+
 func (o NetworkConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.PrivateNetworkConfiguration != nil {
 		toSerialize["privateNetworkConfiguration"] = o.PrivateNetworkConfiguration
+	}
+	if o.IpBlocksConfiguration != nil {
+		toSerialize["ipBlocksConfiguration"] = o.IpBlocksConfiguration
 	}
 	return json.Marshal(toSerialize)
 }

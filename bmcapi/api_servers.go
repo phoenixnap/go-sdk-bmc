@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Bare Metal Cloud API allows you to create, power off, power on, reset, reboot, or shut down your server. Also deprovision servers, manage SSH key details, and a lot more. Manage your infrastructure more efficiently using just a few simple API calls. </br></br>**All URLs are relative to (https://api.phoenixnap.com/bmc/v0/)**
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API. Deprovision servers, get or edit SSH key details, and a lot more. Manage your infrastructure more efficiently using just a few simple api calls. <br/></br>**Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a>**</br></br>**All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)**
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -71,6 +71,21 @@ type ServersApi interface {
 	// ServersPostExecute executes the request
 	//  @return Server
 	ServersPostExecute(r ApiServersPostRequest) (Server, *_nethttp.Response, error)
+
+	/*
+		ServersServerIdActionsDeprovisionPost Deprovision a server.
+
+		Deprovision the server. Supports advanced deprovision configuration.
+
+		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @param serverId The server's ID.
+		 @return ApiServersServerIdActionsDeprovisionPostRequest
+	*/
+	ServersServerIdActionsDeprovisionPost(ctx _context.Context, serverId string) ApiServersServerIdActionsDeprovisionPostRequest
+
+	// ServersServerIdActionsDeprovisionPostExecute executes the request
+	//  @return string
+	ServersServerIdActionsDeprovisionPostExecute(r ApiServersServerIdActionsDeprovisionPostRequest) (string, *_nethttp.Response, error)
 
 	/*
 		ServersServerIdActionsPowerOffPost Power off server.
@@ -165,16 +180,19 @@ type ServersApi interface {
 	/*
 		ServersServerIdDelete Delete server.
 
-		Deprovision specific server.
+		Deprovision specific server. Any IP blocks assigned to this server will also be relinquished and deleted. Deprecated: see /servers/{serverId}/actions/deprovision
 
 		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		 @param serverId The server's ID.
 		 @return ApiServersServerIdDeleteRequest
+
+		Deprecated
 	*/
 	ServersServerIdDelete(ctx _context.Context, serverId string) ApiServersServerIdDeleteRequest
 
 	// ServersServerIdDeleteExecute executes the request
 	//  @return DeleteResult
+	// Deprecated
 	ServersServerIdDeleteExecute(r ApiServersServerIdDeleteRequest) (DeleteResult, *_nethttp.Response, error)
 
 	/*
@@ -191,6 +209,37 @@ type ServersApi interface {
 	// ServersServerIdGetExecute executes the request
 	//  @return Server
 	ServersServerIdGetExecute(r ApiServersServerIdGetRequest) (Server, *_nethttp.Response, error)
+
+	/*
+		ServersServerIdIpBlocksIpBlockIdDelete Unassign IP Block from Server.
+
+		Removes the IP block from the server. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. You are expected to perform network configuration changes in the operating system of this server. <b>This is an advanced network action that can make your server completely unavailable over any network. Make sure you are able to access this server over remote console in case of misconfiguration.</b>
+
+		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @param serverId The server's ID.
+		 @param ipBlockId The IP Block identifier.
+		 @return ApiServersServerIdIpBlocksIpBlockIdDeleteRequest
+	*/
+	ServersServerIdIpBlocksIpBlockIdDelete(ctx _context.Context, serverId string, ipBlockId string) ApiServersServerIdIpBlocksIpBlockIdDeleteRequest
+
+	// ServersServerIdIpBlocksIpBlockIdDeleteExecute executes the request
+	//  @return string
+	ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiServersServerIdIpBlocksIpBlockIdDeleteRequest) (string, *_nethttp.Response, error)
+
+	/*
+		ServersServerIdIpBlocksPost Assign IP Block to Server.
+
+		Adds an IP block to this server. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. You are expected to perform network configuration changes in the operating system of this server.
+
+		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @param serverId The server's ID.
+		 @return ApiServersServerIdIpBlocksPostRequest
+	*/
+	ServersServerIdIpBlocksPost(ctx _context.Context, serverId string) ApiServersServerIdIpBlocksPostRequest
+
+	// ServersServerIdIpBlocksPostExecute executes the request
+	//  @return ServerIpBlock
+	ServersServerIdIpBlocksPostExecute(r ApiServersServerIdIpBlocksPostRequest) (ServerIpBlock, *_nethttp.Response, error)
 
 	/*
 		ServersServerIdPatch Patch a Server.
@@ -356,7 +405,7 @@ type ApiServersGetRequest struct {
 	tag        *[]string
 }
 
-// A list of queryparameters related to tags in the form of tagName.tagValue
+// A list of query parameters related to tags in the form of tagName.tagValue
 func (r ApiServersGetRequest) Tag(tag []string) ApiServersGetRequest {
 	r.tag = &tag
 	return r
@@ -623,6 +672,168 @@ func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (Server,
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiServersServerIdActionsDeprovisionPostRequest struct {
+	ctx               _context.Context
+	ApiService        ServersApi
+	serverId          string
+	relinquishIpBlock *RelinquishIpBlock
+}
+
+func (r ApiServersServerIdActionsDeprovisionPostRequest) RelinquishIpBlock(relinquishIpBlock RelinquishIpBlock) ApiServersServerIdActionsDeprovisionPostRequest {
+	r.relinquishIpBlock = &relinquishIpBlock
+	return r
+}
+
+func (r ApiServersServerIdActionsDeprovisionPostRequest) Execute() (string, *_nethttp.Response, error) {
+	return r.ApiService.ServersServerIdActionsDeprovisionPostExecute(r)
+}
+
+/*
+ServersServerIdActionsDeprovisionPost Deprovision a server.
+
+Deprovision the server. Supports advanced deprovision configuration.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param serverId The server's ID.
+ @return ApiServersServerIdActionsDeprovisionPostRequest
+*/
+func (a *ServersApiService) ServersServerIdActionsDeprovisionPost(ctx _context.Context, serverId string) ApiServersServerIdActionsDeprovisionPostRequest {
+	return ApiServersServerIdActionsDeprovisionPostRequest{
+		ApiService: a,
+		ctx:        ctx,
+		serverId:   serverId,
+	}
+}
+
+// Execute executes the request
+//  @return string
+func (a *ServersApiService) ServersServerIdActionsDeprovisionPostExecute(r ApiServersServerIdActionsDeprovisionPostRequest) (string, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdActionsDeprovisionPost")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/servers/{serverId}/actions/deprovision"
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", _neturl.PathEscape(parameterToString(r.serverId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.relinquishIpBlock
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
 			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -1619,11 +1830,13 @@ func (r ApiServersServerIdDeleteRequest) Execute() (DeleteResult, *_nethttp.Resp
 /*
 ServersServerIdDelete Delete server.
 
-Deprovision specific server.
+Deprovision specific server. Any IP blocks assigned to this server will also be relinquished and deleted. Deprecated: see /servers/{serverId}/actions/deprovision
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param serverId The server's ID.
  @return ApiServersServerIdDeleteRequest
+
+Deprecated
 */
 func (a *ServersApiService) ServersServerIdDelete(ctx _context.Context, serverId string) ApiServersServerIdDeleteRequest {
 	return ApiServersServerIdDeleteRequest{
@@ -1635,6 +1848,7 @@ func (a *ServersApiService) ServersServerIdDelete(ctx _context.Context, serverId
 
 // Execute executes the request
 //  @return DeleteResult
+// Deprecated
 func (a *ServersApiService) ServersServerIdDeleteExecute(r ApiServersServerIdDeleteRequest) (DeleteResult, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
@@ -1861,6 +2075,334 @@ func (a *ServersApiService) ServersServerIdGetExecute(r ApiServersServerIdGetReq
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiServersServerIdIpBlocksIpBlockIdDeleteRequest struct {
+	ctx               _context.Context
+	ApiService        ServersApi
+	serverId          string
+	ipBlockId         string
+	relinquishIpBlock *RelinquishIpBlock
+}
+
+func (r ApiServersServerIdIpBlocksIpBlockIdDeleteRequest) RelinquishIpBlock(relinquishIpBlock RelinquishIpBlock) ApiServersServerIdIpBlocksIpBlockIdDeleteRequest {
+	r.relinquishIpBlock = &relinquishIpBlock
+	return r
+}
+
+func (r ApiServersServerIdIpBlocksIpBlockIdDeleteRequest) Execute() (string, *_nethttp.Response, error) {
+	return r.ApiService.ServersServerIdIpBlocksIpBlockIdDeleteExecute(r)
+}
+
+/*
+ServersServerIdIpBlocksIpBlockIdDelete Unassign IP Block from Server.
+
+Removes the IP block from the server. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. You are expected to perform network configuration changes in the operating system of this server. <b>This is an advanced network action that can make your server completely unavailable over any network. Make sure you are able to access this server over remote console in case of misconfiguration.</b>
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param serverId The server's ID.
+ @param ipBlockId The IP Block identifier.
+ @return ApiServersServerIdIpBlocksIpBlockIdDeleteRequest
+*/
+func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDelete(ctx _context.Context, serverId string, ipBlockId string) ApiServersServerIdIpBlocksIpBlockIdDeleteRequest {
+	return ApiServersServerIdIpBlocksIpBlockIdDeleteRequest{
+		ApiService: a,
+		ctx:        ctx,
+		serverId:   serverId,
+		ipBlockId:  ipBlockId,
+	}
+}
+
+// Execute executes the request
+//  @return string
+func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiServersServerIdIpBlocksIpBlockIdDeleteRequest) (string, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdIpBlocksIpBlockIdDelete")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks/{ipBlockId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", _neturl.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", _neturl.PathEscape(parameterToString(r.ipBlockId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.relinquishIpBlock
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiServersServerIdIpBlocksPostRequest struct {
+	ctx           _context.Context
+	ApiService    ServersApi
+	serverId      string
+	serverIpBlock *ServerIpBlock
+}
+
+func (r ApiServersServerIdIpBlocksPostRequest) ServerIpBlock(serverIpBlock ServerIpBlock) ApiServersServerIdIpBlocksPostRequest {
+	r.serverIpBlock = &serverIpBlock
+	return r
+}
+
+func (r ApiServersServerIdIpBlocksPostRequest) Execute() (ServerIpBlock, *_nethttp.Response, error) {
+	return r.ApiService.ServersServerIdIpBlocksPostExecute(r)
+}
+
+/*
+ServersServerIdIpBlocksPost Assign IP Block to Server.
+
+Adds an IP block to this server. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. You are expected to perform network configuration changes in the operating system of this server.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param serverId The server's ID.
+ @return ApiServersServerIdIpBlocksPostRequest
+*/
+func (a *ServersApiService) ServersServerIdIpBlocksPost(ctx _context.Context, serverId string) ApiServersServerIdIpBlocksPostRequest {
+	return ApiServersServerIdIpBlocksPostRequest{
+		ApiService: a,
+		ctx:        ctx,
+		serverId:   serverId,
+	}
+}
+
+// Execute executes the request
+//  @return ServerIpBlock
+func (a *ServersApiService) ServersServerIdIpBlocksPostExecute(r ApiServersServerIdIpBlocksPostRequest) (ServerIpBlock, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  ServerIpBlock
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdIpBlocksPost")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks"
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", _neturl.PathEscape(parameterToString(r.serverId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.serverIpBlock
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
 			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

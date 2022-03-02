@@ -1,7 +1,7 @@
 /*
 Rancher Solution API
 
-Create and manage Rancher clusters. </br></br>**All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v0)**
+Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls. </br></br>**Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a>**</br></br>**All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)**
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 )
 
-// SshConfig Configuration defining which public SSH keys are pre-installed as authorized on the server. Any manual configuration done on the server after installation is not reflected by this configuration.
+// SshConfig (Write-only) Configuration defining which public SSH keys are pre-installed as authorized on the server.
 type SshConfig struct {
 	// Define whether public keys marked as default should be installed on this node. These are public keys that were already recorded on this system. Use <a href=\"https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get\" target=\"_blank\">GET /ssh-keys</a> to retrieve a list of possible values.
 	InstallDefaultKeys *bool `json:"installDefaultKeys,omitempty"`

@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Bare Metal Cloud API allows you to create, power off, power on, reset, reboot, or shut down your server. Also deprovision servers, manage SSH key details, and a lot more. Manage your infrastructure more efficiently using just a few simple API calls. </br></br>**All URLs are relative to (https://api.phoenixnap.com/bmc/v0/)**
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API. Deprovision servers, get or edit SSH key details, and a lot more. Manage your infrastructure more efficiently using just a few simple api calls. <br/></br>**Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a>**</br></br>**All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)**
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -21,7 +21,7 @@ type ServerPrivateNetwork struct {
 	Id string `json:"id"`
 	// IPs to configure/configured on the server. Should be null or empty list if DHCP is true.
 	Ips *[]string `json:"ips,omitempty"`
-	// Determines whether DHCP is enabled for this server. Should be false if ips is not an empty list.
+	// Determines whether DHCP is enabled for this server. Should be false if ips is not an empty list. Not supported for proxmox OS.
 	Dhcp *bool `json:"dhcp,omitempty"`
 	// The status of the network.
 	StatusDescription *string `json:"statusDescription,omitempty"`
