@@ -1,14 +1,14 @@
 # Go API client for ranchersolutionapi
 
 Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud.
-Deploy Kubernetes clusters using a few API calls.
-
-<span id=\"pnap-api-knowledge-base-link\">
+Deploy Kubernetes clusters using a few API calls.<br>
+<br>
+<span class=\"pnap-api-knowledge-base-link\">
 Knowledge base articles to help you can be found
 <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a>
-</span>
-
-**All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)**
+</span><br>
+<br>
+<b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b>
 
 
 ## Overview

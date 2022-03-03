@@ -1,13 +1,13 @@
 # Go API client for auditapi
 
-The Audit Logs API lets you read audit log entries and track API calls or activities in the Bare Metal Cloud Portal.
-
-<span id=\"pnap-api-knowledge-base-link\">
+The Audit Logs API lets you read audit log entries and track API calls or activities in the Bare Metal Cloud Portal.<br>
+<br>
+<span class=\"pnap-api-knowledge-base-link\">
 Knowledge base articles to help you can be found
 <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#audit-log-api' target='_blank'>here</a>
-</span>
-
-**All URLs are relative to (https://api.phoenixnap.com/audit/v1/)**
+</span><br>
+<br>
+<b>All URLs are relative to (https://api.phoenixnap.com/audit/v1/)</b>
 
 
 ## Overview

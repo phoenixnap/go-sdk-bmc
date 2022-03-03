@@ -2,14 +2,14 @@
 
 Tags are case-sensitive key-value pairs that simplify resource management. The Tag Manager API allows you to create
 and manage such tags to later assign them to related resources in your Bare Metal Cloud (through the respective
-resource apis) in order to group and categorize them.
-
-<span id=\"pnap-api-knowledge-base-link\">
+resource apis) in order to group and categorize them.<br>
+<br>
+<span class=\"pnap-api-knowledge-base-link\">
 Knowledge base articles to help you can be found
 <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#server-tag-manager-api' target='_blank'>here</a>
-</span>
-
-**All URLs are relative to (https://api.phoenixnap.com/tag-manager/v1/)**
+</span><br>
+<br>
+<b>All URLs are relative to (https://api.phoenixnap.com/tag-manager/v1/)</b>
 
 
 ## Overview
