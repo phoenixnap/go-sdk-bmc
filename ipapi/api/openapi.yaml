@@ -282,6 +282,7 @@ components:
     IpBlockCreate:
       description: IP Block Request.
       example:
+        description: 'IP Block #1 used for publicly accessing server #1.'
         location: PHX
         cidrBlockSize: /30
       properties:
@@ -295,6 +296,11 @@ components:
             `/31`, `/30`, `/29` or `/28`.
           example: /30
           type: string
+        description:
+          description: The description of the IP Block.
+          example: 'IP Block #1 used for publicly accessing server #1.'
+          maxLength: 250
+          type: string
       required:
       - cidrBlockSize
       - location
@@ -302,6 +308,7 @@ components:
     IpBlock:
       description: IP Block Details.
       example:
+        description: 'IP Block #1 used for publicly accessing server #1.'
         location: PHX
         cidr: 1.1.1.0/31
         id: 6047127fed34ecc3ba8402d2
@@ -339,6 +346,11 @@ components:
         assignedResourceType:
           description: Type of the resource assigned to the IP Block.
           example: server
+          type: string
+        description:
+          description: The description of the IP Block.
+          example: 'IP Block #1 used for publicly accessing server #1.'
+          maxLength: 250
           type: string
       required:
       - cidr

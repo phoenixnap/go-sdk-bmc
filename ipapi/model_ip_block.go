@@ -31,6 +31,8 @@ type IpBlock struct {
 	AssignedResourceId *string `json:"assignedResourceId,omitempty"`
 	// Type of the resource assigned to the IP Block.
 	AssignedResourceType *string `json:"assignedResourceType,omitempty"`
+	// The description of the IP Block.
+	Description *string `json:"description,omitempty"`
 }
 
 // NewIpBlock instantiates a new IpBlock object
@@ -239,6 +241,38 @@ func (o *IpBlock) SetAssignedResourceType(v string) {
 	o.AssignedResourceType = &v
 }
 
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *IpBlock) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IpBlock) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *IpBlock) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *IpBlock) SetDescription(v string) {
+	o.Description = &v
+}
+
 func (o IpBlock) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -261,6 +295,9 @@ func (o IpBlock) MarshalJSON() ([]byte, error) {
 	}
 	if o.AssignedResourceType != nil {
 		toSerialize["assignedResourceType"] = o.AssignedResourceType
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
 	}
 	return json.Marshal(toSerialize)
 }

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Status** | **string** | The status of the IP Block. | 
 **AssignedResourceId** | Pointer to **string** | ID of the resource assigned to the IP Block. | [optional] 
 **AssignedResourceType** | Pointer to **string** | Type of the resource assigned to the IP Block. | [optional] 
+**Description** | Pointer to **string** | The description of the IP Block. | [optional] 
 
 ## Methods
 
@@ -180,6 +181,31 @@ SetAssignedResourceType sets AssignedResourceType field to given value.
 `func (o *IpBlock) HasAssignedResourceType() bool`
 
 HasAssignedResourceType returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *IpBlock) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *IpBlock) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *IpBlock) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *IpBlock) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
