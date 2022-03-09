@@ -74,6 +74,7 @@ func main() {
 - [Network API](networkapi/README.md): create, list, edit, and delete private networks. 
 - [Rancher solutions API](ranchersolutionapi/README.md): deploy Kubernetes clusters faster using BMC integration with Rancher. 
 - [Tag API](tagapi/README.md): assign tags to relevant resources in your BMC portal to group and categorize them. 
+- [IP API](ipapi/README.md): request and delete IP Blocks.
 
 ## Bare Metal Cloud community
 
