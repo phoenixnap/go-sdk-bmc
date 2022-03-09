@@ -23,7 +23,7 @@ type Cluster struct {
 	Name *string `json:"name,omitempty"`
 	// Cluster description.
 	Description *string `json:"description,omitempty"`
-	// Deployment location.
+	// Deployment location. Cannot be changed once a cluster is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
 	Location string `json:"location"`
 	// (Read-only) The Rancher version that was installed on the cluster during the first creation process.
 	InitialClusterVersion *string `json:"initialClusterVersion,omitempty"`

@@ -357,14 +357,9 @@ components:
           example: My first Rancher Server Cluster.
           type: string
         location:
-          description: Deployment location.
-          enum:
-          - PHX
-          - ASH
-          - SGP
-          - NLD
-          - CHI
-          - SEA
+          description: Deployment location. Cannot be changed once a cluster is created.
+            Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`,
+            `SEA` or `AUS`.
           example: PHX
           type: string
         initialClusterVersion:
@@ -419,20 +414,11 @@ components:
           type: integer
         serverType:
           default: s0.d1.small
-          description: Node server type.
-          enum:
-          - s0.d1.small
-          - s0.d1.medium
-          - s1.c1.small
-          - s1.c1.medium
-          - s1.c2.medium
-          - s1.c2.large
-          - s2.c1.small
-          - s2.c1.medium
-          - s2.c1.large
-          - s2.c2.small
-          - s2.c2.medium
-          - s2.c2.large
+          description: Node server type. Cannot be changed once a server is created.
+            Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`,
+            `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s2.c1.small`,
+            `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`,
+            `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`.
           example: s0.d1.small
           type: string
         sshConfig:
