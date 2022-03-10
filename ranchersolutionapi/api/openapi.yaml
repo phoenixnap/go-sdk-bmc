@@ -8,7 +8,7 @@ info:
     Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud.
     Deploy Kubernetes clusters using a few API calls.<br>
     <br>
-    <span class="pnap-api-knowledge-base-link">
+    <span class='pnap-api-knowledge-base-link'>
     Knowledge base articles to help you can be found
     <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a>
     </span><br>
@@ -97,7 +97,7 @@ paths:
       - Clusters
     post:
       description: |
-        Create a Rancher Server Deployment as described in <a href="https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture" target="_blank">Rancher Docs Architecture</a>. Rancher Server allows the creation, import and management of multiple Downstream User Kubernetes Clusters.
+        Create a Rancher Server Deployment as described in <a href='https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture' target='_blank'>Rancher Docs Architecture</a>. Rancher Server allows the creation, import and management of multiple Downstream User Kubernetes Clusters.
         <b>This is not a Downstream User Cluster</b>.
       operationId: clustersPost
       requestBody:
@@ -491,8 +491,8 @@ components:
           default: true
           description: Define whether public keys marked as default should be installed
             on this node. These are public keys that were already recorded on this
-            system. Use <a href="https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get"
-            target="_blank">GET /ssh-keys</a> to retrieve a list of possible values.
+            system. Use <a href='https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get'
+            target='_blank'>GET /ssh-keys</a> to retrieve a list of possible values.
           example: true
           type: boolean
         keys:
@@ -505,8 +505,8 @@ components:
           type: array
         keyIds:
           description: List of public SSH key identifiers. These are public keys that
-            were already recorded on this system. Use <a href="https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get"
-            target="_blank">GET /ssh-keys</a> to retrieve a list of possible values.
+            were already recorded on this system. Use <a href='https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get'
+            target='_blank'>GET /ssh-keys</a> to retrieve a list of possible values.
           example:
           - 5fa54d1e91867c03a0a7b4a4
           items:

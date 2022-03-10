@@ -4,7 +4,7 @@ Use the Networks API to create, list, edit, and delete private networks to best 
 Private networks allow your servers to communicate without connecting to the public internet, avoiding unnecessary
 egress data charges.<br>
 <br>
-<span class=\"pnap-api-knowledge-base-link\">
+<span class='pnap-api-knowledge-base-link'>
 Knowledge base articles to help you can be found
 <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>here</a>
 </span><br>

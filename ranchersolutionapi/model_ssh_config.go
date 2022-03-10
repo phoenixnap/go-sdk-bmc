@@ -1,7 +1,7 @@
 /*
 Rancher Solution API
 
-Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class=\"pnap-api-knowledge-base-link\"> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b>
+Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b>
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -17,11 +17,11 @@ import (
 
 // SshConfig (Write-only) Configuration defining which public SSH keys are pre-installed as authorized on the server.
 type SshConfig struct {
-	// Define whether public keys marked as default should be installed on this node. These are public keys that were already recorded on this system. Use <a href=\"https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get\" target=\"_blank\">GET /ssh-keys</a> to retrieve a list of possible values.
+	// Define whether public keys marked as default should be installed on this node. These are public keys that were already recorded on this system. Use <a href='https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get' target='_blank'>GET /ssh-keys</a> to retrieve a list of possible values.
 	InstallDefaultKeys *bool `json:"installDefaultKeys,omitempty"`
 	// List of public SSH keys.
 	Keys *[]string `json:"keys,omitempty"`
-	// List of public SSH key identifiers. These are public keys that were already recorded on this system. Use <a href=\"https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get\" target=\"_blank\">GET /ssh-keys</a> to retrieve a list of possible values.
+	// List of public SSH key identifiers. These are public keys that were already recorded on this system. Use <a href='https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get' target='_blank'>GET /ssh-keys</a> to retrieve a list of possible values.
 	KeyIds *[]string `json:"keyIds,omitempty"`
 }
 

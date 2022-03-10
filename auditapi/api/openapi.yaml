@@ -7,7 +7,7 @@ info:
   description: |
     The Audit Logs API lets you read audit log entries and track API calls or activities in the Bare Metal Cloud Portal.<br>
     <br>
-    <span class="pnap-api-knowledge-base-link">
+    <span class='pnap-api-knowledge-base-link'>
     Knowledge base articles to help you can be found
     <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#audit-log-api' target='_blank'>here</a>
     </span><br>

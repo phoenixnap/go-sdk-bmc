@@ -8,7 +8,7 @@ info:
     Public IP blocks are a set of contiguous IPs that allow you to access your servers or networks from the internet.
     Use the IP Addresses API to request and delete IP blocks.<br>
     <br>
-    <span class="pnap-api-knowledge-base-link">
+    <span class='pnap-api-knowledge-base-link'>
     Knowledge base articles to help you can be found
     <a href='https://phoenixnap.com/kb/public-ip-management#bmc-public-ip-allocations-api' target='_blank'>here</a>
     </span><br>

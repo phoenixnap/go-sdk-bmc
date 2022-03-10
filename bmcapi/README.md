@@ -4,7 +4,7 @@ Create, power off, power on, reset, reboot, or shut down your server with the Ba
 Deprovision servers, get or edit SSH key details, and a lot more. Manage your infrastructure more efficiently
 using just a few simple api calls.<br>
 <br>
-<span class=\"pnap-api-knowledge-base-link\">
+<span class='pnap-api-knowledge-base-link'>
 Knowledge base articles to help you can be found
 <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a>
 </span><br>

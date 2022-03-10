@@ -3,7 +3,7 @@
 Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud.
 Deploy Kubernetes clusters using a few API calls.<br>
 <br>
-<span class=\"pnap-api-knowledge-base-link\">
+<span class='pnap-api-knowledge-base-link'>
 Knowledge base articles to help you can be found
 <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a>
 </span><br>

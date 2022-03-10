@@ -4,7 +4,7 @@ Tags are case-sensitive key-value pairs that simplify resource management. The T
 and manage such tags to later assign them to related resources in your Bare Metal Cloud (through the respective
 resource apis) in order to group and categorize them.<br>
 <br>
-<span class=\"pnap-api-knowledge-base-link\">
+<span class='pnap-api-knowledge-base-link'>
 Knowledge base articles to help you can be found
 <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#server-tag-manager-api' target='_blank'>here</a>
 </span><br>
