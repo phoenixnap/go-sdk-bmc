@@ -8,10 +8,12 @@ docs/Error.md
 docs/IPBlocksApi.md
 docs/IpBlock.md
 docs/IpBlockCreate.md
+docs/IpBlockPatch.md
 go.sum
 model_delete_ip_block_result.go
 model_error.go
 model_ip_block.go
 model_ip_block_create.go
+model_ip_block_patch.go
 response.go
 utils.go

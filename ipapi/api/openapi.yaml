@@ -233,6 +233,73 @@ paths:
       summary: Get IP Block.
       tags:
       - IP Blocks
+    patch:
+      description: Update IP Block's details.
+      operationId: ipBlocksIpBlockIdPatch
+      parameters:
+      - description: The IP Block identifier.
+        example: 6047127fed34ecc3ba8402d2
+        explode: false
+        in: path
+        name: ipBlockId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              description: Ip Block description
+            schema:
+              $ref: '#/components/schemas/IpBlockPatch'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IpBlock'
+          description: Updated IpBlock.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since the resource could not been found.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Update IP block.
+      tags:
+      - IP Blocks
 components:
   parameters:
     ipBlockIdPathParam:
@@ -280,7 +347,24 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: No server available of type server.type.
+    NotFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed since the resource could not been found.
   schemas:
+    IpBlockPatch:
+      description: IP Block patch.
+      example:
+        description: Ip Block allocation.
+      properties:
+        description:
+          description: The description of the Ip Block.
+          example: Ip Block allocation.
+          maxLength: 250
+          type: string
+      type: object
     IpBlockCreate:
       description: IP Block Request.
       example:

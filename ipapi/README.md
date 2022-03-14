@@ -91,6 +91,7 @@ Class | Method | HTTP request | Description
 *IPBlocksApi* | [**IpBlocksGet**](docs/IPBlocksApi.md#ipblocksget) | **Get** /ip-blocks | List IP Blocks.
 *IPBlocksApi* | [**IpBlocksIpBlockIdDelete**](docs/IPBlocksApi.md#ipblocksipblockiddelete) | **Delete** /ip-blocks/{ipBlockId} | Delete IP Block.
 *IPBlocksApi* | [**IpBlocksIpBlockIdGet**](docs/IPBlocksApi.md#ipblocksipblockidget) | **Get** /ip-blocks/{ipBlockId} | Get IP Block.
+*IPBlocksApi* | [**IpBlocksIpBlockIdPatch**](docs/IPBlocksApi.md#ipblocksipblockidpatch) | **Patch** /ip-blocks/{ipBlockId} | Update IP block.
 *IPBlocksApi* | [**IpBlocksPost**](docs/IPBlocksApi.md#ipblockspost) | **Post** /ip-blocks | Create an IP Block.
 
 
@@ -100,6 +101,7 @@ Class | Method | HTTP request | Description
  - [Error](docs/Error.md)
  - [IpBlock](docs/IpBlock.md)
  - [IpBlockCreate](docs/IpBlockCreate.md)
+ - [IpBlockPatch](docs/IpBlockPatch.md)
 
 
 ## Documentation For Authorization
