@@ -21,7 +21,7 @@ type IpBlock struct {
 	Id string `json:"id"`
 	// IP Block location ID. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
 	Location string `json:"location"`
-	// CIDR IP Block Size. Currently this field should be set to either `/31`, `/30`, `/29` or `/28`.
+	// CIDR IP Block Size. Currently this field should be set to either `/31`, `/30`, `/29`, `/28`, `/27`, `/26`, `/25`, `/24`, `/23` or `/22`.
 	CidrBlockSize string `json:"cidrBlockSize"`
 	// The IP Block in CIDR notation.
 	Cidr string `json:"cidr"`

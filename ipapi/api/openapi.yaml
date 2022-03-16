@@ -379,7 +379,7 @@ components:
           type: string
         cidrBlockSize:
           description: CIDR IP Block Size. Currently this field should be set to either
-            `/31`, `/30`, `/29` or `/28`.
+            `/31`, `/30`, `/29` or `/28`. For a larger Block Size contact support.
           example: /30
           type: string
         description:
@@ -414,7 +414,7 @@ components:
           type: string
         cidrBlockSize:
           description: CIDR IP Block Size. Currently this field should be set to either
-            `/31`, `/30`, `/29` or `/28`.
+            `/31`, `/30`, `/29`, `/28`, `/27`, `/26`, `/25`, `/24`, `/23` or `/22`.
           example: /30
           type: string
         cidr:
