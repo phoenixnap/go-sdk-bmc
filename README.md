@@ -12,7 +12,7 @@ This SDK allows you to provision and manage Bare Metal Cloud servers via API wit
 
 <p align="center">
   <a href="https://phoenixnap.com/bare-metal-cloud">Bare Metal Cloud</a> •
-  <a href="https://developers.phoenixnap.com/docs/bmc/1/overview">API</a> •
+  <a href="https://developers.phoenixnap.com/apis">API</a> •
   <a href="https://developers.phoenixnap.com/">Developers Portal</a> •
   <a href="http://phoenixnap.com/kb">Knowledge Base</a> •
   <a href="https://developers.phoenixnap.com/support">Support</a>
@@ -95,7 +95,7 @@ Become part of the Bare Metal Cloud community to get updates on new features, he
 
 ### Documentation
 
-- [API documentation](https://developers.phoenixnap.com/docs/bmc/1/overview)
+- [API documentation](https://developers.phoenixnap.com/apis)
 
 ### Contact phoenixNAP
 
