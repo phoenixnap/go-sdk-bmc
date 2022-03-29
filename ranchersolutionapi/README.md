@@ -105,6 +105,7 @@ Class | Method | HTTP request | Description
  - [RancherClusterConfig](docs/RancherClusterConfig.md)
  - [RancherServerMetadata](docs/RancherServerMetadata.md)
  - [SshConfig](docs/SshConfig.md)
+ - [WorkloadClusterConfig](docs/WorkloadClusterConfig.md)
 
 
 ## Documentation For Authorization

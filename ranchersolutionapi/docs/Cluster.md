@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **NodePools** | Pointer to [**[]NodePool**](NodePool.md) | The node pools associated with the cluster. | [optional] 
 **Configuration** | Pointer to [**RancherClusterConfig**](RancherClusterConfig.md) |  | [optional] 
 **Metadata** | Pointer to [**RancherServerMetadata**](RancherServerMetadata.md) |  | [optional] [readonly] 
+**WorkloadConfiguration** | Pointer to [**WorkloadClusterConfig**](WorkloadClusterConfig.md) |  | [optional] 
 **StatusDescription** | Pointer to **string** | The cluster status | [optional] [readonly] 
 
 ## Methods
@@ -227,6 +228,31 @@ SetMetadata sets Metadata field to given value.
 `func (o *Cluster) HasMetadata() bool`
 
 HasMetadata returns a boolean if a field has been set.
+
+### GetWorkloadConfiguration
+
+`func (o *Cluster) GetWorkloadConfiguration() WorkloadClusterConfig`
+
+GetWorkloadConfiguration returns the WorkloadConfiguration field if non-nil, zero value otherwise.
+
+### GetWorkloadConfigurationOk
+
+`func (o *Cluster) GetWorkloadConfigurationOk() (*WorkloadClusterConfig, bool)`
+
+GetWorkloadConfigurationOk returns a tuple with the WorkloadConfiguration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWorkloadConfiguration
+
+`func (o *Cluster) SetWorkloadConfiguration(v WorkloadClusterConfig)`
+
+SetWorkloadConfiguration sets WorkloadConfiguration field to given value.
+
+### HasWorkloadConfiguration
+
+`func (o *Cluster) HasWorkloadConfiguration() bool`
+
+HasWorkloadConfiguration returns a boolean if a field has been set.
 
 ### GetStatusDescription
 

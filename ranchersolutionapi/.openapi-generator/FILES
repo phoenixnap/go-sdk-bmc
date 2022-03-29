@@ -13,6 +13,7 @@ docs/RancherClusterCertificates.md
 docs/RancherClusterConfig.md
 docs/RancherServerMetadata.md
 docs/SshConfig.md
+docs/WorkloadClusterConfig.md
 go.sum
 model_cluster.go
 model_delete_result.go
@@ -23,5 +24,6 @@ model_rancher_cluster_certificates.go
 model_rancher_cluster_config.go
 model_rancher_server_metadata.go
 model_ssh_config.go
+model_workload_cluster_config.go
 response.go
 utils.go
