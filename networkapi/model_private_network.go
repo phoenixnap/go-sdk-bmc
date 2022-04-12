@@ -13,6 +13,7 @@ package networkapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // PrivateNetwork Private Network details.
@@ -34,13 +35,15 @@ type PrivateNetwork struct {
 	// IP range associated with this private network in CIDR notation.
 	Cidr    string                 `json:"cidr"`
 	Servers []PrivateNetworkServer `json:"servers"`
+	// Date and time when this private network was created.
+	CreatedOn time.Time `json:"createdOn"`
 }
 
 // NewPrivateNetwork instantiates a new PrivateNetwork object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, cidr string, servers []PrivateNetworkServer) *PrivateNetwork {
+func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, cidr string, servers []PrivateNetworkServer, createdOn time.Time) *PrivateNetwork {
 	this := PrivateNetwork{}
 	this.Id = id
 	this.Name = name
@@ -50,6 +53,7 @@ func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, locat
 	this.LocationDefault = locationDefault
 	this.Cidr = cidr
 	this.Servers = servers
+	this.CreatedOn = createdOn
 	return &this
 }
 
@@ -285,6 +289,30 @@ func (o *PrivateNetwork) SetServers(v []PrivateNetworkServer) {
 	o.Servers = v
 }
 
+// GetCreatedOn returns the CreatedOn field value
+func (o *PrivateNetwork) GetCreatedOn() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.CreatedOn
+}
+
+// GetCreatedOnOk returns a tuple with the CreatedOn field value
+// and a boolean to check if the value has been set.
+func (o *PrivateNetwork) GetCreatedOnOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CreatedOn, true
+}
+
+// SetCreatedOn sets field value
+func (o *PrivateNetwork) SetCreatedOn(v time.Time) {
+	o.CreatedOn = v
+}
+
 func (o PrivateNetwork) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -313,6 +341,9 @@ func (o PrivateNetwork) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["servers"] = o.Servers
+	}
+	if true {
+		toSerialize["createdOn"] = o.CreatedOn
 	}
 	return json.Marshal(toSerialize)
 }

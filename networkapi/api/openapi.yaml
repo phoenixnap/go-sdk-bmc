@@ -66,6 +66,7 @@ paths:
                   ips:
                   - 10.0.0.2
                   - 10.0.0.3
+                createdOn: 2022-04-07T13:20:30.491Z
               - id: 604724ac9ed2abd18e9f1cb6
                 name: My Additional Backend Network
                 type: PRIVATE
@@ -79,6 +80,7 @@ paths:
                   ips:
                   - 10.0.0.4
                   - 10.0.0.5
+                createdOn: 2022-04-07T13:20:30.491Z
               schema:
                 items:
                   $ref: '#/components/schemas/PrivateNetwork'
@@ -157,6 +159,7 @@ paths:
                     description: My Default Backend Network
                     cidr: 10.0.0.0/24
                     servers: []
+                    createdOn: 2022-04-07T13:20:30.491Z
                 PrivateNetworkNonDefaultCreated:
                   value:
                     id: 604724ac9ed2abd18e9f1cb6
@@ -168,6 +171,7 @@ paths:
                     description: My Additional Backend Network
                     cidr: 10.0.0.0/24
                     servers: []
+                    createdOn: 2022-04-07T13:20:30.491Z
               schema:
                 $ref: '#/components/schemas/PrivateNetwork'
           description: Private Network successfully created.
@@ -289,6 +293,7 @@ paths:
                       ips:
                       - 10.0.0.2
                       - 10.0.0.3
+                    createdOn: 2022-04-07T13:20:30.491Z
                 AdditionalPrivateNetwork:
                   value:
                     id: 604724ac9ed2abd18e9f1cb6
@@ -304,6 +309,7 @@ paths:
                       ips:
                       - 10.0.0.4
                       - 10.0.0.5
+                    createdOn: 2022-04-07T13:20:30.491Z
               schema:
                 $ref: '#/components/schemas/PrivateNetwork'
           description: Private Network Details.
@@ -389,6 +395,7 @@ paths:
                       ips:
                       - 10.0.0.2
                       - 10.0.0.3
+                    createdOn: 2022-04-07T13:20:30.491Z
                 PrivateNetworkNonDefaultModified:
                   value:
                     id: 604724ac9ed2abd18e9f1cb6
@@ -404,6 +411,7 @@ paths:
                       ips:
                       - 10.0.0.4
                       - 10.0.0.5
+                    createdOn: 2022-04-07T13:20:30.491Z
               schema:
                 $ref: '#/components/schemas/PrivateNetwork'
           description: Private Network successfully updated.
@@ -515,6 +523,7 @@ components:
         id: 604721852cf65253d151528b
         type: PRIVATE
         locationDefault: true
+        createdOn: 2022-04-07T13:30:30.491Z
       properties:
         id:
           description: The private network identifier.
@@ -553,8 +562,14 @@ components:
           items:
             $ref: '#/components/schemas/PrivateNetworkServer'
           type: array
+        createdOn:
+          description: Date and time when this private network was created.
+          example: 2022-04-07T13:30:30.491Z
+          format: date-time
+          type: string
       required:
       - cidr
+      - createdOn
       - id
       - location
       - locationDefault
