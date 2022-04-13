@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **AssignedResourceId** | Pointer to **string** | ID of the resource assigned to the IP Block. | [optional] 
 **AssignedResourceType** | Pointer to **string** | Type of the resource assigned to the IP Block. | [optional] 
 **Description** | Pointer to **string** | The description of the IP Block. | [optional] 
+**Tags** | Pointer to [**[]TagAssignment**](TagAssignment.md) | The tags assigned if any. | [optional] 
 
 ## Methods
 
@@ -206,6 +207,31 @@ SetDescription sets Description field to given value.
 `func (o *IpBlock) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetTags
+
+`func (o *IpBlock) GetTags() []TagAssignment`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *IpBlock) GetTagsOk() (*[]TagAssignment, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *IpBlock) SetTags(v []TagAssignment)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *IpBlock) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

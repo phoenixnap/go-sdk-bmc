@@ -402,6 +402,17 @@ components:
         assignedResourceType: server
         cidrBlockSize: /30
         status: unassigned
+        tags:
+        - createdBy: USER
+          name: Environment
+          id: 60ffafcdffb8b074c7968dad
+          value: PROD
+          isBillingTag: true
+        - createdBy: USER
+          name: Environment
+          id: 60ffafcdffb8b074c7968dad
+          value: PROD
+          isBillingTag: true
       properties:
         id:
           description: IP Block identifier.
@@ -438,6 +449,11 @@ components:
           example: 'IP Block #1 used for publicly accessing server #1.'
           maxLength: 250
           type: string
+        tags:
+          description: The tags assigned if any.
+          items:
+            $ref: '#/components/schemas/TagAssignment'
+          type: array
       required:
       - cidr
       - cidrBlockSize
@@ -462,6 +478,42 @@ components:
       required:
       - ipBlockId
       - result
+      type: object
+    TagAssignment:
+      description: Tag assigned to resource.
+      example:
+        createdBy: USER
+        name: Environment
+        id: 60ffafcdffb8b074c7968dad
+        value: PROD
+        isBillingTag: true
+      properties:
+        id:
+          description: The unique id of the tag.
+          example: 60ffafcdffb8b074c7968dad
+          type: string
+        name:
+          description: The name of the tag.
+          example: Environment
+          type: string
+        value:
+          description: The value of the tag assigned to the resource.
+          example: PROD
+          type: string
+        isBillingTag:
+          description: Whether or not to show the tag as part of billing and invoices
+          example: true
+          type: boolean
+        createdBy:
+          description: Who the tag was created by.
+          enum:
+          - USER
+          - SYSTEM
+          type: string
+      required:
+      - id
+      - isBillingTag
+      - name
       type: object
     Error:
       properties:

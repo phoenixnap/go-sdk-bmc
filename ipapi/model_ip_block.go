@@ -33,6 +33,8 @@ type IpBlock struct {
 	AssignedResourceType *string `json:"assignedResourceType,omitempty"`
 	// The description of the IP Block.
 	Description *string `json:"description,omitempty"`
+	// The tags assigned if any.
+	Tags *[]TagAssignment `json:"tags,omitempty"`
 }
 
 // NewIpBlock instantiates a new IpBlock object
@@ -273,6 +275,38 @@ func (o *IpBlock) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *IpBlock) GetTags() []TagAssignment {
+	if o == nil || o.Tags == nil {
+		var ret []TagAssignment
+		return ret
+	}
+	return *o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IpBlock) GetTagsOk() (*[]TagAssignment, bool) {
+	if o == nil || o.Tags == nil {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *IpBlock) HasTags() bool {
+	if o != nil && o.Tags != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []TagAssignment and assigns it to the Tags field.
+func (o *IpBlock) SetTags(v []TagAssignment) {
+	o.Tags = &v
+}
+
 func (o IpBlock) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -298,6 +332,9 @@ func (o IpBlock) MarshalJSON() ([]byte, error) {
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
 	}
 	return json.Marshal(toSerialize)
 }
