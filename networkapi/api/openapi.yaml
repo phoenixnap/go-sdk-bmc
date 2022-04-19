@@ -532,10 +532,13 @@ components:
         name:
           description: The friendly name of this private network.
           example: Sample Network
+          maxLength: 100
+          minLength: 1
           type: string
         description:
           description: The description of this private network.
           example: Further details on the network
+          maxLength: 250
           type: string
         vlanId:
           description: The VLAN of this private network.
@@ -616,10 +619,13 @@ components:
           description: The friendly name of this private network. This name should
             be unique.
           example: Sample Network
+          maxLength: 100
+          minLength: 1
           type: string
         description:
           description: The description of this private network.
           example: Further details on the network
+          maxLength: 250
           type: string
         location:
           description: The location of this private network. Supported values are
@@ -652,10 +658,13 @@ components:
           description: A friendly name given to the private network. This name should
             be unique.
           example: Sample network
+          maxLength: 100
+          minLength: 1
           type: string
         description:
           description: A description of this private network
           example: Further details on the network.
+          maxLength: 250
           type: string
         locationDefault:
           description: Identifies network as the default private network for the specified
