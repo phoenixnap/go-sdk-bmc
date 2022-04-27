@@ -103,6 +103,7 @@ Class | Method | HTTP request | Description
  - [IpBlockCreate](docs/IpBlockCreate.md)
  - [IpBlockPatch](docs/IpBlockPatch.md)
  - [TagAssignment](docs/TagAssignment.md)
+ - [TagAssignmentRequest](docs/TagAssignmentRequest.md)
 
 
 ## Documentation For Authorization
