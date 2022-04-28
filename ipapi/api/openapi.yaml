@@ -34,6 +34,20 @@ paths:
     get:
       description: List all IP Blocks.
       operationId: ipBlocksGet
+      parameters:
+      - description: List of tags, in the form tagName.tagValue, to filter by.
+        example:
+        - env.dev
+        - loc.phx
+        explode: true
+        in: query
+        name: tag
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
       responses:
         "200":
           content:

@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## IpBlocksGet
 
-> []IpBlock IpBlocksGet(ctx).Execute()
+> []IpBlock IpBlocksGet(ctx).Tag(tag).Execute()
 
 List IP Blocks.
 
@@ -34,10 +34,11 @@ import (
 )
 
 func main() {
+    tag := []string{"Inner_example"} // []string | List of tags, in the form tagName.tagValue, to filter by. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IPBlocksApi.IpBlocksGet(context.Background()).Execute()
+    resp, r, err := api_client.IPBlocksApi.IpBlocksGet(context.Background()).Tag(tag).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -49,12 +50,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiIpBlocksGetRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tag** | **[]string** | List of tags, in the form tagName.tagValue, to filter by. | 
 
 ### Return type
 

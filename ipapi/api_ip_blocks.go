@@ -17,6 +17,7 @@ import (
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
+	"reflect"
 	"strings"
 )
 
@@ -122,6 +123,13 @@ type IPBlocksApiService service
 type ApiIpBlocksGetRequest struct {
 	ctx        _context.Context
 	ApiService IPBlocksApi
+	tag        *[]string
+}
+
+// List of tags, in the form tagName.tagValue, to filter by.
+func (r ApiIpBlocksGetRequest) Tag(tag []string) ApiIpBlocksGetRequest {
+	r.tag = &tag
+	return r
 }
 
 func (r ApiIpBlocksGetRequest) Execute() ([]IpBlock, *_nethttp.Response, error) {
@@ -166,6 +174,17 @@ func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBl
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if r.tag != nil {
+		t := *r.tag
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("tag", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("tag", parameterToString(t, "multi"))
+		}
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
