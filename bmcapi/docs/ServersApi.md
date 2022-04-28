@@ -20,7 +20,7 @@ Method | HTTP request | Description
 [**ServersServerIdIpBlocksPost**](ServersApi.md#ServersServerIdIpBlocksPost) | **Post** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks | Assign IP Block to Server.
 [**ServersServerIdPatch**](ServersApi.md#ServersServerIdPatch) | **Patch** /servers/{serverId} | Patch a Server.
 [**ServersServerIdPrivateNetworksPost**](ServersApi.md#ServersServerIdPrivateNetworksPost) | **Post** /servers/{serverId}/network-configuration/private-network-configuration/private-networks | Adds the server to a private network.
-[**ServersServerIdTagsPut**](ServersApi.md#ServersServerIdTagsPut) | **Put** /servers/{serverId}/tags | Set server tags.
+[**ServersServerIdTagsPut**](ServersApi.md#ServersServerIdTagsPut) | **Put** /servers/{serverId}/tags | Overwrite tags assigned for Server.
 
 
 
@@ -1160,7 +1160,7 @@ Name | Type | Description  | Notes
 
 > Server ServersServerIdTagsPut(ctx, serverId).TagAssignmentRequest(tagAssignmentRequest).Execute()
 
-Set server tags.
+Overwrite tags assigned for Server.
 
 
 

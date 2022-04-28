@@ -272,9 +272,9 @@ type ServersApi interface {
 	ServersServerIdPrivateNetworksPostExecute(r ApiServersServerIdPrivateNetworksPostRequest) (ServerPrivateNetwork, *_nethttp.Response, error)
 
 	/*
-		ServersServerIdTagsPut Set server tags.
+		ServersServerIdTagsPut Overwrite tags assigned for Server.
 
-		Set tags for server.
+		Overwrites tags assigned for Server and unassigns any tags not part of the request.
 
 		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		 @param serverId The server's ID.
@@ -2767,9 +2767,9 @@ func (r ApiServersServerIdTagsPutRequest) Execute() (Server, *_nethttp.Response,
 }
 
 /*
-ServersServerIdTagsPut Set server tags.
+ServersServerIdTagsPut Overwrite tags assigned for Server.
 
-Set tags for server.
+Overwrites tags assigned for Server and unassigns any tags not part of the request.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param serverId The server's ID.

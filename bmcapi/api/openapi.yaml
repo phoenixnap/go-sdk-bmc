@@ -750,7 +750,8 @@ paths:
       - Servers
   /servers/{serverId}/tags:
     put:
-      description: Set tags for server.
+      description: Overwrites tags assigned for Server and unassigns any tags not
+        part of the request.
       operationId: serversServerIdTagsPut
       parameters:
       - description: The server's ID.
@@ -807,7 +808,7 @@ paths:
       security:
       - OAuth2:
         - bmc
-      summary: Set server tags.
+      summary: Overwrite tags assigned for Server.
       tags:
       - Servers
   /servers/{serverId}/actions/deprovision:

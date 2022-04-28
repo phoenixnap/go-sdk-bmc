@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**IpBlocksIpBlockIdDelete**](IPBlocksApi.md#IpBlocksIpBlockIdDelete) | **Delete** /ip-blocks/{ipBlockId} | Delete IP Block.
 [**IpBlocksIpBlockIdGet**](IPBlocksApi.md#IpBlocksIpBlockIdGet) | **Get** /ip-blocks/{ipBlockId} | Get IP Block.
 [**IpBlocksIpBlockIdPatch**](IPBlocksApi.md#IpBlocksIpBlockIdPatch) | **Patch** /ip-blocks/{ipBlockId} | Update IP block.
+[**IpBlocksIpBlockIdTagsPut**](IPBlocksApi.md#IpBlocksIpBlockIdTagsPut) | **Put** /ip-blocks/{ipBlockId}/tags | Overwrite tags assigned for IP Block.
 [**IpBlocksPost**](IPBlocksApi.md#IpBlocksPost) | **Post** /ip-blocks | Create an IP Block.
 
 
@@ -266,6 +267,78 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **ipBlockPatch** | [**IpBlockPatch**](IpBlockPatch.md) |  | 
+
+### Return type
+
+[**IpBlock**](IpBlock.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## IpBlocksIpBlockIdTagsPut
+
+> IpBlock IpBlocksIpBlockIdTagsPut(ctx, ipBlockId).TagAssignmentRequest(tagAssignmentRequest).Execute()
+
+Overwrite tags assigned for IP Block.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
+    tagAssignmentRequest := []openapiclient.TagAssignmentRequest{*openapiclient.NewTagAssignmentRequest("Environment")} // []TagAssignmentRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.IPBlocksApi.IpBlocksIpBlockIdTagsPut(context.Background(), ipBlockId).TagAssignmentRequest(tagAssignmentRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksIpBlockIdTagsPut``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `IpBlocksIpBlockIdTagsPut`: IpBlock
+    fmt.Fprintf(os.Stdout, "Response from `IPBlocksApi.IpBlocksIpBlockIdTagsPut`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ipBlockId** | **string** | The IP Block identifier. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdTagsPutRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **tagAssignmentRequest** | [**[]TagAssignmentRequest**](TagAssignmentRequest.md) |  | 
 
 ### Return type
 

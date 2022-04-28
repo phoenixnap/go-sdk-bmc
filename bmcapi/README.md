@@ -113,7 +113,7 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**ServersServerIdIpBlocksPost**](docs/ServersApi.md#serversserveridipblockspost) | **Post** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks | Assign IP Block to Server.
 *ServersApi* | [**ServersServerIdPatch**](docs/ServersApi.md#serversserveridpatch) | **Patch** /servers/{serverId} | Patch a Server.
 *ServersApi* | [**ServersServerIdPrivateNetworksPost**](docs/ServersApi.md#serversserveridprivatenetworkspost) | **Post** /servers/{serverId}/network-configuration/private-network-configuration/private-networks | Adds the server to a private network.
-*ServersApi* | [**ServersServerIdTagsPut**](docs/ServersApi.md#serversserveridtagsput) | **Put** /servers/{serverId}/tags | Set server tags.
+*ServersApi* | [**ServersServerIdTagsPut**](docs/ServersApi.md#serversserveridtagsput) | **Put** /servers/{serverId}/tags | Overwrite tags assigned for Server.
 
 
 ## Documentation For Models

@@ -300,6 +300,74 @@ paths:
       summary: Update IP block.
       tags:
       - IP Blocks
+  /ip-blocks/{ipBlockId}/tags:
+    put:
+      description: Overwrites tags assigned for IP Block and unassigns any tags not
+        part of the request.
+      operationId: ipBlocksIpBlockIdTagsPut
+      parameters:
+      - description: The IP Block identifier.
+        example: 6047127fed34ecc3ba8402d2
+        explode: false
+        in: path
+        name: ipBlockId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+              - name: stage
+                value: beta
+              - name: group
+                value: discountId
+              items:
+                $ref: '#/components/schemas/TagAssignmentRequest'
+              type: array
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IpBlock'
+          description: IP Blocks tags set.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Overwrite tags assigned for IP Block.
+      tags:
+      - IP Blocks
 components:
   parameters:
     ipBlockIdPathParam:
@@ -418,16 +486,10 @@ components:
         cidrBlockSize: /30
         status: unassigned
         tags:
-        - createdBy: USER
-          name: Environment
-          id: 60ffafcdffb8b074c7968dad
-          value: PROD
-          isBillingTag: true
-        - createdBy: USER
-          name: Environment
-          id: 60ffafcdffb8b074c7968dad
-          value: PROD
-          isBillingTag: true
+        - name: stage
+          value: beta
+        - name: group
+          value: discounted
       properties:
         id:
           description: IP Block identifier.
@@ -466,6 +528,11 @@ components:
           type: string
         tags:
           description: The tags assigned if any.
+          example:
+          - name: stage
+            value: beta
+          - name: group
+            value: discounted
           items:
             $ref: '#/components/schemas/TagAssignment'
           type: array
@@ -496,12 +563,6 @@ components:
       type: object
     TagAssignment:
       description: Tag assigned to resource.
-      example:
-        createdBy: USER
-        name: Environment
-        id: 60ffafcdffb8b074c7968dad
-        value: PROD
-        isBillingTag: true
       properties:
         id:
           description: The unique id of the tag.
@@ -547,6 +608,9 @@ components:
       type: object
     TagAssignmentRequest:
       description: Tag request to assign to resource.
+      example:
+        name: Environment
+        value: PROD
       properties:
         name:
           description: 'The name of the tag. Tag names are case-sensitive, and should

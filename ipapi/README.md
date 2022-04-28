@@ -92,6 +92,7 @@ Class | Method | HTTP request | Description
 *IPBlocksApi* | [**IpBlocksIpBlockIdDelete**](docs/IPBlocksApi.md#ipblocksipblockiddelete) | **Delete** /ip-blocks/{ipBlockId} | Delete IP Block.
 *IPBlocksApi* | [**IpBlocksIpBlockIdGet**](docs/IPBlocksApi.md#ipblocksipblockidget) | **Get** /ip-blocks/{ipBlockId} | Get IP Block.
 *IPBlocksApi* | [**IpBlocksIpBlockIdPatch**](docs/IPBlocksApi.md#ipblocksipblockidpatch) | **Patch** /ip-blocks/{ipBlockId} | Update IP block.
+*IPBlocksApi* | [**IpBlocksIpBlockIdTagsPut**](docs/IPBlocksApi.md#ipblocksipblockidtagsput) | **Put** /ip-blocks/{ipBlockId}/tags | Overwrite tags assigned for IP Block.
 *IPBlocksApi* | [**IpBlocksPost**](docs/IPBlocksApi.md#ipblockspost) | **Post** /ip-blocks | Create an IP Block.
 
 
