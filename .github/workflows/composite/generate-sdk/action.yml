@@ -21,7 +21,11 @@ runs:
       if: ${{ steps.checkReleaseBranch.outputs.IS_RELEASE_BRANCH }}
       shell: bash
       run: npm install -g @openapitools/openapi-generator-cli
-    - name: Generate BMC API
+    - name: Set to right version
+      if: ${{ steps.checkReleaseBranch.outputs.IS_RELEASE_BRANCH }}
+      shell: bash
+      run: openapi-generator-cli version-manager set 5.2.1
+    - name: Generate SDK
       if: ${{ steps.checkReleaseBranch.outputs.IS_RELEASE_BRANCH }}
       shell: bash
       run: openapi-generator-cli generate -i ${{ inputs.spec-link }} -c openapi-generator-config.yaml -o ${{ inputs.package-name }} --additional-properties packageName=${{ inputs.package-name }}
