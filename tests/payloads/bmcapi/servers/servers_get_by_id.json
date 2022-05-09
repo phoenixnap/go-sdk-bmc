@@ -1,0 +1,88 @@
+{
+    "request": {
+        "method": "GET",
+        "path": "/bmc/v1/servers/{id}",
+        "pathParameters": {
+            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"]
+        }
+    },
+    "response": {
+        "statusCode": 200,
+        "body": 	{
+            "id": "string",
+            "status": "CREATED",
+            "hostname": "hostname.com",
+            "description": "fakeDescription",
+            "os": "ubuntu/bionic",
+            "type": "s0.d1.small",
+            "location": "PHX",
+            "cpu": "CPU",
+            "cpuCount": 5,
+            "coresPerCpu": 3,
+            "cpuFrequency": 4.5,
+            "ram": "64GB RAM",
+            "storage": "1x 960GB NVMe",
+            "privateIpAddresses": [ "172.16.0.1" ],
+            "publicIpAddresses": [ "182.16.0.1" ],
+            "reservationId": "x78sdkjds879sd7cx8",
+            "pricingModel": "HOURLY",
+            "password": "MyP@ssw0rd_01",
+            "networkType": "PUBLIC_AND_PRIVATE",
+            "clusterId": "x78sdkjds879sd7cx8",
+            "tags": [{
+                "id": "60ffafcdffb8b074c7968dad",
+                "name": "Environment",
+                "value": "PROD",
+                "isBillingTag": true,
+                "createdBy": "USER"
+            }],
+            "provisionedOn": "2021-03-13T20:24:32.491Z",
+            "osConfiguration": {
+                "windows": {
+                    "rdpAllowedIps": [
+                      "172.217.22.14",
+                      "10.111.14.40/29",
+                      "10.111.14.66 - 10.111.14.71"
+                    ]
+                },
+                "rootPassword": "MyP@ssw0rd_01",
+                "managementUiUrl": "https://172.217.22.14",
+                "managementAccessAllowedIps": [
+                  "172.217.22.14",
+                  "10.111.14.40/29",
+                  "10.111.14.66 - 10.111.14.71"
+                ]
+            },
+            "networkConfiguration": {
+                "privateNetworkConfiguration": {
+                    "gatewayAddress": "10.0.0.10",
+                    "configurationType": "USE_OR_CREATE_DEFAULT",
+                    "privateNetworks": [
+                      {
+                        "id": "60f81608e2f4665962b214db",
+                        "ips": [
+                          "10.0.0.11 - 10.0.0.15"
+                        ],
+                        "dhcp": false
+                      },
+                      {
+                        "id": "60f93142c5c1d6082d31382a",
+                        "ips": [
+                          "10.0.0.16",
+                          "10.0.0.17"
+                        ],
+                        "dhcp": false
+                      }
+                    ]
+                },
+                "ipBlocksConfiguration": {
+                    "configurationType": "PURCHASE_NEW",
+                    "ipBlocks": [{
+                        "id": "60473a6115e34466c9f8f083",
+                        "vlanId": 10
+                    }]
+                }
+            }
+        }
+    }
+}

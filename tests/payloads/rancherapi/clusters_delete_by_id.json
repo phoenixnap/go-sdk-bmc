@@ -1,0 +1,16 @@
+{
+    "request": {
+        "method": "DELETE",
+        "path": "/solutions/rancher/v1beta/clusters/{id}",
+        "pathParameters": {
+            "id": ["123"]
+        }
+    },
+    "response": {
+        "statusCode": 201,
+        "body": {
+            "result": "fakeId",
+            "clusterId": "123"
+        }
+    }
+}

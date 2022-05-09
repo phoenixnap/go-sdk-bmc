@@ -1,0 +1,29 @@
+{
+    "request": {
+        "method": "PUT",
+        "path": "/bmc/v1/ssh-keys/{id}",
+        "pathParameters": {
+            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"]
+        },
+        "body": {
+            "type": "JSON",
+            "json": {
+                "name": "my-sshkey-01",
+                "default": false
+            },
+            "matchType": "STRICT"
+        }
+    },
+    "response": {
+        "statusCode": 200,
+        "body": {
+            "id": "",
+            "default": true,
+            "name": "my-sshkey-01",
+            "key": "ssh-rsa KEY user@my_ip",
+            "fingerprint": "ssh-key",
+            "createdOn": "2021-04-29T16:24:57.123Z",
+            "lastUpdatedOn": "2021-04-29T16:24:57.123Z"
+        }
+    }
+}
