@@ -29,7 +29,7 @@ runs:
     - name: Generate BMC API
       if: ${{ steps.checkReleaseBranch.outputs.IS_RELEASE_BRANCH }}
       shell: bash
-      run: openapi-generator-cli generate -i ${{ inputs.spec-link }} -c openapi-generator-config.yaml -o ${{ inputs.module-name }} --additional-properties moduleName=${{ inputs.module-name }} --additional-properties packageName=${{ inputs.package-name }}
+      run: openapi-generator-cli generate -i ${{ inputs.spec-link }} -c openapi-generator-config.yaml -o ${{ inputs.package-name }} --additional-properties packageName=${{ inputs.package-name }}
     - name: Upload Artifacts
       if: ${{ steps.checkReleaseBranch.outputs.IS_RELEASE_BRANCH }}
       uses: actions/upload-artifact@v2
