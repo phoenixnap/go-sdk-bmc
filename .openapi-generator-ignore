@@ -1,0 +1,4 @@
+**/.travis.yml
+**/.openapi-generator-ignore
+**/.gitignore
+**/git_push.sh
