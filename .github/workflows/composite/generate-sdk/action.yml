@@ -34,5 +34,5 @@ runs:
       if: ${{ steps.checkReleaseBranch.outputs.IS_RELEASE_BRANCH }}
       uses: actions/upload-artifact@v2
       with:
-        name: ${{ inputs.module-name }}
-        path: ${{ inputs.module-name }}
+        name: ${{ inputs.package-name }}
+        path: ${{ inputs.package-name }}
