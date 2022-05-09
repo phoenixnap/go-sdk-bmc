@@ -1,14 +1,9 @@
 name: 'Generate SDK'
 description: 'Generate SDK for a given API'
 inputs:
-  spec-link: 
-    description: 'Link to the spec file.'
+  package-name:
+    description: 'Name of the go package.'
     required: true
-  module-name:
-    description: 'Name of the ruby module.'
-    required: true
-  gem-name:
-    description: 'Name of the ruby gem.'
 runs:
   using: "composite"
   steps:
