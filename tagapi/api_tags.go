@@ -1,7 +1,7 @@
 /*
 Tags API
 
-Tags are case-sensitive key-value pairs that simplify resource management. The Tag Manager API allows you to create and manage such tags to later assign them to related resources in your Bare Metal Cloud (through the respective resource apis) in order to group and categorize them.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#server-tag-manager-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/tag-manager/v1/)</b>
+Tags are case-sensitive key-value pairs that simplify resource management. The Tag Manager API allows you to create and manage such tags to later assign them to related resources in your Bare Metal Cloud (through the respective resource apis) in order to group and categorize them.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#server-tag-manager-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/tag-manager/v1/)</b> 
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -13,101 +13,101 @@ package tagapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 type TagsApi interface {
 
 	/*
-		TagsGet List tags.
+	TagsGet List tags.
 
-		Retrieve all tags belonging to the BMC Account.
+	Retrieve all tags belonging to the BMC Account.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return ApiTagsGetRequest
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiTagsGetRequest
 	*/
-	TagsGet(ctx _context.Context) ApiTagsGetRequest
+	TagsGet(ctx context.Context) ApiTagsGetRequest
 
 	// TagsGetExecute executes the request
 	//  @return []Tag
-	TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *_nethttp.Response, error)
+	TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *http.Response, error)
 
 	/*
-		TagsPost Create a Tag.
+	TagsPost Create a Tag.
 
-		Create a tag with the provided information.
+	Create a tag with the provided information.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return ApiTagsPostRequest
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiTagsPostRequest
 	*/
-	TagsPost(ctx _context.Context) ApiTagsPostRequest
+	TagsPost(ctx context.Context) ApiTagsPostRequest
 
 	// TagsPostExecute executes the request
 	//  @return Tag
-	TagsPostExecute(r ApiTagsPostRequest) (Tag, *_nethttp.Response, error)
+	TagsPostExecute(r ApiTagsPostRequest) (*Tag, *http.Response, error)
 
 	/*
-		TagsTagIdDelete Delete a Tag.
+	TagsTagIdDelete Delete a Tag.
 
-		Delete the tag with the given ID.
+	Delete the tag with the given ID.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param tagId The tag's ID.
-		 @return ApiTagsTagIdDeleteRequest
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param tagId The tag's ID.
+	 @return ApiTagsTagIdDeleteRequest
 	*/
-	TagsTagIdDelete(ctx _context.Context, tagId string) ApiTagsTagIdDeleteRequest
+	TagsTagIdDelete(ctx context.Context, tagId string) ApiTagsTagIdDeleteRequest
 
 	// TagsTagIdDeleteExecute executes the request
 	//  @return DeleteResult
-	TagsTagIdDeleteExecute(r ApiTagsTagIdDeleteRequest) (DeleteResult, *_nethttp.Response, error)
+	TagsTagIdDeleteExecute(r ApiTagsTagIdDeleteRequest) (*DeleteResult, *http.Response, error)
 
 	/*
-		TagsTagIdGet Get a Tag.
+	TagsTagIdGet Get a Tag.
 
-		Retrieve the tag with the given ID
+	Retrieve the tag with the given ID
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param tagId The tag's ID.
-		 @return ApiTagsTagIdGetRequest
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param tagId The tag's ID.
+	 @return ApiTagsTagIdGetRequest
 	*/
-	TagsTagIdGet(ctx _context.Context, tagId string) ApiTagsTagIdGetRequest
+	TagsTagIdGet(ctx context.Context, tagId string) ApiTagsTagIdGetRequest
 
 	// TagsTagIdGetExecute executes the request
 	//  @return Tag
-	TagsTagIdGetExecute(r ApiTagsTagIdGetRequest) (Tag, *_nethttp.Response, error)
+	TagsTagIdGetExecute(r ApiTagsTagIdGetRequest) (*Tag, *http.Response, error)
 
 	/*
-		TagsTagIdPatch Modify a Tag.
+	TagsTagIdPatch Modify a Tag.
 
-		Updates the tag with the given ID.
+	Updates the tag with the given ID.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param tagId The tag's ID.
-		 @return ApiTagsTagIdPatchRequest
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param tagId The tag's ID.
+	 @return ApiTagsTagIdPatchRequest
 	*/
-	TagsTagIdPatch(ctx _context.Context, tagId string) ApiTagsTagIdPatchRequest
+	TagsTagIdPatch(ctx context.Context, tagId string) ApiTagsTagIdPatchRequest
 
 	// TagsTagIdPatchExecute executes the request
 	//  @return Tag
-	TagsTagIdPatchExecute(r ApiTagsTagIdPatchRequest) (Tag, *_nethttp.Response, error)
+	TagsTagIdPatchExecute(r ApiTagsTagIdPatchRequest) (*Tag, *http.Response, error)
 }
 
 // TagsApiService TagsApi service
 type TagsApiService service
 
 type ApiTagsGetRequest struct {
-	ctx        _context.Context
+	ctx context.Context
 	ApiService TagsApi
-	name       *string
+	name *string
 }
 
 // Query a tag by its name.
@@ -116,7 +116,7 @@ func (r ApiTagsGetRequest) Name(name string) ApiTagsGetRequest {
 	return r
 }
 
-func (r ApiTagsGetRequest) Execute() ([]Tag, *_nethttp.Response, error) {
+func (r ApiTagsGetRequest) Execute() ([]Tag, *http.Response, error) {
 	return r.ApiService.TagsGetExecute(r)
 }
 
@@ -125,38 +125,36 @@ TagsGet List tags.
 
 Retrieve all tags belonging to the BMC Account.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiTagsGetRequest
 */
-func (a *TagsApiService) TagsGet(ctx _context.Context) ApiTagsGetRequest {
+func (a *TagsApiService) TagsGet(ctx context.Context) ApiTagsGetRequest {
 	return ApiTagsGetRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
 //  @return []Tag
-func (a *TagsApiService) TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *_nethttp.Response, error) {
+func (a *TagsApiService) TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []Tag
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TagsApiService.TagsGet")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/tags"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.name != nil {
 		localVarQueryParams.Add("name", parameterToString(*r.name, ""))
@@ -178,7 +176,7 @@ func (a *TagsApiService) TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *_nethttp.R
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -188,15 +186,15 @@ func (a *TagsApiService) TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *_nethttp.R
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -234,7 +232,7 @@ func (a *TagsApiService) TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *_nethttp.R
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -245,9 +243,9 @@ func (a *TagsApiService) TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *_nethttp.R
 }
 
 type ApiTagsPostRequest struct {
-	ctx        _context.Context
+	ctx context.Context
 	ApiService TagsApi
-	tagCreate  *TagCreate
+	tagCreate *TagCreate
 }
 
 // The body containing the tag details.
@@ -256,7 +254,7 @@ func (r ApiTagsPostRequest) TagCreate(tagCreate TagCreate) ApiTagsPostRequest {
 	return r
 }
 
-func (r ApiTagsPostRequest) Execute() (Tag, *_nethttp.Response, error) {
+func (r ApiTagsPostRequest) Execute() (*Tag, *http.Response, error) {
 	return r.ApiService.TagsPostExecute(r)
 }
 
@@ -265,38 +263,36 @@ TagsPost Create a Tag.
 
 Create a tag with the provided information.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiTagsPostRequest
 */
-func (a *TagsApiService) TagsPost(ctx _context.Context) ApiTagsPostRequest {
+func (a *TagsApiService) TagsPost(ctx context.Context) ApiTagsPostRequest {
 	return ApiTagsPostRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
 //  @return Tag
-func (a *TagsApiService) TagsPostExecute(r ApiTagsPostRequest) (Tag, *_nethttp.Response, error) {
+func (a *TagsApiService) TagsPostExecute(r ApiTagsPostRequest) (*Tag, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Tag
+		formFiles            []formFile
+		localVarReturnValue  *Tag
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TagsApiService.TagsPost")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/tags"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.tagCreate == nil {
 		return localVarReturnValue, nil, reportError("tagCreate is required and must be specified")
 	}
@@ -320,7 +316,7 @@ func (a *TagsApiService) TagsPostExecute(r ApiTagsPostRequest) (Tag, *_nethttp.R
 	}
 	// body params
 	localVarPostBody = r.tagCreate
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -330,15 +326,15 @@ func (a *TagsApiService) TagsPostExecute(r ApiTagsPostRequest) (Tag, *_nethttp.R
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -396,7 +392,7 @@ func (a *TagsApiService) TagsPostExecute(r ApiTagsPostRequest) (Tag, *_nethttp.R
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -407,12 +403,13 @@ func (a *TagsApiService) TagsPostExecute(r ApiTagsPostRequest) (Tag, *_nethttp.R
 }
 
 type ApiTagsTagIdDeleteRequest struct {
-	ctx        _context.Context
+	ctx context.Context
 	ApiService TagsApi
-	tagId      string
+	tagId string
 }
 
-func (r ApiTagsTagIdDeleteRequest) Execute() (DeleteResult, *_nethttp.Response, error) {
+
+func (r ApiTagsTagIdDeleteRequest) Execute() (*DeleteResult, *http.Response, error) {
 	return r.ApiService.TagsTagIdDeleteExecute(r)
 }
 
@@ -421,41 +418,39 @@ TagsTagIdDelete Delete a Tag.
 
 Delete the tag with the given ID.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tagId The tag's ID.
  @return ApiTagsTagIdDeleteRequest
 */
-func (a *TagsApiService) TagsTagIdDelete(ctx _context.Context, tagId string) ApiTagsTagIdDeleteRequest {
+func (a *TagsApiService) TagsTagIdDelete(ctx context.Context, tagId string) ApiTagsTagIdDeleteRequest {
 	return ApiTagsTagIdDeleteRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tagId:      tagId,
+		ctx: ctx,
+		tagId: tagId,
 	}
 }
 
 // Execute executes the request
 //  @return DeleteResult
-func (a *TagsApiService) TagsTagIdDeleteExecute(r ApiTagsTagIdDeleteRequest) (DeleteResult, *_nethttp.Response, error) {
+func (a *TagsApiService) TagsTagIdDeleteExecute(r ApiTagsTagIdDeleteRequest) (*DeleteResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  DeleteResult
+		formFiles            []formFile
+		localVarReturnValue  *DeleteResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TagsApiService.TagsTagIdDelete")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/tags/{tagId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", _neturl.PathEscape(parameterToString(r.tagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterToString(r.tagId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -474,7 +469,7 @@ func (a *TagsApiService) TagsTagIdDeleteExecute(r ApiTagsTagIdDeleteRequest) (De
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -484,15 +479,15 @@ func (a *TagsApiService) TagsTagIdDeleteExecute(r ApiTagsTagIdDeleteRequest) (De
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -530,7 +525,7 @@ func (a *TagsApiService) TagsTagIdDeleteExecute(r ApiTagsTagIdDeleteRequest) (De
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -541,12 +536,13 @@ func (a *TagsApiService) TagsTagIdDeleteExecute(r ApiTagsTagIdDeleteRequest) (De
 }
 
 type ApiTagsTagIdGetRequest struct {
-	ctx        _context.Context
+	ctx context.Context
 	ApiService TagsApi
-	tagId      string
+	tagId string
 }
 
-func (r ApiTagsTagIdGetRequest) Execute() (Tag, *_nethttp.Response, error) {
+
+func (r ApiTagsTagIdGetRequest) Execute() (*Tag, *http.Response, error) {
 	return r.ApiService.TagsTagIdGetExecute(r)
 }
 
@@ -555,41 +551,39 @@ TagsTagIdGet Get a Tag.
 
 Retrieve the tag with the given ID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tagId The tag's ID.
  @return ApiTagsTagIdGetRequest
 */
-func (a *TagsApiService) TagsTagIdGet(ctx _context.Context, tagId string) ApiTagsTagIdGetRequest {
+func (a *TagsApiService) TagsTagIdGet(ctx context.Context, tagId string) ApiTagsTagIdGetRequest {
 	return ApiTagsTagIdGetRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tagId:      tagId,
+		ctx: ctx,
+		tagId: tagId,
 	}
 }
 
 // Execute executes the request
 //  @return Tag
-func (a *TagsApiService) TagsTagIdGetExecute(r ApiTagsTagIdGetRequest) (Tag, *_nethttp.Response, error) {
+func (a *TagsApiService) TagsTagIdGetExecute(r ApiTagsTagIdGetRequest) (*Tag, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Tag
+		formFiles            []formFile
+		localVarReturnValue  *Tag
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TagsApiService.TagsTagIdGet")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/tags/{tagId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", _neturl.PathEscape(parameterToString(r.tagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterToString(r.tagId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -608,7 +602,7 @@ func (a *TagsApiService) TagsTagIdGetExecute(r ApiTagsTagIdGetRequest) (Tag, *_n
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -618,15 +612,15 @@ func (a *TagsApiService) TagsTagIdGetExecute(r ApiTagsTagIdGetRequest) (Tag, *_n
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -664,7 +658,7 @@ func (a *TagsApiService) TagsTagIdGetExecute(r ApiTagsTagIdGetRequest) (Tag, *_n
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -675,10 +669,10 @@ func (a *TagsApiService) TagsTagIdGetExecute(r ApiTagsTagIdGetRequest) (Tag, *_n
 }
 
 type ApiTagsTagIdPatchRequest struct {
-	ctx        _context.Context
+	ctx context.Context
 	ApiService TagsApi
-	tagId      string
-	tagUpdate  *TagUpdate
+	tagId string
+	tagUpdate *TagUpdate
 }
 
 // The body containing the tag changes.
@@ -687,7 +681,7 @@ func (r ApiTagsTagIdPatchRequest) TagUpdate(tagUpdate TagUpdate) ApiTagsTagIdPat
 	return r
 }
 
-func (r ApiTagsTagIdPatchRequest) Execute() (Tag, *_nethttp.Response, error) {
+func (r ApiTagsTagIdPatchRequest) Execute() (*Tag, *http.Response, error) {
 	return r.ApiService.TagsTagIdPatchExecute(r)
 }
 
@@ -696,41 +690,39 @@ TagsTagIdPatch Modify a Tag.
 
 Updates the tag with the given ID.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tagId The tag's ID.
  @return ApiTagsTagIdPatchRequest
 */
-func (a *TagsApiService) TagsTagIdPatch(ctx _context.Context, tagId string) ApiTagsTagIdPatchRequest {
+func (a *TagsApiService) TagsTagIdPatch(ctx context.Context, tagId string) ApiTagsTagIdPatchRequest {
 	return ApiTagsTagIdPatchRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tagId:      tagId,
+		ctx: ctx,
+		tagId: tagId,
 	}
 }
 
 // Execute executes the request
 //  @return Tag
-func (a *TagsApiService) TagsTagIdPatchExecute(r ApiTagsTagIdPatchRequest) (Tag, *_nethttp.Response, error) {
+func (a *TagsApiService) TagsTagIdPatchExecute(r ApiTagsTagIdPatchRequest) (*Tag, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Tag
+		formFiles            []formFile
+		localVarReturnValue  *Tag
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TagsApiService.TagsTagIdPatch")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/tags/{tagId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", _neturl.PathEscape(parameterToString(r.tagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterToString(r.tagId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.tagUpdate == nil {
 		return localVarReturnValue, nil, reportError("tagUpdate is required and must be specified")
 	}
@@ -754,7 +746,7 @@ func (a *TagsApiService) TagsTagIdPatchExecute(r ApiTagsTagIdPatchRequest) (Tag,
 	}
 	// body params
 	localVarPostBody = r.tagUpdate
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -764,15 +756,15 @@ func (a *TagsApiService) TagsTagIdPatchExecute(r ApiTagsTagIdPatchRequest) (Tag,
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -820,7 +812,7 @@ func (a *TagsApiService) TagsTagIdPatchExecute(r ApiTagsTagIdPatchRequest) (Tag,
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

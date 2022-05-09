@@ -1,7 +1,7 @@
 /*
 Rancher Solution API
 
-Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b>
+Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -28,10 +28,10 @@ type Cluster struct {
 	// (Read-only) The Rancher version that was installed on the cluster during the first creation process.
 	InitialClusterVersion *string `json:"initialClusterVersion,omitempty"`
 	// The node pools associated with the cluster.
-	NodePools             *[]NodePool            `json:"nodePools,omitempty"`
-	Configuration         *RancherClusterConfig  `json:"configuration,omitempty"`
-	Metadata              *RancherServerMetadata `json:"metadata,omitempty"`
-	WorkloadConfiguration *WorkloadClusterConfig `json:"workloadConfiguration,omitempty"`
+	NodePools []NodePool `json:"nodePools,omitempty"`
+	Configuration RancherClusterConfig `json:"configuration,omitempty"`
+	Metadata RancherServerMetadata `json:"metadata,omitempty"`
+	WorkloadConfiguration WorkloadClusterConfig `json:"workloadConfiguration,omitempty"`
 	// The cluster status
 	StatusDescription *string `json:"statusDescription,omitempty"`
 }
@@ -163,7 +163,7 @@ func (o *Cluster) GetLocation() string {
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
 func (o *Cluster) GetLocationOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Location, true
@@ -212,12 +212,12 @@ func (o *Cluster) GetNodePools() []NodePool {
 		var ret []NodePool
 		return ret
 	}
-	return *o.NodePools
+	return o.NodePools
 }
 
 // GetNodePoolsOk returns a tuple with the NodePools field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Cluster) GetNodePoolsOk() (*[]NodePool, bool) {
+func (o *Cluster) GetNodePoolsOk() ([]NodePool, bool) {
 	if o == nil || o.NodePools == nil {
 		return nil, false
 	}
@@ -235,25 +235,26 @@ func (o *Cluster) HasNodePools() bool {
 
 // SetNodePools gets a reference to the given []NodePool and assigns it to the NodePools field.
 func (o *Cluster) SetNodePools(v []NodePool) {
-	o.NodePools = &v
+	o.NodePools = v
 }
 
-// GetConfiguration returns the Configuration field value if set, zero value otherwise.
+// GetConfiguration returns the Configuration field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Cluster) GetConfiguration() RancherClusterConfig {
-	if o == nil || o.Configuration == nil {
+	if o == nil  {
 		var ret RancherClusterConfig
 		return ret
 	}
-	return *o.Configuration
+	return o.Configuration
 }
 
 // GetConfigurationOk returns a tuple with the Configuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Cluster) GetConfigurationOk() (*RancherClusterConfig, bool) {
 	if o == nil || o.Configuration == nil {
 		return nil, false
 	}
-	return o.Configuration, true
+	return &o.Configuration, true
 }
 
 // HasConfiguration returns a boolean if a field has been set.
@@ -267,25 +268,26 @@ func (o *Cluster) HasConfiguration() bool {
 
 // SetConfiguration gets a reference to the given RancherClusterConfig and assigns it to the Configuration field.
 func (o *Cluster) SetConfiguration(v RancherClusterConfig) {
-	o.Configuration = &v
+	o.Configuration = v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Cluster) GetMetadata() RancherServerMetadata {
-	if o == nil || o.Metadata == nil {
+	if o == nil  {
 		var ret RancherServerMetadata
 		return ret
 	}
-	return *o.Metadata
+	return o.Metadata
 }
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Cluster) GetMetadataOk() (*RancherServerMetadata, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -299,25 +301,26 @@ func (o *Cluster) HasMetadata() bool {
 
 // SetMetadata gets a reference to the given RancherServerMetadata and assigns it to the Metadata field.
 func (o *Cluster) SetMetadata(v RancherServerMetadata) {
-	o.Metadata = &v
+	o.Metadata = v
 }
 
-// GetWorkloadConfiguration returns the WorkloadConfiguration field value if set, zero value otherwise.
+// GetWorkloadConfiguration returns the WorkloadConfiguration field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Cluster) GetWorkloadConfiguration() WorkloadClusterConfig {
-	if o == nil || o.WorkloadConfiguration == nil {
+	if o == nil  {
 		var ret WorkloadClusterConfig
 		return ret
 	}
-	return *o.WorkloadConfiguration
+	return o.WorkloadConfiguration
 }
 
 // GetWorkloadConfigurationOk returns a tuple with the WorkloadConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Cluster) GetWorkloadConfigurationOk() (*WorkloadClusterConfig, bool) {
 	if o == nil || o.WorkloadConfiguration == nil {
 		return nil, false
 	}
-	return o.WorkloadConfiguration, true
+	return &o.WorkloadConfiguration, true
 }
 
 // HasWorkloadConfiguration returns a boolean if a field has been set.
@@ -331,7 +334,7 @@ func (o *Cluster) HasWorkloadConfiguration() bool {
 
 // SetWorkloadConfiguration gets a reference to the given WorkloadClusterConfig and assigns it to the WorkloadConfiguration field.
 func (o *Cluster) SetWorkloadConfiguration(v WorkloadClusterConfig) {
-	o.WorkloadConfiguration = &v
+	o.WorkloadConfiguration = v
 }
 
 // GetStatusDescription returns the StatusDescription field value if set, zero value otherwise.
@@ -436,3 +439,5 @@ func (v *NullableCluster) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

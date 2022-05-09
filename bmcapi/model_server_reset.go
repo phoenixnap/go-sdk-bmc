@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -20,9 +20,9 @@ type ServerReset struct {
 	// Whether or not to install SSH keys marked as default in addition to any SSH keys specified in this request.
 	InstallDefaultSshKeys *bool `json:"installDefaultSshKeys,omitempty"`
 	// A list of SSH keys that will be installed on the server.
-	SshKeys *[]string `json:"sshKeys,omitempty"`
+	SshKeys []string `json:"sshKeys,omitempty"`
 	// A list of SSH key IDs that will be installed on the server in addition to any SSH keys specified in this request.
-	SshKeyIds       *[]string           `json:"sshKeyIds,omitempty"`
+	SshKeyIds []string `json:"sshKeyIds,omitempty"`
 	OsConfiguration *OsConfigurationMap `json:"osConfiguration,omitempty"`
 }
 
@@ -85,12 +85,12 @@ func (o *ServerReset) GetSshKeys() []string {
 		var ret []string
 		return ret
 	}
-	return *o.SshKeys
+	return o.SshKeys
 }
 
 // GetSshKeysOk returns a tuple with the SshKeys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServerReset) GetSshKeysOk() (*[]string, bool) {
+func (o *ServerReset) GetSshKeysOk() ([]string, bool) {
 	if o == nil || o.SshKeys == nil {
 		return nil, false
 	}
@@ -108,7 +108,7 @@ func (o *ServerReset) HasSshKeys() bool {
 
 // SetSshKeys gets a reference to the given []string and assigns it to the SshKeys field.
 func (o *ServerReset) SetSshKeys(v []string) {
-	o.SshKeys = &v
+	o.SshKeys = v
 }
 
 // GetSshKeyIds returns the SshKeyIds field value if set, zero value otherwise.
@@ -117,12 +117,12 @@ func (o *ServerReset) GetSshKeyIds() []string {
 		var ret []string
 		return ret
 	}
-	return *o.SshKeyIds
+	return o.SshKeyIds
 }
 
 // GetSshKeyIdsOk returns a tuple with the SshKeyIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServerReset) GetSshKeyIdsOk() (*[]string, bool) {
+func (o *ServerReset) GetSshKeyIdsOk() ([]string, bool) {
 	if o == nil || o.SshKeyIds == nil {
 		return nil, false
 	}
@@ -140,7 +140,7 @@ func (o *ServerReset) HasSshKeyIds() bool {
 
 // SetSshKeyIds gets a reference to the given []string and assigns it to the SshKeyIds field.
 func (o *ServerReset) SetSshKeyIds(v []string) {
-	o.SshKeyIds = &v
+	o.SshKeyIds = v
 }
 
 // GetOsConfiguration returns the OsConfiguration field value if set, zero value otherwise.
@@ -227,3 +227,5 @@ func (v *NullableServerReset) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

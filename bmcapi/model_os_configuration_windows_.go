@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -18,7 +18,7 @@ import (
 // OsConfigurationWindows Windows OS configuration properties.
 type OsConfigurationWindows struct {
 	// List of IPs allowed for RDP access to Windows OS. Supported in single IP, CIDR and range format. When undefined, RDP is disabled. To allow RDP access from any IP use 0.0.0.0/0. This will only be returned in response to provisioning a server.
-	RdpAllowedIps *[]string `json:"rdpAllowedIps,omitempty"`
+	RdpAllowedIps []string `json:"rdpAllowedIps,omitempty"`
 }
 
 // NewOsConfigurationWindows instantiates a new OsConfigurationWindows object
@@ -44,12 +44,12 @@ func (o *OsConfigurationWindows) GetRdpAllowedIps() []string {
 		var ret []string
 		return ret
 	}
-	return *o.RdpAllowedIps
+	return o.RdpAllowedIps
 }
 
 // GetRdpAllowedIpsOk returns a tuple with the RdpAllowedIps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OsConfigurationWindows) GetRdpAllowedIpsOk() (*[]string, bool) {
+func (o *OsConfigurationWindows) GetRdpAllowedIpsOk() ([]string, bool) {
 	if o == nil || o.RdpAllowedIps == nil {
 		return nil, false
 	}
@@ -67,7 +67,7 @@ func (o *OsConfigurationWindows) HasRdpAllowedIps() bool {
 
 // SetRdpAllowedIps gets a reference to the given []string and assigns it to the RdpAllowedIps field.
 func (o *OsConfigurationWindows) SetRdpAllowedIps(v []string) {
-	o.RdpAllowedIps = &v
+	o.RdpAllowedIps = v
 }
 
 func (o OsConfigurationWindows) MarshalJSON() ([]byte, error) {
@@ -113,3 +113,5 @@ func (v *NullableOsConfigurationWindows) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

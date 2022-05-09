@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -13,73 +13,74 @@ package bmcapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 type QuotasApi interface {
 
 	/*
-		QuotasGet List quotas
+	QuotasGet List quotas
 
-		Get account quota details.
+	Get account quota details.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return ApiQuotasGetRequest
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiQuotasGetRequest
 	*/
-	QuotasGet(ctx _context.Context) ApiQuotasGetRequest
+	QuotasGet(ctx context.Context) ApiQuotasGetRequest
 
 	// QuotasGetExecute executes the request
 	//  @return []Quota
-	QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *_nethttp.Response, error)
+	QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *http.Response, error)
 
 	/*
-		QuotasQuotaIdActionsRequestEditPost Request quota limit change.
+	QuotasQuotaIdActionsRequestEditPost Request quota limit change.
 
-		Sends a request to edit the limit of a quota.
+	Sends a request to edit the limit of a quota.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param quotaId The ID of the Quota.
-		 @return ApiQuotasQuotaIdActionsRequestEditPostRequest
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param quotaId The ID of the Quota.
+	 @return ApiQuotasQuotaIdActionsRequestEditPostRequest
 	*/
-	QuotasQuotaIdActionsRequestEditPost(ctx _context.Context, quotaId string) ApiQuotasQuotaIdActionsRequestEditPostRequest
+	QuotasQuotaIdActionsRequestEditPost(ctx context.Context, quotaId string) ApiQuotasQuotaIdActionsRequestEditPostRequest
 
 	// QuotasQuotaIdActionsRequestEditPostExecute executes the request
-	QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuotasQuotaIdActionsRequestEditPostRequest) (*_nethttp.Response, error)
+	QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuotasQuotaIdActionsRequestEditPostRequest) (*http.Response, error)
 
 	/*
-		QuotasQuotaIdGet Get a quota.
+	QuotasQuotaIdGet Get a quota.
 
-		Get account quota details.
+	Get account quota details.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param quotaId The ID of the Quota.
-		 @return ApiQuotasQuotaIdGetRequest
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param quotaId The ID of the Quota.
+	 @return ApiQuotasQuotaIdGetRequest
 	*/
-	QuotasQuotaIdGet(ctx _context.Context, quotaId string) ApiQuotasQuotaIdGetRequest
+	QuotasQuotaIdGet(ctx context.Context, quotaId string) ApiQuotasQuotaIdGetRequest
 
 	// QuotasQuotaIdGetExecute executes the request
 	//  @return Quota
-	QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest) (Quota, *_nethttp.Response, error)
+	QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest) (*Quota, *http.Response, error)
 }
 
 // QuotasApiService QuotasApi service
 type QuotasApiService service
 
 type ApiQuotasGetRequest struct {
-	ctx        _context.Context
+	ctx context.Context
 	ApiService QuotasApi
 }
 
-func (r ApiQuotasGetRequest) Execute() ([]Quota, *_nethttp.Response, error) {
+
+func (r ApiQuotasGetRequest) Execute() ([]Quota, *http.Response, error) {
 	return r.ApiService.QuotasGetExecute(r)
 }
 
@@ -88,38 +89,36 @@ QuotasGet List quotas
 
 Get account quota details.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiQuotasGetRequest
 */
-func (a *QuotasApiService) QuotasGet(ctx _context.Context) ApiQuotasGetRequest {
+func (a *QuotasApiService) QuotasGet(ctx context.Context) ApiQuotasGetRequest {
 	return ApiQuotasGetRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
 //  @return []Quota
-func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *_nethttp.Response, error) {
+func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []Quota
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QuotasApiService.QuotasGet")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/quotas"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -138,7 +137,7 @@ func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *_n
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -148,15 +147,15 @@ func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *_n
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -204,7 +203,7 @@ func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *_n
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -215,9 +214,9 @@ func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *_n
 }
 
 type ApiQuotasQuotaIdActionsRequestEditPostRequest struct {
-	ctx                   _context.Context
-	ApiService            QuotasApi
-	quotaId               string
+	ctx context.Context
+	ApiService QuotasApi
+	quotaId string
 	quotaEditLimitRequest *QuotaEditLimitRequest
 }
 
@@ -226,7 +225,7 @@ func (r ApiQuotasQuotaIdActionsRequestEditPostRequest) QuotaEditLimitRequest(quo
 	return r
 }
 
-func (r ApiQuotasQuotaIdActionsRequestEditPostRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiQuotasQuotaIdActionsRequestEditPostRequest) Execute() (*http.Response, error) {
 	return r.ApiService.QuotasQuotaIdActionsRequestEditPostExecute(r)
 }
 
@@ -235,39 +234,37 @@ QuotasQuotaIdActionsRequestEditPost Request quota limit change.
 
 Sends a request to edit the limit of a quota.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param quotaId The ID of the Quota.
  @return ApiQuotasQuotaIdActionsRequestEditPostRequest
 */
-func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPost(ctx _context.Context, quotaId string) ApiQuotasQuotaIdActionsRequestEditPostRequest {
+func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPost(ctx context.Context, quotaId string) ApiQuotasQuotaIdActionsRequestEditPostRequest {
 	return ApiQuotasQuotaIdActionsRequestEditPostRequest{
 		ApiService: a,
-		ctx:        ctx,
-		quotaId:    quotaId,
+		ctx: ctx,
+		quotaId: quotaId,
 	}
 }
 
 // Execute executes the request
-func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuotasQuotaIdActionsRequestEditPostRequest) (*_nethttp.Response, error) {
+func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuotasQuotaIdActionsRequestEditPostRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QuotasApiService.QuotasQuotaIdActionsRequestEditPost")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/quotas/{quotaId}/actions/request-edit"
-	localVarPath = strings.Replace(localVarPath, "{"+"quotaId"+"}", _neturl.PathEscape(parameterToString(r.quotaId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"quotaId"+"}", url.PathEscape(parameterToString(r.quotaId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -288,7 +285,7 @@ func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuota
 	}
 	// body params
 	localVarPostBody = r.quotaEditLimitRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -298,15 +295,15 @@ func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuota
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -356,12 +353,13 @@ func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuota
 }
 
 type ApiQuotasQuotaIdGetRequest struct {
-	ctx        _context.Context
+	ctx context.Context
 	ApiService QuotasApi
-	quotaId    string
+	quotaId string
 }
 
-func (r ApiQuotasQuotaIdGetRequest) Execute() (Quota, *_nethttp.Response, error) {
+
+func (r ApiQuotasQuotaIdGetRequest) Execute() (*Quota, *http.Response, error) {
 	return r.ApiService.QuotasQuotaIdGetExecute(r)
 }
 
@@ -370,41 +368,39 @@ QuotasQuotaIdGet Get a quota.
 
 Get account quota details.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param quotaId The ID of the Quota.
  @return ApiQuotasQuotaIdGetRequest
 */
-func (a *QuotasApiService) QuotasQuotaIdGet(ctx _context.Context, quotaId string) ApiQuotasQuotaIdGetRequest {
+func (a *QuotasApiService) QuotasQuotaIdGet(ctx context.Context, quotaId string) ApiQuotasQuotaIdGetRequest {
 	return ApiQuotasQuotaIdGetRequest{
 		ApiService: a,
-		ctx:        ctx,
-		quotaId:    quotaId,
+		ctx: ctx,
+		quotaId: quotaId,
 	}
 }
 
 // Execute executes the request
 //  @return Quota
-func (a *QuotasApiService) QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest) (Quota, *_nethttp.Response, error) {
+func (a *QuotasApiService) QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest) (*Quota, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Quota
+		formFiles            []formFile
+		localVarReturnValue  *Quota
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QuotasApiService.QuotasQuotaIdGet")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/quotas/{quotaId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"quotaId"+"}", _neturl.PathEscape(parameterToString(r.quotaId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"quotaId"+"}", url.PathEscape(parameterToString(r.quotaId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -423,7 +419,7 @@ func (a *QuotasApiService) QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -433,15 +429,15 @@ func (a *QuotasApiService) QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -489,7 +485,7 @@ func (a *QuotasApiService) QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest)
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

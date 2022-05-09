@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -20,7 +20,7 @@ type IpBlocksConfiguration struct {
 	// Determines the approach for configuring IP blocks for the server being provisioned. If PURCHASE_NEW is selected, the smallest supported range, depending on the operating system, is allocated to the server.
 	ConfigurationType *string `json:"configurationType,omitempty"`
 	// Used to specify the previously purchased IP blocks to assign to this server upon provisioning. Used alongside the USER_DEFINED configurationType.
-	IpBlocks *[]ServerIpBlock `json:"ipBlocks,omitempty"`
+	IpBlocks []ServerIpBlock `json:"ipBlocks,omitempty"`
 }
 
 // NewIpBlocksConfiguration instantiates a new IpBlocksConfiguration object
@@ -82,12 +82,12 @@ func (o *IpBlocksConfiguration) GetIpBlocks() []ServerIpBlock {
 		var ret []ServerIpBlock
 		return ret
 	}
-	return *o.IpBlocks
+	return o.IpBlocks
 }
 
 // GetIpBlocksOk returns a tuple with the IpBlocks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IpBlocksConfiguration) GetIpBlocksOk() (*[]ServerIpBlock, bool) {
+func (o *IpBlocksConfiguration) GetIpBlocksOk() ([]ServerIpBlock, bool) {
 	if o == nil || o.IpBlocks == nil {
 		return nil, false
 	}
@@ -105,7 +105,7 @@ func (o *IpBlocksConfiguration) HasIpBlocks() bool {
 
 // SetIpBlocks gets a reference to the given []ServerIpBlock and assigns it to the IpBlocks field.
 func (o *IpBlocksConfiguration) SetIpBlocks(v []ServerIpBlock) {
-	o.IpBlocks = &v
+	o.IpBlocks = v
 }
 
 func (o IpBlocksConfiguration) MarshalJSON() ([]byte, error) {
@@ -154,3 +154,5 @@ func (v *NullableIpBlocksConfiguration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

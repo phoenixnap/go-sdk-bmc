@@ -1,7 +1,7 @@
 /*
 Rancher Solution API
 
-Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b>
+Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -22,10 +22,10 @@ type NodePool struct {
 	// Number of configured nodes, currently only node counts of 1 and 3 are possible.
 	NodeCount *int32 `json:"nodeCount,omitempty"`
 	// Node server type. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`.
-	ServerType *string    `json:"serverType,omitempty"`
-	SshConfig  *SshConfig `json:"sshConfig,omitempty"`
+	ServerType *string `json:"serverType,omitempty"`
+	SshConfig SshConfig `json:"sshConfig,omitempty"`
 	// (Read-only) The nodes associated with this node pool.
-	Nodes *[]Node `json:"nodes,omitempty"`
+	Nodes []Node `json:"nodes,omitempty"`
 }
 
 // NewNodePool instantiates a new NodePool object
@@ -145,22 +145,23 @@ func (o *NodePool) SetServerType(v string) {
 	o.ServerType = &v
 }
 
-// GetSshConfig returns the SshConfig field value if set, zero value otherwise.
+// GetSshConfig returns the SshConfig field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NodePool) GetSshConfig() SshConfig {
-	if o == nil || o.SshConfig == nil {
+	if o == nil  {
 		var ret SshConfig
 		return ret
 	}
-	return *o.SshConfig
+	return o.SshConfig
 }
 
 // GetSshConfigOk returns a tuple with the SshConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NodePool) GetSshConfigOk() (*SshConfig, bool) {
 	if o == nil || o.SshConfig == nil {
 		return nil, false
 	}
-	return o.SshConfig, true
+	return &o.SshConfig, true
 }
 
 // HasSshConfig returns a boolean if a field has been set.
@@ -174,7 +175,7 @@ func (o *NodePool) HasSshConfig() bool {
 
 // SetSshConfig gets a reference to the given SshConfig and assigns it to the SshConfig field.
 func (o *NodePool) SetSshConfig(v SshConfig) {
-	o.SshConfig = &v
+	o.SshConfig = v
 }
 
 // GetNodes returns the Nodes field value if set, zero value otherwise.
@@ -183,12 +184,12 @@ func (o *NodePool) GetNodes() []Node {
 		var ret []Node
 		return ret
 	}
-	return *o.Nodes
+	return o.Nodes
 }
 
 // GetNodesOk returns a tuple with the Nodes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NodePool) GetNodesOk() (*[]Node, bool) {
+func (o *NodePool) GetNodesOk() ([]Node, bool) {
 	if o == nil || o.Nodes == nil {
 		return nil, false
 	}
@@ -206,7 +207,7 @@ func (o *NodePool) HasNodes() bool {
 
 // SetNodes gets a reference to the given []Node and assigns it to the Nodes field.
 func (o *NodePool) SetNodes(v []Node) {
-	o.Nodes = &v
+	o.Nodes = v
 }
 
 func (o NodePool) MarshalJSON() ([]byte, error) {
@@ -264,3 +265,5 @@ func (v *NullableNodePool) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

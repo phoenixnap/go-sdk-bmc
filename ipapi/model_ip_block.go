@@ -1,7 +1,7 @@
 /*
 IP Addresses API
 
-Public IP blocks are a set of contiguous IPs that allow you to access your servers or networks from the internet. Use the IP Addresses API to request and delete IP blocks.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/public-ip-management#bmc-public-ip-allocations-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/ips/v1/)</b>
+Public IP blocks are a set of contiguous IPs that allow you to access your servers or networks from the internet. Use the IP Addresses API to request and delete IP blocks.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/public-ip-management#bmc-public-ip-allocations-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/ips/v1/)</b> 
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -35,7 +35,7 @@ type IpBlock struct {
 	// The description of the IP Block.
 	Description *string `json:"description,omitempty"`
 	// The tags assigned if any.
-	Tags *[]TagAssignment `json:"tags,omitempty"`
+	Tags []TagAssignment `json:"tags,omitempty"`
 	// True if the IP block is a `bring your own` block.
 	IsBringYourOwn bool `json:"isBringYourOwn"`
 	// Date and time when the IP block was created.
@@ -79,7 +79,7 @@ func (o *IpBlock) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *IpBlock) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Id, true
@@ -103,7 +103,7 @@ func (o *IpBlock) GetLocation() string {
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
 func (o *IpBlock) GetLocationOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Location, true
@@ -127,7 +127,7 @@ func (o *IpBlock) GetCidrBlockSize() string {
 // GetCidrBlockSizeOk returns a tuple with the CidrBlockSize field value
 // and a boolean to check if the value has been set.
 func (o *IpBlock) GetCidrBlockSizeOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.CidrBlockSize, true
@@ -151,7 +151,7 @@ func (o *IpBlock) GetCidr() string {
 // GetCidrOk returns a tuple with the Cidr field value
 // and a boolean to check if the value has been set.
 func (o *IpBlock) GetCidrOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Cidr, true
@@ -175,7 +175,7 @@ func (o *IpBlock) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *IpBlock) GetStatusOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Status, true
@@ -288,12 +288,12 @@ func (o *IpBlock) GetTags() []TagAssignment {
 		var ret []TagAssignment
 		return ret
 	}
-	return *o.Tags
+	return o.Tags
 }
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IpBlock) GetTagsOk() (*[]TagAssignment, bool) {
+func (o *IpBlock) GetTagsOk() ([]TagAssignment, bool) {
 	if o == nil || o.Tags == nil {
 		return nil, false
 	}
@@ -311,7 +311,7 @@ func (o *IpBlock) HasTags() bool {
 
 // SetTags gets a reference to the given []TagAssignment and assigns it to the Tags field.
 func (o *IpBlock) SetTags(v []TagAssignment) {
-	o.Tags = &v
+	o.Tags = v
 }
 
 // GetIsBringYourOwn returns the IsBringYourOwn field value
@@ -327,7 +327,7 @@ func (o *IpBlock) GetIsBringYourOwn() bool {
 // GetIsBringYourOwnOk returns a tuple with the IsBringYourOwn field value
 // and a boolean to check if the value has been set.
 func (o *IpBlock) GetIsBringYourOwnOk() (*bool, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.IsBringYourOwn, true
@@ -351,7 +351,7 @@ func (o *IpBlock) GetCreatedOn() time.Time {
 // GetCreatedOnOk returns a tuple with the CreatedOn field value
 // and a boolean to check if the value has been set.
 func (o *IpBlock) GetCreatedOnOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.CreatedOn, true
@@ -435,3 +435,5 @@ func (v *NullableIpBlock) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

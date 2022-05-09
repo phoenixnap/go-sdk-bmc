@@ -1,3 +1,6 @@
+.gitignore
+.openapi-generator-ignore
+.travis.yml
 README.md
 api/openapi.yaml
 api_events.go
@@ -11,6 +14,8 @@ docs/Headers.md
 docs/Request.md
 docs/Response.md
 docs/UserInfo.md
+git_push.sh
+go.mod
 go.sum
 model_api_action.go
 model_api_action_all_of.go

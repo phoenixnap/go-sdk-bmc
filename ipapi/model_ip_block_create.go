@@ -1,7 +1,7 @@
 /*
 IP Addresses API
 
-Public IP blocks are a set of contiguous IPs that allow you to access your servers or networks from the internet. Use the IP Addresses API to request and delete IP blocks.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/public-ip-management#bmc-public-ip-allocations-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/ips/v1/)</b>
+Public IP blocks are a set of contiguous IPs that allow you to access your servers or networks from the internet. Use the IP Addresses API to request and delete IP blocks.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/public-ip-management#bmc-public-ip-allocations-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/ips/v1/)</b> 
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -24,7 +24,7 @@ type IpBlockCreate struct {
 	// The description of the IP Block.
 	Description *string `json:"description,omitempty"`
 	// Tags to set to ip-block, if any.
-	Tags *[]TagAssignmentRequest `json:"tags,omitempty"`
+	Tags []TagAssignmentRequest `json:"tags,omitempty"`
 }
 
 // NewIpBlockCreate instantiates a new IpBlockCreate object
@@ -59,7 +59,7 @@ func (o *IpBlockCreate) GetLocation() string {
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
 func (o *IpBlockCreate) GetLocationOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Location, true
@@ -83,7 +83,7 @@ func (o *IpBlockCreate) GetCidrBlockSize() string {
 // GetCidrBlockSizeOk returns a tuple with the CidrBlockSize field value
 // and a boolean to check if the value has been set.
 func (o *IpBlockCreate) GetCidrBlockSizeOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.CidrBlockSize, true
@@ -132,12 +132,12 @@ func (o *IpBlockCreate) GetTags() []TagAssignmentRequest {
 		var ret []TagAssignmentRequest
 		return ret
 	}
-	return *o.Tags
+	return o.Tags
 }
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IpBlockCreate) GetTagsOk() (*[]TagAssignmentRequest, bool) {
+func (o *IpBlockCreate) GetTagsOk() ([]TagAssignmentRequest, bool) {
 	if o == nil || o.Tags == nil {
 		return nil, false
 	}
@@ -155,7 +155,7 @@ func (o *IpBlockCreate) HasTags() bool {
 
 // SetTags gets a reference to the given []TagAssignmentRequest and assigns it to the Tags field.
 func (o *IpBlockCreate) SetTags(v []TagAssignmentRequest) {
-	o.Tags = &v
+	o.Tags = v
 }
 
 func (o IpBlockCreate) MarshalJSON() ([]byte, error) {
@@ -210,3 +210,5 @@ func (v *NullableIpBlockCreate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

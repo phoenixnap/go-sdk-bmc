@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -30,7 +30,7 @@ type Quota struct {
 	// An enum field describing what the limit is measured in.
 	Unit string `json:"unit"`
 	// The quota used expressed as a number.
-	Used                         int32                          `json:"used"`
+	Used int32 `json:"used"`
 	QuotaEditLimitRequestDetails []QuotaEditLimitRequestDetails `json:"quotaEditLimitRequestDetails"`
 }
 
@@ -72,7 +72,7 @@ func (o *Quota) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *Quota) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Id, true
@@ -96,7 +96,7 @@ func (o *Quota) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *Quota) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Name, true
@@ -120,7 +120,7 @@ func (o *Quota) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *Quota) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Description, true
@@ -144,7 +144,7 @@ func (o *Quota) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *Quota) GetStatusOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Status, true
@@ -168,7 +168,7 @@ func (o *Quota) GetLimit() int32 {
 // GetLimitOk returns a tuple with the Limit field value
 // and a boolean to check if the value has been set.
 func (o *Quota) GetLimitOk() (*int32, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Limit, true
@@ -192,7 +192,7 @@ func (o *Quota) GetUnit() string {
 // GetUnitOk returns a tuple with the Unit field value
 // and a boolean to check if the value has been set.
 func (o *Quota) GetUnitOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Unit, true
@@ -216,7 +216,7 @@ func (o *Quota) GetUsed() int32 {
 // GetUsedOk returns a tuple with the Used field value
 // and a boolean to check if the value has been set.
 func (o *Quota) GetUsedOk() (*int32, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Used, true
@@ -239,11 +239,11 @@ func (o *Quota) GetQuotaEditLimitRequestDetails() []QuotaEditLimitRequestDetails
 
 // GetQuotaEditLimitRequestDetailsOk returns a tuple with the QuotaEditLimitRequestDetails field value
 // and a boolean to check if the value has been set.
-func (o *Quota) GetQuotaEditLimitRequestDetailsOk() (*[]QuotaEditLimitRequestDetails, bool) {
-	if o == nil {
+func (o *Quota) GetQuotaEditLimitRequestDetailsOk() ([]QuotaEditLimitRequestDetails, bool) {
+	if o == nil  {
 		return nil, false
 	}
-	return &o.QuotaEditLimitRequestDetails, true
+	return o.QuotaEditLimitRequestDetails, true
 }
 
 // SetQuotaEditLimitRequestDetails sets field value
@@ -315,3 +315,5 @@ func (v *NullableQuota) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

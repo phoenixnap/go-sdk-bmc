@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -22,7 +22,7 @@ type OsConfigurationMapProxmox struct {
 	// The URL of the management UI which will only be returned in response to provisioning a server.
 	ManagementUiUrl *string `json:"managementUiUrl,omitempty"`
 	// List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
-	ManagementAccessAllowedIps *[]string `json:"managementAccessAllowedIps,omitempty"`
+	ManagementAccessAllowedIps []string `json:"managementAccessAllowedIps,omitempty"`
 }
 
 // NewOsConfigurationMapProxmox instantiates a new OsConfigurationMapProxmox object
@@ -112,12 +112,12 @@ func (o *OsConfigurationMapProxmox) GetManagementAccessAllowedIps() []string {
 		var ret []string
 		return ret
 	}
-	return *o.ManagementAccessAllowedIps
+	return o.ManagementAccessAllowedIps
 }
 
 // GetManagementAccessAllowedIpsOk returns a tuple with the ManagementAccessAllowedIps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OsConfigurationMapProxmox) GetManagementAccessAllowedIpsOk() (*[]string, bool) {
+func (o *OsConfigurationMapProxmox) GetManagementAccessAllowedIpsOk() ([]string, bool) {
 	if o == nil || o.ManagementAccessAllowedIps == nil {
 		return nil, false
 	}
@@ -135,7 +135,7 @@ func (o *OsConfigurationMapProxmox) HasManagementAccessAllowedIps() bool {
 
 // SetManagementAccessAllowedIps gets a reference to the given []string and assigns it to the ManagementAccessAllowedIps field.
 func (o *OsConfigurationMapProxmox) SetManagementAccessAllowedIps(v []string) {
-	o.ManagementAccessAllowedIps = &v
+	o.ManagementAccessAllowedIps = v
 }
 
 func (o OsConfigurationMapProxmox) MarshalJSON() ([]byte, error) {
@@ -187,3 +187,5 @@ func (v *NullableOsConfigurationMapProxmox) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

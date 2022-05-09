@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -59,10 +59,10 @@ type Server struct {
 	// The cluster reference id if any.
 	ClusterId *string `json:"clusterId,omitempty"`
 	// The tags assigned if any.
-	Tags *[]TagAssignment `json:"tags,omitempty"`
+	Tags []TagAssignment `json:"tags,omitempty"`
 	// Date and time when server was provisioned.
-	ProvisionedOn        *time.Time           `json:"provisionedOn,omitempty"`
-	OsConfiguration      *OsConfiguration     `json:"osConfiguration,omitempty"`
+	ProvisionedOn *time.Time `json:"provisionedOn,omitempty"`
+	OsConfiguration *OsConfiguration `json:"osConfiguration,omitempty"`
 	NetworkConfiguration NetworkConfiguration `json:"networkConfiguration"`
 }
 
@@ -118,7 +118,7 @@ func (o *Server) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *Server) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Id, true
@@ -142,7 +142,7 @@ func (o *Server) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *Server) GetStatusOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Status, true
@@ -166,7 +166,7 @@ func (o *Server) GetHostname() string {
 // GetHostnameOk returns a tuple with the Hostname field value
 // and a boolean to check if the value has been set.
 func (o *Server) GetHostnameOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Hostname, true
@@ -222,7 +222,7 @@ func (o *Server) GetOs() string {
 // GetOsOk returns a tuple with the Os field value
 // and a boolean to check if the value has been set.
 func (o *Server) GetOsOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Os, true
@@ -246,7 +246,7 @@ func (o *Server) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *Server) GetTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Type, true
@@ -270,7 +270,7 @@ func (o *Server) GetLocation() string {
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
 func (o *Server) GetLocationOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Location, true
@@ -294,7 +294,7 @@ func (o *Server) GetCpu() string {
 // GetCpuOk returns a tuple with the Cpu field value
 // and a boolean to check if the value has been set.
 func (o *Server) GetCpuOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Cpu, true
@@ -318,7 +318,7 @@ func (o *Server) GetCpuCount() int32 {
 // GetCpuCountOk returns a tuple with the CpuCount field value
 // and a boolean to check if the value has been set.
 func (o *Server) GetCpuCountOk() (*int32, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.CpuCount, true
@@ -342,7 +342,7 @@ func (o *Server) GetCoresPerCpu() int32 {
 // GetCoresPerCpuOk returns a tuple with the CoresPerCpu field value
 // and a boolean to check if the value has been set.
 func (o *Server) GetCoresPerCpuOk() (*int32, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.CoresPerCpu, true
@@ -366,7 +366,7 @@ func (o *Server) GetCpuFrequency() float32 {
 // GetCpuFrequencyOk returns a tuple with the CpuFrequency field value
 // and a boolean to check if the value has been set.
 func (o *Server) GetCpuFrequencyOk() (*float32, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.CpuFrequency, true
@@ -390,7 +390,7 @@ func (o *Server) GetRam() string {
 // GetRamOk returns a tuple with the Ram field value
 // and a boolean to check if the value has been set.
 func (o *Server) GetRamOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Ram, true
@@ -414,7 +414,7 @@ func (o *Server) GetStorage() string {
 // GetStorageOk returns a tuple with the Storage field value
 // and a boolean to check if the value has been set.
 func (o *Server) GetStorageOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Storage, true
@@ -437,11 +437,11 @@ func (o *Server) GetPrivateIpAddresses() []string {
 
 // GetPrivateIpAddressesOk returns a tuple with the PrivateIpAddresses field value
 // and a boolean to check if the value has been set.
-func (o *Server) GetPrivateIpAddressesOk() (*[]string, bool) {
-	if o == nil {
+func (o *Server) GetPrivateIpAddressesOk() ([]string, bool) {
+	if o == nil  {
 		return nil, false
 	}
-	return &o.PrivateIpAddresses, true
+	return o.PrivateIpAddresses, true
 }
 
 // SetPrivateIpAddresses sets field value
@@ -461,11 +461,11 @@ func (o *Server) GetPublicIpAddresses() []string {
 
 // GetPublicIpAddressesOk returns a tuple with the PublicIpAddresses field value
 // and a boolean to check if the value has been set.
-func (o *Server) GetPublicIpAddressesOk() (*[]string, bool) {
-	if o == nil {
+func (o *Server) GetPublicIpAddressesOk() ([]string, bool) {
+	if o == nil  {
 		return nil, false
 	}
-	return &o.PublicIpAddresses, true
+	return o.PublicIpAddresses, true
 }
 
 // SetPublicIpAddresses sets field value
@@ -518,7 +518,7 @@ func (o *Server) GetPricingModel() string {
 // GetPricingModelOk returns a tuple with the PricingModel field value
 // and a boolean to check if the value has been set.
 func (o *Server) GetPricingModelOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.PricingModel, true
@@ -631,12 +631,12 @@ func (o *Server) GetTags() []TagAssignment {
 		var ret []TagAssignment
 		return ret
 	}
-	return *o.Tags
+	return o.Tags
 }
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Server) GetTagsOk() (*[]TagAssignment, bool) {
+func (o *Server) GetTagsOk() ([]TagAssignment, bool) {
 	if o == nil || o.Tags == nil {
 		return nil, false
 	}
@@ -654,7 +654,7 @@ func (o *Server) HasTags() bool {
 
 // SetTags gets a reference to the given []TagAssignment and assigns it to the Tags field.
 func (o *Server) SetTags(v []TagAssignment) {
-	o.Tags = &v
+	o.Tags = v
 }
 
 // GetProvisionedOn returns the ProvisionedOn field value if set, zero value otherwise.
@@ -734,7 +734,7 @@ func (o *Server) GetNetworkConfiguration() NetworkConfiguration {
 // GetNetworkConfigurationOk returns a tuple with the NetworkConfiguration field value
 // and a boolean to check if the value has been set.
 func (o *Server) GetNetworkConfigurationOk() (*NetworkConfiguration, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.NetworkConfiguration, true
@@ -857,3 +857,5 @@ func (v *NullableServer) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

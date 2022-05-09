@@ -1,3 +1,6 @@
+.gitignore
+.openapi-generator-ignore
+.travis.yml
 README.md
 api/openapi.yaml
 api_private_networks.go
@@ -16,6 +19,8 @@ docs/PublicNetworkIpBlock.md
 docs/PublicNetworkMembership.md
 docs/PublicNetworkModify.md
 docs/PublicNetworksApi.md
+git_push.sh
+go.mod
 go.sum
 model_error.go
 model_private_network.go

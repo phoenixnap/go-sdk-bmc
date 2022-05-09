@@ -1,7 +1,7 @@
 /*
 Networks API
 
-Create, list, edit and delete public/private networks with the Network API. Use public networks to place multiple  servers on the same network or VLAN. Assign new servers with IP addresses from the same CIDR range. Use private  networks to avoid unnecessary egress data charges. Model your networks according to your business needs.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b>
+Create, list, edit and delete public/private networks with the Network API. Use public networks to place multiple  servers on the same network or VLAN. Assign new servers with IP addresses from the same CIDR range. Use private  networks to avoid unnecessary egress data charges. Model your networks according to your business needs.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b> 
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -24,7 +24,7 @@ type PublicNetworkCreate struct {
 	// The location of this public network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
 	Location string `json:"location"`
 	// A list of IP Blocks that will be associated with this public network.
-	IpBlocks *[]PublicNetworkIpBlock `json:"ipBlocks,omitempty"`
+	IpBlocks []PublicNetworkIpBlock `json:"ipBlocks,omitempty"`
 }
 
 // NewPublicNetworkCreate instantiates a new PublicNetworkCreate object
@@ -59,7 +59,7 @@ func (o *PublicNetworkCreate) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *PublicNetworkCreate) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Name, true
@@ -115,7 +115,7 @@ func (o *PublicNetworkCreate) GetLocation() string {
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
 func (o *PublicNetworkCreate) GetLocationOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Location, true
@@ -132,12 +132,12 @@ func (o *PublicNetworkCreate) GetIpBlocks() []PublicNetworkIpBlock {
 		var ret []PublicNetworkIpBlock
 		return ret
 	}
-	return *o.IpBlocks
+	return o.IpBlocks
 }
 
 // GetIpBlocksOk returns a tuple with the IpBlocks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PublicNetworkCreate) GetIpBlocksOk() (*[]PublicNetworkIpBlock, bool) {
+func (o *PublicNetworkCreate) GetIpBlocksOk() ([]PublicNetworkIpBlock, bool) {
 	if o == nil || o.IpBlocks == nil {
 		return nil, false
 	}
@@ -155,7 +155,7 @@ func (o *PublicNetworkCreate) HasIpBlocks() bool {
 
 // SetIpBlocks gets a reference to the given []PublicNetworkIpBlock and assigns it to the IpBlocks field.
 func (o *PublicNetworkCreate) SetIpBlocks(v []PublicNetworkIpBlock) {
-	o.IpBlocks = &v
+	o.IpBlocks = v
 }
 
 func (o PublicNetworkCreate) MarshalJSON() ([]byte, error) {
@@ -210,3 +210,5 @@ func (v *NullablePublicNetworkCreate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

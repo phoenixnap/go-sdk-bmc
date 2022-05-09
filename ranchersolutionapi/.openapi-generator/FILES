@@ -1,3 +1,6 @@
+.gitignore
+.openapi-generator-ignore
+.travis.yml
 README.md
 api/openapi.yaml
 api_clusters.go
@@ -14,6 +17,8 @@ docs/RancherClusterConfig.md
 docs/RancherServerMetadata.md
 docs/SshConfig.md
 docs/WorkloadClusterConfig.md
+git_push.sh
+go.mod
 go.sum
 model_cluster.go
 model_delete_result.go
