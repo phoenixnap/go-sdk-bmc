@@ -2,4 +2,3 @@
 **/.openapi-generator-ignore
 **/.gitignore
 **/git_push.sh
-**/go.mod
