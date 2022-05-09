@@ -1,8 +1,8 @@
 # Go API client for bmcapi
 
-Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.
-Deprovision servers, get or edit SSH key details, and a lot more. Manage your infrastructure more efficiently
-using just a few simple api calls.<br>
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API. 
+Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more. 
+Manage your infrastructure more efficiently using just a few simple API calls.<br>
 <br>
 <span class='pnap-api-knowledge-base-link'>
 Knowledge base articles to help you can be found
@@ -113,6 +113,8 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**ServersServerIdIpBlocksPost**](docs/ServersApi.md#serversserveridipblockspost) | **Post** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks | Assign IP Block to Server.
 *ServersApi* | [**ServersServerIdPatch**](docs/ServersApi.md#serversserveridpatch) | **Patch** /servers/{serverId} | Patch a Server.
 *ServersApi* | [**ServersServerIdPrivateNetworksPost**](docs/ServersApi.md#serversserveridprivatenetworkspost) | **Post** /servers/{serverId}/network-configuration/private-network-configuration/private-networks | Adds the server to a private network.
+*ServersApi* | [**ServersServerIdPublicNetworksDelete**](docs/ServersApi.md#serversserveridpublicnetworksdelete) | **Delete** /servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId} | Removes the server from the Public Network
+*ServersApi* | [**ServersServerIdPublicNetworksPost**](docs/ServersApi.md#serversserveridpublicnetworkspost) | **Post** /servers/{serverId}/network-configuration/public-network-configuration/public-networks | Adds the server to a Public Network.
 *ServersApi* | [**ServersServerIdTagsPut**](docs/ServersApi.md#serversserveridtagsput) | **Put** /servers/{serverId}/tags | Overwrite tags assigned for Server.
 
 
@@ -130,6 +132,7 @@ Class | Method | HTTP request | Description
  - [OsConfigurationMapProxmox](docs/OsConfigurationMapProxmox.md)
  - [OsConfigurationWindows](docs/OsConfigurationWindows.md)
  - [PrivateNetworkConfiguration](docs/PrivateNetworkConfiguration.md)
+ - [PublicNetworkConfiguration](docs/PublicNetworkConfiguration.md)
  - [Quota](docs/Quota.md)
  - [QuotaEditLimitRequest](docs/QuotaEditLimitRequest.md)
  - [QuotaEditLimitRequestDetails](docs/QuotaEditLimitRequestDetails.md)
@@ -141,6 +144,7 @@ Class | Method | HTTP request | Description
  - [ServerIpBlock](docs/ServerIpBlock.md)
  - [ServerPatch](docs/ServerPatch.md)
  - [ServerPrivateNetwork](docs/ServerPrivateNetwork.md)
+ - [ServerPublicNetwork](docs/ServerPublicNetwork.md)
  - [ServerReserve](docs/ServerReserve.md)
  - [ServerReset](docs/ServerReset.md)
  - [SshKey](docs/SshKey.md)

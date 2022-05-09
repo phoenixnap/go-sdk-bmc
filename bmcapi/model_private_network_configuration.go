@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API. Deprovision servers, get or edit SSH key details, and a lot more. Manage your infrastructure more efficiently using just a few simple api calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -17,7 +17,8 @@ import (
 
 // PrivateNetworkConfiguration Private network details of bare metal server.
 type PrivateNetworkConfiguration struct {
-	// The address of the gateway assigned / to assign to the server. It'll be null and won't be displayed as part of response body if server is a member of both public and private networks. When used as part of request body, it has to match one of the IP addresses used in the existing assigned private networks for the relevant location. Also, this field can be submitted only when provisioning a server without being a member of any public network.
+	// The address of the gateway assigned / to assign to the server. When used as part of request body, it has to match one of the IP addresses used in the existing assigned private networks for the relevant location. Deprecated in favour of a common gateway address across all networks available under NetworkConfiguration.
+	// Deprecated
 	GatewayAddress *string `json:"gatewayAddress,omitempty"`
 	// Determines the approach for configuring private network(s) for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.
 	ConfigurationType *string `json:"configurationType,omitempty"`
@@ -47,6 +48,7 @@ func NewPrivateNetworkConfigurationWithDefaults() *PrivateNetworkConfiguration {
 }
 
 // GetGatewayAddress returns the GatewayAddress field value if set, zero value otherwise.
+// Deprecated
 func (o *PrivateNetworkConfiguration) GetGatewayAddress() string {
 	if o == nil || o.GatewayAddress == nil {
 		var ret string
@@ -57,6 +59,7 @@ func (o *PrivateNetworkConfiguration) GetGatewayAddress() string {
 
 // GetGatewayAddressOk returns a tuple with the GatewayAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *PrivateNetworkConfiguration) GetGatewayAddressOk() (*string, bool) {
 	if o == nil || o.GatewayAddress == nil {
 		return nil, false
@@ -74,6 +77,7 @@ func (o *PrivateNetworkConfiguration) HasGatewayAddress() bool {
 }
 
 // SetGatewayAddress gets a reference to the given string and assigns it to the GatewayAddress field.
+// Deprecated
 func (o *PrivateNetworkConfiguration) SetGatewayAddress(v string) {
 	o.GatewayAddress = &v
 }

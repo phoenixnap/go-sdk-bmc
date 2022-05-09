@@ -108,6 +108,8 @@ paths:
                 cidrBlockSize: /28
                 status: unassigned
                 description: 'IP Block #1 used for publicly accessing server #1.'
+                isBringYourOwn: false
+                createdOn: 2021-03-13T20:24:32.491Z
               schema:
                 $ref: '#/components/schemas/IpBlock'
           description: IP Block created.
@@ -492,11 +494,13 @@ components:
       description: IP Block Details.
       example:
         description: 'IP Block #1 used for publicly accessing server #1.'
+        isBringYourOwn: false
         location: PHX
         cidr: 1.1.1.0/31
         id: 6047127fed34ecc3ba8402d2
         assignedResourceId: 6047127fed34ecc3ba8402d2
         assignedResourceType: server
+        createdOn: 2021-03-13T20:24:32.491Z
         cidrBlockSize: /30
         status: unassigned
         tags:
@@ -550,10 +554,21 @@ components:
           items:
             $ref: '#/components/schemas/TagAssignment'
           type: array
+        isBringYourOwn:
+          description: True if the IP block is a `bring your own` block.
+          example: false
+          type: boolean
+        createdOn:
+          description: Date and time when the IP block was created.
+          example: 2021-03-13T20:24:32.491Z
+          format: date-time
+          type: string
       required:
       - cidr
       - cidrBlockSize
+      - createdOn
       - id
+      - isBringYourOwn
       - location
       - status
       type: object

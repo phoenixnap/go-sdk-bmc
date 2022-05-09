@@ -13,6 +13,7 @@ package ipapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // IpBlock IP Block Details.
@@ -35,19 +36,25 @@ type IpBlock struct {
 	Description *string `json:"description,omitempty"`
 	// The tags assigned if any.
 	Tags *[]TagAssignment `json:"tags,omitempty"`
+	// True if the IP block is a `bring your own` block.
+	IsBringYourOwn bool `json:"isBringYourOwn"`
+	// Date and time when the IP block was created.
+	CreatedOn time.Time `json:"createdOn"`
 }
 
 // NewIpBlock instantiates a new IpBlock object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIpBlock(id string, location string, cidrBlockSize string, cidr string, status string) *IpBlock {
+func NewIpBlock(id string, location string, cidrBlockSize string, cidr string, status string, isBringYourOwn bool, createdOn time.Time) *IpBlock {
 	this := IpBlock{}
 	this.Id = id
 	this.Location = location
 	this.CidrBlockSize = cidrBlockSize
 	this.Cidr = cidr
 	this.Status = status
+	this.IsBringYourOwn = isBringYourOwn
+	this.CreatedOn = createdOn
 	return &this
 }
 
@@ -307,6 +314,54 @@ func (o *IpBlock) SetTags(v []TagAssignment) {
 	o.Tags = &v
 }
 
+// GetIsBringYourOwn returns the IsBringYourOwn field value
+func (o *IpBlock) GetIsBringYourOwn() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsBringYourOwn
+}
+
+// GetIsBringYourOwnOk returns a tuple with the IsBringYourOwn field value
+// and a boolean to check if the value has been set.
+func (o *IpBlock) GetIsBringYourOwnOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsBringYourOwn, true
+}
+
+// SetIsBringYourOwn sets field value
+func (o *IpBlock) SetIsBringYourOwn(v bool) {
+	o.IsBringYourOwn = v
+}
+
+// GetCreatedOn returns the CreatedOn field value
+func (o *IpBlock) GetCreatedOn() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.CreatedOn
+}
+
+// GetCreatedOnOk returns a tuple with the CreatedOn field value
+// and a boolean to check if the value has been set.
+func (o *IpBlock) GetCreatedOnOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CreatedOn, true
+}
+
+// SetCreatedOn sets field value
+func (o *IpBlock) SetCreatedOn(v time.Time) {
+	o.CreatedOn = v
+}
+
 func (o IpBlock) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -335,6 +390,12 @@ func (o IpBlock) MarshalJSON() ([]byte, error) {
 	}
 	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
+	}
+	if true {
+		toSerialize["isBringYourOwn"] = o.IsBringYourOwn
+	}
+	if true {
+		toSerialize["createdOn"] = o.CreatedOn
 	}
 	return json.Marshal(toSerialize)
 }

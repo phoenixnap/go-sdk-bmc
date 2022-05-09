@@ -4,17 +4,13 @@ info:
     email: support@phoenixnap.com
     name: PhoenixNAP Team
     url: https://phoenixnap.com/
-  description: |
-    Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.
-    Deprovision servers, get or edit SSH key details, and a lot more. Manage your infrastructure more efficiently
-    using just a few simple api calls.<br>
-    <br>
-    <span class='pnap-api-knowledge-base-link'>
-    Knowledge base articles to help you can be found
-    <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a>
-    </span><br>
-    <br>
-    <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
+  description: "Create, power off, power on, reset, reboot, or shut down your server\
+    \ with the Bare Metal Cloud API. \nDeprovision servers, get or edit SSH key details,\
+    \ assign public IPs, assign servers to networks and a lot more. \nManage your\
+    \ infrastructure more efficiently using just a few simple API calls.<br>\n<br>\n\
+    <span class='pnap-api-knowledge-base-link'>\nKnowledge base articles to help you\
+    \ can be found\n<a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server'\
+    \ target='_blank'>here</a>\n</span><br>\n<br>\n<b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>\n"
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -200,6 +196,62 @@ paths:
                         ips:
                         - 10.0.0.13 - 10.0.0.17
                         dhcp: false
+              UserDefinedPublicNetworkConfiguration:
+                value:
+                  hostname: my-server-1
+                  description: 'My custom server #1'
+                  location: PHX
+                  os: ubuntu/bionic
+                  type: s1.c1.small
+                  installDefaultSshKeys: true
+                  sshKeys:
+                  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+                    user@my_ip
+                  sshKeyIds:
+                  - 5fa54d1e91867c03a0a7b4a4
+                  pricingModel: HOURLY
+                  networkType: PUBLIC_AND_PRIVATE
+                  networkConfiguration:
+                    publicNetworkConfiguration:
+                      publicNetworks:
+                      - id: 60473c2509268bc77fd06d29
+                        ips:
+                        - 182.16.0.146
+                        - 182.16.0.147
+                      - id: 60f93142c5c1d6082d31382a
+                        ips:
+                        - 183.16.0.1
+              UserDefinedNetworkGateway_UserDefinedPrivateNetworkConfiguration_UserDefinedPublicNetworkConfiguration:
+                value:
+                  hostname: my-server-1
+                  description: 'My custom server #1'
+                  location: PHX
+                  os: ubuntu/bionic
+                  type: s1.c1.small
+                  installDefaultSshKeys: true
+                  sshKeys:
+                  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+                    user@my_ip
+                  sshKeyIds:
+                  - 5fa54d1e91867c03a0a7b4a4
+                  reservationId: x78sdkjds879sd7cx8
+                  networkType: PUBLIC_AND_PRIVATE
+                  networkConfiguration:
+                    gatewayAddress: 182.16.0.145
+                    privateNetworkConfiguration:
+                      configurationType: USER_DEFINED
+                      privateNetworks:
+                      - id: 60f81608e2f4665962b214db
+                        ips:
+                        - 10.0.0.11
+                        - 10.0.0.12
+                        dhcp: false
+                    publicNetworkConfiguration:
+                      publicNetworks:
+                      - id: 60473c2509268bc77fd06d29
+                        ips:
+                        - 182.16.0.146
+                        - 182.16.0.147
             schema:
               $ref: '#/components/schemas/ServerCreate'
       responses:
@@ -442,8 +494,8 @@ paths:
     post:
       description: Adds an IP block to this server. <b>No actual configuration is
         performed on the operating system.</b> BMC configures exclusively the networking
-        devices in the datacenter infrastructure. You are expected to perform network
-        configuration changes in the operating system of this server.
+        devices in the datacenter infrastructure. Manual network configuration changes
+        in the operating system of this server are required.
       operationId: serversServerIdIpBlocksPost
       parameters:
       - description: The server's ID.
@@ -516,10 +568,10 @@ paths:
     delete:
       description: Removes the IP block from the server. <b>No actual configuration
         is performed on the operating system.</b> BMC configures exclusively the networking
-        devices in the datacenter infrastructure. You are expected to perform network
-        configuration changes in the operating system of this server. <b>This is an
-        advanced network action that can make your server completely unavailable over
-        any network. Make sure you are able to access this server over remote console
+        devices in the datacenter infrastructure. Manual network configuration changes
+        in the operating system of this server are required. <b>This is an advanced
+        network action that can make your server completely unavailable over any network.
+        Make sure this server is reachable over remote console for guaranteed access
         in case of misconfiguration.</b>
       operationId: serversServerIdIpBlocksIpBlockIdDelete
       parameters:
@@ -706,10 +758,10 @@ paths:
     delete:
       description: Removes the server from private network. <b>No actual configuration
         is performed on the operating system.</b> BMC configures exclusively the networking
-        devices in the datacenter infrastructure. You are expected to perform network
-        configuration changes in the operating system of this server. <b>This is an
-        advanced network action that can make your server completely unavailable over
-        any network. Make sure you are able to access this server over remote console
+        devices in the datacenter infrastructure. Manual network configuration changes
+        in the operating system of this server are required. <b>This is an advanced
+        network action that can make your server completely unavailable over any network.
+        Make sure this server is reachable over remote console for guaranteed access
         in case of misconfiguration.</b>
       operationId: deletePrivateNetwork
       parameters:
@@ -746,6 +798,160 @@ paths:
       - OAuth2:
         - bmc
       summary: Removes the server from private network.
+      tags:
+      - Servers
+  /servers/{serverId}/network-configuration/public-network-configuration/public-networks:
+    post:
+      description: Adds the server to a Public Network. <b>No actual configuration
+        is performed on the operating system.</b> BMC configures exclusively the networking
+        devices in the datacenter infrastructure. Manual network configuration changes
+        in the operating system of this server are required.
+      operationId: serversServerIdPublicNetworksPost
+      parameters:
+      - description: The server's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              id: 60473c2509268bc77fd06d29
+              ips:
+              - 182.16.0.146
+              - 182.16.0.147
+            schema:
+              $ref: '#/components/schemas/ServerPublicNetwork'
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerPublicNetwork'
+          description: The server is being added to the specified Public Network.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Adds the server to a Public Network.
+      tags:
+      - Servers
+  /servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId}:
+    delete:
+      description: Removes the server from the Public Network. <b>No actual configuration
+        is performed on the operating system.</b> BMC configures exclusively the networking
+        devices in the datacenter infrastructure. Manual network configuration changes
+        in the operating system of this server are required. <b>This is an advanced
+        network action that can make your server completely unavailable over any network.
+        Make sure this server is reachable over remote console for guaranteed access
+        in case of misconfiguration.</b>
+      operationId: serversServerIdPublicNetworksDelete
+      parameters:
+      - description: The server's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The Public Network identifier.
+        example: 603f3b2cfcaf050643b89a4b
+        explode: false
+        in: path
+        name: publicNetworkId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "202":
+          content:
+            application/json:
+              example: The server is being removed from the specified Public Network.
+              schema:
+                description: The server is being removed from the specified Public
+                  Network.
+                example: The server is being removed from the specified Public Network.
+                type: string
+          description: The server is being removed from the specified Public Network.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Removes the server from the Public Network
       tags:
       - Servers
   /servers/{serverId}/tags:
@@ -1132,7 +1338,11 @@ paths:
       - Servers
   /servers/{serverId}/actions/reset:
     post:
-      description: Reset specific server.
+      deprecated: true
+      description: 'Deprecated: Reset specific server. Reset only supports network
+        configurations of type ''private network'' or ''IP blocks''. As an alternative,
+        the suggested action is to deprovision the server and provision a new one
+        with the same configuration.'
       operationId: serversServerIdActionsResetPost
       parameters:
       - description: The server's ID.
@@ -1742,6 +1952,16 @@ components:
       schema:
         type: string
       style: simple
+    publicNetworkIdPathParam:
+      description: The Public Network identifier.
+      example: 603f3b2cfcaf050643b89a4b
+      explode: false
+      in: path
+      name: publicNetworkId
+      required: true
+      schema:
+        type: string
+      style: simple
   responses:
     Unauthorized:
       content:
@@ -1925,13 +2145,12 @@ components:
           dhcp: false
       properties:
         gatewayAddress:
+          deprecated: true
           description: The address of the gateway assigned / to assign to the server.
-            It'll be null and won't be displayed as part of response body if server
-            is a member of both public and private networks. When used as part of
-            request body, it has to match one of the IP addresses used in the existing
-            assigned private networks for the relevant location. Also, this field
-            can be submitted only when provisioning a server without being a member
-            of any public network.
+            When used as part of request body, it has to match one of the IP addresses
+            used in the existing assigned private networks for the relevant location.
+            Deprecated in favour of a common gateway address across all networks available
+            under NetworkConfiguration.
           example: 10.0.0.10
           type: string
         configurationType:
@@ -2010,14 +2229,85 @@ components:
           maxItems: 1
           type: array
       type: object
+    ServerPublicNetwork:
+      description: Public network details of bare metal server.
+      example:
+        statusDescription: assigned
+        id: 60473c2509268bc77fd06d29
+        ips:
+        - 182.16.0.146
+        - 182.16.0.147
+      properties:
+        id:
+          description: The network identifier.
+          example: 60473c2509268bc77fd06d29
+          type: string
+        ips:
+          description: IPs to configure/configured on the server. IPs must be within
+            the network's range.
+          example:
+          - 182.16.0.146
+          - 182.16.0.147
+          items:
+            example: 182.16.0.146
+            type: string
+          minItems: 1
+          type: array
+        statusDescription:
+          description: The status of the assignment to the network.
+          example: assigned
+          readOnly: true
+          type: string
+      required:
+      - id
+      - ips
+      type: object
+    PublicNetworkConfiguration:
+      description: Public network details of bare metal server.
+      example:
+        publicNetworks:
+        - id: 60473c2509268bc77fd06d29
+          ips:
+          - 182.16.0.146
+          - 182.16.0.147
+        - id: 60f93142c5c1d6082d31382a
+          ips:
+          - 183.16.0.1
+      properties:
+        publicNetworks:
+          description: The list of public networks this server is member of. When
+            this field is part of request body, it'll be used to specify the public
+            networks to assign to this server upon provisioning.
+          example:
+          - id: 60473c2509268bc77fd06d29
+            ips:
+            - 182.16.0.146
+            - 182.16.0.147
+          - id: 60f93142c5c1d6082d31382a
+            ips:
+            - 183.16.0.1
+          items:
+            $ref: '#/components/schemas/ServerPublicNetwork'
+          type: array
+      type: object
     NetworkConfiguration:
       description: Entire network details of bare metal server.
       example:
+        publicNetworkConfiguration:
+          publicNetworks:
+          - id: 60473c2509268bc77fd06d29
+            ips:
+            - 182.16.0.146
+            - 182.16.0.147
+          - id: 60f93142c5c1d6082d31382a
+            ips:
+            - 183.16.0.1
         ipBlocksConfiguration:
           ipBlocks:
           - vlanId: 10
             id: 60473a6115e34466c9f8f083
           configurationType: PURCHASE_NEW
+        gatewayAddress: 182.16.0.145
         privateNetworkConfiguration:
           gatewayAddress: 10.0.0.10
           configurationType: USER_DEFINED
@@ -2032,10 +2322,18 @@ components:
             - 10.0.0.17
             dhcp: false
       properties:
+        gatewayAddress:
+          description: The address of the gateway assigned / to assign to the server.
+            When used as part of request body, IP address has to be part of private/public
+            network assigned to this server.
+          example: 182.16.0.145
+          type: string
         privateNetworkConfiguration:
           $ref: '#/components/schemas/PrivateNetworkConfiguration'
         ipBlocksConfiguration:
           $ref: '#/components/schemas/IpBlocksConfiguration'
+        publicNetworkConfiguration:
+          $ref: '#/components/schemas/PublicNetworkConfiguration'
       type: object
     Server:
       description: Bare metal server.
@@ -2058,11 +2356,21 @@ components:
           - 10.111.14.40/29
           - 10.111.14.66 - 10.111.14.71
         networkConfiguration:
+          publicNetworkConfiguration:
+            publicNetworks:
+            - id: 60473c2509268bc77fd06d29
+              ips:
+              - 182.16.0.146
+              - 182.16.0.147
+            - id: 60f93142c5c1d6082d31382a
+              ips:
+              - 183.16.0.1
           ipBlocksConfiguration:
             ipBlocks:
             - vlanId: 10
               id: 60473a6115e34466c9f8f083
             configurationType: PURCHASE_NEW
+          gatewayAddress: 182.16.0.145
           privateNetworkConfiguration:
             gatewayAddress: 10.0.0.10
             configurationType: USER_DEFINED
@@ -2315,11 +2623,21 @@ components:
           - 10.111.14.40/29
           - 10.111.14.66 - 10.111.14.71
         networkConfiguration:
+          publicNetworkConfiguration:
+            publicNetworks:
+            - id: 60473c2509268bc77fd06d29
+              ips:
+              - 182.16.0.146
+              - 182.16.0.147
+            - id: 60f93142c5c1d6082d31382a
+              ips:
+              - 183.16.0.1
           ipBlocksConfiguration:
             ipBlocks:
             - vlanId: 10
               id: 60473a6115e34466c9f8f083
             configurationType: PURCHASE_NEW
+          gatewayAddress: 182.16.0.145
           privateNetworkConfiguration:
             gatewayAddress: 10.0.0.10
             configurationType: USER_DEFINED

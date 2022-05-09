@@ -20,6 +20,8 @@ Method | HTTP request | Description
 [**ServersServerIdIpBlocksPost**](ServersApi.md#ServersServerIdIpBlocksPost) | **Post** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks | Assign IP Block to Server.
 [**ServersServerIdPatch**](ServersApi.md#ServersServerIdPatch) | **Patch** /servers/{serverId} | Patch a Server.
 [**ServersServerIdPrivateNetworksPost**](ServersApi.md#ServersServerIdPrivateNetworksPost) | **Post** /servers/{serverId}/network-configuration/private-network-configuration/private-networks | Adds the server to a private network.
+[**ServersServerIdPublicNetworksDelete**](ServersApi.md#ServersServerIdPublicNetworksDelete) | **Delete** /servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId} | Removes the server from the Public Network
+[**ServersServerIdPublicNetworksPost**](ServersApi.md#ServersServerIdPublicNetworksPost) | **Post** /servers/{serverId}/network-configuration/public-network-configuration/public-networks | Adds the server to a Public Network.
 [**ServersServerIdTagsPut**](ServersApi.md#ServersServerIdTagsPut) | **Put** /servers/{serverId}/tags | Overwrite tags assigned for Server.
 
 
@@ -1141,6 +1143,151 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ServerPrivateNetwork**](ServerPrivateNetwork.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ServersServerIdPublicNetworksDelete
+
+> string ServersServerIdPublicNetworksDelete(ctx, serverId, publicNetworkId).Execute()
+
+Removes the server from the Public Network
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
+    publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ServersApi.ServersServerIdPublicNetworksDelete(context.Background(), serverId, publicNetworkId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPublicNetworksDelete``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ServersServerIdPublicNetworksDelete`: string
+    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdPublicNetworksDelete`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**serverId** | **string** | The server&#39;s ID. | 
+**publicNetworkId** | **string** | The Public Network identifier. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiServersServerIdPublicNetworksDeleteRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+**string**
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ServersServerIdPublicNetworksPost
+
+> ServerPublicNetwork ServersServerIdPublicNetworksPost(ctx, serverId).ServerPublicNetwork(serverPublicNetwork).Execute()
+
+Adds the server to a Public Network.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
+    serverPublicNetwork := *openapiclient.NewServerPublicNetwork("60473c2509268bc77fd06d29", []string{"182.16.0.146"}) // ServerPublicNetwork |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ServersApi.ServersServerIdPublicNetworksPost(context.Background(), serverId).ServerPublicNetwork(serverPublicNetwork).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPublicNetworksPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ServersServerIdPublicNetworksPost`: ServerPublicNetwork
+    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdPublicNetworksPost`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**serverId** | **string** | The server&#39;s ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiServersServerIdPublicNetworksPostRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **serverPublicNetwork** | [**ServerPublicNetwork**](ServerPublicNetwork.md) |  | 
+
+### Return type
+
+[**ServerPublicNetwork**](ServerPublicNetwork.md)
 
 ### Authorization
 
