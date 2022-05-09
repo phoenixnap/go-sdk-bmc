@@ -7,6 +7,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Build gemspec
+    - name: Build go module
       shell: bash
-      run: cd ${{ inputs.module-name }} && go build
+      run: cd ${{ inputs.module-name }} && go mod tidy && go build
