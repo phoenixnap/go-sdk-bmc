@@ -1,0 +1,6 @@
+generatorName: go
+ignoreFileOverride: ".openapi-generator-ignore"
+additionalProperties:
+  generateInterfaces: true
+  isGoSubmodule: true
+  useOneOfDiscriminatorLookup: true
