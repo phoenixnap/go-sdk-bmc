@@ -24,7 +24,7 @@ type IpBlockCreate struct {
 	// The description of the IP Block.
 	Description *string `json:"description,omitempty"`
 	// Tags to set to ip-block, if any.
-	Tags []TagAssignmentRequest `json:"tags,omitempty"`
+	Tags *[]TagAssignmentRequest `json:"tags,omitempty"`
 }
 
 // NewIpBlockCreate instantiates a new IpBlockCreate object
@@ -132,12 +132,12 @@ func (o *IpBlockCreate) GetTags() []TagAssignmentRequest {
 		var ret []TagAssignmentRequest
 		return ret
 	}
-	return o.Tags
+	return *o.Tags
 }
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IpBlockCreate) GetTagsOk() ([]TagAssignmentRequest, bool) {
+func (o *IpBlockCreate) GetTagsOk() (*[]TagAssignmentRequest, bool) {
 	if o == nil || o.Tags == nil {
 		return nil, false
 	}
@@ -155,7 +155,7 @@ func (o *IpBlockCreate) HasTags() bool {
 
 // SetTags gets a reference to the given []TagAssignmentRequest and assigns it to the Tags field.
 func (o *IpBlockCreate) SetTags(v []TagAssignmentRequest) {
-	o.Tags = v
+	o.Tags = &v
 }
 
 func (o IpBlockCreate) MarshalJSON() ([]byte, error) {

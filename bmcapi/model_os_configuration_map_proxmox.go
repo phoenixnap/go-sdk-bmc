@@ -22,7 +22,7 @@ type OsConfigurationMapProxmox struct {
 	// The URL of the management UI which will only be returned in response to provisioning a server.
 	ManagementUiUrl *string `json:"managementUiUrl,omitempty"`
 	// List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
-	ManagementAccessAllowedIps []string `json:"managementAccessAllowedIps,omitempty"`
+	ManagementAccessAllowedIps *[]string `json:"managementAccessAllowedIps,omitempty"`
 }
 
 // NewOsConfigurationMapProxmox instantiates a new OsConfigurationMapProxmox object
@@ -112,12 +112,12 @@ func (o *OsConfigurationMapProxmox) GetManagementAccessAllowedIps() []string {
 		var ret []string
 		return ret
 	}
-	return o.ManagementAccessAllowedIps
+	return *o.ManagementAccessAllowedIps
 }
 
 // GetManagementAccessAllowedIpsOk returns a tuple with the ManagementAccessAllowedIps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OsConfigurationMapProxmox) GetManagementAccessAllowedIpsOk() ([]string, bool) {
+func (o *OsConfigurationMapProxmox) GetManagementAccessAllowedIpsOk() (*[]string, bool) {
 	if o == nil || o.ManagementAccessAllowedIps == nil {
 		return nil, false
 	}
@@ -135,7 +135,7 @@ func (o *OsConfigurationMapProxmox) HasManagementAccessAllowedIps() bool {
 
 // SetManagementAccessAllowedIps gets a reference to the given []string and assigns it to the ManagementAccessAllowedIps field.
 func (o *OsConfigurationMapProxmox) SetManagementAccessAllowedIps(v []string) {
-	o.ManagementAccessAllowedIps = v
+	o.ManagementAccessAllowedIps = &v
 }
 
 func (o OsConfigurationMapProxmox) MarshalJSON() ([]byte, error) {

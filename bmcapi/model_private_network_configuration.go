@@ -23,7 +23,7 @@ type PrivateNetworkConfiguration struct {
 	// Determines the approach for configuring private network(s) for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.
 	ConfigurationType *string `json:"configurationType,omitempty"`
 	// The list of private networks this server is member of. When this field is part of request body, it'll be used to specify the private networks to assign to this server upon provisioning. Used alongside the `USER_DEFINED` configurationType.
-	PrivateNetworks []ServerPrivateNetwork `json:"privateNetworks,omitempty"`
+	PrivateNetworks *[]ServerPrivateNetwork `json:"privateNetworks,omitempty"`
 }
 
 // NewPrivateNetworkConfiguration instantiates a new PrivateNetworkConfiguration object
@@ -120,12 +120,12 @@ func (o *PrivateNetworkConfiguration) GetPrivateNetworks() []ServerPrivateNetwor
 		var ret []ServerPrivateNetwork
 		return ret
 	}
-	return o.PrivateNetworks
+	return *o.PrivateNetworks
 }
 
 // GetPrivateNetworksOk returns a tuple with the PrivateNetworks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PrivateNetworkConfiguration) GetPrivateNetworksOk() ([]ServerPrivateNetwork, bool) {
+func (o *PrivateNetworkConfiguration) GetPrivateNetworksOk() (*[]ServerPrivateNetwork, bool) {
 	if o == nil || o.PrivateNetworks == nil {
 		return nil, false
 	}
@@ -143,7 +143,7 @@ func (o *PrivateNetworkConfiguration) HasPrivateNetworks() bool {
 
 // SetPrivateNetworks gets a reference to the given []ServerPrivateNetwork and assigns it to the PrivateNetworks field.
 func (o *PrivateNetworkConfiguration) SetPrivateNetworks(v []ServerPrivateNetwork) {
-	o.PrivateNetworks = v
+	o.PrivateNetworks = &v
 }
 
 func (o PrivateNetworkConfiguration) MarshalJSON() ([]byte, error) {

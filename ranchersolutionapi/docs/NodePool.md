@@ -129,16 +129,6 @@ SetSshConfig sets SshConfig field to given value.
 
 HasSshConfig returns a boolean if a field has been set.
 
-### SetSshConfigNil
-
-`func (o *NodePool) SetSshConfigNil(b bool)`
-
- SetSshConfigNil sets the value for SshConfig to be an explicit nil
-
-### UnsetSshConfig
-`func (o *NodePool) UnsetSshConfig()`
-
-UnsetSshConfig ensures that no value is present for SshConfig, not even an explicit nil
 ### GetNodes
 
 `func (o *NodePool) GetNodes() []Node`

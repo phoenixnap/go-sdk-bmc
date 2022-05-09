@@ -24,7 +24,7 @@ type PublicNetworkCreate struct {
 	// The location of this public network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
 	Location string `json:"location"`
 	// A list of IP Blocks that will be associated with this public network.
-	IpBlocks []PublicNetworkIpBlock `json:"ipBlocks,omitempty"`
+	IpBlocks *[]PublicNetworkIpBlock `json:"ipBlocks,omitempty"`
 }
 
 // NewPublicNetworkCreate instantiates a new PublicNetworkCreate object
@@ -132,12 +132,12 @@ func (o *PublicNetworkCreate) GetIpBlocks() []PublicNetworkIpBlock {
 		var ret []PublicNetworkIpBlock
 		return ret
 	}
-	return o.IpBlocks
+	return *o.IpBlocks
 }
 
 // GetIpBlocksOk returns a tuple with the IpBlocks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PublicNetworkCreate) GetIpBlocksOk() ([]PublicNetworkIpBlock, bool) {
+func (o *PublicNetworkCreate) GetIpBlocksOk() (*[]PublicNetworkIpBlock, bool) {
 	if o == nil || o.IpBlocks == nil {
 		return nil, false
 	}
@@ -155,7 +155,7 @@ func (o *PublicNetworkCreate) HasIpBlocks() bool {
 
 // SetIpBlocks gets a reference to the given []PublicNetworkIpBlock and assigns it to the IpBlocks field.
 func (o *PublicNetworkCreate) SetIpBlocks(v []PublicNetworkIpBlock) {
-	o.IpBlocks = v
+	o.IpBlocks = &v
 }
 
 func (o PublicNetworkCreate) MarshalJSON() ([]byte, error) {

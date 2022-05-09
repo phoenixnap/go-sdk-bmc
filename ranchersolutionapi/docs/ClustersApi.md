@@ -34,8 +34,8 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ClustersApi.ClustersGet(context.Background()).Execute()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ClustersApi.ClustersGet(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -96,8 +96,8 @@ func main() {
     id := "123" // string | The Cluster identifier.
 
     configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ClustersApi.ClustersIdDelete(context.Background(), id).Execute()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ClustersApi.ClustersIdDelete(context.Background(), id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersIdDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -166,8 +166,8 @@ func main() {
     id := "123" // string | The Cluster identifier.
 
     configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ClustersApi.ClustersIdGet(context.Background(), id).Execute()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ClustersApi.ClustersIdGet(context.Background(), id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersIdGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -236,8 +236,8 @@ func main() {
     cluster := *openapiclient.NewCluster("PHX") // Cluster |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ClustersApi.ClustersPost(context.Background()).Cluster(cluster).Execute()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ClustersApi.ClustersPost(context.Background()).Cluster(cluster).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

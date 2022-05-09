@@ -78,11 +78,11 @@ func (o *PrivateNetworkServer) GetIps() []string {
 
 // GetIpsOk returns a tuple with the Ips field value
 // and a boolean to check if the value has been set.
-func (o *PrivateNetworkServer) GetIpsOk() ([]string, bool) {
+func (o *PrivateNetworkServer) GetIpsOk() (*[]string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.Ips, true
+	return &o.Ips, true
 }
 
 // SetIps sets field value

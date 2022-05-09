@@ -29,7 +29,7 @@ type RancherClusterConfig struct {
 	NodeTaint *string `json:"nodeTaint,omitempty"`
 	// This maps to ranchers `cluster-domain`. Cluster Domain.
 	ClusterDomain *string `json:"clusterDomain,omitempty"`
-	Certificates RancherClusterCertificates `json:"certificates,omitempty"`
+	Certificates *RancherClusterCertificates `json:"certificates,omitempty"`
 }
 
 // NewRancherClusterConfig instantiates a new RancherClusterConfig object
@@ -249,23 +249,22 @@ func (o *RancherClusterConfig) SetClusterDomain(v string) {
 	o.ClusterDomain = &v
 }
 
-// GetCertificates returns the Certificates field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetCertificates returns the Certificates field value if set, zero value otherwise.
 func (o *RancherClusterConfig) GetCertificates() RancherClusterCertificates {
-	if o == nil  {
+	if o == nil || o.Certificates == nil {
 		var ret RancherClusterCertificates
 		return ret
 	}
-	return o.Certificates
+	return *o.Certificates
 }
 
 // GetCertificatesOk returns a tuple with the Certificates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RancherClusterConfig) GetCertificatesOk() (*RancherClusterCertificates, bool) {
 	if o == nil || o.Certificates == nil {
 		return nil, false
 	}
-	return &o.Certificates, true
+	return o.Certificates, true
 }
 
 // HasCertificates returns a boolean if a field has been set.
@@ -279,7 +278,7 @@ func (o *RancherClusterConfig) HasCertificates() bool {
 
 // SetCertificates gets a reference to the given RancherClusterCertificates and assigns it to the Certificates field.
 func (o *RancherClusterConfig) SetCertificates(v RancherClusterCertificates) {
-	o.Certificates = v
+	o.Certificates = &v
 }
 
 func (o RancherClusterConfig) MarshalJSON() ([]byte, error) {

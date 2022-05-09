@@ -36,8 +36,8 @@ func main() {
     location := "PHX" // string | If present will filter the result by the given location of the Private Networks. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksGet(context.Background()).Location(location).Execute()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PrivateNetworksApi.PrivateNetworksGet(context.Background()).Location(location).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -102,8 +102,8 @@ func main() {
     privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
 
     configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdDelete(context.Background(), privateNetworkId).Execute()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PrivateNetworksApi.PrivateNetworksNetworkIdDelete(context.Background(), privateNetworkId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksNetworkIdDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -170,8 +170,8 @@ func main() {
     privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
 
     configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdGet(context.Background(), privateNetworkId).Execute()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PrivateNetworksApi.PrivateNetworksNetworkIdGet(context.Background(), privateNetworkId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksNetworkIdGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -241,8 +241,8 @@ func main() {
     privateNetworkModify := *openapiclient.NewPrivateNetworkModify("Sample network", true) // PrivateNetworkModify |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdPut(context.Background(), privateNetworkId).PrivateNetworkModify(privateNetworkModify).Execute()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PrivateNetworksApi.PrivateNetworksNetworkIdPut(context.Background(), privateNetworkId).PrivateNetworkModify(privateNetworkModify).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksNetworkIdPut``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -312,8 +312,8 @@ func main() {
     privateNetworkCreate := *openapiclient.NewPrivateNetworkCreate("Sample Network", "PHX", "10.0.0.0/24") // PrivateNetworkCreate |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksPost(context.Background()).PrivateNetworkCreate(privateNetworkCreate).Execute()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PrivateNetworksApi.PrivateNetworksPost(context.Background()).PrivateNetworkCreate(privateNetworkCreate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
