@@ -5,18 +5,22 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | IP Block identifier. | 
-**Location** | **string** | IP Block location ID. Currently this field should be set to &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60; or &#x60;SEA&#x60;. | 
-**CidrBlockSize** | **string** | CIDR IP Block Size. Currently this field should be set to either &#x60;/31&#x60;, &#x60;/30&#x60;, &#x60;/29&#x60; or &#x60;/28&#x60;. | 
+**Location** | **string** | IP Block location ID. Currently this field should be set to &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60;, &#x60;SEA&#x60; or &#x60;AUS&#x60;. | 
+**CidrBlockSize** | **string** | CIDR IP Block Size. Currently this field should be set to either &#x60;/31&#x60;, &#x60;/30&#x60;, &#x60;/29&#x60;, &#x60;/28&#x60;, &#x60;/27&#x60;, &#x60;/26&#x60;, &#x60;/25&#x60;, &#x60;/24&#x60;, &#x60;/23&#x60; or &#x60;/22&#x60;. | 
 **Cidr** | **string** | The IP Block in CIDR notation. | 
 **Status** | **string** | The status of the IP Block. | 
 **AssignedResourceId** | Pointer to **string** | ID of the resource assigned to the IP Block. | [optional] 
 **AssignedResourceType** | Pointer to **string** | Type of the resource assigned to the IP Block. | [optional] 
+**Description** | Pointer to **string** | The description of the IP Block. | [optional] 
+**Tags** | Pointer to [**[]TagAssignment**](TagAssignment.md) | The tags assigned if any. | [optional] 
+**IsBringYourOwn** | **bool** | True if the IP block is a &#x60;bring your own&#x60; block. | 
+**CreatedOn** | **time.Time** | Date and time when the IP block was created. | 
 
 ## Methods
 
 ### NewIpBlock
 
-`func NewIpBlock(id string, location string, cidrBlockSize string, cidr string, status string, ) *IpBlock`
+`func NewIpBlock(id string, location string, cidrBlockSize string, cidr string, status string, isBringYourOwn bool, createdOn time.Time, ) *IpBlock`
 
 NewIpBlock instantiates a new IpBlock object
 This constructor will assign default values to properties that have it defined,
@@ -180,6 +184,96 @@ SetAssignedResourceType sets AssignedResourceType field to given value.
 `func (o *IpBlock) HasAssignedResourceType() bool`
 
 HasAssignedResourceType returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *IpBlock) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *IpBlock) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *IpBlock) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *IpBlock) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### GetTags
+
+`func (o *IpBlock) GetTags() []TagAssignment`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *IpBlock) GetTagsOk() (*[]TagAssignment, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *IpBlock) SetTags(v []TagAssignment)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *IpBlock) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
+
+### GetIsBringYourOwn
+
+`func (o *IpBlock) GetIsBringYourOwn() bool`
+
+GetIsBringYourOwn returns the IsBringYourOwn field if non-nil, zero value otherwise.
+
+### GetIsBringYourOwnOk
+
+`func (o *IpBlock) GetIsBringYourOwnOk() (*bool, bool)`
+
+GetIsBringYourOwnOk returns a tuple with the IsBringYourOwn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsBringYourOwn
+
+`func (o *IpBlock) SetIsBringYourOwn(v bool)`
+
+SetIsBringYourOwn sets IsBringYourOwn field to given value.
+
+
+### GetCreatedOn
+
+`func (o *IpBlock) GetCreatedOn() time.Time`
+
+GetCreatedOn returns the CreatedOn field if non-nil, zero value otherwise.
+
+### GetCreatedOnOk
+
+`func (o *IpBlock) GetCreatedOnOk() (*time.Time, bool)`
+
+GetCreatedOnOk returns a tuple with the CreatedOn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedOn
+
+`func (o *IpBlock) SetCreatedOn(v time.Time)`
+
+SetCreatedOn sets CreatedOn field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

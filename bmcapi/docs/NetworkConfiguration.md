@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**GatewayAddress** | Pointer to **string** | The address of the gateway assigned / to assign to the server. When used as part of request body, IP address has to be part of private/public network assigned to this server. | [optional] 
 **PrivateNetworkConfiguration** | Pointer to [**PrivateNetworkConfiguration**](PrivateNetworkConfiguration.md) |  | [optional] 
 **IpBlocksConfiguration** | Pointer to [**IpBlocksConfiguration**](IpBlocksConfiguration.md) |  | [optional] 
+**PublicNetworkConfiguration** | Pointer to [**PublicNetworkConfiguration**](PublicNetworkConfiguration.md) |  | [optional] 
 
 ## Methods
 
@@ -25,6 +27,31 @@ will change when the set of required properties is changed
 NewNetworkConfigurationWithDefaults instantiates a new NetworkConfiguration object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetGatewayAddress
+
+`func (o *NetworkConfiguration) GetGatewayAddress() string`
+
+GetGatewayAddress returns the GatewayAddress field if non-nil, zero value otherwise.
+
+### GetGatewayAddressOk
+
+`func (o *NetworkConfiguration) GetGatewayAddressOk() (*string, bool)`
+
+GetGatewayAddressOk returns a tuple with the GatewayAddress field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGatewayAddress
+
+`func (o *NetworkConfiguration) SetGatewayAddress(v string)`
+
+SetGatewayAddress sets GatewayAddress field to given value.
+
+### HasGatewayAddress
+
+`func (o *NetworkConfiguration) HasGatewayAddress() bool`
+
+HasGatewayAddress returns a boolean if a field has been set.
 
 ### GetPrivateNetworkConfiguration
 
@@ -75,6 +102,31 @@ SetIpBlocksConfiguration sets IpBlocksConfiguration field to given value.
 `func (o *NetworkConfiguration) HasIpBlocksConfiguration() bool`
 
 HasIpBlocksConfiguration returns a boolean if a field has been set.
+
+### GetPublicNetworkConfiguration
+
+`func (o *NetworkConfiguration) GetPublicNetworkConfiguration() PublicNetworkConfiguration`
+
+GetPublicNetworkConfiguration returns the PublicNetworkConfiguration field if non-nil, zero value otherwise.
+
+### GetPublicNetworkConfigurationOk
+
+`func (o *NetworkConfiguration) GetPublicNetworkConfigurationOk() (*PublicNetworkConfiguration, bool)`
+
+GetPublicNetworkConfigurationOk returns a tuple with the PublicNetworkConfiguration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPublicNetworkConfiguration
+
+`func (o *NetworkConfiguration) SetPublicNetworkConfiguration(v PublicNetworkConfiguration)`
+
+SetPublicNetworkConfiguration sets PublicNetworkConfiguration field to given value.
+
+### HasPublicNetworkConfiguration
+
+`func (o *NetworkConfiguration) HasPublicNetworkConfiguration() bool`
+
+HasPublicNetworkConfiguration returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -1,7 +1,7 @@
 /*
 Rancher Solution API
 
-Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls. </br></br>**Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a>**</br></br>**All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)**
+Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b>
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -23,14 +23,15 @@ type Cluster struct {
 	Name *string `json:"name,omitempty"`
 	// Cluster description.
 	Description *string `json:"description,omitempty"`
-	// Deployment location.
+	// Deployment location. Cannot be changed once a cluster is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
 	Location string `json:"location"`
 	// (Read-only) The Rancher version that was installed on the cluster during the first creation process.
 	InitialClusterVersion *string `json:"initialClusterVersion,omitempty"`
 	// The node pools associated with the cluster.
-	NodePools     *[]NodePool            `json:"nodePools,omitempty"`
-	Configuration *RancherClusterConfig  `json:"configuration,omitempty"`
-	Metadata      *RancherServerMetadata `json:"metadata,omitempty"`
+	NodePools             *[]NodePool            `json:"nodePools,omitempty"`
+	Configuration         *RancherClusterConfig  `json:"configuration,omitempty"`
+	Metadata              *RancherServerMetadata `json:"metadata,omitempty"`
+	WorkloadConfiguration *WorkloadClusterConfig `json:"workloadConfiguration,omitempty"`
 	// The cluster status
 	StatusDescription *string `json:"statusDescription,omitempty"`
 }
@@ -301,6 +302,38 @@ func (o *Cluster) SetMetadata(v RancherServerMetadata) {
 	o.Metadata = &v
 }
 
+// GetWorkloadConfiguration returns the WorkloadConfiguration field value if set, zero value otherwise.
+func (o *Cluster) GetWorkloadConfiguration() WorkloadClusterConfig {
+	if o == nil || o.WorkloadConfiguration == nil {
+		var ret WorkloadClusterConfig
+		return ret
+	}
+	return *o.WorkloadConfiguration
+}
+
+// GetWorkloadConfigurationOk returns a tuple with the WorkloadConfiguration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Cluster) GetWorkloadConfigurationOk() (*WorkloadClusterConfig, bool) {
+	if o == nil || o.WorkloadConfiguration == nil {
+		return nil, false
+	}
+	return o.WorkloadConfiguration, true
+}
+
+// HasWorkloadConfiguration returns a boolean if a field has been set.
+func (o *Cluster) HasWorkloadConfiguration() bool {
+	if o != nil && o.WorkloadConfiguration != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkloadConfiguration gets a reference to the given WorkloadClusterConfig and assigns it to the WorkloadConfiguration field.
+func (o *Cluster) SetWorkloadConfiguration(v WorkloadClusterConfig) {
+	o.WorkloadConfiguration = &v
+}
+
 // GetStatusDescription returns the StatusDescription field value if set, zero value otherwise.
 func (o *Cluster) GetStatusDescription() string {
 	if o == nil || o.StatusDescription == nil {
@@ -358,6 +391,9 @@ func (o Cluster) MarshalJSON() ([]byte, error) {
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
+	}
+	if o.WorkloadConfiguration != nil {
+		toSerialize["workloadConfiguration"] = o.WorkloadConfiguration
 	}
 	if o.StatusDescription != nil {
 		toSerialize["statusDescription"] = o.StatusDescription

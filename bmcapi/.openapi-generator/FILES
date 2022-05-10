@@ -17,6 +17,7 @@ docs/OsConfigurationMapEsxi.md
 docs/OsConfigurationMapProxmox.md
 docs/OsConfigurationWindows.md
 docs/PrivateNetworkConfiguration.md
+docs/PublicNetworkConfiguration.md
 docs/Quota.md
 docs/QuotaEditLimitRequest.md
 docs/QuotaEditLimitRequestDetails.md
@@ -30,6 +31,7 @@ docs/ServerCreate.md
 docs/ServerIpBlock.md
 docs/ServerPatch.md
 docs/ServerPrivateNetwork.md
+docs/ServerPublicNetwork.md
 docs/ServerReserve.md
 docs/ServerReset.md
 docs/ServersApi.md
@@ -51,6 +53,7 @@ model_os_configuration_map_esxi.go
 model_os_configuration_map_proxmox.go
 model_os_configuration_windows_.go
 model_private_network_configuration.go
+model_public_network_configuration.go
 model_quota.go
 model_quota_edit_limit_request.go
 model_quota_edit_limit_request_details.go
@@ -62,6 +65,7 @@ model_server_create.go
 model_server_ip_block.go
 model_server_patch.go
 model_server_private_network.go
+model_server_public_network.go
 model_server_reserve.go
 model_server_reset.go
 model_ssh_key.go

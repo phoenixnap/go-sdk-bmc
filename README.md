@@ -38,7 +38,7 @@ This SDK allows you to provision and manage Bare Metal Cloud servers via API wit
 
 Bare Metal Cloud Go SDK provides a library of resources and APIs that can be used to interact with the platform. Below is a sample code to create dependancy: 
 
-```
+```go
 package main
 
 import (

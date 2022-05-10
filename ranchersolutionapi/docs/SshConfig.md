@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**InstallDefaultKeys** | Pointer to **bool** | Define whether public keys marked as default should be installed on this node. These are public keys that were already recorded on this system. Use &lt;a href&#x3D;\&quot;https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get\&quot; target&#x3D;\&quot;_blank\&quot;&gt;GET /ssh-keys&lt;/a&gt; to retrieve a list of possible values. | [optional] [default to true]
+**InstallDefaultKeys** | Pointer to **bool** | Define whether public keys marked as default should be installed on this node. These are public keys that were already recorded on this system. Use &lt;a href&#x3D;&#39;https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get&#39; target&#x3D;&#39;_blank&#39;&gt;GET /ssh-keys&lt;/a&gt; to retrieve a list of possible values. | [optional] [default to true]
 **Keys** | Pointer to **[]string** | List of public SSH keys. | [optional] 
-**KeyIds** | Pointer to **[]string** | List of public SSH key identifiers. These are public keys that were already recorded on this system. Use &lt;a href&#x3D;\&quot;https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get\&quot; target&#x3D;\&quot;_blank\&quot;&gt;GET /ssh-keys&lt;/a&gt; to retrieve a list of possible values. | [optional] 
+**KeyIds** | Pointer to **[]string** | List of public SSH key identifiers. These are public keys that were already recorded on this system. Use &lt;a href&#x3D;&#39;https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get&#39; target&#x3D;&#39;_blank&#39;&gt;GET /ssh-keys&lt;/a&gt; to retrieve a list of possible values. | [optional] 
 
 ## Methods
 

@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Location** | **string** | IP Block location ID. Currently this field should be set to &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60; or &#x60;SEA&#x60;. | 
-**CidrBlockSize** | **string** | CIDR IP Block Size. Currently this field should be set to either &#x60;/31&#x60;, &#x60;/30&#x60;, &#x60;/29&#x60; or &#x60;/28&#x60;. | 
+**Location** | **string** | IP Block location ID. Currently this field should be set to &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60;, &#x60;SEA&#x60; or &#x60;AUS&#x60;. | 
+**CidrBlockSize** | **string** | CIDR IP Block Size. Currently this field should be set to either &#x60;/31&#x60;, &#x60;/30&#x60;, &#x60;/29&#x60; or &#x60;/28&#x60;. For a larger Block Size contact support. | 
+**Description** | Pointer to **string** | The description of the IP Block. | [optional] 
+**Tags** | Pointer to [**[]TagAssignmentRequest**](TagAssignmentRequest.md) | Tags to set to ip-block, if any. | [optional] 
 
 ## Methods
 
@@ -65,6 +67,56 @@ and a boolean to check if the value has been set.
 
 SetCidrBlockSize sets CidrBlockSize field to given value.
 
+
+### GetDescription
+
+`func (o *IpBlockCreate) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *IpBlockCreate) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *IpBlockCreate) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *IpBlockCreate) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### GetTags
+
+`func (o *IpBlockCreate) GetTags() []TagAssignmentRequest`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *IpBlockCreate) GetTagsOk() (*[]TagAssignmentRequest, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *IpBlockCreate) SetTags(v []TagAssignmentRequest)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *IpBlockCreate) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

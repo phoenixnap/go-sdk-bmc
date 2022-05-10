@@ -1,7 +1,7 @@
 /*
 Rancher Solution API
 
-Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls. </br></br>**Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a>**</br></br>**All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)**
+Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b>
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -74,7 +74,7 @@ type ClustersApi interface {
 	/*
 			ClustersPost Create a Rancher Server Deployment.
 
-			Create a Rancher Server Deployment as described in <a href="https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture" target="_blank">Rancher Docs Architecture</a>. Rancher Server allows the creation, import and management of multiple Downstream User Kubernetes Clusters.
+			Create a Rancher Server Deployment as described in <a href='https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture' target='_blank'>Rancher Docs Architecture</a>. Rancher Server allows the creation, import and management of multiple Downstream User Kubernetes Clusters.
 		<b>This is not a Downstream User Cluster</b>.
 
 
@@ -507,7 +507,7 @@ func (r ApiClustersPostRequest) Execute() (Cluster, *_nethttp.Response, error) {
 /*
 ClustersPost Create a Rancher Server Deployment.
 
-Create a Rancher Server Deployment as described in <a href="https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture" target="_blank">Rancher Docs Architecture</a>. Rancher Server allows the creation, import and management of multiple Downstream User Kubernetes Clusters.
+Create a Rancher Server Deployment as described in <a href='https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture' target='_blank'>Rancher Docs Architecture</a>. Rancher Server allows the creation, import and management of multiple Downstream User Kubernetes Clusters.
 <b>This is not a Downstream User Cluster</b>.
 
 

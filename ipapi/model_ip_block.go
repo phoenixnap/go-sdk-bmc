@@ -1,7 +1,7 @@
 /*
 IP Addresses API
 
-Public IP blocks are a set of contiguous IPs that allow you to access your servers or networks from the internet. Use the IP Addresses API to request and delete IP blocks. <br/></br>**Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/public-ip-management#bmc-public-ip-allocations-api' target='_blank'>here</a>**</br></br>**All URLs are relative to (https://api.phoenixnap.com/ips/v1/)**
+Public IP blocks are a set of contiguous IPs that allow you to access your servers or networks from the internet. Use the IP Addresses API to request and delete IP blocks.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/public-ip-management#bmc-public-ip-allocations-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/ips/v1/)</b>
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -13,15 +13,16 @@ package ipapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // IpBlock IP Block Details.
 type IpBlock struct {
 	// IP Block identifier.
 	Id string `json:"id"`
-	// IP Block location ID. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI` or `SEA`.
+	// IP Block location ID. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
 	Location string `json:"location"`
-	// CIDR IP Block Size. Currently this field should be set to either `/31`, `/30`, `/29` or `/28`.
+	// CIDR IP Block Size. Currently this field should be set to either `/31`, `/30`, `/29`, `/28`, `/27`, `/26`, `/25`, `/24`, `/23` or `/22`.
 	CidrBlockSize string `json:"cidrBlockSize"`
 	// The IP Block in CIDR notation.
 	Cidr string `json:"cidr"`
@@ -31,19 +32,29 @@ type IpBlock struct {
 	AssignedResourceId *string `json:"assignedResourceId,omitempty"`
 	// Type of the resource assigned to the IP Block.
 	AssignedResourceType *string `json:"assignedResourceType,omitempty"`
+	// The description of the IP Block.
+	Description *string `json:"description,omitempty"`
+	// The tags assigned if any.
+	Tags *[]TagAssignment `json:"tags,omitempty"`
+	// True if the IP block is a `bring your own` block.
+	IsBringYourOwn bool `json:"isBringYourOwn"`
+	// Date and time when the IP block was created.
+	CreatedOn time.Time `json:"createdOn"`
 }
 
 // NewIpBlock instantiates a new IpBlock object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIpBlock(id string, location string, cidrBlockSize string, cidr string, status string) *IpBlock {
+func NewIpBlock(id string, location string, cidrBlockSize string, cidr string, status string, isBringYourOwn bool, createdOn time.Time) *IpBlock {
 	this := IpBlock{}
 	this.Id = id
 	this.Location = location
 	this.CidrBlockSize = cidrBlockSize
 	this.Cidr = cidr
 	this.Status = status
+	this.IsBringYourOwn = isBringYourOwn
+	this.CreatedOn = createdOn
 	return &this
 }
 
@@ -239,6 +250,118 @@ func (o *IpBlock) SetAssignedResourceType(v string) {
 	o.AssignedResourceType = &v
 }
 
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *IpBlock) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IpBlock) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *IpBlock) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *IpBlock) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *IpBlock) GetTags() []TagAssignment {
+	if o == nil || o.Tags == nil {
+		var ret []TagAssignment
+		return ret
+	}
+	return *o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IpBlock) GetTagsOk() (*[]TagAssignment, bool) {
+	if o == nil || o.Tags == nil {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *IpBlock) HasTags() bool {
+	if o != nil && o.Tags != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []TagAssignment and assigns it to the Tags field.
+func (o *IpBlock) SetTags(v []TagAssignment) {
+	o.Tags = &v
+}
+
+// GetIsBringYourOwn returns the IsBringYourOwn field value
+func (o *IpBlock) GetIsBringYourOwn() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsBringYourOwn
+}
+
+// GetIsBringYourOwnOk returns a tuple with the IsBringYourOwn field value
+// and a boolean to check if the value has been set.
+func (o *IpBlock) GetIsBringYourOwnOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsBringYourOwn, true
+}
+
+// SetIsBringYourOwn sets field value
+func (o *IpBlock) SetIsBringYourOwn(v bool) {
+	o.IsBringYourOwn = v
+}
+
+// GetCreatedOn returns the CreatedOn field value
+func (o *IpBlock) GetCreatedOn() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.CreatedOn
+}
+
+// GetCreatedOnOk returns a tuple with the CreatedOn field value
+// and a boolean to check if the value has been set.
+func (o *IpBlock) GetCreatedOnOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CreatedOn, true
+}
+
+// SetCreatedOn sets field value
+func (o *IpBlock) SetCreatedOn(v time.Time) {
+	o.CreatedOn = v
+}
+
 func (o IpBlock) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -261,6 +384,18 @@ func (o IpBlock) MarshalJSON() ([]byte, error) {
 	}
 	if o.AssignedResourceType != nil {
 		toSerialize["assignedResourceType"] = o.AssignedResourceType
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
+	}
+	if true {
+		toSerialize["isBringYourOwn"] = o.IsBringYourOwn
+	}
+	if true {
+		toSerialize["createdOn"] = o.CreatedOn
 	}
 	return json.Marshal(toSerialize)
 }

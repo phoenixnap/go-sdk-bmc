@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | The name of the node pool. | [optional] 
 **NodeCount** | Pointer to **int32** | Number of configured nodes, currently only node counts of 1 and 3 are possible. | [optional] 
-**ServerType** | Pointer to **string** | Node server type. | [optional] [default to "s0.d1.small"]
+**ServerType** | Pointer to **string** | Node server type. Cannot be changed once a server is created. Currently this field should be set to either &#x60;s0.d1.small&#x60;, &#x60;s0.d1.medium&#x60;, &#x60;s1.c1.small&#x60;, &#x60;s1.c1.medium&#x60;, &#x60;s1.c2.medium&#x60;, &#x60;s1.c2.large&#x60;, &#x60;s2.c1.small&#x60;, &#x60;s2.c1.medium&#x60;, &#x60;s2.c1.large&#x60;, &#x60;s2.c2.small&#x60;, &#x60;s2.c2.medium&#x60;, &#x60;s2.c2.large&#x60;, &#x60;s1.e1.small&#x60;, &#x60;s1.e1.medium&#x60;, &#x60;s1.e1.large&#x60;. | [optional] [default to "s0.d1.small"]
 **SshConfig** | Pointer to [**SshConfig**](SshConfig.md) |  | [optional] 
 **Nodes** | Pointer to [**[]Node**](Node.md) | (Read-only) The nodes associated with this node pool. | [optional] [readonly] 
 

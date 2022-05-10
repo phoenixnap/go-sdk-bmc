@@ -13,12 +13,13 @@ Name | Type | Description | Notes
 **LocationDefault** | **bool** | Identifies network as the default private network for the specified location. | 
 **Cidr** | **string** | IP range associated with this private network in CIDR notation. | 
 **Servers** | [**[]PrivateNetworkServer**](PrivateNetworkServer.md) |  | 
+**CreatedOn** | **time.Time** | Date and time when this private network was created. | 
 
 ## Methods
 
 ### NewPrivateNetwork
 
-`func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, cidr string, servers []PrivateNetworkServer, ) *PrivateNetwork`
+`func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, cidr string, servers []PrivateNetworkServer, createdOn time.Time, ) *PrivateNetwork`
 
 NewPrivateNetwork instantiates a new PrivateNetwork object
 This constructor will assign default values to properties that have it defined,
@@ -216,6 +217,26 @@ and a boolean to check if the value has been set.
 `func (o *PrivateNetwork) SetServers(v []PrivateNetworkServer)`
 
 SetServers sets Servers field to given value.
+
+
+### GetCreatedOn
+
+`func (o *PrivateNetwork) GetCreatedOn() time.Time`
+
+GetCreatedOn returns the CreatedOn field if non-nil, zero value otherwise.
+
+### GetCreatedOnOk
+
+`func (o *PrivateNetwork) GetCreatedOnOk() (*time.Time, bool)`
+
+GetCreatedOnOk returns a tuple with the CreatedOn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedOn
+
+`func (o *PrivateNetwork) SetCreatedOn(v time.Time)`
+
+SetCreatedOn sets CreatedOn field to given value.
 
 
 

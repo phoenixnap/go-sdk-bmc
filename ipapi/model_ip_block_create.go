@@ -1,7 +1,7 @@
 /*
 IP Addresses API
 
-Public IP blocks are a set of contiguous IPs that allow you to access your servers or networks from the internet. Use the IP Addresses API to request and delete IP blocks. <br/></br>**Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/public-ip-management#bmc-public-ip-allocations-api' target='_blank'>here</a>**</br></br>**All URLs are relative to (https://api.phoenixnap.com/ips/v1/)**
+Public IP blocks are a set of contiguous IPs that allow you to access your servers or networks from the internet. Use the IP Addresses API to request and delete IP blocks.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/public-ip-management#bmc-public-ip-allocations-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/ips/v1/)</b>
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -17,10 +17,14 @@ import (
 
 // IpBlockCreate IP Block Request.
 type IpBlockCreate struct {
-	// IP Block location ID. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI` or `SEA`.
+	// IP Block location ID. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
 	Location string `json:"location"`
-	// CIDR IP Block Size. Currently this field should be set to either `/31`, `/30`, `/29` or `/28`.
+	// CIDR IP Block Size. Currently this field should be set to either `/31`, `/30`, `/29` or `/28`. For a larger Block Size contact support.
 	CidrBlockSize string `json:"cidrBlockSize"`
+	// The description of the IP Block.
+	Description *string `json:"description,omitempty"`
+	// Tags to set to ip-block, if any.
+	Tags *[]TagAssignmentRequest `json:"tags,omitempty"`
 }
 
 // NewIpBlockCreate instantiates a new IpBlockCreate object
@@ -90,6 +94,70 @@ func (o *IpBlockCreate) SetCidrBlockSize(v string) {
 	o.CidrBlockSize = v
 }
 
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *IpBlockCreate) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IpBlockCreate) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *IpBlockCreate) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *IpBlockCreate) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *IpBlockCreate) GetTags() []TagAssignmentRequest {
+	if o == nil || o.Tags == nil {
+		var ret []TagAssignmentRequest
+		return ret
+	}
+	return *o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IpBlockCreate) GetTagsOk() (*[]TagAssignmentRequest, bool) {
+	if o == nil || o.Tags == nil {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *IpBlockCreate) HasTags() bool {
+	if o != nil && o.Tags != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []TagAssignmentRequest and assigns it to the Tags field.
+func (o *IpBlockCreate) SetTags(v []TagAssignmentRequest) {
+	o.Tags = &v
+}
+
 func (o IpBlockCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -97,6 +165,12 @@ func (o IpBlockCreate) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["cidrBlockSize"] = o.CidrBlockSize
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
 	}
 	return json.Marshal(toSerialize)
 }
