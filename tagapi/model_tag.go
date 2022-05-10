@@ -22,13 +22,13 @@ type Tag struct {
 	// The name of the tag.
 	Name string `json:"name"`
 	// The optional values of the tag.
-	Values []string `json:"values,omitempty"`
+	Values *[]string `json:"values,omitempty"`
 	// The description of the tag.
 	Description *string `json:"description,omitempty"`
 	// Whether or not to show the tag as part of billing and invoices.
 	IsBillingTag bool `json:"isBillingTag"`
 	// The tag's assigned resources.
-	ResourceAssignments []ResourceAssignment `json:"resourceAssignments,omitempty"`
+	ResourceAssignments *[]ResourceAssignment `json:"resourceAssignments,omitempty"`
 	// The tag's creator.
 	CreatedBy *string `json:"createdBy,omitempty"`
 }
@@ -111,12 +111,12 @@ func (o *Tag) GetValues() []string {
 		var ret []string
 		return ret
 	}
-	return o.Values
+	return *o.Values
 }
 
 // GetValuesOk returns a tuple with the Values field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Tag) GetValuesOk() ([]string, bool) {
+func (o *Tag) GetValuesOk() (*[]string, bool) {
 	if o == nil || o.Values == nil {
 		return nil, false
 	}
@@ -134,7 +134,7 @@ func (o *Tag) HasValues() bool {
 
 // SetValues gets a reference to the given []string and assigns it to the Values field.
 func (o *Tag) SetValues(v []string) {
-	o.Values = v
+	o.Values = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -199,12 +199,12 @@ func (o *Tag) GetResourceAssignments() []ResourceAssignment {
 		var ret []ResourceAssignment
 		return ret
 	}
-	return o.ResourceAssignments
+	return *o.ResourceAssignments
 }
 
 // GetResourceAssignmentsOk returns a tuple with the ResourceAssignments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Tag) GetResourceAssignmentsOk() ([]ResourceAssignment, bool) {
+func (o *Tag) GetResourceAssignmentsOk() (*[]ResourceAssignment, bool) {
 	if o == nil || o.ResourceAssignments == nil {
 		return nil, false
 	}
@@ -222,7 +222,7 @@ func (o *Tag) HasResourceAssignments() bool {
 
 // SetResourceAssignments gets a reference to the given []ResourceAssignment and assigns it to the ResourceAssignments field.
 func (o *Tag) SetResourceAssignments(v []ResourceAssignment) {
-	o.ResourceAssignments = v
+	o.ResourceAssignments = &v
 }
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.

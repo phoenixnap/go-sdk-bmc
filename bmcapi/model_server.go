@@ -59,7 +59,7 @@ type Server struct {
 	// The cluster reference id if any.
 	ClusterId *string `json:"clusterId,omitempty"`
 	// The tags assigned if any.
-	Tags []TagAssignment `json:"tags,omitempty"`
+	Tags *[]TagAssignment `json:"tags,omitempty"`
 	// Date and time when server was provisioned.
 	ProvisionedOn *time.Time `json:"provisionedOn,omitempty"`
 	OsConfiguration *OsConfiguration `json:"osConfiguration,omitempty"`
@@ -437,11 +437,11 @@ func (o *Server) GetPrivateIpAddresses() []string {
 
 // GetPrivateIpAddressesOk returns a tuple with the PrivateIpAddresses field value
 // and a boolean to check if the value has been set.
-func (o *Server) GetPrivateIpAddressesOk() ([]string, bool) {
+func (o *Server) GetPrivateIpAddressesOk() (*[]string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.PrivateIpAddresses, true
+	return &o.PrivateIpAddresses, true
 }
 
 // SetPrivateIpAddresses sets field value
@@ -461,11 +461,11 @@ func (o *Server) GetPublicIpAddresses() []string {
 
 // GetPublicIpAddressesOk returns a tuple with the PublicIpAddresses field value
 // and a boolean to check if the value has been set.
-func (o *Server) GetPublicIpAddressesOk() ([]string, bool) {
+func (o *Server) GetPublicIpAddressesOk() (*[]string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.PublicIpAddresses, true
+	return &o.PublicIpAddresses, true
 }
 
 // SetPublicIpAddresses sets field value
@@ -631,12 +631,12 @@ func (o *Server) GetTags() []TagAssignment {
 		var ret []TagAssignment
 		return ret
 	}
-	return o.Tags
+	return *o.Tags
 }
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Server) GetTagsOk() ([]TagAssignment, bool) {
+func (o *Server) GetTagsOk() (*[]TagAssignment, bool) {
 	if o == nil || o.Tags == nil {
 		return nil, false
 	}
@@ -654,7 +654,7 @@ func (o *Server) HasTags() bool {
 
 // SetTags gets a reference to the given []TagAssignment and assigns it to the Tags field.
 func (o *Server) SetTags(v []TagAssignment) {
-	o.Tags = v
+	o.Tags = &v
 }
 
 // GetProvisionedOn returns the ProvisionedOn field value if set, zero value otherwise.

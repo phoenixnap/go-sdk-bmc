@@ -23,9 +23,9 @@ type NodePool struct {
 	NodeCount *int32 `json:"nodeCount,omitempty"`
 	// Node server type. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`.
 	ServerType *string `json:"serverType,omitempty"`
-	SshConfig SshConfig `json:"sshConfig,omitempty"`
+	SshConfig *SshConfig `json:"sshConfig,omitempty"`
 	// (Read-only) The nodes associated with this node pool.
-	Nodes []Node `json:"nodes,omitempty"`
+	Nodes *[]Node `json:"nodes,omitempty"`
 }
 
 // NewNodePool instantiates a new NodePool object
@@ -145,23 +145,22 @@ func (o *NodePool) SetServerType(v string) {
 	o.ServerType = &v
 }
 
-// GetSshConfig returns the SshConfig field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetSshConfig returns the SshConfig field value if set, zero value otherwise.
 func (o *NodePool) GetSshConfig() SshConfig {
-	if o == nil  {
+	if o == nil || o.SshConfig == nil {
 		var ret SshConfig
 		return ret
 	}
-	return o.SshConfig
+	return *o.SshConfig
 }
 
 // GetSshConfigOk returns a tuple with the SshConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NodePool) GetSshConfigOk() (*SshConfig, bool) {
 	if o == nil || o.SshConfig == nil {
 		return nil, false
 	}
-	return &o.SshConfig, true
+	return o.SshConfig, true
 }
 
 // HasSshConfig returns a boolean if a field has been set.
@@ -175,7 +174,7 @@ func (o *NodePool) HasSshConfig() bool {
 
 // SetSshConfig gets a reference to the given SshConfig and assigns it to the SshConfig field.
 func (o *NodePool) SetSshConfig(v SshConfig) {
-	o.SshConfig = v
+	o.SshConfig = &v
 }
 
 // GetNodes returns the Nodes field value if set, zero value otherwise.
@@ -184,12 +183,12 @@ func (o *NodePool) GetNodes() []Node {
 		var ret []Node
 		return ret
 	}
-	return o.Nodes
+	return *o.Nodes
 }
 
 // GetNodesOk returns a tuple with the Nodes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NodePool) GetNodesOk() ([]Node, bool) {
+func (o *NodePool) GetNodesOk() (*[]Node, bool) {
 	if o == nil || o.Nodes == nil {
 		return nil, false
 	}
@@ -207,7 +206,7 @@ func (o *NodePool) HasNodes() bool {
 
 // SetNodes gets a reference to the given []Node and assigns it to the Nodes field.
 func (o *NodePool) SetNodes(v []Node) {
-	o.Nodes = v
+	o.Nodes = &v
 }
 
 func (o NodePool) MarshalJSON() ([]byte, error) {

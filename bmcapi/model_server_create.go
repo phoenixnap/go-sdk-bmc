@@ -30,9 +30,9 @@ type ServerCreate struct {
 	// Whether or not to install SSH keys marked as default in addition to any SSH keys specified in this request.
 	InstallDefaultSshKeys *bool `json:"installDefaultSshKeys,omitempty"`
 	// A list of SSH keys that will be installed on the server.
-	SshKeys []string `json:"sshKeys,omitempty"`
+	SshKeys *[]string `json:"sshKeys,omitempty"`
 	// A list of SSH key IDs that will be installed on the server in addition to any SSH keys specified in this request.
-	SshKeyIds []string `json:"sshKeyIds,omitempty"`
+	SshKeyIds *[]string `json:"sshKeyIds,omitempty"`
 	// Server reservation ID.
 	ReservationId *string `json:"reservationId,omitempty"`
 	// Server pricing model. Currently this field should be set to `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`.
@@ -41,7 +41,7 @@ type ServerCreate struct {
 	NetworkType *string `json:"networkType,omitempty"`
 	OsConfiguration *OsConfiguration `json:"osConfiguration,omitempty"`
 	// Tags to set to server, if any.
-	Tags []TagAssignmentRequest `json:"tags,omitempty"`
+	Tags *[]TagAssignmentRequest `json:"tags,omitempty"`
 	NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration,omitempty"`
 }
 
@@ -244,12 +244,12 @@ func (o *ServerCreate) GetSshKeys() []string {
 		var ret []string
 		return ret
 	}
-	return o.SshKeys
+	return *o.SshKeys
 }
 
 // GetSshKeysOk returns a tuple with the SshKeys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServerCreate) GetSshKeysOk() ([]string, bool) {
+func (o *ServerCreate) GetSshKeysOk() (*[]string, bool) {
 	if o == nil || o.SshKeys == nil {
 		return nil, false
 	}
@@ -267,7 +267,7 @@ func (o *ServerCreate) HasSshKeys() bool {
 
 // SetSshKeys gets a reference to the given []string and assigns it to the SshKeys field.
 func (o *ServerCreate) SetSshKeys(v []string) {
-	o.SshKeys = v
+	o.SshKeys = &v
 }
 
 // GetSshKeyIds returns the SshKeyIds field value if set, zero value otherwise.
@@ -276,12 +276,12 @@ func (o *ServerCreate) GetSshKeyIds() []string {
 		var ret []string
 		return ret
 	}
-	return o.SshKeyIds
+	return *o.SshKeyIds
 }
 
 // GetSshKeyIdsOk returns a tuple with the SshKeyIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServerCreate) GetSshKeyIdsOk() ([]string, bool) {
+func (o *ServerCreate) GetSshKeyIdsOk() (*[]string, bool) {
 	if o == nil || o.SshKeyIds == nil {
 		return nil, false
 	}
@@ -299,7 +299,7 @@ func (o *ServerCreate) HasSshKeyIds() bool {
 
 // SetSshKeyIds gets a reference to the given []string and assigns it to the SshKeyIds field.
 func (o *ServerCreate) SetSshKeyIds(v []string) {
-	o.SshKeyIds = v
+	o.SshKeyIds = &v
 }
 
 // GetReservationId returns the ReservationId field value if set, zero value otherwise.
@@ -436,12 +436,12 @@ func (o *ServerCreate) GetTags() []TagAssignmentRequest {
 		var ret []TagAssignmentRequest
 		return ret
 	}
-	return o.Tags
+	return *o.Tags
 }
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServerCreate) GetTagsOk() ([]TagAssignmentRequest, bool) {
+func (o *ServerCreate) GetTagsOk() (*[]TagAssignmentRequest, bool) {
 	if o == nil || o.Tags == nil {
 		return nil, false
 	}
@@ -459,7 +459,7 @@ func (o *ServerCreate) HasTags() bool {
 
 // SetTags gets a reference to the given []TagAssignmentRequest and assigns it to the Tags field.
 func (o *ServerCreate) SetTags(v []TagAssignmentRequest) {
-	o.Tags = v
+	o.Tags = &v
 }
 
 // GetNetworkConfiguration returns the NetworkConfiguration field value if set, zero value otherwise.

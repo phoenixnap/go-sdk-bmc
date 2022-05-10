@@ -20,7 +20,7 @@ type IpBlocksConfiguration struct {
 	// Determines the approach for configuring IP blocks for the server being provisioned. If PURCHASE_NEW is selected, the smallest supported range, depending on the operating system, is allocated to the server.
 	ConfigurationType *string `json:"configurationType,omitempty"`
 	// Used to specify the previously purchased IP blocks to assign to this server upon provisioning. Used alongside the USER_DEFINED configurationType.
-	IpBlocks []ServerIpBlock `json:"ipBlocks,omitempty"`
+	IpBlocks *[]ServerIpBlock `json:"ipBlocks,omitempty"`
 }
 
 // NewIpBlocksConfiguration instantiates a new IpBlocksConfiguration object
@@ -82,12 +82,12 @@ func (o *IpBlocksConfiguration) GetIpBlocks() []ServerIpBlock {
 		var ret []ServerIpBlock
 		return ret
 	}
-	return o.IpBlocks
+	return *o.IpBlocks
 }
 
 // GetIpBlocksOk returns a tuple with the IpBlocks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IpBlocksConfiguration) GetIpBlocksOk() ([]ServerIpBlock, bool) {
+func (o *IpBlocksConfiguration) GetIpBlocksOk() (*[]ServerIpBlock, bool) {
 	if o == nil || o.IpBlocks == nil {
 		return nil, false
 	}
@@ -105,7 +105,7 @@ func (o *IpBlocksConfiguration) HasIpBlocks() bool {
 
 // SetIpBlocks gets a reference to the given []ServerIpBlock and assigns it to the IpBlocks field.
 func (o *IpBlocksConfiguration) SetIpBlocks(v []ServerIpBlock) {
-	o.IpBlocks = v
+	o.IpBlocks = &v
 }
 
 func (o IpBlocksConfiguration) MarshalJSON() ([]byte, error) {

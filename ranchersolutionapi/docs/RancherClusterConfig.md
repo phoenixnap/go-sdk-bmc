@@ -206,16 +206,6 @@ SetCertificates sets Certificates field to given value.
 
 HasCertificates returns a boolean if a field has been set.
 
-### SetCertificatesNil
-
-`func (o *RancherClusterConfig) SetCertificatesNil(b bool)`
-
- SetCertificatesNil sets the value for Certificates to be an explicit nil
-
-### UnsetCertificates
-`func (o *RancherClusterConfig) UnsetCertificates()`
-
-UnsetCertificates ensures that no value is present for Certificates, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

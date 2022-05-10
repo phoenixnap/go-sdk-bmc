@@ -13,16 +13,16 @@ package ranchersolutionapi
 
 import (
 	"bytes"
-	"context"
-	"io/ioutil"
-	"net/http"
-	"net/url"
+	_context "context"
+	_ioutil "io/ioutil"
+	_nethttp "net/http"
+	_neturl "net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ context.Context
+	_ _context.Context
 )
 
 type ClustersApi interface {
@@ -32,44 +32,44 @@ type ClustersApi interface {
 
 	Cluster list.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiClustersGetRequest
 	*/
-	ClustersGet(ctx context.Context) ApiClustersGetRequest
+	ClustersGet(ctx _context.Context) ApiClustersGetRequest
 
 	// ClustersGetExecute executes the request
 	//  @return []Cluster
-	ClustersGetExecute(r ApiClustersGetRequest) ([]Cluster, *http.Response, error)
+	ClustersGetExecute(r ApiClustersGetRequest) ([]Cluster, *_nethttp.Response, error)
 
 	/*
 	ClustersIdDelete Delete a cluster.
 
 	Delete a cluster.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param id The Cluster identifier.
 	 @return ApiClustersIdDeleteRequest
 	*/
-	ClustersIdDelete(ctx context.Context, id string) ApiClustersIdDeleteRequest
+	ClustersIdDelete(ctx _context.Context, id string) ApiClustersIdDeleteRequest
 
 	// ClustersIdDeleteExecute executes the request
 	//  @return DeleteResult
-	ClustersIdDeleteExecute(r ApiClustersIdDeleteRequest) (*DeleteResult, *http.Response, error)
+	ClustersIdDeleteExecute(r ApiClustersIdDeleteRequest) (DeleteResult, *_nethttp.Response, error)
 
 	/*
 	ClustersIdGet Retrieve a Cluster
 
 	Retrieve a Cluster
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param id The Cluster identifier.
 	 @return ApiClustersIdGetRequest
 	*/
-	ClustersIdGet(ctx context.Context, id string) ApiClustersIdGetRequest
+	ClustersIdGet(ctx _context.Context, id string) ApiClustersIdGetRequest
 
 	// ClustersIdGetExecute executes the request
 	//  @return Cluster
-	ClustersIdGetExecute(r ApiClustersIdGetRequest) (*Cluster, *http.Response, error)
+	ClustersIdGetExecute(r ApiClustersIdGetRequest) (Cluster, *_nethttp.Response, error)
 
 	/*
 	ClustersPost Create a Rancher Server Deployment.
@@ -78,26 +78,26 @@ type ClustersApi interface {
 <b>This is not a Downstream User Cluster</b>.
 
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiClustersPostRequest
 	*/
-	ClustersPost(ctx context.Context) ApiClustersPostRequest
+	ClustersPost(ctx _context.Context) ApiClustersPostRequest
 
 	// ClustersPostExecute executes the request
 	//  @return Cluster
-	ClustersPostExecute(r ApiClustersPostRequest) (*Cluster, *http.Response, error)
+	ClustersPostExecute(r ApiClustersPostRequest) (Cluster, *_nethttp.Response, error)
 }
 
 // ClustersApiService ClustersApi service
 type ClustersApiService service
 
 type ApiClustersGetRequest struct {
-	ctx context.Context
+	ctx _context.Context
 	ApiService ClustersApi
 }
 
 
-func (r ApiClustersGetRequest) Execute() ([]Cluster, *http.Response, error) {
+func (r ApiClustersGetRequest) Execute() ([]Cluster, *_nethttp.Response, error) {
 	return r.ApiService.ClustersGetExecute(r)
 }
 
@@ -106,10 +106,10 @@ ClustersGet Cluster list.
 
 Cluster list.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiClustersGetRequest
 */
-func (a *ClustersApiService) ClustersGet(ctx context.Context) ApiClustersGetRequest {
+func (a *ClustersApiService) ClustersGet(ctx _context.Context) ApiClustersGetRequest {
 	return ApiClustersGetRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -118,24 +118,26 @@ func (a *ClustersApiService) ClustersGet(ctx context.Context) ApiClustersGetRequ
 
 // Execute executes the request
 //  @return []Cluster
-func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) ([]Cluster, *http.Response, error) {
+func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) ([]Cluster, *_nethttp.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
+		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
 		localVarReturnValue  []Cluster
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClustersApiService.ClustersGet")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/clusters"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -154,7 +156,7 @@ func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) ([]Clus
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -164,15 +166,15 @@ func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) ([]Clus
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
+		newErr := GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -210,7 +212,7 @@ func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) ([]Clus
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := &GenericOpenAPIError{
+		newErr := GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -221,13 +223,13 @@ func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) ([]Clus
 }
 
 type ApiClustersIdDeleteRequest struct {
-	ctx context.Context
+	ctx _context.Context
 	ApiService ClustersApi
 	id string
 }
 
 
-func (r ApiClustersIdDeleteRequest) Execute() (*DeleteResult, *http.Response, error) {
+func (r ApiClustersIdDeleteRequest) Execute() (DeleteResult, *_nethttp.Response, error) {
 	return r.ApiService.ClustersIdDeleteExecute(r)
 }
 
@@ -236,11 +238,11 @@ ClustersIdDelete Delete a cluster.
 
 Delete a cluster.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id The Cluster identifier.
  @return ApiClustersIdDeleteRequest
 */
-func (a *ClustersApiService) ClustersIdDelete(ctx context.Context, id string) ApiClustersIdDeleteRequest {
+func (a *ClustersApiService) ClustersIdDelete(ctx _context.Context, id string) ApiClustersIdDeleteRequest {
 	return ApiClustersIdDeleteRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -250,25 +252,27 @@ func (a *ClustersApiService) ClustersIdDelete(ctx context.Context, id string) Ap
 
 // Execute executes the request
 //  @return DeleteResult
-func (a *ClustersApiService) ClustersIdDeleteExecute(r ApiClustersIdDeleteRequest) (*DeleteResult, *http.Response, error) {
+func (a *ClustersApiService) ClustersIdDeleteExecute(r ApiClustersIdDeleteRequest) (DeleteResult, *_nethttp.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
+		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *DeleteResult
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  DeleteResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClustersApiService.ClustersIdDelete")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/clusters/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -287,7 +291,7 @@ func (a *ClustersApiService) ClustersIdDeleteExecute(r ApiClustersIdDeleteReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -297,15 +301,15 @@ func (a *ClustersApiService) ClustersIdDeleteExecute(r ApiClustersIdDeleteReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
+		newErr := GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -343,7 +347,7 @@ func (a *ClustersApiService) ClustersIdDeleteExecute(r ApiClustersIdDeleteReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := &GenericOpenAPIError{
+		newErr := GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -354,13 +358,13 @@ func (a *ClustersApiService) ClustersIdDeleteExecute(r ApiClustersIdDeleteReques
 }
 
 type ApiClustersIdGetRequest struct {
-	ctx context.Context
+	ctx _context.Context
 	ApiService ClustersApi
 	id string
 }
 
 
-func (r ApiClustersIdGetRequest) Execute() (*Cluster, *http.Response, error) {
+func (r ApiClustersIdGetRequest) Execute() (Cluster, *_nethttp.Response, error) {
 	return r.ApiService.ClustersIdGetExecute(r)
 }
 
@@ -369,11 +373,11 @@ ClustersIdGet Retrieve a Cluster
 
 Retrieve a Cluster
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id The Cluster identifier.
  @return ApiClustersIdGetRequest
 */
-func (a *ClustersApiService) ClustersIdGet(ctx context.Context, id string) ApiClustersIdGetRequest {
+func (a *ClustersApiService) ClustersIdGet(ctx _context.Context, id string) ApiClustersIdGetRequest {
 	return ApiClustersIdGetRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -383,25 +387,27 @@ func (a *ClustersApiService) ClustersIdGet(ctx context.Context, id string) ApiCl
 
 // Execute executes the request
 //  @return Cluster
-func (a *ClustersApiService) ClustersIdGetExecute(r ApiClustersIdGetRequest) (*Cluster, *http.Response, error) {
+func (a *ClustersApiService) ClustersIdGetExecute(r ApiClustersIdGetRequest) (Cluster, *_nethttp.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
+		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Cluster
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  Cluster
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClustersApiService.ClustersIdGet")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/clusters/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -420,7 +426,7 @@ func (a *ClustersApiService) ClustersIdGetExecute(r ApiClustersIdGetRequest) (*C
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -430,15 +436,15 @@ func (a *ClustersApiService) ClustersIdGetExecute(r ApiClustersIdGetRequest) (*C
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
+		newErr := GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -476,7 +482,7 @@ func (a *ClustersApiService) ClustersIdGetExecute(r ApiClustersIdGetRequest) (*C
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := &GenericOpenAPIError{
+		newErr := GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -487,7 +493,7 @@ func (a *ClustersApiService) ClustersIdGetExecute(r ApiClustersIdGetRequest) (*C
 }
 
 type ApiClustersPostRequest struct {
-	ctx context.Context
+	ctx _context.Context
 	ApiService ClustersApi
 	cluster *Cluster
 }
@@ -497,7 +503,7 @@ func (r ApiClustersPostRequest) Cluster(cluster Cluster) ApiClustersPostRequest 
 	return r
 }
 
-func (r ApiClustersPostRequest) Execute() (*Cluster, *http.Response, error) {
+func (r ApiClustersPostRequest) Execute() (Cluster, *_nethttp.Response, error) {
 	return r.ApiService.ClustersPostExecute(r)
 }
 
@@ -508,10 +514,10 @@ Create a Rancher Server Deployment as described in <a href='https://rancher.com/
 <b>This is not a Downstream User Cluster</b>.
 
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiClustersPostRequest
 */
-func (a *ClustersApiService) ClustersPost(ctx context.Context) ApiClustersPostRequest {
+func (a *ClustersApiService) ClustersPost(ctx _context.Context) ApiClustersPostRequest {
 	return ApiClustersPostRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -520,24 +526,26 @@ func (a *ClustersApiService) ClustersPost(ctx context.Context) ApiClustersPostRe
 
 // Execute executes the request
 //  @return Cluster
-func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (*Cluster, *http.Response, error) {
+func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (Cluster, *_nethttp.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
+		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Cluster
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  Cluster
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClustersApiService.ClustersPost")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/clusters"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -558,7 +566,7 @@ func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (*Clu
 	}
 	// body params
 	localVarPostBody = r.cluster
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -568,15 +576,15 @@ func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (*Clu
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
+		newErr := GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -624,7 +632,7 @@ func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (*Clu
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := &GenericOpenAPIError{
+		newErr := GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

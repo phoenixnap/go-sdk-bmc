@@ -18,7 +18,7 @@ import (
 // OsConfigurationWindows Windows OS configuration properties.
 type OsConfigurationWindows struct {
 	// List of IPs allowed for RDP access to Windows OS. Supported in single IP, CIDR and range format. When undefined, RDP is disabled. To allow RDP access from any IP use 0.0.0.0/0. This will only be returned in response to provisioning a server.
-	RdpAllowedIps []string `json:"rdpAllowedIps,omitempty"`
+	RdpAllowedIps *[]string `json:"rdpAllowedIps,omitempty"`
 }
 
 // NewOsConfigurationWindows instantiates a new OsConfigurationWindows object
@@ -44,12 +44,12 @@ func (o *OsConfigurationWindows) GetRdpAllowedIps() []string {
 		var ret []string
 		return ret
 	}
-	return o.RdpAllowedIps
+	return *o.RdpAllowedIps
 }
 
 // GetRdpAllowedIpsOk returns a tuple with the RdpAllowedIps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OsConfigurationWindows) GetRdpAllowedIpsOk() ([]string, bool) {
+func (o *OsConfigurationWindows) GetRdpAllowedIpsOk() (*[]string, bool) {
 	if o == nil || o.RdpAllowedIps == nil {
 		return nil, false
 	}
@@ -67,7 +67,7 @@ func (o *OsConfigurationWindows) HasRdpAllowedIps() bool {
 
 // SetRdpAllowedIps gets a reference to the given []string and assigns it to the RdpAllowedIps field.
 func (o *OsConfigurationWindows) SetRdpAllowedIps(v []string) {
-	o.RdpAllowedIps = v
+	o.RdpAllowedIps = &v
 }
 
 func (o OsConfigurationWindows) MarshalJSON() ([]byte, error) {

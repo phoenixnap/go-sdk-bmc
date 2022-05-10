@@ -35,7 +35,7 @@ type IpBlock struct {
 	// The description of the IP Block.
 	Description *string `json:"description,omitempty"`
 	// The tags assigned if any.
-	Tags []TagAssignment `json:"tags,omitempty"`
+	Tags *[]TagAssignment `json:"tags,omitempty"`
 	// True if the IP block is a `bring your own` block.
 	IsBringYourOwn bool `json:"isBringYourOwn"`
 	// Date and time when the IP block was created.
@@ -288,12 +288,12 @@ func (o *IpBlock) GetTags() []TagAssignment {
 		var ret []TagAssignment
 		return ret
 	}
-	return o.Tags
+	return *o.Tags
 }
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IpBlock) GetTagsOk() ([]TagAssignment, bool) {
+func (o *IpBlock) GetTagsOk() (*[]TagAssignment, bool) {
 	if o == nil || o.Tags == nil {
 		return nil, false
 	}
@@ -311,7 +311,7 @@ func (o *IpBlock) HasTags() bool {
 
 // SetTags gets a reference to the given []TagAssignment and assigns it to the Tags field.
 func (o *IpBlock) SetTags(v []TagAssignment) {
-	o.Tags = v
+	o.Tags = &v
 }
 
 // GetIsBringYourOwn returns the IsBringYourOwn field value

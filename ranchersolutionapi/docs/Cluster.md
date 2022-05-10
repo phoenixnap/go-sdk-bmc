@@ -204,16 +204,6 @@ SetConfiguration sets Configuration field to given value.
 
 HasConfiguration returns a boolean if a field has been set.
 
-### SetConfigurationNil
-
-`func (o *Cluster) SetConfigurationNil(b bool)`
-
- SetConfigurationNil sets the value for Configuration to be an explicit nil
-
-### UnsetConfiguration
-`func (o *Cluster) UnsetConfiguration()`
-
-UnsetConfiguration ensures that no value is present for Configuration, not even an explicit nil
 ### GetMetadata
 
 `func (o *Cluster) GetMetadata() RancherServerMetadata`
@@ -239,16 +229,6 @@ SetMetadata sets Metadata field to given value.
 
 HasMetadata returns a boolean if a field has been set.
 
-### SetMetadataNil
-
-`func (o *Cluster) SetMetadataNil(b bool)`
-
- SetMetadataNil sets the value for Metadata to be an explicit nil
-
-### UnsetMetadata
-`func (o *Cluster) UnsetMetadata()`
-
-UnsetMetadata ensures that no value is present for Metadata, not even an explicit nil
 ### GetWorkloadConfiguration
 
 `func (o *Cluster) GetWorkloadConfiguration() WorkloadClusterConfig`
@@ -274,16 +254,6 @@ SetWorkloadConfiguration sets WorkloadConfiguration field to given value.
 
 HasWorkloadConfiguration returns a boolean if a field has been set.
 
-### SetWorkloadConfigurationNil
-
-`func (o *Cluster) SetWorkloadConfigurationNil(b bool)`
-
- SetWorkloadConfigurationNil sets the value for WorkloadConfiguration to be an explicit nil
-
-### UnsetWorkloadConfiguration
-`func (o *Cluster) UnsetWorkloadConfiguration()`
-
-UnsetWorkloadConfiguration ensures that no value is present for WorkloadConfiguration, not even an explicit nil
 ### GetStatusDescription
 
 `func (o *Cluster) GetStatusDescription() string`

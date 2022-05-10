@@ -20,7 +20,7 @@ type ServerPrivateNetwork struct {
 	// The network identifier.
 	Id string `json:"id"`
 	// IPs to configure/configured on the server. Should be null or empty list if DHCP is true.
-	Ips []string `json:"ips,omitempty"`
+	Ips *[]string `json:"ips,omitempty"`
 	// Determines whether DHCP is enabled for this server. Should be false if ips is not an empty list. Not supported for proxmox OS.
 	Dhcp *bool `json:"dhcp,omitempty"`
 	// The status of the network.
@@ -79,12 +79,12 @@ func (o *ServerPrivateNetwork) GetIps() []string {
 		var ret []string
 		return ret
 	}
-	return o.Ips
+	return *o.Ips
 }
 
 // GetIpsOk returns a tuple with the Ips field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServerPrivateNetwork) GetIpsOk() ([]string, bool) {
+func (o *ServerPrivateNetwork) GetIpsOk() (*[]string, bool) {
 	if o == nil || o.Ips == nil {
 		return nil, false
 	}
@@ -102,7 +102,7 @@ func (o *ServerPrivateNetwork) HasIps() bool {
 
 // SetIps gets a reference to the given []string and assigns it to the Ips field.
 func (o *ServerPrivateNetwork) SetIps(v []string) {
-	o.Ips = v
+	o.Ips = &v
 }
 
 // GetDhcp returns the Dhcp field value if set, zero value otherwise.

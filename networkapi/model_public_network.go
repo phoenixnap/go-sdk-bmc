@@ -120,11 +120,11 @@ func (o *PublicNetwork) GetMemberships() []PublicNetworkMembership {
 
 // GetMembershipsOk returns a tuple with the Memberships field value
 // and a boolean to check if the value has been set.
-func (o *PublicNetwork) GetMembershipsOk() ([]PublicNetworkMembership, bool) {
+func (o *PublicNetwork) GetMembershipsOk() (*[]PublicNetworkMembership, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.Memberships, true
+	return &o.Memberships, true
 }
 
 // SetMemberships sets field value
@@ -248,11 +248,11 @@ func (o *PublicNetwork) GetIpBlocks() []PublicNetworkIpBlock {
 
 // GetIpBlocksOk returns a tuple with the IpBlocks field value
 // and a boolean to check if the value has been set.
-func (o *PublicNetwork) GetIpBlocksOk() ([]PublicNetworkIpBlock, bool) {
+func (o *PublicNetwork) GetIpBlocksOk() (*[]PublicNetworkIpBlock, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.IpBlocks, true
+	return &o.IpBlocks, true
 }
 
 // SetIpBlocks sets field value

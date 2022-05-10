@@ -239,11 +239,11 @@ func (o *Quota) GetQuotaEditLimitRequestDetails() []QuotaEditLimitRequestDetails
 
 // GetQuotaEditLimitRequestDetailsOk returns a tuple with the QuotaEditLimitRequestDetails field value
 // and a boolean to check if the value has been set.
-func (o *Quota) GetQuotaEditLimitRequestDetailsOk() ([]QuotaEditLimitRequestDetails, bool) {
+func (o *Quota) GetQuotaEditLimitRequestDetailsOk() (*[]QuotaEditLimitRequestDetails, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.QuotaEditLimitRequestDetails, true
+	return &o.QuotaEditLimitRequestDetails, true
 }
 
 // SetQuotaEditLimitRequestDetails sets field value

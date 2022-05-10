@@ -277,11 +277,11 @@ func (o *PrivateNetwork) GetServers() []PrivateNetworkServer {
 
 // GetServersOk returns a tuple with the Servers field value
 // and a boolean to check if the value has been set.
-func (o *PrivateNetwork) GetServersOk() ([]PrivateNetworkServer, bool) {
+func (o *PrivateNetwork) GetServersOk() (*[]PrivateNetworkServer, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.Servers, true
+	return &o.Servers, true
 }
 
 // SetServers sets field value
