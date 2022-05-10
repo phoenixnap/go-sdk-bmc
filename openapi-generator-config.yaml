@@ -1,5 +1,6 @@
 generatorName: go
 ignoreFileOverride: ".openapi-generator-ignore"
+templateDir: "template"
 additionalProperties:
   generateInterfaces: true
   isGoSubmodule: true
