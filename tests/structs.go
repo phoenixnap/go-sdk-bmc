@@ -1,7 +1,5 @@
 package tests
 
-type TestUtilsImpl struct {
-}
 
 type QueryStringParameter struct {
 	name   string

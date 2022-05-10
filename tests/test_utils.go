@@ -7,6 +7,9 @@ import (
 	"net/http"
 )
 
+type TestUtilsImpl struct {
+}
+
 func (t TestUtilsImpl) setup_expectation(requestToMock *string, responseToGet *string) *http.Response {
 
 	type Times struct {
