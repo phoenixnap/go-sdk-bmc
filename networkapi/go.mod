@@ -1,4 +1,4 @@
-module github.com/GIT_USER_ID/GIT_REPO_ID/networkapi
+module github.com/phoenixnap/go-sdk-bmc/networkapi
 
 go 1.13
 

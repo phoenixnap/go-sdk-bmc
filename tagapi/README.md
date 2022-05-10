@@ -31,7 +31,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import tagapi "github.com/GIT_USER_ID/GIT_REPO_ID/tagapi"
+import tagapi "github.com/phoenixnap/go-sdk-bmc/tagapi"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
