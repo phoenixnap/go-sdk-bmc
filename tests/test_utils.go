@@ -107,14 +107,14 @@ func (t TestUtilsImpl) verify_expectation_matched_times(expectationId string, ti
 	return resp
 }
 
-func reset_expectations() {
+func (t TestUtilsImpl) reset_expectations() {
 	url := "http://localhost:1080/reset"
 
 	http.NewRequest(http.MethodPut, url, http.NoBody)
 
 }
 
-func generate_payloads_from(filename string, payloadsPath string) (request Request, response Response) {
+func (t TestUtilsImpl) generate_payloads_from(filename string, payloadsPath string) (request Request, response Response) {
 
 	if payloadsPath == "" {
 		payloadsPath = "./payloads"
@@ -133,7 +133,7 @@ func generate_payloads_from(filename string, payloadsPath string) (request Reque
 
 }
 
-func generate_query_params(request Request) Opts {
+func (t TestUtilsImpl) generate_query_params(request Request) Opts {
 
 	opts := Opts{}
 
@@ -148,10 +148,10 @@ func generate_query_params(request Request) Opts {
 	return opts
 }
 
-func extract_id_from(request *Request, symbol *string) (id string) {
+func (t TestUtilsImpl) extract_id_from(request *Request, symbol *string) (id string) {
 	return request.pathParameters.id[0]
 }
 
-func extract_request_body(request *Request) (json Json) {
+func (t TestUtilsImpl) extract_request_body(request *Request) (json Json) {
 	return request.body.json
 }
