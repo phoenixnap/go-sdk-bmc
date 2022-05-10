@@ -1,4 +1,4 @@
-module github.com/GIT_USER_ID/GIT_REPO_ID/bmcapi
+module github.com/phoenixnap/go-sdk-bmc/bmcapi
 
 go 1.13
 

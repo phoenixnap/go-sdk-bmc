@@ -30,7 +30,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import ipapi "github.com/GIT_USER_ID/GIT_REPO_ID/ipapi"
+import ipapi "github.com/phoenixnap/go-sdk-bmc/ipapi"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
