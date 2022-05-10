@@ -268,6 +268,8 @@ Name | Type | Description  | Notes
 Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest struct via the builder pattern
 
 
+
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
@@ -339,6 +341,8 @@ Name | Type | Description  | Notes
 Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdIpBlocksPostRequest struct via the builder pattern
 
 
+
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **publicNetworkIpBlock** | [**PublicNetworkIpBlock**](PublicNetworkIpBlock.md) |  | 
@@ -408,6 +412,8 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdPatchRequest struct via the builder pattern
+
+
 
 
 Name | Type | Description  | Notes

@@ -265,6 +265,8 @@ Name | Type | Description  | Notes
 Other parameters are passed through a pointer to a apiPrivateNetworksNetworkIdPutRequest struct via the builder pattern
 
 
+
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **privateNetworkModify** | [**PrivateNetworkModify**](PrivateNetworkModify.md) |  | 

@@ -268,6 +268,8 @@ Name | Type | Description  | Notes
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdPatchRequest struct via the builder pattern
 
 
+
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ipBlockPatch** | [**IpBlockPatch**](IpBlockPatch.md) |  | 
@@ -337,6 +339,8 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdTagsPutRequest struct via the builder pattern
+
+
 
 
 Name | Type | Description  | Notes
