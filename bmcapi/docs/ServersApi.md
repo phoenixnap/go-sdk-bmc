@@ -76,6 +76,8 @@ Name | Type | Description  | Notes
 Other parameters are passed through a pointer to a apiDeletePrivateNetworkRequest struct via the builder pattern
 
 
+
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
@@ -277,6 +279,8 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiServersServerIdActionsDeprovisionPostRequest struct via the builder pattern
+
+
 
 
 Name | Type | Description  | Notes
@@ -560,6 +564,8 @@ Name | Type | Description  | Notes
 Other parameters are passed through a pointer to a apiServersServerIdActionsReservePostRequest struct via the builder pattern
 
 
+
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **serverReserve** | [**ServerReserve**](ServerReserve.md) |  | 
@@ -629,6 +635,8 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiServersServerIdActionsResetPostRequest struct via the builder pattern
+
+
 
 
 Name | Type | Description  | Notes
@@ -914,6 +922,10 @@ Name | Type | Description  | Notes
 Other parameters are passed through a pointer to a apiServersServerIdIpBlocksIpBlockIdDeleteRequest struct via the builder pattern
 
 
+
+
+
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **relinquishIpBlock** | [**RelinquishIpBlock**](RelinquishIpBlock.md) |  | 
@@ -983,6 +995,8 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiServersServerIdIpBlocksPostRequest struct via the builder pattern
+
+
 
 
 Name | Type | Description  | Notes
@@ -1056,6 +1070,8 @@ Name | Type | Description  | Notes
 Other parameters are passed through a pointer to a apiServersServerIdPatchRequest struct via the builder pattern
 
 
+
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **serverPatch** | [**ServerPatch**](ServerPatch.md) |  | 
@@ -1125,6 +1141,8 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiServersServerIdPrivateNetworksPostRequest struct via the builder pattern
+
+
 
 
 Name | Type | Description  | Notes
@@ -1199,6 +1217,8 @@ Name | Type | Description  | Notes
 Other parameters are passed through a pointer to a apiServersServerIdPublicNetworksDeleteRequest struct via the builder pattern
 
 
+
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
@@ -1270,6 +1290,8 @@ Name | Type | Description  | Notes
 Other parameters are passed through a pointer to a apiServersServerIdPublicNetworksPostRequest struct via the builder pattern
 
 
+
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **serverPublicNetwork** | [**ServerPublicNetwork**](ServerPublicNetwork.md) |  | 
@@ -1339,6 +1361,8 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiServersServerIdTagsPutRequest struct via the builder pattern
+
+
 
 
 Name | Type | Description  | Notes

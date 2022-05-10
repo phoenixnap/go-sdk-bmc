@@ -333,6 +333,8 @@ Name | Type | Description  | Notes
 Other parameters are passed through a pointer to a apiTagsTagIdPatchRequest struct via the builder pattern
 
 
+
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tagUpdate** | [**TagUpdate**](TagUpdate.md) | The body containing the tag changes. | 

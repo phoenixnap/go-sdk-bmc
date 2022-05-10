@@ -54,7 +54,6 @@ This endpoint does not need any parameter.
 Other parameters are passed through a pointer to a apiClustersGetRequest struct via the builder pattern
 
 
-
 ### Return type
 
 [**[]Cluster**](Cluster.md)

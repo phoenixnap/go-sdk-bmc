@@ -55,7 +55,6 @@ This endpoint does not need any parameter.
 Other parameters are passed through a pointer to a apiSshKeysGetRequest struct via the builder pattern
 
 
-
 ### Return type
 
 [**[]SshKey**](SshKey.md)
@@ -327,6 +326,8 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiSshKeysSshKeyIdPutRequest struct via the builder pattern
+
+
 
 
 Name | Type | Description  | Notes
