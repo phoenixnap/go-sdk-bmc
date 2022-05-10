@@ -119,7 +119,6 @@ Name | Type | Description  | Notes
 
 Other parameters are passed through a pointer to a apiClustersIdDeleteRequest struct via the builder pattern
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
@@ -189,7 +188,6 @@ Name | Type | Description  | Notes
 
 Other parameters are passed through a pointer to a apiClustersIdGetRequest struct via the builder pattern
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
@@ -254,7 +252,6 @@ func main() {
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiClustersPostRequest struct via the builder pattern
-
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
