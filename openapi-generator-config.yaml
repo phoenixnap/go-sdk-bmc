@@ -1,6 +1,8 @@
 generatorName: go
 ignoreFileOverride: ".openapi-generator-ignore"
 templateDir: "template"
+gitUserId: "phoenixnap"
+gitRepoId: "go-sdk-bmc"
 additionalProperties:
   generateInterfaces: true
   isGoSubmodule: true
