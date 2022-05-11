@@ -1,7 +1,6 @@
 package tests
 
 import (
-	"net/http"
 	"github.com/phoenixnap/go-sdk-bmc/auditapi"
 	"testing"
 	"fmt"
@@ -13,6 +12,8 @@ var configuration = auditapi.Configuration{
 	Host: "127.0.0.1:1080",
 	Scheme: "http",
 }
+
+var apiClient = auditapi.NewAPIClient(&configuration)
 
 func assertEqual(t *testing.T, a interface{}, b interface{}, message string) {
 	if a == b {
@@ -31,5 +32,15 @@ func verify_called_once(t *testing.T, expectationId string)(){
 	// Verifying expectation matched exactly once.
 	verifyResult := TestUtilsImpl{}.verify_expectation_matched_times(expectationId, 1)
 
+	// Asserts a successful result
 	assertEqual(t, 202, verifyResult.StatusCode, "")
+}
+
+func test_get_events_all_query_params() (){
+	// Setting up expectation
+	request, response := TestUtilsImpl{}.generate_payloads_from("auditapi/events_get", "./payloads")
+	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1) 
+
+	// Creating new instance
+	apiInstance := auditapi.EventsApi{apiClient}
 }

@@ -10,7 +10,7 @@ import (
 type TestUtilsImpl struct {
 }
 
-func (t TestUtilsImpl) setup_expectation(requestToMock *string, responseToGet *string) *http.Response {
+func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Response, times int) *http.Response {
 
 	type Times struct {
 		remainingTimes int
@@ -18,18 +18,18 @@ func (t TestUtilsImpl) setup_expectation(requestToMock *string, responseToGet *s
 	}
 
 	type Body struct {
-		httpRequest  string
-		httpResponse string
+		httpRequest  Request
+		httpResponse Response
 		times        Times
 	}
 
 	url := "http://localhost:1080/expectation"
 
 	body := Body{
-		httpRequest:  *requestToMock,
-		httpResponse: *responseToGet,
+		httpRequest:  requestToMock,
+		httpResponse: responseToGet,
 		times: Times{
-			remainingTimes: 1,
+			remainingTimes: times,
 			unlimited:      false,
 		},
 	}
