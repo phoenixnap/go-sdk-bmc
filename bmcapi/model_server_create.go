@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -38,11 +38,11 @@ type ServerCreate struct {
 	// Server pricing model. Currently this field should be set to `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`.
 	PricingModel *string `json:"pricingModel,omitempty"`
 	// The type of network configuration for this server. Currently this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
-	NetworkType     *string          `json:"networkType,omitempty"`
+	NetworkType *string `json:"networkType,omitempty"`
 	OsConfiguration *OsConfiguration `json:"osConfiguration,omitempty"`
 	// Tags to set to server, if any.
-	Tags                 *[]TagAssignmentRequest `json:"tags,omitempty"`
-	NetworkConfiguration *NetworkConfiguration   `json:"networkConfiguration,omitempty"`
+	Tags *[]TagAssignmentRequest `json:"tags,omitempty"`
+	NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration,omitempty"`
 }
 
 // NewServerCreate instantiates a new ServerCreate object
@@ -91,7 +91,7 @@ func (o *ServerCreate) GetHostname() string {
 // GetHostnameOk returns a tuple with the Hostname field value
 // and a boolean to check if the value has been set.
 func (o *ServerCreate) GetHostnameOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Hostname, true
@@ -147,7 +147,7 @@ func (o *ServerCreate) GetOs() string {
 // GetOsOk returns a tuple with the Os field value
 // and a boolean to check if the value has been set.
 func (o *ServerCreate) GetOsOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Os, true
@@ -171,7 +171,7 @@ func (o *ServerCreate) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *ServerCreate) GetTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Type, true
@@ -195,7 +195,7 @@ func (o *ServerCreate) GetLocation() string {
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
 func (o *ServerCreate) GetLocationOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Location, true
@@ -576,3 +576,5 @@ func (v *NullableServerCreate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

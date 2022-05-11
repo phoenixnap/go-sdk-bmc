@@ -37,8 +37,8 @@ func main() {
     tag := []string{"Inner_example"} // []string | List of tags, in the form tagName.tagValue, to filter by. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IPBlocksApi.IpBlocksGet(context.Background()).Tag(tag).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IPBlocksApi.IpBlocksGet(context.Background()).Tag(tag).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -55,7 +55,6 @@ func main() {
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiIpBlocksGetRequest struct via the builder pattern
-
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -103,8 +102,8 @@ func main() {
     ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IPBlocksApi.IpBlocksIpBlockIdDelete(context.Background(), ipBlockId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IPBlocksApi.IpBlocksIpBlockIdDelete(context.Background(), ipBlockId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksIpBlockIdDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -125,7 +124,6 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdDeleteRequest struct via the builder pattern
-
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -173,8 +171,8 @@ func main() {
     ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IPBlocksApi.IpBlocksIpBlockIdGet(context.Background(), ipBlockId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IPBlocksApi.IpBlocksIpBlockIdGet(context.Background(), ipBlockId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksIpBlockIdGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -195,7 +193,6 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdGetRequest struct via the builder pattern
-
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -244,8 +241,8 @@ func main() {
     ipBlockPatch := *openapiclient.NewIpBlockPatch() // IpBlockPatch |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IPBlocksApi.IpBlocksIpBlockIdPatch(context.Background(), ipBlockId).IpBlockPatch(ipBlockPatch).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IPBlocksApi.IpBlocksIpBlockIdPatch(context.Background(), ipBlockId).IpBlockPatch(ipBlockPatch).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksIpBlockIdPatch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -266,7 +263,6 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdPatchRequest struct via the builder pattern
-
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -316,8 +312,8 @@ func main() {
     tagAssignmentRequest := []openapiclient.TagAssignmentRequest{*openapiclient.NewTagAssignmentRequest("Environment")} // []TagAssignmentRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IPBlocksApi.IpBlocksIpBlockIdTagsPut(context.Background(), ipBlockId).TagAssignmentRequest(tagAssignmentRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IPBlocksApi.IpBlocksIpBlockIdTagsPut(context.Background(), ipBlockId).TagAssignmentRequest(tagAssignmentRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksIpBlockIdTagsPut``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -338,7 +334,6 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdTagsPutRequest struct via the builder pattern
-
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -387,8 +382,8 @@ func main() {
     ipBlockCreate := *openapiclient.NewIpBlockCreate("PHX", "/30") // IpBlockCreate |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IPBlocksApi.IpBlocksPost(context.Background()).IpBlockCreate(ipBlockCreate).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IPBlocksApi.IpBlocksPost(context.Background()).IpBlockCreate(ipBlockCreate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -405,7 +400,6 @@ func main() {
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiIpBlocksPostRequest struct via the builder pattern
-
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

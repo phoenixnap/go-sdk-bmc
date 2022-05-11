@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -28,12 +28,12 @@ var (
 type QuotasApi interface {
 
 	/*
-		QuotasGet List quotas
+	QuotasGet List quotas
 
-		Get account quota details.
+	Get account quota details.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return ApiQuotasGetRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiQuotasGetRequest
 	*/
 	QuotasGet(ctx _context.Context) ApiQuotasGetRequest
 
@@ -42,13 +42,13 @@ type QuotasApi interface {
 	QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *_nethttp.Response, error)
 
 	/*
-		QuotasQuotaIdActionsRequestEditPost Request quota limit change.
+	QuotasQuotaIdActionsRequestEditPost Request quota limit change.
 
-		Sends a request to edit the limit of a quota.
+	Sends a request to edit the limit of a quota.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param quotaId The ID of the Quota.
-		 @return ApiQuotasQuotaIdActionsRequestEditPostRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param quotaId The ID of the Quota.
+	 @return ApiQuotasQuotaIdActionsRequestEditPostRequest
 	*/
 	QuotasQuotaIdActionsRequestEditPost(ctx _context.Context, quotaId string) ApiQuotasQuotaIdActionsRequestEditPostRequest
 
@@ -56,13 +56,13 @@ type QuotasApi interface {
 	QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuotasQuotaIdActionsRequestEditPostRequest) (*_nethttp.Response, error)
 
 	/*
-		QuotasQuotaIdGet Get a quota.
+	QuotasQuotaIdGet Get a quota.
 
-		Get account quota details.
+	Get account quota details.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param quotaId The ID of the Quota.
-		 @return ApiQuotasQuotaIdGetRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param quotaId The ID of the Quota.
+	 @return ApiQuotasQuotaIdGetRequest
 	*/
 	QuotasQuotaIdGet(ctx _context.Context, quotaId string) ApiQuotasQuotaIdGetRequest
 
@@ -75,9 +75,10 @@ type QuotasApi interface {
 type QuotasApiService service
 
 type ApiQuotasGetRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService QuotasApi
 }
+
 
 func (r ApiQuotasGetRequest) Execute() ([]Quota, *_nethttp.Response, error) {
 	return r.ApiService.QuotasGetExecute(r)
@@ -94,7 +95,7 @@ Get account quota details.
 func (a *QuotasApiService) QuotasGet(ctx _context.Context) ApiQuotasGetRequest {
 	return ApiQuotasGetRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
@@ -215,9 +216,9 @@ func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *_n
 }
 
 type ApiQuotasQuotaIdActionsRequestEditPostRequest struct {
-	ctx                   _context.Context
-	ApiService            QuotasApi
-	quotaId               string
+	ctx _context.Context
+	ApiService QuotasApi
+	quotaId string
 	quotaEditLimitRequest *QuotaEditLimitRequest
 }
 
@@ -242,8 +243,8 @@ Sends a request to edit the limit of a quota.
 func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPost(ctx _context.Context, quotaId string) ApiQuotasQuotaIdActionsRequestEditPostRequest {
 	return ApiQuotasQuotaIdActionsRequestEditPostRequest{
 		ApiService: a,
-		ctx:        ctx,
-		quotaId:    quotaId,
+		ctx: ctx,
+		quotaId: quotaId,
 	}
 }
 
@@ -356,10 +357,11 @@ func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuota
 }
 
 type ApiQuotasQuotaIdGetRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService QuotasApi
-	quotaId    string
+	quotaId string
 }
+
 
 func (r ApiQuotasQuotaIdGetRequest) Execute() (Quota, *_nethttp.Response, error) {
 	return r.ApiService.QuotasQuotaIdGetExecute(r)
@@ -377,8 +379,8 @@ Get account quota details.
 func (a *QuotasApiService) QuotasQuotaIdGet(ctx _context.Context, quotaId string) ApiQuotasQuotaIdGetRequest {
 	return ApiQuotasQuotaIdGetRequest{
 		ApiService: a,
-		ctx:        ctx,
-		quotaId:    quotaId,
+		ctx: ctx,
+		quotaId: quotaId,
 	}
 }
 

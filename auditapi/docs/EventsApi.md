@@ -39,8 +39,8 @@ func main() {
     uri := "/ams/v1/clients/12345" // string | The request uri. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EventsApi.EventsGet(context.Background()).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.EventsApi.EventsGet(context.Background()).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.EventsGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -57,7 +57,6 @@ func main() {
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiEventsGetRequest struct via the builder pattern
-
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

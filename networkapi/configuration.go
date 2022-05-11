@@ -1,7 +1,7 @@
 /*
 Networks API
 
-Create, list, edit and delete public/private networks with the Network API. Use public networks to place multiple  servers on the same network or VLAN. Assign new servers with IP addresses from the same CIDR range. Use private  networks to avoid unnecessary egress data charges. Model your networks according to your business needs.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b>
+Create, list, edit and delete public/private networks with the Network API. Use public networks to place multiple  servers on the same network or VLAN. Assign new servers with IP addresses from the same CIDR range. Use private  networks to avoid unnecessary egress data charges. Model your networks according to your business needs.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b> 
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -78,9 +78,9 @@ type ServerVariable struct {
 
 // ServerConfiguration stores the information about a server
 type ServerConfiguration struct {
-	URL         string
+	URL string
 	Description string
-	Variables   map[string]ServerVariable
+	Variables map[string]ServerVariable
 }
 
 // ServerConfigurations stores multiple ServerConfiguration items
@@ -101,16 +101,17 @@ type Configuration struct {
 // NewConfiguration returns a new Configuration object
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
-		DefaultHeader: make(map[string]string),
-		UserAgent:     "OpenAPI-Generator/1.0.0/go",
-		Debug:         false,
-		Servers: ServerConfigurations{
+		DefaultHeader:    make(map[string]string),
+		UserAgent:        "OpenAPI-Generator/1.0.0/go",
+		Debug:            false,
+		Servers:          ServerConfigurations{
 			{
-				URL:         "https://api.phoenixnap.com/networks/v1",
+				URL: "https://api.phoenixnap.com/networks/v1",
 				Description: "No description provided",
 			},
 		},
-		OperationServers: map[string]ServerConfigurations{},
+		OperationServers: map[string]ServerConfigurations{
+		},
 	}
 	return cfg
 }

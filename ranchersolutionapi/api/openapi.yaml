@@ -21,7 +21,7 @@ info:
   title: Rancher Solution API
   version: "0.1"
 servers:
-- url: https://api.phoenixnap.com/solutions/rancher/v0
+- url: https://api.phoenixnap.com/solutions/rancher/v1beta
 security:
 - OAuth2:
   - bmc

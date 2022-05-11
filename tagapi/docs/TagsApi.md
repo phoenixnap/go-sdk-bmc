@@ -36,8 +36,8 @@ func main() {
     name := "env" // string | Query a tag by its name. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TagsApi.TagsGet(context.Background()).Name(name).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TagsApi.TagsGet(context.Background()).Name(name).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -54,7 +54,6 @@ func main() {
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiTagsGetRequest struct via the builder pattern
-
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -102,8 +101,8 @@ func main() {
     tagCreate := *openapiclient.NewTagCreate("Environment", true) // TagCreate | The body containing the tag details.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TagsApi.TagsPost(context.Background()).TagCreate(tagCreate).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TagsApi.TagsPost(context.Background()).TagCreate(tagCreate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -120,7 +119,6 @@ func main() {
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiTagsPostRequest struct via the builder pattern
-
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -168,8 +166,8 @@ func main() {
     tagId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The tag's ID.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TagsApi.TagsTagIdDelete(context.Background(), tagId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TagsApi.TagsTagIdDelete(context.Background(), tagId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsTagIdDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -190,7 +188,6 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiTagsTagIdDeleteRequest struct via the builder pattern
-
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -238,8 +235,8 @@ func main() {
     tagId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The tag's ID.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TagsApi.TagsTagIdGet(context.Background(), tagId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TagsApi.TagsTagIdGet(context.Background(), tagId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsTagIdGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -260,7 +257,6 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiTagsTagIdGetRequest struct via the builder pattern
-
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -309,8 +305,8 @@ func main() {
     tagUpdate := *openapiclient.NewTagUpdate("Environment", true) // TagUpdate | The body containing the tag changes.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TagsApi.TagsTagIdPatch(context.Background(), tagId).TagUpdate(tagUpdate).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TagsApi.TagsTagIdPatch(context.Background(), tagId).TagUpdate(tagUpdate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsTagIdPatch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -331,7 +327,6 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiTagsTagIdPatchRequest struct via the builder pattern
-
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

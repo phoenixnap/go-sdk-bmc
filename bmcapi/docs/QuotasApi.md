@@ -1,6 +1,6 @@
 # \QuotasApi
 
-All URIs are relative to *https://api.phoenixnap.com/bmc/v0*
+All URIs are relative to *https://api.phoenixnap.com/bmc/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -33,8 +33,8 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QuotasApi.QuotasGet(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QuotasApi.QuotasGet(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QuotasApi.QuotasGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -96,8 +96,8 @@ func main() {
     quotaEditLimitRequest := *openapiclient.NewQuotaEditLimitRequest(int32(10), "I need more servers for my cluster.") // QuotaEditLimitRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QuotasApi.QuotasQuotaIdActionsRequestEditPost(context.Background(), quotaId).QuotaEditLimitRequest(quotaEditLimitRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QuotasApi.QuotasQuotaIdActionsRequestEditPost(context.Background(), quotaId).QuotaEditLimitRequest(quotaEditLimitRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QuotasApi.QuotasQuotaIdActionsRequestEditPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -116,7 +116,6 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiQuotasQuotaIdActionsRequestEditPostRequest struct via the builder pattern
-
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -165,8 +164,8 @@ func main() {
     quotaId := "bmc.servers.max_count" // string | The ID of the Quota.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QuotasApi.QuotasQuotaIdGet(context.Background(), quotaId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QuotasApi.QuotasQuotaIdGet(context.Background(), quotaId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QuotasApi.QuotasQuotaIdGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -187,7 +186,6 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiQuotasQuotaIdGetRequest struct via the builder pattern
-
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

@@ -1,0 +1,12 @@
+name: 'Build SDK'
+description: 'Build SDK for a given API'
+inputs:
+  module-name:
+    description: 'Name of the Go module.'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Build go module
+      shell: bash
+      run: cd ${{ inputs.module-name }} && go mod tidy && go build
