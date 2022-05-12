@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to a apiPrivateNetworksGetRequest 
  
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----  |
- **location** | **string** | If present will filter the result by the given location of the Private Networks. | 
+**location** | **string** | If present will filter the result by the given location of the Private Networks. | 
 
 ### Return type
 
@@ -125,8 +125,7 @@ Other parameters are passed through a pointer to a apiPrivateNetworksNetworkIdDe
 
  
 Name | Type | Description | Notes
----- | ---- | ----------- | -----  |
-
+---- | ---- | ----------- | ----- 
 
 ### Return type
 
@@ -195,8 +194,7 @@ Other parameters are passed through a pointer to a apiPrivateNetworksNetworkIdGe
 
  
 Name | Type | Description | Notes
----- | ---- | ----------- | -----  |
-
+---- | ---- | ----------- | ----- 
 
 ### Return type
 
@@ -266,10 +264,9 @@ Other parameters are passed through a pointer to a apiPrivateNetworksNetworkIdPu
 
   
 Name | Type | Description | Notes
----- | ---- | ----------- | -----  |
-
+---- | ---- | ----------- | ----- 
  |
- **privateNetworkModify** | [**PrivateNetworkModify**](PrivateNetworkModify.md) |  | 
+**privateNetworkModify** | [**PrivateNetworkModify**](PrivateNetworkModify.md) |  | 
 
 ### Return type
 
@@ -335,7 +332,7 @@ Other parameters are passed through a pointer to a apiPrivateNetworksPostRequest
  
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----  |
- **privateNetworkCreate** | [**PrivateNetworkCreate**](PrivateNetworkCreate.md) |  | 
+**privateNetworkCreate** | [**PrivateNetworkCreate**](PrivateNetworkCreate.md) |  | 
 
 ### Return type
 
