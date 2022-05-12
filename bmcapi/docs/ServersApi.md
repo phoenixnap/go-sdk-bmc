@@ -75,9 +75,12 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiDeletePrivateNetworkRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
+fN
 
 
 ### Return type
@@ -141,8 +144,10 @@ func main() {
 
 Other parameters are passed through a pointer to a apiServersGetRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
  **tag** | **[]string** | A list of query parameters related to tags in the form of tagName.tagValue | 
 
 ### Return type
@@ -206,8 +211,10 @@ func main() {
 
 Other parameters are passed through a pointer to a apiServersPostRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
  **serverCreate** | [**ServerCreate**](ServerCreate.md) |  | 
 
 ### Return type
@@ -276,9 +283,12 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiServersServerIdActionsDeprovisionPostRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
+fN
  **relinquishIpBlock** | [**RelinquishIpBlock**](RelinquishIpBlock.md) |  | 
 
 ### Return type
@@ -346,8 +356,10 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiServersServerIdActionsPowerOffPostRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
 
 ### Return type
@@ -415,8 +427,10 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiServersServerIdActionsPowerOnPostRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
 
 ### Return type
@@ -484,8 +498,10 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiServersServerIdActionsRebootPostRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
 
 ### Return type
@@ -554,9 +570,12 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiServersServerIdActionsReservePostRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
+fN
  **serverReserve** | [**ServerReserve**](ServerReserve.md) |  | 
 
 ### Return type
@@ -625,9 +644,12 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiServersServerIdActionsResetPostRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
+fN
  **serverReset** | [**ServerReset**](ServerReset.md) |  | 
 
 ### Return type
@@ -695,8 +717,10 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiServersServerIdActionsShutdownPostRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
 
 ### Return type
@@ -764,8 +788,10 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiServersServerIdDeleteRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
 
 ### Return type
@@ -833,8 +859,10 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiServersServerIdGetRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
 
 ### Return type
@@ -905,10 +933,14 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiServersServerIdIpBlocksIpBlockIdDeleteRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
+fN
 
+fN
  **relinquishIpBlock** | [**RelinquishIpBlock**](RelinquishIpBlock.md) |  | 
 
 ### Return type
@@ -977,9 +1009,12 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiServersServerIdIpBlocksPostRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
+fN
  **serverIpBlock** | [**ServerIpBlock**](ServerIpBlock.md) |  | 
 
 ### Return type
@@ -1048,9 +1083,12 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiServersServerIdPatchRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
+fN
  **serverPatch** | [**ServerPatch**](ServerPatch.md) |  | 
 
 ### Return type
@@ -1119,9 +1157,12 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiServersServerIdPrivateNetworksPostRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
+fN
  **serverPrivateNetwork** | [**ServerPrivateNetwork**](ServerPrivateNetwork.md) |  | 
 
 ### Return type
@@ -1191,9 +1232,12 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiServersServerIdPublicNetworksDeleteRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
+fN
 
 
 ### Return type
@@ -1262,9 +1306,12 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiServersServerIdPublicNetworksPostRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
+fN
  **serverPublicNetwork** | [**ServerPublicNetwork**](ServerPublicNetwork.md) |  | 
 
 ### Return type
@@ -1333,9 +1380,12 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiServersServerIdTagsPutRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
+fN
  **tagAssignmentRequest** | [**[]TagAssignmentRequest**](TagAssignmentRequest.md) |  | 
 
 ### Return type
