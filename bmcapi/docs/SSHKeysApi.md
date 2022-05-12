@@ -48,7 +48,7 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+This endpoint does not need any parameter. |
 
 ### Other Parameters
 
@@ -110,15 +110,15 @@ func main() {
 
 ### Path Parameters
 
-
+ |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiSshKeysPostRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **sshKeyCreate** | [**SshKeyCreate**](SshKeyCreate.md) |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  **sshKeyCreate** | [**SshKeyCreate**](SshKeyCreate.md) |  |  |
 
 ### Return type
 
@@ -176,18 +176,18 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sshKeyId** | **string** | The SSH Key&#39;s ID. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **sshKeyId** | **string** | The SSH Key&#39;s ID. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiSshKeysSshKeyIdDeleteRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
 
 ### Return type
 
@@ -245,18 +245,18 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sshKeyId** | **string** | The SSH Key&#39;s ID. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **sshKeyId** | **string** | The SSH Key&#39;s ID. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiSshKeysSshKeyIdGetRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
 
 ### Return type
 
@@ -315,19 +315,19 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sshKeyId** | **string** | The SSH Key&#39;s ID. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **sshKeyId** | **string** | The SSH Key&#39;s ID. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiSshKeysSshKeyIdPutRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **sshKeyUpdate** | [**SshKeyUpdate**](SshKeyUpdate.md) |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
+|  **sshKeyUpdate** | [**SshKeyUpdate**](SshKeyUpdate.md) |  |  |
 
 ### Return type
 

@@ -49,15 +49,15 @@ func main() {
 
 ### Path Parameters
 
-
+ |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiTagsGetRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **name** | **string** | Query a tag by its name. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  **name** | **string** | Query a tag by its name. |  |
 
 ### Return type
 
@@ -114,15 +114,15 @@ func main() {
 
 ### Path Parameters
 
-
+ |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiTagsPostRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tagCreate** | [**TagCreate**](TagCreate.md) | The body containing the tag details. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  **tagCreate** | [**TagCreate**](TagCreate.md) | The body containing the tag details. |  |
 
 ### Return type
 
@@ -180,18 +180,18 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tagId** | **string** | The tag&#39;s ID. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **tagId** | **string** | The tag&#39;s ID. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiTagsTagIdDeleteRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
 
 ### Return type
 
@@ -249,18 +249,18 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tagId** | **string** | The tag&#39;s ID. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **tagId** | **string** | The tag&#39;s ID. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiTagsTagIdGetRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
 
 ### Return type
 
@@ -319,19 +319,19 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tagId** | **string** | The tag&#39;s ID. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **tagId** | **string** | The tag&#39;s ID. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiTagsTagIdPatchRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **tagUpdate** | [**TagUpdate**](TagUpdate.md) | The body containing the tag changes. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
+|  **tagUpdate** | [**TagUpdate**](TagUpdate.md) | The body containing the tag changes. |  |
 
 ### Return type
 

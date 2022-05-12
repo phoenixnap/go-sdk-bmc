@@ -51,15 +51,15 @@ func main() {
 
 ### Path Parameters
 
-
+ |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPublicNetworksGetRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **location** | **string** | If present will filter the result by the given location of the Public Networks. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  **location** | **string** | If present will filter the result by the given location of the Public Networks. |  |
 
 ### Return type
 
@@ -115,18 +115,18 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**publicNetworkId** | **string** | The Public Network identifier. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **publicNetworkId** | **string** | The Public Network identifier. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdDeleteRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
 
 ### Return type
 
@@ -184,18 +184,18 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**publicNetworkId** | **string** | The Public Network identifier. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **publicNetworkId** | **string** | The Public Network identifier. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdGetRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
 
 ### Return type
 
@@ -254,20 +254,20 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**publicNetworkId** | **string** | The Public Network identifier. | 
-**ipBlockId** | **string** | The IP Block identifier. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **publicNetworkId** | **string** | The Public Network identifier. |  |
+| **ipBlockId** | **string** | The IP Block identifier. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
+|  |
 
 ### Return type
 
@@ -326,19 +326,19 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**publicNetworkId** | **string** | The Public Network identifier. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **publicNetworkId** | **string** | The Public Network identifier. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdIpBlocksPostRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **publicNetworkIpBlock** | [**PublicNetworkIpBlock**](PublicNetworkIpBlock.md) |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
+|  **publicNetworkIpBlock** | [**PublicNetworkIpBlock**](PublicNetworkIpBlock.md) |  |  |
 
 ### Return type
 
@@ -397,19 +397,19 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**publicNetworkId** | **string** | The Public Network identifier. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **publicNetworkId** | **string** | The Public Network identifier. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdPatchRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **publicNetworkModify** | [**PublicNetworkModify**](PublicNetworkModify.md) |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
+|  **publicNetworkModify** | [**PublicNetworkModify**](PublicNetworkModify.md) |  |  |
 
 ### Return type
 
@@ -466,15 +466,15 @@ func main() {
 
 ### Path Parameters
 
-
+ |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPublicNetworksPostRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **publicNetworkCreate** | [**PublicNetworkCreate**](PublicNetworkCreate.md) |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  **publicNetworkCreate** | [**PublicNetworkCreate**](PublicNetworkCreate.md) |  |  |
 
 ### Return type
 
