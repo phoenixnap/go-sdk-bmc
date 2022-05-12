@@ -55,7 +55,9 @@ func main() {
 
 Other parameters are passed through a pointer to a apiPrivateNetworksGetRequest struct via the builder pattern
 
-
+Name | Type | Description | Notes
+---- | ---- | ----------- | ----- 
+ 
  **location** | **string** | If present will filter the result by the given location of the Private Networks. | 
 
 ### Return type
@@ -121,7 +123,9 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiPrivateNetworksNetworkIdDeleteRequest struct via the builder pattern
 
-
+Name | Type | Description | Notes
+---- | ---- | ----------- | ----- 
+ 
 
 
 ### Return type
@@ -189,7 +193,9 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiPrivateNetworksNetworkIdGetRequest struct via the builder pattern
 
-
+Name | Type | Description | Notes
+---- | ---- | ----------- | ----- 
+ 
 
 
 ### Return type
@@ -258,9 +264,11 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiPrivateNetworksNetworkIdPutRequest struct via the builder pattern
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | ----- 
+ 
 
-
-
+ 
  **privateNetworkModify** | [**PrivateNetworkModify**](PrivateNetworkModify.md) |  | 
 
 ### Return type
@@ -324,7 +332,9 @@ func main() {
 
 Other parameters are passed through a pointer to a apiPrivateNetworksPostRequest struct via the builder pattern
 
-
+Name | Type | Description | Notes
+---- | ---- | ----------- | ----- 
+ 
  **privateNetworkCreate** | [**PrivateNetworkCreate**](PrivateNetworkCreate.md) |  | 
 
 ### Return type
