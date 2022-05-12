@@ -120,7 +120,7 @@ Other parameters are passed through a pointer to a apiQuotasQuotaIdActionsReques
   
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
- |
+
 **quotaEditLimitRequest** | [**QuotaEditLimitRequest**](QuotaEditLimitRequest.md) |  | 
 
 ### Return type
