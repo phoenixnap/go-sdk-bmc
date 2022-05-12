@@ -47,7 +47,7 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter. |
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
@@ -110,18 +110,18 @@ func main() {
 ### Path Parameters
 
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **id** | **string** | The Cluster identifier. |  |
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**id** | **string** | The Cluster identifier. | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiClustersIdDeleteRequest struct via the builder pattern
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-|  |
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+
 
 ### Return type
 
@@ -179,18 +179,18 @@ func main() {
 ### Path Parameters
 
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **id** | **string** | The Cluster identifier. |  |
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**id** | **string** | The Cluster identifier. | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiClustersIdGetRequest struct via the builder pattern
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-|  |
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+
 
 ### Return type
 
@@ -247,15 +247,15 @@ func main() {
 
 ### Path Parameters
 
- |
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiClustersPostRequest struct via the builder pattern
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-|  **cluster** | [**Cluster**](Cluster.md) |  |  |
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+ **cluster** | [**Cluster**](Cluster.md) |  | 
 
 ### Return type
 
