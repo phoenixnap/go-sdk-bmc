@@ -264,6 +264,8 @@ Other parameters are passed through a pointer to a apiPrivateNetworksNetworkIdPu
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **privateNetworkModify** | [**PrivateNetworkModify**](PrivateNetworkModify.md) |  | 
 
 ### Return type

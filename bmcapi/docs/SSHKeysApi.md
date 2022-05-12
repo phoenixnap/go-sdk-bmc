@@ -327,6 +327,8 @@ Other parameters are passed through a pointer to a apiSshKeysSshKeyIdPutRequest 
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **sshKeyUpdate** | [**SshKeyUpdate**](SshKeyUpdate.md) |  | 
 
 ### Return type
