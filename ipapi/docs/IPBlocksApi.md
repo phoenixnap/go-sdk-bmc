@@ -50,15 +50,15 @@ func main() {
 
 ### Path Parameters
 
-
+ |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiIpBlocksGetRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tag** | **[]string** | List of tags, in the form tagName.tagValue, to filter by. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  **tag** | **[]string** | List of tags, in the form tagName.tagValue, to filter by. |  |
 
 ### Return type
 
@@ -116,18 +116,18 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ipBlockId** | **string** | The IP Block identifier. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **ipBlockId** | **string** | The IP Block identifier. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdDeleteRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
 
 ### Return type
 
@@ -185,18 +185,18 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ipBlockId** | **string** | The IP Block identifier. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **ipBlockId** | **string** | The IP Block identifier. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdGetRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
 
 ### Return type
 
@@ -255,19 +255,19 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ipBlockId** | **string** | The IP Block identifier. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **ipBlockId** | **string** | The IP Block identifier. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdPatchRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **ipBlockPatch** | [**IpBlockPatch**](IpBlockPatch.md) |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
+|  **ipBlockPatch** | [**IpBlockPatch**](IpBlockPatch.md) |  |  |
 
 ### Return type
 
@@ -326,19 +326,19 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ipBlockId** | **string** | The IP Block identifier. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **ipBlockId** | **string** | The IP Block identifier. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdTagsPutRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **tagAssignmentRequest** | [**[]TagAssignmentRequest**](TagAssignmentRequest.md) |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
+|  **tagAssignmentRequest** | [**[]TagAssignmentRequest**](TagAssignmentRequest.md) |  |  |
 
 ### Return type
 
@@ -395,15 +395,15 @@ func main() {
 
 ### Path Parameters
 
-
+ |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiIpBlocksPostRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ipBlockCreate** | [**IpBlockCreate**](IpBlockCreate.md) |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  **ipBlockCreate** | [**IpBlockCreate**](IpBlockCreate.md) |  |  |
 
 ### Return type
 

@@ -49,15 +49,15 @@ func main() {
 
 ### Path Parameters
 
-
+ |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPrivateNetworksGetRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **location** | **string** | If present will filter the result by the given location of the Private Networks. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  **location** | **string** | If present will filter the result by the given location of the Private Networks. |  |
 
 ### Return type
 
@@ -113,18 +113,18 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**privateNetworkId** | **string** | The private network identifier. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **privateNetworkId** | **string** | The private network identifier. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPrivateNetworksNetworkIdDeleteRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
 
 ### Return type
 
@@ -182,18 +182,18 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**privateNetworkId** | **string** | The private network identifier. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **privateNetworkId** | **string** | The private network identifier. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPrivateNetworksNetworkIdGetRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
 
 ### Return type
 
@@ -252,19 +252,19 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**privateNetworkId** | **string** | The private network identifier. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **privateNetworkId** | **string** | The private network identifier. |  |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPrivateNetworksNetworkIdPutRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **privateNetworkModify** | [**PrivateNetworkModify**](PrivateNetworkModify.md) |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  |
+|  **privateNetworkModify** | [**PrivateNetworkModify**](PrivateNetworkModify.md) |  |  |
 
 ### Return type
 
@@ -321,15 +321,15 @@ func main() {
 
 ### Path Parameters
 
-
+ |
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPrivateNetworksPostRequest struct via the builder pattern
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **privateNetworkCreate** | [**PrivateNetworkCreate**](PrivateNetworkCreate.md) |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+|  **privateNetworkCreate** | [**PrivateNetworkCreate**](PrivateNetworkCreate.md) |  |  |
 
 ### Return type
 
