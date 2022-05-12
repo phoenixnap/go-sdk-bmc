@@ -56,9 +56,8 @@ func main() {
 
 Other parameters are passed through a pointer to a apiIpBlocksGetRequest struct via the builder pattern
 
-Name | Type | Description | Notes
----- | ---- | ----------- | -----  
-**tag** | **[]string** | List of tags, in the form tagName.tagValue, to filter by. | 
+
+ **tag** | **[]string** | List of tags, in the form tagName.tagValue, to filter by. | 
 
 ### Return type
 
@@ -125,8 +124,8 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdDeleteRequest struct via the builder pattern
 
-Name | Type | Description | Notes
----- | ---- | ----------- | -----  
+
+
 
 ### Return type
 
@@ -193,8 +192,8 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdGetRequest struct via the builder pattern
 
-Name | Type | Description | Notes
----- | ---- | ----------- | -----  
+
+
 
 ### Return type
 
@@ -262,10 +261,10 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdPatchRequest struct via the builder pattern
 
-Name | Type | Description | Notes
----- | ---- | ----------- | -----  
- 
-**ipBlockPatch** | [**IpBlockPatch**](IpBlockPatch.md) |  | 
+
+
+
+ **ipBlockPatch** | [**IpBlockPatch**](IpBlockPatch.md) |  | 
 
 ### Return type
 
@@ -333,10 +332,10 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdTagsPutRequest struct via the builder pattern
 
-Name | Type | Description | Notes
----- | ---- | ----------- | -----  
- 
-**tagAssignmentRequest** | [**[]TagAssignmentRequest**](TagAssignmentRequest.md) |  | 
+
+
+
+ **tagAssignmentRequest** | [**[]TagAssignmentRequest**](TagAssignmentRequest.md) |  | 
 
 ### Return type
 
@@ -399,9 +398,8 @@ func main() {
 
 Other parameters are passed through a pointer to a apiIpBlocksPostRequest struct via the builder pattern
 
-Name | Type | Description | Notes
----- | ---- | ----------- | -----  
-**ipBlockCreate** | [**IpBlockCreate**](IpBlockCreate.md) |  | 
+
+ **ipBlockCreate** | [**IpBlockCreate**](IpBlockCreate.md) |  | 
 
 ### Return type
 
