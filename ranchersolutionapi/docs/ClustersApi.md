@@ -54,6 +54,7 @@ This endpoint does not need any parameter.
 Other parameters are passed through a pointer to a apiClustersGetRequest struct via the builder pattern
 
 
+
 ### Return type
 
 [**[]Cluster**](Cluster.md)
@@ -119,9 +120,10 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiClustersIdDeleteRequest struct via the builder pattern
 
- 
-Name | Type | Description | Notes
----- | ---- | ----------- | ----- 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type
@@ -189,9 +191,10 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiClustersIdGetRequest struct via the builder pattern
 
- 
-Name | Type | Description | Notes
----- | ---- | ----------- | ----- 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type
@@ -255,10 +258,11 @@ func main() {
 
 Other parameters are passed through a pointer to a apiClustersPostRequest struct via the builder pattern
 
- 
-Name | Type | Description | Notes
----- | ---- | ----------- | ----- 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **cluster** | [**Cluster**](Cluster.md) |  | 
+
 
 ### Return type
 
