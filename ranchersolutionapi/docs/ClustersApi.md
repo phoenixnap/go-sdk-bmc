@@ -123,6 +123,7 @@ Other parameters are passed through a pointer to a apiClustersIdDeleteRequest st
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
 
+
 ### Return type
 
 [**DeleteResult**](DeleteResult.md)
@@ -192,6 +193,7 @@ Other parameters are passed through a pointer to a apiClustersIdGetRequest struc
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
 
+
 ### Return type
 
 [**Cluster**](Cluster.md)
@@ -256,7 +258,7 @@ Other parameters are passed through a pointer to a apiClustersPostRequest struct
  
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
-**cluster** | [**Cluster**](Cluster.md) |  | 
+ **cluster** | [**Cluster**](Cluster.md) |  | 
 
 ### Return type
 

@@ -60,7 +60,7 @@ Other parameters are passed through a pointer to a apiPublicNetworksGetRequest s
  
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
-**location** | **string** | If present will filter the result by the given location of the Public Networks. | 
+ **location** | **string** | If present will filter the result by the given location of the Public Networks. | 
 
 ### Return type
 
@@ -128,6 +128,7 @@ Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdDel
  
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+
 
 ### Return type
 
@@ -197,6 +198,7 @@ Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdGet
  
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+
 
 ### Return type
 
@@ -270,6 +272,8 @@ Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
 
 
+
+
 ### Return type
 
 **string**
@@ -340,7 +344,8 @@ Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdIpB
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
 
-**publicNetworkIpBlock** | [**PublicNetworkIpBlock**](PublicNetworkIpBlock.md) |  | 
+
+ **publicNetworkIpBlock** | [**PublicNetworkIpBlock**](PublicNetworkIpBlock.md) |  | 
 
 ### Return type
 
@@ -412,7 +417,8 @@ Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdPat
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
 
-**publicNetworkModify** | [**PublicNetworkModify**](PublicNetworkModify.md) |  | 
+
+ **publicNetworkModify** | [**PublicNetworkModify**](PublicNetworkModify.md) |  | 
 
 ### Return type
 
@@ -478,7 +484,7 @@ Other parameters are passed through a pointer to a apiPublicNetworksPostRequest 
  
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
-**publicNetworkCreate** | [**PublicNetworkCreate**](PublicNetworkCreate.md) |  | 
+ **publicNetworkCreate** | [**PublicNetworkCreate**](PublicNetworkCreate.md) |  | 
 
 ### Return type
 
