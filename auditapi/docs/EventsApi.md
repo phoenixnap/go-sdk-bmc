@@ -61,11 +61,23 @@ Other parameters are passed through a pointer to a apiEventsGetRequest struct vi
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
  **from** | **time.Time** | From the date and time (inclusive) to filter event log records by. | 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **to** | **time.Time** | To the date and time (inclusive) to filter event log records by. | 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **limit** | **int32** | Limit the number of records returned. | 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **order** | **string** | Ordering of the event&#39;s time. SortBy can be introduced later on. | [default to &quot;ASC&quot;]
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **username** | **string** | The username that did the actions. | 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **verb** | **string** | The HTTP verb corresponding to the action. | 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **uri** | **string** | The request uri. | 
 
 ### Return type

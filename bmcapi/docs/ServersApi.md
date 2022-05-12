@@ -78,6 +78,8 @@ Other parameters are passed through a pointer to a apiDeletePrivateNetworkReques
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
 
 
 ### Return type
@@ -279,6 +281,8 @@ Other parameters are passed through a pointer to a apiServersServerIdActionsDepr
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **relinquishIpBlock** | [**RelinquishIpBlock**](RelinquishIpBlock.md) |  | 
 
 ### Return type
@@ -557,6 +561,8 @@ Other parameters are passed through a pointer to a apiServersServerIdActionsRese
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **serverReserve** | [**ServerReserve**](ServerReserve.md) |  | 
 
 ### Return type
@@ -628,6 +634,8 @@ Other parameters are passed through a pointer to a apiServersServerIdActionsRese
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **serverReset** | [**ServerReset**](ServerReset.md) |  | 
 
 ### Return type
@@ -908,7 +916,11 @@ Other parameters are passed through a pointer to a apiServersServerIdIpBlocksIpB
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **relinquishIpBlock** | [**RelinquishIpBlock**](RelinquishIpBlock.md) |  | 
 
 ### Return type
@@ -980,6 +992,8 @@ Other parameters are passed through a pointer to a apiServersServerIdIpBlocksPos
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **serverIpBlock** | [**ServerIpBlock**](ServerIpBlock.md) |  | 
 
 ### Return type
@@ -1051,6 +1065,8 @@ Other parameters are passed through a pointer to a apiServersServerIdPatchReques
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **serverPatch** | [**ServerPatch**](ServerPatch.md) |  | 
 
 ### Return type
@@ -1122,6 +1138,8 @@ Other parameters are passed through a pointer to a apiServersServerIdPrivateNetw
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **serverPrivateNetwork** | [**ServerPrivateNetwork**](ServerPrivateNetwork.md) |  | 
 
 ### Return type
@@ -1194,6 +1212,8 @@ Other parameters are passed through a pointer to a apiServersServerIdPublicNetwo
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
 
 
 ### Return type
@@ -1265,6 +1285,8 @@ Other parameters are passed through a pointer to a apiServersServerIdPublicNetwo
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **serverPublicNetwork** | [**ServerPublicNetwork**](ServerPublicNetwork.md) |  | 
 
 ### Return type
@@ -1336,6 +1358,8 @@ Other parameters are passed through a pointer to a apiServersServerIdTagsPutRequ
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **tagAssignmentRequest** | [**[]TagAssignmentRequest**](TagAssignmentRequest.md) |  | 
 
 ### Return type

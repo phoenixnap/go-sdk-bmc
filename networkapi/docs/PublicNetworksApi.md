@@ -267,6 +267,8 @@ Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdIpB
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
 
 
 ### Return type
@@ -338,6 +340,8 @@ Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdIpB
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **publicNetworkIpBlock** | [**PublicNetworkIpBlock**](PublicNetworkIpBlock.md) |  | 
 
 ### Return type
@@ -409,6 +413,8 @@ Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdPat
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **publicNetworkModify** | [**PublicNetworkModify**](PublicNetworkModify.md) |  | 
 
 ### Return type

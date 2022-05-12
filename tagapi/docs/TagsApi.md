@@ -331,6 +331,8 @@ Other parameters are passed through a pointer to a apiTagsTagIdPatchRequest stru
 Name | Type | Description | Notes
 ---- | ---- | ----------- | -----
 
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
  **tagUpdate** | [**TagUpdate**](TagUpdate.md) | The body containing the tag changes. | 
 
 ### Return type
