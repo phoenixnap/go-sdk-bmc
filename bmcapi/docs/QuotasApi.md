@@ -117,12 +117,11 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiQuotasQuotaIdActionsRequestEditPostRequest struct via the builder pattern
 
-f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
-fN
+ 
 
-fN
+ 
  **quotaEditLimitRequest** | [**QuotaEditLimitRequest**](QuotaEditLimitRequest.md) |  | 
 
 ### Return type
@@ -190,10 +189,9 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiQuotasQuotaIdGetRequest struct via the builder pattern
 
-f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
-fN
+ 
 
 
 ### Return type

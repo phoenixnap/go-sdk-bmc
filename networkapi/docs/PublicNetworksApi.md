@@ -57,10 +57,9 @@ func main() {
 
 Other parameters are passed through a pointer to a apiPublicNetworksGetRequest struct via the builder pattern
 
-f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
-fN
+ 
  **location** | **string** | If present will filter the result by the given location of the Public Networks. | 
 
 ### Return type
@@ -126,10 +125,9 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdDeleteRequest struct via the builder pattern
 
-f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
-fN
+ 
 
 
 ### Return type
@@ -197,10 +195,9 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdGetRequest struct via the builder pattern
 
-f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
-fN
+ 
 
 
 ### Return type
@@ -270,12 +267,11 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest struct via the builder pattern
 
-f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
-fN
+ 
 
-fN
+ 
 
 
 ### Return type
@@ -344,12 +340,11 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdIpBlocksPostRequest struct via the builder pattern
 
-f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
-fN
+ 
 
-fN
+ 
  **publicNetworkIpBlock** | [**PublicNetworkIpBlock**](PublicNetworkIpBlock.md) |  | 
 
 ### Return type
@@ -418,12 +413,11 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdPatchRequest struct via the builder pattern
 
-f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
-fN
+ 
 
-fN
+ 
  **publicNetworkModify** | [**PublicNetworkModify**](PublicNetworkModify.md) |  | 
 
 ### Return type
@@ -487,10 +481,9 @@ func main() {
 
 Other parameters are passed through a pointer to a apiPublicNetworksPostRequest struct via the builder pattern
 
-f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
-fN
+ 
  **publicNetworkCreate** | [**PublicNetworkCreate**](PublicNetworkCreate.md) |  | 
 
 ### Return type
