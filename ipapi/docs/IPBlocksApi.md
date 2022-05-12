@@ -56,8 +56,10 @@ func main() {
 
 Other parameters are passed through a pointer to a apiIpBlocksGetRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
  **tag** | **[]string** | List of tags, in the form tagName.tagValue, to filter by. | 
 
 ### Return type
@@ -125,8 +127,10 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdDeleteRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
 
 ### Return type
@@ -194,8 +198,10 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdGetRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
 
 ### Return type
@@ -264,9 +270,12 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdPatchRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
+fN
  **ipBlockPatch** | [**IpBlockPatch**](IpBlockPatch.md) |  | 
 
 ### Return type
@@ -335,9 +344,12 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdTagsPutRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
 
+fN
  **tagAssignmentRequest** | [**[]TagAssignmentRequest**](TagAssignmentRequest.md) |  | 
 
 ### Return type
@@ -401,8 +413,10 @@ func main() {
 
 Other parameters are passed through a pointer to a apiIpBlocksPostRequest struct via the builder pattern
 
+f
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ----- 
+fN
  **ipBlockCreate** | [**IpBlockCreate**](IpBlockCreate.md) |  | 
 
 ### Return type
