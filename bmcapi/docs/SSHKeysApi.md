@@ -56,6 +56,7 @@ Other parameters are passed through a pointer to a apiSshKeysGetRequest struct v
 
 
 
+
 ### Return type
 
 [**[]SshKey**](SshKey.md)
@@ -121,6 +122,7 @@ Other parameters are passed through a pointer to a apiSshKeysPostRequest struct 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sshKeyCreate** | [**SshKeyCreate**](SshKeyCreate.md) |  | 
+
 
 
 ### Return type
@@ -334,8 +336,8 @@ Other parameters are passed through a pointer to a apiSshKeysSshKeyIdPutRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **sshKeyUpdate** | [**SshKeyUpdate**](SshKeyUpdate.md) |  | 
+
 
 
 ### Return type

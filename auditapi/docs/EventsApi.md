@@ -70,6 +70,7 @@ Name | Type | Description  | Notes
  **uri** | **string** | The request uri. | 
 
 
+
 ### Return type
 
 [**[]Event**](Event.md)

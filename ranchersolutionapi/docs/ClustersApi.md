@@ -55,6 +55,7 @@ Other parameters are passed through a pointer to a apiClustersGetRequest struct 
 
 
 
+
 ### Return type
 
 [**[]Cluster**](Cluster.md)
@@ -262,6 +263,7 @@ Other parameters are passed through a pointer to a apiClustersPostRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **cluster** | [**Cluster**](Cluster.md) |  | 
+
 
 
 ### Return type

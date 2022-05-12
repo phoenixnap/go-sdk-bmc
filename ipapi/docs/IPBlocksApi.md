@@ -62,6 +62,7 @@ Name | Type | Description  | Notes
  **tag** | **[]string** | List of tags, in the form tagName.tagValue, to filter by. | 
 
 
+
 ### Return type
 
 [**[]IpBlock**](IpBlock.md)
@@ -273,8 +274,8 @@ Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdPatchRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **ipBlockPatch** | [**IpBlockPatch**](IpBlockPatch.md) |  | 
+
 
 
 ### Return type
@@ -346,8 +347,8 @@ Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdTagsPutRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **tagAssignmentRequest** | [**[]TagAssignmentRequest**](TagAssignmentRequest.md) |  | 
+
 
 
 ### Return type
@@ -415,6 +416,7 @@ Other parameters are passed through a pointer to a apiIpBlocksPostRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ipBlockCreate** | [**IpBlockCreate**](IpBlockCreate.md) |  | 
+
 
 
 ### Return type

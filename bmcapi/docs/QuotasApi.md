@@ -54,6 +54,7 @@ Other parameters are passed through a pointer to a apiQuotasGetRequest struct vi
 
 
 
+
 ### Return type
 
 [**[]Quota**](Quota.md)
@@ -121,8 +122,8 @@ Other parameters are passed through a pointer to a apiQuotasQuotaIdActionsReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **quotaEditLimitRequest** | [**QuotaEditLimitRequest**](QuotaEditLimitRequest.md) |  | 
+
 
 
 ### Return type

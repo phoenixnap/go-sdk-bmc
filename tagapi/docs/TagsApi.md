@@ -61,6 +61,7 @@ Name | Type | Description  | Notes
  **name** | **string** | Query a tag by its name. | 
 
 
+
 ### Return type
 
 [**[]Tag**](Tag.md)
@@ -126,6 +127,7 @@ Other parameters are passed through a pointer to a apiTagsPostRequest struct via
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tagCreate** | [**TagCreate**](TagCreate.md) | The body containing the tag details. | 
+
 
 
 ### Return type
@@ -339,8 +341,8 @@ Other parameters are passed through a pointer to a apiTagsTagIdPatchRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **tagUpdate** | [**TagUpdate**](TagUpdate.md) | The body containing the tag changes. | 
+
 
 
 ### Return type
