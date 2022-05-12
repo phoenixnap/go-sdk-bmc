@@ -53,6 +53,7 @@ This endpoint does not need any parameter.
 Other parameters are passed through a pointer to a apiQuotasGetRequest struct via the builder pattern
 
 
+
 ### Return type
 
 [**[]Quota**](Quota.md)
@@ -117,12 +118,12 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiQuotasQuotaIdActionsRequestEditPostRequest struct via the builder pattern
 
-  
-Name | Type | Description | Notes
----- | ---- | ----------- | ----- 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
  **quotaEditLimitRequest** | [**QuotaEditLimitRequest**](QuotaEditLimitRequest.md) |  | 
+
 
 ### Return type
 
@@ -189,9 +190,10 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiQuotasQuotaIdGetRequest struct via the builder pattern
 
- 
-Name | Type | Description | Notes
----- | ---- | ----------- | ----- 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type

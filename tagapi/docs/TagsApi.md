@@ -55,10 +55,11 @@ func main() {
 
 Other parameters are passed through a pointer to a apiTagsGetRequest struct via the builder pattern
 
- 
-Name | Type | Description | Notes
----- | ---- | ----------- | ----- 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **name** | **string** | Query a tag by its name. | 
+
 
 ### Return type
 
@@ -121,10 +122,11 @@ func main() {
 
 Other parameters are passed through a pointer to a apiTagsPostRequest struct via the builder pattern
 
- 
-Name | Type | Description | Notes
----- | ---- | ----------- | ----- 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **tagCreate** | [**TagCreate**](TagCreate.md) | The body containing the tag details. | 
+
 
 ### Return type
 
@@ -191,9 +193,10 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiTagsTagIdDeleteRequest struct via the builder pattern
 
- 
-Name | Type | Description | Notes
----- | ---- | ----------- | ----- 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type
@@ -261,9 +264,10 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiTagsTagIdGetRequest struct via the builder pattern
 
- 
-Name | Type | Description | Notes
----- | ---- | ----------- | ----- 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type
@@ -332,12 +336,12 @@ Name | Type | Description | Notes
 
 Other parameters are passed through a pointer to a apiTagsTagIdPatchRequest struct via the builder pattern
 
-  
-Name | Type | Description | Notes
----- | ---- | ----------- | ----- 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
  **tagUpdate** | [**TagUpdate**](TagUpdate.md) | The body containing the tag changes. | 
+
 
 ### Return type
 
