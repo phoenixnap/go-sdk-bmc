@@ -117,8 +117,8 @@ func main() {
 Other parameters are passed through a pointer to a apiSshKeysPostRequest struct via the builder pattern
 
 Name | Type | Description | Notes
----- | ---- | ----------- | -----
- **sshKeyCreate** | [**SshKeyCreate**](SshKeyCreate.md) |  | 
+---- | ---- | ----------- | -----  
+**sshKeyCreate** | [**SshKeyCreate**](SshKeyCreate.md) |  | 
 
 ### Return type
 
@@ -186,8 +186,7 @@ Name | Type | Description | Notes
 Other parameters are passed through a pointer to a apiSshKeysSshKeyIdDeleteRequest struct via the builder pattern
 
 Name | Type | Description | Notes
----- | ---- | ----------- | -----
-
+---- | ---- | ----------- | -----  
 
 ### Return type
 
@@ -255,8 +254,7 @@ Name | Type | Description | Notes
 Other parameters are passed through a pointer to a apiSshKeysSshKeyIdGetRequest struct via the builder pattern
 
 Name | Type | Description | Notes
----- | ---- | ----------- | -----
-
+---- | ---- | ----------- | -----  
 
 ### Return type
 
@@ -325,11 +323,9 @@ Name | Type | Description | Notes
 Other parameters are passed through a pointer to a apiSshKeysSshKeyIdPutRequest struct via the builder pattern
 
 Name | Type | Description | Notes
----- | ---- | ----------- | -----
-
-Name | Type | Description | Notes
----- | ---- | ----------- | -----
- **sshKeyUpdate** | [**SshKeyUpdate**](SshKeyUpdate.md) |  | 
+---- | ---- | ----------- | -----  
+ 
+**sshKeyUpdate** | [**SshKeyUpdate**](SshKeyUpdate.md) |  | 
 
 ### Return type
 
