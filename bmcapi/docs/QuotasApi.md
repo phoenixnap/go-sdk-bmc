@@ -46,7 +46,7 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter. |
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
@@ -108,19 +108,19 @@ func main() {
 ### Path Parameters
 
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **quotaId** | **string** | The ID of the Quota. |  |
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**quotaId** | **string** | The ID of the Quota. | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiQuotasQuotaIdActionsRequestEditPostRequest struct via the builder pattern
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-|  |
-|  **quotaEditLimitRequest** | [**QuotaEditLimitRequest**](QuotaEditLimitRequest.md) |  |  |
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+
+ **quotaEditLimitRequest** | [**QuotaEditLimitRequest**](QuotaEditLimitRequest.md) |  | 
 
 ### Return type
 
@@ -178,18 +178,18 @@ func main() {
 ### Path Parameters
 
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **quotaId** | **string** | The ID of the Quota. |  |
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**quotaId** | **string** | The ID of the Quota. | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiQuotasQuotaIdGetRequest struct via the builder pattern
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-|  |
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+
 
 ### Return type
 
