@@ -17,7 +17,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 )
 
@@ -155,7 +154,7 @@ func (a *SSHKeysApiService) SshKeysGetExecute(r ApiSshKeysGetRequest) ([]SshKey,
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -298,7 +297,7 @@ func (a *SSHKeysApiService) SshKeysPostExecute(r ApiSshKeysPostRequest) (*SshKey
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -461,7 +460,7 @@ func (a *SSHKeysApiService) SshKeysSshKeyIdDeleteExecute(r ApiSshKeysSshKeyIdDel
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -612,7 +611,7 @@ func (a *SSHKeysApiService) SshKeysSshKeyIdGetExecute(r ApiSshKeysSshKeyIdGetReq
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -769,7 +768,7 @@ func (a *SSHKeysApiService) SshKeysSshKeyIdPutExecute(r ApiSshKeysSshKeyIdPutReq
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }

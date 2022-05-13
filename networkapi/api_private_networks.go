@@ -17,7 +17,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 )
 
@@ -164,7 +163,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksGetExecute(r ApiPrivateNetwor
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -313,7 +312,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdDeleteExecute(r ApiP
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -455,7 +454,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGetExecute(r ApiPriv
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -612,7 +611,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPutExecute(r ApiPriv
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -777,7 +776,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksPostExecute(r ApiPrivateNetwo
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }

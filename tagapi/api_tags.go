@@ -17,7 +17,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 )
 
@@ -165,7 +164,7 @@ func (a *TagsApiService) TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *http.Respo
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -312,7 +311,7 @@ func (a *TagsApiService) TagsPostExecute(r ApiTagsPostRequest) (*Tag, *http.Resp
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -475,7 +474,7 @@ func (a *TagsApiService) TagsTagIdDeleteExecute(r ApiTagsTagIdDeleteRequest) (*D
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -616,7 +615,7 @@ func (a *TagsApiService) TagsTagIdGetExecute(r ApiTagsTagIdGetRequest) (*Tag, *h
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -767,7 +766,7 @@ func (a *TagsApiService) TagsTagIdPatchExecute(r ApiTagsTagIdPatchRequest) (*Tag
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }

@@ -17,7 +17,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
 	"time"
 )
 
@@ -166,7 +165,7 @@ func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *ht
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }

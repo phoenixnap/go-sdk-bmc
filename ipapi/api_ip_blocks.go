@@ -17,7 +17,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 	"reflect"
 )
@@ -189,7 +188,7 @@ func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBl
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -330,7 +329,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlock
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -471,7 +470,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdG
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -618,7 +617,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockI
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -787,7 +786,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBloc
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -942,7 +941,7 @@ func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (*IpB
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }

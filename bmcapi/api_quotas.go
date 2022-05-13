@@ -17,7 +17,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 )
 
@@ -125,7 +124,7 @@ func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *ht
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -280,7 +279,7 @@ func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuota
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -424,7 +423,7 @@ func (a *QuotasApiService) QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest)
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }

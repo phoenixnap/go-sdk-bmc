@@ -17,7 +17,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 )
 
@@ -142,7 +141,7 @@ func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) ([]Clus
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -283,7 +282,7 @@ func (a *ClustersApiService) ClustersIdDeleteExecute(r ApiClustersIdDeleteReques
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -424,7 +423,7 @@ func (a *ClustersApiService) ClustersIdGetExecute(r ApiClustersIdGetRequest) (*C
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -569,7 +568,7 @@ func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (*Clu
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }

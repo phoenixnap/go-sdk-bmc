@@ -17,7 +17,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 	"reflect"
 )
@@ -383,7 +382,7 @@ func (a *ServersApiService) DeletePrivateNetworkExecute(r ApiDeletePrivateNetwor
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -509,7 +508,7 @@ func (a *ServersApiService) ServersGetExecute(r ApiServersGetRequest) ([]Server,
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -652,7 +651,7 @@ func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (*Server
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -831,7 +830,7 @@ func (a *ServersApiService) ServersServerIdActionsDeprovisionPostExecute(r ApiSe
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -994,7 +993,7 @@ func (a *ServersApiService) ServersServerIdActionsPowerOffPostExecute(r ApiServe
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -1155,7 +1154,7 @@ func (a *ServersApiService) ServersServerIdActionsPowerOnPostExecute(r ApiServer
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -1316,7 +1315,7 @@ func (a *ServersApiService) ServersServerIdActionsRebootPostExecute(r ApiServers
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -1483,7 +1482,7 @@ func (a *ServersApiService) ServersServerIdActionsReservePostExecute(r ApiServer
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -1655,7 +1654,7 @@ func (a *ServersApiService) ServersServerIdActionsResetPostExecute(r ApiServersS
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -1818,7 +1817,7 @@ func (a *ServersApiService) ServersServerIdActionsShutdownPostExecute(r ApiServe
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -1982,7 +1981,7 @@ func (a *ServersApiService) ServersServerIdDeleteExecute(r ApiServersServerIdDel
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -2133,7 +2132,7 @@ func (a *ServersApiService) ServersServerIdGetExecute(r ApiServersServerIdGetReq
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -2294,7 +2293,7 @@ func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiS
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -2463,7 +2462,7 @@ func (a *ServersApiService) ServersServerIdIpBlocksPostExecute(r ApiServersServe
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -2632,7 +2631,7 @@ func (a *ServersApiService) ServersServerIdPatchExecute(r ApiServersServerIdPatc
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -2801,7 +2800,7 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPostExecute(r ApiServe
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -2958,7 +2957,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksDeleteExecute(r ApiServ
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -3125,7 +3124,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPostExecute(r ApiServer
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
@@ -3294,7 +3293,7 @@ func (a *ServersApiService) ServersServerIdTagsPutExecute(r ApiServersServerIdTa
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := os.ReadFile("./VERSION");
+    dat, err := ioutil.ReadFile("./VERSION");
     if err != nil {
         panic(err);
     }
