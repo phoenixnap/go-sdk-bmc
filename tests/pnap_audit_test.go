@@ -27,7 +27,7 @@ func assertEqual(t *testing.T, a interface{}, b interface{}, message string) {
 	  t.Fatal(message)
   }
 
-func verify_called_once(t *testing.T, expectationId *Response)(){
+func verify_called_once(t *testing.T, expectationId string)(){
 	// Result retrieved from server's verification
 	// Verifying expectation matched exactly once.
 	verifyResult := TestUtilsImpl{}.verify_expectation_matched_times(expectationId, 1)
