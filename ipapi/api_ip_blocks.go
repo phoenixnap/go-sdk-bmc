@@ -13,18 +13,14 @@ package ipapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 	"reflect"
 )
 
-// Linger please
-var (
-	_ _context.Context
-)
 
 type IPBlocksApi interface {
 
@@ -33,95 +29,95 @@ type IPBlocksApi interface {
 
 	List all IP Blocks.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiIpBlocksGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiIpBlocksGetRequest
 	*/
-	IpBlocksGet(ctx _context.Context) ApiIpBlocksGetRequest
+	IpBlocksGet(ctx context.Context) ApiIpBlocksGetRequest
 
 	// IpBlocksGetExecute executes the request
 	//  @return []IpBlock
-	IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBlock, *_nethttp.Response, error)
+	IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBlock, *http.Response, error)
 
 	/*
 	IpBlocksIpBlockIdDelete Delete IP Block.
 
 	Delete an IP Block. An IP Block can only be deleted if not assigned to any resource.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param ipBlockId The IP Block identifier.
-	 @return ApiIpBlocksIpBlockIdDeleteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param ipBlockId The IP Block identifier.
+	@return ApiIpBlocksIpBlockIdDeleteRequest
 	*/
-	IpBlocksIpBlockIdDelete(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdDeleteRequest
+	IpBlocksIpBlockIdDelete(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdDeleteRequest
 
 	// IpBlocksIpBlockIdDeleteExecute executes the request
 	//  @return DeleteIpBlockResult
-	IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlockIdDeleteRequest) (DeleteIpBlockResult, *_nethttp.Response, error)
+	IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlockIdDeleteRequest) (*DeleteIpBlockResult, *http.Response, error)
 
 	/*
 	IpBlocksIpBlockIdGet Get IP Block.
 
 	Get IP Block.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param ipBlockId The IP Block identifier.
-	 @return ApiIpBlocksIpBlockIdGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param ipBlockId The IP Block identifier.
+	@return ApiIpBlocksIpBlockIdGetRequest
 	*/
-	IpBlocksIpBlockIdGet(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdGetRequest
+	IpBlocksIpBlockIdGet(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdGetRequest
 
 	// IpBlocksIpBlockIdGetExecute executes the request
 	//  @return IpBlock
-	IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdGetRequest) (IpBlock, *_nethttp.Response, error)
+	IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdGetRequest) (*IpBlock, *http.Response, error)
 
 	/*
 	IpBlocksIpBlockIdPatch Update IP block.
 
 	Update IP Block's details.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param ipBlockId The IP Block identifier.
-	 @return ApiIpBlocksIpBlockIdPatchRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param ipBlockId The IP Block identifier.
+	@return ApiIpBlocksIpBlockIdPatchRequest
 	*/
-	IpBlocksIpBlockIdPatch(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdPatchRequest
+	IpBlocksIpBlockIdPatch(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdPatchRequest
 
 	// IpBlocksIpBlockIdPatchExecute executes the request
 	//  @return IpBlock
-	IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockIdPatchRequest) (IpBlock, *_nethttp.Response, error)
+	IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockIdPatchRequest) (*IpBlock, *http.Response, error)
 
 	/*
 	IpBlocksIpBlockIdTagsPut Overwrite tags assigned for IP Block.
 
 	Overwrites tags assigned for IP Block and unassigns any tags not part of the request.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param ipBlockId The IP Block identifier.
-	 @return ApiIpBlocksIpBlockIdTagsPutRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param ipBlockId The IP Block identifier.
+	@return ApiIpBlocksIpBlockIdTagsPutRequest
 	*/
-	IpBlocksIpBlockIdTagsPut(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdTagsPutRequest
+	IpBlocksIpBlockIdTagsPut(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdTagsPutRequest
 
 	// IpBlocksIpBlockIdTagsPutExecute executes the request
 	//  @return IpBlock
-	IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBlockIdTagsPutRequest) (IpBlock, *_nethttp.Response, error)
+	IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBlockIdTagsPutRequest) (*IpBlock, *http.Response, error)
 
 	/*
 	IpBlocksPost Create an IP Block.
 
 	Request an IP Block. An IP Block is a set of contiguous IPs that can be assigned to other resources such as servers.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiIpBlocksPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiIpBlocksPostRequest
 	*/
-	IpBlocksPost(ctx _context.Context) ApiIpBlocksPostRequest
+	IpBlocksPost(ctx context.Context) ApiIpBlocksPostRequest
 
 	// IpBlocksPostExecute executes the request
 	//  @return IpBlock
-	IpBlocksPostExecute(r ApiIpBlocksPostRequest) (IpBlock, *_nethttp.Response, error)
+	IpBlocksPostExecute(r ApiIpBlocksPostRequest) (*IpBlock, *http.Response, error)
 }
 
 // IPBlocksApiService IPBlocksApi service
 type IPBlocksApiService service
 
 type ApiIpBlocksGetRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService IPBlocksApi
 	tag *[]string
 }
@@ -132,7 +128,7 @@ func (r ApiIpBlocksGetRequest) Tag(tag []string) ApiIpBlocksGetRequest {
 	return r
 }
 
-func (r ApiIpBlocksGetRequest) Execute() ([]IpBlock, *_nethttp.Response, error) {
+func (r ApiIpBlocksGetRequest) Execute() ([]IpBlock, *http.Response, error) {
 	return r.ApiService.IpBlocksGetExecute(r)
 }
 
@@ -141,10 +137,10 @@ IpBlocksGet List IP Blocks.
 
 List all IP Blocks.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiIpBlocksGetRequest
 */
-func (a *IPBlocksApiService) IpBlocksGet(ctx _context.Context) ApiIpBlocksGetRequest {
+func (a *IPBlocksApiService) IpBlocksGet(ctx context.Context) ApiIpBlocksGetRequest {
 	return ApiIpBlocksGetRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -153,26 +149,24 @@ func (a *IPBlocksApiService) IpBlocksGet(ctx _context.Context) ApiIpBlocksGetReq
 
 // Execute executes the request
 //  @return []IpBlock
-func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBlock, *_nethttp.Response, error) {
+func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBlock, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []IpBlock
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpBlocksGet")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/ip-blocks"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.tag != nil {
 		t := *r.tag
@@ -194,6 +188,15 @@ func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBl
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
+    dat, err := os.ReadFile("./VERSION");
+    if err != nil {
+        panic(err);
+    }
+    sdk_version := string(dat);
+    
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
 
@@ -202,7 +205,7 @@ func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBl
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -212,15 +215,15 @@ func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -258,7 +261,7 @@ func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBl
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -269,13 +272,12 @@ func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBl
 }
 
 type ApiIpBlocksIpBlockIdDeleteRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService IPBlocksApi
 	ipBlockId string
 }
 
-
-func (r ApiIpBlocksIpBlockIdDeleteRequest) Execute() (DeleteIpBlockResult, *_nethttp.Response, error) {
+func (r ApiIpBlocksIpBlockIdDeleteRequest) Execute() (*DeleteIpBlockResult, *http.Response, error) {
 	return r.ApiService.IpBlocksIpBlockIdDeleteExecute(r)
 }
 
@@ -284,11 +286,11 @@ IpBlocksIpBlockIdDelete Delete IP Block.
 
 Delete an IP Block. An IP Block can only be deleted if not assigned to any resource.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param ipBlockId The IP Block identifier.
  @return ApiIpBlocksIpBlockIdDeleteRequest
 */
-func (a *IPBlocksApiService) IpBlocksIpBlockIdDelete(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdDeleteRequest {
+func (a *IPBlocksApiService) IpBlocksIpBlockIdDelete(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdDeleteRequest {
 	return ApiIpBlocksIpBlockIdDeleteRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -298,27 +300,25 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDelete(ctx _context.Context, ipBlo
 
 // Execute executes the request
 //  @return DeleteIpBlockResult
-func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlockIdDeleteRequest) (DeleteIpBlockResult, *_nethttp.Response, error) {
+func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlockIdDeleteRequest) (*DeleteIpBlockResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  DeleteIpBlockResult
+		formFiles            []formFile
+		localVarReturnValue  *DeleteIpBlockResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpBlocksIpBlockIdDelete")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/ip-blocks/{ipBlockId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", _neturl.PathEscape(parameterToString(r.ipBlockId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", url.PathEscape(parameterToString(r.ipBlockId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -329,6 +329,15 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlock
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
+    dat, err := os.ReadFile("./VERSION");
+    if err != nil {
+        panic(err);
+    }
+    sdk_version := string(dat);
+    
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
 
@@ -337,7 +346,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlock
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -347,15 +356,15 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlock
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -393,7 +402,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlock
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -404,13 +413,12 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlock
 }
 
 type ApiIpBlocksIpBlockIdGetRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService IPBlocksApi
 	ipBlockId string
 }
 
-
-func (r ApiIpBlocksIpBlockIdGetRequest) Execute() (IpBlock, *_nethttp.Response, error) {
+func (r ApiIpBlocksIpBlockIdGetRequest) Execute() (*IpBlock, *http.Response, error) {
 	return r.ApiService.IpBlocksIpBlockIdGetExecute(r)
 }
 
@@ -419,11 +427,11 @@ IpBlocksIpBlockIdGet Get IP Block.
 
 Get IP Block.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param ipBlockId The IP Block identifier.
  @return ApiIpBlocksIpBlockIdGetRequest
 */
-func (a *IPBlocksApiService) IpBlocksIpBlockIdGet(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdGetRequest {
+func (a *IPBlocksApiService) IpBlocksIpBlockIdGet(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdGetRequest {
 	return ApiIpBlocksIpBlockIdGetRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -433,27 +441,25 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGet(ctx _context.Context, ipBlockI
 
 // Execute executes the request
 //  @return IpBlock
-func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdGetRequest) (IpBlock, *_nethttp.Response, error) {
+func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdGetRequest) (*IpBlock, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  IpBlock
+		formFiles            []formFile
+		localVarReturnValue  *IpBlock
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpBlocksIpBlockIdGet")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/ip-blocks/{ipBlockId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", _neturl.PathEscape(parameterToString(r.ipBlockId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", url.PathEscape(parameterToString(r.ipBlockId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -464,6 +470,15 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdG
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
+    dat, err := os.ReadFile("./VERSION");
+    if err != nil {
+        panic(err);
+    }
+    sdk_version := string(dat);
+    
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
 
@@ -472,7 +487,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdG
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -482,15 +497,15 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdG
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -528,7 +543,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdG
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -539,7 +554,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdG
 }
 
 type ApiIpBlocksIpBlockIdPatchRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService IPBlocksApi
 	ipBlockId string
 	ipBlockPatch *IpBlockPatch
@@ -550,7 +565,7 @@ func (r ApiIpBlocksIpBlockIdPatchRequest) IpBlockPatch(ipBlockPatch IpBlockPatch
 	return r
 }
 
-func (r ApiIpBlocksIpBlockIdPatchRequest) Execute() (IpBlock, *_nethttp.Response, error) {
+func (r ApiIpBlocksIpBlockIdPatchRequest) Execute() (*IpBlock, *http.Response, error) {
 	return r.ApiService.IpBlocksIpBlockIdPatchExecute(r)
 }
 
@@ -559,11 +574,11 @@ IpBlocksIpBlockIdPatch Update IP block.
 
 Update IP Block's details.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param ipBlockId The IP Block identifier.
  @return ApiIpBlocksIpBlockIdPatchRequest
 */
-func (a *IPBlocksApiService) IpBlocksIpBlockIdPatch(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdPatchRequest {
+func (a *IPBlocksApiService) IpBlocksIpBlockIdPatch(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdPatchRequest {
 	return ApiIpBlocksIpBlockIdPatchRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -573,27 +588,25 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatch(ctx _context.Context, ipBloc
 
 // Execute executes the request
 //  @return IpBlock
-func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockIdPatchRequest) (IpBlock, *_nethttp.Response, error) {
+func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockIdPatchRequest) (*IpBlock, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  IpBlock
+		formFiles            []formFile
+		localVarReturnValue  *IpBlock
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpBlocksIpBlockIdPatch")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/ip-blocks/{ipBlockId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", _neturl.PathEscape(parameterToString(r.ipBlockId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", url.PathEscape(parameterToString(r.ipBlockId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -603,6 +616,15 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockI
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+    dat, err := os.ReadFile("./VERSION");
+    if err != nil {
+        panic(err);
+    }
+    sdk_version := string(dat);
+    
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -614,7 +636,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockI
 	}
 	// body params
 	localVarPostBody = r.ipBlockPatch
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -624,15 +646,15 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockI
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -690,7 +712,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockI
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -701,7 +723,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockI
 }
 
 type ApiIpBlocksIpBlockIdTagsPutRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService IPBlocksApi
 	ipBlockId string
 	tagAssignmentRequest *[]TagAssignmentRequest
@@ -712,7 +734,7 @@ func (r ApiIpBlocksIpBlockIdTagsPutRequest) TagAssignmentRequest(tagAssignmentRe
 	return r
 }
 
-func (r ApiIpBlocksIpBlockIdTagsPutRequest) Execute() (IpBlock, *_nethttp.Response, error) {
+func (r ApiIpBlocksIpBlockIdTagsPutRequest) Execute() (*IpBlock, *http.Response, error) {
 	return r.ApiService.IpBlocksIpBlockIdTagsPutExecute(r)
 }
 
@@ -721,11 +743,11 @@ IpBlocksIpBlockIdTagsPut Overwrite tags assigned for IP Block.
 
 Overwrites tags assigned for IP Block and unassigns any tags not part of the request.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param ipBlockId The IP Block identifier.
  @return ApiIpBlocksIpBlockIdTagsPutRequest
 */
-func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPut(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdTagsPutRequest {
+func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPut(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdTagsPutRequest {
 	return ApiIpBlocksIpBlockIdTagsPutRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -735,27 +757,25 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPut(ctx _context.Context, ipBl
 
 // Execute executes the request
 //  @return IpBlock
-func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBlockIdTagsPutRequest) (IpBlock, *_nethttp.Response, error) {
+func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBlockIdTagsPutRequest) (*IpBlock, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  IpBlock
+		formFiles            []formFile
+		localVarReturnValue  *IpBlock
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpBlocksIpBlockIdTagsPut")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/ip-blocks/{ipBlockId}/tags"
-	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", _neturl.PathEscape(parameterToString(r.ipBlockId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", url.PathEscape(parameterToString(r.ipBlockId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -765,6 +785,15 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBloc
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+    dat, err := os.ReadFile("./VERSION");
+    if err != nil {
+        panic(err);
+    }
+    sdk_version := string(dat);
+    
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -776,7 +805,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBloc
 	}
 	// body params
 	localVarPostBody = r.tagAssignmentRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -786,15 +815,15 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBloc
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -842,7 +871,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBloc
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -853,7 +882,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBloc
 }
 
 type ApiIpBlocksPostRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService IPBlocksApi
 	ipBlockCreate *IpBlockCreate
 }
@@ -863,7 +892,7 @@ func (r ApiIpBlocksPostRequest) IpBlockCreate(ipBlockCreate IpBlockCreate) ApiIp
 	return r
 }
 
-func (r ApiIpBlocksPostRequest) Execute() (IpBlock, *_nethttp.Response, error) {
+func (r ApiIpBlocksPostRequest) Execute() (*IpBlock, *http.Response, error) {
 	return r.ApiService.IpBlocksPostExecute(r)
 }
 
@@ -872,10 +901,10 @@ IpBlocksPost Create an IP Block.
 
 Request an IP Block. An IP Block is a set of contiguous IPs that can be assigned to other resources such as servers.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiIpBlocksPostRequest
 */
-func (a *IPBlocksApiService) IpBlocksPost(ctx _context.Context) ApiIpBlocksPostRequest {
+func (a *IPBlocksApiService) IpBlocksPost(ctx context.Context) ApiIpBlocksPostRequest {
 	return ApiIpBlocksPostRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -884,26 +913,24 @@ func (a *IPBlocksApiService) IpBlocksPost(ctx _context.Context) ApiIpBlocksPostR
 
 // Execute executes the request
 //  @return IpBlock
-func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (IpBlock, *_nethttp.Response, error) {
+func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (*IpBlock, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  IpBlock
+		formFiles            []formFile
+		localVarReturnValue  *IpBlock
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpBlocksPost")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/ip-blocks"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -913,6 +940,15 @@ func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (IpBl
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+    dat, err := os.ReadFile("./VERSION");
+    if err != nil {
+        panic(err);
+    }
+    sdk_version := string(dat);
+    
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -924,7 +960,7 @@ func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (IpBl
 	}
 	// body params
 	localVarPostBody = r.ipBlockCreate
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -934,15 +970,15 @@ func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (IpBl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1000,7 +1036,7 @@ func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (IpBl
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
