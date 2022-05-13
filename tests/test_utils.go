@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"context"
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
@@ -10,7 +11,7 @@ import (
 type TestUtilsImpl struct {
 }
 
-func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Response, times int) *http.Response {
+func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Response, times int) map[string]interface {} {
 
 	type Times struct {
 		remainingTimes int
@@ -36,12 +37,12 @@ func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Re
 
 	client := &http.Client{}
 
-	json, err := json.Marshal(body)
+	jsonResult, err := json.Marshal(body)
 	if err != nil {
 		panic(err)
 	}
 
-	req, err := http.NewRequest(http.MethodPut, url, bytes.NewBuffer(json))
+	req, err := http.NewRequest(http.MethodPut, url, bytes.NewBuffer(jsonResult))
 	if err != nil {
 		panic(err)
 	}
@@ -53,7 +54,12 @@ func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Re
 		panic(err)
 	}
 
-	return resp
+	var payload interface{}
+	buffer, err := ioutil.ReadAll(resp.Body)
+	json.Unmarshal(buffer, &payload)
+
+	m := payload.(map[string]interface{})
+	return m
 
 }
 
@@ -133,7 +139,8 @@ func (t TestUtilsImpl) generate_payloads_from(filename string, payloadsPath stri
 
 }
 
-func (t TestUtilsImpl) generate_query_params(request Request) Opts {
+func (t TestUtilsImpl) generate_query_params(request Request) context.Context {
+	ctx := context.Background()
 
 	opts := Opts{}
 
@@ -141,11 +148,12 @@ func (t TestUtilsImpl) generate_query_params(request Request) Opts {
 
 	qplist := request.queryStringParameters
 	for _, qp := range qplist {
+		ctx = context.WithValue(ctx, qp.name, qp.values[0])
 		values := qp.values[0]
 		opts.Opt[qp.name] = values
 	}
 
-	return opts
+	return ctx
 }
 
 func (t TestUtilsImpl) extract_id_from(request *Request, symbol *string) (id string) {

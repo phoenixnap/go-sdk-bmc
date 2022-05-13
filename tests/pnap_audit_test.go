@@ -1,14 +1,16 @@
 package tests
 
 import (
+	"context"
 	"github.com/phoenixnap/go-sdk-bmc/auditapi"
 	"testing"
 	"fmt"
+	"time"
 	)
 // arg1 means argument 1 and arg2 means argument 2, and the expected stands for the 'result we expect'
 
 
-var configuration = auditapi.Configuration{
+var configuration auditapi.Configuration = auditapi.Configuration{
 	Host: "127.0.0.1:1080",
 	Scheme: "http",
 }
@@ -25,9 +27,7 @@ func assertEqual(t *testing.T, a interface{}, b interface{}, message string) {
 	  t.Fatal(message)
   }
 
-// var api_client = auditapi.APIClient.
-
-func verify_called_once(t *testing.T, expectationId string)(){
+func verify_called_once(t *testing.T, expectationId *Response)(){
 	// Result retrieved from server's verification
 	// Verifying expectation matched exactly once.
 	verifyResult := TestUtilsImpl{}.verify_expectation_matched_times(expectationId, 1)
@@ -36,11 +36,32 @@ func verify_called_once(t *testing.T, expectationId string)(){
 	assertEqual(t, 202, verifyResult.StatusCode, "")
 }
 
-func test_get_events_all_query_params() (){
+func pop(m map[string]string, key string) (string, bool) {
+    v, ok := m[key]
+    if ok {
+        delete(m, key)
+    }
+    return v, ok
+}
+
+func test_get_events_all_query_params(t *testing.T) (){
 	// Setting up expectation
 	request, response := TestUtilsImpl{}.generate_payloads_from("auditapi/events_get", "./payloads")
 	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1) 
 
 	// Creating new instance
-	apiInstance := auditapi.EventsApi{apiClient}
+	apiInstance := auditapi.EventsApiService{}
+
+	opts := TestUtilsImpl{}.generate_query_params(request)
+
+	result := apiInstance.EventsGet(opts)
+	
+	parsedTime, _ := time.Parse("MM/DD/YYYY", response.body[0].timestamp)
+
+	response.body[0].timestamp = parsedTime.String()
+
+	assertEqual(t, response.body[0], result, "")
+
+	verify_called_once(&testing.T ,expectationId)
+	
 }
