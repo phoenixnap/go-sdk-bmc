@@ -1,8 +1,8 @@
 package tests
 
 import (
-	"context"
 	"bytes"
+	"context"
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
@@ -11,28 +11,17 @@ import (
 type TestUtilsImpl struct {
 }
 
-func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Response, times int) string {
-
-	type Times struct {
-		remainingTimes int
-		unlimited      bool
-	}
-
-	type Body struct {
-		httpRequest  Request
-		httpResponse Response
-		times        Times
-	}
+func (t TestUtilsImpl) setup_expectation(requestToMock map[string]interface{}, responseToGet map[string]interface{}, times int) string {
 
 	url := "http://localhost:1080/expectation"
 
-	body := Body{
-		httpRequest:  requestToMock,
-		httpResponse: responseToGet,
-		times: Times{
-			remainingTimes: times,
-			unlimited:      false,
-		},
+	body := map[string]interface{}{
+		"httpRequest":  requestToMock,
+		"httpResponse": responseToGet,
+		"times": struct {
+			remainingTimes int
+			unlimited      bool
+		}{1, false},
 	}
 
 	client := &http.Client{}
@@ -59,7 +48,7 @@ func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Re
 	if err != nil {
 		panic(err)
 	}
-	
+
 	json.Unmarshal(buffer, &payload)
 
 	m := payload.(map[string]interface{})["id"].(string)
@@ -67,32 +56,18 @@ func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Re
 	return m
 }
 
-func (t TestUtilsImpl) verify_expectation_matched_times(expectationId string, times int) *http.Response {
+func (t TestUtilsImpl) verify_expectation_matched_times(expectationId string, timesIn int) *http.Response {
 
 	url := "http://localhost:1080/verify"
 
-	type ExpectationId struct {
-		id string
-	}
-
-	type Times struct {
-		atLeast int
-		atMost  int
-	}
-
-	type Body struct {
-		expectationId ExpectationId
-		times         Times
-	}
-
-	body := Body{
-		expectationId: ExpectationId{
-			id: "",
-		},
-		times: Times{
-			atLeast: times,
-			atMost:  times,
-		},
+	body := map[string]interface{}{
+		"expectationId": struct {
+			id string
+		}{expectationId},
+		"times": struct {
+			atLeast int
+			atMost  int
+		}{timesIn, timesIn},
 	}
 
 	client := &http.Client{}
@@ -124,13 +99,13 @@ func (t TestUtilsImpl) reset_expectations() {
 
 }
 
-func (t TestUtilsImpl) generate_payloads_from(filename string, payloadsPath string) (request Request, response Response) {
+func (t TestUtilsImpl) generate_payloads_from(filename string, payloadsPath string) (interface{}, interface{}) {
 
 	if payloadsPath == "" {
 		payloadsPath = "./payloads"
 	}
 
-	var payload Payload
+	var payload interface{}
 
 	file, err := ioutil.ReadFile("#{payloadsPath}/#{filename}.json")
 	if err != nil {
@@ -138,32 +113,33 @@ func (t TestUtilsImpl) generate_payloads_from(filename string, payloadsPath stri
 	}
 
 	json.Unmarshal(file, &payload)
+	m := payload.(map[string]interface{})
 
-	return payload.request, payload.response
+	return m["request"], m["response"]
 
 }
 
-func (t TestUtilsImpl) generate_query_params(request Request) context.Context {
+func (t TestUtilsImpl) generate_query_params(request map[string]interface{}) context.Context {
+	type QueryStringParameter struct {
+		name   string
+		values []string
+	}
+
 	ctx := context.Background()
 
-	opts := Opts{}
+	qplist := request["queryStringParameters"].([]QueryStringParameter)
 
-	opts.Opt = make(map[string]string)
-
-	qplist := request.queryStringParameters
 	for _, qp := range qplist {
 		ctx = context.WithValue(ctx, qp.name, qp.values[0])
-		values := qp.values[0]
-		opts.Opt[qp.name] = values
 	}
 
 	return ctx
 }
 
-func (t TestUtilsImpl) extract_id_from(request *Request, symbol *string) (id string) {
-	return request.pathParameters.id[0]
+func (t TestUtilsImpl) extract_id_from(request map[string]interface{}, symbol *string) (id string) {
+	return request["pathParameters"].(map[string]interface{})["id"].([]string)[0]
 }
 
-func (t TestUtilsImpl) extract_request_body(request *Request) (json Json) {
-	return request.body.json
+func (t TestUtilsImpl) extract_request_body(request map[string]interface{}) map[string]interface{} {
+	return request["body"].(map[string]interface{})["json"].(map[string]interface{})
 }
