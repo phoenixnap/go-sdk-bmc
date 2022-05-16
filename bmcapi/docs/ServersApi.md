@@ -44,6 +44,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -51,7 +53,17 @@ func main() {
     privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.DeletePrivateNetwork(context.Background(), serverId, privateNetworkId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DeletePrivateNetwork``: %v\n", err)
@@ -117,13 +129,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     tag := []string{"Inner_example"} // []string | A list of query parameters related to tags in the form of tagName.tagValue (optional)
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersGet(context.Background()).Tag(tag).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersGet``: %v\n", err)
@@ -185,13 +209,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     serverCreate := *openapiclient.NewServerCreate("my-server-1", "ubuntu/bionic", "s1.c1.small", "PHX") // ServerCreate |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersPost(context.Background()).ServerCreate(serverCreate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersPost``: %v\n", err)
@@ -253,6 +289,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -260,7 +298,17 @@ func main() {
     relinquishIpBlock := *openapiclient.NewRelinquishIpBlock() // RelinquishIpBlock |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersServerIdActionsDeprovisionPost(context.Background(), serverId).RelinquishIpBlock(relinquishIpBlock).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdActionsDeprovisionPost``: %v\n", err)
@@ -326,13 +374,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersServerIdActionsPowerOffPost(context.Background(), serverId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdActionsPowerOffPost``: %v\n", err)
@@ -397,13 +457,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersServerIdActionsPowerOnPost(context.Background(), serverId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdActionsPowerOnPost``: %v\n", err)
@@ -468,13 +540,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersServerIdActionsRebootPost(context.Background(), serverId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdActionsRebootPost``: %v\n", err)
@@ -539,6 +623,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -546,7 +632,17 @@ func main() {
     serverReserve := *openapiclient.NewServerReserve("ONE_MONTH_RESERVATION") // ServerReserve |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersServerIdActionsReservePost(context.Background(), serverId).ServerReserve(serverReserve).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdActionsReservePost``: %v\n", err)
@@ -612,6 +708,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -619,7 +717,17 @@ func main() {
     serverReset := *openapiclient.NewServerReset() // ServerReset |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersServerIdActionsResetPost(context.Background(), serverId).ServerReset(serverReset).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdActionsResetPost``: %v\n", err)
@@ -685,13 +793,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersServerIdActionsShutdownPost(context.Background(), serverId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdActionsShutdownPost``: %v\n", err)
@@ -756,13 +876,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersServerIdDelete(context.Background(), serverId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdDelete``: %v\n", err)
@@ -827,13 +959,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersServerIdGet(context.Background(), serverId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdGet``: %v\n", err)
@@ -898,6 +1042,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -906,7 +1052,17 @@ func main() {
     relinquishIpBlock := *openapiclient.NewRelinquishIpBlock() // RelinquishIpBlock |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersServerIdIpBlocksIpBlockIdDelete(context.Background(), serverId, ipBlockId).RelinquishIpBlock(relinquishIpBlock).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdIpBlocksIpBlockIdDelete``: %v\n", err)
@@ -973,6 +1129,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -980,7 +1138,17 @@ func main() {
     serverIpBlock := *openapiclient.NewServerIpBlock("60473a6115e34466c9f8f083") // ServerIpBlock |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersServerIdIpBlocksPost(context.Background(), serverId).ServerIpBlock(serverIpBlock).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdIpBlocksPost``: %v\n", err)
@@ -1046,6 +1214,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -1053,7 +1223,17 @@ func main() {
     serverPatch := *openapiclient.NewServerPatch() // ServerPatch |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersServerIdPatch(context.Background(), serverId).ServerPatch(serverPatch).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPatch``: %v\n", err)
@@ -1119,6 +1299,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -1126,7 +1308,17 @@ func main() {
     serverPrivateNetwork := *openapiclient.NewServerPrivateNetwork("603f3b2cfcaf050643b89a4b") // ServerPrivateNetwork |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersServerIdPrivateNetworksPost(context.Background(), serverId).ServerPrivateNetwork(serverPrivateNetwork).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPrivateNetworksPost``: %v\n", err)
@@ -1192,6 +1384,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -1199,7 +1393,17 @@ func main() {
     publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersServerIdPublicNetworksDelete(context.Background(), serverId, publicNetworkId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPublicNetworksDelete``: %v\n", err)
@@ -1265,6 +1469,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -1272,7 +1478,17 @@ func main() {
     serverPublicNetwork := *openapiclient.NewServerPublicNetwork("60473c2509268bc77fd06d29", []string{"182.16.0.146"}) // ServerPublicNetwork |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersServerIdPublicNetworksPost(context.Background(), serverId).ServerPublicNetwork(serverPublicNetwork).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPublicNetworksPost``: %v\n", err)
@@ -1338,6 +1554,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -1345,7 +1563,17 @@ func main() {
     tagAssignmentRequest := []openapiclient.TagAssignmentRequest{*openapiclient.NewTagAssignmentRequest("Environment")} // []TagAssignmentRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ServersApi.ServersServerIdTagsPut(context.Background(), serverId).TagAssignmentRequest(tagAssignmentRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdTagsPut``: %v\n", err)
