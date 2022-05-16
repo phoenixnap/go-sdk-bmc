@@ -69,7 +69,7 @@ jobs:
   push-changes:
     name: Push Changes
     runs-on: ubuntu-latest
-    if: startsWith(github.head_ref, 'release') == false && github.head_ref != 'master'
+    if: startsWith(github.head_ref, 'release') == false && github.head_ref != 'master'  && github.event.pull_request.head.repo.full_name == 'phoenixnap/go-sdk-bmc'
     needs:
       - generate-bmcapi
       - generate-rancherapi
