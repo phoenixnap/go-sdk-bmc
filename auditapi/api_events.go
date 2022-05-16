@@ -1,7 +1,7 @@
 /*
 Audit Log API
 
-The Audit Logs API lets you read audit log entries and track API calls or activities in the Bare Metal Cloud Portal.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#audit-log-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/audit/v1/)</b> 
+The Audit Logs API lets you read audit log entries and track API calls or activities in the Bare Metal Cloud Portal.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#audit-log-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/audit/v1/)</b>
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -20,16 +20,15 @@ import (
 	"time"
 )
 
-
 type EventsApi interface {
 
 	/*
-	EventsGet List event logs.
+		EventsGet List event logs.
 
-	Retrieves the event logs for given time period. All date & times are in UTC.
+		Retrieves the event logs for given time period. All date & times are in UTC.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiEventsGetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiEventsGetRequest
 	*/
 	EventsGet(ctx context.Context) ApiEventsGetRequest
 
@@ -42,15 +41,15 @@ type EventsApi interface {
 type EventsApiService service
 
 type ApiEventsGetRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService EventsApi
-	from *time.Time
-	to *time.Time
-	limit *int32
-	order *string
-	username *string
-	verb *string
-	uri *string
+	from       *time.Time
+	to         *time.Time
+	limit      *int32
+	order      *string
+	username   *string
+	verb       *string
+	uri        *string
 }
 
 // From the date and time (inclusive) to filter event log records by.
@@ -110,7 +109,7 @@ Retrieves the event logs for given time period. All date & times are in UTC.
 func (a *EventsApiService) EventsGet(ctx context.Context) ApiEventsGetRequest {
 	return ApiEventsGetRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -118,10 +117,10 @@ func (a *EventsApiService) EventsGet(ctx context.Context) ApiEventsGetRequest {
 //  @return []Event
 func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Event
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Event
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.EventsGet")
@@ -165,14 +164,8 @@ func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *ht
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    dat, err := ioutil.ReadFile("./VERSION");
-    if err != nil {
-        panic(err);
-    }
-    sdk_version := string(dat);
-    
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion
+	localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
