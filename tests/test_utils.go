@@ -1,20 +1,38 @@
 package tests
 
 import (
-	"context"
 	"bytes"
+	"context"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
+	"log"
+	"net"
 	"net/http"
 )
 
 type TestUtilsImpl struct {
 }
 
+type MyHttpClient interface {
+	Do(*http.Request) (*http.Response, error)
+}
+
+type MyApplicationClient struct {
+	HttpClient MyHttpClient
+}
+
+func NewApplicationClient(httpClient MyHttpClient) *MyApplicationClient {
+	return &MyApplicationClient{
+		HttpClient: httpClient,
+	}
+}
+
 func (t TestUtilsImpl) setup_expectation(requestToMock map[string]interface{}, responseToGet map[string]interface{}, times int) string {
+	servAddr := "localhost:1080"
+	tcpAddr, _ := net.ResolveTCPAddr("tcp", servAddr)
 
-	url := "http://localhost:1080/expectation"
-
+	conn, _ := net.DialTCP("tcp", nil, tcpAddr)
 	body := map[string]interface{}{
 		"httpRequest":  requestToMock,
 		"httpResponse": responseToGet,
@@ -31,29 +49,30 @@ func (t TestUtilsImpl) setup_expectation(requestToMock map[string]interface{}, r
 		panic(err)
 	}
 
-	req, err := http.NewRequest(http.MethodPut, url, bytes.NewBuffer(jsonResult))
+	req, err := http.NewRequest(http.MethodPut, "http://localhost:1080/expectation", bytes.NewBuffer(jsonResult))
+
+	req.Header.Set("Content-Type", "application/json")
 	if err != nil {
 		panic(err)
 	}
-
-	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 
 	resp, err := client.Do(req)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
-	var payload interface{}
+	defer resp.Body.Close()
+
+	var payload []interface{}
 	buffer, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		panic(err)
 	}
+	conn.Close()
 
-	json.Unmarshal(buffer, &payload)
+	json.Unmarshal([]byte(buffer), &payload)
 
-	m := payload.(map[string]interface{})["id"].(string)
-
-	return m
+	return fmt.Sprintf("%v",payload[0].(map[string]interface{})["id"])
 }
 
 func (t TestUtilsImpl) verify_expectation_matched_times(expectationId string, timesIn int) *http.Response {
@@ -107,7 +126,7 @@ func (t TestUtilsImpl) generate_payloads_from(filename string, payloadsPath stri
 
 	var payload interface{}
 
-	file, err := ioutil.ReadFile("#{payloadsPath}/#{filename}.json")
+	file, err := ioutil.ReadFile(payloadsPath + "/" + filename + ".json")
 	if err != nil {
 		panic(err)
 	}
