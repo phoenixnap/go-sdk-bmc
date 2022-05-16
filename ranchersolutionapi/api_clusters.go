@@ -140,15 +140,9 @@ func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) ([]Clus
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-
-    dat, err := ioutil.ReadFile("./VERSION");
-    if err != nil {
-        panic(err);
-    }
-    sdk_version := string(dat);
     
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -281,15 +275,9 @@ func (a *ClustersApiService) ClustersIdDeleteExecute(r ApiClustersIdDeleteReques
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-
-    dat, err := ioutil.ReadFile("./VERSION");
-    if err != nil {
-        panic(err);
-    }
-    sdk_version := string(dat);
     
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -422,15 +410,9 @@ func (a *ClustersApiService) ClustersIdGetExecute(r ApiClustersIdGetRequest) (*C
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-
-    dat, err := ioutil.ReadFile("./VERSION");
-    if err != nil {
-        panic(err);
-    }
-    sdk_version := string(dat);
     
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -567,15 +549,9 @@ func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (*Clu
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-
-    dat, err := ioutil.ReadFile("./VERSION");
-    if err != nil {
-        panic(err);
-    }
-    sdk_version := string(dat);
     
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}

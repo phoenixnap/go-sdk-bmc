@@ -153,15 +153,9 @@ func (a *SSHKeysApiService) SshKeysGetExecute(r ApiSshKeysGetRequest) ([]SshKey,
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-
-    dat, err := ioutil.ReadFile("./VERSION");
-    if err != nil {
-        panic(err);
-    }
-    sdk_version := string(dat);
     
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -296,15 +290,9 @@ func (a *SSHKeysApiService) SshKeysPostExecute(r ApiSshKeysPostRequest) (*SshKey
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-
-    dat, err := ioutil.ReadFile("./VERSION");
-    if err != nil {
-        panic(err);
-    }
-    sdk_version := string(dat);
     
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -459,15 +447,9 @@ func (a *SSHKeysApiService) SshKeysSshKeyIdDeleteExecute(r ApiSshKeysSshKeyIdDel
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-
-    dat, err := ioutil.ReadFile("./VERSION");
-    if err != nil {
-        panic(err);
-    }
-    sdk_version := string(dat);
     
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -610,15 +592,9 @@ func (a *SSHKeysApiService) SshKeysSshKeyIdGetExecute(r ApiSshKeysSshKeyIdGetReq
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-
-    dat, err := ioutil.ReadFile("./VERSION");
-    if err != nil {
-        panic(err);
-    }
-    sdk_version := string(dat);
     
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -767,15 +743,9 @@ func (a *SSHKeysApiService) SshKeysSshKeyIdPutExecute(r ApiSshKeysSshKeyIdPutReq
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-
-    dat, err := ioutil.ReadFile("./VERSION");
-    if err != nil {
-        panic(err);
-    }
-    sdk_version := string(dat);
     
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}

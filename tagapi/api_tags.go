@@ -163,15 +163,9 @@ func (a *TagsApiService) TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *http.Respo
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-
-    dat, err := ioutil.ReadFile("./VERSION");
-    if err != nil {
-        panic(err);
-    }
-    sdk_version := string(dat);
     
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -310,15 +304,9 @@ func (a *TagsApiService) TagsPostExecute(r ApiTagsPostRequest) (*Tag, *http.Resp
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-
-    dat, err := ioutil.ReadFile("./VERSION");
-    if err != nil {
-        panic(err);
-    }
-    sdk_version := string(dat);
     
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -473,15 +461,9 @@ func (a *TagsApiService) TagsTagIdDeleteExecute(r ApiTagsTagIdDeleteRequest) (*D
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-
-    dat, err := ioutil.ReadFile("./VERSION");
-    if err != nil {
-        panic(err);
-    }
-    sdk_version := string(dat);
     
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -614,15 +596,9 @@ func (a *TagsApiService) TagsTagIdGetExecute(r ApiTagsTagIdGetRequest) (*Tag, *h
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-
-    dat, err := ioutil.ReadFile("./VERSION");
-    if err != nil {
-        panic(err);
-    }
-    sdk_version := string(dat);
     
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -765,15 +741,9 @@ func (a *TagsApiService) TagsTagIdPatchExecute(r ApiTagsTagIdPatchRequest) (*Tag
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-
-    dat, err := ioutil.ReadFile("./VERSION");
-    if err != nil {
-        panic(err);
-    }
-    sdk_version := string(dat);
     
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + sdk_version;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + sdk_version;
+    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
