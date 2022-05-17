@@ -40,13 +40,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksGet(context.Background()).Location(location).Execute()
@@ -120,13 +120,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdDelete(context.Background(), privateNetworkId).Execute()
@@ -201,13 +201,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdGet(context.Background(), privateNetworkId).Execute()
@@ -285,13 +285,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdPut(context.Background(), privateNetworkId).PrivateNetworkModify(privateNetworkModify).Execute()
@@ -369,13 +369,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksPost(context.Background()).PrivateNetworkCreate(privateNetworkCreate).Execute()

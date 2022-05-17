@@ -55,13 +55,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.DeletePrivateNetwork(context.Background(), serverId, privateNetworkId).Execute()
@@ -139,13 +139,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersGet(context.Background()).Tag(tag).Execute()
@@ -219,13 +219,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersPost(context.Background()).ServerCreate(serverCreate).Execute()
@@ -300,13 +300,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersServerIdActionsDeprovisionPost(context.Background(), serverId).RelinquishIpBlock(relinquishIpBlock).Execute()
@@ -384,13 +384,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersServerIdActionsPowerOffPost(context.Background(), serverId).Execute()
@@ -467,13 +467,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersServerIdActionsPowerOnPost(context.Background(), serverId).Execute()
@@ -550,13 +550,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersServerIdActionsRebootPost(context.Background(), serverId).Execute()
@@ -634,13 +634,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersServerIdActionsReservePost(context.Background(), serverId).ServerReserve(serverReserve).Execute()
@@ -719,13 +719,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersServerIdActionsResetPost(context.Background(), serverId).ServerReset(serverReset).Execute()
@@ -803,13 +803,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersServerIdActionsShutdownPost(context.Background(), serverId).Execute()
@@ -886,13 +886,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersServerIdDelete(context.Background(), serverId).Execute()
@@ -969,13 +969,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersServerIdGet(context.Background(), serverId).Execute()
@@ -1054,13 +1054,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersServerIdIpBlocksIpBlockIdDelete(context.Background(), serverId, ipBlockId).RelinquishIpBlock(relinquishIpBlock).Execute()
@@ -1140,13 +1140,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersServerIdIpBlocksPost(context.Background(), serverId).ServerIpBlock(serverIpBlock).Execute()
@@ -1225,13 +1225,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersServerIdPatch(context.Background(), serverId).ServerPatch(serverPatch).Execute()
@@ -1310,13 +1310,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersServerIdPrivateNetworksPost(context.Background(), serverId).ServerPrivateNetwork(serverPrivateNetwork).Execute()
@@ -1395,13 +1395,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersServerIdPublicNetworksDelete(context.Background(), serverId, publicNetworkId).Execute()
@@ -1480,13 +1480,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersServerIdPublicNetworksPost(context.Background(), serverId).ServerPublicNetwork(serverPublicNetwork).Execute()
@@ -1565,13 +1565,13 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
 
     resp, r, err := apiClient.ServersApi.ServersServerIdTagsPut(context.Background(), serverId).TagAssignmentRequest(tagAssignmentRequest).Execute()
