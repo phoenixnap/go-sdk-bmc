@@ -11,6 +11,7 @@ docs/Headers.md
 docs/Request.md
 docs/Response.md
 docs/UserInfo.md
+go.mod
 go.sum
 model_api_action.go
 model_api_action_all_of.go

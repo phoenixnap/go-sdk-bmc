@@ -11,6 +11,7 @@ docs/IpBlockCreate.md
 docs/IpBlockPatch.md
 docs/TagAssignment.md
 docs/TagAssignmentRequest.md
+go.mod
 go.sum
 model_delete_ip_block_result.go
 model_error.go

@@ -1,6 +1,6 @@
 # \QuotasApi
 
-All URIs are relative to *https://api.phoenixnap.com/bmc/v0*
+All URIs are relative to *https://api.phoenixnap.com/bmc/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -28,13 +28,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QuotasApi.QuotasGet(context.Background()).Execute()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
+    apiClient := openapiclient.NewAPIClient(configuration)
+
+    resp, r, err := apiClient.QuotasApi.QuotasGet(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QuotasApi.QuotasGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -51,6 +63,8 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiQuotasGetRequest struct via the builder pattern
+
+
 
 
 ### Return type
@@ -89,6 +103,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -96,8 +112,18 @@ func main() {
     quotaEditLimitRequest := *openapiclient.NewQuotaEditLimitRequest(int32(10), "I need more servers for my cluster.") // QuotaEditLimitRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QuotasApi.QuotasQuotaIdActionsRequestEditPost(context.Background(), quotaId).QuotaEditLimitRequest(quotaEditLimitRequest).Execute()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
+    apiClient := openapiclient.NewAPIClient(configuration)
+
+    resp, r, err := apiClient.QuotasApi.QuotasQuotaIdActionsRequestEditPost(context.Background(), quotaId).QuotaEditLimitRequest(quotaEditLimitRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QuotasApi.QuotasQuotaIdActionsRequestEditPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -108,9 +134,9 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **quotaId** | **string** | The ID of the Quota. | 
 
 ### Other Parameters
@@ -120,8 +146,9 @@ Other parameters are passed through a pointer to a apiQuotasQuotaIdActionsReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **quotaEditLimitRequest** | [**QuotaEditLimitRequest**](QuotaEditLimitRequest.md) |  | 
+
+
 
 ### Return type
 
@@ -159,14 +186,26 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     quotaId := "bmc.servers.max_count" // string | The ID of the Quota.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QuotasApi.QuotasQuotaIdGet(context.Background(), quotaId).Execute()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
+    apiClient := openapiclient.NewAPIClient(configuration)
+
+    resp, r, err := apiClient.QuotasApi.QuotasQuotaIdGet(context.Background(), quotaId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QuotasApi.QuotasQuotaIdGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -179,9 +218,9 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **quotaId** | **string** | The ID of the Quota. | 
 
 ### Other Parameters
@@ -191,6 +230,7 @@ Other parameters are passed through a pointer to a apiQuotasQuotaIdGetRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type

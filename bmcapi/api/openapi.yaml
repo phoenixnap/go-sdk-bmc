@@ -18,7 +18,7 @@ info:
   title: Bare Metal Cloud API
   version: "0.1"
 servers:
-- url: https://api.phoenixnap.com/bmc/v0
+- url: https://api.phoenixnap.com/bmc/v1
 security:
 - OAuth2:
   - bmc

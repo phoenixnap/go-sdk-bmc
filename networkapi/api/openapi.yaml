@@ -9,8 +9,10 @@ info:
     \ VLAN. Assign new servers with IP addresses from the same CIDR range. Use private\
     \ \nnetworks to avoid unnecessary egress data charges. Model your networks according\
     \ to your business needs.<br>\n<br>\n<span class='pnap-api-knowledge-base-link'>\n\
-    Knowledge base articles to help you can be found\n<a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api'\
-    \ target='_blank'>here</a>\n</span><br>\n<br>\n<b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b>\n"
+    Helpful knowledge base articles are available for \n<a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api'\
+    \ target='_blank'>multi-private backend networks</a>\nand <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-15'\
+    \ target='_blank'>public networks</a>.\n</span><br>\n<br>\n<b>All URLs are relative\
+    \ to (https://api.phoenixnap.com/networks/v1/)</b>\n"
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
