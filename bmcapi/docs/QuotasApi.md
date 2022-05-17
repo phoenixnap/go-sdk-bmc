@@ -28,12 +28,24 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.QuotasApi.QuotasGet(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QuotasApi.QuotasGet``: %v\n", err)
@@ -91,6 +103,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -98,7 +112,17 @@ func main() {
     quotaEditLimitRequest := *openapiclient.NewQuotaEditLimitRequest(int32(10), "I need more servers for my cluster.") // QuotaEditLimitRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.QuotasApi.QuotasQuotaIdActionsRequestEditPost(context.Background(), quotaId).QuotaEditLimitRequest(quotaEditLimitRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QuotasApi.QuotasQuotaIdActionsRequestEditPost``: %v\n", err)
@@ -162,13 +186,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     quotaId := "bmc.servers.max_count" // string | The ID of the Quota.
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.QuotasApi.QuotasQuotaIdGet(context.Background(), quotaId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QuotasApi.QuotasQuotaIdGet``: %v\n", err)

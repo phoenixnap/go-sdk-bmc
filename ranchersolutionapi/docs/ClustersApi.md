@@ -29,12 +29,24 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ClustersApi.ClustersGet(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersGet``: %v\n", err)
@@ -92,13 +104,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     id := "123" // string | The Cluster identifier.
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ClustersApi.ClustersIdDelete(context.Background(), id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersIdDelete``: %v\n", err)
@@ -163,13 +187,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     id := "123" // string | The Cluster identifier.
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ClustersApi.ClustersIdGet(context.Background(), id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersIdGet``: %v\n", err)
@@ -234,13 +270,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     cluster := *openapiclient.NewCluster("PHX") // Cluster |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.ClustersApi.ClustersPost(context.Background()).Cluster(cluster).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersPost``: %v\n", err)

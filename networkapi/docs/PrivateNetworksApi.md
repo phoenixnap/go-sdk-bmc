@@ -30,13 +30,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     location := "PHX" // string | If present will filter the result by the given location of the Private Networks. (optional)
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksGet(context.Background()).Location(location).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksGet``: %v\n", err)
@@ -98,13 +110,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdDelete(context.Background(), privateNetworkId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksNetworkIdDelete``: %v\n", err)
@@ -167,13 +191,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdGet(context.Background(), privateNetworkId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksNetworkIdGet``: %v\n", err)
@@ -238,6 +274,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -245,7 +283,17 @@ func main() {
     privateNetworkModify := *openapiclient.NewPrivateNetworkModify("Sample network", true) // PrivateNetworkModify |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdPut(context.Background(), privateNetworkId).PrivateNetworkModify(privateNetworkModify).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksNetworkIdPut``: %v\n", err)
@@ -311,13 +359,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     privateNetworkCreate := *openapiclient.NewPrivateNetworkCreate("Sample Network", "PHX", "10.0.0.0/24") // PrivateNetworkCreate |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+	config := clientcredentials.Config{
+		ClientID:     "<CLIENT_ID>",
+		ClientSecret: "<CLIENT_SECRET>",
+		TokenURL:     tokenUrl,
+	}
+
+	configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksPost(context.Background()).PrivateNetworkCreate(privateNetworkCreate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksPost``: %v\n", err)
