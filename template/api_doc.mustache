@@ -45,13 +45,13 @@ func main() {
     configuration := {{goImportAlias}}.NewConfiguration()
     tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
-	config := clientcredentials.Config{
-		ClientID:     "<CLIENT_ID>",
-		ClientSecret: "<CLIENT_SECRET>",
-		TokenURL:     tokenUrl,
-	}
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
 
-	configuration.HTTPClient = config.Client(context.Background())
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := {{goImportAlias}}.NewAPIClient(configuration)
 
     resp, r, err := apiClient.{{classname}}.{{operationId}}(context.Background(){{#pathParams}}, {{paramName}}{{/pathParams}}){{#allParams}}{{^isPathParam}}.{{vendorExtensions.x-export-param-name}}({{paramName}}){{/isPathParam}}{{/allParams}}.Execute()
