@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"github.com/phoenixnap/go-sdk-bmc/auditapi"
 	"testing"
+	"context"
+	"time"
+	"os"
 )
 
 var configuration auditapi.Configuration = auditapi.Configuration{
@@ -39,24 +42,50 @@ func pop(m map[string]string, key string) (string, bool) {
 }
 
 func Test_get_events_all_query_params(t *testing.T) {
-
+ 
 	// Setting up expectation
 	request, response := TestUtilsImpl{}.generate_payloads_from("auditapi/events_get", "./payloads")
-	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
+	request.setPathParams()
+	TestUtilsImpl{}.setup_expectation(request, response, 1)
 
-	// Creating new instance
-	apiInstance := auditapi.EventsApiService{}
+	// // Creating new instance
+	configuration := auditapi.NewConfiguration()
+    apiClient := auditapi.NewAPIClient(configuration)
 
-	opts := TestUtilsImpl{}.generate_query_params(request)
+	qpMap := TestUtilsImpl{}.generate_query_params(request)
+	const layout = "2006-Jan-02"
+	
+	from,_ := time.Parse(layout,fmt.Sprintf("%v", qpMap["from"])) // time.Time | From the date and time (inclusive) to filter event log records by. (optional)
+    to, _:= time.Parse(layout,fmt.Sprintf("%v", qpMap["to"])) // time.Time | To the date and time (inclusive) to filter event log records by. (optional)
+    limit,_ := qpMap["limit"].(int32) // int32 | Limit the number of records returned. (optional)
+    order:= fmt.Sprintf("%v", qpMap["order"]) // string | Ordering of the event's time. SortBy can be introduced later on. (optional) (default to "ASC")
+    username:= fmt.Sprintf("%v", qpMap["username"]) // string | The username that did the actions. (optional)
+    verb := fmt.Sprintf("%v", qpMap["verb"]) // string | The HTTP verb corresponding to the action. (optional)
+    uri:= fmt.Sprintf("%v", qpMap["to"])
 
-	result := apiInstance.EventsGet(opts)
+	ctx := context.WithValue(context.Background(), "from", from)
+	ctx = context.WithValue(ctx, "to", to)
+	ctx = context.WithValue(ctx, "limit", limit)
+	ctx = context.WithValue(ctx, "order", order)
+	ctx = context.WithValue(ctx, "username", username)
+	ctx = context.WithValue(ctx, "verb", verb)
+	ctx = context.WithValue(ctx, "uri", uri)
+	
+	auth := context.WithValue(ctx, auditapi.ContextAccessToken, "ACCESSTOKENSTRING")
 
-	//parsedTime, _ := time.Parse("MM/DD/YYYY", string(response["body"].(string)["timestamp"]))
 
-	//response["body"][0].(string)["timestamp"] = parsedTime.String()
+	resp, r, err := apiClient.EventsApi.EventsGet(auth).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.EventsGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+	panic(resp)
+	// //parsedTime, _ := time.Parse("MM/DD/YYYY", string(response["body"].(string)["timestamp"]))
 
-	assertEqual(t, response["body"], result, "")
+	// //response["body"][0].(string)["timestamp"] = parsedTime.String()
 
-	verify_called_once(t, expectationId)
+	//assertEqual(t, response.Body, result, "")
+
+	//verify_called_once(t, expectationId)
 
 }
