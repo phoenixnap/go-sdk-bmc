@@ -21,10 +21,6 @@ runs:
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       shell: bash
       run: npm install -g @openapitools/openapi-generator-cli
-    - name: Set to right version
-      if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
-      shell: bash
-      run: openapi-generator-cli version-manager set 5.2.1
     - name: Generate SDK
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       shell: bash
