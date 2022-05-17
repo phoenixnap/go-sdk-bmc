@@ -36,7 +36,7 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
@@ -112,7 +112,7 @@ func main() {
     id := "123" // string | The Cluster identifier.
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
@@ -195,7 +195,7 @@ func main() {
     id := "123" // string | The Cluster identifier.
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
@@ -278,7 +278,7 @@ func main() {
     cluster := *openapiclient.NewCluster("PHX") // Cluster |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",

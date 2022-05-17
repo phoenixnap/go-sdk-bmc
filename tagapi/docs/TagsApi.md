@@ -38,7 +38,7 @@ func main() {
     name := "env" // string | Query a tag by its name. (optional)
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
@@ -118,7 +118,7 @@ func main() {
     tagCreate := *openapiclient.NewTagCreate("Environment", true) // TagCreate | The body containing the tag details.
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
@@ -198,7 +198,7 @@ func main() {
     tagId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The tag's ID.
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
@@ -281,7 +281,7 @@ func main() {
     tagId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The tag's ID.
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
@@ -365,7 +365,7 @@ func main() {
     tagUpdate := *openapiclient.NewTagUpdate("Environment", true) // TagUpdate | The body containing the tag changes.
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",

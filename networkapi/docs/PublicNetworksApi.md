@@ -40,7 +40,7 @@ func main() {
     location := "PHX" // string | If present will filter the result by the given location of the Public Networks. (optional)
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
@@ -120,7 +120,7 @@ func main() {
     publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
@@ -201,7 +201,7 @@ func main() {
     publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
@@ -285,7 +285,7 @@ func main() {
     ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
@@ -370,7 +370,7 @@ func main() {
     publicNetworkIpBlock := *openapiclient.NewPublicNetworkIpBlock("60473a6115e34466c9f8f083") // PublicNetworkIpBlock |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
@@ -455,7 +455,7 @@ func main() {
     publicNetworkModify := *openapiclient.NewPublicNetworkModify() // PublicNetworkModify |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
@@ -539,7 +539,7 @@ func main() {
     publicNetworkCreate := *openapiclient.NewPublicNetworkCreate("Sample Network", "PHX") // PublicNetworkCreate |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",

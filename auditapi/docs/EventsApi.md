@@ -41,7 +41,7 @@ func main() {
     uri := "/ams/v1/clients/12345" // string | The request uri. (optional)
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",

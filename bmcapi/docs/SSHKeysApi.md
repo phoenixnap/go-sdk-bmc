@@ -37,7 +37,7 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
@@ -113,7 +113,7 @@ func main() {
     sshKeyCreate := *openapiclient.NewSshKeyCreate(true, "sshkey-name-01", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip") // SshKeyCreate |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
@@ -193,7 +193,7 @@ func main() {
     sshKeyId := "5fa54d1e91867c03a0a7b4a4" // string | The SSH Key's ID.
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
@@ -276,7 +276,7 @@ func main() {
     sshKeyId := "5fa54d1e91867c03a0a7b4a4" // string | The SSH Key's ID.
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
@@ -360,7 +360,7 @@ func main() {
     sshKeyUpdate := *openapiclient.NewSshKeyUpdate(true, "sshkey-name-01") // SshKeyUpdate |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-	tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
 
 	config := clientcredentials.Config{
 		ClientID:     "<CLIENT_ID>",
