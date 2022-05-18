@@ -3,11 +3,11 @@ package tests
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
-	"fmt"
 )
 
 type TestUtilsImpl struct {
@@ -31,31 +31,31 @@ func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Re
 	servAddr := "localhost:1080"
 	tcpAddr, _ := net.ResolveTCPAddr("tcp", servAddr)
 
-	type Times struct{
-		RemainingTimes int `json:"remainingTimes"`
-		Unlimited bool `json:"unlimited"`
+	type Times struct {
+		RemainingTimes int  `json:"remainingTimes"`
+		Unlimited      bool `json:"unlimited"`
 	}
 
 	type Body struct {
-		HttpRequest Request `json:"httpRequest"`
+		HttpRequest  Request  `json:"httpRequest"`
 		HttpResponse Response `json:"httpResponse"`
-		Times Times `json:"times"`
+		Times        Times    `json:"times"`
 	}
 
 	type ResponseBody struct {
-		HttpRequest Request `json:"httpRequest"`
+		HttpRequest  Request  `json:"httpRequest"`
 		HttpResponse Response `json:"httpResponse"`
-		Times Times `json:"times"`
-		Id string `json:"id"`
+		Times        Times    `json:"times"`
+		Id           string   `json:"id"`
 	}
 
 	conn, _ := net.DialTCP("tcp", nil, tcpAddr)
 	body := Body{
-		HttpRequest: requestToMock,
+		HttpRequest:  requestToMock,
 		HttpResponse: responseToGet,
 		Times: Times{
 			RemainingTimes: timesParam,
-			Unlimited: false,
+			Unlimited:      false,
 		},
 	}
 
@@ -64,7 +64,6 @@ func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Re
 	if err != nil {
 		panic(err)
 	}
-	
 
 	req, err := http.NewRequest(http.MethodPut, "http://localhost:1080/expectation", bytes.NewBuffer(jsonBody))
 
@@ -85,7 +84,7 @@ func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Re
 		panic(err)
 	}
 	conn.Close()
-	sb:=string(buffer)
+	sb := string(buffer)
 	var result []map[string]interface{}
 
 	json.Unmarshal([]byte(sb), &result)
@@ -96,24 +95,24 @@ func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Re
 func (t TestUtilsImpl) verify_expectation_matched_times(expectationId string, timesIn int) *http.Response {
 	servAddr := "localhost:1080"
 	tcpAddr, _ := net.ResolveTCPAddr("tcp", servAddr)
-	
-	type ExpectationId struct{
+
+	type ExpectationId struct {
 		Id string `json:"id"`
 	}
 	type Times struct {
 		AtLeast int `json:"atMost"`
-		AtMost int	`json:"atLeast"`
+		AtMost  int `json:"atLeast"`
 	}
-	type Body struct{
+	type Body struct {
 		ExpectationId ExpectationId `json:"expectationId"`
-		Times Times `json:"times"`
+		Times         Times         `json:"times"`
 	}
 	conn, _ := net.DialTCP("tcp", nil, tcpAddr)
 	body := Body{
-		ExpectationId: ExpectationId{Id:expectationId},
+		ExpectationId: ExpectationId{Id: expectationId},
 		Times: Times{
 			AtLeast: timesIn,
-			AtMost: timesIn,
+			AtMost:  timesIn,
 		},
 	}
 
@@ -122,7 +121,7 @@ func (t TestUtilsImpl) verify_expectation_matched_times(expectationId string, ti
 	if err != nil {
 		panic(err)
 	}
-	
+
 	req, err := http.NewRequest(http.MethodPut, "http://localhost:1080/verify", bytes.NewBuffer(jsonBody))
 
 	req.Header.Set("Content-Type", "application/json")
@@ -143,7 +142,7 @@ func (t TestUtilsImpl) verify_expectation_matched_times(expectationId string, ti
 func (t TestUtilsImpl) reset_expectations() {
 	url := "http://localhost:1080/mockserver/reset"
 
-	req, err :=http.NewRequest(http.MethodPut, url, http.NoBody)
+	req, err := http.NewRequest(http.MethodPut, url, http.NoBody)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -186,9 +185,8 @@ func (t TestUtilsImpl) generate_query_params(request Request) map[string]interfa
 
 	qplist := request.QueryStringParameters
 
-	
 	elementMap := make(map[string]interface{})
-	for i := 0; i < len(qplist); i ++ {
+	for i := 0; i < len(qplist); i++ {
 		elementMap[qplist[i].Name] = qplist[i].Values[0]
 	}
 
