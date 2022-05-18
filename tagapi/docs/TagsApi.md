@@ -30,13 +30,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     name := "env" // string | Query a tag by its name. (optional)
 
     configuration := openapiclient.NewConfiguration()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.TagsApi.TagsGet(context.Background()).Name(name).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsGet``: %v\n", err)
@@ -55,9 +67,12 @@ func main() {
 
 Other parameters are passed through a pointer to a apiTagsGetRequest struct via the builder pattern
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **name** | **string** | Query a tag by its name. | 
+
+
 
 ### Return type
 
@@ -95,13 +110,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     tagCreate := *openapiclient.NewTagCreate("Environment", true) // TagCreate | The body containing the tag details.
 
     configuration := openapiclient.NewConfiguration()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.TagsApi.TagsPost(context.Background()).TagCreate(tagCreate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsPost``: %v\n", err)
@@ -120,9 +147,12 @@ func main() {
 
 Other parameters are passed through a pointer to a apiTagsPostRequest struct via the builder pattern
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tagCreate** | [**TagCreate**](TagCreate.md) | The body containing the tag details. | 
+
+
 
 ### Return type
 
@@ -160,13 +190,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     tagId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The tag's ID.
 
     configuration := openapiclient.NewConfiguration()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.TagsApi.TagsTagIdDelete(context.Background(), tagId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsTagIdDelete``: %v\n", err)
@@ -180,17 +222,19 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **tagId** | **string** | The tag&#39;s ID. | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiTagsTagIdDeleteRequest struct via the builder pattern
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type
@@ -229,13 +273,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     tagId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The tag's ID.
 
     configuration := openapiclient.NewConfiguration()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.TagsApi.TagsTagIdGet(context.Background(), tagId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsTagIdGet``: %v\n", err)
@@ -249,17 +305,19 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **tagId** | **string** | The tag&#39;s ID. | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiTagsTagIdGetRequest struct via the builder pattern
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type
@@ -298,6 +356,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -305,7 +365,17 @@ func main() {
     tagUpdate := *openapiclient.NewTagUpdate("Environment", true) // TagUpdate | The body containing the tag changes.
 
     configuration := openapiclient.NewConfiguration()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.TagsApi.TagsTagIdPatch(context.Background(), tagId).TagUpdate(tagUpdate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsTagIdPatch``: %v\n", err)
@@ -319,19 +389,21 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **tagId** | **string** | The tag&#39;s ID. | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiTagsTagIdPatchRequest struct via the builder pattern
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **tagUpdate** | [**TagUpdate**](TagUpdate.md) | The body containing the tag changes. | 
+
+
 
 ### Return type
 

@@ -30,13 +30,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     location := "PHX" // string | If present will filter the result by the given location of the Private Networks. (optional)
 
     configuration := openapiclient.NewConfiguration()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksGet(context.Background()).Location(location).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksGet``: %v\n", err)
@@ -55,9 +67,12 @@ func main() {
 
 Other parameters are passed through a pointer to a apiPrivateNetworksGetRequest struct via the builder pattern
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **location** | **string** | If present will filter the result by the given location of the Private Networks. | 
+
+
 
 ### Return type
 
@@ -95,13 +110,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
 
     configuration := openapiclient.NewConfiguration()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdDelete(context.Background(), privateNetworkId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksNetworkIdDelete``: %v\n", err)
@@ -113,17 +140,19 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **privateNetworkId** | **string** | The private network identifier. | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPrivateNetworksNetworkIdDeleteRequest struct via the builder pattern
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type
@@ -162,13 +191,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
 
     configuration := openapiclient.NewConfiguration()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdGet(context.Background(), privateNetworkId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksNetworkIdGet``: %v\n", err)
@@ -182,17 +223,19 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **privateNetworkId** | **string** | The private network identifier. | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPrivateNetworksNetworkIdGetRequest struct via the builder pattern
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type
@@ -231,6 +274,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -238,7 +283,17 @@ func main() {
     privateNetworkModify := *openapiclient.NewPrivateNetworkModify("Sample network", true) // PrivateNetworkModify |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdPut(context.Background(), privateNetworkId).PrivateNetworkModify(privateNetworkModify).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksNetworkIdPut``: %v\n", err)
@@ -252,19 +307,21 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **privateNetworkId** | **string** | The private network identifier. | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPrivateNetworksNetworkIdPutRequest struct via the builder pattern
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **privateNetworkModify** | [**PrivateNetworkModify**](PrivateNetworkModify.md) |  | 
+
+
 
 ### Return type
 
@@ -302,13 +359,25 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     privateNetworkCreate := *openapiclient.NewPrivateNetworkCreate("Sample Network", "PHX", "10.0.0.0/24") // PrivateNetworkCreate |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
+
     resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksPost(context.Background()).PrivateNetworkCreate(privateNetworkCreate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksPost``: %v\n", err)
@@ -327,9 +396,12 @@ func main() {
 
 Other parameters are passed through a pointer to a apiPrivateNetworksPostRequest struct via the builder pattern
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **privateNetworkCreate** | [**PrivateNetworkCreate**](PrivateNetworkCreate.md) |  | 
+
+
 
 ### Return type
 
