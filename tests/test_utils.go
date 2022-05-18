@@ -7,6 +7,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"fmt"
 )
 
 type TestUtilsImpl struct {
@@ -38,8 +39,14 @@ func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Re
 	type Body struct {
 		HttpRequest Request `json:"httpRequest"`
 		HttpResponse Response `json:"httpResponse"`
-		Id string `json:"id"`
 		Times Times `json:"times"`
+	}
+
+	type ResponseBody struct {
+		HttpRequest Request `json:"httpRequest"`
+		HttpResponse Response `json:"httpResponse"`
+		Times Times `json:"times"`
+		Id string `json:"id"`
 	}
 
 	conn, _ := net.DialTCP("tcp", nil, tcpAddr)
@@ -78,53 +85,79 @@ func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Re
 		panic(err)
 	}
 	conn.Close()
-	
-	json.Unmarshal(buffer, &body)
+	sb:=string(buffer)
+	var result []map[string]interface{}
 
-	return body.Id
+	json.Unmarshal([]byte(sb), &result)
+
+	return result[0]["id"].(string)
 }
 
 func (t TestUtilsImpl) verify_expectation_matched_times(expectationId string, timesIn int) *http.Response {
-
-	url := "http://localhost:1080/verify"
-
-	body := map[string]interface{}{
-		"expectationId": struct {
-			id string
-		}{expectationId},
-		"times": struct {
-			atLeast int
-			atMost  int
-		}{timesIn, timesIn},
+	servAddr := "localhost:1080"
+	tcpAddr, _ := net.ResolveTCPAddr("tcp", servAddr)
+	
+	type ExpectationId struct{
+		Id string `json:"id"`
+	}
+	type Times struct {
+		AtLeast int `json:"atMost"`
+		AtMost int	`json:"atLeast"`
+	}
+	type Body struct{
+		ExpectationId ExpectationId `json:"expectationId"`
+		Times Times `json:"times"`
+	}
+	conn, _ := net.DialTCP("tcp", nil, tcpAddr)
+	body := Body{
+		ExpectationId: ExpectationId{Id:expectationId},
+		Times: Times{
+			AtLeast: timesIn,
+			AtMost: timesIn,
+		},
 	}
 
 	client := &http.Client{}
-
-	json, err := json.Marshal(body)
+	jsonBody, err := json.Marshal(body)
 	if err != nil {
 		panic(err)
 	}
+	
+	req, err := http.NewRequest(http.MethodPut, "http://localhost:1080/verify", bytes.NewBuffer(jsonBody))
 
-	req, err := http.NewRequest(http.MethodPut, url, bytes.NewBuffer(json))
+	req.Header.Set("Content-Type", "application/json")
 	if err != nil {
 		panic(err)
 	}
-
-	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 
 	resp, err := client.Do(req)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
+	conn.Close()
+	defer resp.Body.Close()
 
 	return resp
 }
 
 func (t TestUtilsImpl) reset_expectations() {
-	url := "http://localhost:1080/reset"
+	url := "http://localhost:1080/mockserver/reset"
 
-	http.NewRequest(http.MethodPut, url, http.NoBody)
+	req, err :=http.NewRequest(http.MethodPut, url, http.NoBody)
+	if err != nil {
+		log.Fatal(err)
+	}
+	client := &http.Client{}
+	req.Header.Set("Content-Type", "application/json")
+	if err != nil {
+		panic(err)
+	}
 
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Print(resp)
 }
 
 func (t TestUtilsImpl) generate_payloads_from(filename string, payloadsPath string) (Request, Response) {
