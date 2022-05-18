@@ -1,9 +1,5 @@
 package tests
 
-import (
-
-)
-
 type Request struct {
 	Method         string `json:"method"`
 	Path           string `json:"path"`
@@ -30,6 +26,29 @@ type Payload struct {
 	Response Response `json:"response"`
 }
 
-func(r *Request) setPathParams() {
-	r.PathParameters = make([]PathParameter,0)
+
+type Times struct{
+	RemainingTimes int `json:"remainingTimes"`
+	Unlimited bool `json:"unlimited"`
+}
+
+type Body struct {
+	HttpRequest Request `json:"httpRequest"`
+	HttpResponse Response `json:"httpResponse"`
+	Times Times `json:"times"`
+}
+
+type ResponseBody struct {
+	HttpRequest Request `json:"httpRequest"`
+	HttpResponse Response `json:"httpResponse"`
+	Times Times `json:"times"`
+	Id string `json:"id"`
+}
+
+type ExpectationId struct{
+	Id string `json:"id"`
+}
+
+func(r *Request) setPathParams(size int) {
+	r.PathParameters = make([]PathParameter, size)
 }
