@@ -1,7 +1,7 @@
 /*
 Rancher Solution API
 
-Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b>
+Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -28,9 +28,9 @@ type Cluster struct {
 	// (Read-only) The Rancher version that was installed on the cluster during the first creation process.
 	InitialClusterVersion *string `json:"initialClusterVersion,omitempty"`
 	// The node pools associated with the cluster.
-	NodePools             *[]NodePool            `json:"nodePools,omitempty"`
-	Configuration         *RancherClusterConfig  `json:"configuration,omitempty"`
-	Metadata              *RancherServerMetadata `json:"metadata,omitempty"`
+	NodePools *[]NodePool `json:"nodePools,omitempty"`
+	Configuration *RancherClusterConfig `json:"configuration,omitempty"`
+	Metadata *RancherServerMetadata `json:"metadata,omitempty"`
 	WorkloadConfiguration *WorkloadClusterConfig `json:"workloadConfiguration,omitempty"`
 	// The cluster status
 	StatusDescription *string `json:"statusDescription,omitempty"`
@@ -163,7 +163,7 @@ func (o *Cluster) GetLocation() string {
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
 func (o *Cluster) GetLocationOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Location, true
@@ -436,3 +436,5 @@ func (v *NullableCluster) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

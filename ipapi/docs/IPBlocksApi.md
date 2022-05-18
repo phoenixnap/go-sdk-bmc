@@ -31,14 +31,26 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     tag := []string{"Inner_example"} // []string | List of tags, in the form tagName.tagValue, to filter by. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IPBlocksApi.IpBlocksGet(context.Background()).Tag(tag).Execute()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
+    apiClient := openapiclient.NewAPIClient(configuration)
+
+    resp, r, err := apiClient.IPBlocksApi.IpBlocksGet(context.Background()).Tag(tag).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -60,6 +72,8 @@ Other parameters are passed through a pointer to a apiIpBlocksGetRequest struct 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tag** | **[]string** | List of tags, in the form tagName.tagValue, to filter by. | 
+
+
 
 ### Return type
 
@@ -97,14 +111,26 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IPBlocksApi.IpBlocksIpBlockIdDelete(context.Background(), ipBlockId).Execute()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
+    apiClient := openapiclient.NewAPIClient(configuration)
+
+    resp, r, err := apiClient.IPBlocksApi.IpBlocksIpBlockIdDelete(context.Background(), ipBlockId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksIpBlockIdDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -117,9 +143,9 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **ipBlockId** | **string** | The IP Block identifier. | 
 
 ### Other Parameters
@@ -129,6 +155,7 @@ Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdDeleteReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type
@@ -167,14 +194,26 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IPBlocksApi.IpBlocksIpBlockIdGet(context.Background(), ipBlockId).Execute()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
+    apiClient := openapiclient.NewAPIClient(configuration)
+
+    resp, r, err := apiClient.IPBlocksApi.IpBlocksIpBlockIdGet(context.Background(), ipBlockId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksIpBlockIdGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -187,9 +226,9 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **ipBlockId** | **string** | The IP Block identifier. | 
 
 ### Other Parameters
@@ -199,6 +238,7 @@ Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdGetReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type
@@ -237,6 +277,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -244,8 +286,18 @@ func main() {
     ipBlockPatch := *openapiclient.NewIpBlockPatch() // IpBlockPatch |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IPBlocksApi.IpBlocksIpBlockIdPatch(context.Background(), ipBlockId).IpBlockPatch(ipBlockPatch).Execute()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
+    apiClient := openapiclient.NewAPIClient(configuration)
+
+    resp, r, err := apiClient.IPBlocksApi.IpBlocksIpBlockIdPatch(context.Background(), ipBlockId).IpBlockPatch(ipBlockPatch).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksIpBlockIdPatch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -258,9 +310,9 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **ipBlockId** | **string** | The IP Block identifier. | 
 
 ### Other Parameters
@@ -270,8 +322,9 @@ Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdPatchRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **ipBlockPatch** | [**IpBlockPatch**](IpBlockPatch.md) |  | 
+
+
 
 ### Return type
 
@@ -309,6 +362,8 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -316,8 +371,18 @@ func main() {
     tagAssignmentRequest := []openapiclient.TagAssignmentRequest{*openapiclient.NewTagAssignmentRequest("Environment")} // []TagAssignmentRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IPBlocksApi.IpBlocksIpBlockIdTagsPut(context.Background(), ipBlockId).TagAssignmentRequest(tagAssignmentRequest).Execute()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
+    apiClient := openapiclient.NewAPIClient(configuration)
+
+    resp, r, err := apiClient.IPBlocksApi.IpBlocksIpBlockIdTagsPut(context.Background(), ipBlockId).TagAssignmentRequest(tagAssignmentRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksIpBlockIdTagsPut``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -330,9 +395,9 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+Name | Type | Description | Notes
+---- | ---- | ----------- | -----
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **ipBlockId** | **string** | The IP Block identifier. | 
 
 ### Other Parameters
@@ -342,8 +407,9 @@ Other parameters are passed through a pointer to a apiIpBlocksIpBlockIdTagsPutRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **tagAssignmentRequest** | [**[]TagAssignmentRequest**](TagAssignmentRequest.md) |  | 
+
+
 
 ### Return type
 
@@ -381,14 +447,26 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
+
+    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     ipBlockCreate := *openapiclient.NewIpBlockCreate("PHX", "/30") // IpBlockCreate |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IPBlocksApi.IpBlocksPost(context.Background()).IpBlockCreate(ipBlockCreate).Execute()
+    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
+
+    config := clientcredentials.Config{
+        ClientID:     "<CLIENT_ID>",
+        ClientSecret: "<CLIENT_SECRET>",
+        TokenURL:     tokenUrl,
+    }
+
+    configuration.HTTPClient = config.Client(context.Background())
+    apiClient := openapiclient.NewAPIClient(configuration)
+
+    resp, r, err := apiClient.IPBlocksApi.IpBlocksPost(context.Background()).IpBlockCreate(ipBlockCreate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -410,6 +488,8 @@ Other parameters are passed through a pointer to a apiIpBlocksPostRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ipBlockCreate** | [**IpBlockCreate**](IpBlockCreate.md) |  | 
+
+
 
 ### Return type
 

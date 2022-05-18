@@ -1,7 +1,7 @@
 /*
 IP Addresses API
 
-Public IP blocks are a set of contiguous IPs that allow you to access your servers or networks from the internet. Use the IP Addresses API to request and delete IP blocks.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/public-ip-management#bmc-public-ip-allocations-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/ips/v1/)</b>
+Public IP blocks are a set of contiguous IPs that allow you to access your servers or networks from the internet. Use the IP Addresses API to request and delete IP blocks.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/public-ip-management#bmc-public-ip-allocations-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/ips/v1/)</b> 
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -17,8 +17,8 @@ import (
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
-	"reflect"
 	"strings"
+	"reflect"
 )
 
 // Linger please
@@ -29,12 +29,12 @@ var (
 type IPBlocksApi interface {
 
 	/*
-		IpBlocksGet List IP Blocks.
+	IpBlocksGet List IP Blocks.
 
-		List all IP Blocks.
+	List all IP Blocks.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return ApiIpBlocksGetRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiIpBlocksGetRequest
 	*/
 	IpBlocksGet(ctx _context.Context) ApiIpBlocksGetRequest
 
@@ -43,13 +43,13 @@ type IPBlocksApi interface {
 	IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBlock, *_nethttp.Response, error)
 
 	/*
-		IpBlocksIpBlockIdDelete Delete IP Block.
+	IpBlocksIpBlockIdDelete Delete IP Block.
 
-		Delete an IP Block. An IP Block can only be deleted if not assigned to any resource.
+	Delete an IP Block. An IP Block can only be deleted if not assigned to any resource.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param ipBlockId The IP Block identifier.
-		 @return ApiIpBlocksIpBlockIdDeleteRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ipBlockId The IP Block identifier.
+	 @return ApiIpBlocksIpBlockIdDeleteRequest
 	*/
 	IpBlocksIpBlockIdDelete(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdDeleteRequest
 
@@ -58,13 +58,13 @@ type IPBlocksApi interface {
 	IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlockIdDeleteRequest) (DeleteIpBlockResult, *_nethttp.Response, error)
 
 	/*
-		IpBlocksIpBlockIdGet Get IP Block.
+	IpBlocksIpBlockIdGet Get IP Block.
 
-		Get IP Block.
+	Get IP Block.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param ipBlockId The IP Block identifier.
-		 @return ApiIpBlocksIpBlockIdGetRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ipBlockId The IP Block identifier.
+	 @return ApiIpBlocksIpBlockIdGetRequest
 	*/
 	IpBlocksIpBlockIdGet(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdGetRequest
 
@@ -73,13 +73,13 @@ type IPBlocksApi interface {
 	IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdGetRequest) (IpBlock, *_nethttp.Response, error)
 
 	/*
-		IpBlocksIpBlockIdPatch Update IP block.
+	IpBlocksIpBlockIdPatch Update IP block.
 
-		Update IP Block's details.
+	Update IP Block's details.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param ipBlockId The IP Block identifier.
-		 @return ApiIpBlocksIpBlockIdPatchRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ipBlockId The IP Block identifier.
+	 @return ApiIpBlocksIpBlockIdPatchRequest
 	*/
 	IpBlocksIpBlockIdPatch(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdPatchRequest
 
@@ -88,13 +88,13 @@ type IPBlocksApi interface {
 	IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockIdPatchRequest) (IpBlock, *_nethttp.Response, error)
 
 	/*
-		IpBlocksIpBlockIdTagsPut Overwrite tags assigned for IP Block.
+	IpBlocksIpBlockIdTagsPut Overwrite tags assigned for IP Block.
 
-		Overwrites tags assigned for IP Block and unassigns any tags not part of the request.
+	Overwrites tags assigned for IP Block and unassigns any tags not part of the request.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param ipBlockId The IP Block identifier.
-		 @return ApiIpBlocksIpBlockIdTagsPutRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ipBlockId The IP Block identifier.
+	 @return ApiIpBlocksIpBlockIdTagsPutRequest
 	*/
 	IpBlocksIpBlockIdTagsPut(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdTagsPutRequest
 
@@ -103,12 +103,12 @@ type IPBlocksApi interface {
 	IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBlockIdTagsPutRequest) (IpBlock, *_nethttp.Response, error)
 
 	/*
-		IpBlocksPost Create an IP Block.
+	IpBlocksPost Create an IP Block.
 
-		Request an IP Block. An IP Block is a set of contiguous IPs that can be assigned to other resources such as servers.
+	Request an IP Block. An IP Block is a set of contiguous IPs that can be assigned to other resources such as servers.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return ApiIpBlocksPostRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiIpBlocksPostRequest
 	*/
 	IpBlocksPost(ctx _context.Context) ApiIpBlocksPostRequest
 
@@ -121,9 +121,9 @@ type IPBlocksApi interface {
 type IPBlocksApiService service
 
 type ApiIpBlocksGetRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService IPBlocksApi
-	tag        *[]string
+	tag *[]string
 }
 
 // List of tags, in the form tagName.tagValue, to filter by.
@@ -147,7 +147,7 @@ List all IP Blocks.
 func (a *IPBlocksApiService) IpBlocksGet(ctx _context.Context) ApiIpBlocksGetRequest {
 	return ApiIpBlocksGetRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
@@ -269,10 +269,11 @@ func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBl
 }
 
 type ApiIpBlocksIpBlockIdDeleteRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService IPBlocksApi
-	ipBlockId  string
+	ipBlockId string
 }
+
 
 func (r ApiIpBlocksIpBlockIdDeleteRequest) Execute() (DeleteIpBlockResult, *_nethttp.Response, error) {
 	return r.ApiService.IpBlocksIpBlockIdDeleteExecute(r)
@@ -290,8 +291,8 @@ Delete an IP Block. An IP Block can only be deleted if not assigned to any resou
 func (a *IPBlocksApiService) IpBlocksIpBlockIdDelete(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdDeleteRequest {
 	return ApiIpBlocksIpBlockIdDeleteRequest{
 		ApiService: a,
-		ctx:        ctx,
-		ipBlockId:  ipBlockId,
+		ctx: ctx,
+		ipBlockId: ipBlockId,
 	}
 }
 
@@ -403,10 +404,11 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlock
 }
 
 type ApiIpBlocksIpBlockIdGetRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService IPBlocksApi
-	ipBlockId  string
+	ipBlockId string
 }
+
 
 func (r ApiIpBlocksIpBlockIdGetRequest) Execute() (IpBlock, *_nethttp.Response, error) {
 	return r.ApiService.IpBlocksIpBlockIdGetExecute(r)
@@ -424,8 +426,8 @@ Get IP Block.
 func (a *IPBlocksApiService) IpBlocksIpBlockIdGet(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdGetRequest {
 	return ApiIpBlocksIpBlockIdGetRequest{
 		ApiService: a,
-		ctx:        ctx,
-		ipBlockId:  ipBlockId,
+		ctx: ctx,
+		ipBlockId: ipBlockId,
 	}
 }
 
@@ -537,9 +539,9 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdG
 }
 
 type ApiIpBlocksIpBlockIdPatchRequest struct {
-	ctx          _context.Context
-	ApiService   IPBlocksApi
-	ipBlockId    string
+	ctx _context.Context
+	ApiService IPBlocksApi
+	ipBlockId string
 	ipBlockPatch *IpBlockPatch
 }
 
@@ -564,8 +566,8 @@ Update IP Block's details.
 func (a *IPBlocksApiService) IpBlocksIpBlockIdPatch(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdPatchRequest {
 	return ApiIpBlocksIpBlockIdPatchRequest{
 		ApiService: a,
-		ctx:        ctx,
-		ipBlockId:  ipBlockId,
+		ctx: ctx,
+		ipBlockId: ipBlockId,
 	}
 }
 
@@ -699,9 +701,9 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockI
 }
 
 type ApiIpBlocksIpBlockIdTagsPutRequest struct {
-	ctx                  _context.Context
-	ApiService           IPBlocksApi
-	ipBlockId            string
+	ctx _context.Context
+	ApiService IPBlocksApi
+	ipBlockId string
 	tagAssignmentRequest *[]TagAssignmentRequest
 }
 
@@ -726,8 +728,8 @@ Overwrites tags assigned for IP Block and unassigns any tags not part of the req
 func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPut(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdTagsPutRequest {
 	return ApiIpBlocksIpBlockIdTagsPutRequest{
 		ApiService: a,
-		ctx:        ctx,
-		ipBlockId:  ipBlockId,
+		ctx: ctx,
+		ipBlockId: ipBlockId,
 	}
 }
 
@@ -851,8 +853,8 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBloc
 }
 
 type ApiIpBlocksPostRequest struct {
-	ctx           _context.Context
-	ApiService    IPBlocksApi
+	ctx _context.Context
+	ApiService IPBlocksApi
 	ipBlockCreate *IpBlockCreate
 }
 
@@ -876,7 +878,7 @@ Request an IP Block. An IP Block is a set of contiguous IPs that can be assigned
 func (a *IPBlocksApiService) IpBlocksPost(ctx _context.Context) ApiIpBlocksPostRequest {
 	return ApiIpBlocksPostRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 

@@ -1,7 +1,7 @@
 /*
 Audit Log API
 
-The Audit Logs API lets you read audit log entries and track API calls or activities in the Bare Metal Cloud Portal.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#audit-log-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/audit/v1/)</b>
+The Audit Logs API lets you read audit log entries and track API calls or activities in the Bare Metal Cloud Portal.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#audit-log-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/audit/v1/)</b> 
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -18,7 +18,7 @@ import (
 // ApiActionAllOf struct for ApiActionAllOf
 type ApiActionAllOf struct {
 	Response Response `json:"response"`
-	Request  Request  `json:"request"`
+	Request Request `json:"request"`
 }
 
 // NewApiActionAllOf instantiates a new ApiActionAllOf object
@@ -53,7 +53,7 @@ func (o *ApiActionAllOf) GetResponse() Response {
 // GetResponseOk returns a tuple with the Response field value
 // and a boolean to check if the value has been set.
 func (o *ApiActionAllOf) GetResponseOk() (*Response, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Response, true
@@ -77,7 +77,7 @@ func (o *ApiActionAllOf) GetRequest() Request {
 // GetRequestOk returns a tuple with the Request field value
 // and a boolean to check if the value has been set.
 func (o *ApiActionAllOf) GetRequestOk() (*Request, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Request, true
@@ -134,3 +134,5 @@ func (v *NullableApiActionAllOf) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

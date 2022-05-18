@@ -10,6 +10,7 @@ docs/Tag.md
 docs/TagCreate.md
 docs/TagUpdate.md
 docs/TagsApi.md
+go.mod
 go.sum
 model_delete_result.go
 model_error.go
