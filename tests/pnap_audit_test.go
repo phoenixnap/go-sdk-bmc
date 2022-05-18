@@ -12,15 +12,7 @@ import (
 	"time"
 )
 
-// func assertEqual(t *testing.T, a interface{}, b interface{}, message string) {
-// 	if a == b {
-// 		return
-// 	}
-// 	if len(message) == 0 {
-// 		message = fmt.Sprintf("%v != %v", a, b)
-// 	}
-// 	t.Fatal(message)
-// }
+
 
 func verify_called_once(t *testing.T, expectationId string) {
 	// Result retrieved from server's verification
@@ -31,23 +23,19 @@ func verify_called_once(t *testing.T, expectationId string) {
 	assert.Equal(t, 202, verifyResult.StatusCode)
 }
 
-func pop(m map[string]string, key string) (string, bool) {
-	v, ok := m[key]
-	if ok {
-		delete(m, key)
-	}
-	return v, ok
-}
-
 func Test_get_events_all_query_params(t *testing.T) {
 
-	// Setting up expectation
+	// Generate payload
 	request, response := TestUtilsImpl{}.generate_payloads_from("auditapi/events_get", "./payloads")
-	request.setPathParams()
+	request.setPathParams(0)
+
+	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
 
+	// Fetch a map of query parameters
 	qpMap := TestUtilsImpl{}.generate_query_params(request)
 
+	// Converting to int32
 	limitstring, ok := qpMap["limit"].(string)
 	if !ok {
         panic(ok)
@@ -62,6 +50,7 @@ func Test_get_events_all_query_params(t *testing.T) {
     verb := fmt.Sprintf("%v", qpMap["verb"]) // string | The HTTP verb corresponding to the action. (optional)
     uri:= fmt.Sprintf("%v", qpMap["uri"])
 	
+
 	configuration := auditapi.NewConfiguration()
 	configuration.Host = "127.0.0.1:1080"
 	configuration.Scheme = "http"
@@ -70,7 +59,7 @@ func Test_get_events_all_query_params(t *testing.T) {
 
     apiClient := auditapi.NewAPIClient(configuration)
 	
-    result, r, err := apiClient.EventsApi.EventsGet(context.Background()).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()//.From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
+    result, r, err := apiClient.EventsApi.EventsGet(ctx).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()//.From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.EventsGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

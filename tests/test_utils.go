@@ -5,9 +5,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
-	"net"
 	"net/http"
-	"fmt"
 )
 
 type TestUtilsImpl struct {
@@ -28,49 +26,27 @@ func NewApplicationClient(httpClient MyHttpClient) *MyApplicationClient {
 }
 
 func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Response, timesParam int) string {
-	servAddr := "localhost:1080"
-	tcpAddr, _ := net.ResolveTCPAddr("tcp", servAddr)
 
-	type Times struct{
-		RemainingTimes int `json:"remainingTimes"`
-		Unlimited bool `json:"unlimited"`
-	}
-
-	type Body struct {
-		HttpRequest Request `json:"httpRequest"`
-		HttpResponse Response `json:"httpResponse"`
-		Times Times `json:"times"`
-	}
-
-	type ResponseBody struct {
-		HttpRequest Request `json:"httpRequest"`
-		HttpResponse Response `json:"httpResponse"`
-		Times Times `json:"times"`
-		Id string `json:"id"`
-	}
-
-	conn, _ := net.DialTCP("tcp", nil, tcpAddr)
 	body := Body{
-		HttpRequest: requestToMock,
+		HttpRequest:  requestToMock,
 		HttpResponse: responseToGet,
 		Times: Times{
 			RemainingTimes: timesParam,
-			Unlimited: false,
+			Unlimited:      false,
 		},
 	}
 
 	client := &http.Client{}
 	jsonBody, err := json.Marshal(body)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
-	
 
 	req, err := http.NewRequest(http.MethodPut, "http://localhost:1080/expectation", bytes.NewBuffer(jsonBody))
 
 	req.Header.Set("Content-Type", "application/json")
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	resp, err := client.Do(req)
@@ -82,38 +58,33 @@ func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Re
 
 	buffer, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
-	conn.Close()
-	sb:=string(buffer)
+
+	bufferString := string(buffer)
 	var result []map[string]interface{}
 
-	json.Unmarshal([]byte(sb), &result)
+	json.Unmarshal([]byte(bufferString), &result)
 
 	return result[0]["id"].(string)
 }
 
 func (t TestUtilsImpl) verify_expectation_matched_times(expectationId string, timesIn int) *http.Response {
-	servAddr := "localhost:1080"
-	tcpAddr, _ := net.ResolveTCPAddr("tcp", servAddr)
-	
-	type ExpectationId struct{
-		Id string `json:"id"`
-	}
+
 	type Times struct {
 		AtLeast int `json:"atMost"`
-		AtMost int	`json:"atLeast"`
+		AtMost  int `json:"atLeast"`
 	}
-	type Body struct{
+	type ResponseBody struct {
 		ExpectationId ExpectationId `json:"expectationId"`
-		Times Times `json:"times"`
+		Times         Times         `json:"times"`
 	}
-	conn, _ := net.DialTCP("tcp", nil, tcpAddr)
-	body := Body{
-		ExpectationId: ExpectationId{Id:expectationId},
+
+	body := ResponseBody{
+		ExpectationId: ExpectationId{Id: expectationId},
 		Times: Times{
 			AtLeast: timesIn,
-			AtMost: timesIn,
+			AtMost:  timesIn,
 		},
 	}
 
@@ -122,7 +93,7 @@ func (t TestUtilsImpl) verify_expectation_matched_times(expectationId string, ti
 	if err != nil {
 		panic(err)
 	}
-	
+
 	req, err := http.NewRequest(http.MethodPut, "http://localhost:1080/verify", bytes.NewBuffer(jsonBody))
 
 	req.Header.Set("Content-Type", "application/json")
@@ -134,30 +105,32 @@ func (t TestUtilsImpl) verify_expectation_matched_times(expectationId string, ti
 	if err != nil {
 		log.Fatal(err)
 	}
-	conn.Close()
+
 	defer resp.Body.Close()
 
 	return resp
 }
 
 func (t TestUtilsImpl) reset_expectations() {
-	url := "http://localhost:1080/mockserver/reset"
 
-	req, err :=http.NewRequest(http.MethodPut, url, http.NoBody)
+	req, err := http.NewRequest(http.MethodPut, "http://localhost:1080/mockserver/reset", http.NoBody)
+
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	client := &http.Client{}
 	req.Header.Set("Content-Type", "application/json")
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Print(resp)
+
+	log.Println(resp)
 }
 
 func (t TestUtilsImpl) generate_payloads_from(filename string, payloadsPath string) (Request, Response) {
@@ -170,7 +143,7 @@ func (t TestUtilsImpl) generate_payloads_from(filename string, payloadsPath stri
 
 	file, err := ioutil.ReadFile(payloadsPath + "/" + filename + ".json")
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	json.Unmarshal(file, &payload)
@@ -186,19 +159,10 @@ func (t TestUtilsImpl) generate_query_params(request Request) map[string]interfa
 
 	qplist := request.QueryStringParameters
 
-	
 	elementMap := make(map[string]interface{})
-	for i := 0; i < len(qplist); i ++ {
+	for i := 0; i < len(qplist); i++ {
 		elementMap[qplist[i].Name] = qplist[i].Values[0]
 	}
 
 	return elementMap
-}
-
-func (t TestUtilsImpl) extract_id_from(request map[string]interface{}, symbol *string) (id string) {
-	return request["pathParameters"].(map[string]interface{})["id"].([]string)[0]
-}
-
-func (t TestUtilsImpl) extract_request_body(request map[string]interface{}) map[string]interface{} {
-	return request["body"].(map[string]interface{})["json"].(map[string]interface{})
 }
