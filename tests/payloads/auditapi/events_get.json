@@ -3,7 +3,14 @@
         "method": "GET",
         "path": "/audit/v1/events",
         "queryStringParameters": [
-
+            {
+                "name": "from",
+                "values": ["2021-04-27T16:24:57Z"]
+            },
+            {
+                "name": "to",
+                "values": ["2021-04-29T16:24:57Z"]
+            },
             {
                 "name": "limit",
                 "values": ["10"]
