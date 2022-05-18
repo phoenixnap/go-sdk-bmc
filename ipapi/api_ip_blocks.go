@@ -194,6 +194,9 @@ func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBl
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
 
@@ -329,6 +332,9 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlock
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
 
@@ -463,6 +469,9 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdG
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -603,6 +612,9 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockI
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -766,6 +778,9 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBloc
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
 
@@ -913,6 +928,9 @@ func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (IpBl
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
