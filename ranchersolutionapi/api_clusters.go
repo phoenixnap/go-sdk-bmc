@@ -28,63 +28,63 @@ var (
 type ClustersApi interface {
 
 	/*
-	 * ClustersGet Cluster list.
-	 * Cluster list.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @return ApiClustersGetRequest
-	 */
+	ClustersGet Cluster list.
+
+	Cluster list.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiClustersGetRequest
+	*/
 	ClustersGet(ctx _context.Context) ApiClustersGetRequest
 
-	/*
-	 * ClustersGetExecute executes the request
-	 * @return []Cluster
-	 */
+	// ClustersGetExecute executes the request
+	//  @return []Cluster
 	ClustersGetExecute(r ApiClustersGetRequest) ([]Cluster, *_nethttp.Response, error)
 
 	/*
-	 * ClustersIdDelete Delete a cluster.
-	 * Delete a cluster.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @param id The Cluster identifier.
-	 * @return ApiClustersIdDeleteRequest
-	 */
+	ClustersIdDelete Delete a cluster.
+
+	Delete a cluster.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param id The Cluster identifier.
+	 @return ApiClustersIdDeleteRequest
+	*/
 	ClustersIdDelete(ctx _context.Context, id string) ApiClustersIdDeleteRequest
 
-	/*
-	 * ClustersIdDeleteExecute executes the request
-	 * @return DeleteResult
-	 */
+	// ClustersIdDeleteExecute executes the request
+	//  @return DeleteResult
 	ClustersIdDeleteExecute(r ApiClustersIdDeleteRequest) (DeleteResult, *_nethttp.Response, error)
 
 	/*
-	 * ClustersIdGet Retrieve a Cluster
-	 * Retrieve a Cluster
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @param id The Cluster identifier.
-	 * @return ApiClustersIdGetRequest
-	 */
+	ClustersIdGet Retrieve a Cluster
+
+	Retrieve a Cluster
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param id The Cluster identifier.
+	 @return ApiClustersIdGetRequest
+	*/
 	ClustersIdGet(ctx _context.Context, id string) ApiClustersIdGetRequest
 
-	/*
-	 * ClustersIdGetExecute executes the request
-	 * @return Cluster
-	 */
+	// ClustersIdGetExecute executes the request
+	//  @return Cluster
 	ClustersIdGetExecute(r ApiClustersIdGetRequest) (Cluster, *_nethttp.Response, error)
 
 	/*
-	 * ClustersPost Create a Rancher Server Deployment.
-	 * Create a Rancher Server Deployment as described in <a href='https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture' target='_blank'>Rancher Docs Architecture</a>. Rancher Server allows the creation, import and management of multiple Downstream User Kubernetes Clusters.
+	ClustersPost Create a Rancher Server Deployment.
+
+	Create a Rancher Server Deployment as described in <a href='https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture' target='_blank'>Rancher Docs Architecture</a>. Rancher Server allows the creation, import and management of multiple Downstream User Kubernetes Clusters.
 <b>This is not a Downstream User Cluster</b>.
 
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @return ApiClustersPostRequest
-	 */
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiClustersPostRequest
+	*/
 	ClustersPost(ctx _context.Context) ApiClustersPostRequest
 
-	/*
-	 * ClustersPostExecute executes the request
-	 * @return Cluster
-	 */
+	// ClustersPostExecute executes the request
+	//  @return Cluster
 	ClustersPostExecute(r ApiClustersPostRequest) (Cluster, *_nethttp.Response, error)
 }
 
@@ -102,11 +102,13 @@ func (r ApiClustersGetRequest) Execute() ([]Cluster, *_nethttp.Response, error) 
 }
 
 /*
- * ClustersGet Cluster list.
- * Cluster list.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiClustersGetRequest
- */
+ClustersGet Cluster list.
+
+Cluster list.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiClustersGetRequest
+*/
 func (a *ClustersApiService) ClustersGet(ctx _context.Context) ApiClustersGetRequest {
 	return ApiClustersGetRequest{
 		ApiService: a,
@@ -114,10 +116,8 @@ func (a *ClustersApiService) ClustersGet(ctx _context.Context) ApiClustersGetReq
 	}
 }
 
-/*
- * Execute executes the request
- * @return []Cluster
- */
+// Execute executes the request
+//  @return []Cluster
 func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) ([]Cluster, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
@@ -148,7 +148,7 @@ func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) ([]Clus
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -237,12 +237,14 @@ func (r ApiClustersIdDeleteRequest) Execute() (DeleteResult, *_nethttp.Response,
 }
 
 /*
- * ClustersIdDelete Delete a cluster.
- * Delete a cluster.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id The Cluster identifier.
- * @return ApiClustersIdDeleteRequest
- */
+ClustersIdDelete Delete a cluster.
+
+Delete a cluster.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The Cluster identifier.
+ @return ApiClustersIdDeleteRequest
+*/
 func (a *ClustersApiService) ClustersIdDelete(ctx _context.Context, id string) ApiClustersIdDeleteRequest {
 	return ApiClustersIdDeleteRequest{
 		ApiService: a,
@@ -251,10 +253,8 @@ func (a *ClustersApiService) ClustersIdDelete(ctx _context.Context, id string) A
 	}
 }
 
-/*
- * Execute executes the request
- * @return DeleteResult
- */
+// Execute executes the request
+//  @return DeleteResult
 func (a *ClustersApiService) ClustersIdDeleteExecute(r ApiClustersIdDeleteRequest) (DeleteResult, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
@@ -286,7 +286,7 @@ func (a *ClustersApiService) ClustersIdDeleteExecute(r ApiClustersIdDeleteReques
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -375,12 +375,14 @@ func (r ApiClustersIdGetRequest) Execute() (Cluster, *_nethttp.Response, error) 
 }
 
 /*
- * ClustersIdGet Retrieve a Cluster
- * Retrieve a Cluster
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id The Cluster identifier.
- * @return ApiClustersIdGetRequest
- */
+ClustersIdGet Retrieve a Cluster
+
+Retrieve a Cluster
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The Cluster identifier.
+ @return ApiClustersIdGetRequest
+*/
 func (a *ClustersApiService) ClustersIdGet(ctx _context.Context, id string) ApiClustersIdGetRequest {
 	return ApiClustersIdGetRequest{
 		ApiService: a,
@@ -389,10 +391,8 @@ func (a *ClustersApiService) ClustersIdGet(ctx _context.Context, id string) ApiC
 	}
 }
 
-/*
- * Execute executes the request
- * @return Cluster
- */
+// Execute executes the request
+//  @return Cluster
 func (a *ClustersApiService) ClustersIdGetExecute(r ApiClustersIdGetRequest) (Cluster, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
@@ -424,7 +424,7 @@ func (a *ClustersApiService) ClustersIdGetExecute(r ApiClustersIdGetRequest) (Cl
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -517,13 +517,15 @@ func (r ApiClustersPostRequest) Execute() (Cluster, *_nethttp.Response, error) {
 }
 
 /*
- * ClustersPost Create a Rancher Server Deployment.
- * Create a Rancher Server Deployment as described in <a href='https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture' target='_blank'>Rancher Docs Architecture</a>. Rancher Server allows the creation, import and management of multiple Downstream User Kubernetes Clusters.
+ClustersPost Create a Rancher Server Deployment.
+
+Create a Rancher Server Deployment as described in <a href='https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture' target='_blank'>Rancher Docs Architecture</a>. Rancher Server allows the creation, import and management of multiple Downstream User Kubernetes Clusters.
 <b>This is not a Downstream User Cluster</b>.
 
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiClustersPostRequest
- */
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiClustersPostRequest
+*/
 func (a *ClustersApiService) ClustersPost(ctx _context.Context) ApiClustersPostRequest {
 	return ApiClustersPostRequest{
 		ApiService: a,
@@ -531,10 +533,8 @@ func (a *ClustersApiService) ClustersPost(ctx _context.Context) ApiClustersPostR
 	}
 }
 
-/*
- * Execute executes the request
- * @return Cluster
- */
+// Execute executes the request
+//  @return Cluster
 func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (Cluster, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
@@ -565,7 +565,7 @@ func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (Clus
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header

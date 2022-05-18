@@ -28,76 +28,76 @@ var (
 type TagsApi interface {
 
 	/*
-	 * TagsGet List tags.
-	 * Retrieve all tags belonging to the BMC Account.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @return ApiTagsGetRequest
-	 */
+	TagsGet List tags.
+
+	Retrieve all tags belonging to the BMC Account.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiTagsGetRequest
+	*/
 	TagsGet(ctx _context.Context) ApiTagsGetRequest
 
-	/*
-	 * TagsGetExecute executes the request
-	 * @return []Tag
-	 */
+	// TagsGetExecute executes the request
+	//  @return []Tag
 	TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *_nethttp.Response, error)
 
 	/*
-	 * TagsPost Create a Tag.
-	 * Create a tag with the provided information.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @return ApiTagsPostRequest
-	 */
+	TagsPost Create a Tag.
+
+	Create a tag with the provided information.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiTagsPostRequest
+	*/
 	TagsPost(ctx _context.Context) ApiTagsPostRequest
 
-	/*
-	 * TagsPostExecute executes the request
-	 * @return Tag
-	 */
+	// TagsPostExecute executes the request
+	//  @return Tag
 	TagsPostExecute(r ApiTagsPostRequest) (Tag, *_nethttp.Response, error)
 
 	/*
-	 * TagsTagIdDelete Delete a Tag.
-	 * Delete the tag with the given ID.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @param tagId The tag's ID.
-	 * @return ApiTagsTagIdDeleteRequest
-	 */
+	TagsTagIdDelete Delete a Tag.
+
+	Delete the tag with the given ID.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param tagId The tag's ID.
+	 @return ApiTagsTagIdDeleteRequest
+	*/
 	TagsTagIdDelete(ctx _context.Context, tagId string) ApiTagsTagIdDeleteRequest
 
-	/*
-	 * TagsTagIdDeleteExecute executes the request
-	 * @return DeleteResult
-	 */
+	// TagsTagIdDeleteExecute executes the request
+	//  @return DeleteResult
 	TagsTagIdDeleteExecute(r ApiTagsTagIdDeleteRequest) (DeleteResult, *_nethttp.Response, error)
 
 	/*
-	 * TagsTagIdGet Get a Tag.
-	 * Retrieve the tag with the given ID
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @param tagId The tag's ID.
-	 * @return ApiTagsTagIdGetRequest
-	 */
+	TagsTagIdGet Get a Tag.
+
+	Retrieve the tag with the given ID
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param tagId The tag's ID.
+	 @return ApiTagsTagIdGetRequest
+	*/
 	TagsTagIdGet(ctx _context.Context, tagId string) ApiTagsTagIdGetRequest
 
-	/*
-	 * TagsTagIdGetExecute executes the request
-	 * @return Tag
-	 */
+	// TagsTagIdGetExecute executes the request
+	//  @return Tag
 	TagsTagIdGetExecute(r ApiTagsTagIdGetRequest) (Tag, *_nethttp.Response, error)
 
 	/*
-	 * TagsTagIdPatch Modify a Tag.
-	 * Updates the tag with the given ID.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @param tagId The tag's ID.
-	 * @return ApiTagsTagIdPatchRequest
-	 */
+	TagsTagIdPatch Modify a Tag.
+
+	Updates the tag with the given ID.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param tagId The tag's ID.
+	 @return ApiTagsTagIdPatchRequest
+	*/
 	TagsTagIdPatch(ctx _context.Context, tagId string) ApiTagsTagIdPatchRequest
 
-	/*
-	 * TagsTagIdPatchExecute executes the request
-	 * @return Tag
-	 */
+	// TagsTagIdPatchExecute executes the request
+	//  @return Tag
 	TagsTagIdPatchExecute(r ApiTagsTagIdPatchRequest) (Tag, *_nethttp.Response, error)
 }
 
@@ -110,6 +110,7 @@ type ApiTagsGetRequest struct {
 	name *string
 }
 
+// Query a tag by its name.
 func (r ApiTagsGetRequest) Name(name string) ApiTagsGetRequest {
 	r.name = &name
 	return r
@@ -120,11 +121,13 @@ func (r ApiTagsGetRequest) Execute() ([]Tag, *_nethttp.Response, error) {
 }
 
 /*
- * TagsGet List tags.
- * Retrieve all tags belonging to the BMC Account.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiTagsGetRequest
- */
+TagsGet List tags.
+
+Retrieve all tags belonging to the BMC Account.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiTagsGetRequest
+*/
 func (a *TagsApiService) TagsGet(ctx _context.Context) ApiTagsGetRequest {
 	return ApiTagsGetRequest{
 		ApiService: a,
@@ -132,10 +135,8 @@ func (a *TagsApiService) TagsGet(ctx _context.Context) ApiTagsGetRequest {
 	}
 }
 
-/*
- * Execute executes the request
- * @return []Tag
- */
+// Execute executes the request
+//  @return []Tag
 func (a *TagsApiService) TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
@@ -169,7 +170,7 @@ func (a *TagsApiService) TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *_nethttp.R
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -252,6 +253,7 @@ type ApiTagsPostRequest struct {
 	tagCreate *TagCreate
 }
 
+// The body containing the tag details.
 func (r ApiTagsPostRequest) TagCreate(tagCreate TagCreate) ApiTagsPostRequest {
 	r.tagCreate = &tagCreate
 	return r
@@ -262,11 +264,13 @@ func (r ApiTagsPostRequest) Execute() (Tag, *_nethttp.Response, error) {
 }
 
 /*
- * TagsPost Create a Tag.
- * Create a tag with the provided information.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiTagsPostRequest
- */
+TagsPost Create a Tag.
+
+Create a tag with the provided information.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiTagsPostRequest
+*/
 func (a *TagsApiService) TagsPost(ctx _context.Context) ApiTagsPostRequest {
 	return ApiTagsPostRequest{
 		ApiService: a,
@@ -274,10 +278,8 @@ func (a *TagsApiService) TagsPost(ctx _context.Context) ApiTagsPostRequest {
 	}
 }
 
-/*
- * Execute executes the request
- * @return Tag
- */
+// Execute executes the request
+//  @return Tag
 func (a *TagsApiService) TagsPostExecute(r ApiTagsPostRequest) (Tag, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
@@ -311,7 +313,7 @@ func (a *TagsApiService) TagsPostExecute(r ApiTagsPostRequest) (Tag, *_nethttp.R
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -422,12 +424,14 @@ func (r ApiTagsTagIdDeleteRequest) Execute() (DeleteResult, *_nethttp.Response, 
 }
 
 /*
- * TagsTagIdDelete Delete a Tag.
- * Delete the tag with the given ID.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param tagId The tag's ID.
- * @return ApiTagsTagIdDeleteRequest
- */
+TagsTagIdDelete Delete a Tag.
+
+Delete the tag with the given ID.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tagId The tag's ID.
+ @return ApiTagsTagIdDeleteRequest
+*/
 func (a *TagsApiService) TagsTagIdDelete(ctx _context.Context, tagId string) ApiTagsTagIdDeleteRequest {
 	return ApiTagsTagIdDeleteRequest{
 		ApiService: a,
@@ -436,10 +440,8 @@ func (a *TagsApiService) TagsTagIdDelete(ctx _context.Context, tagId string) Api
 	}
 }
 
-/*
- * Execute executes the request
- * @return DeleteResult
- */
+// Execute executes the request
+//  @return DeleteResult
 func (a *TagsApiService) TagsTagIdDeleteExecute(r ApiTagsTagIdDeleteRequest) (DeleteResult, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
@@ -471,7 +473,7 @@ func (a *TagsApiService) TagsTagIdDeleteExecute(r ApiTagsTagIdDeleteRequest) (De
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -560,12 +562,14 @@ func (r ApiTagsTagIdGetRequest) Execute() (Tag, *_nethttp.Response, error) {
 }
 
 /*
- * TagsTagIdGet Get a Tag.
- * Retrieve the tag with the given ID
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param tagId The tag's ID.
- * @return ApiTagsTagIdGetRequest
- */
+TagsTagIdGet Get a Tag.
+
+Retrieve the tag with the given ID
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tagId The tag's ID.
+ @return ApiTagsTagIdGetRequest
+*/
 func (a *TagsApiService) TagsTagIdGet(ctx _context.Context, tagId string) ApiTagsTagIdGetRequest {
 	return ApiTagsTagIdGetRequest{
 		ApiService: a,
@@ -574,10 +578,8 @@ func (a *TagsApiService) TagsTagIdGet(ctx _context.Context, tagId string) ApiTag
 	}
 }
 
-/*
- * Execute executes the request
- * @return Tag
- */
+// Execute executes the request
+//  @return Tag
 func (a *TagsApiService) TagsTagIdGetExecute(r ApiTagsTagIdGetRequest) (Tag, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
@@ -609,7 +611,7 @@ func (a *TagsApiService) TagsTagIdGetExecute(r ApiTagsTagIdGetRequest) (Tag, *_n
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -693,6 +695,7 @@ type ApiTagsTagIdPatchRequest struct {
 	tagUpdate *TagUpdate
 }
 
+// The body containing the tag changes.
 func (r ApiTagsTagIdPatchRequest) TagUpdate(tagUpdate TagUpdate) ApiTagsTagIdPatchRequest {
 	r.tagUpdate = &tagUpdate
 	return r
@@ -703,12 +706,14 @@ func (r ApiTagsTagIdPatchRequest) Execute() (Tag, *_nethttp.Response, error) {
 }
 
 /*
- * TagsTagIdPatch Modify a Tag.
- * Updates the tag with the given ID.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param tagId The tag's ID.
- * @return ApiTagsTagIdPatchRequest
- */
+TagsTagIdPatch Modify a Tag.
+
+Updates the tag with the given ID.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tagId The tag's ID.
+ @return ApiTagsTagIdPatchRequest
+*/
 func (a *TagsApiService) TagsTagIdPatch(ctx _context.Context, tagId string) ApiTagsTagIdPatchRequest {
 	return ApiTagsTagIdPatchRequest{
 		ApiService: a,
@@ -717,10 +722,8 @@ func (a *TagsApiService) TagsTagIdPatch(ctx _context.Context, tagId string) ApiT
 	}
 }
 
-/*
- * Execute executes the request
- * @return Tag
- */
+// Execute executes the request
+//  @return Tag
 func (a *TagsApiService) TagsTagIdPatchExecute(r ApiTagsTagIdPatchRequest) (Tag, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
@@ -755,7 +758,7 @@ func (a *TagsApiService) TagsTagIdPatchExecute(r ApiTagsTagIdPatchRequest) (Tag,
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header

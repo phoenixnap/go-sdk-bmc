@@ -28,46 +28,46 @@ var (
 type QuotasApi interface {
 
 	/*
-	 * QuotasGet List quotas
-	 * Get account quota details.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @return ApiQuotasGetRequest
-	 */
+	QuotasGet List quotas
+
+	Get account quota details.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiQuotasGetRequest
+	*/
 	QuotasGet(ctx _context.Context) ApiQuotasGetRequest
 
-	/*
-	 * QuotasGetExecute executes the request
-	 * @return []Quota
-	 */
+	// QuotasGetExecute executes the request
+	//  @return []Quota
 	QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *_nethttp.Response, error)
 
 	/*
-	 * QuotasQuotaIdActionsRequestEditPost Request quota limit change.
-	 * Sends a request to edit the limit of a quota.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @param quotaId The ID of the Quota.
-	 * @return ApiQuotasQuotaIdActionsRequestEditPostRequest
-	 */
+	QuotasQuotaIdActionsRequestEditPost Request quota limit change.
+
+	Sends a request to edit the limit of a quota.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param quotaId The ID of the Quota.
+	 @return ApiQuotasQuotaIdActionsRequestEditPostRequest
+	*/
 	QuotasQuotaIdActionsRequestEditPost(ctx _context.Context, quotaId string) ApiQuotasQuotaIdActionsRequestEditPostRequest
 
-	/*
-	 * QuotasQuotaIdActionsRequestEditPostExecute executes the request
-	 */
+	// QuotasQuotaIdActionsRequestEditPostExecute executes the request
 	QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuotasQuotaIdActionsRequestEditPostRequest) (*_nethttp.Response, error)
 
 	/*
-	 * QuotasQuotaIdGet Get a quota.
-	 * Get account quota details.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @param quotaId The ID of the Quota.
-	 * @return ApiQuotasQuotaIdGetRequest
-	 */
+	QuotasQuotaIdGet Get a quota.
+
+	Get account quota details.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param quotaId The ID of the Quota.
+	 @return ApiQuotasQuotaIdGetRequest
+	*/
 	QuotasQuotaIdGet(ctx _context.Context, quotaId string) ApiQuotasQuotaIdGetRequest
 
-	/*
-	 * QuotasQuotaIdGetExecute executes the request
-	 * @return Quota
-	 */
+	// QuotasQuotaIdGetExecute executes the request
+	//  @return Quota
 	QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest) (Quota, *_nethttp.Response, error)
 }
 
@@ -85,11 +85,13 @@ func (r ApiQuotasGetRequest) Execute() ([]Quota, *_nethttp.Response, error) {
 }
 
 /*
- * QuotasGet List quotas
- * Get account quota details.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiQuotasGetRequest
- */
+QuotasGet List quotas
+
+Get account quota details.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiQuotasGetRequest
+*/
 func (a *QuotasApiService) QuotasGet(ctx _context.Context) ApiQuotasGetRequest {
 	return ApiQuotasGetRequest{
 		ApiService: a,
@@ -97,10 +99,8 @@ func (a *QuotasApiService) QuotasGet(ctx _context.Context) ApiQuotasGetRequest {
 	}
 }
 
-/*
- * Execute executes the request
- * @return []Quota
- */
+// Execute executes the request
+//  @return []Quota
 func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
@@ -131,7 +131,7 @@ func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *_n
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -235,12 +235,14 @@ func (r ApiQuotasQuotaIdActionsRequestEditPostRequest) Execute() (*_nethttp.Resp
 }
 
 /*
- * QuotasQuotaIdActionsRequestEditPost Request quota limit change.
- * Sends a request to edit the limit of a quota.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param quotaId The ID of the Quota.
- * @return ApiQuotasQuotaIdActionsRequestEditPostRequest
- */
+QuotasQuotaIdActionsRequestEditPost Request quota limit change.
+
+Sends a request to edit the limit of a quota.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param quotaId The ID of the Quota.
+ @return ApiQuotasQuotaIdActionsRequestEditPostRequest
+*/
 func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPost(ctx _context.Context, quotaId string) ApiQuotasQuotaIdActionsRequestEditPostRequest {
 	return ApiQuotasQuotaIdActionsRequestEditPostRequest{
 		ApiService: a,
@@ -249,9 +251,7 @@ func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPost(ctx _context.Cont
 	}
 }
 
-/*
- * Execute executes the request
- */
+// Execute executes the request
 func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuotasQuotaIdActionsRequestEditPostRequest) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
@@ -282,7 +282,7 @@ func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuota
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -374,12 +374,14 @@ func (r ApiQuotasQuotaIdGetRequest) Execute() (Quota, *_nethttp.Response, error)
 }
 
 /*
- * QuotasQuotaIdGet Get a quota.
- * Get account quota details.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param quotaId The ID of the Quota.
- * @return ApiQuotasQuotaIdGetRequest
- */
+QuotasQuotaIdGet Get a quota.
+
+Get account quota details.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param quotaId The ID of the Quota.
+ @return ApiQuotasQuotaIdGetRequest
+*/
 func (a *QuotasApiService) QuotasQuotaIdGet(ctx _context.Context, quotaId string) ApiQuotasQuotaIdGetRequest {
 	return ApiQuotasQuotaIdGetRequest{
 		ApiService: a,
@@ -388,10 +390,8 @@ func (a *QuotasApiService) QuotasQuotaIdGet(ctx _context.Context, quotaId string
 	}
 }
 
-/*
- * Execute executes the request
- * @return Quota
- */
+// Execute executes the request
+//  @return Quota
 func (a *QuotasApiService) QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest) (Quota, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
@@ -423,7 +423,7 @@ func (a *QuotasApiService) QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest)
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header

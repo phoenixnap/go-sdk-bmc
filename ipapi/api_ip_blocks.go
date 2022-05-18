@@ -29,91 +29,91 @@ var (
 type IPBlocksApi interface {
 
 	/*
-	 * IpBlocksGet List IP Blocks.
-	 * List all IP Blocks.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @return ApiIpBlocksGetRequest
-	 */
+	IpBlocksGet List IP Blocks.
+
+	List all IP Blocks.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiIpBlocksGetRequest
+	*/
 	IpBlocksGet(ctx _context.Context) ApiIpBlocksGetRequest
 
-	/*
-	 * IpBlocksGetExecute executes the request
-	 * @return []IpBlock
-	 */
+	// IpBlocksGetExecute executes the request
+	//  @return []IpBlock
 	IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBlock, *_nethttp.Response, error)
 
 	/*
-	 * IpBlocksIpBlockIdDelete Delete IP Block.
-	 * Delete an IP Block. An IP Block can only be deleted if not assigned to any resource.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @param ipBlockId The IP Block identifier.
-	 * @return ApiIpBlocksIpBlockIdDeleteRequest
-	 */
+	IpBlocksIpBlockIdDelete Delete IP Block.
+
+	Delete an IP Block. An IP Block can only be deleted if not assigned to any resource.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ipBlockId The IP Block identifier.
+	 @return ApiIpBlocksIpBlockIdDeleteRequest
+	*/
 	IpBlocksIpBlockIdDelete(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdDeleteRequest
 
-	/*
-	 * IpBlocksIpBlockIdDeleteExecute executes the request
-	 * @return DeleteIpBlockResult
-	 */
+	// IpBlocksIpBlockIdDeleteExecute executes the request
+	//  @return DeleteIpBlockResult
 	IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlockIdDeleteRequest) (DeleteIpBlockResult, *_nethttp.Response, error)
 
 	/*
-	 * IpBlocksIpBlockIdGet Get IP Block.
-	 * Get IP Block.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @param ipBlockId The IP Block identifier.
-	 * @return ApiIpBlocksIpBlockIdGetRequest
-	 */
+	IpBlocksIpBlockIdGet Get IP Block.
+
+	Get IP Block.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ipBlockId The IP Block identifier.
+	 @return ApiIpBlocksIpBlockIdGetRequest
+	*/
 	IpBlocksIpBlockIdGet(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdGetRequest
 
-	/*
-	 * IpBlocksIpBlockIdGetExecute executes the request
-	 * @return IpBlock
-	 */
+	// IpBlocksIpBlockIdGetExecute executes the request
+	//  @return IpBlock
 	IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdGetRequest) (IpBlock, *_nethttp.Response, error)
 
 	/*
-	 * IpBlocksIpBlockIdPatch Update IP block.
-	 * Update IP Block's details.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @param ipBlockId The IP Block identifier.
-	 * @return ApiIpBlocksIpBlockIdPatchRequest
-	 */
+	IpBlocksIpBlockIdPatch Update IP block.
+
+	Update IP Block's details.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ipBlockId The IP Block identifier.
+	 @return ApiIpBlocksIpBlockIdPatchRequest
+	*/
 	IpBlocksIpBlockIdPatch(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdPatchRequest
 
-	/*
-	 * IpBlocksIpBlockIdPatchExecute executes the request
-	 * @return IpBlock
-	 */
+	// IpBlocksIpBlockIdPatchExecute executes the request
+	//  @return IpBlock
 	IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockIdPatchRequest) (IpBlock, *_nethttp.Response, error)
 
 	/*
-	 * IpBlocksIpBlockIdTagsPut Overwrite tags assigned for IP Block.
-	 * Overwrites tags assigned for IP Block and unassigns any tags not part of the request.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @param ipBlockId The IP Block identifier.
-	 * @return ApiIpBlocksIpBlockIdTagsPutRequest
-	 */
+	IpBlocksIpBlockIdTagsPut Overwrite tags assigned for IP Block.
+
+	Overwrites tags assigned for IP Block and unassigns any tags not part of the request.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ipBlockId The IP Block identifier.
+	 @return ApiIpBlocksIpBlockIdTagsPutRequest
+	*/
 	IpBlocksIpBlockIdTagsPut(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdTagsPutRequest
 
-	/*
-	 * IpBlocksIpBlockIdTagsPutExecute executes the request
-	 * @return IpBlock
-	 */
+	// IpBlocksIpBlockIdTagsPutExecute executes the request
+	//  @return IpBlock
 	IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBlockIdTagsPutRequest) (IpBlock, *_nethttp.Response, error)
 
 	/*
-	 * IpBlocksPost Create an IP Block.
-	 * Request an IP Block. An IP Block is a set of contiguous IPs that can be assigned to other resources such as servers.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @return ApiIpBlocksPostRequest
-	 */
+	IpBlocksPost Create an IP Block.
+
+	Request an IP Block. An IP Block is a set of contiguous IPs that can be assigned to other resources such as servers.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiIpBlocksPostRequest
+	*/
 	IpBlocksPost(ctx _context.Context) ApiIpBlocksPostRequest
 
-	/*
-	 * IpBlocksPostExecute executes the request
-	 * @return IpBlock
-	 */
+	// IpBlocksPostExecute executes the request
+	//  @return IpBlock
 	IpBlocksPostExecute(r ApiIpBlocksPostRequest) (IpBlock, *_nethttp.Response, error)
 }
 
@@ -126,6 +126,7 @@ type ApiIpBlocksGetRequest struct {
 	tag *[]string
 }
 
+// List of tags, in the form tagName.tagValue, to filter by.
 func (r ApiIpBlocksGetRequest) Tag(tag []string) ApiIpBlocksGetRequest {
 	r.tag = &tag
 	return r
@@ -136,11 +137,13 @@ func (r ApiIpBlocksGetRequest) Execute() ([]IpBlock, *_nethttp.Response, error) 
 }
 
 /*
- * IpBlocksGet List IP Blocks.
- * List all IP Blocks.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiIpBlocksGetRequest
- */
+IpBlocksGet List IP Blocks.
+
+List all IP Blocks.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiIpBlocksGetRequest
+*/
 func (a *IPBlocksApiService) IpBlocksGet(ctx _context.Context) ApiIpBlocksGetRequest {
 	return ApiIpBlocksGetRequest{
 		ApiService: a,
@@ -148,10 +151,8 @@ func (a *IPBlocksApiService) IpBlocksGet(ctx _context.Context) ApiIpBlocksGetReq
 	}
 }
 
-/*
- * Execute executes the request
- * @return []IpBlock
- */
+// Execute executes the request
+//  @return []IpBlock
 func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBlock, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
@@ -193,7 +194,7 @@ func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBl
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -282,12 +283,14 @@ func (r ApiIpBlocksIpBlockIdDeleteRequest) Execute() (DeleteIpBlockResult, *_net
 }
 
 /*
- * IpBlocksIpBlockIdDelete Delete IP Block.
- * Delete an IP Block. An IP Block can only be deleted if not assigned to any resource.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param ipBlockId The IP Block identifier.
- * @return ApiIpBlocksIpBlockIdDeleteRequest
- */
+IpBlocksIpBlockIdDelete Delete IP Block.
+
+Delete an IP Block. An IP Block can only be deleted if not assigned to any resource.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ipBlockId The IP Block identifier.
+ @return ApiIpBlocksIpBlockIdDeleteRequest
+*/
 func (a *IPBlocksApiService) IpBlocksIpBlockIdDelete(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdDeleteRequest {
 	return ApiIpBlocksIpBlockIdDeleteRequest{
 		ApiService: a,
@@ -296,10 +299,8 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDelete(ctx _context.Context, ipBlo
 	}
 }
 
-/*
- * Execute executes the request
- * @return DeleteIpBlockResult
- */
+// Execute executes the request
+//  @return DeleteIpBlockResult
 func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlockIdDeleteRequest) (DeleteIpBlockResult, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
@@ -331,7 +332,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlock
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -420,12 +421,14 @@ func (r ApiIpBlocksIpBlockIdGetRequest) Execute() (IpBlock, *_nethttp.Response, 
 }
 
 /*
- * IpBlocksIpBlockIdGet Get IP Block.
- * Get IP Block.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param ipBlockId The IP Block identifier.
- * @return ApiIpBlocksIpBlockIdGetRequest
- */
+IpBlocksIpBlockIdGet Get IP Block.
+
+Get IP Block.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ipBlockId The IP Block identifier.
+ @return ApiIpBlocksIpBlockIdGetRequest
+*/
 func (a *IPBlocksApiService) IpBlocksIpBlockIdGet(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdGetRequest {
 	return ApiIpBlocksIpBlockIdGetRequest{
 		ApiService: a,
@@ -434,10 +437,8 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGet(ctx _context.Context, ipBlockI
 	}
 }
 
-/*
- * Execute executes the request
- * @return IpBlock
- */
+// Execute executes the request
+//  @return IpBlock
 func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdGetRequest) (IpBlock, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
@@ -469,7 +470,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdG
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -563,12 +564,14 @@ func (r ApiIpBlocksIpBlockIdPatchRequest) Execute() (IpBlock, *_nethttp.Response
 }
 
 /*
- * IpBlocksIpBlockIdPatch Update IP block.
- * Update IP Block's details.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param ipBlockId The IP Block identifier.
- * @return ApiIpBlocksIpBlockIdPatchRequest
- */
+IpBlocksIpBlockIdPatch Update IP block.
+
+Update IP Block's details.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ipBlockId The IP Block identifier.
+ @return ApiIpBlocksIpBlockIdPatchRequest
+*/
 func (a *IPBlocksApiService) IpBlocksIpBlockIdPatch(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdPatchRequest {
 	return ApiIpBlocksIpBlockIdPatchRequest{
 		ApiService: a,
@@ -577,10 +580,8 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatch(ctx _context.Context, ipBloc
 	}
 }
 
-/*
- * Execute executes the request
- * @return IpBlock
- */
+// Execute executes the request
+//  @return IpBlock
 func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockIdPatchRequest) (IpBlock, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
@@ -612,7 +613,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockI
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -728,12 +729,14 @@ func (r ApiIpBlocksIpBlockIdTagsPutRequest) Execute() (IpBlock, *_nethttp.Respon
 }
 
 /*
- * IpBlocksIpBlockIdTagsPut Overwrite tags assigned for IP Block.
- * Overwrites tags assigned for IP Block and unassigns any tags not part of the request.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param ipBlockId The IP Block identifier.
- * @return ApiIpBlocksIpBlockIdTagsPutRequest
- */
+IpBlocksIpBlockIdTagsPut Overwrite tags assigned for IP Block.
+
+Overwrites tags assigned for IP Block and unassigns any tags not part of the request.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ipBlockId The IP Block identifier.
+ @return ApiIpBlocksIpBlockIdTagsPutRequest
+*/
 func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPut(ctx _context.Context, ipBlockId string) ApiIpBlocksIpBlockIdTagsPutRequest {
 	return ApiIpBlocksIpBlockIdTagsPutRequest{
 		ApiService: a,
@@ -742,10 +745,8 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPut(ctx _context.Context, ipBl
 	}
 }
 
-/*
- * Execute executes the request
- * @return IpBlock
- */
+// Execute executes the request
+//  @return IpBlock
 func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBlockIdTagsPutRequest) (IpBlock, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
@@ -777,7 +778,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBloc
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -882,11 +883,13 @@ func (r ApiIpBlocksPostRequest) Execute() (IpBlock, *_nethttp.Response, error) {
 }
 
 /*
- * IpBlocksPost Create an IP Block.
- * Request an IP Block. An IP Block is a set of contiguous IPs that can be assigned to other resources such as servers.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiIpBlocksPostRequest
- */
+IpBlocksPost Create an IP Block.
+
+Request an IP Block. An IP Block is a set of contiguous IPs that can be assigned to other resources such as servers.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiIpBlocksPostRequest
+*/
 func (a *IPBlocksApiService) IpBlocksPost(ctx _context.Context) ApiIpBlocksPostRequest {
 	return ApiIpBlocksPostRequest{
 		ApiService: a,
@@ -894,10 +897,8 @@ func (a *IPBlocksApiService) IpBlocksPost(ctx _context.Context) ApiIpBlocksPostR
 	}
 }
 
-/*
- * Execute executes the request
- * @return IpBlock
- */
+// Execute executes the request
+//  @return IpBlock
 func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (IpBlock, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
@@ -928,7 +929,7 @@ func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (IpBl
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header

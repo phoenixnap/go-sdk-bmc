@@ -28,75 +28,75 @@ var (
 type PrivateNetworksApi interface {
 
 	/*
-	 * PrivateNetworksGet List Private Networks.
-	 * List all Private Networks owned by account.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @return ApiPrivateNetworksGetRequest
-	 */
+	PrivateNetworksGet List Private Networks.
+
+	List all Private Networks owned by account.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiPrivateNetworksGetRequest
+	*/
 	PrivateNetworksGet(ctx _context.Context) ApiPrivateNetworksGetRequest
 
-	/*
-	 * PrivateNetworksGetExecute executes the request
-	 * @return []PrivateNetwork
-	 */
+	// PrivateNetworksGetExecute executes the request
+	//  @return []PrivateNetwork
 	PrivateNetworksGetExecute(r ApiPrivateNetworksGetRequest) ([]PrivateNetwork, *_nethttp.Response, error)
 
 	/*
-	 * PrivateNetworksNetworkIdDelete Delete a Private Network.
-	 * Delete Private Network.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @param privateNetworkId The private network identifier.
-	 * @return ApiPrivateNetworksNetworkIdDeleteRequest
-	 */
+	PrivateNetworksNetworkIdDelete Delete a Private Network.
+
+	Delete Private Network.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param privateNetworkId The private network identifier.
+	 @return ApiPrivateNetworksNetworkIdDeleteRequest
+	*/
 	PrivateNetworksNetworkIdDelete(ctx _context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdDeleteRequest
 
-	/*
-	 * PrivateNetworksNetworkIdDeleteExecute executes the request
-	 */
+	// PrivateNetworksNetworkIdDeleteExecute executes the request
 	PrivateNetworksNetworkIdDeleteExecute(r ApiPrivateNetworksNetworkIdDeleteRequest) (*_nethttp.Response, error)
 
 	/*
-	 * PrivateNetworksNetworkIdGet Get a Private Network.
-	 * Retrieve Private Network Details.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @param privateNetworkId The private network identifier.
-	 * @return ApiPrivateNetworksNetworkIdGetRequest
-	 */
+	PrivateNetworksNetworkIdGet Get a Private Network.
+
+	Retrieve Private Network Details.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param privateNetworkId The private network identifier.
+	 @return ApiPrivateNetworksNetworkIdGetRequest
+	*/
 	PrivateNetworksNetworkIdGet(ctx _context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdGetRequest
 
-	/*
-	 * PrivateNetworksNetworkIdGetExecute executes the request
-	 * @return PrivateNetwork
-	 */
+	// PrivateNetworksNetworkIdGetExecute executes the request
+	//  @return PrivateNetwork
 	PrivateNetworksNetworkIdGetExecute(r ApiPrivateNetworksNetworkIdGetRequest) (PrivateNetwork, *_nethttp.Response, error)
 
 	/*
-	 * PrivateNetworksNetworkIdPut Update a Private Network.
-	 * Update Private Network Details.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @param privateNetworkId The private network identifier.
-	 * @return ApiPrivateNetworksNetworkIdPutRequest
-	 */
+	PrivateNetworksNetworkIdPut Update a Private Network.
+
+	Update Private Network Details.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param privateNetworkId The private network identifier.
+	 @return ApiPrivateNetworksNetworkIdPutRequest
+	*/
 	PrivateNetworksNetworkIdPut(ctx _context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdPutRequest
 
-	/*
-	 * PrivateNetworksNetworkIdPutExecute executes the request
-	 * @return PrivateNetwork
-	 */
+	// PrivateNetworksNetworkIdPutExecute executes the request
+	//  @return PrivateNetwork
 	PrivateNetworksNetworkIdPutExecute(r ApiPrivateNetworksNetworkIdPutRequest) (PrivateNetwork, *_nethttp.Response, error)
 
 	/*
-	 * PrivateNetworksPost Create a Private Network.
-	 * Create a Private Network.
-	 * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @return ApiPrivateNetworksPostRequest
-	 */
+	PrivateNetworksPost Create a Private Network.
+
+	Create a Private Network.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiPrivateNetworksPostRequest
+	*/
 	PrivateNetworksPost(ctx _context.Context) ApiPrivateNetworksPostRequest
 
-	/*
-	 * PrivateNetworksPostExecute executes the request
-	 * @return PrivateNetwork
-	 */
+	// PrivateNetworksPostExecute executes the request
+	//  @return PrivateNetwork
 	PrivateNetworksPostExecute(r ApiPrivateNetworksPostRequest) (PrivateNetwork, *_nethttp.Response, error)
 }
 
@@ -109,6 +109,7 @@ type ApiPrivateNetworksGetRequest struct {
 	location *string
 }
 
+// If present will filter the result by the given location of the Private Networks.
 func (r ApiPrivateNetworksGetRequest) Location(location string) ApiPrivateNetworksGetRequest {
 	r.location = &location
 	return r
@@ -119,11 +120,13 @@ func (r ApiPrivateNetworksGetRequest) Execute() ([]PrivateNetwork, *_nethttp.Res
 }
 
 /*
- * PrivateNetworksGet List Private Networks.
- * List all Private Networks owned by account.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiPrivateNetworksGetRequest
- */
+PrivateNetworksGet List Private Networks.
+
+List all Private Networks owned by account.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPrivateNetworksGetRequest
+*/
 func (a *PrivateNetworksApiService) PrivateNetworksGet(ctx _context.Context) ApiPrivateNetworksGetRequest {
 	return ApiPrivateNetworksGetRequest{
 		ApiService: a,
@@ -131,10 +134,8 @@ func (a *PrivateNetworksApiService) PrivateNetworksGet(ctx _context.Context) Api
 	}
 }
 
-/*
- * Execute executes the request
- * @return []PrivateNetwork
- */
+// Execute executes the request
+//  @return []PrivateNetwork
 func (a *PrivateNetworksApiService) PrivateNetworksGetExecute(r ApiPrivateNetworksGetRequest) ([]PrivateNetwork, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
@@ -168,7 +169,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksGetExecute(r ApiPrivateNetwor
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -267,12 +268,14 @@ func (r ApiPrivateNetworksNetworkIdDeleteRequest) Execute() (*_nethttp.Response,
 }
 
 /*
- * PrivateNetworksNetworkIdDelete Delete a Private Network.
- * Delete Private Network.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param privateNetworkId The private network identifier.
- * @return ApiPrivateNetworksNetworkIdDeleteRequest
- */
+PrivateNetworksNetworkIdDelete Delete a Private Network.
+
+Delete Private Network.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param privateNetworkId The private network identifier.
+ @return ApiPrivateNetworksNetworkIdDeleteRequest
+*/
 func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdDelete(ctx _context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdDeleteRequest {
 	return ApiPrivateNetworksNetworkIdDeleteRequest{
 		ApiService: a,
@@ -281,9 +284,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdDelete(ctx _context.
 	}
 }
 
-/*
- * Execute executes the request
- */
+// Execute executes the request
 func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdDeleteExecute(r ApiPrivateNetworksNetworkIdDeleteRequest) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
@@ -314,7 +315,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdDeleteExecute(r ApiP
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -404,12 +405,14 @@ func (r ApiPrivateNetworksNetworkIdGetRequest) Execute() (PrivateNetwork, *_neth
 }
 
 /*
- * PrivateNetworksNetworkIdGet Get a Private Network.
- * Retrieve Private Network Details.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param privateNetworkId The private network identifier.
- * @return ApiPrivateNetworksNetworkIdGetRequest
- */
+PrivateNetworksNetworkIdGet Get a Private Network.
+
+Retrieve Private Network Details.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param privateNetworkId The private network identifier.
+ @return ApiPrivateNetworksNetworkIdGetRequest
+*/
 func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGet(ctx _context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdGetRequest {
 	return ApiPrivateNetworksNetworkIdGetRequest{
 		ApiService: a,
@@ -418,10 +421,8 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGet(ctx _context.Con
 	}
 }
 
-/*
- * Execute executes the request
- * @return PrivateNetwork
- */
+// Execute executes the request
+//  @return PrivateNetwork
 func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGetExecute(r ApiPrivateNetworksNetworkIdGetRequest) (PrivateNetwork, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
@@ -453,7 +454,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGetExecute(r ApiPriv
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -557,12 +558,14 @@ func (r ApiPrivateNetworksNetworkIdPutRequest) Execute() (PrivateNetwork, *_neth
 }
 
 /*
- * PrivateNetworksNetworkIdPut Update a Private Network.
- * Update Private Network Details.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param privateNetworkId The private network identifier.
- * @return ApiPrivateNetworksNetworkIdPutRequest
- */
+PrivateNetworksNetworkIdPut Update a Private Network.
+
+Update Private Network Details.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param privateNetworkId The private network identifier.
+ @return ApiPrivateNetworksNetworkIdPutRequest
+*/
 func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPut(ctx _context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdPutRequest {
 	return ApiPrivateNetworksNetworkIdPutRequest{
 		ApiService: a,
@@ -571,10 +574,8 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPut(ctx _context.Con
 	}
 }
 
-/*
- * Execute executes the request
- * @return PrivateNetwork
- */
+// Execute executes the request
+//  @return PrivateNetwork
 func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPutExecute(r ApiPrivateNetworksNetworkIdPutRequest) (PrivateNetwork, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
@@ -606,7 +607,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPutExecute(r ApiPriv
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
@@ -721,11 +722,13 @@ func (r ApiPrivateNetworksPostRequest) Execute() (PrivateNetwork, *_nethttp.Resp
 }
 
 /*
- * PrivateNetworksPost Create a Private Network.
- * Create a Private Network.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiPrivateNetworksPostRequest
- */
+PrivateNetworksPost Create a Private Network.
+
+Create a Private Network.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPrivateNetworksPostRequest
+*/
 func (a *PrivateNetworksApiService) PrivateNetworksPost(ctx _context.Context) ApiPrivateNetworksPostRequest {
 	return ApiPrivateNetworksPostRequest{
 		ApiService: a,
@@ -733,10 +736,8 @@ func (a *PrivateNetworksApiService) PrivateNetworksPost(ctx _context.Context) Ap
 	}
 }
 
-/*
- * Execute executes the request
- * @return PrivateNetwork
- */
+// Execute executes the request
+//  @return PrivateNetwork
 func (a *PrivateNetworksApiService) PrivateNetworksPostExecute(r ApiPrivateNetworksPostRequest) (PrivateNetwork, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
@@ -767,7 +768,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksPostExecute(r ApiPrivateNetwo
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-    localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
     localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
