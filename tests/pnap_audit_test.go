@@ -12,7 +12,9 @@ import (
 	"time"
 )
 
-
+func tearDown() {
+	TestUtilsImpl{}.reset_expectations()
+}
 
 func verify_called_once(t *testing.T, expectationId string) {
 	// Result retrieved from server's verification
@@ -51,26 +53,34 @@ func Test_get_events_all_query_params(t *testing.T) {
     uri:= fmt.Sprintf("%v", qpMap["uri"])
 	
 
+	// Set configuration
 	configuration := auditapi.NewConfiguration()
 	configuration.Host = "127.0.0.1:1080"
 	configuration.Scheme = "http"
+
+	// Set the context background
 	ctx := context.WithValue(context.Background(), "accessToken", "ACCESSTOKENSTRING")
 	ctx = context.WithValue(ctx, "serverIndex", nil)
 
+	// New  ApiClient
     apiClient := auditapi.NewAPIClient(configuration)
 	
+	// Operation Execution
     result, r, err := apiClient.EventsApi.EventsGet(ctx).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()//.From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.EventsGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 
+	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
 	jsonResponseBody, _ := json.Marshal(response.Body)
 
+	// Asserts
 	assert.Equal(t, jsonResult, jsonResponseBody)
+
+	// Verify
 	verify_called_once(t, expectationId)
 
-	TestUtilsImpl{}.reset_expectations()
-	return
+	tearDown()
 }
