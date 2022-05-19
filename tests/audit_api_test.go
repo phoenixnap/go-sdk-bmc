@@ -35,13 +35,13 @@ func (suite *AuditApiTestSuite) SetupTest() {
 // this function executes after all tests executed
 func (suite *AuditApiTestSuite) TearDownTest() {
 	fmt.Println(">>> From TearDownSuite")
-	TestUtilsImpl{}.reset_expectations()
+	TestUtilsImpl{}.resetExpectations()
 }
 
 func verify_called_once(suite *AuditApiTestSuite, expectationId string) {
 	// Result retrieved from server's verification
 	// Verifying expectation matched exactly once.
-	verifyResult := TestUtilsImpl{}.verify_expectation_matched_times(expectationId, 1)
+	verifyResult := TestUtilsImpl{}.verifyExpectationMatchedTimes(expectationId, 1)
 
 	// Asserts a successful result
 	suite.Equal(202, verifyResult.StatusCode)
@@ -50,13 +50,13 @@ func verify_called_once(suite *AuditApiTestSuite, expectationId string) {
 func (suite *AuditApiTestSuite) Test_get_events_all_query_params() {
 
 	// Generate payload
-	request, response := TestUtilsImpl{}.generate_payloads_from("auditapi/events_get", "./payloads")
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("auditapi/events_get", "./payloads")
 
 	// Extract the response expectation id
-	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
 	// Fetch a map of query parameters
-	qpMap := TestUtilsImpl{}.generate_query_params(request)
+	qpMap := TestUtilsImpl{}.generateQueryParams(request)
 
 	// Converting to int32
 	limitstring, ok := qpMap["limit"].(string)
