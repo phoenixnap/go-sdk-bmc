@@ -10,9 +10,11 @@ import (
 
 type TestUtilsImpl struct {
 }
+
 type MyHttpClient interface {
 	Do(*http.Request) (*http.Response, error)
 }
+
 type MyApplicationClient struct {
 	HttpClient MyHttpClient
 }
@@ -22,6 +24,7 @@ func NewApplicationClient(httpClient MyHttpClient) *MyApplicationClient {
 		HttpClient: httpClient,
 	}
 }
+
 func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Response, timesParam int) string {
 	body := Body{
 		HttpRequest:  requestToMock,
@@ -55,6 +58,7 @@ func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Re
 	json.Unmarshal([]byte(bufferString), &result)
 	return result[0]["id"].(string)
 }
+
 func (t TestUtilsImpl) verify_expectation_matched_times(expectationId string, timesIn int) *http.Response {
 	type Times struct {
 		AtLeast int `json:"atMost"`
@@ -88,6 +92,7 @@ func (t TestUtilsImpl) verify_expectation_matched_times(expectationId string, ti
 	defer resp.Body.Close()
 	return resp
 }
+
 func (t TestUtilsImpl) reset_expectations() {
 	req, err := http.NewRequest(http.MethodPut, "http://localhost:1080/mockserver/reset", http.NoBody)
 	if err != nil {
@@ -104,6 +109,7 @@ func (t TestUtilsImpl) reset_expectations() {
 	}
 	log.Println(resp)
 }
+
 func (t TestUtilsImpl) generate_payloads_from(filename string, payloadsPath string) (Request, Response) {
 	if payloadsPath == "" {
 		payloadsPath = "./payloads"
@@ -116,6 +122,7 @@ func (t TestUtilsImpl) generate_payloads_from(filename string, payloadsPath stri
 	json.Unmarshal(file, &payload)
 	return payload.Request, payload.Response
 }
+
 func (t TestUtilsImpl) generate_query_params(request Request) map[string]interface{} {
 	type QueryStringParameter struct {
 		name   string
