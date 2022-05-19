@@ -6,28 +6,47 @@ import (
 	"testing"
 	"context"
 	"encoding/json"
-	"github.com/stretchr/testify/assert"
 	"github.com/phoenixnap/go-sdk-bmc/tagapi"
+	"github.com/stretchr/testify/suite"
 )
 
-func tearDown() {
+type TagApiTestSuite struct {
+	suite.Suite
+	ctx           context.Context
+	configuration *tagapi.Configuration
+}
+
+func (suite *TagApiTestSuite) SetupTest() {
+	// Set configuration
+	suite.configuration = tagapi.NewConfiguration()
+	suite.configuration.Host = "127.0.0.1:1080"
+	suite.configuration.Scheme = "http"
+	// Set the context background
+	suite.ctx = context.WithValue(context.Background(), "accessToken", "ACCESSTOKENSTRING")
+	suite.ctx = context.WithValue(suite.ctx, "serverIndex", nil)
+	fmt.Println(">>> From SetupSuite")
+}
+
+// this function executes after all tests executed
+func (suite *TagApiTestSuite) TearDownTest() {
+	fmt.Println(">>> From TearDownSuite")
 	TestUtilsImpl{}.reset_expectations()
 }
 
-func verify_called_once(t *testing.T, expectationId string) {
+func verify_called_once(suite *TagApiTestSuite, expectationId string) {
 	// Result retrieved from server's verification
 	// Verifying expectation matched exactly once.
 	verifyResult := TestUtilsImpl{}.verify_expectation_matched_times(expectationId, 1)
 
 	// Asserts a successful result
-	assert.Equal(t, 202, verifyResult.StatusCode)
+	suite.Equal(202, verifyResult.StatusCode)
 }
 
-func Test_get_tags(t *testing.T) {
+func (suite *TagApiTestSuite) Test_get_tags() {
+
 	// Generate payload
 	request, response := TestUtilsImpl{}.generate_payloads_from("tagapi/tags_get", "./payloads")
-	request.setPathParams(0)
-
+	
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
 
@@ -36,21 +55,13 @@ func Test_get_tags(t *testing.T) {
 
 	name:= fmt.Sprintf("%v", qpMap["name"])
 
-	configuration := tagapi.NewConfiguration()
-	configuration.Host = "127.0.0.1:1080"
-	configuration.Scheme = "http"
-
-	// Set the context background
-	ctx := context.WithValue(context.Background(), "accessToken", "ACCESSTOKENSTRING")
-	ctx = context.WithValue(ctx, "serverIndex", nil)
-
 	// New  ApiClient
-    apiClient := tagapi.NewAPIClient(configuration)
+    apiClient := tagapi.NewAPIClient(suite.configuration)
 
 	// Operation Execution
-    result, r, err := apiClient.TagsApi.TagsGet(ctx).Name(name).Execute()//.From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
+    result, r, err := apiClient.TagsApi.TagsGet(suite.ctx).Name(name).Execute()//.From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.EventsGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 
@@ -59,10 +70,34 @@ func Test_get_tags(t *testing.T) {
 	jsonResponseBody, _ := json.Marshal(response.Body)
 
 	// Asserts
-	assert.Equal(t, jsonResult, jsonResponseBody)
+	suite.Equal(jsonResult, jsonResponseBody)
 
 	// Verify
-	verify_called_once(t, expectationId)
+	verify_called_once(suite, expectationId)
 
-	tearDown()
+}
+
+func (suite *TagApiTestSuite) Test_create_tags () {
+// Generate payload
+request, response := TestUtilsImpl{}.generate_payloads_from("tagapi/tags_get", "./payloads")
+	
+// Extract the response expectation id
+expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
+
+// New  ApiClient
+apiClient := tagapi.NewAPIClient(suite.configuration)
+byteData := TestUtilsImpl{}.extract_request_body(request)
+var tagCreate tagapi.TagCreate
+json.Unmarshal(byteData, &tagCreate)
+
+// Operation Execution
+result, r, err := apiClient.TagsApi.TagsPost(suite.ctx).TagCreate(tagCreate).Execute()
+if err != nil {
+	fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsPost``: %v\n", err)
+	fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+}
+}
+
+func TestTagApiTestSuite(t *testing.T) {
+	suite.Run(t, new(TagApiTestSuite))
 }
