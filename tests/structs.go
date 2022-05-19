@@ -52,6 +52,7 @@ func NewPayload() Payload {
 		Response: NewResponse(),
 	}
 }
+
 func NewRequest() Request {
 	return Request{
 		Method:                "",
@@ -60,6 +61,7 @@ func NewRequest() Request {
 		QueryStringParameters: make([]QueryParameter, 0),
 	}
 }
+
 func NewResponse() Response {
 	return Response{
 		StatusCode: 0,
