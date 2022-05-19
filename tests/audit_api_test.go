@@ -10,24 +10,47 @@ import (
 	"time"
 
 	"github.com/phoenixnap/go-sdk-bmc/auditapi"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
 )
 
 func tearDown() {
+
+}
+
+type AuditApiTestSuite struct {
+	suite.Suite
+	ctx           context.Context
+	configuration *auditapi.Configuration
+}
+
+func (suite *AuditApiTestSuite) SetupSuite() {
+	// Set configuration
+	suite.configuration = auditapi.NewConfiguration()
+	suite.configuration.Host = "127.0.0.1:1080"
+	suite.configuration.Scheme = "http"
+	// Set the context background
+	suite.ctx = context.WithValue(context.Background(), "accessToken", "ACCESSTOKENSTRING")
+	suite.ctx = context.WithValue(suite.ctx, "serverIndex", nil)
+	fmt.Println(">>> From SetupSuite")
+}
+
+// this function executes after all tests executed
+func (suite *AuditApiTestSuite) TearDownSuite() {
+	fmt.Println(">>> From TearDownSuite")
 	TestUtilsImpl{}.reset_expectations()
 }
 
-func verify_called_once(t *testing.T, expectationId string) {
+func verify_called_once(suite *AuditApiTestSuite, expectationId string) {
 	// Result retrieved from server's verification
 	// Verifying expectation matched exactly once.
 	verifyResult := TestUtilsImpl{}.verify_expectation_matched_times(expectationId, 1)
 
 	// Asserts a successful result
-	assert.Equal(t, 202, verifyResult.StatusCode)
+	suite.Equal(202, verifyResult.StatusCode)
 }
 
-func Test_get_events_all_query_params(t *testing.T) {
-
+func (suite *AuditApiTestSuite) Test_get_events_all_query_params() {
+	defer tearDown()
 	// Generate payload
 	request, response := TestUtilsImpl{}.generate_payloads_from("auditapi/events_get", "./payloads")
 	request.setPathParams(0)
@@ -53,20 +76,11 @@ func Test_get_events_all_query_params(t *testing.T) {
 	verb := fmt.Sprintf("%v", qpMap["verb"])         // string | The HTTP verb corresponding to the action. (optional)
 	uri := fmt.Sprintf("%v", qpMap["uri"])
 
-	// Set configuration
-	configuration := auditapi.NewConfiguration()
-	configuration.Host = "127.0.0.1:1080"
-	configuration.Scheme = "http"
-
-	// Set the context background
-	ctx := context.WithValue(context.Background(), "accessToken", "ACCESSTOKENSTRING")
-	ctx = context.WithValue(ctx, "serverIndex", nil)
-
 	// New  ApiClient
-	apiClient := auditapi.NewAPIClient(configuration)
+	apiClient := auditapi.NewAPIClient(suite.configuration)
 
 	// Operation Execution
-	result, r, err := apiClient.EventsApi.EventsGet(ctx).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute() //.From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
+	result, r, err := apiClient.EventsApi.EventsGet(suite.ctx).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute() //.From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.EventsGet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -77,10 +91,12 @@ func Test_get_events_all_query_params(t *testing.T) {
 	jsonResponseBody, _ := json.Marshal(response.Body)
 
 	// Asserts
-	assert.Equal(t, jsonResult, jsonResponseBody)
+	suite.Equal(jsonResult, jsonResponseBody)
 
 	// Verify
-	verify_called_once(t, expectationId)
+	verify_called_once(suite, expectationId)
+}
 
-	tearDown()
+func TestAuditApiTestSuite(t *testing.T) {
+	suite.Run(t, new(AuditApiTestSuite))
 }
