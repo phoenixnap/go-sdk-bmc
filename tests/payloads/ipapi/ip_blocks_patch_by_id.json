@@ -23,7 +23,9 @@
             "status" : "ASSIGNED",
             "assignedResourceId" : "fakeId",
             "assignedResourceType" : "fakeType",
-            "description" : "fakeDescription"
+            "description" : "fakeDescription",
+            "createdOn" : "2021-04-27T16:24:57Z",
+            "isBringYourOwn" : false
         }
     }
 }

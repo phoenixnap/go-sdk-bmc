@@ -52,6 +52,9 @@ func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Re
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Fatal(err)
+	} else if resp.StatusCode >= 400 {
+		body, _ := ioutil.ReadAll(resp.Body)
+		log.Fatal(string(body))
 	}
 
 	defer resp.Body.Close()
@@ -125,12 +128,10 @@ func (t TestUtilsImpl) reset_expectations() {
 		log.Fatal(err)
 	}
 
-	resp, err := client.Do(req)
+	_, err = client.Do(req)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	log.Println(resp)
 }
 
 func (t TestUtilsImpl) generate_payloads_from(filename string, payloadsPath string) (Request, Response) {
