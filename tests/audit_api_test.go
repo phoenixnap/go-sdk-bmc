@@ -1,15 +1,16 @@
 package tests
 
 import (
-	"fmt"
-	"github.com/phoenixnap/go-sdk-bmc/auditapi"
-	"testing"
 	"context"
-	"github.com/stretchr/testify/assert"
-	"os"
 	"encoding/json"
+	"fmt"
+	"os"
 	"strconv"
+	"testing"
 	"time"
+
+	"github.com/phoenixnap/go-sdk-bmc/auditapi"
+	"github.com/stretchr/testify/assert"
 )
 
 func tearDown() {
@@ -40,18 +41,17 @@ func Test_get_events_all_query_params(t *testing.T) {
 	// Converting to int32
 	limitstring, ok := qpMap["limit"].(string)
 	if !ok {
-        panic(ok)
-    }
+		panic(ok)
+	}
 
-	from,_ := time.Parse(time.RFC3339, request.QueryStringParameters[0].Values[0]) // time.Time | From the date and time (inclusive) to filter event log records by. (optional)
-    to, _:= time.Parse(time.RFC3339, request.QueryStringParameters[1].Values[0]) // time.Time | To the date and time (inclusive) to filter event log records by. (optional)
+	from, _ := time.Parse(time.RFC3339, request.QueryStringParameters[0].Values[0]) // time.Time | From the date and time (inclusive) to filter event log records by. (optional)
+	to, _ := time.Parse(time.RFC3339, request.QueryStringParameters[1].Values[0])   // time.Time | To the date and time (inclusive) to filter event log records by. (optional)
 	limit64, _ := strconv.ParseInt(limitstring, 10, 32)
-	limit := int32(limit64) // int32 | Limit the number of records returned. (optional)
-    order:= fmt.Sprintf("%v", qpMap["order"]) // string | Ordering of the event's time. SortBy can be introduced later on. (optional) (default to "ASC")
-    username:= fmt.Sprintf("%v", qpMap["username"]) // string | The username that did the actions. (optional)
-    verb := fmt.Sprintf("%v", qpMap["verb"]) // string | The HTTP verb corresponding to the action. (optional)
-    uri:= fmt.Sprintf("%v", qpMap["uri"])
-	
+	limit := int32(limit64)                          // int32 | Limit the number of records returned. (optional)
+	order := fmt.Sprintf("%v", qpMap["order"])       // string | Ordering of the event's time. SortBy can be introduced later on. (optional) (default to "ASC")
+	username := fmt.Sprintf("%v", qpMap["username"]) // string | The username that did the actions. (optional)
+	verb := fmt.Sprintf("%v", qpMap["verb"])         // string | The HTTP verb corresponding to the action. (optional)
+	uri := fmt.Sprintf("%v", qpMap["uri"])
 
 	// Set configuration
 	configuration := auditapi.NewConfiguration()
@@ -63,14 +63,14 @@ func Test_get_events_all_query_params(t *testing.T) {
 	ctx = context.WithValue(ctx, "serverIndex", nil)
 
 	// New  ApiClient
-    apiClient := auditapi.NewAPIClient(configuration)
-	
+	apiClient := auditapi.NewAPIClient(configuration)
+
 	// Operation Execution
-    result, r, err := apiClient.EventsApi.EventsGet(ctx).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()//.From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.EventsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	result, r, err := apiClient.EventsApi.EventsGet(ctx).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute() //.From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.EventsGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
