@@ -170,7 +170,7 @@ func (t TestUtilsImpl) generate_query_params(request Request) map[string]interfa
 }
 
 func (t TestUtilsImpl) extract_request_body(request Request) ([]byte) {
-	byteData, _ := json.Marshal(request.Body)
+	byteData, _ := json.Marshal(request.Body.Json)
 
 	return byteData
 }

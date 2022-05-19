@@ -1,11 +1,12 @@
 package tests
 
 import (
-	"os"
-	"fmt"
-	"testing"
 	"context"
 	"encoding/json"
+	"fmt"
+	"os"
+	"testing"
+
 	"github.com/phoenixnap/go-sdk-bmc/tagapi"
 	"github.com/stretchr/testify/suite"
 )
@@ -14,6 +15,7 @@ type TagApiTestSuite struct {
 	suite.Suite
 	ctx           context.Context
 	configuration *tagapi.Configuration
+	apiClient     *tagapi.APIClient
 }
 
 func (suite *TagApiTestSuite) SetupTest() {
@@ -25,12 +27,13 @@ func (suite *TagApiTestSuite) SetupTest() {
 	suite.ctx = context.WithValue(context.Background(), "accessToken", "ACCESSTOKENSTRING")
 	suite.ctx = context.WithValue(suite.ctx, "serverIndex", nil)
 	fmt.Println(">>> From SetupSuite")
+	suite.apiClient = tagapi.NewAPIClient(suite.configuration)
 }
 
 // this function executes after all tests executed
 func (suite *TagApiTestSuite) TearDownTest() {
 	fmt.Println(">>> From TearDownSuite")
-	TestUtilsImpl{}.reset_expectations()
+	defer TestUtilsImpl{}.reset_expectations()
 }
 
 func verify_called_once(suite *TagApiTestSuite, expectationId string) {
@@ -46,24 +49,21 @@ func (suite *TagApiTestSuite) Test_get_tags() {
 
 	// Generate payload
 	request, response := TestUtilsImpl{}.generate_payloads_from("tagapi/tags_get", "./payloads")
-	
+
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
 
 	// Fetch a map of query parameters
 	qpMap := TestUtilsImpl{}.generate_query_params(request)
 
-	name:= fmt.Sprintf("%v", qpMap["name"])
-
-	// New  ApiClient
-    apiClient := tagapi.NewAPIClient(suite.configuration)
+	name := fmt.Sprintf("%v", qpMap["name"])
 
 	// Operation Execution
-    result, r, err := apiClient.TagsApi.TagsGet(suite.ctx).Name(name).Execute()//.From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	result, r, err := suite.apiClient.TagsApi.TagsGet(suite.ctx).Name(name).Execute() //.From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -77,26 +77,35 @@ func (suite *TagApiTestSuite) Test_get_tags() {
 
 }
 
-func (suite *TagApiTestSuite) Test_create_tags () {
-// Generate payload
-request, response := TestUtilsImpl{}.generate_payloads_from("tagapi/tags_get", "./payloads")
-	
-// Extract the response expectation id
-expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
+func (suite *TagApiTestSuite) Test_create_tags() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generate_payloads_from("tagapi/tags_post", "./payloads")
 
-// New  ApiClient
-apiClient := tagapi.NewAPIClient(suite.configuration)
-byteData := TestUtilsImpl{}.extract_request_body(request)
-var tagCreate tagapi.TagCreate
-json.Unmarshal(byteData, &tagCreate)
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
 
-// Operation Execution
-result, r, err := apiClient.TagsApi.TagsPost(suite.ctx).TagCreate(tagCreate).Execute()
-if err != nil {
-	fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsPost``: %v\n", err)
-	fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	byteData := TestUtilsImpl{}.extract_request_body(request)
+	var tagCreate tagapi.TagCreate
+	json.Unmarshal(byteData, &tagCreate)
+
+	// Operation Execution
+	result, r, err := suite.apiClient.TagsApi.TagsPost(suite.ctx).TagCreate(tagCreate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	suite.Equal(jsonResult, jsonResponseBody)
+
+	// Verify
+	verify_called_once(suite, expectationId)
 }
-}
+
+
 
 func TestTagApiTestSuite(t *testing.T) {
 	suite.Run(t, new(TagApiTestSuite))
