@@ -13,10 +13,6 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-func tearDown() {
-
-}
-
 type AuditApiTestSuite struct {
 	suite.Suite
 	ctx           context.Context
@@ -50,7 +46,7 @@ func verify_called_once(suite *AuditApiTestSuite, expectationId string) {
 }
 
 func (suite *AuditApiTestSuite) Test_get_events_all_query_params() {
-	defer tearDown()
+
 	// Generate payload
 	request, response := TestUtilsImpl{}.generate_payloads_from("auditapi/events_get", "./payloads")
 	request.setPathParams(0)
