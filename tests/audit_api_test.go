@@ -17,9 +17,10 @@ type AuditApiTestSuite struct {
 	suite.Suite
 	ctx           context.Context
 	configuration *auditapi.Configuration
+	apiClient     *auditapi.APIClient
 }
 
-func (suite *AuditApiTestSuite) SetupSuite() {
+func (suite *AuditApiTestSuite) SetupTest() {
 	// Set configuration
 	suite.configuration = auditapi.NewConfiguration()
 	suite.configuration.Host = "127.0.0.1:1080"
@@ -28,10 +29,11 @@ func (suite *AuditApiTestSuite) SetupSuite() {
 	suite.ctx = context.WithValue(context.Background(), "accessToken", "ACCESSTOKENSTRING")
 	suite.ctx = context.WithValue(suite.ctx, "serverIndex", nil)
 	fmt.Println(">>> From SetupSuite")
+	suite.apiClient = auditapi.NewAPIClient(suite.configuration)
 }
 
 // this function executes after all tests executed
-func (suite *AuditApiTestSuite) TearDownSuite() {
+func (suite *AuditApiTestSuite) TearDownTest() {
 	fmt.Println(">>> From TearDownSuite")
 	TestUtilsImpl{}.reset_expectations()
 }
@@ -71,11 +73,8 @@ func (suite *AuditApiTestSuite) Test_get_events_all_query_params() {
 	verb := fmt.Sprintf("%v", qpMap["verb"])         // string | The HTTP verb corresponding to the action. (optional)
 	uri := fmt.Sprintf("%v", qpMap["uri"])
 
-	// New  ApiClient
-	apiClient := auditapi.NewAPIClient(suite.configuration)
-
 	// Operation Execution
-	result, r, err := apiClient.EventsApi.EventsGet(suite.ctx).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
+	result, r, err := suite.apiClient.EventsApi.EventsGet(suite.ctx).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.EventsGet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
