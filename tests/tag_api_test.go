@@ -33,13 +33,13 @@ func (suite *TagApiTestSuite) SetupTest() {
 // this function executes after all tests executed
 func (suite *TagApiTestSuite) TearDownTest() {
 	fmt.Println(">>> From TearDownSuite")
-	defer TestUtilsImpl{}.reset_expectations()
+	defer TestUtilsImpl{}.resetExpectations()
 }
 
-func verify_called_once(suite *TagApiTestSuite, expectationId string) {
+func verifyCalledOnce(suite *TagApiTestSuite, expectationId string) {
 	// Result retrieved from server's verification
 	// Verifying expectation matched exactly once.
-	verifyResult := TestUtilsImpl{}.verify_expectation_matched_times(expectationId, 1)
+	verifyResult := TestUtilsImpl{}.verifyExpectationMatchedTimes(expectationId, 1)
 
 	// Asserts a successful result
 	suite.Equal(202, verifyResult.StatusCode)
@@ -48,13 +48,13 @@ func verify_called_once(suite *TagApiTestSuite, expectationId string) {
 func (suite *TagApiTestSuite) Test_get_tags() {
 
 	// Generate payload
-	request, response := TestUtilsImpl{}.generate_payloads_from("tagapi/tags_get", "./payloads")
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("tagapi/tags_get", "./payloads")
 
 	// Extract the response expectation id
-	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
 	// Fetch a map of query parameters
-	qpMap := TestUtilsImpl{}.generate_query_params(request)
+	qpMap := TestUtilsImpl{}.generateQueryParams(request)
 
 	name := fmt.Sprintf("%v", qpMap["name"])
 
@@ -73,18 +73,18 @@ func (suite *TagApiTestSuite) Test_get_tags() {
 	suite.Equal(jsonResult, jsonResponseBody)
 
 	// Verify
-	verify_called_once(suite, expectationId)
+	verifyCalledOnce(suite, expectationId)
 
 }
 
 func (suite *TagApiTestSuite) Test_create_tags() {
 	// Generate payload
-	request, response := TestUtilsImpl{}.generate_payloads_from("tagapi/tags_post", "./payloads")
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("tagapi/tags_post", "./payloads")
 
 	// Extract the response expectation id
-	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
-	byteData := TestUtilsImpl{}.extract_request_body(request)
+	byteData := TestUtilsImpl{}.extractRequestBody(request)
 	var tagCreate tagapi.TagCreate
 	json.Unmarshal(byteData, &tagCreate)
 
@@ -102,7 +102,7 @@ func (suite *TagApiTestSuite) Test_create_tags() {
 	suite.Equal(jsonResult, jsonResponseBody)
 
 	// Verify
-	verify_called_once(suite, expectationId)
+	verifyCalledOnce(suite, expectationId)
 }
 
 
