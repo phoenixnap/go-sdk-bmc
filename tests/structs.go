@@ -3,8 +3,9 @@ package tests
 type Request struct {
 	Method                string           `json:"method"`
 	Path                  string           `json:"path"`
-	PathParameters        PathParameters   `json:"pathParameters"`
-	QueryStringParameters []QueryParameter `json:"queryStringParameters"`
+	PathParameters        PathParameters   `json:"pathParameters.omitempty"`
+	QueryStringParameters []QueryParameter `json:"queryStringParameters.omitempty"`
+	Body                  *ResponseBody    `json:"body.omitempty"`
 }
 
 type Response struct {
