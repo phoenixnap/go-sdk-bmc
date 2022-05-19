@@ -49,7 +49,6 @@ func (suite *AuditApiTestSuite) Test_get_events_all_query_params() {
 
 	// Generate payload
 	request, response := TestUtilsImpl{}.generate_payloads_from("auditapi/events_get", "./payloads")
-	request.setPathParams(0)
 
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
