@@ -38,7 +38,7 @@ func (suite *AuditApiTestSuite) TearDownTest() {
 	TestUtilsImpl{}.resetExpectations()
 }
 
-func verify_called_once(suite *AuditApiTestSuite, expectationId string) {
+func verifyCalledOnce(suite *AuditApiTestSuite, expectationId string) {
 	// Result retrieved from server's verification
 	// Verifying expectation matched exactly once.
 	verifyResult := TestUtilsImpl{}.verifyExpectationMatchedTimes(expectationId, 1)
@@ -88,7 +88,7 @@ func (suite *AuditApiTestSuite) Test_get_events_all_query_params() {
 	suite.Equal(jsonResult, jsonResponseBody)
 
 	// Verify
-	verify_called_once(suite, expectationId)
+	verifyCalledOnce(suite, expectationId)
 }
 
 func TestAuditApiTestSuite(t *testing.T) {
