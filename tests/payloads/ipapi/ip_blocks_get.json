@@ -1,0 +1,21 @@
+{
+    "request": {
+        "method": "GET",
+        "path": "/ips/v1/ip-blocks"
+    },
+    "response": {
+        "statusCode": 200,
+        "body": [
+            {
+                "id" : "fakeId",
+                "location" : "PHX",
+                "cidrBlockSize" : "/31",
+                "cidr" : "1.1.1.0/28",
+                "status" : "ASSIGNED",
+                "assignedResourceId" : "fakeId",
+                "assignedResourceType" : "fakeType",
+                "description" : "fakeDescription"
+            }
+        ]
+    }
+}

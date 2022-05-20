@@ -1,0 +1,29 @@
+{
+    "request": {
+        "method": "PATCH",
+        "path": "/ips/v1/ip-blocks/{id}",
+        "pathParameters": {
+            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"]
+        },
+        "body": {
+            "type": "JSON",
+            "json": {
+                "description": "Ip Block description"
+            },
+            "matchType": "STRICT"
+        }
+    },
+    "response": {
+        "statusCode": 200,
+        "body": {
+            "id" : "fakeId",
+            "location" : "PHX",
+            "cidrBlockSize" : "/31",
+            "cidr" : "1.1.1.0/28",
+            "status" : "ASSIGNED",
+            "assignedResourceId" : "fakeId",
+            "assignedResourceType" : "fakeType",
+            "description" : "fakeDescription"
+        }
+    }
+}
