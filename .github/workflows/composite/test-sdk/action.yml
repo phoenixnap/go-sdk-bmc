@@ -1,9 +1,6 @@
 name: 'Test SDK'
 description: 'Test SDK using a given test file.'
 inputs:
-  module-name: 
-    description: 'Name of the module to lint.'
-    required: true
   test-report-dir:
     description: 'The location of the test reports'
     required: true
@@ -21,7 +18,7 @@ runs:
       shell: bash
       run: |
         cd tests
-        cd ${{ inputs.module-name }} && go test -v 2>&1 ./... | go-junit-report -set-exit-code > result.xml
+        go test -v 2>&1 ./... | go-junit-report -set-exit-code > result.xml
     - name: Upload Test Results
       if: always()
       uses: actions/upload-artifact@v2

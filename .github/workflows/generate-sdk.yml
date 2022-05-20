@@ -281,4 +281,4 @@ jobs:
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
         with:
-          module-name: tests
+          module-name: testReports
