@@ -1,0 +1,30 @@
+name: 'Test SDK'
+description: 'Test SDK using a given test file.'
+inputs:
+  module-name: 
+    description: 'Name of the module to lint.'
+    required: true
+  test-report-dir:
+    description: 'The location of the test reports'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Install golang
+      shell: bash
+      run: sudo apt-get install golang-go
+    - name: Install go-junit-report
+      shell: bash
+      run: |
+        go install github.com/jstemmer/go-junit-report@latest
+    - name: Run tests
+      shell: bash
+      run: |
+        cd tests
+        cd ${{ inputs.module-name }} && go test -v 2>&1 ./... | go-junit-report -set-exit-code > result.xml
+    - name: Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: Test Results
+        path: '${{ inputs.test-report-dir }}/*' 
