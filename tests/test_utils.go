@@ -25,7 +25,7 @@ func NewApplicationClient(httpClient MyHttpClient) *MyApplicationClient {
 	}
 }
 
-func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Response, timesParam int) string {
+func (t TestUtilsImpl) setupExpectation(requestToMock Request, responseToGet Response, timesParam int) string {
 
 	body := Body{
 		HttpRequest:  requestToMock,
@@ -72,7 +72,7 @@ func (t TestUtilsImpl) setup_expectation(requestToMock Request, responseToGet Re
 	return result[0]["id"].(string)
 }
 
-func (t TestUtilsImpl) verify_expectation_matched_times(expectationId string, timesIn int) *http.Response {
+func (t TestUtilsImpl) verifyExpectationMatchedTimes(expectationId string, timesIn int) *http.Response {
 
 	type Times struct {
 		AtLeast int `json:"atMost"`
@@ -112,9 +112,10 @@ func (t TestUtilsImpl) verify_expectation_matched_times(expectationId string, ti
 	defer resp.Body.Close()
 
 	return resp
+
 }
 
-func (t TestUtilsImpl) reset_expectations() {
+func (t TestUtilsImpl) resetExpectations() {
 
 	req, err := http.NewRequest(http.MethodPut, "http://localhost:1080/mockserver/reset", http.NoBody)
 
@@ -134,7 +135,7 @@ func (t TestUtilsImpl) reset_expectations() {
 	}
 }
 
-func (t TestUtilsImpl) generate_payloads_from(filename string, payloadsPath string) (Request, Response) {
+func (t TestUtilsImpl) generatePayloadsFrom(filename string, payloadsPath string) (Request, Response) {
 
 	if payloadsPath == "" {
 		payloadsPath = "./payloads"
@@ -152,7 +153,7 @@ func (t TestUtilsImpl) generate_payloads_from(filename string, payloadsPath stri
 	return payload.Request, payload.Response
 }
 
-func (t TestUtilsImpl) generate_query_params(request Request) map[string]interface{} {
+func (t TestUtilsImpl) generateQueryParams(request Request) map[string]interface{} {
 	type QueryStringParameter struct {
 		name   string
 		values []string
