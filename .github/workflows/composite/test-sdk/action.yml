@@ -1,9 +1,5 @@
 name: 'Test SDK'
 description: 'Test SDK using a given test file.'
-inputs:
-  test-report-dir:
-    description: 'The location of the test reports'
-    required: true
 runs:
   using: "composite"
   steps:
@@ -23,10 +19,4 @@ runs:
         go get github.com/golang/mock/mockgen@v1.6.0
         go get github.com/jstemmer/go-junit-report@latest
         go generate ./...
-        go test -v ./... | go-junit-report -set-exit-code > report.xml     
-    - name: Upload Test Results
-      if: always()
-      uses: actions/upload-artifact@v2
-      with:
-        name: Test Results
-        path: '${{ inputs.test-report-dir }}/*' 
+        go test -v ./... | go-junit-report -set-exit-code
