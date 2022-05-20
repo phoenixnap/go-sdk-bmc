@@ -18,7 +18,12 @@ runs:
       shell: bash
       run: |
         cd tests
-        go get github.com/jstemmer/go-junit-report | go test -v 2>&1 ./... | go-junit-report -set-exit-code > result.xml
+        export GOPATH="$HOME/go/"
+        export PATH=$PATH:$GOPATH/bin
+        go install github.com/golang/mock/mockgen@v1.6.0
+        go install github.com/jstemmer/go-junit-report@latest
+        go generate ./...
+        go test -v ./... | go-junit-report -set-exit-code > report.xml     
     - name: Upload Test Results
       if: always()
       uses: actions/upload-artifact@v2
