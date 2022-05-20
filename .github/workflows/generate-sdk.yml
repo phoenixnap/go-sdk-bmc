@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - develop
+      - 'release/**'
   schedule:
     - cron: '15 */4 * * *'
 
