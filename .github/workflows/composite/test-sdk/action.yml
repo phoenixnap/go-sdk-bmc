@@ -13,13 +13,12 @@ runs:
     - name: Install go-junit-report
       shell: bash
       run: |
-        go get github.com/jstemmer/go-junit-report@latest
+        go get github.com/jstemmer/go-junit-report
     - name: Run tests
       shell: bash
       run: |
         cd tests
-        go get github.com/jstemmer/go-junit-report@latest
-        go test -v 2>&1 ./... | go-junit-report -set-exit-code > result.xml
+        go get github.com/jstemmer/go-junit-report | go test -v 2>&1 ./... | go-junit-report -set-exit-code > result.xml
     - name: Upload Test Results
       if: always()
       uses: actions/upload-artifact@v2
