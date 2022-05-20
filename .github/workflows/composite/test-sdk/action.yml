@@ -16,7 +16,7 @@ runs:
     - name: Install go-junit-report
       shell: bash
       run: |
-        go install github.com/jstemmer/go-junit-report@latest
+        go get github.com/jstemmer/go-junit-report@latest
     - name: Run tests
       shell: bash
       run: |
