@@ -18,6 +18,7 @@ runs:
       shell: bash
       run: |
         cd tests
+        go get github.com/jstemmer/go-junit-report@latest
         go test -v 2>&1 ./... | go-junit-report -set-exit-code > result.xml
     - name: Upload Test Results
       if: always()
