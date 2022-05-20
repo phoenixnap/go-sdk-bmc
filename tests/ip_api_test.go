@@ -153,7 +153,36 @@ func (suite *IpApiTestSuite) TestPatchIpBlocksById() {
 	json.Unmarshal(body, &ipBlockPatch)
 
 	// Operation Execution
-	result, _, _ := suite.Client.IPBlocksApi.IpBlocksIpBlockIdPatch(context.Background(), ipBlockId).IpBlockPatch(ipBlockPatch).Execute()
+	result, _, _ := suite.Client.IPBlocksApi.IpBlocksIpBlockIdPatch(suite.Ctx, ipBlockId).IpBlockPatch(ipBlockPatch).Execute()
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	// Asserts
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
+
+	// Verify
+	suite.VerifyCalledOnce(expectationId)
+}
+
+func (suite *IpApiTestSuite) TestPutTagsIpBlocksById() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generate_payloads_from("ipapi/ip_blocks_put_tags_by_id", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
+
+	// Extract the ipBlockId
+	ipBlockId := request.PathParameters["id"][0]
+
+	// Prepare request body
+	body, _ := json.Marshal(request.Body.Json)
+	var tagAssignmentRequest []ipapi.TagAssignmentRequest
+	json.Unmarshal(body, &tagAssignmentRequest)
+
+	// Operation Execution
+	result, _, _ := suite.Client.IPBlocksApi.IpBlocksIpBlockIdTagsPut(suite.Ctx, ipBlockId).TagAssignmentRequest(tagAssignmentRequest).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
