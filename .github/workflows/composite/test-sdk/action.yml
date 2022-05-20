@@ -6,15 +6,11 @@ runs:
     - name: Install golang
       shell: bash
       run: sudo apt-get install golang-go
-    - name: Install go-junit-report
-      shell: bash
-      run: |
-        go get github.com/jstemmer/go-junit-report
     - name: Run tests
       shell: bash
       run: |
         cd tests
         export GOPATH="$HOME/go/"
         export PATH=$PATH:$GOPATH/bin
-        go get github.com/jstemmer/go-junit-report@latest
+        go install github.com/jstemmer/go-junit-report
         go test -v ./... | go-junit-report
