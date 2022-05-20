@@ -10,4 +10,7 @@ runs:
       shell: bash
       run: |
         cd tests
-        go test -v
+        export GOPATH="$HOME/go/"
+        export PATH=$PATH:$GOPATH/bin
+        go install github.com/jstemmer/go-junit-report
+        go test -v ./... | go-junit-report -set-exit-code > report.xml
