@@ -105,7 +105,90 @@ func (suite *TagApiTestSuite) Test_create_tags() {
 	verifyCalledOnce(suite, expectationId)
 }
 
+func (suite *TagApiTestSuite) TestGetTagById() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("tagapi/tags_get_by_id", "./payloads")
 
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	tagId := TestUtilsImpl{}.extractIdFrom(request)
+
+	// Operation Execution
+	result, r, err := suite.apiClient.TagsApi.TagsTagIdGet(suite.ctx, tagId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	suite.Equal(jsonResult, jsonResponseBody)
+
+	// Verify
+	verifyCalledOnce(suite, expectationId)
+}
+
+func (suite *TagApiTestSuite) TestPatchTagById() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("tagapi/tags_patch_by_id", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	byteData := TestUtilsImpl{}.extractRequestBody(request)
+	var tagUpdate tagapi.TagUpdate
+	json.Unmarshal(byteData, &tagUpdate)
+
+	tagId := TestUtilsImpl{}.extractIdFrom(request)
+
+	// Operation Execution
+	result, r, err := suite.apiClient.TagsApi.TagsTagIdPatch(suite.ctx, tagId).TagUpdate(tagUpdate).Execute()
+
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	suite.Equal(jsonResult, jsonResponseBody)
+
+	// Verify
+	verifyCalledOnce(suite, expectationId)
+}
+
+func (suite *TagApiTestSuite) TestDeleteTagById() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("tagapi/tags_delete_by_id", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	tagId := TestUtilsImpl{}.extractIdFrom(request)
+
+	// Operation Execution
+	result, r, err := suite.apiClient.TagsApi.TagsTagIdDelete(suite.ctx, tagId).Execute()
+
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	suite.Equal(jsonResult, jsonResponseBody)
+
+	// Verify
+	verifyCalledOnce(suite, expectationId)
+
+}
 
 func TestTagApiTestSuite(t *testing.T) {
 	suite.Run(t, new(TagApiTestSuite))
