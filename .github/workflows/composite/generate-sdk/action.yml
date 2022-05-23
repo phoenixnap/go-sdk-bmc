@@ -1,6 +1,9 @@
 name: 'Generate SDK'
 description: 'Generate SDK for a given API'
 inputs:
+  spec-link: 
+    description: 'Link to the spec file.'
+    required: true
   package-name:
     description: 'Name of the go module.'
     required: true
