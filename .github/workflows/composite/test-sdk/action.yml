@@ -6,14 +6,16 @@ runs:
     - name: Install golang
       shell: bash
       run: sudo apt-get install golang-go
-    - name: Run tests
+    - name: Install go-junit-report
       shell: bash
       run: |
         cd tests
         export GOPATH="$HOME/go/"
         export PATH=$PATH:$GOPATH/bin
         go install github.com/jstemmer/go-junit-report
-        go test -v -run TestAuditApiTestSuite | go-junit-report -set-exit-code > report.xml
+    - name: Run tests
+      shell: bash
+      run: go test -v -run TestAuditApiTestSuite | go-junit-report -set-exit-code > report.xml
     - name: Upload Test Results
       if: always()
       uses: actions/upload-artifact@v2
