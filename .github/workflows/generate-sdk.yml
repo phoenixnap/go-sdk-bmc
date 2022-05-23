@@ -70,7 +70,7 @@ jobs:
   push-changes:
     name: Push Changes
     runs-on: ubuntu-latest
-    if: startsWith(github.head_ref, 'release') == false && github.head_ref != 'master'  && github.event.pull_request.head.repo.full_name == 'phoenixnap/go-sdk-bmc'
+    if: startsWith(github.head_ref, 'release') == false && startsWith(github.base_ref, 'release') == false && github.head_ref != 'master' && github.base_ref != 'master' && github.event.pull_request.head.repo.full_name == 'phoenixnap/go-sdk-bmc'
     needs:
       - generate-bmcapi
       - generate-rancherapi
@@ -89,6 +89,7 @@ jobs:
         uses: actions/download-artifact@v2
       - name: Add and Commit files
         run: |
+          echo ${{ github.head_ref }}
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add -A
