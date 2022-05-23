@@ -45,7 +45,7 @@ func verifyCalledOnce(suite *TagApiTestSuite, expectationId string) {
 	suite.Equal(202, verifyResult.StatusCode)
 }
 
-func (suite *TagApiTestSuite) Test_get_tags() {
+func (suite *TagApiTestSuite) TestGetTags() {
 
 	// Generate payload
 	request, response := TestUtilsImpl{}.generatePayloadsFrom("tagapi/tags_get", "./payloads")
@@ -77,7 +77,7 @@ func (suite *TagApiTestSuite) Test_get_tags() {
 
 }
 
-func (suite *TagApiTestSuite) Test_create_tags() {
+func (suite *TagApiTestSuite) TestCreateTags() {
 	// Generate payload
 	request, response := TestUtilsImpl{}.generatePayloadsFrom("tagapi/tags_post", "./payloads")
 
