@@ -89,7 +89,6 @@ jobs:
         uses: actions/download-artifact@v2
       - name: Add and Commit files
         run: |
-          echo ${{ github.head_ref }}
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add -A
@@ -266,7 +265,6 @@ jobs:
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestAuditApiTestSuite
-
   test-ipapi:
     name: Test IP API
     runs-on: ubuntu-latest
