@@ -18,6 +18,7 @@ type TagApiTestSuite struct {
 	apiClient     *tagapi.APIClient
 }
 
+// executes before each test
 func (suite *TagApiTestSuite) SetupTest() {
 	// Set configuration
 	suite.configuration = tagapi.NewConfiguration()
@@ -30,7 +31,7 @@ func (suite *TagApiTestSuite) SetupTest() {
 	suite.apiClient = tagapi.NewAPIClient(suite.configuration)
 }
 
-// this function executes after all tests executed
+// this function executes after each test
 func (suite *TagApiTestSuite) TearDownTest() {
 	fmt.Println(">>> From TearDownSuite")
 	defer TestUtilsImpl{}.resetExpectations()
@@ -59,7 +60,7 @@ func (suite *TagApiTestSuite) TestGetTags() {
 	name := fmt.Sprintf("%v", qpMap["name"])
 
 	// Operation Execution
-	result, r, err := suite.apiClient.TagsApi.TagsGet(suite.ctx).Name(name).Execute() //.From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
+	result, r, err := suite.apiClient.TagsApi.TagsGet(suite.ctx).Name(name).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsGet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
