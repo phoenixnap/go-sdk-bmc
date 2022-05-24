@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - develop
+      - 'release/**'
   schedule:
     - cron: '15 */4 * * *'
 
@@ -69,7 +70,7 @@ jobs:
   push-changes:
     name: Push Changes
     runs-on: ubuntu-latest
-    if: startsWith(github.head_ref, 'release') == false && github.head_ref != 'master'  && github.event.pull_request.head.repo.full_name == 'phoenixnap/go-sdk-bmc'
+    if: startsWith(github.head_ref, 'release') == false && startsWith(github.base_ref, 'release') == false && github.head_ref != 'master' && github.base_ref != 'master' && github.event.pull_request.head.repo.full_name == 'phoenixnap/go-sdk-bmc'
     needs:
       - generate-bmcapi
       - generate-rancherapi
@@ -247,6 +248,24 @@ jobs:
         with:
           module-name: tagapi
 
+  test-auditapi:
+    name: Test Audit API
+    runs-on: ubuntu-latest
+    needs:
+      - lint-auditapi
+    services:
+      mockserver:
+        image: mockserver/mockserver:5.13.0
+        ports:
+          - 1080:1080
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+      - uses: ./.github/workflows/composite/test-sdk
+        with:
+          test-suite: TestAuditApiTestSuite
+
   publish-test-results:
     name: Publish Test Results
     needs:
@@ -254,8 +273,8 @@ jobs:
       - lint-rancherapi
       - lint-networkapi
       - lint-ipapi
-      - lint-auditapi
       - lint-tagapi
+      - test-auditapi
     runs-on: ubuntu-latest
     if: always()
     steps:
@@ -268,3 +287,5 @@ jobs:
         with:
           files: test-reports/**/*.xml
           check_name: "Test Results"
+
+
