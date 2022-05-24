@@ -30,13 +30,13 @@ func (suite *IpApiTestSuite) SetupSuite() {
 }
 
 func (suite *IpApiTestSuite) TearDownTest() {
-	TestUtilsImpl{}.reset_expectations()
+	TestUtilsImpl{}.resetExpectations()
 }
 
 func (suite *IpApiTestSuite) VerifyCalledOnce(expectationId string) {
 	// Result retrieved from server's verification
 	// Verifying expectation matched exactly once.
-	verifyResult := TestUtilsImpl{}.verify_expectation_matched_times(expectationId, 1)
+	verifyResult := TestUtilsImpl{}.verifyExpectationMatchedTimes(expectationId, 1)
 
 	// Asserts a successful result
 	suite.Equal(202, verifyResult.StatusCode)
@@ -44,10 +44,10 @@ func (suite *IpApiTestSuite) VerifyCalledOnce(expectationId string) {
 
 func (suite *IpApiTestSuite) TestGetIpBlocks() {
 	// Generate payload
-	request, response := TestUtilsImpl{}.generate_payloads_from("ipapi/ip_blocks_get", "./payloads")
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("ipapi/ip_blocks_get", "./payloads")
 
 	// Extract the response expectation id
-	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
 	// Operation Execution
 	result, _, _ := suite.Client.IPBlocksApi.IpBlocksGet(suite.Ctx).Execute()
@@ -65,10 +65,10 @@ func (suite *IpApiTestSuite) TestGetIpBlocks() {
 
 func (suite *IpApiTestSuite) TestCreateIpBlock() {
 	// Generate payload
-	request, response := TestUtilsImpl{}.generate_payloads_from("ipapi/ip_blocks_post", "./payloads")
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("ipapi/ip_blocks_post", "./payloads")
 
 	// Extract the response expectation id
-	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
 	// Prepare request body
 	body, _ := json.Marshal(request.Body.Json)
@@ -91,10 +91,10 @@ func (suite *IpApiTestSuite) TestCreateIpBlock() {
 
 func (suite *IpApiTestSuite) TestGetIpBlocksById() {
 	// Generate payload
-	request, response := TestUtilsImpl{}.generate_payloads_from("ipapi/ip_blocks_get_by_id", "./payloads")
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("ipapi/ip_blocks_get_by_id", "./payloads")
 
 	// Extract the response expectation id
-	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
 	// Extract the ipBlockId
 	ipBlockId := request.PathParameters["id"][0]
@@ -115,10 +115,10 @@ func (suite *IpApiTestSuite) TestGetIpBlocksById() {
 
 func (suite *IpApiTestSuite) TestDeleteIpBlocksById() {
 	// Generate payload
-	request, response := TestUtilsImpl{}.generate_payloads_from("ipapi/ip_blocks_delete_by_id", "./payloads")
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("ipapi/ip_blocks_delete_by_id", "./payloads")
 
 	// Extract the response expectation id
-	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
 	// Extract the ipBlockId
 	ipBlockId := request.PathParameters["id"][0]
@@ -139,10 +139,10 @@ func (suite *IpApiTestSuite) TestDeleteIpBlocksById() {
 
 func (suite *IpApiTestSuite) TestPatchIpBlocksById() {
 	// Generate payload
-	request, response := TestUtilsImpl{}.generate_payloads_from("ipapi/ip_blocks_patch_by_id", "./payloads")
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("ipapi/ip_blocks_patch_by_id", "./payloads")
 
 	// Extract the response expectation id
-	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
 	// Extract the ipBlockId
 	ipBlockId := request.PathParameters["id"][0]
@@ -168,10 +168,10 @@ func (suite *IpApiTestSuite) TestPatchIpBlocksById() {
 
 func (suite *IpApiTestSuite) TestPutTagsIpBlocksById() {
 	// Generate payload
-	request, response := TestUtilsImpl{}.generate_payloads_from("ipapi/ip_blocks_put_tags_by_id", "./payloads")
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("ipapi/ip_blocks_put_tags_by_id", "./payloads")
 
 	// Extract the response expectation id
-	expectationId := TestUtilsImpl{}.setup_expectation(request, response, 1)
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
 	// Extract the ipBlockId
 	ipBlockId := request.PathParameters["id"][0]
