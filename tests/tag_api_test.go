@@ -60,7 +60,7 @@ func (suite *TagApiTestSuite) TestGetTags() {
 	name := fmt.Sprintf("%v", qpMap["name"])
 
 	// Operation Execution
-	result, r, err := suite.apiClient.TagsApi.TagsGet(suite.ctx).Name(name).Execute() //.From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
+	result, r, err := suite.apiClient.TagsApi.TagsGet(suite.ctx).Name(name).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsGet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
