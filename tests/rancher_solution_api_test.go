@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"os"
 	"testing"
 
 	"github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi"
@@ -19,7 +18,7 @@ type RancherSolutionApiTestSuite struct {
 }
 
 // this function executes before each test
-func (suite *RancherSolutionApiTestSuite) SetupTest() {
+func (suite *RancherSolutionApiTestSuite) SetupSuite() {
 	// Set configuration
 	suite.configuration = ranchersolutionapi.NewConfiguration()
 	suite.configuration.Host = "127.0.0.1:1080"
@@ -37,7 +36,7 @@ func (suite *RancherSolutionApiTestSuite) TearDownTest() {
 	defer TestUtilsImpl{}.resetExpectations()
 }
 
-func verifyCalledOnce(suite *RancherSolutionApiTestSuite, expectationId string) {
+func (suite *RancherSolutionApiTestSuite) verifyCalledOnce(expectationId string) {
 	// Result retrieved from server's verification
 	// Verifying expectation matched exactly once.
 	verifyResult := TestUtilsImpl{}.verifyExpectationMatchedTimes(expectationId, 1)
@@ -54,11 +53,7 @@ func (suite *RancherSolutionApiTestSuite) TestGetClusters() {
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
 	// Operation Execution
-	result, r, err := suite.apiClient.ClustersApi.ClustersGet(suite.ctx).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersGet``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+	result, _, _ := suite.apiClient.ClustersApi.ClustersGet(suite.ctx).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -68,7 +63,7 @@ func (suite *RancherSolutionApiTestSuite) TestGetClusters() {
 	suite.Equal(jsonResult, jsonResponseBody)
 
 	// Verify
-	verifyCalledOnce(suite, expectationId)
+	suite.verifyCalledOnce(expectationId)
 }
 
 func (suite *RancherSolutionApiTestSuite) TestCreateClusters() {
@@ -83,11 +78,7 @@ func (suite *RancherSolutionApiTestSuite) TestCreateClusters() {
 	json.Unmarshal(byteData, &clusterCreate)
 
 	// Operation Execution
-	result, r, err := suite.apiClient.ClustersApi.ClustersPost(suite.ctx).Cluster(clusterCreate).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersPost``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+	result, _, _ := suite.apiClient.ClustersApi.ClustersPost(suite.ctx).Cluster(clusterCreate).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -96,7 +87,7 @@ func (suite *RancherSolutionApiTestSuite) TestCreateClusters() {
 	suite.Equal(jsonResult, jsonResponseBody)
 
 	// Verify
-	verifyCalledOnce(suite, expectationId)
+	suite.verifyCalledOnce(expectationId)
 
 }
 
@@ -110,11 +101,7 @@ func (suite *RancherSolutionApiTestSuite) TestGetClusterById() {
 	clusterId := TestUtilsImpl{}.extractIdFrom(request)
 
 	// Operation Execution
-	result, r, err := suite.apiClient.ClustersApi.ClustersIdGet(suite.ctx, clusterId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersIdGet``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+	result, _, _ := suite.apiClient.ClustersApi.ClustersIdGet(suite.ctx, clusterId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -123,7 +110,7 @@ func (suite *RancherSolutionApiTestSuite) TestGetClusterById() {
 	suite.Equal(jsonResult, jsonResponseBody)
 
 	// Verify
-	verifyCalledOnce(suite, expectationId)
+	suite.verifyCalledOnce(expectationId)
 }
 
 func (suite *RancherSolutionApiTestSuite) TestDeleteClusterById() {
@@ -136,11 +123,7 @@ func (suite *RancherSolutionApiTestSuite) TestDeleteClusterById() {
 	clusterId := TestUtilsImpl{}.extractIdFrom(request)
 
 	// Operation Execution
-	result, r, err := suite.apiClient.ClustersApi.ClustersIdDelete(suite.ctx, clusterId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersIdGet``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+	result, _, _ := suite.apiClient.ClustersApi.ClustersIdDelete(suite.ctx, clusterId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -149,7 +132,7 @@ func (suite *RancherSolutionApiTestSuite) TestDeleteClusterById() {
 	suite.Equal(jsonResult, jsonResponseBody)
 
 	// Verify
-	verifyCalledOnce(suite, expectationId)
+	suite.verifyCalledOnce(expectationId)
 }
 
 func TestRancherSolutionApiTestSuite(t *testing.T) {
