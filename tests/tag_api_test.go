@@ -18,6 +18,7 @@ type TagApiTestSuite struct {
 	apiClient     *tagapi.APIClient
 }
 
+// this function executes before each test
 func (suite *TagApiTestSuite) SetupTest() {
 	// Set configuration
 	suite.configuration = tagapi.NewConfiguration()
@@ -30,7 +31,7 @@ func (suite *TagApiTestSuite) SetupTest() {
 	suite.apiClient = tagapi.NewAPIClient(suite.configuration)
 }
 
-// this function executes after all tests executed
+// this function executes after each test
 func (suite *TagApiTestSuite) TearDownTest() {
 	fmt.Println(">>> From TearDownSuite")
 	defer TestUtilsImpl{}.resetExpectations()
