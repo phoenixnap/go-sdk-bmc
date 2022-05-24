@@ -20,7 +20,7 @@ type AuditApiTestSuite struct {
 	apiClient     *auditapi.APIClient
 }
 
-func (suite *AuditApiTestSuite) SetupTest() {
+func (suite *AuditApiTestSuite) SetupSuite() {
 	// Set configuration
 	suite.configuration = auditapi.NewConfiguration()
 	suite.configuration.Host = "127.0.0.1:1080"

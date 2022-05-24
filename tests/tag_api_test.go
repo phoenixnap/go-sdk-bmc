@@ -19,7 +19,7 @@ type TagApiTestSuite struct {
 }
 
 // this function executes before each test
-func (suite *TagApiTestSuite) SetupTest() {
+func (suite *TagApiTestSuite) SetupSuite() {
 	// Set configuration
 	suite.configuration = tagapi.NewConfiguration()
 	suite.configuration.Host = "127.0.0.1:1080"
