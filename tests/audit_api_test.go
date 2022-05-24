@@ -64,13 +64,13 @@ func (suite *AuditApiTestSuite) Test_get_events_all_query_params() {
 		panic(ok)
 	}
 
-	from, _ := time.Parse(time.RFC3339, request.QueryStringParameters[0].Values[0]) // time.Time | From the date and time (inclusive) to filter event log records by. (optional)
-	to, _ := time.Parse(time.RFC3339, request.QueryStringParameters[1].Values[0])   // time.Time | To the date and time (inclusive) to filter event log records by. (optional)
+	from, _ := time.Parse(time.RFC3339, request.QueryStringParameters[0].Values[0])
+	to, _ := time.Parse(time.RFC3339, request.QueryStringParameters[1].Values[0])
 	limit64, _ := strconv.ParseInt(limitstring, 10, 32)
-	limit := int32(limit64)                          // int32 | Limit the number of records returned. (optional)
-	order := fmt.Sprintf("%v", qpMap["order"])       // string | Ordering of the event's time. SortBy can be introduced later on. (optional) (default to "ASC")
-	username := fmt.Sprintf("%v", qpMap["username"]) // string | The username that did the actions. (optional)
-	verb := fmt.Sprintf("%v", qpMap["verb"])         // string | The HTTP verb corresponding to the action. (optional)
+	limit := int32(limit64)
+	order := fmt.Sprintf("%v", qpMap["order"])
+	username := fmt.Sprintf("%v", qpMap["username"])
+	verb := fmt.Sprintf("%v", qpMap["verb"])
 	uri := fmt.Sprintf("%v", qpMap["uri"])
 
 	// Operation Execution
