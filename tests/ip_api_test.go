@@ -33,7 +33,7 @@ func (suite *IpApiTestSuite) TearDownTest() {
 	TestUtilsImpl{}.resetExpectations()
 }
 
-func (suite *IpApiTestSuite) VerifyCalledOnce(expectationId string) {
+func (suite *IpApiTestSuite) verifyCalledOnce(expectationId string) {
 	// Result retrieved from server's verification
 	// Verifying expectation matched exactly once.
 	verifyResult := TestUtilsImpl{}.verifyExpectationMatchedTimes(expectationId, 1)
@@ -60,7 +60,7 @@ func (suite *IpApiTestSuite) TestGetIpBlocks() {
 	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// Verify
-	suite.VerifyCalledOnce(expectationId)
+	suite.verifyCalledOnce(expectationId)
 }
 
 func (suite *IpApiTestSuite) TestCreateIpBlock() {
@@ -86,7 +86,7 @@ func (suite *IpApiTestSuite) TestCreateIpBlock() {
 	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// Verify
-	suite.VerifyCalledOnce(expectationId)
+	suite.verifyCalledOnce(expectationId)
 }
 
 func (suite *IpApiTestSuite) TestGetIpBlocksById() {
@@ -110,7 +110,7 @@ func (suite *IpApiTestSuite) TestGetIpBlocksById() {
 	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// Verify
-	suite.VerifyCalledOnce(expectationId)
+	suite.verifyCalledOnce(expectationId)
 }
 
 func (suite *IpApiTestSuite) TestDeleteIpBlocksById() {
@@ -134,7 +134,7 @@ func (suite *IpApiTestSuite) TestDeleteIpBlocksById() {
 	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// Verify
-	suite.VerifyCalledOnce(expectationId)
+	suite.verifyCalledOnce(expectationId)
 }
 
 func (suite *IpApiTestSuite) TestPatchIpBlocksById() {
@@ -163,7 +163,7 @@ func (suite *IpApiTestSuite) TestPatchIpBlocksById() {
 	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// Verify
-	suite.VerifyCalledOnce(expectationId)
+	suite.verifyCalledOnce(expectationId)
 }
 
 func (suite *IpApiTestSuite) TestPutTagsIpBlocksById() {
@@ -192,7 +192,7 @@ func (suite *IpApiTestSuite) TestPutTagsIpBlocksById() {
 	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// Verify
-	suite.VerifyCalledOnce(expectationId)
+	suite.verifyCalledOnce(expectationId)
 }
 
 func TestIpApiTestSuite(t *testing.T) {
