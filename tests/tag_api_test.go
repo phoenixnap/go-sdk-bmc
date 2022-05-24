@@ -37,7 +37,7 @@ func (suite *TagApiTestSuite) TearDownTest() {
 	defer TestUtilsImpl{}.resetExpectations()
 }
 
-func verifyCalledOnce(suite *TagApiTestSuite, expectationId string) {
+func (suite *TagApiTestSuite) verifyCalledOnce(expectationId string) {
 	// Result retrieved from server's verification
 	// Verifying expectation matched exactly once.
 	verifyResult := TestUtilsImpl{}.verifyExpectationMatchedTimes(expectationId, 1)
@@ -74,7 +74,7 @@ func (suite *TagApiTestSuite) TestGetTags() {
 	suite.Equal(jsonResult, jsonResponseBody)
 
 	// Verify
-	verifyCalledOnce(suite, expectationId)
+	suite.verifyCalledOnce(expectationId)
 
 }
 
@@ -103,7 +103,7 @@ func (suite *TagApiTestSuite) TestCreateTags() {
 	suite.Equal(jsonResult, jsonResponseBody)
 
 	// Verify
-	verifyCalledOnce(suite, expectationId)
+	suite.verifyCalledOnce(expectationId)
 }
 
 func (suite *TagApiTestSuite) TestGetTagById() {
@@ -129,7 +129,7 @@ func (suite *TagApiTestSuite) TestGetTagById() {
 	suite.Equal(jsonResult, jsonResponseBody)
 
 	// Verify
-	verifyCalledOnce(suite, expectationId)
+	suite.verifyCalledOnce(expectationId)
 }
 
 func (suite *TagApiTestSuite) TestPatchTagById() {
@@ -160,7 +160,7 @@ func (suite *TagApiTestSuite) TestPatchTagById() {
 	suite.Equal(jsonResult, jsonResponseBody)
 
 	// Verify
-	verifyCalledOnce(suite, expectationId)
+	suite.verifyCalledOnce(expectationId)
 }
 
 func (suite *TagApiTestSuite) TestDeleteTagById() {
@@ -187,7 +187,7 @@ func (suite *TagApiTestSuite) TestDeleteTagById() {
 	suite.Equal(jsonResult, jsonResponseBody)
 
 	// Verify
-	verifyCalledOnce(suite, expectationId)
+	suite.verifyCalledOnce(expectationId)
 
 }
 
