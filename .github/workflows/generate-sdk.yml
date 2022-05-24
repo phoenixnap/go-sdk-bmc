@@ -265,6 +265,23 @@ jobs:
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestAuditApiTestSuite
+  test-ipapi:
+    name: Test IP API
+    runs-on: ubuntu-latest
+    needs:
+      - lint-ipapi
+    services:
+      mockserver:
+        image: mockserver/mockserver:5.13.0
+        ports:
+          - 1080:1080
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+      - uses: ./.github/workflows/composite/test-sdk
+        with:
+          test-suite: TestIpApiTestSuite
 
   publish-test-results:
     name: Publish Test Results
@@ -272,7 +289,7 @@ jobs:
       - lint-bmcapi
       - lint-rancherapi
       - lint-networkapi
-      - lint-ipapi
+      - test-ipapi
       - lint-tagapi
       - test-auditapi
     runs-on: ubuntu-latest
