@@ -118,7 +118,7 @@ func (suite *TagApiTestSuite) TestGetTagById() {
 	// Operation Execution
 	result, r, err := suite.apiClient.TagsApi.TagsTagIdGet(suite.ctx, tagId).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsTagIdGet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 
@@ -149,7 +149,7 @@ func (suite *TagApiTestSuite) TestPatchTagById() {
 	result, r, err := suite.apiClient.TagsApi.TagsTagIdPatch(suite.ctx, tagId).TagUpdate(tagUpdate).Execute()
 
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsTagIdPatch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 
@@ -176,7 +176,7 @@ func (suite *TagApiTestSuite) TestDeleteTagById() {
 	result, r, err := suite.apiClient.TagsApi.TagsTagIdDelete(suite.ctx, tagId).Execute()
 
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsTagIdDelete``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 
