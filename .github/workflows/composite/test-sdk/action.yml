@@ -17,7 +17,7 @@ runs:
         export GOPATH="$HOME/go/"
         export PATH=$PATH:$GOPATH/bin
         go install github.com/jstemmer/go-junit-report
-        go test -v -run ${{ inputs.test-file }} | go-junit-report -set-exit-code > report.xml
+        go test -v -run ${{ inputs.test-suite }} | go-junit-report -set-exit-code > report.xml
     - name: Upload Test Results
       if: always()
       uses: actions/upload-artifact@v2
