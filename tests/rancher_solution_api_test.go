@@ -56,7 +56,7 @@ func (suite *RancherSolutionApiTestSuite) TestGetClusters() {
 	// Operation Execution
 	result, r, err := suite.apiClient.ClustersApi.ClustersGet(suite.ctx).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersGet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 
@@ -79,13 +79,13 @@ func (suite *RancherSolutionApiTestSuite) TestCreateClusters() {
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
 	byteData := TestUtilsImpl{}.extractRequestBody(request)
-	var apiClustersPostRequest ranchersolutionapi.ApiClustersPostRequest
-	json.Unmarshal(byteData, &apiClustersPostRequest)
+	var clusterCreate ranchersolutionapi.Cluster
+	json.Unmarshal(byteData, &clusterCreate)
 
 	// Operation Execution
-	result, r, err := suite.apiClient.ClustersApi.ClustersPost(suite.ctx).Cluster(apiClustersPostRequest).Execute()
+	result, r, err := suite.apiClient.ClustersApi.ClustersPost(suite.ctx).Cluster(clusterCreate).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersPost``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 
@@ -98,6 +98,58 @@ func (suite *RancherSolutionApiTestSuite) TestCreateClusters() {
 	// Verify
 	verifyCalledOnce(suite, expectationId)
 
+}
+
+func (suite *RancherSolutionApiTestSuite) TestGetClusterById() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("rancherapi/clusters_get_by_id", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	clusterId := TestUtilsImpl{}.extractIdFrom(request)
+
+	// Operation Execution
+	result, r, err := suite.apiClient.ClustersApi.ClustersIdGet(suite.ctx, clusterId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersIdGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	suite.Equal(jsonResult, jsonResponseBody)
+
+	// Verify
+	verifyCalledOnce(suite, expectationId)
+}
+
+func (suite *RancherSolutionApiTestSuite) TestDeleteClusterById() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("rancherapi/clusters_delete_by_id", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	clusterId := TestUtilsImpl{}.extractIdFrom(request)
+
+	// Operation Execution
+	result, r, err := suite.apiClient.ClustersApi.ClustersIdDelete(suite.ctx, clusterId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersIdGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	suite.Equal(jsonResult, jsonResponseBody)
+
+	// Verify
+	verifyCalledOnce(suite, expectationId)
 }
 
 func TestRancherSolutionApiTestSuite(t *testing.T) {
