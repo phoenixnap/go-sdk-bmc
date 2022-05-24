@@ -73,7 +73,7 @@ func (suite *RancherSolutionApiTestSuite) TestGetClusters() {
 
 func (suite *RancherSolutionApiTestSuite) TestCreateClusters() {
 	// Generate payload
-	request, response := TestUtilsImpl{}.generatePayloadsFrom("rancherapi/clusters_get", "./payloads")
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("rancherapi/clusters_post", "./payloads")
 
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
@@ -82,9 +82,21 @@ func (suite *RancherSolutionApiTestSuite) TestCreateClusters() {
 	var apiClustersPostRequest ranchersolutionapi.ApiClustersPostRequest
 	json.Unmarshal(byteData, &apiClustersPostRequest)
 
-	
+	// Operation Execution
+	result, r, err := suite.apiClient.ClustersApi.ClustersPost(suite.ctx).Cluster(apiClustersPostRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
 
+	suite.Equal(jsonResult, jsonResponseBody)
+
+	// Verify
+	verifyCalledOnce(suite, expectationId)
 
 }
 
