@@ -18,7 +18,7 @@ type TagApiTestSuite struct {
 	apiClient     *tagapi.APIClient
 }
 
-// executes before each test
+// this function executes before each test
 func (suite *TagApiTestSuite) SetupTest() {
 	// Set configuration
 	suite.configuration = tagapi.NewConfiguration()
