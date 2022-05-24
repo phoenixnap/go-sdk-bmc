@@ -13,9 +13,9 @@ import (
 
 type RancherSolutionApiTestSuite struct {
 	suite.Suite
-	ctx context.Context
+	ctx           context.Context
 	configuration *ranchersolutionapi.Configuration
-	apiClient *ranchersolutionapi.APIClient
+	apiClient     *ranchersolutionapi.APIClient
 }
 
 // this function executes before each test
@@ -46,6 +46,48 @@ func verifyCalledOnce(suite *RancherSolutionApiTestSuite, expectationId string) 
 	suite.Equal(202, verifyResult.StatusCode)
 }
 
-func TestRancherSolutionApiTestSuite(t *testing.T){
+func (suite *RancherSolutionApiTestSuite) TestGetClusters() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("rancherapi/clusters_get", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	// Operation Execution
+	result, r, err := suite.apiClient.ClustersApi.ClustersGet(suite.ctx).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	// Asserts
+	suite.Equal(jsonResult, jsonResponseBody)
+
+	// Verify
+	verifyCalledOnce(suite, expectationId)
+}
+
+func (suite *RancherSolutionApiTestSuite) TestCreateClusters() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("rancherapi/clusters_get", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	byteData := TestUtilsImpl{}.extractRequestBody(request)
+	var apiClustersPostRequest ranchersolutionapi.ApiClustersPostRequest
+	json.Unmarshal(byteData, &apiClustersPostRequest)
+
+	
+
+
+
+}
+
+func TestRancherSolutionApiTestSuite(t *testing.T) {
 	suite.Run(t, new(RancherSolutionApiTestSuite))
 }
