@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"os"
 	"testing"
 
 	"github.com/phoenixnap/go-sdk-bmc/tagapi"
@@ -60,11 +59,7 @@ func (suite *TagApiTestSuite) TestGetTags() {
 	name := fmt.Sprintf("%v", qpMap["name"])
 
 	// Operation Execution
-	result, r, err := suite.apiClient.TagsApi.TagsGet(suite.ctx).Name(name).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsGet``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+	result, _, _ := suite.apiClient.TagsApi.TagsGet(suite.ctx).Name(name).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -90,11 +85,7 @@ func (suite *TagApiTestSuite) TestCreateTags() {
 	json.Unmarshal(byteData, &tagCreate)
 
 	// Operation Execution
-	result, r, err := suite.apiClient.TagsApi.TagsPost(suite.ctx).TagCreate(tagCreate).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsPost``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+	result, _, _ := suite.apiClient.TagsApi.TagsPost(suite.ctx).TagCreate(tagCreate).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -116,11 +107,7 @@ func (suite *TagApiTestSuite) TestGetTagById() {
 	tagId := TestUtilsImpl{}.extractIdFrom(request)
 
 	// Operation Execution
-	result, r, err := suite.apiClient.TagsApi.TagsTagIdGet(suite.ctx, tagId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsTagIdGet``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+	result, _, _ := suite.apiClient.TagsApi.TagsTagIdGet(suite.ctx, tagId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -146,12 +133,7 @@ func (suite *TagApiTestSuite) TestPatchTagById() {
 	tagId := TestUtilsImpl{}.extractIdFrom(request)
 
 	// Operation Execution
-	result, r, err := suite.apiClient.TagsApi.TagsTagIdPatch(suite.ctx, tagId).TagUpdate(tagUpdate).Execute()
-
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsTagIdPatch``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+	result, _, _ := suite.apiClient.TagsApi.TagsTagIdPatch(suite.ctx, tagId).TagUpdate(tagUpdate).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -173,12 +155,7 @@ func (suite *TagApiTestSuite) TestDeleteTagById() {
 	tagId := TestUtilsImpl{}.extractIdFrom(request)
 
 	// Operation Execution
-	result, r, err := suite.apiClient.TagsApi.TagsTagIdDelete(suite.ctx, tagId).Execute()
-
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsTagIdDelete``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+	result, _, _ := suite.apiClient.TagsApi.TagsTagIdDelete(suite.ctx, tagId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
