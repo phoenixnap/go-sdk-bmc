@@ -5,7 +5,9 @@
         "queryStringParameters": [
             {
                 "name": "location",
-                "values": ["PHX"]
+                "values": [
+                    "PHX"
+                ]
             }
         ]
     },
@@ -13,62 +15,62 @@
         "statusCode": 200,
         "body": [
             {
-              "id": "60472f76bbadb4f36541d2fd",
-              "name": "Initial public network",
-              "location": "PHX",
-              "description": "My first public network #1",
-              "ipBlocks": [
-                {
-                  "id": "60473a6115e34466c9f8f083"
-                },
-                {
-                  "id": "616e6ec6d66b406a45ab8797"
-                },
-                {
-                  "id": "617d2d128bacbb05aca2caeb"
-                },
-                {
-                  "id": "617d2da78bacbb05aca2caef"
-                },
-                {
-                  "id": "618e5383a835704f8c59522d"
-                },
-                {
-                  "id": "617d2f834dcf2869f8e4ef0b"
-                },
-                {
-                  "id": "5f325c71b8a7ef1473e3c85b"
-                },
-                {
-                  "id": "5ff5cc9bc1acf144d9106233"
-                },
-                {
-                  "id": "610001e7da283e36d0a0df9f"
-                },
-                {
-                  "id": "613b51c01f4b04615ba1d3be"
-                }
-              ],
-              "vlanId": 10,
-              "createdOn": "2022-04-05T13:50:30.491Z",
-              "memberships": [
-                {
-                  "resourceId": "6128d3754b478b76ee8b3cdd",
-                  "resourceType": "server",
-                  "ips": [
-                    "10.111.14.110",
-                    "10.111.14.115",
-                    "10.111.14.136"
-                  ]
-                },
-                {
-                  "resourceId": "5feae6b0b00bfb14eda82fc7",
-                  "resourceType": "server",
-                  "ips": [
-                    "10.111.14.121"
-                  ]
-                }
-              ]
+                "id": "60472f76bbadb4f36541d2fd",
+                "name": "Initial public network",
+                "location": "PHX",
+                "description": "My first public network #1",
+                "ipBlocks": [
+                    {
+                        "id": "60473a6115e34466c9f8f083"
+                    },
+                    {
+                        "id": "616e6ec6d66b406a45ab8797"
+                    },
+                    {
+                        "id": "617d2d128bacbb05aca2caeb"
+                    },
+                    {
+                        "id": "617d2da78bacbb05aca2caef"
+                    },
+                    {
+                        "id": "618e5383a835704f8c59522d"
+                    },
+                    {
+                        "id": "617d2f834dcf2869f8e4ef0b"
+                    },
+                    {
+                        "id": "5f325c71b8a7ef1473e3c85b"
+                    },
+                    {
+                        "id": "5ff5cc9bc1acf144d9106233"
+                    },
+                    {
+                        "id": "610001e7da283e36d0a0df9f"
+                    },
+                    {
+                        "id": "613b51c01f4b04615ba1d3be"
+                    }
+                ],
+                "vlanId": 10,
+                "createdOn": "2022-04-05T13:50:30.491Z",
+                "memberships": [
+                    {
+                        "resourceId": "6128d3754b478b76ee8b3cdd",
+                        "resourceType": "server",
+                        "ips": [
+                            "10.111.14.110",
+                            "10.111.14.115",
+                            "10.111.14.136"
+                        ]
+                    },
+                    {
+                        "resourceId": "5feae6b0b00bfb14eda82fc7",
+                        "resourceType": "server",
+                        "ips": [
+                            "10.111.14.121"
+                        ]
+                    }
+                ]
             }
         ]
     }

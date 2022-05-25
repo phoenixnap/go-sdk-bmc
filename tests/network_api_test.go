@@ -191,13 +191,33 @@ func (suite *NetworkApiTestSuite) TestGetPublicNetworks() {
 	suite.verifyCalledOnce(expectationId)
 }
 
-// func (suite *NetworkApiTestSuite) TestCreatePublicNetwork() {
+func (suite *NetworkApiTestSuite) TestCreatePublicNetwork() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("networkapi/public_networks_post", "./payloads")
 
-// }
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
-// func (suite *NetworkApiTestSuite) TestGetPublicNetworkById() {
+	byteData := TestUtilsImpl{}.extractRequestBody(request)
+	var networkCreate networkapi.PublicNetworkCreate
+	json.Unmarshal(byteData, &networkCreate)
 
-// }
+	// Operation Execution
+	result, _, _ := suite.apiClient.PublicNetworksApi.PublicNetworksPost(suite.ctx).PublicNetworkCreate(networkCreate).Execute()
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	suite.Equal(jsonResult, jsonResponseBody)
+
+	// Verify
+	suite.verifyCalledOnce(expectationId)
+}
+
+func (suite *NetworkApiTestSuite) TestGetPublicNetworkById() {
+
+}
 
 // func (suite *NetworkApiTestSuite) TestPatchPublicNetworkById() {
 
