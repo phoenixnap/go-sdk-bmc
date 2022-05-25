@@ -22,7 +22,9 @@
             "status": "unassigned",
             "description": "IP Block #1 used for publicly accessing server #1.",
             "assignedResourceId": "fakeId",
-            "assignedResourceType": "fakeType"
+            "assignedResourceType": "fakeType",
+            "createdOn" : "2021-04-27T16:24:57Z",
+            "isBringYourOwn" : false
         }
     }
 }
