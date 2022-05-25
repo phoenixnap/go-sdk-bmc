@@ -169,12 +169,6 @@ func (t TestUtilsImpl) generateQueryParams(request Request) map[string]interface
 	return elementMap
 }
 
-func (t TestUtilsImpl) extractRequestBody(request Request) []byte {
-	byteData, _ := json.Marshal(request.Body.Json)
-
-	return byteData
-}
-
 func (t TestUtilsImpl) extractIdFrom(request Request) string {
 	return request.PathParameters["id"][0]
 }

@@ -80,9 +80,9 @@ func (suite *TagApiTestSuite) TestCreateTags() {
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
-	byteData := TestUtilsImpl{}.extractRequestBody(request)
+	body, _ := json.Marshal(request.Body.Json)
 	var tagCreate tagapi.TagCreate
-	json.Unmarshal(byteData, &tagCreate)
+	json.Unmarshal(body, &tagCreate)
 
 	// Operation Execution
 	result, _, _ := suite.apiClient.TagsApi.TagsPost(suite.ctx).TagCreate(tagCreate).Execute()
@@ -126,9 +126,9 @@ func (suite *TagApiTestSuite) TestPatchTagById() {
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
-	byteData := TestUtilsImpl{}.extractRequestBody(request)
+	body, _ := json.Marshal(request.Body.Json)
 	var tagUpdate tagapi.TagUpdate
-	json.Unmarshal(byteData, &tagUpdate)
+	json.Unmarshal(body, &tagUpdate)
 
 	tagId := TestUtilsImpl{}.extractIdFrom(request)
 
