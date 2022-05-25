@@ -2,11 +2,11 @@ module tests
 
 go 1.17
 
-replace github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi v1.1.1 => ../ranchersolutionapi/
-
 require (
-	github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi v1.1.1
-	github.com/stretchr/testify v1.7.1
+	github.com/phoenixnap/go-sdk-bmc/auditapi v1.0.2
+	github.com/phoenixnap/go-sdk-bmc/ipapi v1.1.0
+	github.com/phoenixnap/go-sdk-bmc/tagapi v1.1.1
+	github.com/stretchr/testify v1.4.0
 )
 
 require (
@@ -17,5 +17,11 @@ require (
 	golang.org/x/oauth2 v0.0.0-20210218202405-ba52d332ba99 // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
-	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
+	gopkg.in/yaml.v2 v2.2.2 // indirect
 )
+
+replace github.com/phoenixnap/go-sdk-bmc/auditapi => ../auditapi/
+
+replace github.com/phoenixnap/go-sdk-bmc/ipapi => ../ipapi/
+
+replace github.com/phoenixnap/go-sdk-bmc/tagapi => ../tagapi/
