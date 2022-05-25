@@ -1,0 +1,31 @@
+{
+    "request": {
+        "method": "PATCH",
+        "path": "/networks/v1/public-networks/{id}",
+        "pathParameters": {
+            "id": [
+                "e6afba51-7de8-4080-83ab-0f915570659c"
+            ]
+        },
+        "body": {
+            "type": "JSON",
+            "json": {
+                "name": "My public network"
+            },
+            "matchType": "STRICT"
+        }
+    },
+    "response": {
+        "statusCode": 200,
+        "body": {
+            "id": "60472f76bbadb4f36541d2fd",
+            "name": "My public network",
+            "location": "PHX",
+            "description": "The new description of my public network",
+            "ipBlocks": [],
+            "vlanId": 10,
+            "createdOn": "2022-04-05T13:50:30.491Z",
+            "memberships": []
+        }
+    }
+}
