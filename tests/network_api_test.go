@@ -143,27 +143,26 @@ func (suite *NetworkApiTestSuite) TestPutPrivateNetworkById() {
 	suite.verifyCalledOnce(expectationId)
 }
 
-// func (suite *NetworkApiTestSuite) TestDeletePrivateNetworkById() {
-// 	// Generate payload
-// 	request, response := TestUtilsImpl{}.generatePayloadsFrom("networkapi/networks_delete_by_id", "./payloads")
+func (suite *NetworkApiTestSuite) TestDeletePrivateNetworkById() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("networkapi/private_networks_delete_by_id", "./payloads")
 
-// 	// Extract the response expectation id
-// 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
-// 	privateNetworkId := TestUtilsImpl{}.extractIdFrom(request)
+	privateNetworkId := TestUtilsImpl{}.extractIdFrom(request)
 
-// 	// Operation Execution
-// 	result, _ := suite.apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdDelete(suite.ctx, privateNetworkId).Execute()
+	// Operation Execution
+	result, _ := suite.apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdDelete(suite.ctx, privateNetworkId).Execute()
 
-// 	// Convert the result and response body to json strings
-// 	jsonResult, _ := json.Marshal(result)
-// 	jsonResponseBody, _ := json.Marshal(response.Body)
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
 
-// 	suite.Equal(jsonResult, jsonResponseBody)
+	suite.Empty(jsonResult)
 
-// 	// Verify
-// 	suite.verifyCalledOnce(expectationId)
-// }
+	// Verify
+	suite.verifyCalledOnce(expectationId)
+}
 
 func (suite *NetworkApiTestSuite) TestGetPublicNetworks() {
 	// Generate payload
@@ -268,7 +267,27 @@ func (suite *NetworkApiTestSuite) TestPatchPublicNetworkById() {
 // }
 
 func (suite *NetworkApiTestSuite) TestPostPublicNetworkIpBlockByPublicNetworkId() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("networkapi/public_networks_post_ip_block", "./payloads")
 
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	body, _ := json.Marshal(request.Body.Json)
+	var publicNetworkIpBlock networkapi.PublicNetworkIpBlock
+	json.Unmarshal(body, &publicNetworkIpBlock)
+	publicNetworkId := TestUtilsImpl{}.extractIdFrom(request)
+	// Operation Execution
+	result, _, _ := suite.apiClient.PublicNetworksApi.PublicNetworksNetworkIdIpBlocksPost(suite.ctx, publicNetworkId).PublicNetworkIpBlock(publicNetworkIpBlock).Execute()
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	suite.Equal(jsonResult, jsonResponseBody)
+
+	// Verify
+	suite.verifyCalledOnce(expectationId)
 }
 
 // func (suite *NetworkApiTestSuite) TestDeletePublicNetworkIpBlocksByPublicNetworkIdAndIpBlockID() {
