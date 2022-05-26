@@ -102,10 +102,10 @@ func (suite *NetworkApiTestSuite) TestGetPrivateNetworkById() {
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
-	pathParameters := request.PathParameters
+	privateNetworkId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdGet(suite.ctx, pathParameters["id"][0]).Execute()
+	result, _, _ := suite.apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdGet(suite.ctx, privateNetworkId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -128,10 +128,10 @@ func (suite *NetworkApiTestSuite) TestPutPrivateNetworkById() {
 	var privateNetworkModify networkapi.PrivateNetworkModify
 	json.Unmarshal(body, &privateNetworkModify)
 
-	pathParameters := request.PathParameters
+	privateNetworkId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdPut(suite.ctx, pathParameters["id"][0]).PrivateNetworkModify(privateNetworkModify).Execute()
+	result, _, _ := suite.apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdPut(suite.ctx, privateNetworkId).PrivateNetworkModify(privateNetworkModify).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -150,10 +150,10 @@ func (suite *NetworkApiTestSuite) TestDeletePrivateNetworkById() {
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
-	pathParameters := request.PathParameters
+	privateNetworkId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _ := suite.apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdDelete(suite.ctx, pathParameters["id"][0]).Execute()
+	result, _ := suite.apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdDelete(suite.ctx, privateNetworkId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -221,10 +221,10 @@ func (suite *NetworkApiTestSuite) TestGetPublicNetworkById() {
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
-	pathParameters := request.PathParameters
+	publicNetworkId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.PublicNetworksApi.PublicNetworksNetworkIdGet(suite.ctx, pathParameters["id"][0]).Execute()
+	result, _, _ := suite.apiClient.PublicNetworksApi.PublicNetworksNetworkIdGet(suite.ctx, publicNetworkId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -247,10 +247,10 @@ func (suite *NetworkApiTestSuite) TestPatchPublicNetworkById() {
 	var publicNetworkModify networkapi.PublicNetworkModify
 	json.Unmarshal(body, &publicNetworkModify)
 
-	pathParameters := request.PathParameters
+	publicNetworkId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.PublicNetworksApi.PublicNetworksNetworkIdPatch(suite.ctx, pathParameters["id"][0]).PublicNetworkModify(publicNetworkModify).Execute()
+	result, _, _ := suite.apiClient.PublicNetworksApi.PublicNetworksNetworkIdPatch(suite.ctx, publicNetworkId).PublicNetworkModify(publicNetworkModify).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -269,10 +269,10 @@ func (suite *NetworkApiTestSuite) TestDeletePublicNetworkById() {
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
-	pathParameters := request.PathParameters
+	publicNetworkId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _ := suite.apiClient.PublicNetworksApi.PublicNetworksNetworkIdDelete(suite.ctx, pathParameters["id"][0]).Execute()
+	result, _ := suite.apiClient.PublicNetworksApi.PublicNetworksNetworkIdDelete(suite.ctx, publicNetworkId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -293,9 +293,11 @@ func (suite *NetworkApiTestSuite) TestPostPublicNetworkIpBlockByPublicNetworkId(
 	body, _ := json.Marshal(request.Body.Json)
 	var publicNetworkIpBlock networkapi.PublicNetworkIpBlock
 	json.Unmarshal(body, &publicNetworkIpBlock)
-	pathParameters := request.PathParameters
+
+	publicNetworkId := request.PathParameters["id"][0]
+
 	// Operation Execution
-	result, _, _ := suite.apiClient.PublicNetworksApi.PublicNetworksNetworkIdIpBlocksPost(suite.ctx, pathParameters["id"][0]).PublicNetworkIpBlock(publicNetworkIpBlock).Execute()
+	result, _, _ := suite.apiClient.PublicNetworksApi.PublicNetworksNetworkIdIpBlocksPost(suite.ctx, publicNetworkId).PublicNetworkIpBlock(publicNetworkIpBlock).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -314,10 +316,11 @@ func (suite *NetworkApiTestSuite) TestDeletePublicNetworkIpBlocksByPublicNetwork
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
-	pathParameters := request.PathParameters
+	publicNetworkId := request.PathParameters["id"][0]
+	ipId := request.PathParameters["ipId"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.PublicNetworksApi.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(suite.ctx, pathParameters["id"][0], pathParameters["ipId"][0]).Execute()
+	result, _, _ := suite.apiClient.PublicNetworksApi.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(suite.ctx, publicNetworkId, ipId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
