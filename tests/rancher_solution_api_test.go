@@ -98,10 +98,10 @@ func (suite *RancherSolutionApiTestSuite) TestGetClusterById() {
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
-	pathParameters := request.PathParameters
+	clusterId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.ClustersApi.ClustersIdGet(suite.ctx, pathParameters["id"][0]).Execute()
+	result, _, _ := suite.apiClient.ClustersApi.ClustersIdGet(suite.ctx, clusterId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -120,10 +120,10 @@ func (suite *RancherSolutionApiTestSuite) TestDeleteClusterById() {
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
-	pathParameters := request.PathParameters
+	clusterId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.ClustersApi.ClustersIdDelete(suite.ctx, pathParameters["id"][0]).Execute()
+	result, _, _ := suite.apiClient.ClustersApi.ClustersIdDelete(suite.ctx, clusterId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
