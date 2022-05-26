@@ -340,8 +340,8 @@ jobs:
       - test-rancherapi
       - test-networkapi
       - test-ipapi
-      - test-tagapi
       - test-auditapi
+      - test-tagapi
     runs-on: ubuntu-latest
     if: always()
     steps:
