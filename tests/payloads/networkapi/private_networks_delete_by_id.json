@@ -3,9 +3,7 @@
         "method": "DELETE",
         "path": "/networks/v1/private-networks/{id}",
         "pathParameters": {
-            "id": [
-                "603f3b2cfcaf050643b89a4b"
-            ]
+            "id": ["603f3b2cfcaf050643b89a4b"]
         }
     },
     "response": {

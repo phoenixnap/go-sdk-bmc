@@ -5,9 +5,7 @@
         "queryStringParameters": [
             {
                 "name": "location",
-                "values": [
-                    "PHX"
-                ]
+                "values": ["PHX"]
             }
         ]
     },
@@ -66,9 +64,7 @@
                     {
                         "resourceId": "5feae6b0b00bfb14eda82fc7",
                         "resourceType": "server",
-                        "ips": [
-                            "10.111.14.121"
-                        ]
+                        "ips": ["10.111.14.121"]
                     }
                 ]
             }

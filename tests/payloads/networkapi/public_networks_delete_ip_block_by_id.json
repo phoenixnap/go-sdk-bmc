@@ -3,12 +3,8 @@
         "method": "DELETE",
         "path": "/networks/v1/public-networks/{id}/ip-blocks/{ipId}",
         "pathParameters": {
-            "id": [
-                "e6afba51-7de8-4080-83ab-0f915570659c"
-            ],
-            "ipId": [
-                "f7238ba8-7de8-4080-83ab-0f915570650d"
-            ]
+            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"],
+            "ipId": ["f7238ba8-7de8-4080-83ab-0f915570650d"]
         }
     },
     "response": {

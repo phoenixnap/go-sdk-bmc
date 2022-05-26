@@ -3,9 +3,7 @@
         "method": "GET",
         "path": "/networks/v1/public-networks/{id}",
         "pathParameters": {
-            "id": [
-                "60472f76bbadb4f36541d2fd"
-            ]
+            "id": ["60472f76bbadb4f36541d2fd"]
         }
     },
     "response": {

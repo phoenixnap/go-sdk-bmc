@@ -3,9 +3,7 @@
         "method": "PUT",
         "path": "/networks/v1/private-networks/{id}",
         "pathParameters": {
-            "id": [
-                "e6afba51-7de8-4080-83ab-0f915570659c"
-            ]
+            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"]
         },
         "body": {
             "type": "JSON",
