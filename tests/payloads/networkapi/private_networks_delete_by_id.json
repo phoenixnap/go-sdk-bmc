@@ -9,6 +9,6 @@
         }
     },
     "response": {
-        "statusCode": 202
+        "statusCode": 204
     }
 }
