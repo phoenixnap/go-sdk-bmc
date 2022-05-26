@@ -316,14 +316,31 @@ jobs:
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestRancherSolutionApiTestSuite
+  test-networkapi:
+    name: Test Network API
+    runs-on: ubuntu-latest
+    needs:
+      - lint-networkapi
+    services:
+      mockserver:
+        image: mockserver/mockserver:5.13.0
+        ports:
+          - 1080:1080
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+      - uses: ./.github/workflows/composite/test-sdk
+        with:
+          test-suite: TestNetworkApiTestSuite
   publish-test-results:
     name: Publish Test Results
     needs:
       - lint-bmcapi
       - test-rancherapi
-      - lint-networkapi
+      - test-networkapi
       - test-ipapi
-      - lint-tagapi
+      - test-tagapi
       - test-auditapi
       - test-tagapi
     runs-on: ubuntu-latest
