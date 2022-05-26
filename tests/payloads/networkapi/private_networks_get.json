@@ -5,9 +5,7 @@
         "queryStringParameters": [
             {
                 "name": "location",
-                "values": [
-                    "PHX"
-                ]
+                "values": ["PHX"]
             }
         ]
     },
