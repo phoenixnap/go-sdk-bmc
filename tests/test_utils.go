@@ -168,7 +168,3 @@ func (t TestUtilsImpl) generateQueryParams(request Request) map[string]interface
 
 	return elementMap
 }
-
-func (t TestUtilsImpl) extractIdFrom(request Request) string {
-	return request.PathParameters["id"][0]
-}

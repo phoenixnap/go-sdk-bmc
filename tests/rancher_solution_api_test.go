@@ -6,37 +6,37 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/phoenixnap/go-sdk-bmc/tagapi"
+	"github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi"
 	"github.com/stretchr/testify/suite"
 )
 
-type TagApiTestSuite struct {
+type RancherSolutionApiTestSuite struct {
 	suite.Suite
 	ctx           context.Context
-	configuration *tagapi.Configuration
-	apiClient     *tagapi.APIClient
+	configuration *ranchersolutionapi.Configuration
+	apiClient     *ranchersolutionapi.APIClient
 }
 
 // this function executes before each test
-func (suite *TagApiTestSuite) SetupSuite() {
+func (suite *RancherSolutionApiTestSuite) SetupSuite() {
 	// Set configuration
-	suite.configuration = tagapi.NewConfiguration()
+	suite.configuration = ranchersolutionapi.NewConfiguration()
 	suite.configuration.Host = "127.0.0.1:1080"
 	suite.configuration.Scheme = "http"
 	// Set the context background
 	suite.ctx = context.WithValue(context.Background(), "accessToken", "ACCESSTOKENSTRING")
 	suite.ctx = context.WithValue(suite.ctx, "serverIndex", nil)
 	fmt.Println(">>> From SetupSuite")
-	suite.apiClient = tagapi.NewAPIClient(suite.configuration)
+	suite.apiClient = ranchersolutionapi.NewAPIClient(suite.configuration)
 }
 
 // this function executes after each test
-func (suite *TagApiTestSuite) TearDownTest() {
+func (suite *RancherSolutionApiTestSuite) TearDownTest() {
 	fmt.Println(">>> From TearDownSuite")
 	defer TestUtilsImpl{}.resetExpectations()
 }
 
-func (suite *TagApiTestSuite) verifyCalledOnce(expectationId string) {
+func (suite *RancherSolutionApiTestSuite) verifyCalledOnce(expectationId string) {
 	// Result retrieved from server's verification
 	// Verifying expectation matched exactly once.
 	verifyResult := TestUtilsImpl{}.verifyExpectationMatchedTimes(expectationId, 1)
@@ -45,21 +45,15 @@ func (suite *TagApiTestSuite) verifyCalledOnce(expectationId string) {
 	suite.Equal(202, verifyResult.StatusCode)
 }
 
-func (suite *TagApiTestSuite) TestGetTags() {
-
+func (suite *RancherSolutionApiTestSuite) TestGetClusters() {
 	// Generate payload
-	request, response := TestUtilsImpl{}.generatePayloadsFrom("tagapi/tags_get", "./payloads")
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("rancherapi/clusters_get", "./payloads")
 
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
-	// Fetch a map of query parameters
-	qpMap := TestUtilsImpl{}.generateQueryParams(request)
-
-	name := fmt.Sprintf("%v", qpMap["name"])
-
 	// Operation Execution
-	result, _, _ := suite.apiClient.TagsApi.TagsGet(suite.ctx).Name(name).Execute()
+	result, _, _ := suite.apiClient.ClustersApi.ClustersGet(suite.ctx).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -70,22 +64,21 @@ func (suite *TagApiTestSuite) TestGetTags() {
 
 	// Verify
 	suite.verifyCalledOnce(expectationId)
-
 }
 
-func (suite *TagApiTestSuite) TestCreateTags() {
+func (suite *RancherSolutionApiTestSuite) TestCreateClusters() {
 	// Generate payload
-	request, response := TestUtilsImpl{}.generatePayloadsFrom("tagapi/tags_post", "./payloads")
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("rancherapi/clusters_post", "./payloads")
 
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
 	body, _ := json.Marshal(request.Body.Json)
-	var tagCreate tagapi.TagCreate
-	json.Unmarshal(body, &tagCreate)
+	var clusterCreate ranchersolutionapi.Cluster
+	json.Unmarshal(body, &clusterCreate)
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.TagsApi.TagsPost(suite.ctx).TagCreate(tagCreate).Execute()
+	result, _, _ := suite.apiClient.ClustersApi.ClustersPost(suite.ctx).Cluster(clusterCreate).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -95,19 +88,20 @@ func (suite *TagApiTestSuite) TestCreateTags() {
 
 	// Verify
 	suite.verifyCalledOnce(expectationId)
+
 }
 
-func (suite *TagApiTestSuite) TestGetTagById() {
+func (suite *RancherSolutionApiTestSuite) TestGetClusterById() {
 	// Generate payload
-	request, response := TestUtilsImpl{}.generatePayloadsFrom("tagapi/tags_get_by_id", "./payloads")
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("rancherapi/clusters_get_by_id", "./payloads")
 
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
-	tagId := request.PathParameters["id"][0]
+	clusterId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.TagsApi.TagsTagIdGet(suite.ctx, tagId).Execute()
+	result, _, _ := suite.apiClient.ClustersApi.ClustersIdGet(suite.ctx, clusterId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -119,21 +113,17 @@ func (suite *TagApiTestSuite) TestGetTagById() {
 	suite.verifyCalledOnce(expectationId)
 }
 
-func (suite *TagApiTestSuite) TestPatchTagById() {
+func (suite *RancherSolutionApiTestSuite) TestDeleteClusterById() {
 	// Generate payload
-	request, response := TestUtilsImpl{}.generatePayloadsFrom("tagapi/tags_patch_by_id", "./payloads")
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("rancherapi/clusters_delete_by_id", "./payloads")
 
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
-	body, _ := json.Marshal(request.Body.Json)
-	var tagUpdate tagapi.TagUpdate
-	json.Unmarshal(body, &tagUpdate)
-
-	tagId := request.PathParameters["id"][0]
+	clusterId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.TagsApi.TagsTagIdPatch(suite.ctx, tagId).TagUpdate(tagUpdate).Execute()
+	result, _, _ := suite.apiClient.ClustersApi.ClustersIdDelete(suite.ctx, clusterId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -145,29 +135,6 @@ func (suite *TagApiTestSuite) TestPatchTagById() {
 	suite.verifyCalledOnce(expectationId)
 }
 
-func (suite *TagApiTestSuite) TestDeleteTagById() {
-	// Generate payload
-	request, response := TestUtilsImpl{}.generatePayloadsFrom("tagapi/tags_delete_by_id", "./payloads")
-
-	// Extract the response expectation id
-	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
-
-	tagId := request.PathParameters["id"][0]
-
-	// Operation Execution
-	result, _, _ := suite.apiClient.TagsApi.TagsTagIdDelete(suite.ctx, tagId).Execute()
-
-	// Convert the result and response body to json strings
-	jsonResult, _ := json.Marshal(result)
-	jsonResponseBody, _ := json.Marshal(response.Body)
-
-	suite.Equal(jsonResult, jsonResponseBody)
-
-	// Verify
-	suite.verifyCalledOnce(expectationId)
-
-}
-
-func TestTagApiTestSuite(t *testing.T) {
-	suite.Run(t, new(TagApiTestSuite))
+func TestRancherSolutionApiTestSuite(t *testing.T) {
+	suite.Run(t, new(RancherSolutionApiTestSuite))
 }
