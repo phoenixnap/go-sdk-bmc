@@ -3,7 +3,9 @@
         "method": "POST",
         "path": "/networks/v1/public-networks/{id}/ip-blocks",
         "pathParameters": {
-            "id": ["603f3b2cfcaf050643b89a4b"]
+            "id": [
+                "603f3b2cfcaf050643b89a4b"
+            ]
         },
         "body": {
             "type": "JSON",
