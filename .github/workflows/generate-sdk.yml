@@ -342,7 +342,6 @@ jobs:
       - test-ipapi
       - test-tagapi
       - test-auditapi
-      - test-tagapi
     runs-on: ubuntu-latest
     if: always()
     steps:
