@@ -104,10 +104,10 @@ func (suite *TagApiTestSuite) TestGetTagById() {
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
-	tagId := TestUtilsImpl{}.extractIdFrom(request)
+	pathParameters := request.PathParameters
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.TagsApi.TagsTagIdGet(suite.ctx, tagId).Execute()
+	result, _, _ := suite.apiClient.TagsApi.TagsTagIdGet(suite.ctx, pathParameters["id"][0]).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -130,10 +130,10 @@ func (suite *TagApiTestSuite) TestPatchTagById() {
 	var tagUpdate tagapi.TagUpdate
 	json.Unmarshal(body, &tagUpdate)
 
-	tagId := TestUtilsImpl{}.extractIdFrom(request)
+	pathParameters := request.PathParameters
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.TagsApi.TagsTagIdPatch(suite.ctx, tagId).TagUpdate(tagUpdate).Execute()
+	result, _, _ := suite.apiClient.TagsApi.TagsTagIdPatch(suite.ctx, pathParameters["id"][0]).TagUpdate(tagUpdate).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -152,10 +152,10 @@ func (suite *TagApiTestSuite) TestDeleteTagById() {
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
-	tagId := TestUtilsImpl{}.extractIdFrom(request)
+	pathParameters := request.PathParameters
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.TagsApi.TagsTagIdDelete(suite.ctx, tagId).Execute()
+	result, _, _ := suite.apiClient.TagsApi.TagsTagIdDelete(suite.ctx, pathParameters["id"][0]).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
