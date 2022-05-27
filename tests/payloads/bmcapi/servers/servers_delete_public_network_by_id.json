@@ -1,0 +1,14 @@
+{
+    "request": {
+        "method": "DELETE",
+        "path": "/bmc/v1/servers/{id}/network-configuration/public-network-configuration/public-networks/{networkId}",
+        "pathParameters": {
+            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"],
+            "networkId": ["e6afba51-7de8-4080-83ab-0f915570650d"]
+        }
+    },
+    "response": {
+        "statusCode": 202,
+        "body": "actionResult"
+    }
+}
