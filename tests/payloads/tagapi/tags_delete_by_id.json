@@ -1,16 +1,18 @@
 {
-    "request": {
-        "method": "DELETE",
-        "path": "/tag-manager/v1/tags/{id}",
-        "pathParameters": {
-            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"]
-        }
-    },
-    "response": {
-        "statusCode": 200,
-        "body": {
-            "result": "fakeId",
-            "tagId": "e6afba51-7de8-4080-83ab-0f915570659c"
-        }
+  "request": {
+    "method": "DELETE",
+    "path": "/tag-manager/v1/tags/{id}",
+    "pathParameters": {
+      "id": [
+        "e6afba51-7de8-4080-83ab-0f915570659c"
+      ]
     }
+  },
+  "response": {
+    "statusCode": 200,
+    "body": {
+      "result": "fakeId",
+      "tagId": "e6afba51-7de8-4080-83ab-0f915570659c"
+    }
+  }
 }
