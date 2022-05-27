@@ -1,40 +1,40 @@
 {
     "request": {
-      "method": "POST",
-      "path": "/networks/v1/private-networks",
-      "body": {
-        "type": "JSON",
-        "json": {
-          "name": "My Default Backend Network",
-          "location": "PHX",
-          "locationDefault": true,
-          "description": "My Default Backend Network",
-          "cidr": "10.0.0.0/24"
-        },
-        "matchType": "STRICT"
-      }
+        "method": "POST",
+        "path": "/networks/v1/private-networks",
+        "body": {
+            "type": "JSON",
+            "json": {
+                "name": "My Default Backend Network",
+                "location": "PHX",
+                "locationDefault": true,
+                "description": "My Default Backend Network",
+                "cidr": "10.0.0.0/24"
+            },
+            "matchType": "STRICT"
+        }
     },
     "response": {
-      "statusCode": 201,
-      "body": {
-        "id": "604724a5a807f2d3be8660c7",
-        "name": "My Default Backend Network",
-        "description": "My Default Backend Network",
-        "vlanId": 10,
-        "type": "PRIVATE",
-        "location": "PHX",
-        "locationDefault": true,
-        "cidr": "10.0.0.0/24",
-        "servers": [
-          {
-            "id": "603f3e995c18d515cda9c4f8",
-            "ips": [
-              "10.0.0.2",
-              "10.0.0.3"
-            ]
-          }
-        ],
-        "createdOn": "2022-04-07T13:20:30.491Z"
-      }
+        "statusCode": 201,
+        "body": {
+            "id": "604724a5a807f2d3be8660c7",
+            "name": "My Default Backend Network",
+            "description": "My Default Backend Network",
+            "vlanId": 10,
+            "type": "PRIVATE",
+            "location": "PHX",
+            "locationDefault": true,
+            "cidr": "10.0.0.0/24",
+            "servers": [
+                {
+                    "id": "603f3e995c18d515cda9c4f8",
+                    "ips": [
+                        "10.0.0.2",
+                        "10.0.0.3"
+                    ]
+                }
+            ],
+            "createdOn": "2022-04-07T13:20:30.491Z"
+        }
     }
 }
