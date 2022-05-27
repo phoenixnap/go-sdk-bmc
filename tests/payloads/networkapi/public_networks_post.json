@@ -1,0 +1,28 @@
+{
+    "request": {
+        "method": "POST",
+        "path": "/networks/v1/public-networks",
+        "body": {
+            "type": "JSON",
+            "json": {
+                "name": "Initial public network",
+                "location": "PHX",
+                "description": "My first public network #1"
+            },
+            "matchType": "STRICT"
+        }
+    },
+    "response": {
+        "statusCode": 201,
+        "body": {
+            "id": "60472f76bbadb4f36541d2fd",
+            "name": "Initial public network",
+            "location": "PHX",
+            "description": "My first public network #1",
+            "ipBlocks": [],
+            "vlanId": 10,
+            "createdOn": "2022-04-05T13:50:30.491Z",
+            "memberships": []
+        }
+    }
+}

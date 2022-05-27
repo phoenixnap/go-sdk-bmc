@@ -1,29 +1,30 @@
 {
     "request": {
-        "method": "POST",
-        "path": "/networks/v1/private-networks",
+        "method": "PUT",
+        "path": "/networks/v1/private-networks/{id}",
+        "pathParameters": {
+            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"]
+        },
         "body": {
             "type": "JSON",
             "json": {
                 "name": "My Default Backend Network",
-                "location": "PHX",
-                "locationDefault": true,
                 "description": "My Default Backend Network",
-                "cidr": "10.0.0.0/24"
-              },
+                "locationDefault": true
+            },
             "matchType": "STRICT"
         }
     },
     "response": {
-        "statusCode": 201,
+        "statusCode": 200,
         "body": {
             "id": "604724a5a807f2d3be8660c7",
             "name": "My Default Backend Network",
+            "description": "My Default Backend Network",
+            "vlanId": 10,
             "type": "PRIVATE",
             "location": "PHX",
             "locationDefault": true,
-            "vlanId": 10,
-            "description": "My Default Backend Network",
             "cidr": "10.0.0.0/24",
             "servers": [
               {
@@ -33,7 +34,8 @@
                   "10.0.0.3"
                 ]
               }
-            ]
+            ],
+            "createdOn": "2022-04-07T13:20:30.491Z"
         }
     }
 }

@@ -9,7 +9,7 @@ type Request struct {
 }
 type Response struct {
 	StatusCode int         `json:"statusCode"`
-	Body       interface{} `json:"body"`
+	Body       interface{} `json:"body,omitempty"`
 }
 type PathParameters map[string][]string
 type QueryParameter struct {
