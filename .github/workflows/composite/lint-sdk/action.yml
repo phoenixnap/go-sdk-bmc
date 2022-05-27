@@ -9,7 +9,9 @@ runs:
   steps:
     - name: Install golang
       shell: bash
-      run: sudo apt-get install golang-go
+      run: |
+        sudo apt-get update 
+        sudo apt-get install golang-go
     - name: Lint module
       shell: bash
       run: cd ${{ inputs.module-name }} && go vet ./...

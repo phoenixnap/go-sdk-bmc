@@ -3,7 +3,7 @@
         "method": "DELETE",
         "path": "/networks/v1/private-networks/{id}",
         "pathParameters": {
-            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"]
+            "id": ["603f3b2cfcaf050643b89a4b"]
         }
     },
     "response": {
