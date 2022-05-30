@@ -1,12 +1,14 @@
 {
-    "request": {
-        "method": "DELETE",
-        "path": "/networks/v1/public-networks/{id}",
-        "pathParameters": {
-            "id": ["603f3b2cfcaf050643b89a4b"]
-        }
-    },
-    "response": {
-        "statusCode": 202
+  "request": {
+    "method": "DELETE",
+    "path": "/networks/v1/public-networks/{id}",
+    "pathParameters": {
+      "id": [
+        "603f3b2cfcaf050643b89a4b"
+      ]
     }
+  },
+  "response": {
+    "statusCode": 202
+  }
 }
