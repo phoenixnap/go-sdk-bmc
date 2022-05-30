@@ -1,0 +1,26 @@
+{
+    "request": {
+        "method": "GET",
+        "path": "/bmc/v1/quotas/{id}",
+        "pathParameters": {
+            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"]
+        }
+    },
+    "response": {
+        "statusCode": 200,
+        "body": {
+            "id": "id",
+            "name": "name",
+            "description": "description",
+            "status": "ON_LIMIT",
+            "limit": 5,
+            "unit": "COUNT",
+            "used": 3,
+            "quotaEditLimitRequestDetails": [{
+                "limit": 10,
+                "reason": "reason",
+                "requestedOn": "2021-04-29T16:24:57.123Z"
+            }]
+        }
+    }
+}
