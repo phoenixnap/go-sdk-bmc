@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/tag-manager/v1/tags",
+    "queryStringParameters": [
+      {
+        "name": "name",
+        "values": [
+          "env"
+        ]
+      }
+    ]
+  },
+  "response": {
+    "statusCode": 200,
+    "body": [
+      {
+        "id": "fakeId",
+        "name": "tagName",
+        "values": [
+          "value1"
+        ],
+        "description": "fakeDescription",
+        "isBillingTag": true,
+        "resourceAssignments": [
+          {
+            "resourceName": "rname",
+            "value": "rvalue"
+          }
+        ],
+        "createdBy": "USER"
+      }
+    ]
+  }
+}

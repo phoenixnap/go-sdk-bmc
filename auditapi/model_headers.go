@@ -1,7 +1,7 @@
 /*
 Audit Log API
 
-The Audit Logs API lets you read audit log entries and track API calls or activities in the Bare Metal Cloud Portal.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#audit-log-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/audit/v1/)</b>
+The Audit Logs API lets you read audit log entries and track API calls or activities in the Bare Metal Cloud Portal.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#audit-log-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/audit/v1/)</b> 
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -52,7 +52,7 @@ func (o *Headers) GetUserAgent() string {
 // GetUserAgentOk returns a tuple with the UserAgent field value
 // and a boolean to check if the value has been set.
 func (o *Headers) GetUserAgentOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.UserAgent, true
@@ -106,3 +106,5 @@ func (v *NullableHeaders) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

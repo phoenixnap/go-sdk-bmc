@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/networks/v1/public-networks/{id}/ip-blocks",
+    "pathParameters": {
+      "id": [
+        "603f3b2cfcaf050643b89a4b"
+      ]
+    },
+    "body": {
+      "type": "JSON",
+      "json": {
+        "id": "60473a6115e34466c9f8f083"
+      },
+      "matchType": "STRICT"
+    }
+  },
+  "response": {
+    "statusCode": 202,
+    "body": {
+      "id": "60473a6115e34466c9f8f083"
+    }
+  }
+}

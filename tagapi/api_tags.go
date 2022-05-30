@@ -1,7 +1,7 @@
 /*
 Tags API
 
-Tags are case-sensitive key-value pairs that simplify resource management. The Tag Manager API allows you to create and manage such tags to later assign them to related resources in your Bare Metal Cloud (through the respective resource apis) in order to group and categorize them.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#server-tag-manager-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/tag-manager/v1/)</b>
+Tags are case-sensitive key-value pairs that simplify resource management. The Tag Manager API allows you to create and manage such tags to later assign them to related resources in your Bare Metal Cloud (through the respective resource apis) in order to group and categorize them.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#server-tag-manager-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/tag-manager/v1/)</b> 
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -28,12 +28,12 @@ var (
 type TagsApi interface {
 
 	/*
-		TagsGet List tags.
+	TagsGet List tags.
 
-		Retrieve all tags belonging to the BMC Account.
+	Retrieve all tags belonging to the BMC Account.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return ApiTagsGetRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiTagsGetRequest
 	*/
 	TagsGet(ctx _context.Context) ApiTagsGetRequest
 
@@ -42,12 +42,12 @@ type TagsApi interface {
 	TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *_nethttp.Response, error)
 
 	/*
-		TagsPost Create a Tag.
+	TagsPost Create a Tag.
 
-		Create a tag with the provided information.
+	Create a tag with the provided information.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return ApiTagsPostRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiTagsPostRequest
 	*/
 	TagsPost(ctx _context.Context) ApiTagsPostRequest
 
@@ -56,13 +56,13 @@ type TagsApi interface {
 	TagsPostExecute(r ApiTagsPostRequest) (Tag, *_nethttp.Response, error)
 
 	/*
-		TagsTagIdDelete Delete a Tag.
+	TagsTagIdDelete Delete a Tag.
 
-		Delete the tag with the given ID.
+	Delete the tag with the given ID.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param tagId The tag's ID.
-		 @return ApiTagsTagIdDeleteRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param tagId The tag's ID.
+	 @return ApiTagsTagIdDeleteRequest
 	*/
 	TagsTagIdDelete(ctx _context.Context, tagId string) ApiTagsTagIdDeleteRequest
 
@@ -71,13 +71,13 @@ type TagsApi interface {
 	TagsTagIdDeleteExecute(r ApiTagsTagIdDeleteRequest) (DeleteResult, *_nethttp.Response, error)
 
 	/*
-		TagsTagIdGet Get a Tag.
+	TagsTagIdGet Get a Tag.
 
-		Retrieve the tag with the given ID
+	Retrieve the tag with the given ID
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param tagId The tag's ID.
-		 @return ApiTagsTagIdGetRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param tagId The tag's ID.
+	 @return ApiTagsTagIdGetRequest
 	*/
 	TagsTagIdGet(ctx _context.Context, tagId string) ApiTagsTagIdGetRequest
 
@@ -86,13 +86,13 @@ type TagsApi interface {
 	TagsTagIdGetExecute(r ApiTagsTagIdGetRequest) (Tag, *_nethttp.Response, error)
 
 	/*
-		TagsTagIdPatch Modify a Tag.
+	TagsTagIdPatch Modify a Tag.
 
-		Updates the tag with the given ID.
+	Updates the tag with the given ID.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param tagId The tag's ID.
-		 @return ApiTagsTagIdPatchRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param tagId The tag's ID.
+	 @return ApiTagsTagIdPatchRequest
 	*/
 	TagsTagIdPatch(ctx _context.Context, tagId string) ApiTagsTagIdPatchRequest
 
@@ -105,9 +105,9 @@ type TagsApi interface {
 type TagsApiService service
 
 type ApiTagsGetRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService TagsApi
-	name       *string
+	name *string
 }
 
 // Query a tag by its name.
@@ -131,7 +131,7 @@ Retrieve all tags belonging to the BMC Account.
 func (a *TagsApiService) TagsGet(ctx _context.Context) ApiTagsGetRequest {
 	return ApiTagsGetRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
@@ -169,6 +169,9 @@ func (a *TagsApiService) TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *_nethttp.R
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -245,9 +248,9 @@ func (a *TagsApiService) TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *_nethttp.R
 }
 
 type ApiTagsPostRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService TagsApi
-	tagCreate  *TagCreate
+	tagCreate *TagCreate
 }
 
 // The body containing the tag details.
@@ -271,7 +274,7 @@ Create a tag with the provided information.
 func (a *TagsApiService) TagsPost(ctx _context.Context) ApiTagsPostRequest {
 	return ApiTagsPostRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
@@ -309,6 +312,9 @@ func (a *TagsApiService) TagsPostExecute(r ApiTagsPostRequest) (Tag, *_nethttp.R
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -407,10 +413,11 @@ func (a *TagsApiService) TagsPostExecute(r ApiTagsPostRequest) (Tag, *_nethttp.R
 }
 
 type ApiTagsTagIdDeleteRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService TagsApi
-	tagId      string
+	tagId string
 }
+
 
 func (r ApiTagsTagIdDeleteRequest) Execute() (DeleteResult, *_nethttp.Response, error) {
 	return r.ApiService.TagsTagIdDeleteExecute(r)
@@ -428,8 +435,8 @@ Delete the tag with the given ID.
 func (a *TagsApiService) TagsTagIdDelete(ctx _context.Context, tagId string) ApiTagsTagIdDeleteRequest {
 	return ApiTagsTagIdDeleteRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tagId:      tagId,
+		ctx: ctx,
+		tagId: tagId,
 	}
 }
 
@@ -465,6 +472,9 @@ func (a *TagsApiService) TagsTagIdDeleteExecute(r ApiTagsTagIdDeleteRequest) (De
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -541,10 +551,11 @@ func (a *TagsApiService) TagsTagIdDeleteExecute(r ApiTagsTagIdDeleteRequest) (De
 }
 
 type ApiTagsTagIdGetRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService TagsApi
-	tagId      string
+	tagId string
 }
+
 
 func (r ApiTagsTagIdGetRequest) Execute() (Tag, *_nethttp.Response, error) {
 	return r.ApiService.TagsTagIdGetExecute(r)
@@ -562,8 +573,8 @@ Retrieve the tag with the given ID
 func (a *TagsApiService) TagsTagIdGet(ctx _context.Context, tagId string) ApiTagsTagIdGetRequest {
 	return ApiTagsTagIdGetRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tagId:      tagId,
+		ctx: ctx,
+		tagId: tagId,
 	}
 }
 
@@ -599,6 +610,9 @@ func (a *TagsApiService) TagsTagIdGetExecute(r ApiTagsTagIdGetRequest) (Tag, *_n
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -675,10 +689,10 @@ func (a *TagsApiService) TagsTagIdGetExecute(r ApiTagsTagIdGetRequest) (Tag, *_n
 }
 
 type ApiTagsTagIdPatchRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService TagsApi
-	tagId      string
-	tagUpdate  *TagUpdate
+	tagId string
+	tagUpdate *TagUpdate
 }
 
 // The body containing the tag changes.
@@ -703,8 +717,8 @@ Updates the tag with the given ID.
 func (a *TagsApiService) TagsTagIdPatch(ctx _context.Context, tagId string) ApiTagsTagIdPatchRequest {
 	return ApiTagsTagIdPatchRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tagId:      tagId,
+		ctx: ctx,
+		tagId: tagId,
 	}
 }
 
@@ -743,6 +757,9 @@ func (a *TagsApiService) TagsTagIdPatchExecute(r ApiTagsTagIdPatchRequest) (Tag,
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}

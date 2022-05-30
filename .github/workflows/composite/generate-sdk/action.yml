@@ -1,0 +1,36 @@
+name: 'Generate SDK'
+description: 'Generate SDK for a given API'
+inputs:
+  spec-link: 
+    description: 'Link to the spec file.'
+    required: true
+  package-name:
+    description: 'Name of the go module.'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Check if Release Branch
+      shell: bash
+      if: startsWith(github.head_ref, 'release') == false && github.head_ref != 'master'
+      id: checkReleaseBranch
+      run: |
+        echo "Release or master source branch. Skipping generation"
+        echo "::set-output name=IS_FEATURE_BRANCH::true"
+    - name: Install node
+      if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
+      uses: actions/setup-node@v2
+    - name: Install openapi-generator-cli
+      if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
+      shell: bash
+      run: npm install -g @openapitools/openapi-generator-cli
+    - name: Generate SDK
+      if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
+      shell: bash
+      run: openapi-generator-cli generate -i ${{ inputs.spec-link }} -c openapi-generator-config.yaml -o ${{ inputs.package-name }} --additional-properties packageName=${{ inputs.package-name }}
+    - name: Upload Artifacts
+      if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ inputs.package-name }}
+        path: ${{ inputs.package-name }}

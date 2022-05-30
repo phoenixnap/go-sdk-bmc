@@ -1,0 +1,64 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/solutions/rancher/v1beta/clusters"
+  },
+  "response": {
+    "statusCode": 200,
+    "body": [
+      {
+        "id": "60a773b89fd9035858ce8903",
+        "name": "Rancher Deployment",
+        "description": "A Rancher Server deployment in Phoenix.",
+        "location": "PHX",
+        "initialClusterVersion": "v2.5.9",
+        "nodePools": [
+          {
+            "name": "Rancher Server Node Pool",
+            "nodeCount": 1,
+            "serverType": "s0.d1.small",
+            "sshConfig": {
+              "installDefaultKeys": true,
+              "keys": [
+                "sshkey"
+              ],
+              "keyIds": [
+                "keyId"
+              ]
+            },
+            "nodes": [
+              {
+                "serverId": "60b08f04adab617be44068bb"
+              }
+            ]
+          }
+        ],
+        "configuration": {
+          "token": "token",
+          "tlsSan": "tlsSan",
+          "etcdSnapshotScheduleCron": "0 0,12 * * *",
+          "etcdSnapshotRetention": 5,
+          "nodeTaint": "node-taint",
+          "clusterDomain": "cluster-domain",
+          "certificates": {
+            "caCertificate": "certificates",
+            "certificate": "certificate",
+            "certificateKey": "certificateKey"
+          }
+        },
+        "metadata": {
+          "url": "rancher.com",
+          "username": "username",
+          "password": "password"
+        },
+        "workloadConfiguration": {
+          "name": "Workload Cluster",
+          "serverCount": 1,
+          "serverType": "s0.d1.small",
+          "location": "PHX"
+        },
+        "statusDescription": "STATUS"
+      }
+    ]
+  }
+}

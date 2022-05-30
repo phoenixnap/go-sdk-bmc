@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -17,8 +17,8 @@ import (
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
-	"reflect"
 	"strings"
+	"reflect"
 )
 
 // Linger please
@@ -29,14 +29,14 @@ var (
 type ServersApi interface {
 
 	/*
-		DeletePrivateNetwork Removes the server from private network.
+	DeletePrivateNetwork Removes the server from private network.
 
-		Removes the server from private network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. <b>This is an advanced network action that can make your server completely unavailable over any network. Make sure this server is reachable over remote console for guaranteed access in case of misconfiguration.</b>
+	Removes the server from private network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. <b>This is an advanced network action that can make your server completely unavailable over any network. Make sure this server is reachable over remote console for guaranteed access in case of misconfiguration.</b>
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param serverId The server's ID.
-		 @param privateNetworkId The private network identifier.
-		 @return ApiDeletePrivateNetworkRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param serverId The server's ID.
+	 @param privateNetworkId The private network identifier.
+	 @return ApiDeletePrivateNetworkRequest
 	*/
 	DeletePrivateNetwork(ctx _context.Context, serverId string, privateNetworkId string) ApiDeletePrivateNetworkRequest
 
@@ -45,12 +45,12 @@ type ServersApi interface {
 	DeletePrivateNetworkExecute(r ApiDeletePrivateNetworkRequest) (string, *_nethttp.Response, error)
 
 	/*
-		ServersGet List servers.
+	ServersGet List servers.
 
-		List all servers owned by account.
+	List all servers owned by account.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return ApiServersGetRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiServersGetRequest
 	*/
 	ServersGet(ctx _context.Context) ApiServersGetRequest
 
@@ -59,12 +59,12 @@ type ServersApi interface {
 	ServersGetExecute(r ApiServersGetRequest) ([]Server, *_nethttp.Response, error)
 
 	/*
-		ServersPost Create new server.
+	ServersPost Create new server.
 
-		Create (request) new server for account. Server DNS will be configured to access Google's public DNS at 8.8.8.8 .
+	Create (request) new server for account. Server DNS will be configured to access Google's public DNS at 8.8.8.8 .
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return ApiServersPostRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiServersPostRequest
 	*/
 	ServersPost(ctx _context.Context) ApiServersPostRequest
 
@@ -73,13 +73,13 @@ type ServersApi interface {
 	ServersPostExecute(r ApiServersPostRequest) (Server, *_nethttp.Response, error)
 
 	/*
-		ServersServerIdActionsDeprovisionPost Deprovision a server.
+	ServersServerIdActionsDeprovisionPost Deprovision a server.
 
-		Deprovision the server. Supports advanced deprovision configuration.
+	Deprovision the server. Supports advanced deprovision configuration.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param serverId The server's ID.
-		 @return ApiServersServerIdActionsDeprovisionPostRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param serverId The server's ID.
+	 @return ApiServersServerIdActionsDeprovisionPostRequest
 	*/
 	ServersServerIdActionsDeprovisionPost(ctx _context.Context, serverId string) ApiServersServerIdActionsDeprovisionPostRequest
 
@@ -88,13 +88,13 @@ type ServersApi interface {
 	ServersServerIdActionsDeprovisionPostExecute(r ApiServersServerIdActionsDeprovisionPostRequest) (string, *_nethttp.Response, error)
 
 	/*
-		ServersServerIdActionsPowerOffPost Power off server.
+	ServersServerIdActionsPowerOffPost Power off server.
 
-		Power off specific server.
+	Power off specific server.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param serverId The server's ID.
-		 @return ApiServersServerIdActionsPowerOffPostRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param serverId The server's ID.
+	 @return ApiServersServerIdActionsPowerOffPostRequest
 	*/
 	ServersServerIdActionsPowerOffPost(ctx _context.Context, serverId string) ApiServersServerIdActionsPowerOffPostRequest
 
@@ -103,13 +103,13 @@ type ServersApi interface {
 	ServersServerIdActionsPowerOffPostExecute(r ApiServersServerIdActionsPowerOffPostRequest) (ActionResult, *_nethttp.Response, error)
 
 	/*
-		ServersServerIdActionsPowerOnPost Power on server.
+	ServersServerIdActionsPowerOnPost Power on server.
 
-		Power on specific server.
+	Power on specific server.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param serverId The server's ID.
-		 @return ApiServersServerIdActionsPowerOnPostRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param serverId The server's ID.
+	 @return ApiServersServerIdActionsPowerOnPostRequest
 	*/
 	ServersServerIdActionsPowerOnPost(ctx _context.Context, serverId string) ApiServersServerIdActionsPowerOnPostRequest
 
@@ -118,13 +118,13 @@ type ServersApi interface {
 	ServersServerIdActionsPowerOnPostExecute(r ApiServersServerIdActionsPowerOnPostRequest) (ActionResult, *_nethttp.Response, error)
 
 	/*
-		ServersServerIdActionsRebootPost Reboot server.
+	ServersServerIdActionsRebootPost Reboot server.
 
-		Reboot specific server.
+	Reboot specific server.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param serverId The server's ID.
-		 @return ApiServersServerIdActionsRebootPostRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param serverId The server's ID.
+	 @return ApiServersServerIdActionsRebootPostRequest
 	*/
 	ServersServerIdActionsRebootPost(ctx _context.Context, serverId string) ApiServersServerIdActionsRebootPostRequest
 
@@ -133,13 +133,13 @@ type ServersApi interface {
 	ServersServerIdActionsRebootPostExecute(r ApiServersServerIdActionsRebootPostRequest) (ActionResult, *_nethttp.Response, error)
 
 	/*
-		ServersServerIdActionsReservePost Reserve server.
+	ServersServerIdActionsReservePost Reserve server.
 
-		Reserve specific server.
+	Reserve specific server.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param serverId The server's ID.
-		 @return ApiServersServerIdActionsReservePostRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param serverId The server's ID.
+	 @return ApiServersServerIdActionsReservePostRequest
 	*/
 	ServersServerIdActionsReservePost(ctx _context.Context, serverId string) ApiServersServerIdActionsReservePostRequest
 
@@ -148,15 +148,15 @@ type ServersApi interface {
 	ServersServerIdActionsReservePostExecute(r ApiServersServerIdActionsReservePostRequest) (Server, *_nethttp.Response, error)
 
 	/*
-		ServersServerIdActionsResetPost Reset server.
+	ServersServerIdActionsResetPost Reset server.
 
-		Deprecated: Reset specific server. Reset only supports network configurations of type 'private network' or 'IP blocks'. As an alternative, the suggested action is to deprovision the server and provision a new one with the same configuration.
+	Deprecated: Reset specific server. Reset only supports network configurations of type 'private network' or 'IP blocks'. As an alternative, the suggested action is to deprovision the server and provision a new one with the same configuration.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param serverId The server's ID.
-		 @return ApiServersServerIdActionsResetPostRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param serverId The server's ID.
+	 @return ApiServersServerIdActionsResetPostRequest
 
-		Deprecated
+	Deprecated
 	*/
 	ServersServerIdActionsResetPost(ctx _context.Context, serverId string) ApiServersServerIdActionsResetPostRequest
 
@@ -166,13 +166,13 @@ type ServersApi interface {
 	ServersServerIdActionsResetPostExecute(r ApiServersServerIdActionsResetPostRequest) (ResetResult, *_nethttp.Response, error)
 
 	/*
-		ServersServerIdActionsShutdownPost Shutdown server.
+	ServersServerIdActionsShutdownPost Shutdown server.
 
-		Shut down specific server.
+	Shut down specific server.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param serverId The server's ID.
-		 @return ApiServersServerIdActionsShutdownPostRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param serverId The server's ID.
+	 @return ApiServersServerIdActionsShutdownPostRequest
 	*/
 	ServersServerIdActionsShutdownPost(ctx _context.Context, serverId string) ApiServersServerIdActionsShutdownPostRequest
 
@@ -181,15 +181,15 @@ type ServersApi interface {
 	ServersServerIdActionsShutdownPostExecute(r ApiServersServerIdActionsShutdownPostRequest) (ActionResult, *_nethttp.Response, error)
 
 	/*
-		ServersServerIdDelete Delete server.
+	ServersServerIdDelete Delete server.
 
-		Deprovision specific server. Any IP blocks assigned to this server will also be relinquished and deleted. Deprecated: see /servers/{serverId}/actions/deprovision
+	Deprovision specific server. Any IP blocks assigned to this server will also be relinquished and deleted. Deprecated: see /servers/{serverId}/actions/deprovision
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param serverId The server's ID.
-		 @return ApiServersServerIdDeleteRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param serverId The server's ID.
+	 @return ApiServersServerIdDeleteRequest
 
-		Deprecated
+	Deprecated
 	*/
 	ServersServerIdDelete(ctx _context.Context, serverId string) ApiServersServerIdDeleteRequest
 
@@ -199,13 +199,13 @@ type ServersApi interface {
 	ServersServerIdDeleteExecute(r ApiServersServerIdDeleteRequest) (DeleteResult, *_nethttp.Response, error)
 
 	/*
-		ServersServerIdGet Get server.
+	ServersServerIdGet Get server.
 
-		Get server properties.
+	Get server properties.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param serverId The server's ID.
-		 @return ApiServersServerIdGetRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param serverId The server's ID.
+	 @return ApiServersServerIdGetRequest
 	*/
 	ServersServerIdGet(ctx _context.Context, serverId string) ApiServersServerIdGetRequest
 
@@ -214,14 +214,14 @@ type ServersApi interface {
 	ServersServerIdGetExecute(r ApiServersServerIdGetRequest) (Server, *_nethttp.Response, error)
 
 	/*
-		ServersServerIdIpBlocksIpBlockIdDelete Unassign IP Block from Server.
+	ServersServerIdIpBlocksIpBlockIdDelete Unassign IP Block from Server.
 
-		Removes the IP block from the server. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. <b>This is an advanced network action that can make your server completely unavailable over any network. Make sure this server is reachable over remote console for guaranteed access in case of misconfiguration.</b>
+	Removes the IP block from the server. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. <b>This is an advanced network action that can make your server completely unavailable over any network. Make sure this server is reachable over remote console for guaranteed access in case of misconfiguration.</b>
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param serverId The server's ID.
-		 @param ipBlockId The IP Block identifier.
-		 @return ApiServersServerIdIpBlocksIpBlockIdDeleteRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param serverId The server's ID.
+	 @param ipBlockId The IP Block identifier.
+	 @return ApiServersServerIdIpBlocksIpBlockIdDeleteRequest
 	*/
 	ServersServerIdIpBlocksIpBlockIdDelete(ctx _context.Context, serverId string, ipBlockId string) ApiServersServerIdIpBlocksIpBlockIdDeleteRequest
 
@@ -230,13 +230,13 @@ type ServersApi interface {
 	ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiServersServerIdIpBlocksIpBlockIdDeleteRequest) (string, *_nethttp.Response, error)
 
 	/*
-		ServersServerIdIpBlocksPost Assign IP Block to Server.
+	ServersServerIdIpBlocksPost Assign IP Block to Server.
 
-		Adds an IP block to this server. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required.
+	Adds an IP block to this server. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param serverId The server's ID.
-		 @return ApiServersServerIdIpBlocksPostRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param serverId The server's ID.
+	 @return ApiServersServerIdIpBlocksPostRequest
 	*/
 	ServersServerIdIpBlocksPost(ctx _context.Context, serverId string) ApiServersServerIdIpBlocksPostRequest
 
@@ -245,13 +245,13 @@ type ServersApi interface {
 	ServersServerIdIpBlocksPostExecute(r ApiServersServerIdIpBlocksPostRequest) (ServerIpBlock, *_nethttp.Response, error)
 
 	/*
-		ServersServerIdPatch Patch a Server.
+	ServersServerIdPatch Patch a Server.
 
-		Any changes to the hostname or description using the BMC API will reflect solely in the BMC API and portal. The changes are intended to keep the BMC data up to date with your server. We do not have access to your server's settings. Local changes to the server's hostname will not be reflected in the API or portal.
+	Any changes to the hostname or description using the BMC API will reflect solely in the BMC API and portal. The changes are intended to keep the BMC data up to date with your server. We do not have access to your server's settings. Local changes to the server's hostname will not be reflected in the API or portal.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param serverId The server's ID.
-		 @return ApiServersServerIdPatchRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param serverId The server's ID.
+	 @return ApiServersServerIdPatchRequest
 	*/
 	ServersServerIdPatch(ctx _context.Context, serverId string) ApiServersServerIdPatchRequest
 
@@ -260,13 +260,13 @@ type ServersApi interface {
 	ServersServerIdPatchExecute(r ApiServersServerIdPatchRequest) (Server, *_nethttp.Response, error)
 
 	/*
-		ServersServerIdPrivateNetworksPost Adds the server to a private network.
+	ServersServerIdPrivateNetworksPost Adds the server to a private network.
 
-		Adds the server to a private network.
+	Adds the server to a private network.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param serverId The server's ID.
-		 @return ApiServersServerIdPrivateNetworksPostRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param serverId The server's ID.
+	 @return ApiServersServerIdPrivateNetworksPostRequest
 	*/
 	ServersServerIdPrivateNetworksPost(ctx _context.Context, serverId string) ApiServersServerIdPrivateNetworksPostRequest
 
@@ -275,14 +275,14 @@ type ServersApi interface {
 	ServersServerIdPrivateNetworksPostExecute(r ApiServersServerIdPrivateNetworksPostRequest) (ServerPrivateNetwork, *_nethttp.Response, error)
 
 	/*
-		ServersServerIdPublicNetworksDelete Removes the server from the Public Network
+	ServersServerIdPublicNetworksDelete Removes the server from the Public Network
 
-		Removes the server from the Public Network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. <b>This is an advanced network action that can make your server completely unavailable over any network. Make sure this server is reachable over remote console for guaranteed access in case of misconfiguration.</b>
+	Removes the server from the Public Network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. <b>This is an advanced network action that can make your server completely unavailable over any network. Make sure this server is reachable over remote console for guaranteed access in case of misconfiguration.</b>
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param serverId The server's ID.
-		 @param publicNetworkId The Public Network identifier.
-		 @return ApiServersServerIdPublicNetworksDeleteRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param serverId The server's ID.
+	 @param publicNetworkId The Public Network identifier.
+	 @return ApiServersServerIdPublicNetworksDeleteRequest
 	*/
 	ServersServerIdPublicNetworksDelete(ctx _context.Context, serverId string, publicNetworkId string) ApiServersServerIdPublicNetworksDeleteRequest
 
@@ -291,13 +291,13 @@ type ServersApi interface {
 	ServersServerIdPublicNetworksDeleteExecute(r ApiServersServerIdPublicNetworksDeleteRequest) (string, *_nethttp.Response, error)
 
 	/*
-		ServersServerIdPublicNetworksPost Adds the server to a Public Network.
+	ServersServerIdPublicNetworksPost Adds the server to a Public Network.
 
-		Adds the server to a Public Network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required.
+	Adds the server to a Public Network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param serverId The server's ID.
-		 @return ApiServersServerIdPublicNetworksPostRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param serverId The server's ID.
+	 @return ApiServersServerIdPublicNetworksPostRequest
 	*/
 	ServersServerIdPublicNetworksPost(ctx _context.Context, serverId string) ApiServersServerIdPublicNetworksPostRequest
 
@@ -306,13 +306,13 @@ type ServersApi interface {
 	ServersServerIdPublicNetworksPostExecute(r ApiServersServerIdPublicNetworksPostRequest) (ServerPublicNetwork, *_nethttp.Response, error)
 
 	/*
-		ServersServerIdTagsPut Overwrite tags assigned for Server.
+	ServersServerIdTagsPut Overwrite tags assigned for Server.
 
-		Overwrites tags assigned for Server and unassigns any tags not part of the request.
+	Overwrites tags assigned for Server and unassigns any tags not part of the request.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param serverId The server's ID.
-		 @return ApiServersServerIdTagsPutRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param serverId The server's ID.
+	 @return ApiServersServerIdTagsPutRequest
 	*/
 	ServersServerIdTagsPut(ctx _context.Context, serverId string) ApiServersServerIdTagsPutRequest
 
@@ -325,11 +325,12 @@ type ServersApi interface {
 type ServersApiService service
 
 type ApiDeletePrivateNetworkRequest struct {
-	ctx              _context.Context
-	ApiService       ServersApi
-	serverId         string
+	ctx _context.Context
+	ApiService ServersApi
+	serverId string
 	privateNetworkId string
 }
+
 
 func (r ApiDeletePrivateNetworkRequest) Execute() (string, *_nethttp.Response, error) {
 	return r.ApiService.DeletePrivateNetworkExecute(r)
@@ -347,9 +348,9 @@ Removes the server from private network. <b>No actual configuration is performed
 */
 func (a *ServersApiService) DeletePrivateNetwork(ctx _context.Context, serverId string, privateNetworkId string) ApiDeletePrivateNetworkRequest {
 	return ApiDeletePrivateNetworkRequest{
-		ApiService:       a,
-		ctx:              ctx,
-		serverId:         serverId,
+		ApiService: a,
+		ctx: ctx,
+		serverId: serverId,
 		privateNetworkId: privateNetworkId,
 	}
 }
@@ -387,6 +388,9 @@ func (a *ServersApiService) DeletePrivateNetworkExecute(r ApiDeletePrivateNetwor
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -434,9 +438,9 @@ func (a *ServersApiService) DeletePrivateNetworkExecute(r ApiDeletePrivateNetwor
 }
 
 type ApiServersGetRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService ServersApi
-	tag        *[]string
+	tag *[]string
 }
 
 // A list of query parameters related to tags in the form of tagName.tagValue
@@ -460,7 +464,7 @@ List all servers owned by account.
 func (a *ServersApiService) ServersGet(ctx _context.Context) ApiServersGetRequest {
 	return ApiServersGetRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
@@ -506,6 +510,9 @@ func (a *ServersApiService) ServersGetExecute(r ApiServersGetRequest) ([]Server,
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -582,8 +589,8 @@ func (a *ServersApiService) ServersGetExecute(r ApiServersGetRequest) ([]Server,
 }
 
 type ApiServersPostRequest struct {
-	ctx          _context.Context
-	ApiService   ServersApi
+	ctx _context.Context
+	ApiService ServersApi
 	serverCreate *ServerCreate
 }
 
@@ -607,7 +614,7 @@ Create (request) new server for account. Server DNS will be configured to access
 func (a *ServersApiService) ServersPost(ctx _context.Context) ApiServersPostRequest {
 	return ApiServersPostRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
@@ -642,6 +649,9 @@ func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (Server,
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -750,9 +760,9 @@ func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (Server,
 }
 
 type ApiServersServerIdActionsDeprovisionPostRequest struct {
-	ctx               _context.Context
-	ApiService        ServersApi
-	serverId          string
+	ctx _context.Context
+	ApiService ServersApi
+	serverId string
 	relinquishIpBlock *RelinquishIpBlock
 }
 
@@ -777,8 +787,8 @@ Deprovision the server. Supports advanced deprovision configuration.
 func (a *ServersApiService) ServersServerIdActionsDeprovisionPost(ctx _context.Context, serverId string) ApiServersServerIdActionsDeprovisionPostRequest {
 	return ApiServersServerIdActionsDeprovisionPostRequest{
 		ApiService: a,
-		ctx:        ctx,
-		serverId:   serverId,
+		ctx: ctx,
+		serverId: serverId,
 	}
 }
 
@@ -814,6 +824,9 @@ func (a *ServersApiService) ServersServerIdActionsDeprovisionPostExecute(r ApiSe
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -912,10 +925,11 @@ func (a *ServersApiService) ServersServerIdActionsDeprovisionPostExecute(r ApiSe
 }
 
 type ApiServersServerIdActionsPowerOffPostRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService ServersApi
-	serverId   string
+	serverId string
 }
+
 
 func (r ApiServersServerIdActionsPowerOffPostRequest) Execute() (ActionResult, *_nethttp.Response, error) {
 	return r.ApiService.ServersServerIdActionsPowerOffPostExecute(r)
@@ -933,8 +947,8 @@ Power off specific server.
 func (a *ServersApiService) ServersServerIdActionsPowerOffPost(ctx _context.Context, serverId string) ApiServersServerIdActionsPowerOffPostRequest {
 	return ApiServersServerIdActionsPowerOffPostRequest{
 		ApiService: a,
-		ctx:        ctx,
-		serverId:   serverId,
+		ctx: ctx,
+		serverId: serverId,
 	}
 }
 
@@ -970,6 +984,9 @@ func (a *ServersApiService) ServersServerIdActionsPowerOffPostExecute(r ApiServe
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -1066,10 +1083,11 @@ func (a *ServersApiService) ServersServerIdActionsPowerOffPostExecute(r ApiServe
 }
 
 type ApiServersServerIdActionsPowerOnPostRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService ServersApi
-	serverId   string
+	serverId string
 }
+
 
 func (r ApiServersServerIdActionsPowerOnPostRequest) Execute() (ActionResult, *_nethttp.Response, error) {
 	return r.ApiService.ServersServerIdActionsPowerOnPostExecute(r)
@@ -1087,8 +1105,8 @@ Power on specific server.
 func (a *ServersApiService) ServersServerIdActionsPowerOnPost(ctx _context.Context, serverId string) ApiServersServerIdActionsPowerOnPostRequest {
 	return ApiServersServerIdActionsPowerOnPostRequest{
 		ApiService: a,
-		ctx:        ctx,
-		serverId:   serverId,
+		ctx: ctx,
+		serverId: serverId,
 	}
 }
 
@@ -1124,6 +1142,9 @@ func (a *ServersApiService) ServersServerIdActionsPowerOnPostExecute(r ApiServer
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -1220,10 +1241,11 @@ func (a *ServersApiService) ServersServerIdActionsPowerOnPostExecute(r ApiServer
 }
 
 type ApiServersServerIdActionsRebootPostRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService ServersApi
-	serverId   string
+	serverId string
 }
+
 
 func (r ApiServersServerIdActionsRebootPostRequest) Execute() (ActionResult, *_nethttp.Response, error) {
 	return r.ApiService.ServersServerIdActionsRebootPostExecute(r)
@@ -1241,8 +1263,8 @@ Reboot specific server.
 func (a *ServersApiService) ServersServerIdActionsRebootPost(ctx _context.Context, serverId string) ApiServersServerIdActionsRebootPostRequest {
 	return ApiServersServerIdActionsRebootPostRequest{
 		ApiService: a,
-		ctx:        ctx,
-		serverId:   serverId,
+		ctx: ctx,
+		serverId: serverId,
 	}
 }
 
@@ -1278,6 +1300,9 @@ func (a *ServersApiService) ServersServerIdActionsRebootPostExecute(r ApiServers
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -1374,9 +1399,9 @@ func (a *ServersApiService) ServersServerIdActionsRebootPostExecute(r ApiServers
 }
 
 type ApiServersServerIdActionsReservePostRequest struct {
-	ctx           _context.Context
-	ApiService    ServersApi
-	serverId      string
+	ctx _context.Context
+	ApiService ServersApi
+	serverId string
 	serverReserve *ServerReserve
 }
 
@@ -1401,8 +1426,8 @@ Reserve specific server.
 func (a *ServersApiService) ServersServerIdActionsReservePost(ctx _context.Context, serverId string) ApiServersServerIdActionsReservePostRequest {
 	return ApiServersServerIdActionsReservePostRequest{
 		ApiService: a,
-		ctx:        ctx,
-		serverId:   serverId,
+		ctx: ctx,
+		serverId: serverId,
 	}
 }
 
@@ -1438,6 +1463,9 @@ func (a *ServersApiService) ServersServerIdActionsReservePostExecute(r ApiServer
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -1536,9 +1564,9 @@ func (a *ServersApiService) ServersServerIdActionsReservePostExecute(r ApiServer
 }
 
 type ApiServersServerIdActionsResetPostRequest struct {
-	ctx         _context.Context
-	ApiService  ServersApi
-	serverId    string
+	ctx _context.Context
+	ApiService ServersApi
+	serverId string
 	serverReset *ServerReset
 }
 
@@ -1565,8 +1593,8 @@ Deprecated
 func (a *ServersApiService) ServersServerIdActionsResetPost(ctx _context.Context, serverId string) ApiServersServerIdActionsResetPostRequest {
 	return ApiServersServerIdActionsResetPostRequest{
 		ApiService: a,
-		ctx:        ctx,
-		serverId:   serverId,
+		ctx: ctx,
+		serverId: serverId,
 	}
 }
 
@@ -1603,6 +1631,9 @@ func (a *ServersApiService) ServersServerIdActionsResetPostExecute(r ApiServersS
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -1701,10 +1732,11 @@ func (a *ServersApiService) ServersServerIdActionsResetPostExecute(r ApiServersS
 }
 
 type ApiServersServerIdActionsShutdownPostRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService ServersApi
-	serverId   string
+	serverId string
 }
+
 
 func (r ApiServersServerIdActionsShutdownPostRequest) Execute() (ActionResult, *_nethttp.Response, error) {
 	return r.ApiService.ServersServerIdActionsShutdownPostExecute(r)
@@ -1722,8 +1754,8 @@ Shut down specific server.
 func (a *ServersApiService) ServersServerIdActionsShutdownPost(ctx _context.Context, serverId string) ApiServersServerIdActionsShutdownPostRequest {
 	return ApiServersServerIdActionsShutdownPostRequest{
 		ApiService: a,
-		ctx:        ctx,
-		serverId:   serverId,
+		ctx: ctx,
+		serverId: serverId,
 	}
 }
 
@@ -1759,6 +1791,9 @@ func (a *ServersApiService) ServersServerIdActionsShutdownPostExecute(r ApiServe
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -1855,10 +1890,11 @@ func (a *ServersApiService) ServersServerIdActionsShutdownPostExecute(r ApiServe
 }
 
 type ApiServersServerIdDeleteRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService ServersApi
-	serverId   string
+	serverId string
 }
+
 
 func (r ApiServersServerIdDeleteRequest) Execute() (DeleteResult, *_nethttp.Response, error) {
 	return r.ApiService.ServersServerIdDeleteExecute(r)
@@ -1878,8 +1914,8 @@ Deprecated
 func (a *ServersApiService) ServersServerIdDelete(ctx _context.Context, serverId string) ApiServersServerIdDeleteRequest {
 	return ApiServersServerIdDeleteRequest{
 		ApiService: a,
-		ctx:        ctx,
-		serverId:   serverId,
+		ctx: ctx,
+		serverId: serverId,
 	}
 }
 
@@ -1916,6 +1952,9 @@ func (a *ServersApiService) ServersServerIdDeleteExecute(r ApiServersServerIdDel
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -2002,10 +2041,11 @@ func (a *ServersApiService) ServersServerIdDeleteExecute(r ApiServersServerIdDel
 }
 
 type ApiServersServerIdGetRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService ServersApi
-	serverId   string
+	serverId string
 }
+
 
 func (r ApiServersServerIdGetRequest) Execute() (Server, *_nethttp.Response, error) {
 	return r.ApiService.ServersServerIdGetExecute(r)
@@ -2023,8 +2063,8 @@ Get server properties.
 func (a *ServersApiService) ServersServerIdGet(ctx _context.Context, serverId string) ApiServersServerIdGetRequest {
 	return ApiServersServerIdGetRequest{
 		ApiService: a,
-		ctx:        ctx,
-		serverId:   serverId,
+		ctx: ctx,
+		serverId: serverId,
 	}
 }
 
@@ -2060,6 +2100,9 @@ func (a *ServersApiService) ServersServerIdGetExecute(r ApiServersServerIdGetReq
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -2146,10 +2189,10 @@ func (a *ServersApiService) ServersServerIdGetExecute(r ApiServersServerIdGetReq
 }
 
 type ApiServersServerIdIpBlocksIpBlockIdDeleteRequest struct {
-	ctx               _context.Context
-	ApiService        ServersApi
-	serverId          string
-	ipBlockId         string
+	ctx _context.Context
+	ApiService ServersApi
+	serverId string
+	ipBlockId string
 	relinquishIpBlock *RelinquishIpBlock
 }
 
@@ -2175,9 +2218,9 @@ Removes the IP block from the server. <b>No actual configuration is performed on
 func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDelete(ctx _context.Context, serverId string, ipBlockId string) ApiServersServerIdIpBlocksIpBlockIdDeleteRequest {
 	return ApiServersServerIdIpBlocksIpBlockIdDeleteRequest{
 		ApiService: a,
-		ctx:        ctx,
-		serverId:   serverId,
-		ipBlockId:  ipBlockId,
+		ctx: ctx,
+		serverId: serverId,
+		ipBlockId: ipBlockId,
 	}
 }
 
@@ -2214,6 +2257,9 @@ func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiS
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -2312,9 +2358,9 @@ func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiS
 }
 
 type ApiServersServerIdIpBlocksPostRequest struct {
-	ctx           _context.Context
-	ApiService    ServersApi
-	serverId      string
+	ctx _context.Context
+	ApiService ServersApi
+	serverId string
 	serverIpBlock *ServerIpBlock
 }
 
@@ -2339,8 +2385,8 @@ Adds an IP block to this server. <b>No actual configuration is performed on the 
 func (a *ServersApiService) ServersServerIdIpBlocksPost(ctx _context.Context, serverId string) ApiServersServerIdIpBlocksPostRequest {
 	return ApiServersServerIdIpBlocksPostRequest{
 		ApiService: a,
-		ctx:        ctx,
-		serverId:   serverId,
+		ctx: ctx,
+		serverId: serverId,
 	}
 }
 
@@ -2376,6 +2422,9 @@ func (a *ServersApiService) ServersServerIdIpBlocksPostExecute(r ApiServersServe
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -2474,9 +2523,9 @@ func (a *ServersApiService) ServersServerIdIpBlocksPostExecute(r ApiServersServe
 }
 
 type ApiServersServerIdPatchRequest struct {
-	ctx         _context.Context
-	ApiService  ServersApi
-	serverId    string
+	ctx _context.Context
+	ApiService ServersApi
+	serverId string
 	serverPatch *ServerPatch
 }
 
@@ -2501,8 +2550,8 @@ Any changes to the hostname or description using the BMC API will reflect solely
 func (a *ServersApiService) ServersServerIdPatch(ctx _context.Context, serverId string) ApiServersServerIdPatchRequest {
 	return ApiServersServerIdPatchRequest{
 		ApiService: a,
-		ctx:        ctx,
-		serverId:   serverId,
+		ctx: ctx,
+		serverId: serverId,
 	}
 }
 
@@ -2538,6 +2587,9 @@ func (a *ServersApiService) ServersServerIdPatchExecute(r ApiServersServerIdPatc
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -2636,9 +2688,9 @@ func (a *ServersApiService) ServersServerIdPatchExecute(r ApiServersServerIdPatc
 }
 
 type ApiServersServerIdPrivateNetworksPostRequest struct {
-	ctx                  _context.Context
-	ApiService           ServersApi
-	serverId             string
+	ctx _context.Context
+	ApiService ServersApi
+	serverId string
 	serverPrivateNetwork *ServerPrivateNetwork
 }
 
@@ -2663,8 +2715,8 @@ Adds the server to a private network.
 func (a *ServersApiService) ServersServerIdPrivateNetworksPost(ctx _context.Context, serverId string) ApiServersServerIdPrivateNetworksPostRequest {
 	return ApiServersServerIdPrivateNetworksPostRequest{
 		ApiService: a,
-		ctx:        ctx,
-		serverId:   serverId,
+		ctx: ctx,
+		serverId: serverId,
 	}
 }
 
@@ -2700,6 +2752,9 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPostExecute(r ApiServe
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -2788,11 +2843,12 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPostExecute(r ApiServe
 }
 
 type ApiServersServerIdPublicNetworksDeleteRequest struct {
-	ctx             _context.Context
-	ApiService      ServersApi
-	serverId        string
+	ctx _context.Context
+	ApiService ServersApi
+	serverId string
 	publicNetworkId string
 }
+
 
 func (r ApiServersServerIdPublicNetworksDeleteRequest) Execute() (string, *_nethttp.Response, error) {
 	return r.ApiService.ServersServerIdPublicNetworksDeleteExecute(r)
@@ -2810,9 +2866,9 @@ Removes the server from the Public Network. <b>No actual configuration is perfor
 */
 func (a *ServersApiService) ServersServerIdPublicNetworksDelete(ctx _context.Context, serverId string, publicNetworkId string) ApiServersServerIdPublicNetworksDeleteRequest {
 	return ApiServersServerIdPublicNetworksDeleteRequest{
-		ApiService:      a,
-		ctx:             ctx,
-		serverId:        serverId,
+		ApiService: a,
+		ctx: ctx,
+		serverId: serverId,
 		publicNetworkId: publicNetworkId,
 	}
 }
@@ -2850,6 +2906,9 @@ func (a *ServersApiService) ServersServerIdPublicNetworksDeleteExecute(r ApiServ
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -2946,9 +3005,9 @@ func (a *ServersApiService) ServersServerIdPublicNetworksDeleteExecute(r ApiServ
 }
 
 type ApiServersServerIdPublicNetworksPostRequest struct {
-	ctx                 _context.Context
-	ApiService          ServersApi
-	serverId            string
+	ctx _context.Context
+	ApiService ServersApi
+	serverId string
 	serverPublicNetwork *ServerPublicNetwork
 }
 
@@ -2973,8 +3032,8 @@ Adds the server to a Public Network. <b>No actual configuration is performed on 
 func (a *ServersApiService) ServersServerIdPublicNetworksPost(ctx _context.Context, serverId string) ApiServersServerIdPublicNetworksPostRequest {
 	return ApiServersServerIdPublicNetworksPostRequest{
 		ApiService: a,
-		ctx:        ctx,
-		serverId:   serverId,
+		ctx: ctx,
+		serverId: serverId,
 	}
 }
 
@@ -3010,6 +3069,9 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPostExecute(r ApiServer
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -3108,9 +3170,9 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPostExecute(r ApiServer
 }
 
 type ApiServersServerIdTagsPutRequest struct {
-	ctx                  _context.Context
-	ApiService           ServersApi
-	serverId             string
+	ctx _context.Context
+	ApiService ServersApi
+	serverId string
 	tagAssignmentRequest *[]TagAssignmentRequest
 }
 
@@ -3135,8 +3197,8 @@ Overwrites tags assigned for Server and unassigns any tags not part of the reque
 func (a *ServersApiService) ServersServerIdTagsPut(ctx _context.Context, serverId string) ApiServersServerIdTagsPutRequest {
 	return ApiServersServerIdTagsPutRequest{
 		ApiService: a,
-		ctx:        ctx,
-		serverId:   serverId,
+		ctx: ctx,
+		serverId: serverId,
 	}
 }
 
@@ -3172,6 +3234,9 @@ func (a *ServersApiService) ServersServerIdTagsPutExecute(r ApiServersServerIdTa
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}

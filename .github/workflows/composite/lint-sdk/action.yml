@@ -1,0 +1,17 @@
+name: 'Lint SDK'
+description: 'Lint SDK from a given directory'
+inputs:
+  module-name: 
+    description: 'Name of the module to lint.'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Install golang
+      shell: bash
+      run: |
+        sudo apt-get update 
+        sudo apt-get install golang-go
+    - name: Lint module
+      shell: bash
+      run: cd ${{ inputs.module-name }} && go vet ./...

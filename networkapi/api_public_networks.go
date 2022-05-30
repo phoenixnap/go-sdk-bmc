@@ -1,7 +1,7 @@
 /*
 Networks API
 
-Create, list, edit and delete public/private networks with the Network API. Use public networks to place multiple  servers on the same network or VLAN. Assign new servers with IP addresses from the same CIDR range. Use private  networks to avoid unnecessary egress data charges. Model your networks according to your business needs.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b>
+Create, list, edit and delete public/private networks with the Network API. Use public networks to place multiple  servers on the same network or VLAN. Assign new servers with IP addresses from the same CIDR range. Use private  networks to avoid unnecessary egress data charges. Model your networks according to your business needs.<br> <br> <span class='pnap-api-knowledge-base-link'> Helpful knowledge base articles are available for  <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>multi-private backend networks</a> and <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-15' target='_blank'>public networks</a>. </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b> 
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -28,12 +28,12 @@ var (
 type PublicNetworksApi interface {
 
 	/*
-		PublicNetworksGet List Public Networks.
+	PublicNetworksGet List Public Networks.
 
-		List all Public Networks owned by account.
+	List all Public Networks owned by account.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return ApiPublicNetworksGetRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiPublicNetworksGetRequest
 	*/
 	PublicNetworksGet(ctx _context.Context) ApiPublicNetworksGetRequest
 
@@ -42,13 +42,13 @@ type PublicNetworksApi interface {
 	PublicNetworksGetExecute(r ApiPublicNetworksGetRequest) ([]PublicNetwork, *_nethttp.Response, error)
 
 	/*
-		PublicNetworksNetworkIdDelete Delete a Public Network.
+	PublicNetworksNetworkIdDelete Delete a Public Network.
 
-		Delete Public Network. The request is accepted only if no resources are members of this network. The IP Block(s) will be freed and can be re-used in the future.
+	Delete Public Network. The request is accepted only if no resources are members of this network. The IP Block(s) will be freed and can be re-used in the future.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param publicNetworkId The Public Network identifier.
-		 @return ApiPublicNetworksNetworkIdDeleteRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param publicNetworkId The Public Network identifier.
+	 @return ApiPublicNetworksNetworkIdDeleteRequest
 	*/
 	PublicNetworksNetworkIdDelete(ctx _context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdDeleteRequest
 
@@ -56,13 +56,13 @@ type PublicNetworksApi interface {
 	PublicNetworksNetworkIdDeleteExecute(r ApiPublicNetworksNetworkIdDeleteRequest) (*_nethttp.Response, error)
 
 	/*
-		PublicNetworksNetworkIdGet Get a Public Network.
+	PublicNetworksNetworkIdGet Get a Public Network.
 
-		Retrieve Public Network Details.
+	Retrieve Public Network Details.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param publicNetworkId The Public Network identifier.
-		 @return ApiPublicNetworksNetworkIdGetRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param publicNetworkId The Public Network identifier.
+	 @return ApiPublicNetworksNetworkIdGetRequest
 	*/
 	PublicNetworksNetworkIdGet(ctx _context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdGetRequest
 
@@ -71,14 +71,14 @@ type PublicNetworksApi interface {
 	PublicNetworksNetworkIdGetExecute(r ApiPublicNetworksNetworkIdGetRequest) (PublicNetwork, *_nethttp.Response, error)
 
 	/*
-		PublicNetworksNetworkIdIpBlocksIpBlockIdDelete Removes the IP Block from the Public Network.
+	PublicNetworksNetworkIdIpBlocksIpBlockIdDelete Removes the IP Block from the Public Network.
 
-		Removes the IP Block from the Public Network. The result of this is that any traffic addressed to any IP within the block will not be routed to this network anymore. Please ensure that no resource members within this network have any IPs assigned from the IP Block being removed.
+	Removes the IP Block from the Public Network. The result of this is that any traffic addressed to any IP within the block will not be routed to this network anymore. Please ensure that no resource members within this network have any IPs assigned from the IP Block being removed.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param publicNetworkId The Public Network identifier.
-		 @param ipBlockId The IP Block identifier.
-		 @return ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param publicNetworkId The Public Network identifier.
+	 @param ipBlockId The IP Block identifier.
+	 @return ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest
 	*/
 	PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(ctx _context.Context, publicNetworkId string, ipBlockId string) ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest
 
@@ -87,13 +87,13 @@ type PublicNetworksApi interface {
 	PublicNetworksNetworkIdIpBlocksIpBlockIdDeleteExecute(r ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest) (string, *_nethttp.Response, error)
 
 	/*
-		PublicNetworksNetworkIdIpBlocksPost Adds an IP block to this public network.
+	PublicNetworksNetworkIdIpBlocksPost Adds an IP block to this public network.
 
-		Adds an IP block to this public network.
+	Adds an IP block to this public network.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param publicNetworkId The Public Network identifier.
-		 @return ApiPublicNetworksNetworkIdIpBlocksPostRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param publicNetworkId The Public Network identifier.
+	 @return ApiPublicNetworksNetworkIdIpBlocksPostRequest
 	*/
 	PublicNetworksNetworkIdIpBlocksPost(ctx _context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdIpBlocksPostRequest
 
@@ -102,13 +102,13 @@ type PublicNetworksApi interface {
 	PublicNetworksNetworkIdIpBlocksPostExecute(r ApiPublicNetworksNetworkIdIpBlocksPostRequest) (PublicNetworkIpBlock, *_nethttp.Response, error)
 
 	/*
-		PublicNetworksNetworkIdPatch Update Public Network's Details.
+	PublicNetworksNetworkIdPatch Update Public Network's Details.
 
-		Update Public Network's Details.
+	Update Public Network's Details.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param publicNetworkId The Public Network identifier.
-		 @return ApiPublicNetworksNetworkIdPatchRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param publicNetworkId The Public Network identifier.
+	 @return ApiPublicNetworksNetworkIdPatchRequest
 	*/
 	PublicNetworksNetworkIdPatch(ctx _context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdPatchRequest
 
@@ -117,12 +117,12 @@ type PublicNetworksApi interface {
 	PublicNetworksNetworkIdPatchExecute(r ApiPublicNetworksNetworkIdPatchRequest) (PublicNetwork, *_nethttp.Response, error)
 
 	/*
-		PublicNetworksPost Create a public network.
+	PublicNetworksPost Create a public network.
 
-		Create a public network.
+	Create a public network.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return ApiPublicNetworksPostRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiPublicNetworksPostRequest
 	*/
 	PublicNetworksPost(ctx _context.Context) ApiPublicNetworksPostRequest
 
@@ -135,9 +135,9 @@ type PublicNetworksApi interface {
 type PublicNetworksApiService service
 
 type ApiPublicNetworksGetRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService PublicNetworksApi
-	location   *string
+	location *string
 }
 
 // If present will filter the result by the given location of the Public Networks.
@@ -161,7 +161,7 @@ List all Public Networks owned by account.
 func (a *PublicNetworksApiService) PublicNetworksGet(ctx _context.Context) ApiPublicNetworksGetRequest {
 	return ApiPublicNetworksGetRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
@@ -199,6 +199,9 @@ func (a *PublicNetworksApiService) PublicNetworksGetExecute(r ApiPublicNetworksG
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -285,10 +288,11 @@ func (a *PublicNetworksApiService) PublicNetworksGetExecute(r ApiPublicNetworksG
 }
 
 type ApiPublicNetworksNetworkIdDeleteRequest struct {
-	ctx             _context.Context
-	ApiService      PublicNetworksApi
+	ctx _context.Context
+	ApiService PublicNetworksApi
 	publicNetworkId string
 }
+
 
 func (r ApiPublicNetworksNetworkIdDeleteRequest) Execute() (*_nethttp.Response, error) {
 	return r.ApiService.PublicNetworksNetworkIdDeleteExecute(r)
@@ -305,8 +309,8 @@ Delete Public Network. The request is accepted only if no resources are members 
 */
 func (a *PublicNetworksApiService) PublicNetworksNetworkIdDelete(ctx _context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdDeleteRequest {
 	return ApiPublicNetworksNetworkIdDeleteRequest{
-		ApiService:      a,
-		ctx:             ctx,
+		ApiService: a,
+		ctx: ctx,
 		publicNetworkId: publicNetworkId,
 	}
 }
@@ -341,6 +345,9 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdDeleteExecute(r ApiPub
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -428,10 +435,11 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdDeleteExecute(r ApiPub
 }
 
 type ApiPublicNetworksNetworkIdGetRequest struct {
-	ctx             _context.Context
-	ApiService      PublicNetworksApi
+	ctx _context.Context
+	ApiService PublicNetworksApi
 	publicNetworkId string
 }
+
 
 func (r ApiPublicNetworksNetworkIdGetRequest) Execute() (PublicNetwork, *_nethttp.Response, error) {
 	return r.ApiService.PublicNetworksNetworkIdGetExecute(r)
@@ -448,8 +456,8 @@ Retrieve Public Network Details.
 */
 func (a *PublicNetworksApiService) PublicNetworksNetworkIdGet(ctx _context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdGetRequest {
 	return ApiPublicNetworksNetworkIdGetRequest{
-		ApiService:      a,
-		ctx:             ctx,
+		ApiService: a,
+		ctx: ctx,
 		publicNetworkId: publicNetworkId,
 	}
 }
@@ -486,6 +494,9 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdGetExecute(r ApiPublic
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -562,11 +573,12 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdGetExecute(r ApiPublic
 }
 
 type ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest struct {
-	ctx             _context.Context
-	ApiService      PublicNetworksApi
+	ctx _context.Context
+	ApiService PublicNetworksApi
 	publicNetworkId string
-	ipBlockId       string
+	ipBlockId string
 }
+
 
 func (r ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest) Execute() (string, *_nethttp.Response, error) {
 	return r.ApiService.PublicNetworksNetworkIdIpBlocksIpBlockIdDeleteExecute(r)
@@ -584,10 +596,10 @@ Removes the IP Block from the Public Network. The result of this is that any tra
 */
 func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(ctx _context.Context, publicNetworkId string, ipBlockId string) ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest {
 	return ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest{
-		ApiService:      a,
-		ctx:             ctx,
+		ApiService: a,
+		ctx: ctx,
 		publicNetworkId: publicNetworkId,
-		ipBlockId:       ipBlockId,
+		ipBlockId: ipBlockId,
 	}
 }
 
@@ -624,6 +636,9 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksIpBlockIdDelet
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -720,9 +735,9 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksIpBlockIdDelet
 }
 
 type ApiPublicNetworksNetworkIdIpBlocksPostRequest struct {
-	ctx                  _context.Context
-	ApiService           PublicNetworksApi
-	publicNetworkId      string
+	ctx _context.Context
+	ApiService PublicNetworksApi
+	publicNetworkId string
 	publicNetworkIpBlock *PublicNetworkIpBlock
 }
 
@@ -746,8 +761,8 @@ Adds an IP block to this public network.
 */
 func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksPost(ctx _context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdIpBlocksPostRequest {
 	return ApiPublicNetworksNetworkIdIpBlocksPostRequest{
-		ApiService:      a,
-		ctx:             ctx,
+		ApiService: a,
+		ctx: ctx,
 		publicNetworkId: publicNetworkId,
 	}
 }
@@ -784,6 +799,9 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksPostExecute(r 
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -882,9 +900,9 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksPostExecute(r 
 }
 
 type ApiPublicNetworksNetworkIdPatchRequest struct {
-	ctx                 _context.Context
-	ApiService          PublicNetworksApi
-	publicNetworkId     string
+	ctx _context.Context
+	ApiService PublicNetworksApi
+	publicNetworkId string
 	publicNetworkModify *PublicNetworkModify
 }
 
@@ -908,8 +926,8 @@ Update Public Network's Details.
 */
 func (a *PublicNetworksApiService) PublicNetworksNetworkIdPatch(ctx _context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdPatchRequest {
 	return ApiPublicNetworksNetworkIdPatchRequest{
-		ApiService:      a,
-		ctx:             ctx,
+		ApiService: a,
+		ctx: ctx,
 		publicNetworkId: publicNetworkId,
 	}
 }
@@ -946,6 +964,9 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdPatchExecute(r ApiPubl
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -1044,8 +1065,8 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdPatchExecute(r ApiPubl
 }
 
 type ApiPublicNetworksPostRequest struct {
-	ctx                 _context.Context
-	ApiService          PublicNetworksApi
+	ctx _context.Context
+	ApiService PublicNetworksApi
 	publicNetworkCreate *PublicNetworkCreate
 }
 
@@ -1069,7 +1090,7 @@ Create a public network.
 func (a *PublicNetworksApiService) PublicNetworksPost(ctx _context.Context) ApiPublicNetworksPostRequest {
 	return ApiPublicNetworksPostRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
@@ -1104,6 +1125,9 @@ func (a *PublicNetworksApiService) PublicNetworksPostExecute(r ApiPublicNetworks
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}

@@ -16,6 +16,7 @@ docs/PublicNetworkIpBlock.md
 docs/PublicNetworkMembership.md
 docs/PublicNetworkModify.md
 docs/PublicNetworksApi.md
+go.mod
 go.sum
 model_error.go
 model_private_network.go

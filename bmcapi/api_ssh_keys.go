@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -28,12 +28,12 @@ var (
 type SSHKeysApi interface {
 
 	/*
-		SshKeysGet List SSH Keys.
+	SshKeysGet List SSH Keys.
 
-		List all SSH Keys.
+	List all SSH Keys.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return ApiSshKeysGetRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiSshKeysGetRequest
 	*/
 	SshKeysGet(ctx _context.Context) ApiSshKeysGetRequest
 
@@ -42,12 +42,12 @@ type SSHKeysApi interface {
 	SshKeysGetExecute(r ApiSshKeysGetRequest) ([]SshKey, *_nethttp.Response, error)
 
 	/*
-		SshKeysPost Create SSH Key.
+	SshKeysPost Create SSH Key.
 
-		Create an SSH Key. SSH Keys created can be used for server creation and reset functionality.
+	Create an SSH Key. SSH Keys created can be used for server creation and reset functionality.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return ApiSshKeysPostRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiSshKeysPostRequest
 	*/
 	SshKeysPost(ctx _context.Context) ApiSshKeysPostRequest
 
@@ -56,13 +56,13 @@ type SSHKeysApi interface {
 	SshKeysPostExecute(r ApiSshKeysPostRequest) (SshKey, *_nethttp.Response, error)
 
 	/*
-		SshKeysSshKeyIdDelete Delete SSH Key.
+	SshKeysSshKeyIdDelete Delete SSH Key.
 
-		Delete an SSH Key.
+	Delete an SSH Key.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param sshKeyId The SSH Key's ID.
-		 @return ApiSshKeysSshKeyIdDeleteRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param sshKeyId The SSH Key's ID.
+	 @return ApiSshKeysSshKeyIdDeleteRequest
 	*/
 	SshKeysSshKeyIdDelete(ctx _context.Context, sshKeyId string) ApiSshKeysSshKeyIdDeleteRequest
 
@@ -71,13 +71,13 @@ type SSHKeysApi interface {
 	SshKeysSshKeyIdDeleteExecute(r ApiSshKeysSshKeyIdDeleteRequest) (DeleteSshKeyResult, *_nethttp.Response, error)
 
 	/*
-		SshKeysSshKeyIdGet Get SSH Key.
+	SshKeysSshKeyIdGet Get SSH Key.
 
-		Get SSH Key details.
+	Get SSH Key details.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param sshKeyId The SSH Key's ID.
-		 @return ApiSshKeysSshKeyIdGetRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param sshKeyId The SSH Key's ID.
+	 @return ApiSshKeysSshKeyIdGetRequest
 	*/
 	SshKeysSshKeyIdGet(ctx _context.Context, sshKeyId string) ApiSshKeysSshKeyIdGetRequest
 
@@ -86,13 +86,13 @@ type SSHKeysApi interface {
 	SshKeysSshKeyIdGetExecute(r ApiSshKeysSshKeyIdGetRequest) (SshKey, *_nethttp.Response, error)
 
 	/*
-		SshKeysSshKeyIdPut Edit SSH Key.
+	SshKeysSshKeyIdPut Edit SSH Key.
 
-		Edit SSH Key details.
+	Edit SSH Key details.
 
-		 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param sshKeyId The SSH Key's ID.
-		 @return ApiSshKeysSshKeyIdPutRequest
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param sshKeyId The SSH Key's ID.
+	 @return ApiSshKeysSshKeyIdPutRequest
 	*/
 	SshKeysSshKeyIdPut(ctx _context.Context, sshKeyId string) ApiSshKeysSshKeyIdPutRequest
 
@@ -105,9 +105,10 @@ type SSHKeysApi interface {
 type SSHKeysApiService service
 
 type ApiSshKeysGetRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService SSHKeysApi
 }
+
 
 func (r ApiSshKeysGetRequest) Execute() ([]SshKey, *_nethttp.Response, error) {
 	return r.ApiService.SshKeysGetExecute(r)
@@ -124,7 +125,7 @@ List all SSH Keys.
 func (a *SSHKeysApiService) SshKeysGet(ctx _context.Context) ApiSshKeysGetRequest {
 	return ApiSshKeysGetRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
@@ -159,6 +160,9 @@ func (a *SSHKeysApiService) SshKeysGetExecute(r ApiSshKeysGetRequest) ([]SshKey,
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -235,8 +239,8 @@ func (a *SSHKeysApiService) SshKeysGetExecute(r ApiSshKeysGetRequest) ([]SshKey,
 }
 
 type ApiSshKeysPostRequest struct {
-	ctx          _context.Context
-	ApiService   SSHKeysApi
+	ctx _context.Context
+	ApiService SSHKeysApi
 	sshKeyCreate *SshKeyCreate
 }
 
@@ -260,7 +264,7 @@ Create an SSH Key. SSH Keys created can be used for server creation and reset fu
 func (a *SSHKeysApiService) SshKeysPost(ctx _context.Context) ApiSshKeysPostRequest {
 	return ApiSshKeysPostRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
@@ -295,6 +299,9 @@ func (a *SSHKeysApiService) SshKeysPostExecute(r ApiSshKeysPostRequest) (SshKey,
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -393,10 +400,11 @@ func (a *SSHKeysApiService) SshKeysPostExecute(r ApiSshKeysPostRequest) (SshKey,
 }
 
 type ApiSshKeysSshKeyIdDeleteRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService SSHKeysApi
-	sshKeyId   string
+	sshKeyId string
 }
+
 
 func (r ApiSshKeysSshKeyIdDeleteRequest) Execute() (DeleteSshKeyResult, *_nethttp.Response, error) {
 	return r.ApiService.SshKeysSshKeyIdDeleteExecute(r)
@@ -414,8 +422,8 @@ Delete an SSH Key.
 func (a *SSHKeysApiService) SshKeysSshKeyIdDelete(ctx _context.Context, sshKeyId string) ApiSshKeysSshKeyIdDeleteRequest {
 	return ApiSshKeysSshKeyIdDeleteRequest{
 		ApiService: a,
-		ctx:        ctx,
-		sshKeyId:   sshKeyId,
+		ctx: ctx,
+		sshKeyId: sshKeyId,
 	}
 }
 
@@ -451,6 +459,9 @@ func (a *SSHKeysApiService) SshKeysSshKeyIdDeleteExecute(r ApiSshKeysSshKeyIdDel
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -537,10 +548,11 @@ func (a *SSHKeysApiService) SshKeysSshKeyIdDeleteExecute(r ApiSshKeysSshKeyIdDel
 }
 
 type ApiSshKeysSshKeyIdGetRequest struct {
-	ctx        _context.Context
+	ctx _context.Context
 	ApiService SSHKeysApi
-	sshKeyId   string
+	sshKeyId string
 }
+
 
 func (r ApiSshKeysSshKeyIdGetRequest) Execute() (SshKey, *_nethttp.Response, error) {
 	return r.ApiService.SshKeysSshKeyIdGetExecute(r)
@@ -558,8 +570,8 @@ Get SSH Key details.
 func (a *SSHKeysApiService) SshKeysSshKeyIdGet(ctx _context.Context, sshKeyId string) ApiSshKeysSshKeyIdGetRequest {
 	return ApiSshKeysSshKeyIdGetRequest{
 		ApiService: a,
-		ctx:        ctx,
-		sshKeyId:   sshKeyId,
+		ctx: ctx,
+		sshKeyId: sshKeyId,
 	}
 }
 
@@ -595,6 +607,9 @@ func (a *SSHKeysApiService) SshKeysSshKeyIdGetExecute(r ApiSshKeysSshKeyIdGetReq
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -681,9 +696,9 @@ func (a *SSHKeysApiService) SshKeysSshKeyIdGetExecute(r ApiSshKeysSshKeyIdGetReq
 }
 
 type ApiSshKeysSshKeyIdPutRequest struct {
-	ctx          _context.Context
-	ApiService   SSHKeysApi
-	sshKeyId     string
+	ctx _context.Context
+	ApiService SSHKeysApi
+	sshKeyId string
 	sshKeyUpdate *SshKeyUpdate
 }
 
@@ -708,8 +723,8 @@ Edit SSH Key details.
 func (a *SSHKeysApiService) SshKeysSshKeyIdPut(ctx _context.Context, sshKeyId string) ApiSshKeysSshKeyIdPutRequest {
 	return ApiSshKeysSshKeyIdPutRequest{
 		ApiService: a,
-		ctx:        ctx,
-		sshKeyId:   sshKeyId,
+		ctx: ctx,
+		sshKeyId: sshKeyId,
 	}
 }
 
@@ -745,6 +760,9 @@ func (a *SSHKeysApiService) SshKeysSshKeyIdPutExecute(r ApiSshKeysSshKeyIdPutReq
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}

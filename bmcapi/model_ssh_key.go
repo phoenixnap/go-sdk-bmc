@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -71,7 +71,7 @@ func (o *SshKey) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *SshKey) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Id, true
@@ -95,7 +95,7 @@ func (o *SshKey) GetDefault() bool {
 // GetDefaultOk returns a tuple with the Default field value
 // and a boolean to check if the value has been set.
 func (o *SshKey) GetDefaultOk() (*bool, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Default, true
@@ -119,7 +119,7 @@ func (o *SshKey) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *SshKey) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Name, true
@@ -143,7 +143,7 @@ func (o *SshKey) GetKey() string {
 // GetKeyOk returns a tuple with the Key field value
 // and a boolean to check if the value has been set.
 func (o *SshKey) GetKeyOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Key, true
@@ -167,7 +167,7 @@ func (o *SshKey) GetFingerprint() string {
 // GetFingerprintOk returns a tuple with the Fingerprint field value
 // and a boolean to check if the value has been set.
 func (o *SshKey) GetFingerprintOk() (*string, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.Fingerprint, true
@@ -191,7 +191,7 @@ func (o *SshKey) GetCreatedOn() time.Time {
 // GetCreatedOnOk returns a tuple with the CreatedOn field value
 // and a boolean to check if the value has been set.
 func (o *SshKey) GetCreatedOnOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.CreatedOn, true
@@ -215,7 +215,7 @@ func (o *SshKey) GetLastUpdatedOn() time.Time {
 // GetLastUpdatedOnOk returns a tuple with the LastUpdatedOn field value
 // and a boolean to check if the value has been set.
 func (o *SshKey) GetLastUpdatedOnOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil  {
 		return nil, false
 	}
 	return &o.LastUpdatedOn, true
@@ -287,3 +287,5 @@ func (v *NullableSshKey) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+
