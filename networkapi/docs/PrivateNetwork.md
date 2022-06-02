@@ -13,13 +13,14 @@ Name | Type | Description | Notes
 **LocationDefault** | **bool** | Identifies network as the default private network for the specified location. | 
 **Cidr** | **string** | IP range associated with this private network in CIDR notation. | 
 **Servers** | [**[]PrivateNetworkServer**](PrivateNetworkServer.md) |  | 
+**Memberships** | [**[]NetworkMembership**](NetworkMembership.md) | A list of resources that are members of this private network. | 
 **CreatedOn** | **time.Time** | Date and time when this private network was created. | 
 
 ## Methods
 
 ### NewPrivateNetwork
 
-`func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, cidr string, servers []PrivateNetworkServer, createdOn time.Time, ) *PrivateNetwork`
+`func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, cidr string, servers []PrivateNetworkServer, memberships []NetworkMembership, createdOn time.Time, ) *PrivateNetwork`
 
 NewPrivateNetwork instantiates a new PrivateNetwork object
 This constructor will assign default values to properties that have it defined,
@@ -217,6 +218,26 @@ and a boolean to check if the value has been set.
 `func (o *PrivateNetwork) SetServers(v []PrivateNetworkServer)`
 
 SetServers sets Servers field to given value.
+
+
+### GetMemberships
+
+`func (o *PrivateNetwork) GetMemberships() []NetworkMembership`
+
+GetMemberships returns the Memberships field if non-nil, zero value otherwise.
+
+### GetMembershipsOk
+
+`func (o *PrivateNetwork) GetMembershipsOk() (*[]NetworkMembership, bool)`
+
+GetMembershipsOk returns a tuple with the Memberships field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMemberships
+
+`func (o *PrivateNetwork) SetMemberships(v []NetworkMembership)`
+
+SetMemberships sets Memberships field to given value.
 
 
 ### GetCreatedOn

@@ -66,6 +66,12 @@ paths:
                   ips:
                   - 10.0.0.2
                   - 10.0.0.3
+                memberships:
+                - resourceId: 603f3e995c18d515cda9c4f8
+                  resourceType: server
+                  ips:
+                  - 10.0.0.2
+                  - 10.0.0.3
                 createdOn: 2022-04-07T13:20:30.491Z
               - id: 604724ac9ed2abd18e9f1cb6
                 name: My Additional Backend Network
@@ -77,6 +83,12 @@ paths:
                 cidr: 10.0.0.0/24
                 servers:
                 - id: 603f3e995c18d515cdvte548
+                  ips:
+                  - 10.0.0.4
+                  - 10.0.0.5
+                memberships:
+                - resourceId: 603f3e995c18d515cdvte548
+                  resourceType: server
                   ips:
                   - 10.0.0.4
                   - 10.0.0.5
@@ -159,6 +171,7 @@ paths:
                     description: My Default Backend Network
                     cidr: 10.0.0.0/24
                     servers: []
+                    memberships: []
                     createdOn: 2022-04-07T13:20:30.491Z
                 PrivateNetworkNonDefaultCreated:
                   value:
@@ -171,6 +184,7 @@ paths:
                     description: My Additional Backend Network
                     cidr: 10.0.0.0/24
                     servers: []
+                    memberships: []
                     createdOn: 2022-04-07T13:20:30.491Z
               schema:
                 $ref: '#/components/schemas/PrivateNetwork'
@@ -293,6 +307,12 @@ paths:
                       ips:
                       - 10.0.0.2
                       - 10.0.0.3
+                    memberships:
+                    - resourceId: 603f3e995c18d515cda9c4f8
+                      resourceType: server
+                      ips:
+                      - 10.0.0.2
+                      - 10.0.0.3
                     createdOn: 2022-04-07T13:20:30.491Z
                 AdditionalPrivateNetwork:
                   value:
@@ -306,6 +326,12 @@ paths:
                     cidr: 10.0.0.0/24
                     servers:
                     - id: 603f3e995c18d515cdvte548
+                      ips:
+                      - 10.0.0.4
+                      - 10.0.0.5
+                    memberships:
+                    - resourceId: 603f3e995c18d515cdvte548
+                      resourceType: server
                       ips:
                       - 10.0.0.4
                       - 10.0.0.5
@@ -395,6 +421,12 @@ paths:
                       ips:
                       - 10.0.0.2
                       - 10.0.0.3
+                    memberships:
+                    - resourceId: 603f3e995c18d515cda9c4f8
+                      resourceType: server
+                      ips:
+                      - 10.0.0.2
+                      - 10.0.0.3
                     createdOn: 2022-04-07T13:20:30.491Z
                 PrivateNetworkNonDefaultModified:
                   value:
@@ -408,6 +440,12 @@ paths:
                     cidr: 10.0.0.0/24
                     servers:
                     - id: 603f3e995c18d515cdvte548
+                      ips:
+                      - 10.0.0.4
+                      - 10.0.0.5
+                    memberships:
+                    - resourceId: 603f3e995c18d515cdvte548
+                      resourceType: server
                       ips:
                       - 10.0.0.4
                       - 10.0.0.5
@@ -1176,6 +1214,19 @@ components:
         type: PRIVATE
         locationDefault: true
         createdOn: 2022-04-07T13:30:30.491Z
+        memberships:
+        - resourceId: 603f3e995c18d515cda9c4f8
+          ips:
+          - 10.111.14.104
+          - 10.111.14.105
+          - 10.111.14.106
+          resourceType: server
+        - resourceId: 603f3e995c18d515cda9c4f8
+          ips:
+          - 10.111.14.104
+          - 10.111.14.105
+          - 10.111.14.106
+          resourceType: server
       properties:
         id:
           description: The private network identifier.
@@ -1214,8 +1265,14 @@ components:
           example: 10.0.0.0/24
           type: string
         servers:
+          deprecated: true
           items:
             $ref: '#/components/schemas/PrivateNetworkServer'
+          type: array
+        memberships:
+          description: A list of resources that are members of this private network.
+          items:
+            $ref: '#/components/schemas/NetworkMembership'
           type: array
         createdOn:
           description: Date and time when this private network was created.
@@ -1228,6 +1285,7 @@ components:
       - id
       - location
       - locationDefault
+      - memberships
       - name
       - servers
       - type
@@ -1362,9 +1420,9 @@ components:
           example: 10
           type: integer
         memberships:
-          description: A list of resources that are members in this public network.
+          description: A list of resources that are members of this public network.
           items:
-            $ref: '#/components/schemas/PublicNetworkMembership'
+            $ref: '#/components/schemas/NetworkMembership'
           type: array
         name:
           description: The friendly name of this public network.
@@ -1400,38 +1458,6 @@ components:
       - memberships
       - name
       - vlanId
-      type: object
-    PublicNetworkMembership:
-      description: Resource details linked to the Public Network.
-      example:
-        resourceId: 603f3e995c18d515cda9c4f8
-        ips:
-        - 10.111.14.104
-        - 10.111.14.105
-        - 10.111.14.106
-        resourceType: server
-      properties:
-        resourceId:
-          description: The resource identifier.
-          example: 603f3e995c18d515cda9c4f8
-          type: string
-        resourceType:
-          description: The resource's type.
-          example: server
-          type: string
-        ips:
-          description: List of public IPs associated to the resource.
-          example:
-          - 10.111.14.104
-          - 10.111.14.105
-          - 10.111.14.106
-          items:
-            type: string
-          type: array
-      required:
-      - ips
-      - resourceId
-      - resourceType
       type: object
     PublicNetworkIpBlock:
       description: The assigned IP block to the Public Network.
@@ -1503,6 +1529,38 @@ components:
           example: Further details on the network.
           maxLength: 250
           type: string
+      type: object
+    NetworkMembership:
+      description: Resource details linked to the Network.
+      example:
+        resourceId: 603f3e995c18d515cda9c4f8
+        ips:
+        - 10.111.14.104
+        - 10.111.14.105
+        - 10.111.14.106
+        resourceType: server
+      properties:
+        resourceId:
+          description: The resource identifier.
+          example: 603f3e995c18d515cda9c4f8
+          type: string
+        resourceType:
+          description: The resource's type.
+          example: server
+          type: string
+        ips:
+          description: List of IPs associated to the resource.
+          example:
+          - 10.111.14.104
+          - 10.111.14.105
+          - 10.111.14.106
+          items:
+            type: string
+          type: array
+      required:
+      - ips
+      - resourceId
+      - resourceType
       type: object
     Error:
       properties:

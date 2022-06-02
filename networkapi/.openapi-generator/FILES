@@ -5,6 +5,7 @@ api_public_networks.go
 client.go
 configuration.go
 docs/Error.md
+docs/NetworkMembership.md
 docs/PrivateNetwork.md
 docs/PrivateNetworkCreate.md
 docs/PrivateNetworkModify.md
@@ -13,12 +14,12 @@ docs/PrivateNetworksApi.md
 docs/PublicNetwork.md
 docs/PublicNetworkCreate.md
 docs/PublicNetworkIpBlock.md
-docs/PublicNetworkMembership.md
 docs/PublicNetworkModify.md
 docs/PublicNetworksApi.md
 go.mod
 go.sum
 model_error.go
+model_network_membership.go
 model_private_network.go
 model_private_network_create.go
 model_private_network_modify.go
@@ -26,7 +27,6 @@ model_private_network_server.go
 model_public_network.go
 model_public_network_create.go
 model_public_network_ip_block.go
-model_public_network_membership.go
 model_public_network_modify.go
 response.go
 utils.go
