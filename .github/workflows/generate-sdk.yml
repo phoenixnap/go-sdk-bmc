@@ -72,12 +72,11 @@ jobs:
     name: Push Changes
     runs-on: ubuntu-latest
     if: |
-      github.event_name == 'schedule' || (
-        startsWith(github.head_ref, 'release') == false &&
-        startsWith(github.base_ref, 'release') == false &&
-        github.head_ref != 'master' &&
-        github.base_ref != 'master' &&
-        github.event.pull_request.head.repo.full_name == 'phoenixnap/go-sdk-bmc'
+      (github.event_name == 'schedule') ||
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/develop') || (
+        startsWith(github.head_ref, 'feature') == true &&
+        github.base_ref == 'develop' &&
+        github.event.pull_request.head.repo.full_name == 'phoenixnap/python-sdk-bmc'
       )
     needs:
       - generate-bmcapi
