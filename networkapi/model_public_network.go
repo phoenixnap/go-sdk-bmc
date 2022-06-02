@@ -22,8 +22,8 @@ type PublicNetwork struct {
 	Id string `json:"id"`
 	// The VLAN of this public network.
 	VlanId int32 `json:"vlanId"`
-	// A list of resources that are members in this public network.
-	Memberships []PublicNetworkMembership `json:"memberships"`
+	// A list of resources that are members of this public network.
+	Memberships []NetworkMembership `json:"memberships"`
 	// The friendly name of this public network.
 	Name string `json:"name"`
 	// The location of this public network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
@@ -40,7 +40,7 @@ type PublicNetwork struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicNetwork(id string, vlanId int32, memberships []PublicNetworkMembership, name string, location string, createdOn time.Time, ipBlocks []PublicNetworkIpBlock) *PublicNetwork {
+func NewPublicNetwork(id string, vlanId int32, memberships []NetworkMembership, name string, location string, createdOn time.Time, ipBlocks []PublicNetworkIpBlock) *PublicNetwork {
 	this := PublicNetwork{}
 	this.Id = id
 	this.VlanId = vlanId
@@ -109,9 +109,9 @@ func (o *PublicNetwork) SetVlanId(v int32) {
 }
 
 // GetMemberships returns the Memberships field value
-func (o *PublicNetwork) GetMemberships() []PublicNetworkMembership {
+func (o *PublicNetwork) GetMemberships() []NetworkMembership {
 	if o == nil {
-		var ret []PublicNetworkMembership
+		var ret []NetworkMembership
 		return ret
 	}
 
@@ -120,7 +120,7 @@ func (o *PublicNetwork) GetMemberships() []PublicNetworkMembership {
 
 // GetMembershipsOk returns a tuple with the Memberships field value
 // and a boolean to check if the value has been set.
-func (o *PublicNetwork) GetMembershipsOk() (*[]PublicNetworkMembership, bool) {
+func (o *PublicNetwork) GetMembershipsOk() (*[]NetworkMembership, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -128,7 +128,7 @@ func (o *PublicNetwork) GetMembershipsOk() (*[]PublicNetworkMembership, bool) {
 }
 
 // SetMemberships sets field value
-func (o *PublicNetwork) SetMemberships(v []PublicNetworkMembership) {
+func (o *PublicNetwork) SetMemberships(v []NetworkMembership) {
 	o.Memberships = v
 }
 

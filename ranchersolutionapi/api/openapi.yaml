@@ -625,8 +625,8 @@ components:
           example: x78sdkjds879sd7cx8
           type: string
       required:
+      - clusterId
       - result
-      - serverId
       type: object
     Error:
       properties:

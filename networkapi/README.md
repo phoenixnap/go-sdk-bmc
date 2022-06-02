@@ -105,6 +105,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [Error](docs/Error.md)
+ - [NetworkMembership](docs/NetworkMembership.md)
  - [PrivateNetwork](docs/PrivateNetwork.md)
  - [PrivateNetworkCreate](docs/PrivateNetworkCreate.md)
  - [PrivateNetworkModify](docs/PrivateNetworkModify.md)
@@ -112,7 +113,6 @@ Class | Method | HTTP request | Description
  - [PublicNetwork](docs/PublicNetwork.md)
  - [PublicNetworkCreate](docs/PublicNetworkCreate.md)
  - [PublicNetworkIpBlock](docs/PublicNetworkIpBlock.md)
- - [PublicNetworkMembership](docs/PublicNetworkMembership.md)
  - [PublicNetworkModify](docs/PublicNetworkModify.md)
 
 
