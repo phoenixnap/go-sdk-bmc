@@ -1,0 +1,20 @@
+{
+    "request": {
+        "method": "POST",
+        "path": "/bmc/v1/quotas/{id}/actions/request-edit",
+        "pathParameters": {
+            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"]
+        },
+        "body": {
+            "type": "JSON",
+            "json": {
+                "limit": 5,
+                "reason": "reason"
+            },
+            "matchType": "STRICT"
+        }
+    },
+    "response": {
+        "statusCode": 202
+    }
+}

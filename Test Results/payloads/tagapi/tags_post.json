@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/tag-manager/v1/tags",
+    "body": {
+      "type": "JSON",
+      "json": {
+        "name": "Environment",
+        "description": "description",
+        "isBillingTag": true
+      },
+      "matchType": "STRICT"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "body": {
+      "id": "fakeId",
+      "name": "tagName",
+      "values": [
+        "value1"
+      ],
+      "description": "fakeDescription",
+      "isBillingTag": true,
+      "resourceAssignments": [
+        {
+          "resourceName": "rname",
+          "value": "rvalue"
+        }
+      ],
+      "createdBy": "USER"
+    }
+  }
+}

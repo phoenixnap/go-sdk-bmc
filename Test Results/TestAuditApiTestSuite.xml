@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite tests="2" failures="0" time="0.582" name="tests">
+		<properties>
+			<property name="go.version" value="go1.13.8"></property>
+		</properties>
+		<testcase classname="tests" name="TestAuditApiTestSuite" time="0.580"></testcase>
+		<testcase classname="tests" name="TestAuditApiTestSuite/Test_get_events_all_query_params" time="0.580"></testcase>
+	</testsuite>
+</testsuites>

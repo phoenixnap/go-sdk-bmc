@@ -1,0 +1,28 @@
+{
+    "request": {
+        "method": "POST",
+        "path": "/bmc/v1/servers/{id}/network-configuration/private-network-configuration/private-networks",
+        "pathParameters": {
+            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"]
+        },
+        "body": {
+            "type": "JSON",
+            "json": {
+                "id": "60473a6115e34466c9f8f083",
+                "ips": [ "10.1.1.1" ],
+                "dhcp": false,
+                "statusDescription": "assigned"
+            },
+            "matchType": "STRICT"
+        }
+    },
+    "response": {
+        "statusCode": 200,
+        "body": {
+            "id": "603f3b2cfcaf050643b89a4b",
+            "ips": [ "10.1.1.1" ],
+            "dhcp": false,
+            "statusDescription": "assigned"
+        }
+    }
+}
