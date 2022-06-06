@@ -100,7 +100,7 @@ paths:
               UserDefinedPrivateNetworkConfiguration_AllIpsProvided_DhcpFalse:
                 value:
                   hostname: my-server-1
-                  description: 'My custom server #1'
+                  description: "My custom server #1"
                   location: PHX
                   os: ubuntu/bionic
                   type: s1.c1.small
@@ -129,7 +129,7 @@ paths:
               NetworkConfigurationNotProvided_ImplicitlyUseOrCreateDefaultPrivateNetworkForServerProvision:
                 value:
                   hostname: my-server-1
-                  description: 'My custom server #1'
+                  description: "My custom server #1"
                   location: PHX
                   os: ubuntu/bionic
                   type: s1.c1.small
@@ -145,7 +145,7 @@ paths:
               UserDefinedIpBlockConfiguration:
                 value:
                   hostname: my-server-1
-                  description: 'My custom server #1'
+                  description: "My custom server #1"
                   location: PHX
                   os: ubuntu/bionic
                   type: s1.c1.small
@@ -166,7 +166,7 @@ paths:
               UserDefinedIpBlockConfiguration_UserDefinedPrivateNetworkConfiguration_AllIpsProvided:
                 value:
                   hostname: my-server-1
-                  description: 'My custom server #1'
+                  description: "My custom server #1"
                   location: PHX
                   os: ubuntu/bionic
                   type: s1.c1.small
@@ -199,7 +199,7 @@ paths:
               UserDefinedPublicNetworkConfiguration:
                 value:
                   hostname: my-server-1
-                  description: 'My custom server #1'
+                  description: "My custom server #1"
                   location: PHX
                   os: ubuntu/bionic
                   type: s1.c1.small
@@ -224,7 +224,7 @@ paths:
               UserDefinedNetworkGateway_UserDefinedPrivateNetworkConfiguration_UserDefinedPublicNetworkConfiguration:
                 value:
                   hostname: my-server-1
-                  description: 'My custom server #1'
+                  description: "My custom server #1"
                   location: PHX
                   os: ubuntu/bionic
                   type: s1.c1.small
@@ -310,8 +310,8 @@ paths:
   /servers/{serverId}:
     delete:
       deprecated: true
-      description: 'Deprovision specific server. Any IP blocks assigned to this server
-        will also be relinquished and deleted. Deprecated: see /servers/{serverId}/actions/deprovision'
+      description: "Deprovision specific server. Any IP blocks assigned to this server\
+        \ will also be relinquished and deleted. Deprecated: see /servers/{serverId}/actions/deprovision"
       operationId: serversServerIdDelete
       parameters:
       - description: The server's ID.
@@ -1339,10 +1339,10 @@ paths:
   /servers/{serverId}/actions/reset:
     post:
       deprecated: true
-      description: 'Deprecated: Reset specific server. Reset only supports network
-        configurations of type ''private network'' or ''IP blocks''. As an alternative,
-        the suggested action is to deprovision the server and provision a new one
-        with the same configuration.'
+      description: "Deprecated: Reset specific server. Reset only supports network\
+        \ configurations of type 'private network' or 'IP blocks'. As an alternative,\
+        \ the suggested action is to deprovision the server and provision a new one\
+        \ with the same configuration."
       operationId: serversServerIdActionsResetPost
       parameters:
       - description: The server's ID.
@@ -2076,9 +2076,9 @@ components:
           readOnly: true
           type: string
         managementAccessAllowedIps:
-          description: List of IPs allowed to access the Management UI. Supported
-            in single IP, CIDR and range format. When undefined, Management UI is
-            disabled. This will only be returned in response to provisioning a server.
+          description: "List of IPs allowed to access the Management UI. Supported\
+            \ in single IP, CIDR and range format. When undefined, Management UI is\
+            \ disabled. This will only be returned in response to provisioning a server."
           example:
           - 172.217.22.14
           - 10.111.14.40/29
@@ -2146,11 +2146,11 @@ components:
       properties:
         gatewayAddress:
           deprecated: true
-          description: The address of the gateway assigned / to assign to the server.
-            When used as part of request body, it has to match one of the IP addresses
-            used in the existing assigned private networks for the relevant location.
-            Deprecated in favour of a common gateway address across all networks available
-            under NetworkConfiguration.
+          description: "The address of the gateway assigned / to assign to the server.\
+            \ When used as part of request body, it has to match one of the IP addresses\
+            \ used in the existing assigned private networks for the relevant location.\
+            \ Deprecated in favour of a common gateway address across all networks\
+            \ available under NetworkConfiguration."
           example: 10.0.0.10
           type: string
         configurationType:
@@ -2162,10 +2162,10 @@ components:
           type: string
           writeOnly: true
         privateNetworks:
-          description: The list of private networks this server is member of. When
-            this field is part of request body, it'll be used to specify the private
-            networks to assign to this server upon provisioning. Used alongside the
-            `USER_DEFINED` configurationType.
+          description: "The list of private networks this server is member of. When\
+            \ this field is part of request body, it'll be used to specify the private\
+            \ networks to assign to this server upon provisioning. Used alongside\
+            \ the `USER_DEFINED` configurationType."
           example:
           - id: 60f81608e2f4665962b214db
             ips:
@@ -2200,10 +2200,10 @@ components:
       - id
       type: object
     IpBlocksConfiguration:
-      description: The IP blocks to assign to this server. <b>This is an exclusive
-        allocation</b>, i.e. the IP blocks cannot be shared with other servers. If
-        IpBlocksConfiguration is not defined, the purchase of a new IP block is determined
-        by the networkType field.
+      description: "The IP blocks to assign to this server. <b>This is an exclusive\
+        \ allocation</b>, i.e. the IP blocks cannot be shared with other servers.\
+        \ If IpBlocksConfiguration is not defined, the purchase of a new IP block\
+        \ is determined by the networkType field."
       example:
         ipBlocks:
         - vlanId: 10
@@ -2212,9 +2212,10 @@ components:
       properties:
         configurationType:
           default: PURCHASE_NEW
-          description: Determines the approach for configuring IP blocks for the server
-            being provisioned. If PURCHASE_NEW is selected, the smallest supported
-            range, depending on the operating system, is allocated to the server.
+          description: "Determines the approach for configuring IP blocks for the\
+            \ server being provisioned. If PURCHASE_NEW is selected, the smallest\
+            \ supported range, depending on the operating system, is allocated to\
+            \ the server."
           enum:
           - PURCHASE_NEW
           - USER_DEFINED
@@ -2275,9 +2276,9 @@ components:
           - 183.16.0.1
       properties:
         publicNetworks:
-          description: The list of public networks this server is member of. When
-            this field is part of request body, it'll be used to specify the public
-            networks to assign to this server upon provisioning.
+          description: "The list of public networks this server is member of. When\
+            \ this field is part of request body, it'll be used to specify the public\
+            \ networks to assign to this server upon provisioning."
           example:
           - id: 60473c2509268bc77fd06d29
             ips:
@@ -2323,9 +2324,9 @@ components:
             dhcp: false
       properties:
         gatewayAddress:
-          description: The address of the gateway assigned / to assign to the server.
-            When used as part of request body, IP address has to be part of private/public
-            network assigned to this server.
+          description: "The address of the gateway assigned / to assign to the server.\
+            \ When used as part of request body, IP address has to be part of private/public\
+            \ network assigned to this server."
           example: 182.16.0.145
           type: string
         privateNetworkConfiguration:
@@ -2384,7 +2385,7 @@ components:
               - 10.0.0.16
               - 10.0.0.17
               dhcp: false
-        description: 'Server #1 used for computing.'
+        description: "Server #1 used for computing."
         cpu: E-2276G
         storage: 1x 960GB NVMe
         clusterId: x78sdkjds879sd7cx8
@@ -2428,37 +2429,37 @@ components:
           example: my-server-1
           maxLength: 100
           minLength: 1
-          pattern: ^(?=.*[a-zA-Z])([a-zA-Z0-9().-])+$
+          pattern: "^(?=.*[a-zA-Z])([a-zA-Z0-9().-])+$"
           type: string
         description:
           description: Description of server.
-          example: 'Server #1 used for computing.'
+          example: "Server #1 used for computing."
           maxLength: 250
           type: string
         os:
-          description: The server’s OS ID used when the server was created. Currently
-            this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `centos/centos7`,
-            `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2`, `debian/bullseye`
-            or `proxmox/bullseye`.
+          description: "The server’s OS ID used when the server was created. Currently\
+            \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
+            \ `centos/centos7`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2`,\
+            \ `debian/bullseye` or `proxmox/bullseye`."
           example: ubuntu/bionic
           type: string
         type:
-          description: Server type ID. Cannot be changed once a server is created.
-            Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`,
-            `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`,
-            `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`,
-            `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`,
-            `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`,
-            `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`,
-            `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c3.medium`,
-            `d2.c4.medium`, `d2.c5.medium`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`,
-            `d2.m2.medium`, `d2.m2.large` or `d2.m2.xlarge`.
+          description: "Server type ID. Cannot be changed once a server is created.\
+            \ Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`,\
+            \ `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`,\
+            \ `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`,\
+            \ `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`,\
+            \ `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`,\
+            \ `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`,\
+            \ `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c3.medium`,\
+            \ `d2.c4.medium`, `d2.c5.medium`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`,\
+            \ `d2.m2.medium`, `d2.m2.large` or `d2.m2.xlarge`."
           example: s1.c1.small
           type: string
         location:
-          description: Server location ID. Cannot be changed once a server is created.
-            Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`,
-            `SEA` or `AUS`.
+          description: "Server location ID. Cannot be changed once a server is created.\
+            \ Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`,\
+            \ `SEA` or `AUS`."
           example: PHX
           type: string
         cpu:
@@ -2515,9 +2516,9 @@ components:
           type: string
         pricingModel:
           default: HOURLY
-          description: The pricing model this server is being billed. Currently this
-            field should be set to `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`,
-            `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`.
+          description: "The pricing model this server is being billed. Currently this\
+            \ field should be set to `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`,\
+            \ `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`."
           example: HOURLY
           type: string
         password:
@@ -2575,7 +2576,7 @@ components:
           readOnly: true
           type: string
         validationErrors:
-          description: Validation errors, if any.
+          description: "Validation errors, if any."
           items:
             type: string
           readOnly: true
@@ -2590,16 +2591,16 @@ components:
         value: PROD
       properties:
         name:
-          description: 'The name of the tag. Tag names are case-sensitive, and should
-            be composed of a maximum of 100 characters including UTF-8 Unicode letters,
-            numbers, and the following symbols: ''-'', ''_''. Regex: [A-zÀ-ú0-9_-]{1,100}.'
+          description: "The name of the tag. Tag names are case-sensitive, and should\
+            \ be composed of a maximum of 100 characters including UTF-8 Unicode letters,\
+            \ numbers, and the following symbols: '-', '_'. Regex: [A-zÀ-ú0-9_-]{1,100}."
           example: Environment
           type: string
         value:
-          description: 'The value of the tag assigned to the resource. Tag values
-            are case-sensitive, and should be composed of a maximum of 100 characters
-            including UTF-8 Unicode letters, numbers, and the following symbols: ''-'',
-            ''_''. Regex: [A-zÀ-ú0-9_-]{1,100}.'
+          description: "The value of the tag assigned to the resource. Tag values\
+            \ are case-sensitive, and should be composed of a maximum of 100 characters\
+            \ including UTF-8 Unicode letters, numbers, and the following symbols:\
+            \ '-', '_'. Regex: [A-zÀ-ú0-9_-]{1,100}."
           example: PROD
           type: string
       required:
@@ -2651,7 +2652,7 @@ components:
               - 10.0.0.16
               - 10.0.0.17
               dhcp: false
-        description: 'Server #1 used for computing.'
+        description: "Server #1 used for computing."
         type: s1.c1.small
         sshKeyIds:
         - 5fa942e71c16abcfbead275f
@@ -2676,37 +2677,37 @@ components:
           example: my-server-1
           maxLength: 100
           minLength: 1
-          pattern: ^(?=.*[a-zA-Z])([a-zA-Z0-9().-])+$
+          pattern: "^(?=.*[a-zA-Z])([a-zA-Z0-9().-])+$"
           type: string
         description:
           description: Description of server.
-          example: 'Server #1 used for computing.'
+          example: "Server #1 used for computing."
           maxLength: 250
           type: string
         os:
-          description: The server’s OS ID used when the server was created. Currently
-            this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `centos/centos7`,
-            `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2`, `debian/bullseye`
-            or `proxmox/bullseye`.
+          description: "The server’s OS ID used when the server was created. Currently\
+            \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
+            \ `centos/centos7`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2`,\
+            \ `debian/bullseye` or `proxmox/bullseye`."
           example: ubuntu/bionic
           type: string
         type:
-          description: Server type ID. Cannot be changed once a server is created.
-            Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`,
-            `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`,
-            `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`,
-            `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`,
-            `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`,
-            `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`,
-            `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c3.medium`,
-            `d2.c4.medium`, `d2.c5.medium`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`,
-            `d2.m2.medium`, `d2.m2.large` or `d2.m2.xlarge`.
+          description: "Server type ID. Cannot be changed once a server is created.\
+            \ Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`,\
+            \ `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`,\
+            \ `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`,\
+            \ `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`,\
+            \ `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`,\
+            \ `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`,\
+            \ `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c3.medium`,\
+            \ `d2.c4.medium`, `d2.c5.medium`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`,\
+            \ `d2.m2.medium`, `d2.m2.large` or `d2.m2.xlarge`."
           example: s1.c1.small
           type: string
         location:
-          description: Server location ID. Cannot be changed once a server is created.
-            Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`,
-            `SEA` or `AUS`.
+          description: "Server location ID. Cannot be changed once a server is created.\
+            \ Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`,\
+            \ `SEA` or `AUS`."
           example: PHX
           type: string
         installDefaultSshKeys:
@@ -2742,9 +2743,9 @@ components:
           type: string
         pricingModel:
           default: HOURLY
-          description: Server pricing model. Currently this field should be set to
-            `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION`
-            or `THIRTY_SIX_MONTHS_RESERVATION`.
+          description: "Server pricing model. Currently this field should be set to\
+            \ `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION`\
+            \ or `THIRTY_SIX_MONTHS_RESERVATION`."
           example: ONE_MONTH_RESERVATION
           type: string
         networkType:
@@ -2756,7 +2757,7 @@ components:
         osConfiguration:
           $ref: '#/components/schemas/OsConfiguration'
         tags:
-          description: Tags to set to server, if any.
+          description: "Tags to set to server, if any."
           items:
             $ref: '#/components/schemas/TagAssignmentRequest'
           type: array
@@ -2790,11 +2791,11 @@ components:
       description: Server patch.
       example:
         hostname: my-server
-        description: 'Server #1 used for computing.'
+        description: "Server #1 used for computing."
       properties:
         description:
           description: Description of server.
-          example: 'Server #1 used for computing.'
+          example: "Server #1 used for computing."
           maxLength: 250
           type: string
         hostname:
@@ -2802,7 +2803,7 @@ components:
           example: my-server
           maxLength: 100
           minLength: 1
-          pattern: '[a-zA-Z0-9().-]+'
+          pattern: "[a-zA-Z0-9().-]+"
           type: string
       type: object
     RelinquishIpBlock:
@@ -2968,9 +2969,9 @@ components:
         pricingModel: ONE_MONTH_RESERVATION
       properties:
         pricingModel:
-          description: Server pricing model. Currently this field should be set to
-            `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION`
-            or `THIRTY_SIX_MONTHS_RESERVATION`.
+          description: "Server pricing model. Currently this field should be set to\
+            \ `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION`\
+            \ or `THIRTY_SIX_MONTHS_RESERVATION`."
           example: ONE_MONTH_RESERVATION
           type: string
       required:
@@ -3197,10 +3198,10 @@ components:
         - 10.111.14.66 - 10.111.14.71
       properties:
         rdpAllowedIps:
-          description: List of IPs allowed for RDP access to Windows OS. Supported
-            in single IP, CIDR and range format. When undefined, RDP is disabled.
-            To allow RDP access from any IP use 0.0.0.0/0. This will only be returned
-            in response to provisioning a server.
+          description: "List of IPs allowed for RDP access to Windows OS. Supported\
+            \ in single IP, CIDR and range format. When undefined, RDP is disabled.\
+            \ To allow RDP access from any IP use 0.0.0.0/0. This will only be returned\
+            \ in response to provisioning a server."
           example:
           - 172.217.22.14
           - 10.111.14.40/29
@@ -3234,9 +3235,9 @@ components:
           readOnly: true
           type: string
         managementAccessAllowedIps:
-          description: List of IPs allowed to access the Management UI. Supported
-            in single IP, CIDR and range format. When undefined, Management UI is
-            disabled. This will only be returned in response to provisioning a server.
+          description: "List of IPs allowed to access the Management UI. Supported\
+            \ in single IP, CIDR and range format. When undefined, Management UI is\
+            \ disabled. This will only be returned in response to provisioning a server."
           example:
           - 172.217.22.14
           - 10.111.14.40/29
@@ -3270,9 +3271,9 @@ components:
           readOnly: true
           type: string
         managementAccessAllowedIps:
-          description: List of IPs allowed to access the Management UI. Supported
-            in single IP, CIDR and range format. When undefined, Management UI is
-            disabled. This will only be returned in response to provisioning a server.
+          description: "List of IPs allowed to access the Management UI. Supported\
+            \ in single IP, CIDR and range format. When undefined, Management UI is\
+            \ disabled. This will only be returned in response to provisioning a server."
           example:
           - 172.217.22.14
           - 10.111.14.40/29

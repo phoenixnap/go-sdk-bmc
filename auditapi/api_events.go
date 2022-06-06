@@ -1,7 +1,7 @@
 /*
 Audit Log API
 
-The Audit Logs API lets you read audit log entries and track API calls or activities in the Bare Metal Cloud Portal.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#audit-log-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/audit/v1/)</b> 
+The Audit Logs API lets you read audit log entries and track API calls or activities in the Bare Metal Cloud Portal.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#audit-log-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/audit/v1/)</b>
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -13,48 +13,43 @@ package auditapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"time"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 type EventsApi interface {
 
 	/*
-	EventsGet List event logs.
+		EventsGet List event logs.
 
-	Retrieves the event logs for given time period. All date & times are in UTC.
+		Retrieves the event logs for given time period. All date & times are in UTC.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiEventsGetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiEventsGetRequest
 	*/
-	EventsGet(ctx _context.Context) ApiEventsGetRequest
+	EventsGet(ctx context.Context) ApiEventsGetRequest
 
 	// EventsGetExecute executes the request
 	//  @return []Event
-	EventsGetExecute(r ApiEventsGetRequest) ([]Event, *_nethttp.Response, error)
+	EventsGetExecute(r ApiEventsGetRequest) ([]Event, *http.Response, error)
 }
 
 // EventsApiService EventsApi service
 type EventsApiService service
 
 type ApiEventsGetRequest struct {
-	ctx _context.Context
+	ctx        context.Context
 	ApiService EventsApi
-	from *time.Time
-	to *time.Time
-	limit *int32
-	order *string
-	username *string
-	verb *string
-	uri *string
+	from       *time.Time
+	to         *time.Time
+	limit      *int32
+	order      *string
+	username   *string
+	verb       *string
+	uri        *string
 }
 
 // From the date and time (inclusive) to filter event log records by.
@@ -62,38 +57,44 @@ func (r ApiEventsGetRequest) From(from time.Time) ApiEventsGetRequest {
 	r.from = &from
 	return r
 }
+
 // To the date and time (inclusive) to filter event log records by.
 func (r ApiEventsGetRequest) To(to time.Time) ApiEventsGetRequest {
 	r.to = &to
 	return r
 }
+
 // Limit the number of records returned.
 func (r ApiEventsGetRequest) Limit(limit int32) ApiEventsGetRequest {
 	r.limit = &limit
 	return r
 }
+
 // Ordering of the event&#39;s time. SortBy can be introduced later on.
 func (r ApiEventsGetRequest) Order(order string) ApiEventsGetRequest {
 	r.order = &order
 	return r
 }
+
 // The username that did the actions.
 func (r ApiEventsGetRequest) Username(username string) ApiEventsGetRequest {
 	r.username = &username
 	return r
 }
+
 // The HTTP verb corresponding to the action.
 func (r ApiEventsGetRequest) Verb(verb string) ApiEventsGetRequest {
 	r.verb = &verb
 	return r
 }
+
 // The request uri.
 func (r ApiEventsGetRequest) Uri(uri string) ApiEventsGetRequest {
 	r.uri = &uri
 	return r
 }
 
-func (r ApiEventsGetRequest) Execute() ([]Event, *_nethttp.Response, error) {
+func (r ApiEventsGetRequest) Execute() ([]Event, *http.Response, error) {
 	return r.ApiService.EventsGetExecute(r)
 }
 
@@ -102,38 +103,36 @@ EventsGet List event logs.
 
 Retrieves the event logs for given time period. All date & times are in UTC.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiEventsGetRequest
 */
-func (a *EventsApiService) EventsGet(ctx _context.Context) ApiEventsGetRequest {
+func (a *EventsApiService) EventsGet(ctx context.Context) ApiEventsGetRequest {
 	return ApiEventsGetRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
 //  @return []Event
-func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *_nethttp.Response, error) {
+func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  []Event
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Event
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.EventsGet")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/events"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.from != nil {
 		localVarQueryParams.Add("from", parameterToString(*r.from, ""))
@@ -165,8 +164,8 @@ func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *_n
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion
+	localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -176,7 +175,7 @@ func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *_n
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -186,15 +185,15 @@ func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *_n
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -203,7 +202,7 @@ func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *_n
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
