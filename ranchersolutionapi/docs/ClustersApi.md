@@ -29,24 +29,12 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
-
-    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
-
-    config := clientcredentials.Config{
-        ClientID:     "<CLIENT_ID>",
-        ClientSecret: "<CLIENT_SECRET>",
-        TokenURL:     tokenUrl,
-    }
-
-    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
-
     resp, r, err := apiClient.ClustersApi.ClustersGet(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersGet``: %v\n", err)
@@ -64,8 +52,6 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiClustersGetRequest struct via the builder pattern
-
-
 
 
 ### Return type
@@ -104,25 +90,13 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
-
-    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     id := "123" // string | The Cluster identifier.
 
     configuration := openapiclient.NewConfiguration()
-    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
-
-    config := clientcredentials.Config{
-        ClientID:     "<CLIENT_ID>",
-        ClientSecret: "<CLIENT_SECRET>",
-        TokenURL:     tokenUrl,
-    }
-
-    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
-
     resp, r, err := apiClient.ClustersApi.ClustersIdDelete(context.Background(), id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersIdDelete``: %v\n", err)
@@ -136,9 +110,9 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description | Notes
----- | ---- | ----------- | -----
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **id** | **string** | The Cluster identifier. | 
 
 ### Other Parameters
@@ -148,7 +122,6 @@ Other parameters are passed through a pointer to a apiClustersIdDeleteRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
 
 
 ### Return type
@@ -187,25 +160,13 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
-
-    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     id := "123" // string | The Cluster identifier.
 
     configuration := openapiclient.NewConfiguration()
-    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
-
-    config := clientcredentials.Config{
-        ClientID:     "<CLIENT_ID>",
-        ClientSecret: "<CLIENT_SECRET>",
-        TokenURL:     tokenUrl,
-    }
-
-    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
-
     resp, r, err := apiClient.ClustersApi.ClustersIdGet(context.Background(), id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersIdGet``: %v\n", err)
@@ -219,9 +180,9 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description | Notes
----- | ---- | ----------- | -----
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **id** | **string** | The Cluster identifier. | 
 
 ### Other Parameters
@@ -231,7 +192,6 @@ Other parameters are passed through a pointer to a apiClustersIdGetRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
 
 
 ### Return type
@@ -270,25 +230,13 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
-
-    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     cluster := *openapiclient.NewCluster("PHX") // Cluster |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
-
-    config := clientcredentials.Config{
-        ClientID:     "<CLIENT_ID>",
-        ClientSecret: "<CLIENT_SECRET>",
-        TokenURL:     tokenUrl,
-    }
-
-    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
-
     resp, r, err := apiClient.ClustersApi.ClustersPost(context.Background()).Cluster(cluster).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersPost``: %v\n", err)
@@ -311,8 +259,6 @@ Other parameters are passed through a pointer to a apiClustersPostRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **cluster** | [**Cluster**](Cluster.md) |  | 
-
-
 
 ### Return type
 

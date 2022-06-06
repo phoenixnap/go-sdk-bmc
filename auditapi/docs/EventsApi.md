@@ -27,8 +27,6 @@ import (
     "os"
     "time"
     openapiclient "./openapi"
-
-    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -41,17 +39,7 @@ func main() {
     uri := "/ams/v1/clients/12345" // string | The request uri. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
-
-    config := clientcredentials.Config{
-        ClientID:     "<CLIENT_ID>",
-        ClientSecret: "<CLIENT_SECRET>",
-        TokenURL:     tokenUrl,
-    }
-
-    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
-
     resp, r, err := apiClient.EventsApi.EventsGet(context.Background()).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.EventsGet``: %v\n", err)
@@ -80,8 +68,6 @@ Name | Type | Description  | Notes
  **username** | **string** | The username that did the actions. | 
  **verb** | **string** | The HTTP verb corresponding to the action. | 
  **uri** | **string** | The request uri. | 
-
-
 
 ### Return type
 

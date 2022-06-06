@@ -95,12 +95,17 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [Cluster](docs/Cluster.md)
+ - [ClusterConfiguration](docs/ClusterConfiguration.md)
+ - [ClusterMetadata](docs/ClusterMetadata.md)
+ - [ClusterWorkloadConfiguration](docs/ClusterWorkloadConfiguration.md)
  - [DeleteResult](docs/DeleteResult.md)
  - [Error](docs/Error.md)
  - [Node](docs/Node.md)
  - [NodePool](docs/NodePool.md)
+ - [NodePoolSshConfig](docs/NodePoolSshConfig.md)
  - [RancherClusterCertificates](docs/RancherClusterCertificates.md)
  - [RancherClusterConfig](docs/RancherClusterConfig.md)
+ - [RancherClusterConfigCertificates](docs/RancherClusterConfigCertificates.md)
  - [RancherServerMetadata](docs/RancherServerMetadata.md)
  - [SshConfig](docs/SshConfig.md)
  - [WorkloadClusterConfig](docs/WorkloadClusterConfig.md)

@@ -1,7 +1,7 @@
 /*
 Rancher Solution API
 
-Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b> 
+Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b>
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -28,8 +28,8 @@ type RancherClusterConfig struct {
 	// This maps to ranchers `node-taint`. Registering kubelet with set of taints. By default, server nodes will be schedulable and thus your workloads can get launched on them. If you wish to have a dedicated control plane where no user workloads will run, you can use taints.
 	NodeTaint *string `json:"nodeTaint,omitempty"`
 	// This maps to ranchers `cluster-domain`. Cluster Domain.
-	ClusterDomain *string `json:"clusterDomain,omitempty"`
-	Certificates *RancherClusterCertificates `json:"certificates,omitempty"`
+	ClusterDomain *string                           `json:"clusterDomain,omitempty"`
+	Certificates  *RancherClusterConfigCertificates `json:"certificates,omitempty"`
 }
 
 // NewRancherClusterConfig instantiates a new RancherClusterConfig object
@@ -250,9 +250,9 @@ func (o *RancherClusterConfig) SetClusterDomain(v string) {
 }
 
 // GetCertificates returns the Certificates field value if set, zero value otherwise.
-func (o *RancherClusterConfig) GetCertificates() RancherClusterCertificates {
+func (o *RancherClusterConfig) GetCertificates() RancherClusterConfigCertificates {
 	if o == nil || o.Certificates == nil {
-		var ret RancherClusterCertificates
+		var ret RancherClusterConfigCertificates
 		return ret
 	}
 	return *o.Certificates
@@ -260,7 +260,7 @@ func (o *RancherClusterConfig) GetCertificates() RancherClusterCertificates {
 
 // GetCertificatesOk returns a tuple with the Certificates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RancherClusterConfig) GetCertificatesOk() (*RancherClusterCertificates, bool) {
+func (o *RancherClusterConfig) GetCertificatesOk() (*RancherClusterConfigCertificates, bool) {
 	if o == nil || o.Certificates == nil {
 		return nil, false
 	}
@@ -276,8 +276,8 @@ func (o *RancherClusterConfig) HasCertificates() bool {
 	return false
 }
 
-// SetCertificates gets a reference to the given RancherClusterCertificates and assigns it to the Certificates field.
-func (o *RancherClusterConfig) SetCertificates(v RancherClusterCertificates) {
+// SetCertificates gets a reference to the given RancherClusterConfigCertificates and assigns it to the Certificates field.
+func (o *RancherClusterConfig) SetCertificates(v RancherClusterConfigCertificates) {
 	o.Certificates = &v
 }
 
@@ -342,5 +342,3 @@ func (v *NullableRancherClusterConfig) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

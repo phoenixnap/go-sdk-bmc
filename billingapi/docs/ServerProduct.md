@@ -1,0 +1,119 @@
+# ServerProduct
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**ProductCode** | **string** | The code identifying the product. This code has significant across all locations. | 
+**ProductCategory** | **string** | The product category. | 
+**Plans** | Pointer to [**[]PricingPlan**](PricingPlan.md) | The pricing plans available for this product. | [optional] 
+**Metadata** | [**ServerProductMetadata**](ServerProductMetadata.md) |  | 
+
+## Methods
+
+### NewServerProduct
+
+`func NewServerProduct(productCode string, productCategory string, metadata ServerProductMetadata, ) *ServerProduct`
+
+NewServerProduct instantiates a new ServerProduct object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewServerProductWithDefaults
+
+`func NewServerProductWithDefaults() *ServerProduct`
+
+NewServerProductWithDefaults instantiates a new ServerProduct object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetProductCode
+
+`func (o *ServerProduct) GetProductCode() string`
+
+GetProductCode returns the ProductCode field if non-nil, zero value otherwise.
+
+### GetProductCodeOk
+
+`func (o *ServerProduct) GetProductCodeOk() (*string, bool)`
+
+GetProductCodeOk returns a tuple with the ProductCode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProductCode
+
+`func (o *ServerProduct) SetProductCode(v string)`
+
+SetProductCode sets ProductCode field to given value.
+
+
+### GetProductCategory
+
+`func (o *ServerProduct) GetProductCategory() string`
+
+GetProductCategory returns the ProductCategory field if non-nil, zero value otherwise.
+
+### GetProductCategoryOk
+
+`func (o *ServerProduct) GetProductCategoryOk() (*string, bool)`
+
+GetProductCategoryOk returns a tuple with the ProductCategory field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProductCategory
+
+`func (o *ServerProduct) SetProductCategory(v string)`
+
+SetProductCategory sets ProductCategory field to given value.
+
+
+### GetPlans
+
+`func (o *ServerProduct) GetPlans() []PricingPlan`
+
+GetPlans returns the Plans field if non-nil, zero value otherwise.
+
+### GetPlansOk
+
+`func (o *ServerProduct) GetPlansOk() (*[]PricingPlan, bool)`
+
+GetPlansOk returns a tuple with the Plans field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPlans
+
+`func (o *ServerProduct) SetPlans(v []PricingPlan)`
+
+SetPlans sets Plans field to given value.
+
+### HasPlans
+
+`func (o *ServerProduct) HasPlans() bool`
+
+HasPlans returns a boolean if a field has been set.
+
+### GetMetadata
+
+`func (o *ServerProduct) GetMetadata() ServerProductMetadata`
+
+GetMetadata returns the Metadata field if non-nil, zero value otherwise.
+
+### GetMetadataOk
+
+`func (o *ServerProduct) GetMetadataOk() (*ServerProductMetadata, bool)`
+
+GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMetadata
+
+`func (o *ServerProduct) SetMetadata(v ServerProductMetadata)`
+
+SetMetadata sets Metadata field to given value.
+
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

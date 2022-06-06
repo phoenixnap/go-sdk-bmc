@@ -44,8 +44,8 @@ paths:
         name: location
         required: false
         schema:
-          description: Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA`
-            and `AUS`.
+          description: "Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA`\
+            \ and `AUS`."
           type: string
         style: form
       responses:
@@ -506,8 +506,8 @@ paths:
         name: location
         required: false
         schema:
-          description: Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA`
-            and `AUS`.
+          description: "Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA`\
+            \ and `AUS`."
           type: string
         style: form
       responses:
@@ -518,7 +518,7 @@ paths:
               - id: 60472f76bbadb4f36541d2fd
                 name: Initial public network
                 location: PHX
-                description: 'My first public network #1'
+                description: "My first public network #1"
                 ipBlocks:
                 - id: 60473a6115e34466c9f8f083
                 - id: 616e6ec6d66b406a45ab8797
@@ -546,7 +546,7 @@ paths:
               - id: 6123b97643046b5bffb1d7c3
                 name: My additional public network
                 location: PHX
-                description: 'My second public network #2'
+                description: "My second public network #2"
                 ipBlocks: []
                 vlanId: 11
                 createdOn: 2022-04-05T13:50:30.491Z
@@ -605,12 +605,12 @@ paths:
                 value:
                   name: Initial public network
                   location: PHX
-                  description: 'My first public network #1'
+                  description: "My first public network #1"
               PublicNetworkCreationWithAllParameters:
                 value:
                   name: Initial public network
                   location: PHX
-                  description: 'My first public network #1'
+                  description: "My first public network #1"
                   ipBlocks:
                   - id: 60473a6115e34466c9f8f083
                   - id: 616e6ec6d66b406a45ab8797
@@ -643,7 +643,7 @@ paths:
                     id: 60472f76bbadb4f36541d2fd
                     name: Initial public network
                     location: PHX
-                    description: 'My first public network #1'
+                    description: "My first public network #1"
                     ipBlocks: []
                     vlanId: 10
                     createdOn: 2022-04-05T13:50:30.491Z
@@ -653,7 +653,7 @@ paths:
                     id: 60472f76bbadb4f36541d2fd
                     name: Initial public network
                     location: PHX
-                    description: 'My first public network #1'
+                    description: "My first public network #1"
                     ipBlocks:
                     - id: 60473a6115e34466c9f8f083
                     - id: 616e6ec6d66b406a45ab8797
@@ -802,7 +802,7 @@ paths:
                     id: 60472f76bbadb4f36541d2fd
                     name: Initial public network
                     location: PHX
-                    description: 'My first public network #1'
+                    description: "My first public network #1"
                     ipBlocks: []
                     vlanId: 10
                     createdOn: 2022-04-05T13:50:30.491Z
@@ -812,7 +812,7 @@ paths:
                     id: 60472f76bbadb4f36541d2fd
                     name: Initial public network
                     location: PHX
-                    description: 'My first public network #1'
+                    description: "My first public network #1"
                     ipBlocks:
                     - id: 60473a6115e34466c9f8f083
                     - id: 616e6ec6d66b406a45ab8797
@@ -832,7 +832,7 @@ paths:
                     id: 60472f76bbadb4f36541d2fd
                     name: Initial public network
                     location: PHX
-                    description: 'My first public network #1'
+                    description: "My first public network #1"
                     ipBlocks:
                     - id: 60473a6115e34466c9f8f083
                     - id: 616e6ec6d66b406a45ab8797
@@ -1338,8 +1338,8 @@ components:
           maxLength: 250
           type: string
         location:
-          description: The location of this private network. Supported values are
-            `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+          description: "The location of this private network. Supported values are\
+            \ `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`."
           example: PHX
           type: string
         locationDefault:
@@ -1431,8 +1431,8 @@ components:
           minLength: 1
           type: string
         location:
-          description: The location of this public network. Supported values are `PHX`,
-            `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+          description: "The location of this public network. Supported values are\
+            \ `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`."
           example: PHX
           type: string
         description:
@@ -1497,8 +1497,8 @@ components:
           maxLength: 250
           type: string
         location:
-          description: The location of this public network. Supported values are `PHX`,
-            `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+          description: "The location of this public network. Supported values are\
+            \ `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`."
           example: PHX
           type: string
         ipBlocks:
@@ -1569,7 +1569,7 @@ components:
           readOnly: true
           type: string
         validationErrors:
-          description: Validation errors, if any.
+          description: "Validation errors, if any."
           items:
             type: string
           readOnly: true

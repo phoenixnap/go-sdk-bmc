@@ -10,9 +10,9 @@ Name | Type | Description | Notes
 **Location** | **string** | Deployment location. Cannot be changed once a cluster is created. Currently this field should be set to &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60;, &#x60;SEA&#x60; or &#x60;AUS&#x60;. | 
 **InitialClusterVersion** | Pointer to **string** | (Read-only) The Rancher version that was installed on the cluster during the first creation process. | [optional] [readonly] 
 **NodePools** | Pointer to [**[]NodePool**](NodePool.md) | The node pools associated with the cluster. | [optional] 
-**Configuration** | Pointer to [**RancherClusterConfig**](RancherClusterConfig.md) |  | [optional] 
-**Metadata** | Pointer to [**RancherServerMetadata**](RancherServerMetadata.md) |  | [optional] [readonly] 
-**WorkloadConfiguration** | Pointer to [**WorkloadClusterConfig**](WorkloadClusterConfig.md) |  | [optional] 
+**Configuration** | Pointer to [**ClusterConfiguration**](ClusterConfiguration.md) |  | [optional] 
+**Metadata** | Pointer to [**ClusterMetadata**](ClusterMetadata.md) |  | [optional] 
+**WorkloadConfiguration** | Pointer to [**ClusterWorkloadConfiguration**](ClusterWorkloadConfiguration.md) |  | [optional] 
 **StatusDescription** | Pointer to **string** | The cluster status | [optional] [readonly] 
 
 ## Methods
@@ -181,20 +181,20 @@ HasNodePools returns a boolean if a field has been set.
 
 ### GetConfiguration
 
-`func (o *Cluster) GetConfiguration() RancherClusterConfig`
+`func (o *Cluster) GetConfiguration() ClusterConfiguration`
 
 GetConfiguration returns the Configuration field if non-nil, zero value otherwise.
 
 ### GetConfigurationOk
 
-`func (o *Cluster) GetConfigurationOk() (*RancherClusterConfig, bool)`
+`func (o *Cluster) GetConfigurationOk() (*ClusterConfiguration, bool)`
 
 GetConfigurationOk returns a tuple with the Configuration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConfiguration
 
-`func (o *Cluster) SetConfiguration(v RancherClusterConfig)`
+`func (o *Cluster) SetConfiguration(v ClusterConfiguration)`
 
 SetConfiguration sets Configuration field to given value.
 
@@ -206,20 +206,20 @@ HasConfiguration returns a boolean if a field has been set.
 
 ### GetMetadata
 
-`func (o *Cluster) GetMetadata() RancherServerMetadata`
+`func (o *Cluster) GetMetadata() ClusterMetadata`
 
 GetMetadata returns the Metadata field if non-nil, zero value otherwise.
 
 ### GetMetadataOk
 
-`func (o *Cluster) GetMetadataOk() (*RancherServerMetadata, bool)`
+`func (o *Cluster) GetMetadataOk() (*ClusterMetadata, bool)`
 
 GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMetadata
 
-`func (o *Cluster) SetMetadata(v RancherServerMetadata)`
+`func (o *Cluster) SetMetadata(v ClusterMetadata)`
 
 SetMetadata sets Metadata field to given value.
 
@@ -231,20 +231,20 @@ HasMetadata returns a boolean if a field has been set.
 
 ### GetWorkloadConfiguration
 
-`func (o *Cluster) GetWorkloadConfiguration() WorkloadClusterConfig`
+`func (o *Cluster) GetWorkloadConfiguration() ClusterWorkloadConfiguration`
 
 GetWorkloadConfiguration returns the WorkloadConfiguration field if non-nil, zero value otherwise.
 
 ### GetWorkloadConfigurationOk
 
-`func (o *Cluster) GetWorkloadConfigurationOk() (*WorkloadClusterConfig, bool)`
+`func (o *Cluster) GetWorkloadConfigurationOk() (*ClusterWorkloadConfiguration, bool)`
 
 GetWorkloadConfigurationOk returns a tuple with the WorkloadConfiguration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWorkloadConfiguration
 
-`func (o *Cluster) SetWorkloadConfiguration(v WorkloadClusterConfig)`
+`func (o *Cluster) SetWorkloadConfiguration(v ClusterWorkloadConfiguration)`
 
 SetWorkloadConfiguration sets WorkloadConfiguration field to given value.
 

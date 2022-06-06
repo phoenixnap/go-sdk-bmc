@@ -66,6 +66,15 @@ jobs:
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/tags/download_spec
           package-name: tagapi
+  generate-billingapi:
+    name: Generate Billing API
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/workflows/composite/generate-sdk
+        with:
+          spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/bmc-billing/download_spec
+          package-name: billingapi
 
   # Push generated code
   push-changes:
@@ -85,6 +94,7 @@ jobs:
       - generate-ipapi
       - generate-auditapi
       - generate-tagapi
+      - generate-billingapi
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -180,6 +190,18 @@ jobs:
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: tagapi
+  build-billingapi:
+    name: Build Billing API
+    runs-on: ubuntu-latest
+    needs:
+      - generate-billingapi
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+      - uses: ./.github/workflows/composite/build-sdk
+        with:
+          module-name: billingapi
   
   # Lint stage
   lint-bmcapi:
@@ -254,6 +276,18 @@ jobs:
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: tagapi
+  lint-billingapi:
+    name: Lint Tag API
+    runs-on: ubuntu-latest
+    needs:
+      - build-billingapi
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+      - uses: ./.github/workflows/composite/lint-sdk
+        with:
+          module-name: billingapi
 
   test-auditapi:
     name: Test Audit API

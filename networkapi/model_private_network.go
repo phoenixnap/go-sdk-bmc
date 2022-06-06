@@ -1,7 +1,7 @@
 /*
 Networks API
 
-Create, list, edit and delete public/private networks with the Network API. Use public networks to place multiple  servers on the same network or VLAN. Assign new servers with IP addresses from the same CIDR range. Use private  networks to avoid unnecessary egress data charges. Model your networks according to your business needs.<br> <br> <span class='pnap-api-knowledge-base-link'> Helpful knowledge base articles are available for  <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>multi-private backend networks</a> and <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-15' target='_blank'>public networks</a>. </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b> 
+Create, list, edit and delete public/private networks with the Network API. Use public networks to place multiple  servers on the same network or VLAN. Assign new servers with IP addresses from the same CIDR range. Use private  networks to avoid unnecessary egress data charges. Model your networks according to your business needs.<br> <br> <span class='pnap-api-knowledge-base-link'> Helpful knowledge base articles are available for  <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>multi-private backend networks</a> and <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-15' target='_blank'>public networks</a>. </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b>
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -82,7 +82,7 @@ func (o *PrivateNetwork) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -106,7 +106,7 @@ func (o *PrivateNetwork) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -162,7 +162,7 @@ func (o *PrivateNetwork) GetVlanId() int32 {
 // GetVlanIdOk returns a tuple with the VlanId field value
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetVlanIdOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VlanId, true
@@ -186,7 +186,7 @@ func (o *PrivateNetwork) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -210,7 +210,7 @@ func (o *PrivateNetwork) GetLocation() string {
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetLocationOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Location, true
@@ -234,7 +234,7 @@ func (o *PrivateNetwork) GetLocationDefault() bool {
 // GetLocationDefaultOk returns a tuple with the LocationDefault field value
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetLocationDefaultOk() (*bool, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LocationDefault, true
@@ -258,7 +258,7 @@ func (o *PrivateNetwork) GetCidr() string {
 // GetCidrOk returns a tuple with the Cidr field value
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetCidrOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Cidr, true
@@ -283,11 +283,11 @@ func (o *PrivateNetwork) GetServers() []PrivateNetworkServer {
 // GetServersOk returns a tuple with the Servers field value
 // and a boolean to check if the value has been set.
 // Deprecated
-func (o *PrivateNetwork) GetServersOk() (*[]PrivateNetworkServer, bool) {
-	if o == nil  {
+func (o *PrivateNetwork) GetServersOk() ([]PrivateNetworkServer, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Servers, true
+	return o.Servers, true
 }
 
 // SetServers sets field value
@@ -308,11 +308,11 @@ func (o *PrivateNetwork) GetMemberships() []NetworkMembership {
 
 // GetMembershipsOk returns a tuple with the Memberships field value
 // and a boolean to check if the value has been set.
-func (o *PrivateNetwork) GetMembershipsOk() (*[]NetworkMembership, bool) {
-	if o == nil  {
+func (o *PrivateNetwork) GetMembershipsOk() ([]NetworkMembership, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Memberships, true
+	return o.Memberships, true
 }
 
 // SetMemberships sets field value
@@ -333,7 +333,7 @@ func (o *PrivateNetwork) GetCreatedOn() time.Time {
 // GetCreatedOnOk returns a tuple with the CreatedOn field value
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetCreatedOnOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.CreatedOn, true
@@ -417,5 +417,3 @@ func (v *NullablePrivateNetwork) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-
