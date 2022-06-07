@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-	<testsuite tests="7" failures="0" time="0.604" name="tests">
+	<testsuite tests="7" failures="0" time="0.676" name="tests">
 		<properties>
 			<property name="go.version" value="go1.13.8"></property>
 		</properties>
-		<testcase classname="tests" name="TestIpApiTestSuite" time="0.600"></testcase>
-		<testcase classname="tests" name="TestIpApiTestSuite/TestCreateIpBlock" time="0.460"></testcase>
+		<testcase classname="tests" name="TestIpApiTestSuite" time="0.670"></testcase>
+		<testcase classname="tests" name="TestIpApiTestSuite/TestCreateIpBlock" time="0.540"></testcase>
 		<testcase classname="tests" name="TestIpApiTestSuite/TestDeleteIpBlocksById" time="0.030"></testcase>
-		<testcase classname="tests" name="TestIpApiTestSuite/TestGetIpBlocks" time="0.030"></testcase>
-		<testcase classname="tests" name="TestIpApiTestSuite/TestGetIpBlocksById" time="0.020"></testcase>
+		<testcase classname="tests" name="TestIpApiTestSuite/TestGetIpBlocks" time="0.020"></testcase>
+		<testcase classname="tests" name="TestIpApiTestSuite/TestGetIpBlocksById" time="0.030"></testcase>
 		<testcase classname="tests" name="TestIpApiTestSuite/TestPatchIpBlocksById" time="0.020"></testcase>
-		<testcase classname="tests" name="TestIpApiTestSuite/TestPutTagsIpBlocksById" time="0.040"></testcase>
+		<testcase classname="tests" name="TestIpApiTestSuite/TestPutTagsIpBlocksById" time="0.020"></testcase>
 	</testsuite>
 </testsuites>

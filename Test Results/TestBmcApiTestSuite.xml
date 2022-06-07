@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-	<testsuite tests="28" failures="0" time="0.871" name="tests">
+	<testsuite tests="28" failures="0" time="0.884" name="tests">
 		<properties>
 			<property name="go.version" value="go1.13.8"></property>
 		</properties>
-		<testcase classname="tests" name="TestBmcApiTestSuite" time="0.870"></testcase>
+		<testcase classname="tests" name="TestBmcApiTestSuite" time="0.880"></testcase>
 		<testcase classname="tests" name="TestBmcApiTestSuite/TestCreateIpBlockOnServerById" time="0.420"></testcase>
 		<testcase classname="tests" name="TestBmcApiTestSuite/TestCreatePrivateNetworkOnServerById" time="0.020"></testcase>
 		<testcase classname="tests" name="TestBmcApiTestSuite/TestCreatePublicNetworkOnServerById" time="0.020"></testcase>
-		<testcase classname="tests" name="TestBmcApiTestSuite/TestCreateServer" time="0.040"></testcase>
+		<testcase classname="tests" name="TestBmcApiTestSuite/TestCreateServer" time="0.060"></testcase>
 		<testcase classname="tests" name="TestBmcApiTestSuite/TestCreateSshKey" time="0.020"></testcase>
-		<testcase classname="tests" name="TestBmcApiTestSuite/TestDeleteIpBlockOnServerById" time="0.020"></testcase>
+		<testcase classname="tests" name="TestBmcApiTestSuite/TestDeleteIpBlockOnServerById" time="0.030"></testcase>
 		<testcase classname="tests" name="TestBmcApiTestSuite/TestDeletePrivateNetworkById" time="0.010"></testcase>
-		<testcase classname="tests" name="TestBmcApiTestSuite/TestDeletePublicNetworkOnServerById" time="0.010"></testcase>
+		<testcase classname="tests" name="TestBmcApiTestSuite/TestDeletePublicNetworkOnServerById" time="0.020"></testcase>
 		<testcase classname="tests" name="TestBmcApiTestSuite/TestDeleteServerById" time="0.010"></testcase>
 		<testcase classname="tests" name="TestBmcApiTestSuite/TestDeleteSshKeyById" time="0.010"></testcase>
 		<testcase classname="tests" name="TestBmcApiTestSuite/TestDeprovisionServer" time="0.020"></testcase>
-		<testcase classname="tests" name="TestBmcApiTestSuite/TestGetQuotaById" time="0.010"></testcase>
+		<testcase classname="tests" name="TestBmcApiTestSuite/TestGetQuotaById" time="0.020"></testcase>
 		<testcase classname="tests" name="TestBmcApiTestSuite/TestGetQuotas" time="0.010"></testcase>
 		<testcase classname="tests" name="TestBmcApiTestSuite/TestGetServerById" time="0.020"></testcase>
-		<testcase classname="tests" name="TestBmcApiTestSuite/TestGetServers" time="0.020"></testcase>
-		<testcase classname="tests" name="TestBmcApiTestSuite/TestGetSshKeyById" time="0.030"></testcase>
-		<testcase classname="tests" name="TestBmcApiTestSuite/TestGetSshKeys" time="0.020"></testcase>
+		<testcase classname="tests" name="TestBmcApiTestSuite/TestGetServers" time="0.010"></testcase>
+		<testcase classname="tests" name="TestBmcApiTestSuite/TestGetSshKeyById" time="0.020"></testcase>
+		<testcase classname="tests" name="TestBmcApiTestSuite/TestGetSshKeys" time="0.010"></testcase>
 		<testcase classname="tests" name="TestBmcApiTestSuite/TestPatchServerById" time="0.020"></testcase>
-		<testcase classname="tests" name="TestBmcApiTestSuite/TestPowerOffServer" time="0.020"></testcase>
-		<testcase classname="tests" name="TestBmcApiTestSuite/TestPowerOnServer" time="0.020"></testcase>
-		<testcase classname="tests" name="TestBmcApiTestSuite/TestPutSshKeyById" time="0.020"></testcase>
+		<testcase classname="tests" name="TestBmcApiTestSuite/TestPowerOffServer" time="0.010"></testcase>
+		<testcase classname="tests" name="TestBmcApiTestSuite/TestPowerOnServer" time="0.010"></testcase>
+		<testcase classname="tests" name="TestBmcApiTestSuite/TestPutSshKeyById" time="0.010"></testcase>
 		<testcase classname="tests" name="TestBmcApiTestSuite/TestQuotasCreateEditRequest" time="0.010"></testcase>
 		<testcase classname="tests" name="TestBmcApiTestSuite/TestRebootServer" time="0.010"></testcase>
-		<testcase classname="tests" name="TestBmcApiTestSuite/TestReserveServer" time="0.020"></testcase>
-		<testcase classname="tests" name="TestBmcApiTestSuite/TestResetServer" time="0.010"></testcase>
+		<testcase classname="tests" name="TestBmcApiTestSuite/TestReserveServer" time="0.010"></testcase>
+		<testcase classname="tests" name="TestBmcApiTestSuite/TestResetServer" time="0.020"></testcase>
 		<testcase classname="tests" name="TestBmcApiTestSuite/TestShutdownServer" time="0.010"></testcase>
-		<testcase classname="tests" name="TestBmcApiTestSuite/TestUpdateTagsOnServerById" time="0.010"></testcase>
+		<testcase classname="tests" name="TestBmcApiTestSuite/TestUpdateTagsOnServerById" time="0.020"></testcase>
 	</testsuite>
 </testsuites>
