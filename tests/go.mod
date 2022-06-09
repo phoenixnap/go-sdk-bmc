@@ -3,13 +3,13 @@ module tests
 go 1.17
 
 require (
-	github.com/phoenixnap/go-sdk-bmc/auditapi v1.0.3
-	github.com/phoenixnap/go-sdk-bmc/billingapi v1.0.0
-	github.com/phoenixnap/go-sdk-bmc/bmcapi v1.2.1
-	github.com/phoenixnap/go-sdk-bmc/ipapi v1.1.1
-	github.com/phoenixnap/go-sdk-bmc/networkapi v1.1.2
-	github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi v1.1.2
-	github.com/phoenixnap/go-sdk-bmc/tagapi v1.1.2
+	github.com/phoenixnap/go-sdk-bmc/auditapi v0.0.0
+	github.com/phoenixnap/go-sdk-bmc/billingapi v0.0.0
+	github.com/phoenixnap/go-sdk-bmc/bmcapi v0.0.0
+	github.com/phoenixnap/go-sdk-bmc/ipapi v0.0.0
+	github.com/phoenixnap/go-sdk-bmc/networkapi v0.0.0
+	github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi v0.0.0
+	github.com/phoenixnap/go-sdk-bmc/tagapi v0.0.0
 	github.com/stretchr/testify v1.4.0
 )
 
