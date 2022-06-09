@@ -336,7 +336,7 @@ components:
       description: Tag model.
       example:
         createdBy: USER
-        values: '[DEV, PROD]'
+        values: "[DEV, PROD]"
         name: Environment
         description: This tag is used for all resources that need to be assigned to
           an environment.
@@ -358,7 +358,7 @@ components:
           type: string
         values:
           description: The optional values of the tag.
-          example: '[DEV, PROD]'
+          example: "[DEV, PROD]"
           items:
             type: string
           type: array
@@ -397,10 +397,10 @@ components:
         isBillingTag: true
       properties:
         name:
-          description: 'The unique name of the tag. Tag names are case-sensitive,
-            and should be composed of a maximum of 100 characters including UTF-8
-            Unicode letters, numbers, and the following symbols: ''-'', ''_''. Regex:
-            [A-zÀ-ú0-9_-]{1,100}'
+          description: "The unique name of the tag. Tag names are case-sensitive,\
+            \ and should be composed of a maximum of 100 characters including UTF-8\
+            \ Unicode letters, numbers, and the following symbols: '-', '_'. Regex:\
+            \ [A-zÀ-ú0-9_-]{1,100}"
           example: Environment
           type: string
         description:
@@ -425,10 +425,10 @@ components:
         isBillingTag: true
       properties:
         name:
-          description: 'The unique name of the tag. Tag names are case-sensitive,
-            and should be composed of a maximum of 100 characters including UTF-8
-            Unicode letters, numbers, and the following symbols: ''-'', ''_''. Regex:
-            [A-zÀ-ú0-9_-]{1,100}'
+          description: "The unique name of the tag. Tag names are case-sensitive,\
+            \ and should be composed of a maximum of 100 characters including UTF-8\
+            \ Unicode letters, numbers, and the following symbols: '-', '_'. Regex:\
+            \ [A-zÀ-ú0-9_-]{1,100}"
           example: Environment
           type: string
         description:
@@ -447,12 +447,12 @@ components:
     DeleteResult:
       description: Result of a successful delete action.
       example:
-        result: Tag [tag-name] has been deleted.
+        result: "Tag [tag-name] has been deleted."
         tagId: 60ffafcdffb8b074c7968dad
       properties:
         result:
           description: Tag deletion result message.
-          example: Tag [tag-name] has been deleted.
+          example: "Tag [tag-name] has been deleted."
           type: string
         tagId:
           description: The unique identifier of the tag.
@@ -485,7 +485,7 @@ components:
           description: The description detailing the cause of the error code.
           type: string
         validationErrors:
-          description: Validation errors, if any.
+          description: "Validation errors, if any."
           items:
             type: string
           type: array

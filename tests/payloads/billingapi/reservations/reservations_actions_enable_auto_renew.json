@@ -1,0 +1,32 @@
+{
+    "request": {
+      "method": "POST",
+      "path": "/billing/v1/reservations/{id}/actions/auto-renew/enable",
+      "pathParameters": {
+        "id": [
+          "e6afba51-7de8-4080-83ab-0f915570659c"
+        ]
+      }
+    },
+    "response": {
+      "statusCode": 200,
+      "body": {
+        "id" : "83604275-bdba-490a-b87a-978e8dffdb14",
+        "productCode" : "d1.tiny",
+        "productCategory" : "server",
+        "location" : "PHX",
+        "reservationModel" : "ONE_MONTH_RESERVATION",
+        "initialInvoiceModel" : "ON_CREATION",
+        "startDateTime" : "2020-03-19T16:39:00Z",
+        "endDateTime" : "2020-03-19T16:39:00Z",
+        "lastRenewalDateTime" : "2020-03-19T16:39:00Z",
+        "nextRenewalDateTime" : "2020-03-19T16:39:00Z",
+        "autoRenew" : true,
+        "sku" : "XXX-XXX-XXX",
+        "price" : 175,
+        "priceUnit" : "HOUR",
+        "assignedResourceId" : "83604275-bdba-490a-b87a-978e8dffdb14"
+      }
+    }
+  }
+  

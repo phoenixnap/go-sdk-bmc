@@ -1,7 +1,7 @@
 /*
 Networks API
 
-Create, list, edit and delete public/private networks with the Network API. Use public networks to place multiple  servers on the same network or VLAN. Assign new servers with IP addresses from the same CIDR range. Use private  networks to avoid unnecessary egress data charges. Model your networks according to your business needs.<br> <br> <span class='pnap-api-knowledge-base-link'> Helpful knowledge base articles are available for  <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>multi-private backend networks</a> and <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-15' target='_blank'>public networks</a>. </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b> 
+Create, list, edit and delete public/private networks with the Network API. Use public networks to place multiple  servers on the same network or VLAN. Assign new servers with IP addresses from the same CIDR range. Use private  networks to avoid unnecessary egress data charges. Model your networks according to your business needs.<br> <br> <span class='pnap-api-knowledge-base-link'> Helpful knowledge base articles are available for  <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>multi-private backend networks</a> and <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-15' target='_blank'>public networks</a>. </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b>
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -34,7 +34,10 @@ type PrivateNetwork struct {
 	LocationDefault bool `json:"locationDefault"`
 	// IP range associated with this private network in CIDR notation.
 	Cidr string `json:"cidr"`
+	// Deprecated
 	Servers []PrivateNetworkServer `json:"servers"`
+	// A list of resources that are members of this private network.
+	Memberships []NetworkMembership `json:"memberships"`
 	// Date and time when this private network was created.
 	CreatedOn time.Time `json:"createdOn"`
 }
@@ -43,7 +46,7 @@ type PrivateNetwork struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, cidr string, servers []PrivateNetworkServer, createdOn time.Time) *PrivateNetwork {
+func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, cidr string, servers []PrivateNetworkServer, memberships []NetworkMembership, createdOn time.Time) *PrivateNetwork {
 	this := PrivateNetwork{}
 	this.Id = id
 	this.Name = name
@@ -53,6 +56,7 @@ func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, locat
 	this.LocationDefault = locationDefault
 	this.Cidr = cidr
 	this.Servers = servers
+	this.Memberships = memberships
 	this.CreatedOn = createdOn
 	return &this
 }
@@ -78,7 +82,7 @@ func (o *PrivateNetwork) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -102,7 +106,7 @@ func (o *PrivateNetwork) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -158,7 +162,7 @@ func (o *PrivateNetwork) GetVlanId() int32 {
 // GetVlanIdOk returns a tuple with the VlanId field value
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetVlanIdOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VlanId, true
@@ -182,7 +186,7 @@ func (o *PrivateNetwork) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -206,7 +210,7 @@ func (o *PrivateNetwork) GetLocation() string {
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetLocationOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Location, true
@@ -230,7 +234,7 @@ func (o *PrivateNetwork) GetLocationDefault() bool {
 // GetLocationDefaultOk returns a tuple with the LocationDefault field value
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetLocationDefaultOk() (*bool, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LocationDefault, true
@@ -254,7 +258,7 @@ func (o *PrivateNetwork) GetCidr() string {
 // GetCidrOk returns a tuple with the Cidr field value
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetCidrOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Cidr, true
@@ -266,6 +270,7 @@ func (o *PrivateNetwork) SetCidr(v string) {
 }
 
 // GetServers returns the Servers field value
+// Deprecated
 func (o *PrivateNetwork) GetServers() []PrivateNetworkServer {
 	if o == nil {
 		var ret []PrivateNetworkServer
@@ -277,16 +282,42 @@ func (o *PrivateNetwork) GetServers() []PrivateNetworkServer {
 
 // GetServersOk returns a tuple with the Servers field value
 // and a boolean to check if the value has been set.
-func (o *PrivateNetwork) GetServersOk() (*[]PrivateNetworkServer, bool) {
-	if o == nil  {
+// Deprecated
+func (o *PrivateNetwork) GetServersOk() ([]PrivateNetworkServer, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Servers, true
+	return o.Servers, true
 }
 
 // SetServers sets field value
+// Deprecated
 func (o *PrivateNetwork) SetServers(v []PrivateNetworkServer) {
 	o.Servers = v
+}
+
+// GetMemberships returns the Memberships field value
+func (o *PrivateNetwork) GetMemberships() []NetworkMembership {
+	if o == nil {
+		var ret []NetworkMembership
+		return ret
+	}
+
+	return o.Memberships
+}
+
+// GetMembershipsOk returns a tuple with the Memberships field value
+// and a boolean to check if the value has been set.
+func (o *PrivateNetwork) GetMembershipsOk() ([]NetworkMembership, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Memberships, true
+}
+
+// SetMemberships sets field value
+func (o *PrivateNetwork) SetMemberships(v []NetworkMembership) {
+	o.Memberships = v
 }
 
 // GetCreatedOn returns the CreatedOn field value
@@ -302,7 +333,7 @@ func (o *PrivateNetwork) GetCreatedOn() time.Time {
 // GetCreatedOnOk returns a tuple with the CreatedOn field value
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetCreatedOnOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.CreatedOn, true
@@ -341,6 +372,9 @@ func (o PrivateNetwork) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["servers"] = o.Servers
+	}
+	if true {
+		toSerialize["memberships"] = o.Memberships
 	}
 	if true {
 		toSerialize["createdOn"] = o.CreatedOn
@@ -383,5 +417,3 @@ func (v *NullablePrivateNetwork) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

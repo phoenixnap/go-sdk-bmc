@@ -1,7 +1,7 @@
 /*
 Networks API
 
-Create, list, edit and delete public/private networks with the Network API. Use public networks to place multiple  servers on the same network or VLAN. Assign new servers with IP addresses from the same CIDR range. Use private  networks to avoid unnecessary egress data charges. Model your networks according to your business needs.<br> <br> <span class='pnap-api-knowledge-base-link'> Helpful knowledge base articles are available for  <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>multi-private backend networks</a> and <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-15' target='_blank'>public networks</a>. </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b> 
+Create, list, edit and delete public/private networks with the Network API. Use public networks to place multiple  servers on the same network or VLAN. Assign new servers with IP addresses from the same CIDR range. Use private  networks to avoid unnecessary egress data charges. Model your networks according to your business needs.<br> <br> <span class='pnap-api-knowledge-base-link'> Helpful knowledge base articles are available for  <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>multi-private backend networks</a> and <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-15' target='_blank'>public networks</a>. </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b>
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -22,8 +22,8 @@ type PublicNetwork struct {
 	Id string `json:"id"`
 	// The VLAN of this public network.
 	VlanId int32 `json:"vlanId"`
-	// A list of resources that are members in this public network.
-	Memberships []PublicNetworkMembership `json:"memberships"`
+	// A list of resources that are members of this public network.
+	Memberships []NetworkMembership `json:"memberships"`
 	// The friendly name of this public network.
 	Name string `json:"name"`
 	// The location of this public network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
@@ -40,7 +40,7 @@ type PublicNetwork struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicNetwork(id string, vlanId int32, memberships []PublicNetworkMembership, name string, location string, createdOn time.Time, ipBlocks []PublicNetworkIpBlock) *PublicNetwork {
+func NewPublicNetwork(id string, vlanId int32, memberships []NetworkMembership, name string, location string, createdOn time.Time, ipBlocks []PublicNetworkIpBlock) *PublicNetwork {
 	this := PublicNetwork{}
 	this.Id = id
 	this.VlanId = vlanId
@@ -73,7 +73,7 @@ func (o *PublicNetwork) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *PublicNetwork) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -97,7 +97,7 @@ func (o *PublicNetwork) GetVlanId() int32 {
 // GetVlanIdOk returns a tuple with the VlanId field value
 // and a boolean to check if the value has been set.
 func (o *PublicNetwork) GetVlanIdOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VlanId, true
@@ -109,9 +109,9 @@ func (o *PublicNetwork) SetVlanId(v int32) {
 }
 
 // GetMemberships returns the Memberships field value
-func (o *PublicNetwork) GetMemberships() []PublicNetworkMembership {
+func (o *PublicNetwork) GetMemberships() []NetworkMembership {
 	if o == nil {
-		var ret []PublicNetworkMembership
+		var ret []NetworkMembership
 		return ret
 	}
 
@@ -120,15 +120,15 @@ func (o *PublicNetwork) GetMemberships() []PublicNetworkMembership {
 
 // GetMembershipsOk returns a tuple with the Memberships field value
 // and a boolean to check if the value has been set.
-func (o *PublicNetwork) GetMembershipsOk() (*[]PublicNetworkMembership, bool) {
-	if o == nil  {
+func (o *PublicNetwork) GetMembershipsOk() ([]NetworkMembership, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Memberships, true
+	return o.Memberships, true
 }
 
 // SetMemberships sets field value
-func (o *PublicNetwork) SetMemberships(v []PublicNetworkMembership) {
+func (o *PublicNetwork) SetMemberships(v []NetworkMembership) {
 	o.Memberships = v
 }
 
@@ -145,7 +145,7 @@ func (o *PublicNetwork) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *PublicNetwork) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -169,7 +169,7 @@ func (o *PublicNetwork) GetLocation() string {
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
 func (o *PublicNetwork) GetLocationOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Location, true
@@ -225,7 +225,7 @@ func (o *PublicNetwork) GetCreatedOn() time.Time {
 // GetCreatedOnOk returns a tuple with the CreatedOn field value
 // and a boolean to check if the value has been set.
 func (o *PublicNetwork) GetCreatedOnOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.CreatedOn, true
@@ -248,11 +248,11 @@ func (o *PublicNetwork) GetIpBlocks() []PublicNetworkIpBlock {
 
 // GetIpBlocksOk returns a tuple with the IpBlocks field value
 // and a boolean to check if the value has been set.
-func (o *PublicNetwork) GetIpBlocksOk() (*[]PublicNetworkIpBlock, bool) {
-	if o == nil  {
+func (o *PublicNetwork) GetIpBlocksOk() ([]PublicNetworkIpBlock, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.IpBlocks, true
+	return o.IpBlocks, true
 }
 
 // SetIpBlocks sets field value
@@ -324,5 +324,3 @@ func (v *NullablePublicNetwork) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

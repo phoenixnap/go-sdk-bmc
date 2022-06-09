@@ -32,25 +32,13 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
-
-    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     location := "PHX" // string | If present will filter the result by the given location of the Public Networks. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
-
-    config := clientcredentials.Config{
-        ClientID:     "<CLIENT_ID>",
-        ClientSecret: "<CLIENT_SECRET>",
-        TokenURL:     tokenUrl,
-    }
-
-    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
-
     resp, r, err := apiClient.PublicNetworksApi.PublicNetworksGet(context.Background()).Location(location).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksApi.PublicNetworksGet``: %v\n", err)
@@ -73,8 +61,6 @@ Other parameters are passed through a pointer to a apiPublicNetworksGetRequest s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **location** | **string** | If present will filter the result by the given location of the Public Networks. | 
-
-
 
 ### Return type
 
@@ -112,25 +98,13 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
-
-    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
 
     configuration := openapiclient.NewConfiguration()
-    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
-
-    config := clientcredentials.Config{
-        ClientID:     "<CLIENT_ID>",
-        ClientSecret: "<CLIENT_SECRET>",
-        TokenURL:     tokenUrl,
-    }
-
-    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
-
     resp, r, err := apiClient.PublicNetworksApi.PublicNetworksNetworkIdDelete(context.Background(), publicNetworkId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksApi.PublicNetworksNetworkIdDelete``: %v\n", err)
@@ -142,9 +116,9 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description | Notes
----- | ---- | ----------- | -----
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **publicNetworkId** | **string** | The Public Network identifier. | 
 
 ### Other Parameters
@@ -154,7 +128,6 @@ Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdDel
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
 
 
 ### Return type
@@ -193,25 +166,13 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
-
-    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
 
     configuration := openapiclient.NewConfiguration()
-    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
-
-    config := clientcredentials.Config{
-        ClientID:     "<CLIENT_ID>",
-        ClientSecret: "<CLIENT_SECRET>",
-        TokenURL:     tokenUrl,
-    }
-
-    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
-
     resp, r, err := apiClient.PublicNetworksApi.PublicNetworksNetworkIdGet(context.Background(), publicNetworkId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksApi.PublicNetworksNetworkIdGet``: %v\n", err)
@@ -225,9 +186,9 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description | Notes
----- | ---- | ----------- | -----
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **publicNetworkId** | **string** | The Public Network identifier. | 
 
 ### Other Parameters
@@ -237,7 +198,6 @@ Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdGet
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
 
 
 ### Return type
@@ -276,8 +236,6 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
-
-    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -285,17 +243,7 @@ func main() {
     ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
 
     configuration := openapiclient.NewConfiguration()
-    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
-
-    config := clientcredentials.Config{
-        ClientID:     "<CLIENT_ID>",
-        ClientSecret: "<CLIENT_SECRET>",
-        TokenURL:     tokenUrl,
-    }
-
-    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
-
     resp, r, err := apiClient.PublicNetworksApi.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(context.Background(), publicNetworkId, ipBlockId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksApi.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete``: %v\n", err)
@@ -309,10 +257,10 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description | Notes
----- | ---- | ----------- | -----
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-**publicNetworkId** | **string** | The Public Network identifier. |  |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**publicNetworkId** | **string** | The Public Network identifier. | 
 **ipBlockId** | **string** | The IP Block identifier. | 
 
 ### Other Parameters
@@ -361,8 +309,6 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
-
-    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -370,17 +316,7 @@ func main() {
     publicNetworkIpBlock := *openapiclient.NewPublicNetworkIpBlock("60473a6115e34466c9f8f083") // PublicNetworkIpBlock |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
-
-    config := clientcredentials.Config{
-        ClientID:     "<CLIENT_ID>",
-        ClientSecret: "<CLIENT_SECRET>",
-        TokenURL:     tokenUrl,
-    }
-
-    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
-
     resp, r, err := apiClient.PublicNetworksApi.PublicNetworksNetworkIdIpBlocksPost(context.Background(), publicNetworkId).PublicNetworkIpBlock(publicNetworkIpBlock).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksApi.PublicNetworksNetworkIdIpBlocksPost``: %v\n", err)
@@ -394,9 +330,9 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description | Notes
----- | ---- | ----------- | -----
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **publicNetworkId** | **string** | The Public Network identifier. | 
 
 ### Other Parameters
@@ -406,9 +342,8 @@ Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdIpB
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
  **publicNetworkIpBlock** | [**PublicNetworkIpBlock**](PublicNetworkIpBlock.md) |  | 
-
-
 
 ### Return type
 
@@ -446,8 +381,6 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
-
-    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
@@ -455,17 +388,7 @@ func main() {
     publicNetworkModify := *openapiclient.NewPublicNetworkModify() // PublicNetworkModify |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
-
-    config := clientcredentials.Config{
-        ClientID:     "<CLIENT_ID>",
-        ClientSecret: "<CLIENT_SECRET>",
-        TokenURL:     tokenUrl,
-    }
-
-    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
-
     resp, r, err := apiClient.PublicNetworksApi.PublicNetworksNetworkIdPatch(context.Background(), publicNetworkId).PublicNetworkModify(publicNetworkModify).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksApi.PublicNetworksNetworkIdPatch``: %v\n", err)
@@ -479,9 +402,9 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description | Notes
----- | ---- | ----------- | -----
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **publicNetworkId** | **string** | The Public Network identifier. | 
 
 ### Other Parameters
@@ -491,9 +414,8 @@ Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdPat
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
  **publicNetworkModify** | [**PublicNetworkModify**](PublicNetworkModify.md) |  | 
-
-
 
 ### Return type
 
@@ -531,25 +453,13 @@ import (
     "fmt"
     "os"
     openapiclient "./openapi"
-
-    "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
     publicNetworkCreate := *openapiclient.NewPublicNetworkCreate("Sample Network", "PHX") // PublicNetworkCreate |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    tokenUrl := "https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token"
-
-    config := clientcredentials.Config{
-        ClientID:     "<CLIENT_ID>",
-        ClientSecret: "<CLIENT_SECRET>",
-        TokenURL:     tokenUrl,
-    }
-
-    configuration.HTTPClient = config.Client(context.Background())
     apiClient := openapiclient.NewAPIClient(configuration)
-
     resp, r, err := apiClient.PublicNetworksApi.PublicNetworksPost(context.Background()).PublicNetworkCreate(publicNetworkCreate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksApi.PublicNetworksPost``: %v\n", err)
@@ -572,8 +482,6 @@ Other parameters are passed through a pointer to a apiPublicNetworksPostRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **publicNetworkCreate** | [**PublicNetworkCreate**](PublicNetworkCreate.md) |  | 
-
-
 
 ### Return type
 

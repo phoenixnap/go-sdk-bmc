@@ -1,7 +1,7 @@
 /*
 Networks API
 
-Create, list, edit and delete public/private networks with the Network API. Use public networks to place multiple  servers on the same network or VLAN. Assign new servers with IP addresses from the same CIDR range. Use private  networks to avoid unnecessary egress data charges. Model your networks according to your business needs.<br> <br> <span class='pnap-api-knowledge-base-link'> Helpful knowledge base articles are available for  <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>multi-private backend networks</a> and <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-15' target='_blank'>public networks</a>. </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b> 
+Create, list, edit and delete public/private networks with the Network API. Use public networks to place multiple  servers on the same network or VLAN. Assign new servers with IP addresses from the same CIDR range. Use private  networks to avoid unnecessary egress data charges. Model your networks according to your business needs.<br> <br> <span class='pnap-api-knowledge-base-link'> Helpful knowledge base articles are available for  <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>multi-private backend networks</a> and <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-15' target='_blank'>public networks</a>. </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b>
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -13,131 +13,126 @@ package networkapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 type PublicNetworksApi interface {
 
 	/*
-	PublicNetworksGet List Public Networks.
+		PublicNetworksGet List Public Networks.
 
-	List all Public Networks owned by account.
+		List all Public Networks owned by account.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiPublicNetworksGetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiPublicNetworksGetRequest
 	*/
-	PublicNetworksGet(ctx _context.Context) ApiPublicNetworksGetRequest
+	PublicNetworksGet(ctx context.Context) ApiPublicNetworksGetRequest
 
 	// PublicNetworksGetExecute executes the request
 	//  @return []PublicNetwork
-	PublicNetworksGetExecute(r ApiPublicNetworksGetRequest) ([]PublicNetwork, *_nethttp.Response, error)
+	PublicNetworksGetExecute(r ApiPublicNetworksGetRequest) ([]PublicNetwork, *http.Response, error)
 
 	/*
-	PublicNetworksNetworkIdDelete Delete a Public Network.
+		PublicNetworksNetworkIdDelete Delete a Public Network.
 
-	Delete Public Network. The request is accepted only if no resources are members of this network. The IP Block(s) will be freed and can be re-used in the future.
+		Delete Public Network. The request is accepted only if no resources are members of this network. The IP Block(s) will be freed and can be re-used in the future.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param publicNetworkId The Public Network identifier.
-	 @return ApiPublicNetworksNetworkIdDeleteRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param publicNetworkId The Public Network identifier.
+		@return ApiPublicNetworksNetworkIdDeleteRequest
 	*/
-	PublicNetworksNetworkIdDelete(ctx _context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdDeleteRequest
+	PublicNetworksNetworkIdDelete(ctx context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdDeleteRequest
 
 	// PublicNetworksNetworkIdDeleteExecute executes the request
-	PublicNetworksNetworkIdDeleteExecute(r ApiPublicNetworksNetworkIdDeleteRequest) (*_nethttp.Response, error)
+	PublicNetworksNetworkIdDeleteExecute(r ApiPublicNetworksNetworkIdDeleteRequest) (*http.Response, error)
 
 	/*
-	PublicNetworksNetworkIdGet Get a Public Network.
+		PublicNetworksNetworkIdGet Get a Public Network.
 
-	Retrieve Public Network Details.
+		Retrieve Public Network Details.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param publicNetworkId The Public Network identifier.
-	 @return ApiPublicNetworksNetworkIdGetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param publicNetworkId The Public Network identifier.
+		@return ApiPublicNetworksNetworkIdGetRequest
 	*/
-	PublicNetworksNetworkIdGet(ctx _context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdGetRequest
+	PublicNetworksNetworkIdGet(ctx context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdGetRequest
 
 	// PublicNetworksNetworkIdGetExecute executes the request
 	//  @return PublicNetwork
-	PublicNetworksNetworkIdGetExecute(r ApiPublicNetworksNetworkIdGetRequest) (PublicNetwork, *_nethttp.Response, error)
+	PublicNetworksNetworkIdGetExecute(r ApiPublicNetworksNetworkIdGetRequest) (*PublicNetwork, *http.Response, error)
 
 	/*
-	PublicNetworksNetworkIdIpBlocksIpBlockIdDelete Removes the IP Block from the Public Network.
+		PublicNetworksNetworkIdIpBlocksIpBlockIdDelete Removes the IP Block from the Public Network.
 
-	Removes the IP Block from the Public Network. The result of this is that any traffic addressed to any IP within the block will not be routed to this network anymore. Please ensure that no resource members within this network have any IPs assigned from the IP Block being removed.
+		Removes the IP Block from the Public Network. The result of this is that any traffic addressed to any IP within the block will not be routed to this network anymore. Please ensure that no resource members within this network have any IPs assigned from the IP Block being removed.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param publicNetworkId The Public Network identifier.
-	 @param ipBlockId The IP Block identifier.
-	 @return ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param publicNetworkId The Public Network identifier.
+		@param ipBlockId The IP Block identifier.
+		@return ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest
 	*/
-	PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(ctx _context.Context, publicNetworkId string, ipBlockId string) ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest
+	PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(ctx context.Context, publicNetworkId string, ipBlockId string) ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest
 
 	// PublicNetworksNetworkIdIpBlocksIpBlockIdDeleteExecute executes the request
 	//  @return string
-	PublicNetworksNetworkIdIpBlocksIpBlockIdDeleteExecute(r ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest) (string, *_nethttp.Response, error)
+	PublicNetworksNetworkIdIpBlocksIpBlockIdDeleteExecute(r ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest) (string, *http.Response, error)
 
 	/*
-	PublicNetworksNetworkIdIpBlocksPost Adds an IP block to this public network.
+		PublicNetworksNetworkIdIpBlocksPost Adds an IP block to this public network.
 
-	Adds an IP block to this public network.
+		Adds an IP block to this public network.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param publicNetworkId The Public Network identifier.
-	 @return ApiPublicNetworksNetworkIdIpBlocksPostRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param publicNetworkId The Public Network identifier.
+		@return ApiPublicNetworksNetworkIdIpBlocksPostRequest
 	*/
-	PublicNetworksNetworkIdIpBlocksPost(ctx _context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdIpBlocksPostRequest
+	PublicNetworksNetworkIdIpBlocksPost(ctx context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdIpBlocksPostRequest
 
 	// PublicNetworksNetworkIdIpBlocksPostExecute executes the request
 	//  @return PublicNetworkIpBlock
-	PublicNetworksNetworkIdIpBlocksPostExecute(r ApiPublicNetworksNetworkIdIpBlocksPostRequest) (PublicNetworkIpBlock, *_nethttp.Response, error)
+	PublicNetworksNetworkIdIpBlocksPostExecute(r ApiPublicNetworksNetworkIdIpBlocksPostRequest) (*PublicNetworkIpBlock, *http.Response, error)
 
 	/*
-	PublicNetworksNetworkIdPatch Update Public Network's Details.
+		PublicNetworksNetworkIdPatch Update Public Network's Details.
 
-	Update Public Network's Details.
+		Update Public Network's Details.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param publicNetworkId The Public Network identifier.
-	 @return ApiPublicNetworksNetworkIdPatchRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param publicNetworkId The Public Network identifier.
+		@return ApiPublicNetworksNetworkIdPatchRequest
 	*/
-	PublicNetworksNetworkIdPatch(ctx _context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdPatchRequest
+	PublicNetworksNetworkIdPatch(ctx context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdPatchRequest
 
 	// PublicNetworksNetworkIdPatchExecute executes the request
 	//  @return PublicNetwork
-	PublicNetworksNetworkIdPatchExecute(r ApiPublicNetworksNetworkIdPatchRequest) (PublicNetwork, *_nethttp.Response, error)
+	PublicNetworksNetworkIdPatchExecute(r ApiPublicNetworksNetworkIdPatchRequest) (*PublicNetwork, *http.Response, error)
 
 	/*
-	PublicNetworksPost Create a public network.
+		PublicNetworksPost Create a public network.
 
-	Create a public network.
+		Create a public network.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiPublicNetworksPostRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiPublicNetworksPostRequest
 	*/
-	PublicNetworksPost(ctx _context.Context) ApiPublicNetworksPostRequest
+	PublicNetworksPost(ctx context.Context) ApiPublicNetworksPostRequest
 
 	// PublicNetworksPostExecute executes the request
 	//  @return PublicNetwork
-	PublicNetworksPostExecute(r ApiPublicNetworksPostRequest) (PublicNetwork, *_nethttp.Response, error)
+	PublicNetworksPostExecute(r ApiPublicNetworksPostRequest) (*PublicNetwork, *http.Response, error)
 }
 
 // PublicNetworksApiService PublicNetworksApi service
 type PublicNetworksApiService service
 
 type ApiPublicNetworksGetRequest struct {
-	ctx _context.Context
+	ctx        context.Context
 	ApiService PublicNetworksApi
-	location *string
+	location   *string
 }
 
 // If present will filter the result by the given location of the Public Networks.
@@ -146,7 +141,7 @@ func (r ApiPublicNetworksGetRequest) Location(location string) ApiPublicNetworks
 	return r
 }
 
-func (r ApiPublicNetworksGetRequest) Execute() ([]PublicNetwork, *_nethttp.Response, error) {
+func (r ApiPublicNetworksGetRequest) Execute() ([]PublicNetwork, *http.Response, error) {
 	return r.ApiService.PublicNetworksGetExecute(r)
 }
 
@@ -155,38 +150,36 @@ PublicNetworksGet List Public Networks.
 
 List all Public Networks owned by account.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPublicNetworksGetRequest
 */
-func (a *PublicNetworksApiService) PublicNetworksGet(ctx _context.Context) ApiPublicNetworksGetRequest {
+func (a *PublicNetworksApiService) PublicNetworksGet(ctx context.Context) ApiPublicNetworksGetRequest {
 	return ApiPublicNetworksGetRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
 //  @return []PublicNetwork
-func (a *PublicNetworksApiService) PublicNetworksGetExecute(r ApiPublicNetworksGetRequest) ([]PublicNetwork, *_nethttp.Response, error) {
+func (a *PublicNetworksApiService) PublicNetworksGetExecute(r ApiPublicNetworksGetRequest) ([]PublicNetwork, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  []PublicNetwork
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []PublicNetwork
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicNetworksApiService.PublicNetworksGet")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/public-networks"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.location != nil {
 		localVarQueryParams.Add("location", parameterToString(*r.location, ""))
@@ -200,8 +193,8 @@ func (a *PublicNetworksApiService) PublicNetworksGetExecute(r ApiPublicNetworksG
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion
+	localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -211,7 +204,7 @@ func (a *PublicNetworksApiService) PublicNetworksGetExecute(r ApiPublicNetworksG
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -221,15 +214,15 @@ func (a *PublicNetworksApiService) PublicNetworksGetExecute(r ApiPublicNetworksG
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -277,7 +270,7 @@ func (a *PublicNetworksApiService) PublicNetworksGetExecute(r ApiPublicNetworksG
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -288,13 +281,12 @@ func (a *PublicNetworksApiService) PublicNetworksGetExecute(r ApiPublicNetworksG
 }
 
 type ApiPublicNetworksNetworkIdDeleteRequest struct {
-	ctx _context.Context
-	ApiService PublicNetworksApi
+	ctx             context.Context
+	ApiService      PublicNetworksApi
 	publicNetworkId string
 }
 
-
-func (r ApiPublicNetworksNetworkIdDeleteRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPublicNetworksNetworkIdDeleteRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PublicNetworksNetworkIdDeleteExecute(r)
 }
 
@@ -303,39 +295,37 @@ PublicNetworksNetworkIdDelete Delete a Public Network.
 
 Delete Public Network. The request is accepted only if no resources are members of this network. The IP Block(s) will be freed and can be re-used in the future.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param publicNetworkId The Public Network identifier.
  @return ApiPublicNetworksNetworkIdDeleteRequest
 */
-func (a *PublicNetworksApiService) PublicNetworksNetworkIdDelete(ctx _context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdDeleteRequest {
+func (a *PublicNetworksApiService) PublicNetworksNetworkIdDelete(ctx context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdDeleteRequest {
 	return ApiPublicNetworksNetworkIdDeleteRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		publicNetworkId: publicNetworkId,
 	}
 }
 
 // Execute executes the request
-func (a *PublicNetworksApiService) PublicNetworksNetworkIdDeleteExecute(r ApiPublicNetworksNetworkIdDeleteRequest) (*_nethttp.Response, error) {
+func (a *PublicNetworksApiService) PublicNetworksNetworkIdDeleteExecute(r ApiPublicNetworksNetworkIdDeleteRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicNetworksApiService.PublicNetworksNetworkIdDelete")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/public-networks/{publicNetworkId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"publicNetworkId"+"}", _neturl.PathEscape(parameterToString(r.publicNetworkId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"publicNetworkId"+"}", url.PathEscape(parameterToString(r.publicNetworkId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -346,8 +336,8 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdDeleteExecute(r ApiPub
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion
+	localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -357,7 +347,7 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdDeleteExecute(r ApiPub
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -367,15 +357,15 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdDeleteExecute(r ApiPub
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -435,13 +425,12 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdDeleteExecute(r ApiPub
 }
 
 type ApiPublicNetworksNetworkIdGetRequest struct {
-	ctx _context.Context
-	ApiService PublicNetworksApi
+	ctx             context.Context
+	ApiService      PublicNetworksApi
 	publicNetworkId string
 }
 
-
-func (r ApiPublicNetworksNetworkIdGetRequest) Execute() (PublicNetwork, *_nethttp.Response, error) {
+func (r ApiPublicNetworksNetworkIdGetRequest) Execute() (*PublicNetwork, *http.Response, error) {
 	return r.ApiService.PublicNetworksNetworkIdGetExecute(r)
 }
 
@@ -450,41 +439,39 @@ PublicNetworksNetworkIdGet Get a Public Network.
 
 Retrieve Public Network Details.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param publicNetworkId The Public Network identifier.
  @return ApiPublicNetworksNetworkIdGetRequest
 */
-func (a *PublicNetworksApiService) PublicNetworksNetworkIdGet(ctx _context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdGetRequest {
+func (a *PublicNetworksApiService) PublicNetworksNetworkIdGet(ctx context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdGetRequest {
 	return ApiPublicNetworksNetworkIdGetRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		publicNetworkId: publicNetworkId,
 	}
 }
 
 // Execute executes the request
 //  @return PublicNetwork
-func (a *PublicNetworksApiService) PublicNetworksNetworkIdGetExecute(r ApiPublicNetworksNetworkIdGetRequest) (PublicNetwork, *_nethttp.Response, error) {
+func (a *PublicNetworksApiService) PublicNetworksNetworkIdGetExecute(r ApiPublicNetworksNetworkIdGetRequest) (*PublicNetwork, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PublicNetwork
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PublicNetwork
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicNetworksApiService.PublicNetworksNetworkIdGet")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/public-networks/{publicNetworkId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"publicNetworkId"+"}", _neturl.PathEscape(parameterToString(r.publicNetworkId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"publicNetworkId"+"}", url.PathEscape(parameterToString(r.publicNetworkId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -495,8 +482,8 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdGetExecute(r ApiPublic
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion
+	localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -506,7 +493,7 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdGetExecute(r ApiPublic
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -516,15 +503,15 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdGetExecute(r ApiPublic
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -562,7 +549,7 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdGetExecute(r ApiPublic
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -573,14 +560,13 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdGetExecute(r ApiPublic
 }
 
 type ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest struct {
-	ctx _context.Context
-	ApiService PublicNetworksApi
+	ctx             context.Context
+	ApiService      PublicNetworksApi
 	publicNetworkId string
-	ipBlockId string
+	ipBlockId       string
 }
 
-
-func (r ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest) Execute() (string, *_nethttp.Response, error) {
+func (r ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest) Execute() (string, *http.Response, error) {
 	return r.ApiService.PublicNetworksNetworkIdIpBlocksIpBlockIdDeleteExecute(r)
 }
 
@@ -589,44 +575,42 @@ PublicNetworksNetworkIdIpBlocksIpBlockIdDelete Removes the IP Block from the Pub
 
 Removes the IP Block from the Public Network. The result of this is that any traffic addressed to any IP within the block will not be routed to this network anymore. Please ensure that no resource members within this network have any IPs assigned from the IP Block being removed.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param publicNetworkId The Public Network identifier.
  @param ipBlockId The IP Block identifier.
  @return ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest
 */
-func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(ctx _context.Context, publicNetworkId string, ipBlockId string) ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest {
+func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(ctx context.Context, publicNetworkId string, ipBlockId string) ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest {
 	return ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		publicNetworkId: publicNetworkId,
-		ipBlockId: ipBlockId,
+		ipBlockId:       ipBlockId,
 	}
 }
 
 // Execute executes the request
 //  @return string
-func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksIpBlockIdDeleteExecute(r ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest) (string, *_nethttp.Response, error) {
+func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksIpBlockIdDeleteExecute(r ApiPublicNetworksNetworkIdIpBlocksIpBlockIdDeleteRequest) (string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  string
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicNetworksApiService.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/public-networks/{publicNetworkId}/ip-blocks/{ipBlockId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"publicNetworkId"+"}", _neturl.PathEscape(parameterToString(r.publicNetworkId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", _neturl.PathEscape(parameterToString(r.ipBlockId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"publicNetworkId"+"}", url.PathEscape(parameterToString(r.publicNetworkId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", url.PathEscape(parameterToString(r.ipBlockId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -637,8 +621,8 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksIpBlockIdDelet
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion
+	localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -648,7 +632,7 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksIpBlockIdDelet
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -658,15 +642,15 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksIpBlockIdDelet
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -724,7 +708,7 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksIpBlockIdDelet
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -735,9 +719,9 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksIpBlockIdDelet
 }
 
 type ApiPublicNetworksNetworkIdIpBlocksPostRequest struct {
-	ctx _context.Context
-	ApiService PublicNetworksApi
-	publicNetworkId string
+	ctx                  context.Context
+	ApiService           PublicNetworksApi
+	publicNetworkId      string
 	publicNetworkIpBlock *PublicNetworkIpBlock
 }
 
@@ -746,7 +730,7 @@ func (r ApiPublicNetworksNetworkIdIpBlocksPostRequest) PublicNetworkIpBlock(publ
 	return r
 }
 
-func (r ApiPublicNetworksNetworkIdIpBlocksPostRequest) Execute() (PublicNetworkIpBlock, *_nethttp.Response, error) {
+func (r ApiPublicNetworksNetworkIdIpBlocksPostRequest) Execute() (*PublicNetworkIpBlock, *http.Response, error) {
 	return r.ApiService.PublicNetworksNetworkIdIpBlocksPostExecute(r)
 }
 
@@ -755,41 +739,39 @@ PublicNetworksNetworkIdIpBlocksPost Adds an IP block to this public network.
 
 Adds an IP block to this public network.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param publicNetworkId The Public Network identifier.
  @return ApiPublicNetworksNetworkIdIpBlocksPostRequest
 */
-func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksPost(ctx _context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdIpBlocksPostRequest {
+func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksPost(ctx context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdIpBlocksPostRequest {
 	return ApiPublicNetworksNetworkIdIpBlocksPostRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		publicNetworkId: publicNetworkId,
 	}
 }
 
 // Execute executes the request
 //  @return PublicNetworkIpBlock
-func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksPostExecute(r ApiPublicNetworksNetworkIdIpBlocksPostRequest) (PublicNetworkIpBlock, *_nethttp.Response, error) {
+func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksPostExecute(r ApiPublicNetworksNetworkIdIpBlocksPostRequest) (*PublicNetworkIpBlock, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PublicNetworkIpBlock
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PublicNetworkIpBlock
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicNetworksApiService.PublicNetworksNetworkIdIpBlocksPost")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/public-networks/{publicNetworkId}/ip-blocks"
-	localVarPath = strings.Replace(localVarPath, "{"+"publicNetworkId"+"}", _neturl.PathEscape(parameterToString(r.publicNetworkId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"publicNetworkId"+"}", url.PathEscape(parameterToString(r.publicNetworkId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -800,8 +782,8 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksPostExecute(r 
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion
+	localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -813,7 +795,7 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksPostExecute(r 
 	}
 	// body params
 	localVarPostBody = r.publicNetworkIpBlock
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -823,15 +805,15 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksPostExecute(r 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -889,7 +871,7 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksPostExecute(r 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -900,9 +882,9 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdIpBlocksPostExecute(r 
 }
 
 type ApiPublicNetworksNetworkIdPatchRequest struct {
-	ctx _context.Context
-	ApiService PublicNetworksApi
-	publicNetworkId string
+	ctx                 context.Context
+	ApiService          PublicNetworksApi
+	publicNetworkId     string
 	publicNetworkModify *PublicNetworkModify
 }
 
@@ -911,7 +893,7 @@ func (r ApiPublicNetworksNetworkIdPatchRequest) PublicNetworkModify(publicNetwor
 	return r
 }
 
-func (r ApiPublicNetworksNetworkIdPatchRequest) Execute() (PublicNetwork, *_nethttp.Response, error) {
+func (r ApiPublicNetworksNetworkIdPatchRequest) Execute() (*PublicNetwork, *http.Response, error) {
 	return r.ApiService.PublicNetworksNetworkIdPatchExecute(r)
 }
 
@@ -920,41 +902,39 @@ PublicNetworksNetworkIdPatch Update Public Network's Details.
 
 Update Public Network's Details.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param publicNetworkId The Public Network identifier.
  @return ApiPublicNetworksNetworkIdPatchRequest
 */
-func (a *PublicNetworksApiService) PublicNetworksNetworkIdPatch(ctx _context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdPatchRequest {
+func (a *PublicNetworksApiService) PublicNetworksNetworkIdPatch(ctx context.Context, publicNetworkId string) ApiPublicNetworksNetworkIdPatchRequest {
 	return ApiPublicNetworksNetworkIdPatchRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		publicNetworkId: publicNetworkId,
 	}
 }
 
 // Execute executes the request
 //  @return PublicNetwork
-func (a *PublicNetworksApiService) PublicNetworksNetworkIdPatchExecute(r ApiPublicNetworksNetworkIdPatchRequest) (PublicNetwork, *_nethttp.Response, error) {
+func (a *PublicNetworksApiService) PublicNetworksNetworkIdPatchExecute(r ApiPublicNetworksNetworkIdPatchRequest) (*PublicNetwork, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PublicNetwork
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PublicNetwork
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicNetworksApiService.PublicNetworksNetworkIdPatch")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/public-networks/{publicNetworkId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"publicNetworkId"+"}", _neturl.PathEscape(parameterToString(r.publicNetworkId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"publicNetworkId"+"}", url.PathEscape(parameterToString(r.publicNetworkId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -965,8 +945,8 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdPatchExecute(r ApiPubl
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion
+	localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -978,7 +958,7 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdPatchExecute(r ApiPubl
 	}
 	// body params
 	localVarPostBody = r.publicNetworkModify
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -988,15 +968,15 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdPatchExecute(r ApiPubl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1054,7 +1034,7 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdPatchExecute(r ApiPubl
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1065,8 +1045,8 @@ func (a *PublicNetworksApiService) PublicNetworksNetworkIdPatchExecute(r ApiPubl
 }
 
 type ApiPublicNetworksPostRequest struct {
-	ctx _context.Context
-	ApiService PublicNetworksApi
+	ctx                 context.Context
+	ApiService          PublicNetworksApi
 	publicNetworkCreate *PublicNetworkCreate
 }
 
@@ -1075,7 +1055,7 @@ func (r ApiPublicNetworksPostRequest) PublicNetworkCreate(publicNetworkCreate Pu
 	return r
 }
 
-func (r ApiPublicNetworksPostRequest) Execute() (PublicNetwork, *_nethttp.Response, error) {
+func (r ApiPublicNetworksPostRequest) Execute() (*PublicNetwork, *http.Response, error) {
 	return r.ApiService.PublicNetworksPostExecute(r)
 }
 
@@ -1084,38 +1064,36 @@ PublicNetworksPost Create a public network.
 
 Create a public network.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPublicNetworksPostRequest
 */
-func (a *PublicNetworksApiService) PublicNetworksPost(ctx _context.Context) ApiPublicNetworksPostRequest {
+func (a *PublicNetworksApiService) PublicNetworksPost(ctx context.Context) ApiPublicNetworksPostRequest {
 	return ApiPublicNetworksPostRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
 //  @return PublicNetwork
-func (a *PublicNetworksApiService) PublicNetworksPostExecute(r ApiPublicNetworksPostRequest) (PublicNetwork, *_nethttp.Response, error) {
+func (a *PublicNetworksApiService) PublicNetworksPostExecute(r ApiPublicNetworksPostRequest) (*PublicNetwork, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PublicNetwork
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PublicNetwork
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicNetworksApiService.PublicNetworksPost")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/public-networks"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -1126,8 +1104,8 @@ func (a *PublicNetworksApiService) PublicNetworksPostExecute(r ApiPublicNetworks
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion;
-    localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion;
+	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion
+	localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -1139,7 +1117,7 @@ func (a *PublicNetworksApiService) PublicNetworksPostExecute(r ApiPublicNetworks
 	}
 	// body params
 	localVarPostBody = r.publicNetworkCreate
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1149,15 +1127,15 @@ func (a *PublicNetworksApiService) PublicNetworksPostExecute(r ApiPublicNetworks
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1215,7 +1193,7 @@ func (a *PublicNetworksApiService) PublicNetworksPostExecute(r ApiPublicNetworks
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

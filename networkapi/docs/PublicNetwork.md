@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | The public network identifier. | 
 **VlanId** | **int32** | The VLAN of this public network. | 
-**Memberships** | [**[]PublicNetworkMembership**](PublicNetworkMembership.md) | A list of resources that are members in this public network. | 
+**Memberships** | [**[]NetworkMembership**](NetworkMembership.md) | A list of resources that are members of this public network. | 
 **Name** | **string** | The friendly name of this public network. | 
 **Location** | **string** | The location of this public network. Supported values are &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60;, &#x60;SEA&#x60; and &#x60;AUS&#x60;. | 
 **Description** | Pointer to **string** | The description of this public network. | [optional] 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewPublicNetwork
 
-`func NewPublicNetwork(id string, vlanId int32, memberships []PublicNetworkMembership, name string, location string, createdOn time.Time, ipBlocks []PublicNetworkIpBlock, ) *PublicNetwork`
+`func NewPublicNetwork(id string, vlanId int32, memberships []NetworkMembership, name string, location string, createdOn time.Time, ipBlocks []PublicNetworkIpBlock, ) *PublicNetwork`
 
 NewPublicNetwork instantiates a new PublicNetwork object
 This constructor will assign default values to properties that have it defined,
@@ -74,20 +74,20 @@ SetVlanId sets VlanId field to given value.
 
 ### GetMemberships
 
-`func (o *PublicNetwork) GetMemberships() []PublicNetworkMembership`
+`func (o *PublicNetwork) GetMemberships() []NetworkMembership`
 
 GetMemberships returns the Memberships field if non-nil, zero value otherwise.
 
 ### GetMembershipsOk
 
-`func (o *PublicNetwork) GetMembershipsOk() (*[]PublicNetworkMembership, bool)`
+`func (o *PublicNetwork) GetMembershipsOk() (*[]NetworkMembership, bool)`
 
 GetMembershipsOk returns a tuple with the Memberships field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMemberships
 
-`func (o *PublicNetwork) SetMemberships(v []PublicNetworkMembership)`
+`func (o *PublicNetwork) SetMemberships(v []NetworkMembership)`
 
 SetMemberships sets Memberships field to given value.
 

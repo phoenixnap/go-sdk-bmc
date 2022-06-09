@@ -7,6 +7,7 @@ on:
       - 'release/**'
   schedule:
     - cron: '15 */4 * * *'
+  workflow_dispatch:
 
 jobs:
 
@@ -65,12 +66,27 @@ jobs:
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/tags/download_spec
           package-name: tagapi
+  generate-billingapi:
+    name: Generate Billing API
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/workflows/composite/generate-sdk
+        with:
+          spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/bmc-billing/download_spec
+          package-name: billingapi
 
   # Push generated code
   push-changes:
     name: Push Changes
     runs-on: ubuntu-latest
-    if: startsWith(github.head_ref, 'release') == false && startsWith(github.base_ref, 'release') == false && github.head_ref != 'master' && github.base_ref != 'master' && github.event.pull_request.head.repo.full_name == 'phoenixnap/go-sdk-bmc'
+    if: |
+      (github.event_name == 'schedule') ||
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/develop') || (
+        startsWith(github.head_ref, 'feature') == true &&
+        github.base_ref == 'develop' &&
+        github.event.pull_request.head.repo.full_name == 'phoenixnap/go-sdk-bmc'
+      )
     needs:
       - generate-bmcapi
       - generate-rancherapi
@@ -78,6 +94,7 @@ jobs:
       - generate-ipapi
       - generate-auditapi
       - generate-tagapi
+      - generate-billingapi
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -173,6 +190,18 @@ jobs:
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: tagapi
+  build-billingapi:
+    name: Build Billing API
+    runs-on: ubuntu-latest
+    needs:
+      - generate-billingapi
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+      - uses: ./.github/workflows/composite/build-sdk
+        with:
+          module-name: billingapi
   
   # Lint stage
   lint-bmcapi:
@@ -247,6 +276,18 @@ jobs:
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: tagapi
+  lint-billingapi:
+    name: Lint Tag API
+    runs-on: ubuntu-latest
+    needs:
+      - build-billingapi
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+      - uses: ./.github/workflows/composite/lint-sdk
+        with:
+          module-name: billingapi
 
   test-auditapi:
     name: Test Audit API
@@ -350,6 +391,24 @@ jobs:
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestNetworkApiTestSuite
+  test-billingapi:
+    name: Test Billing API
+    runs-on: ubuntu-latest
+    needs:
+      - lint-billingapi
+    services:
+      mockserver:
+        image: mockserver/mockserver:5.13.0
+        ports:
+          - 1080:1080
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+      - uses: ./.github/workflows/composite/test-sdk
+        with:
+          test-suite: TestBillingApiTestSuite
+
   publish-test-results:
     name: Publish Test Results
     needs:
@@ -359,6 +418,7 @@ jobs:
       - test-ipapi
       - test-auditapi
       - test-tagapi
+      - test-billingapi
     runs-on: ubuntu-latest
     if: always()
     steps:

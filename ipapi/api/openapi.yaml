@@ -35,7 +35,7 @@ paths:
       description: List all IP Blocks.
       operationId: ipBlocksGet
       parameters:
-      - description: List of tags, in the form tagName.tagValue, to filter by.
+      - description: "List of tags, in the form tagName.tagValue, to filter by."
         example:
         - env.dev
         - loc.phx
@@ -94,7 +94,7 @@ paths:
             example:
               cidrBlockSize: /28
               location: PHX
-              description: 'IP Block #1 used for publicly accessing server #1.'
+              description: "IP Block #1 used for publicly accessing server #1."
             schema:
               $ref: '#/components/schemas/IpBlockCreate'
       responses:
@@ -107,7 +107,7 @@ paths:
                 location: PHX
                 cidrBlockSize: /28
                 status: unassigned
-                description: 'IP Block #1 used for publicly accessing server #1.'
+                description: "IP Block #1 used for publicly accessing server #1."
                 isBringYourOwn: false
                 createdOn: 2021-03-13T20:24:32.491Z
               schema:
@@ -452,7 +452,7 @@ components:
     IpBlockCreate:
       description: IP Block Request.
       example:
-        description: 'IP Block #1 used for publicly accessing server #1.'
+        description: "IP Block #1 used for publicly accessing server #1."
         location: PHX
         cidrBlockSize: /30
         tags:
@@ -462,22 +462,23 @@ components:
           value: discounted
       properties:
         location:
-          description: IP Block location ID. Currently this field should be set to
-            `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
+          description: "IP Block location ID. Currently this field should be set to\
+            \ `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`."
           example: PHX
           type: string
         cidrBlockSize:
-          description: CIDR IP Block Size. Currently this field should be set to either
-            `/31`, `/30`, `/29` or `/28`. For a larger Block Size contact support.
+          description: "CIDR IP Block Size. Currently this field should be set to\
+            \ either `/31`, `/30`, `/29` or `/28`. For a larger Block Size contact\
+            \ support."
           example: /30
           type: string
         description:
           description: The description of the IP Block.
-          example: 'IP Block #1 used for publicly accessing server #1.'
+          example: "IP Block #1 used for publicly accessing server #1."
           maxLength: 250
           type: string
         tags:
-          description: Tags to set to ip-block, if any.
+          description: "Tags to set to ip-block, if any."
           example:
           - name: stage
             value: beta
@@ -493,7 +494,7 @@ components:
     IpBlock:
       description: IP Block Details.
       example:
-        description: 'IP Block #1 used for publicly accessing server #1.'
+        description: "IP Block #1 used for publicly accessing server #1."
         isBringYourOwn: false
         location: PHX
         cidr: 1.1.1.0/31
@@ -514,13 +515,14 @@ components:
           example: 6047127fed34ecc3ba8402d2
           type: string
         location:
-          description: IP Block location ID. Currently this field should be set to
-            `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
+          description: "IP Block location ID. Currently this field should be set to\
+            \ `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`."
           example: PHX
           type: string
         cidrBlockSize:
-          description: CIDR IP Block Size. Currently this field should be set to either
-            `/31`, `/30`, `/29`, `/28`, `/27`, `/26`, `/25`, `/24`, `/23` or `/22`.
+          description: "CIDR IP Block Size. Currently this field should be set to\
+            \ either `/31`, `/30`, `/29`, `/28`, `/27`, `/26`, `/25`, `/24`, `/23`\
+            \ or `/22`."
           example: /30
           type: string
         cidr:
@@ -541,7 +543,7 @@ components:
           type: string
         description:
           description: The description of the IP Block.
-          example: 'IP Block #1 used for publicly accessing server #1.'
+          example: "IP Block #1 used for publicly accessing server #1."
           maxLength: 250
           type: string
         tags:
@@ -627,7 +629,7 @@ components:
           readOnly: true
           type: string
         validationErrors:
-          description: Validation errors, if any.
+          description: "Validation errors, if any."
           items:
             type: string
           readOnly: true
@@ -642,16 +644,16 @@ components:
         value: PROD
       properties:
         name:
-          description: 'The name of the tag. Tag names are case-sensitive, and should
-            be composed of a maximum of 100 characters including UTF-8 Unicode letters,
-            numbers, and the following symbols: ''-'', ''_''. Regex: [A-zÀ-ú0-9_-]{1,100}.'
+          description: "The name of the tag. Tag names are case-sensitive, and should\
+            \ be composed of a maximum of 100 characters including UTF-8 Unicode letters,\
+            \ numbers, and the following symbols: '-', '_'. Regex: [A-zÀ-ú0-9_-]{1,100}."
           example: Environment
           type: string
         value:
-          description: 'The value of the tag assigned to the resource. Tag values
-            are case-sensitive, and should be composed of a maximum of 100 characters
-            including UTF-8 Unicode letters, numbers, and the following symbols: ''-'',
-            ''_''. Regex: [A-zÀ-ú0-9_-]{1,100}.'
+          description: "The value of the tag assigned to the resource. Tag values\
+            \ are case-sensitive, and should be composed of a maximum of 100 characters\
+            \ including UTF-8 Unicode letters, numbers, and the following symbols:\
+            \ '-', '_'. Regex: [A-zÀ-ú0-9_-]{1,100}."
           example: PROD
           type: string
       required:

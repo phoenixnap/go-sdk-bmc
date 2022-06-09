@@ -1,0 +1,61 @@
+{
+    "request": {
+      "method": "GET",
+      "path": "/billing/v1/product-availability",
+      "queryStringParameters": [
+        {
+          "name": "productCategory",
+          "values": [
+            "SERVER"
+          ]
+        },
+        {
+          "name": "productCode",
+          "values": [
+            "code"
+          ]
+        },
+        {
+          "name": "showOnlyMinQuantityAvailable",
+          "values": [
+            "true"
+          ]
+        },
+        {
+          "name": "location",
+          "values": [
+            "PHX"
+          ]
+        },
+        {
+          "name": "solution",
+          "values": [
+            "SERVER_RANCHER"
+          ]
+        },
+        {
+          "name": "minQuantity",
+          "values": [
+            "2"
+          ]
+        }
+      ]
+    },
+    "response": {
+      "statusCode": 200,
+      "body": [
+        {
+          "productCode" : "code",
+          "productCategory" : "SERVER",
+          "locationAvailabilityDetails" : [{
+            "location": "PHX",
+            "minQuantityRequested": 3,
+            "minQuantityAvailable": true,
+            "availableQuantity": 5,
+            "solutions": ["SERVER_RANCHER"]
+          }]
+        }
+      ]
+    }
+  }
+  

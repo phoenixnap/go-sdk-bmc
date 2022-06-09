@@ -1,7 +1,7 @@
 /*
 Audit Log API
 
-The Audit Logs API lets you read audit log entries and track API calls or activities in the Bare Metal Cloud Portal.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#audit-log-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/audit/v1/)</b> 
+The Audit Logs API lets you read audit log entries and track API calls or activities in the Bare Metal Cloud Portal.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#audit-log-api' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/audit/v1/)</b>
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -22,9 +22,9 @@ type ApiAction struct {
 	Name *string `json:"name,omitempty"`
 	// The UTC time the event initiated.
 	Timestamp time.Time `json:"timestamp"`
-	UserInfo UserInfo `json:"userInfo"`
-	Response Response `json:"response"`
-	Request Request `json:"request"`
+	UserInfo  UserInfo  `json:"userInfo"`
+	Response  Response  `json:"response"`
+	Request   Request   `json:"request"`
 }
 
 // NewApiAction instantiates a new ApiAction object
@@ -93,7 +93,7 @@ func (o *ApiAction) GetTimestamp() time.Time {
 // GetTimestampOk returns a tuple with the Timestamp field value
 // and a boolean to check if the value has been set.
 func (o *ApiAction) GetTimestampOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Timestamp, true
@@ -117,7 +117,7 @@ func (o *ApiAction) GetUserInfo() UserInfo {
 // GetUserInfoOk returns a tuple with the UserInfo field value
 // and a boolean to check if the value has been set.
 func (o *ApiAction) GetUserInfoOk() (*UserInfo, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.UserInfo, true
@@ -141,7 +141,7 @@ func (o *ApiAction) GetResponse() Response {
 // GetResponseOk returns a tuple with the Response field value
 // and a boolean to check if the value has been set.
 func (o *ApiAction) GetResponseOk() (*Response, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Response, true
@@ -165,7 +165,7 @@ func (o *ApiAction) GetRequest() Request {
 // GetRequestOk returns a tuple with the Request field value
 // and a boolean to check if the value has been set.
 func (o *ApiAction) GetRequestOk() (*Request, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Request, true
@@ -231,5 +231,3 @@ func (v *NullableApiAction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

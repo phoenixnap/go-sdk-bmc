@@ -1,7 +1,7 @@
 /*
 Rancher Solution API
 
-Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b> 
+Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b>
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -20,16 +20,17 @@ type DeleteResult struct {
 	// Solution cluster has been deleted.
 	Result string `json:"result"`
 	// The unique identifier of the solution cluster.
-	ClusterId *string `json:"clusterId,omitempty"`
+	ClusterId string `json:"clusterId"`
 }
 
 // NewDeleteResult instantiates a new DeleteResult object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteResult(result string) *DeleteResult {
+func NewDeleteResult(result string, clusterId string) *DeleteResult {
 	this := DeleteResult{}
 	this.Result = result
+	this.ClusterId = clusterId
 	return &this
 }
 
@@ -54,7 +55,7 @@ func (o *DeleteResult) GetResult() string {
 // GetResultOk returns a tuple with the Result field value
 // and a boolean to check if the value has been set.
 func (o *DeleteResult) GetResultOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Result, true
@@ -65,36 +66,28 @@ func (o *DeleteResult) SetResult(v string) {
 	o.Result = v
 }
 
-// GetClusterId returns the ClusterId field value if set, zero value otherwise.
+// GetClusterId returns the ClusterId field value
 func (o *DeleteResult) GetClusterId() string {
-	if o == nil || o.ClusterId == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.ClusterId
+
+	return o.ClusterId
 }
 
-// GetClusterIdOk returns a tuple with the ClusterId field value if set, nil otherwise
+// GetClusterIdOk returns a tuple with the ClusterId field value
 // and a boolean to check if the value has been set.
 func (o *DeleteResult) GetClusterIdOk() (*string, bool) {
-	if o == nil || o.ClusterId == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.ClusterId, true
+	return &o.ClusterId, true
 }
 
-// HasClusterId returns a boolean if a field has been set.
-func (o *DeleteResult) HasClusterId() bool {
-	if o != nil && o.ClusterId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetClusterId gets a reference to the given string and assigns it to the ClusterId field.
+// SetClusterId sets field value
 func (o *DeleteResult) SetClusterId(v string) {
-	o.ClusterId = &v
+	o.ClusterId = v
 }
 
 func (o DeleteResult) MarshalJSON() ([]byte, error) {
@@ -102,7 +95,7 @@ func (o DeleteResult) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["result"] = o.Result
 	}
-	if o.ClusterId != nil {
+	if true {
 		toSerialize["clusterId"] = o.ClusterId
 	}
 	return json.Marshal(toSerialize)
@@ -143,5 +136,3 @@ func (v *NullableDeleteResult) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

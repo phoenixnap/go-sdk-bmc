@@ -1,7 +1,7 @@
 /*
 Rancher Solution API
 
-Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b> 
+Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b>
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -20,9 +20,9 @@ type SshConfig struct {
 	// Define whether public keys marked as default should be installed on this node. These are public keys that were already recorded on this system. Use <a href='https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get' target='_blank'>GET /ssh-keys</a> to retrieve a list of possible values.
 	InstallDefaultKeys *bool `json:"installDefaultKeys,omitempty"`
 	// List of public SSH keys.
-	Keys *[]string `json:"keys,omitempty"`
+	Keys []string `json:"keys,omitempty"`
 	// List of public SSH key identifiers. These are public keys that were already recorded on this system. Use <a href='https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get' target='_blank'>GET /ssh-keys</a> to retrieve a list of possible values.
-	KeyIds *[]string `json:"keyIds,omitempty"`
+	KeyIds []string `json:"keyIds,omitempty"`
 }
 
 // NewSshConfig instantiates a new SshConfig object
@@ -84,12 +84,12 @@ func (o *SshConfig) GetKeys() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Keys
+	return o.Keys
 }
 
 // GetKeysOk returns a tuple with the Keys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SshConfig) GetKeysOk() (*[]string, bool) {
+func (o *SshConfig) GetKeysOk() ([]string, bool) {
 	if o == nil || o.Keys == nil {
 		return nil, false
 	}
@@ -107,7 +107,7 @@ func (o *SshConfig) HasKeys() bool {
 
 // SetKeys gets a reference to the given []string and assigns it to the Keys field.
 func (o *SshConfig) SetKeys(v []string) {
-	o.Keys = &v
+	o.Keys = v
 }
 
 // GetKeyIds returns the KeyIds field value if set, zero value otherwise.
@@ -116,12 +116,12 @@ func (o *SshConfig) GetKeyIds() []string {
 		var ret []string
 		return ret
 	}
-	return *o.KeyIds
+	return o.KeyIds
 }
 
 // GetKeyIdsOk returns a tuple with the KeyIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SshConfig) GetKeyIdsOk() (*[]string, bool) {
+func (o *SshConfig) GetKeyIdsOk() ([]string, bool) {
 	if o == nil || o.KeyIds == nil {
 		return nil, false
 	}
@@ -139,7 +139,7 @@ func (o *SshConfig) HasKeyIds() bool {
 
 // SetKeyIds gets a reference to the given []string and assigns it to the KeyIds field.
 func (o *SshConfig) SetKeyIds(v []string) {
-	o.KeyIds = &v
+	o.KeyIds = v
 }
 
 func (o SshConfig) MarshalJSON() ([]byte, error) {
@@ -191,5 +191,3 @@ func (v *NullableSshConfig) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

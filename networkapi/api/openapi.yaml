@@ -44,8 +44,8 @@ paths:
         name: location
         required: false
         schema:
-          description: Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA`
-            and `AUS`.
+          description: "Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA`\
+            \ and `AUS`."
           type: string
         style: form
       responses:
@@ -66,6 +66,12 @@ paths:
                   ips:
                   - 10.0.0.2
                   - 10.0.0.3
+                memberships:
+                - resourceId: 603f3e995c18d515cda9c4f8
+                  resourceType: server
+                  ips:
+                  - 10.0.0.2
+                  - 10.0.0.3
                 createdOn: 2022-04-07T13:20:30.491Z
               - id: 604724ac9ed2abd18e9f1cb6
                 name: My Additional Backend Network
@@ -77,6 +83,12 @@ paths:
                 cidr: 10.0.0.0/24
                 servers:
                 - id: 603f3e995c18d515cdvte548
+                  ips:
+                  - 10.0.0.4
+                  - 10.0.0.5
+                memberships:
+                - resourceId: 603f3e995c18d515cdvte548
+                  resourceType: server
                   ips:
                   - 10.0.0.4
                   - 10.0.0.5
@@ -159,6 +171,7 @@ paths:
                     description: My Default Backend Network
                     cidr: 10.0.0.0/24
                     servers: []
+                    memberships: []
                     createdOn: 2022-04-07T13:20:30.491Z
                 PrivateNetworkNonDefaultCreated:
                   value:
@@ -171,6 +184,7 @@ paths:
                     description: My Additional Backend Network
                     cidr: 10.0.0.0/24
                     servers: []
+                    memberships: []
                     createdOn: 2022-04-07T13:20:30.491Z
               schema:
                 $ref: '#/components/schemas/PrivateNetwork'
@@ -293,6 +307,12 @@ paths:
                       ips:
                       - 10.0.0.2
                       - 10.0.0.3
+                    memberships:
+                    - resourceId: 603f3e995c18d515cda9c4f8
+                      resourceType: server
+                      ips:
+                      - 10.0.0.2
+                      - 10.0.0.3
                     createdOn: 2022-04-07T13:20:30.491Z
                 AdditionalPrivateNetwork:
                   value:
@@ -306,6 +326,12 @@ paths:
                     cidr: 10.0.0.0/24
                     servers:
                     - id: 603f3e995c18d515cdvte548
+                      ips:
+                      - 10.0.0.4
+                      - 10.0.0.5
+                    memberships:
+                    - resourceId: 603f3e995c18d515cdvte548
+                      resourceType: server
                       ips:
                       - 10.0.0.4
                       - 10.0.0.5
@@ -395,6 +421,12 @@ paths:
                       ips:
                       - 10.0.0.2
                       - 10.0.0.3
+                    memberships:
+                    - resourceId: 603f3e995c18d515cda9c4f8
+                      resourceType: server
+                      ips:
+                      - 10.0.0.2
+                      - 10.0.0.3
                     createdOn: 2022-04-07T13:20:30.491Z
                 PrivateNetworkNonDefaultModified:
                   value:
@@ -408,6 +440,12 @@ paths:
                     cidr: 10.0.0.0/24
                     servers:
                     - id: 603f3e995c18d515cdvte548
+                      ips:
+                      - 10.0.0.4
+                      - 10.0.0.5
+                    memberships:
+                    - resourceId: 603f3e995c18d515cdvte548
+                      resourceType: server
                       ips:
                       - 10.0.0.4
                       - 10.0.0.5
@@ -468,8 +506,8 @@ paths:
         name: location
         required: false
         schema:
-          description: Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA`
-            and `AUS`.
+          description: "Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA`\
+            \ and `AUS`."
           type: string
         style: form
       responses:
@@ -480,7 +518,7 @@ paths:
               - id: 60472f76bbadb4f36541d2fd
                 name: Initial public network
                 location: PHX
-                description: 'My first public network #1'
+                description: "My first public network #1"
                 ipBlocks:
                 - id: 60473a6115e34466c9f8f083
                 - id: 616e6ec6d66b406a45ab8797
@@ -508,7 +546,7 @@ paths:
               - id: 6123b97643046b5bffb1d7c3
                 name: My additional public network
                 location: PHX
-                description: 'My second public network #2'
+                description: "My second public network #2"
                 ipBlocks: []
                 vlanId: 11
                 createdOn: 2022-04-05T13:50:30.491Z
@@ -567,12 +605,12 @@ paths:
                 value:
                   name: Initial public network
                   location: PHX
-                  description: 'My first public network #1'
+                  description: "My first public network #1"
               PublicNetworkCreationWithAllParameters:
                 value:
                   name: Initial public network
                   location: PHX
-                  description: 'My first public network #1'
+                  description: "My first public network #1"
                   ipBlocks:
                   - id: 60473a6115e34466c9f8f083
                   - id: 616e6ec6d66b406a45ab8797
@@ -605,7 +643,7 @@ paths:
                     id: 60472f76bbadb4f36541d2fd
                     name: Initial public network
                     location: PHX
-                    description: 'My first public network #1'
+                    description: "My first public network #1"
                     ipBlocks: []
                     vlanId: 10
                     createdOn: 2022-04-05T13:50:30.491Z
@@ -615,7 +653,7 @@ paths:
                     id: 60472f76bbadb4f36541d2fd
                     name: Initial public network
                     location: PHX
-                    description: 'My first public network #1'
+                    description: "My first public network #1"
                     ipBlocks:
                     - id: 60473a6115e34466c9f8f083
                     - id: 616e6ec6d66b406a45ab8797
@@ -764,7 +802,7 @@ paths:
                     id: 60472f76bbadb4f36541d2fd
                     name: Initial public network
                     location: PHX
-                    description: 'My first public network #1'
+                    description: "My first public network #1"
                     ipBlocks: []
                     vlanId: 10
                     createdOn: 2022-04-05T13:50:30.491Z
@@ -774,7 +812,7 @@ paths:
                     id: 60472f76bbadb4f36541d2fd
                     name: Initial public network
                     location: PHX
-                    description: 'My first public network #1'
+                    description: "My first public network #1"
                     ipBlocks:
                     - id: 60473a6115e34466c9f8f083
                     - id: 616e6ec6d66b406a45ab8797
@@ -794,7 +832,7 @@ paths:
                     id: 60472f76bbadb4f36541d2fd
                     name: Initial public network
                     location: PHX
-                    description: 'My first public network #1'
+                    description: "My first public network #1"
                     ipBlocks:
                     - id: 60473a6115e34466c9f8f083
                     - id: 616e6ec6d66b406a45ab8797
@@ -1176,6 +1214,19 @@ components:
         type: PRIVATE
         locationDefault: true
         createdOn: 2022-04-07T13:30:30.491Z
+        memberships:
+        - resourceId: 603f3e995c18d515cda9c4f8
+          ips:
+          - 10.111.14.104
+          - 10.111.14.105
+          - 10.111.14.106
+          resourceType: server
+        - resourceId: 603f3e995c18d515cda9c4f8
+          ips:
+          - 10.111.14.104
+          - 10.111.14.105
+          - 10.111.14.106
+          resourceType: server
       properties:
         id:
           description: The private network identifier.
@@ -1214,8 +1265,14 @@ components:
           example: 10.0.0.0/24
           type: string
         servers:
+          deprecated: true
           items:
             $ref: '#/components/schemas/PrivateNetworkServer'
+          type: array
+        memberships:
+          description: A list of resources that are members of this private network.
+          items:
+            $ref: '#/components/schemas/NetworkMembership'
           type: array
         createdOn:
           description: Date and time when this private network was created.
@@ -1228,6 +1285,7 @@ components:
       - id
       - location
       - locationDefault
+      - memberships
       - name
       - servers
       - type
@@ -1280,8 +1338,8 @@ components:
           maxLength: 250
           type: string
         location:
-          description: The location of this private network. Supported values are
-            `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+          description: "The location of this private network. Supported values are\
+            \ `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`."
           example: PHX
           type: string
         locationDefault:
@@ -1362,9 +1420,9 @@ components:
           example: 10
           type: integer
         memberships:
-          description: A list of resources that are members in this public network.
+          description: A list of resources that are members of this public network.
           items:
-            $ref: '#/components/schemas/PublicNetworkMembership'
+            $ref: '#/components/schemas/NetworkMembership'
           type: array
         name:
           description: The friendly name of this public network.
@@ -1373,8 +1431,8 @@ components:
           minLength: 1
           type: string
         location:
-          description: The location of this public network. Supported values are `PHX`,
-            `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+          description: "The location of this public network. Supported values are\
+            \ `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`."
           example: PHX
           type: string
         description:
@@ -1400,38 +1458,6 @@ components:
       - memberships
       - name
       - vlanId
-      type: object
-    PublicNetworkMembership:
-      description: Resource details linked to the Public Network.
-      example:
-        resourceId: 603f3e995c18d515cda9c4f8
-        ips:
-        - 10.111.14.104
-        - 10.111.14.105
-        - 10.111.14.106
-        resourceType: server
-      properties:
-        resourceId:
-          description: The resource identifier.
-          example: 603f3e995c18d515cda9c4f8
-          type: string
-        resourceType:
-          description: The resource's type.
-          example: server
-          type: string
-        ips:
-          description: List of public IPs associated to the resource.
-          example:
-          - 10.111.14.104
-          - 10.111.14.105
-          - 10.111.14.106
-          items:
-            type: string
-          type: array
-      required:
-      - ips
-      - resourceId
-      - resourceType
       type: object
     PublicNetworkIpBlock:
       description: The assigned IP block to the Public Network.
@@ -1471,8 +1497,8 @@ components:
           maxLength: 250
           type: string
         location:
-          description: The location of this public network. Supported values are `PHX`,
-            `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+          description: "The location of this public network. Supported values are\
+            \ `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`."
           example: PHX
           type: string
         ipBlocks:
@@ -1504,6 +1530,38 @@ components:
           maxLength: 250
           type: string
       type: object
+    NetworkMembership:
+      description: Resource details linked to the Network.
+      example:
+        resourceId: 603f3e995c18d515cda9c4f8
+        ips:
+        - 10.111.14.104
+        - 10.111.14.105
+        - 10.111.14.106
+        resourceType: server
+      properties:
+        resourceId:
+          description: The resource identifier.
+          example: 603f3e995c18d515cda9c4f8
+          type: string
+        resourceType:
+          description: The resource's type.
+          example: server
+          type: string
+        ips:
+          description: List of IPs associated to the resource.
+          example:
+          - 10.111.14.104
+          - 10.111.14.105
+          - 10.111.14.106
+          items:
+            type: string
+          type: array
+      required:
+      - ips
+      - resourceId
+      - resourceType
+      type: object
     Error:
       properties:
         message:
@@ -1511,7 +1569,7 @@ components:
           readOnly: true
           type: string
         validationErrors:
-          description: Validation errors, if any.
+          description: "Validation errors, if any."
           items:
             type: string
           readOnly: true

@@ -1,0 +1,52 @@
+{
+    "request": {
+      "method": "GET",
+      "path": "/billing/v1/products",
+      "queryStringParameters": [
+        {
+          "name": "productCode",
+          "values": [
+            "d1.tiny"
+          ]
+        },
+        {
+          "name": "productCategory",
+          "values": [
+            "server"
+          ]
+        },
+        {
+          "name": "skuCode",
+          "values": [
+            "xxx-xxx-xxx"
+          ]
+        },
+        {
+          "name": "location",
+          "values": [
+            "PHX"
+          ]
+        }
+      ]
+    },
+    "response": {
+      "statusCode": 200,
+      "body": [
+        {
+          "productCode" : "d1.tiny",
+          "productCategory" : "SERVER",
+          "plans" : [],
+          "metadata" : {
+            "ramInGb" : 10,
+            "cpu" : "intel",
+            "cpuCount" : 5,
+            "coresPerCpu" : 5,
+            "cpuFrequency" : 5,
+            "network" : "network",
+            "storage" : "storage"
+          }
+        }
+      ]
+    }
+  }
+  

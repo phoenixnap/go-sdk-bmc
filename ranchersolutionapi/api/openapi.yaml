@@ -96,9 +96,10 @@ paths:
       tags:
       - Clusters
     post:
-      description: |
-        Create a Rancher Server Deployment as described in <a href='https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture' target='_blank'>Rancher Docs Architecture</a>. Rancher Server allows the creation, import and management of multiple Downstream User Kubernetes Clusters.
-        <b>This is not a Downstream User Cluster</b>.
+      description: "Create a Rancher Server Deployment as described in <a href='https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture'\
+        \ target='_blank'>Rancher Docs Architecture</a>. Rancher Server allows the\
+        \ creation, import and management of multiple Downstream User Kubernetes Clusters.\n\
+        <b>This is not a Downstream User Cluster</b>.\n"
       operationId: clustersPost
       requestBody:
         content:
@@ -345,9 +346,9 @@ components:
     Cluster:
       description: Cluster details.
       example:
-        metadata: ""
+        metadata: null
         statusDescription: Creating
-        configuration: ""
+        configuration: null
         name: Rancher Management Cluster
         description: My first Rancher Server Cluster.
         location: PHX
@@ -359,9 +360,9 @@ components:
           serverType: s0.d1.small
           name: Rancher Server node pool.
           nodeCount: 0
-          sshConfig: ""
+          sshConfig: null
         initialClusterVersion: v2.5.9
-        workloadConfiguration: ""
+        workloadConfiguration: null
       properties:
         id:
           description: (Read-only) The Cluster identifier.
@@ -377,9 +378,9 @@ components:
           example: My first Rancher Server Cluster.
           type: string
         location:
-          description: Deployment location. Cannot be changed once a cluster is created.
-            Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`,
-            `SEA` or `AUS`.
+          description: "Deployment location. Cannot be changed once a cluster is created.\
+            \ Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`,\
+            \ `SEA` or `AUS`."
           example: PHX
           type: string
         initialClusterVersion:
@@ -396,17 +397,11 @@ components:
           minItems: 1
           type: array
         configuration:
-          allOf:
-          - $ref: '#/components/schemas/RancherClusterConfig'
-          writeOnly: true
+          $ref: '#/components/schemas/Cluster_configuration'
         metadata:
-          allOf:
-          - $ref: '#/components/schemas/RancherServerMetadata'
-          readOnly: true
+          $ref: '#/components/schemas/Cluster_metadata'
         workloadConfiguration:
-          allOf:
-          - $ref: '#/components/schemas/WorkloadClusterConfig'
-          writeOnly: true
+          $ref: '#/components/schemas/Cluster_workloadConfiguration'
         statusDescription:
           description: The cluster status
           example: Creating
@@ -426,29 +421,27 @@ components:
         serverType: s0.d1.small
         name: Rancher Server node pool.
         nodeCount: 0
-        sshConfig: ""
+        sshConfig: null
       properties:
         name:
           description: The name of the node pool.
           example: Rancher Server node pool.
           type: string
         nodeCount:
-          description: Number of configured nodes, currently only node counts of 1
-            and 3 are possible.
+          description: "Number of configured nodes, currently only node counts of\
+            \ 1 and 3 are possible."
           type: integer
         serverType:
           default: s0.d1.small
-          description: Node server type. Cannot be changed once a server is created.
-            Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`,
-            `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s2.c1.small`,
-            `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`,
-            `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`.
+          description: "Node server type. Cannot be changed once a server is created.\
+            \ Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`,\
+            \ `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s2.c1.small`,\
+            \ `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`,\
+            \ `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`."
           example: s0.d1.small
           type: string
         sshConfig:
-          allOf:
-          - $ref: '#/components/schemas/SshConfig'
-          writeOnly: true
+          $ref: '#/components/schemas/NodePool_sshConfig'
         nodes:
           description: (Read-only) The nodes associated with this node pool.
           items:
@@ -479,11 +472,11 @@ components:
           example: mydomain.com
           type: string
         etcdSnapshotScheduleCron:
-          default: 0 0,12 * * *
-          description: 'This maps to ranchers `etcd-snapshot-schedule-cron`. Snapshot
-            interval time in cron spec. eg. every 5 hours ‘0 */5 * * *’. Default:
-            at 12 am/pm'
-          example: 0 0,12 * * *
+          default: "0 0,12 * * *"
+          description: "This maps to ranchers `etcd-snapshot-schedule-cron`. Snapshot\
+            \ interval time in cron spec. eg. every 5 hours ‘0 */5 * * *’. Default:\
+            \ at 12 am/pm"
+          example: "0 0,12 * * *"
           type: string
         etcdSnapshotRetention:
           default: 5
@@ -492,10 +485,10 @@ components:
           example: 5
           type: integer
         nodeTaint:
-          description: This maps to ranchers `node-taint`. Registering kubelet with
-            set of taints. By default, server nodes will be schedulable and thus your
-            workloads can get launched on them. If you wish to have a dedicated control
-            plane where no user workloads will run, you can use taints.
+          description: "This maps to ranchers `node-taint`. Registering kubelet with\
+            \ set of taints. By default, server nodes will be schedulable and thus\
+            \ your workloads can get launched on them. If you wish to have a dedicated\
+            \ control plane where no user workloads will run, you can use taints."
           example: CriticalAddonsOnly=true:NoExecute
           type: string
         clusterDomain:
@@ -503,9 +496,7 @@ components:
           example: cluster.local
           type: string
         certificates:
-          allOf:
-          - $ref: '#/components/schemas/RancherClusterCertificates'
-          writeOnly: true
+          $ref: '#/components/schemas/RancherClusterConfig_certificates'
       type: object
     WorkloadClusterConfig:
       description: (Write-only) Workload cluster configuration parameters.
@@ -523,22 +514,22 @@ components:
           type: integer
         serverType:
           default: s0.d1.small
-          description: Node server type. Cannot be changed once the cluster is created.
-            Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`,
-            `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`,
-            `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`,
-            `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`,
-            `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`,
-            `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`,
-            `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c3.medium`,
-            `d2.c4.medium`, `d2.c5.medium`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`,
-            `d2.m2.medium`, `d2.m2.large` or `d2.m2.xlarge`.
+          description: "Node server type. Cannot be changed once the cluster is created.\
+            \ Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`,\
+            \ `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`,\
+            \ `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`,\
+            \ `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`,\
+            \ `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`,\
+            \ `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`,\
+            \ `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c3.medium`,\
+            \ `d2.c4.medium`, `d2.c5.medium`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`,\
+            \ `d2.m2.medium`, `d2.m2.large` or `d2.m2.xlarge`."
           example: s0.d1.small
           type: string
         location:
-          description: Workload cluster location. Cannot be changed once cluster is
-            created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`,
-            `CHI`, `SEA` or `AUS`.
+          description: "Workload cluster location. Cannot be changed once cluster\
+            \ is created. Currently this field should be set to `PHX`, `ASH`, `SGP`,\
+            \ `NLD`, `CHI`, `SEA` or `AUS`."
           example: PHX
           type: string
       required:
@@ -560,8 +551,8 @@ components:
           type: boolean
         keys:
           description: List of public SSH keys.
-          example: '[ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-            user]'
+          example: "[ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75\
+            \ user]"
           items:
             type: string
           type: array
@@ -625,8 +616,8 @@ components:
           example: x78sdkjds879sd7cx8
           type: string
       required:
+      - clusterId
       - result
-      - serverId
       type: object
     Error:
       properties:
@@ -635,7 +626,7 @@ components:
           readOnly: true
           type: string
         validationErrors:
-          description: Validation errors, if any.
+          description: "Validation errors, if any."
           items:
             type: string
           readOnly: true
@@ -643,6 +634,26 @@ components:
       required:
       - message
       type: object
+    Cluster_configuration:
+      allOf:
+      - $ref: '#/components/schemas/RancherClusterConfig'
+      writeOnly: true
+    Cluster_metadata:
+      allOf:
+      - $ref: '#/components/schemas/RancherServerMetadata'
+      readOnly: true
+    Cluster_workloadConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/WorkloadClusterConfig'
+      writeOnly: true
+    NodePool_sshConfig:
+      allOf:
+      - $ref: '#/components/schemas/SshConfig'
+      writeOnly: true
+    RancherClusterConfig_certificates:
+      allOf:
+      - $ref: '#/components/schemas/RancherClusterCertificates'
+      writeOnly: true
   securitySchemes:
     OAuth2:
       flows:

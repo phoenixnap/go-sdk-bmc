@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Result** | **string** | Solution cluster has been deleted. | 
-**ClusterId** | Pointer to **string** | The unique identifier of the solution cluster. | [optional] 
+**ClusterId** | **string** | The unique identifier of the solution cluster. | 
 
 ## Methods
 
 ### NewDeleteResult
 
-`func NewDeleteResult(result string, ) *DeleteResult`
+`func NewDeleteResult(result string, clusterId string, ) *DeleteResult`
 
 NewDeleteResult instantiates a new DeleteResult object
 This constructor will assign default values to properties that have it defined,
@@ -65,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetClusterId sets ClusterId field to given value.
 
-### HasClusterId
-
-`func (o *DeleteResult) HasClusterId() bool`
-
-HasClusterId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
