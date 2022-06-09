@@ -37,6 +37,16 @@
           ]
         }
       ],
+      "memberships": [
+        {
+          "resourceId": "603f3e995c18d515cda9c4f8",
+          "resourceType": "server",
+          "ips": [
+            "10.0.0.2",
+            "10.0.0.3"
+          ]
+        }
+      ],
       "createdOn": "2022-04-07T13:20:30.491Z"
     }
   }
