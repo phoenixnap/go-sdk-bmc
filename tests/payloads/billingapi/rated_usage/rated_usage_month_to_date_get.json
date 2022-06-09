@@ -1,0 +1,42 @@
+{
+    "request": {
+      "method": "GET",
+      "path": "/billing/v1/rated-usage/month-to-date",
+      "queryStringParameters": [
+        {
+          "name": "productCategory",
+          "values": [
+            "SERVER"
+          ]
+        }
+      ]
+    },
+    "response": {
+      "statusCode": 200,
+      "body": [
+        {
+          "id" : "ec4a9d49-1cef-49e9-b85e-b560f88bcd26",
+          "productCategory" : "operating-system",
+          "productCode" : "code",
+          "location" : "PHX",
+          "yearMonth" : "2020-03",
+          "startDateTime" : "2020-03-19T16:39:00Z",
+          "endDateTime" : "2020-03-19T16:39:00Z",
+          "cost" : 20,
+          "priceModel" : "hourly",
+          "unitPrice" : 10,
+          "unitPriceDescription" : "per hour",
+          "quantity" : 5,
+          "active" : true,
+          "usageSessionId" : "ec4a9d49-1cef-49e9-b85e-b560f88bcd26",
+          "correlationId" : "ec4a9d49-1cef-49e9-b85e-b560f88bcd26",
+          "reservationId" : "c32a24a1-5949-4b60-99c0-c8aaa3a92b04",
+          "metadata" : {
+            "cores" : 8,
+            "correlationId" : "ec4a9d49-1cef-49e9-b85e-b560f88bcd26"
+          }
+        }
+      ]
+    }
+  }
+  

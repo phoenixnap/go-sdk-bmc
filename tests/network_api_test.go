@@ -65,7 +65,7 @@ func (suite *NetworkApiTestSuite) TestGetPrivateNetworks() {
 	jsonResponseBody, _ := json.Marshal(response.Body)
 
 	// Asserts
-	suite.Equal(jsonResult, jsonResponseBody)
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// Verify
 	suite.verifyCalledOnce(expectationId)
@@ -89,7 +89,7 @@ func (suite *NetworkApiTestSuite) TestCreatePrivateNetwork() {
 	jsonResult, _ := json.Marshal(result)
 	jsonResponseBody, _ := json.Marshal(response.Body)
 
-	suite.Equal(jsonResult, jsonResponseBody)
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// Verify
 	suite.verifyCalledOnce(expectationId)
@@ -111,7 +111,7 @@ func (suite *NetworkApiTestSuite) TestGetPrivateNetworkById() {
 	jsonResult, _ := json.Marshal(result)
 	jsonResponseBody, _ := json.Marshal(response.Body)
 
-	suite.Equal(jsonResult, jsonResponseBody)
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// Verify
 	suite.verifyCalledOnce(expectationId)
@@ -137,7 +137,7 @@ func (suite *NetworkApiTestSuite) TestPutPrivateNetworkById() {
 	jsonResult, _ := json.Marshal(result)
 	jsonResponseBody, _ := json.Marshal(response.Body)
 
-	suite.Equal(jsonResult, jsonResponseBody)
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// Verify
 	suite.verifyCalledOnce(expectationId)
@@ -158,7 +158,7 @@ func (suite *NetworkApiTestSuite) TestDeletePrivateNetworkById() {
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
 
-	suite.Empty(jsonResult)
+	suite.Empty(string(jsonResult))
 
 	// Verify
 	suite.verifyCalledOnce(expectationId)
@@ -184,7 +184,7 @@ func (suite *NetworkApiTestSuite) TestGetPublicNetworks() {
 	jsonResponseBody, _ := json.Marshal(response.Body)
 
 	// Asserts
-	suite.Equal(jsonResult, jsonResponseBody)
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// Verify
 	suite.verifyCalledOnce(expectationId)
@@ -208,7 +208,7 @@ func (suite *NetworkApiTestSuite) TestCreatePublicNetwork() {
 	jsonResult, _ := json.Marshal(result)
 	jsonResponseBody, _ := json.Marshal(response.Body)
 
-	suite.Equal(jsonResult, jsonResponseBody)
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// Verify
 	suite.verifyCalledOnce(expectationId)
@@ -230,7 +230,7 @@ func (suite *NetworkApiTestSuite) TestGetPublicNetworkById() {
 	jsonResult, _ := json.Marshal(result)
 	jsonResponseBody, _ := json.Marshal(response.Body)
 
-	suite.Equal(jsonResult, jsonResponseBody)
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// Verify
 	suite.verifyCalledOnce(expectationId)
@@ -256,7 +256,7 @@ func (suite *NetworkApiTestSuite) TestPatchPublicNetworkById() {
 	jsonResult, _ := json.Marshal(result)
 	jsonResponseBody, _ := json.Marshal(response.Body)
 
-	suite.Equal(jsonResult, jsonResponseBody)
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// Verify
 	suite.verifyCalledOnce(expectationId)
@@ -277,7 +277,7 @@ func (suite *NetworkApiTestSuite) TestDeletePublicNetworkById() {
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
 
-	suite.Empty(jsonResult)
+	suite.Empty(string(jsonResult))
 
 	// Verify
 	suite.verifyCalledOnce(expectationId)
@@ -303,7 +303,7 @@ func (suite *NetworkApiTestSuite) TestPostPublicNetworkIpBlockByPublicNetworkId(
 	jsonResult, _ := json.Marshal(result)
 	jsonResponseBody, _ := json.Marshal(response.Body)
 
-	suite.Equal(jsonResult, jsonResponseBody)
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// Verify
 	suite.verifyCalledOnce(expectationId)
@@ -326,7 +326,7 @@ func (suite *NetworkApiTestSuite) TestDeletePublicNetworkIpBlocksByPublicNetwork
 	jsonResult, _ := json.Marshal(result)
 	jsonResponseBody, _ := json.Marshal(response.Body)
 
-	suite.Equal(jsonResult, jsonResponseBody)
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// Verify
 	suite.verifyCalledOnce(expectationId)
