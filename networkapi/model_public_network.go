@@ -30,6 +30,8 @@ type PublicNetwork struct {
 	Location string `json:"location"`
 	// The description of this public network.
 	Description *string `json:"description,omitempty"`
+	// The status of the public network. Can have one of the following values: `BUSY` or `READY`.
+	Status string `json:"status"`
 	// Date and time when this public network was created.
 	CreatedOn time.Time `json:"createdOn"`
 	// A list of IP Blocks that are associated with this public network.
@@ -40,13 +42,14 @@ type PublicNetwork struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicNetwork(id string, vlanId int32, memberships []NetworkMembership, name string, location string, createdOn time.Time, ipBlocks []PublicNetworkIpBlock) *PublicNetwork {
+func NewPublicNetwork(id string, vlanId int32, memberships []NetworkMembership, name string, location string, status string, createdOn time.Time, ipBlocks []PublicNetworkIpBlock) *PublicNetwork {
 	this := PublicNetwork{}
 	this.Id = id
 	this.VlanId = vlanId
 	this.Memberships = memberships
 	this.Name = name
 	this.Location = location
+	this.Status = status
 	this.CreatedOn = createdOn
 	this.IpBlocks = ipBlocks
 	return &this
@@ -212,6 +215,30 @@ func (o *PublicNetwork) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetStatus returns the Status field value
+func (o *PublicNetwork) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *PublicNetwork) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *PublicNetwork) SetStatus(v string) {
+	o.Status = v
+}
+
 // GetCreatedOn returns the CreatedOn field value
 func (o *PublicNetwork) GetCreatedOn() time.Time {
 	if o == nil {
@@ -279,6 +306,9 @@ func (o PublicNetwork) MarshalJSON() ([]byte, error) {
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
+	}
+	if true {
+		toSerialize["status"] = o.Status
 	}
 	if true {
 		toSerialize["createdOn"] = o.CreatedOn

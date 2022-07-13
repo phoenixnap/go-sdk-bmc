@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Name** | **string** | The friendly name of this public network. | 
 **Location** | **string** | The location of this public network. Supported values are &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60;, &#x60;SEA&#x60; and &#x60;AUS&#x60;. | 
 **Description** | Pointer to **string** | The description of this public network. | [optional] 
+**Status** | **string** | The status of the public network. Can have one of the following values: &#x60;BUSY&#x60; or &#x60;READY&#x60;. | 
 **CreatedOn** | **time.Time** | Date and time when this public network was created. | 
 **IpBlocks** | [**[]PublicNetworkIpBlock**](PublicNetworkIpBlock.md) | A list of IP Blocks that are associated with this public network. | 
 
@@ -17,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewPublicNetwork
 
-`func NewPublicNetwork(id string, vlanId int32, memberships []NetworkMembership, name string, location string, createdOn time.Time, ipBlocks []PublicNetworkIpBlock, ) *PublicNetwork`
+`func NewPublicNetwork(id string, vlanId int32, memberships []NetworkMembership, name string, location string, status string, createdOn time.Time, ipBlocks []PublicNetworkIpBlock, ) *PublicNetwork`
 
 NewPublicNetwork instantiates a new PublicNetwork object
 This constructor will assign default values to properties that have it defined,
@@ -156,6 +157,26 @@ SetDescription sets Description field to given value.
 `func (o *PublicNetwork) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetStatus
+
+`func (o *PublicNetwork) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *PublicNetwork) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *PublicNetwork) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
 
 ### GetCreatedOn
 
