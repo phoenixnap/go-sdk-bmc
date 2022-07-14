@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 )
 
-// ServerIpBlock IP block ID assigned to server
+// ServerIpBlock IP block assigned to server
 type ServerIpBlock struct {
 	// The IP block's ID.
 	Id string `json:"id"`

@@ -2181,7 +2181,7 @@ components:
           type: array
       type: object
     ServerIpBlock:
-      description: IP block ID assigned to server
+      description: IP block assigned to server
       example:
         vlanId: 10
         id: 60473a6115e34466c9f8f083
