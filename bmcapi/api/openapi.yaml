@@ -495,7 +495,9 @@ paths:
       description: Adds an IP block to this server. <b>No actual configuration is
         performed on the operating system.</b> BMC configures exclusively the networking
         devices in the datacenter infrastructure. Manual network configuration changes
-        in the operating system of this server are required.
+        in the operating system of this server are required. Knowledge base article
+        to help you can be found <a href='https://phoenixnap.com/kb/configure-server-with-public-ip-block#ftoc-heading-2'
+        target='_blank'>here</a>.
       operationId: serversServerIdIpBlocksPost
       parameters:
       - description: The server's ID.
@@ -652,7 +654,12 @@ paths:
       - Servers
   /servers/{serverId}/network-configuration/private-network-configuration/private-networks:
     post:
-      description: Adds the server to a private network.
+      description: Adds the server to a private network. <b>No actual configuration
+        is performed on the operating system.</b> BMC configures exclusively the networking
+        devices in the datacenter infrastructure. Manual network configuration changes
+        in the operating system of this server are required. Knowledge base article
+        to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3'
+        target='_blank'>here</a>.
       operationId: serversServerIdPrivateNetworksPost
       parameters:
       - description: The server's ID.
@@ -805,7 +812,9 @@ paths:
       description: Adds the server to a Public Network. <b>No actual configuration
         is performed on the operating system.</b> BMC configures exclusively the networking
         devices in the datacenter infrastructure. Manual network configuration changes
-        in the operating system of this server are required.
+        in the operating system of this server are required. Knowledge base article
+        to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3'
+        target='_blank'>here</a>.
       operationId: serversServerIdPublicNetworksPost
       parameters:
       - description: The server's ID.
