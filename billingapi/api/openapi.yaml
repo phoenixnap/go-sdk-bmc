@@ -1347,6 +1347,7 @@ components:
       - GB
       - UNIT
       - FLAT
+      - TB_PER_HOUR
       example: MONTH
       type: string
     Error:
@@ -1383,6 +1384,7 @@ components:
           SERVER: '#/components/schemas/ServerProduct'
           BANDWIDTH: '#/components/schemas/Product'
           OPERATING_SYSTEM: '#/components/schemas/Product'
+          STORAGE: '#/components/schemas/Product'
         propertyName: productCategory
       oneOf:
       - $ref: '#/components/schemas/Product'
