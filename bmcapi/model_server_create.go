@@ -40,7 +40,7 @@ type ServerCreate struct {
 	// The type of network configuration for this server. Currently this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
 	NetworkType     *string          `json:"networkType,omitempty"`
 	OsConfiguration *OsConfiguration `json:"osConfiguration,omitempty"`
-	// Tags to set to server, if any.
+	// Tags to set to the server. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).
 	Tags                 []TagAssignmentRequest `json:"tags,omitempty"`
 	NetworkConfiguration *NetworkConfiguration  `json:"networkConfiguration,omitempty"`
 }

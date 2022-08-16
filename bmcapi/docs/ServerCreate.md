@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **PricingModel** | Pointer to **string** | Server pricing model. Currently this field should be set to &#x60;HOURLY&#x60;, &#x60;ONE_MONTH_RESERVATION&#x60;, &#x60;TWELVE_MONTHS_RESERVATION&#x60;, &#x60;TWENTY_FOUR_MONTHS_RESERVATION&#x60; or &#x60;THIRTY_SIX_MONTHS_RESERVATION&#x60;. | [optional] [default to "HOURLY"]
 **NetworkType** | Pointer to **string** | The type of network configuration for this server. Currently this field should be set to &#x60;PUBLIC_AND_PRIVATE&#x60; or &#x60;PRIVATE_ONLY&#x60;. | [optional] [default to "PUBLIC_AND_PRIVATE"]
 **OsConfiguration** | Pointer to [**OsConfiguration**](OsConfiguration.md) |  | [optional] 
-**Tags** | Pointer to [**[]TagAssignmentRequest**](TagAssignmentRequest.md) | Tags to set to server, if any. | [optional] 
+**Tags** | Pointer to [**[]TagAssignmentRequest**](TagAssignmentRequest.md) | Tags to set to the server. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview). | [optional] 
 **NetworkConfiguration** | Pointer to [**NetworkConfiguration**](NetworkConfiguration.md) |  | [optional] 
 
 ## Methods

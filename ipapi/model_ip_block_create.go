@@ -23,7 +23,7 @@ type IpBlockCreate struct {
 	CidrBlockSize string `json:"cidrBlockSize"`
 	// The description of the IP Block.
 	Description *string `json:"description,omitempty"`
-	// Tags to set to ip-block, if any.
+	// Tags to set to the ip-block. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).
 	Tags []TagAssignmentRequest `json:"tags,omitempty"`
 }
 

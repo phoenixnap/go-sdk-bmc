@@ -2768,7 +2768,8 @@ components:
         osConfiguration:
           $ref: '#/components/schemas/OsConfiguration'
         tags:
-          description: "Tags to set to server, if any."
+          description: "Tags to set to the server. To create a new tag or list all\
+            \ the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview)."
           items:
             $ref: '#/components/schemas/TagAssignmentRequest'
           type: array
