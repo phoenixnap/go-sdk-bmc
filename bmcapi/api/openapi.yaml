@@ -3176,9 +3176,8 @@ components:
           minimum: 0
           type: integer
         unit:
-          description: An enum field describing what the limit is measured in.
-          enum:
-          - COUNT
+          description: Unit of the quota type. Supported values are 'COUNT' and 'GB'.
+          example: COUNT
           type: string
         used:
           description: The quota used expressed as a number.

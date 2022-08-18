@@ -27,7 +27,7 @@ type Quota struct {
 	Status string `json:"status"`
 	// The limit set for the quota.
 	Limit int32 `json:"limit"`
-	// An enum field describing what the limit is measured in.
+	// Unit of the quota type. Supported values are 'COUNT' and 'GB'.
 	Unit string `json:"unit"`
 	// The quota used expressed as a number.
 	Used                         int32                          `json:"used"`
