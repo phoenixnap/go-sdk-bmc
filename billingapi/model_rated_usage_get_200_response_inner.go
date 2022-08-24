@@ -22,6 +22,7 @@ type RatedUsageGet200ResponseInner struct {
 	OperatingSystemRecord *OperatingSystemRecord
 	PublicSubnetRecord    *PublicSubnetRecord
 	ServerRecord          *ServerRecord
+	StorageRecord         *StorageRecord
 }
 
 // BandwidthRecordAsRatedUsageGet200ResponseInner is a convenience function that returns BandwidthRecord wrapped in RatedUsageGet200ResponseInner
@@ -49,6 +50,13 @@ func PublicSubnetRecordAsRatedUsageGet200ResponseInner(v *PublicSubnetRecord) Ra
 func ServerRecordAsRatedUsageGet200ResponseInner(v *ServerRecord) RatedUsageGet200ResponseInner {
 	return RatedUsageGet200ResponseInner{
 		ServerRecord: v,
+	}
+}
+
+// StorageRecordAsRatedUsageGet200ResponseInner is a convenience function that returns StorageRecord wrapped in RatedUsageGet200ResponseInner
+func StorageRecordAsRatedUsageGet200ResponseInner(v *StorageRecord) RatedUsageGet200ResponseInner {
+	return RatedUsageGet200ResponseInner{
+		StorageRecord: v,
 	}
 }
 
@@ -110,6 +118,18 @@ func (dst *RatedUsageGet200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'StorageRecord'
+	if jsonDict["productCategory"] == "StorageRecord" {
+		// try to unmarshal JSON data into StorageRecord
+		err = json.Unmarshal(data, &dst.StorageRecord)
+		if err == nil {
+			return nil // data stored in dst.StorageRecord, return on the first match
+		} else {
+			dst.StorageRecord = nil
+			return fmt.Errorf("Failed to unmarshal RatedUsageGet200ResponseInner as StorageRecord: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'bandwidth'
 	if jsonDict["productCategory"] == "bandwidth" {
 		// try to unmarshal JSON data into BandwidthRecord
@@ -158,6 +178,18 @@ func (dst *RatedUsageGet200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'storage'
+	if jsonDict["productCategory"] == "storage" {
+		// try to unmarshal JSON data into StorageRecord
+		err = json.Unmarshal(data, &dst.StorageRecord)
+		if err == nil {
+			return nil // data stored in dst.StorageRecord, return on the first match
+		} else {
+			dst.StorageRecord = nil
+			return fmt.Errorf("Failed to unmarshal RatedUsageGet200ResponseInner as StorageRecord: %s", err.Error())
+		}
+	}
+
 	return nil
 }
 
@@ -177,6 +209,10 @@ func (src RatedUsageGet200ResponseInner) MarshalJSON() ([]byte, error) {
 
 	if src.ServerRecord != nil {
 		return json.Marshal(&src.ServerRecord)
+	}
+
+	if src.StorageRecord != nil {
+		return json.Marshal(&src.StorageRecord)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -201,6 +237,10 @@ func (obj *RatedUsageGet200ResponseInner) GetActualInstance() interface{} {
 
 	if obj.ServerRecord != nil {
 		return obj.ServerRecord
+	}
+
+	if obj.StorageRecord != nil {
+		return obj.StorageRecord
 	}
 
 	// all schemas are nil

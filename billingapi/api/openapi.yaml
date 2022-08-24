@@ -783,6 +783,7 @@ components:
           - bandwidth
           - operating-system
           - public-ip
+          - storage
           example: bmc-server
           type: string
         productCode:
@@ -793,7 +794,7 @@ components:
           $ref: '#/components/schemas/LocationEnum'
         yearMonth:
           description: Year and month of the usage record.
-          example: 2020-04
+          example: 2020-03
           type: string
         startDateTime:
           description: The point in time (in UTC) when usage has started.
@@ -802,21 +803,25 @@ components:
           type: string
         endDateTime:
           description: The point in time (in UTC) until usage has been rated.
-          example: 2020-03-19T16:39:00Z
+          example: 2020-03-20T17:00:00Z
           format: date-time
           type: string
         cost:
           description: The rated usage in cents.
-          example: 11500
+          example: 384
           format: int64
           type: integer
+        costDescription:
+          description: The rated usage cost description.
+          example: 24 Hour(s) @ $0.16 /Hour
+          type: string
         priceModel:
           description: The price model applied to this usage record.
           example: hourly
           type: string
         unitPrice:
           description: The unit price.
-          example: 0.403
+          example: 0.16
           type: number
         unitPriceDescription:
           description: User friendly description of the unit price.
@@ -824,7 +829,7 @@ components:
           type: string
         quantity:
           description: The number of units being charged.
-          example: 10.25
+          example: 24.0
           type: number
         active:
           description: A flag indicating whether the rated usage record is still active.
@@ -957,6 +962,47 @@ components:
       required:
       - cidr
       - size
+      type: object
+    StorageRecord:
+      allOf:
+      - $ref: '#/components/schemas/RatedUsageRecord'
+      - $ref: '#/components/schemas/StorageRecord_allOf'
+    StorageDetails:
+      description: Details of the storage associated with this rated usage record.
+      properties:
+        networkStorageId:
+          description: Network storage ID.
+          example: 123asd239-323las2d2-123123a
+          type: string
+        networkStorageName:
+          description: Network storage name.
+          example: First network storage.
+          type: string
+        volumeId:
+          description: Volume ID.
+          example: 123asd239-323las2d2-123123a
+          type: string
+        volumeName:
+          description: Volume name.
+          example: First volume.
+          type: string
+        capacityInGb:
+          description: Capacity in GB.
+          example: 150000
+          format: int64
+          type: integer
+        createdOn:
+          description: Timestamp when the record was created.
+          example: 2020-03-19T16:39:00Z
+          format: date-time
+          type: string
+      required:
+      - capacityInGb
+      - createdOn
+      - networkStorageId
+      - networkStorageName
+      - volumeId
+      - volumeName
       type: object
     Product:
       description: Product details
@@ -1372,12 +1418,14 @@ components:
           bandwidth: '#/components/schemas/BandwidthRecord'
           operating-system: '#/components/schemas/OperatingSystemRecord'
           public-ip: '#/components/schemas/PublicSubnetRecord'
+          storage: '#/components/schemas/StorageRecord'
         propertyName: productCategory
       oneOf:
       - $ref: '#/components/schemas/ServerRecord'
       - $ref: '#/components/schemas/BandwidthRecord'
       - $ref: '#/components/schemas/OperatingSystemRecord'
       - $ref: '#/components/schemas/PublicSubnetRecord'
+      - $ref: '#/components/schemas/StorageRecord'
     productsGet_200_response_inner:
       discriminator:
         mapping:
@@ -1418,6 +1466,14 @@ components:
       properties:
         metadata:
           $ref: '#/components/schemas/PublicSubnetDetails'
+      required:
+      - metadata
+      type: object
+    StorageRecord_allOf:
+      description: Storage usage record.
+      properties:
+        metadata:
+          $ref: '#/components/schemas/StorageDetails'
       required:
       - metadata
       type: object

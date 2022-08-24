@@ -16,8 +16,8 @@ import (
 	"time"
 )
 
-// PublicSubnetRecord struct for PublicSubnetRecord
-type PublicSubnetRecord struct {
+// StorageRecord struct for StorageRecord
+type StorageRecord struct {
 	// The unique identifier of the rated usage record.
 	Id string `json:"id"`
 	// The category of the product associated with this usage record.
@@ -50,16 +50,16 @@ type PublicSubnetRecord struct {
 	// Holds usage record id
 	CorrelationId string `json:"correlationId"`
 	// Reservation id associated with this rated usage record.
-	ReservationId *string             `json:"reservationId,omitempty"`
-	Metadata      PublicSubnetDetails `json:"metadata"`
+	ReservationId *string        `json:"reservationId,omitempty"`
+	Metadata      StorageDetails `json:"metadata"`
 }
 
-// NewPublicSubnetRecord instantiates a new PublicSubnetRecord object
+// NewStorageRecord instantiates a new StorageRecord object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicSubnetRecord(id string, productCategory string, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, usageSessionId string, correlationId string, metadata PublicSubnetDetails) *PublicSubnetRecord {
-	this := PublicSubnetRecord{}
+func NewStorageRecord(id string, productCategory string, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, usageSessionId string, correlationId string, metadata StorageDetails) *StorageRecord {
+	this := StorageRecord{}
 	this.Id = id
 	this.ProductCategory = productCategory
 	this.ProductCode = productCode
@@ -78,16 +78,16 @@ func NewPublicSubnetRecord(id string, productCategory string, productCode string
 	return &this
 }
 
-// NewPublicSubnetRecordWithDefaults instantiates a new PublicSubnetRecord object
+// NewStorageRecordWithDefaults instantiates a new StorageRecord object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPublicSubnetRecordWithDefaults() *PublicSubnetRecord {
-	this := PublicSubnetRecord{}
+func NewStorageRecordWithDefaults() *StorageRecord {
+	this := StorageRecord{}
 	return &this
 }
 
 // GetId returns the Id field value
-func (o *PublicSubnetRecord) GetId() string {
+func (o *StorageRecord) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -98,7 +98,7 @@ func (o *PublicSubnetRecord) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetIdOk() (*string, bool) {
+func (o *StorageRecord) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -106,12 +106,12 @@ func (o *PublicSubnetRecord) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *PublicSubnetRecord) SetId(v string) {
+func (o *StorageRecord) SetId(v string) {
 	o.Id = v
 }
 
 // GetProductCategory returns the ProductCategory field value
-func (o *PublicSubnetRecord) GetProductCategory() string {
+func (o *StorageRecord) GetProductCategory() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -122,7 +122,7 @@ func (o *PublicSubnetRecord) GetProductCategory() string {
 
 // GetProductCategoryOk returns a tuple with the ProductCategory field value
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetProductCategoryOk() (*string, bool) {
+func (o *StorageRecord) GetProductCategoryOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -130,12 +130,12 @@ func (o *PublicSubnetRecord) GetProductCategoryOk() (*string, bool) {
 }
 
 // SetProductCategory sets field value
-func (o *PublicSubnetRecord) SetProductCategory(v string) {
+func (o *StorageRecord) SetProductCategory(v string) {
 	o.ProductCategory = v
 }
 
 // GetProductCode returns the ProductCode field value
-func (o *PublicSubnetRecord) GetProductCode() string {
+func (o *StorageRecord) GetProductCode() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -146,7 +146,7 @@ func (o *PublicSubnetRecord) GetProductCode() string {
 
 // GetProductCodeOk returns a tuple with the ProductCode field value
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetProductCodeOk() (*string, bool) {
+func (o *StorageRecord) GetProductCodeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -154,12 +154,12 @@ func (o *PublicSubnetRecord) GetProductCodeOk() (*string, bool) {
 }
 
 // SetProductCode sets field value
-func (o *PublicSubnetRecord) SetProductCode(v string) {
+func (o *StorageRecord) SetProductCode(v string) {
 	o.ProductCode = v
 }
 
 // GetLocation returns the Location field value
-func (o *PublicSubnetRecord) GetLocation() LocationEnum {
+func (o *StorageRecord) GetLocation() LocationEnum {
 	if o == nil {
 		var ret LocationEnum
 		return ret
@@ -170,7 +170,7 @@ func (o *PublicSubnetRecord) GetLocation() LocationEnum {
 
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetLocationOk() (*LocationEnum, bool) {
+func (o *StorageRecord) GetLocationOk() (*LocationEnum, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -178,12 +178,12 @@ func (o *PublicSubnetRecord) GetLocationOk() (*LocationEnum, bool) {
 }
 
 // SetLocation sets field value
-func (o *PublicSubnetRecord) SetLocation(v LocationEnum) {
+func (o *StorageRecord) SetLocation(v LocationEnum) {
 	o.Location = v
 }
 
 // GetYearMonth returns the YearMonth field value if set, zero value otherwise.
-func (o *PublicSubnetRecord) GetYearMonth() string {
+func (o *StorageRecord) GetYearMonth() string {
 	if o == nil || o.YearMonth == nil {
 		var ret string
 		return ret
@@ -193,7 +193,7 @@ func (o *PublicSubnetRecord) GetYearMonth() string {
 
 // GetYearMonthOk returns a tuple with the YearMonth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetYearMonthOk() (*string, bool) {
+func (o *StorageRecord) GetYearMonthOk() (*string, bool) {
 	if o == nil || o.YearMonth == nil {
 		return nil, false
 	}
@@ -201,7 +201,7 @@ func (o *PublicSubnetRecord) GetYearMonthOk() (*string, bool) {
 }
 
 // HasYearMonth returns a boolean if a field has been set.
-func (o *PublicSubnetRecord) HasYearMonth() bool {
+func (o *StorageRecord) HasYearMonth() bool {
 	if o != nil && o.YearMonth != nil {
 		return true
 	}
@@ -210,12 +210,12 @@ func (o *PublicSubnetRecord) HasYearMonth() bool {
 }
 
 // SetYearMonth gets a reference to the given string and assigns it to the YearMonth field.
-func (o *PublicSubnetRecord) SetYearMonth(v string) {
+func (o *StorageRecord) SetYearMonth(v string) {
 	o.YearMonth = &v
 }
 
 // GetStartDateTime returns the StartDateTime field value
-func (o *PublicSubnetRecord) GetStartDateTime() time.Time {
+func (o *StorageRecord) GetStartDateTime() time.Time {
 	if o == nil {
 		var ret time.Time
 		return ret
@@ -226,7 +226,7 @@ func (o *PublicSubnetRecord) GetStartDateTime() time.Time {
 
 // GetStartDateTimeOk returns a tuple with the StartDateTime field value
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetStartDateTimeOk() (*time.Time, bool) {
+func (o *StorageRecord) GetStartDateTimeOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -234,12 +234,12 @@ func (o *PublicSubnetRecord) GetStartDateTimeOk() (*time.Time, bool) {
 }
 
 // SetStartDateTime sets field value
-func (o *PublicSubnetRecord) SetStartDateTime(v time.Time) {
+func (o *StorageRecord) SetStartDateTime(v time.Time) {
 	o.StartDateTime = v
 }
 
 // GetEndDateTime returns the EndDateTime field value
-func (o *PublicSubnetRecord) GetEndDateTime() time.Time {
+func (o *StorageRecord) GetEndDateTime() time.Time {
 	if o == nil {
 		var ret time.Time
 		return ret
@@ -250,7 +250,7 @@ func (o *PublicSubnetRecord) GetEndDateTime() time.Time {
 
 // GetEndDateTimeOk returns a tuple with the EndDateTime field value
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetEndDateTimeOk() (*time.Time, bool) {
+func (o *StorageRecord) GetEndDateTimeOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -258,12 +258,12 @@ func (o *PublicSubnetRecord) GetEndDateTimeOk() (*time.Time, bool) {
 }
 
 // SetEndDateTime sets field value
-func (o *PublicSubnetRecord) SetEndDateTime(v time.Time) {
+func (o *StorageRecord) SetEndDateTime(v time.Time) {
 	o.EndDateTime = v
 }
 
 // GetCost returns the Cost field value
-func (o *PublicSubnetRecord) GetCost() int64 {
+func (o *StorageRecord) GetCost() int64 {
 	if o == nil {
 		var ret int64
 		return ret
@@ -274,7 +274,7 @@ func (o *PublicSubnetRecord) GetCost() int64 {
 
 // GetCostOk returns a tuple with the Cost field value
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetCostOk() (*int64, bool) {
+func (o *StorageRecord) GetCostOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -282,12 +282,12 @@ func (o *PublicSubnetRecord) GetCostOk() (*int64, bool) {
 }
 
 // SetCost sets field value
-func (o *PublicSubnetRecord) SetCost(v int64) {
+func (o *StorageRecord) SetCost(v int64) {
 	o.Cost = v
 }
 
 // GetCostDescription returns the CostDescription field value if set, zero value otherwise.
-func (o *PublicSubnetRecord) GetCostDescription() string {
+func (o *StorageRecord) GetCostDescription() string {
 	if o == nil || o.CostDescription == nil {
 		var ret string
 		return ret
@@ -297,7 +297,7 @@ func (o *PublicSubnetRecord) GetCostDescription() string {
 
 // GetCostDescriptionOk returns a tuple with the CostDescription field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetCostDescriptionOk() (*string, bool) {
+func (o *StorageRecord) GetCostDescriptionOk() (*string, bool) {
 	if o == nil || o.CostDescription == nil {
 		return nil, false
 	}
@@ -305,7 +305,7 @@ func (o *PublicSubnetRecord) GetCostDescriptionOk() (*string, bool) {
 }
 
 // HasCostDescription returns a boolean if a field has been set.
-func (o *PublicSubnetRecord) HasCostDescription() bool {
+func (o *StorageRecord) HasCostDescription() bool {
 	if o != nil && o.CostDescription != nil {
 		return true
 	}
@@ -314,12 +314,12 @@ func (o *PublicSubnetRecord) HasCostDescription() bool {
 }
 
 // SetCostDescription gets a reference to the given string and assigns it to the CostDescription field.
-func (o *PublicSubnetRecord) SetCostDescription(v string) {
+func (o *StorageRecord) SetCostDescription(v string) {
 	o.CostDescription = &v
 }
 
 // GetPriceModel returns the PriceModel field value
-func (o *PublicSubnetRecord) GetPriceModel() string {
+func (o *StorageRecord) GetPriceModel() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -330,7 +330,7 @@ func (o *PublicSubnetRecord) GetPriceModel() string {
 
 // GetPriceModelOk returns a tuple with the PriceModel field value
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetPriceModelOk() (*string, bool) {
+func (o *StorageRecord) GetPriceModelOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -338,12 +338,12 @@ func (o *PublicSubnetRecord) GetPriceModelOk() (*string, bool) {
 }
 
 // SetPriceModel sets field value
-func (o *PublicSubnetRecord) SetPriceModel(v string) {
+func (o *StorageRecord) SetPriceModel(v string) {
 	o.PriceModel = v
 }
 
 // GetUnitPrice returns the UnitPrice field value
-func (o *PublicSubnetRecord) GetUnitPrice() float32 {
+func (o *StorageRecord) GetUnitPrice() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -354,7 +354,7 @@ func (o *PublicSubnetRecord) GetUnitPrice() float32 {
 
 // GetUnitPriceOk returns a tuple with the UnitPrice field value
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetUnitPriceOk() (*float32, bool) {
+func (o *StorageRecord) GetUnitPriceOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -362,12 +362,12 @@ func (o *PublicSubnetRecord) GetUnitPriceOk() (*float32, bool) {
 }
 
 // SetUnitPrice sets field value
-func (o *PublicSubnetRecord) SetUnitPrice(v float32) {
+func (o *StorageRecord) SetUnitPrice(v float32) {
 	o.UnitPrice = v
 }
 
 // GetUnitPriceDescription returns the UnitPriceDescription field value
-func (o *PublicSubnetRecord) GetUnitPriceDescription() string {
+func (o *StorageRecord) GetUnitPriceDescription() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -378,7 +378,7 @@ func (o *PublicSubnetRecord) GetUnitPriceDescription() string {
 
 // GetUnitPriceDescriptionOk returns a tuple with the UnitPriceDescription field value
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetUnitPriceDescriptionOk() (*string, bool) {
+func (o *StorageRecord) GetUnitPriceDescriptionOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -386,12 +386,12 @@ func (o *PublicSubnetRecord) GetUnitPriceDescriptionOk() (*string, bool) {
 }
 
 // SetUnitPriceDescription sets field value
-func (o *PublicSubnetRecord) SetUnitPriceDescription(v string) {
+func (o *StorageRecord) SetUnitPriceDescription(v string) {
 	o.UnitPriceDescription = v
 }
 
 // GetQuantity returns the Quantity field value
-func (o *PublicSubnetRecord) GetQuantity() float32 {
+func (o *StorageRecord) GetQuantity() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -402,7 +402,7 @@ func (o *PublicSubnetRecord) GetQuantity() float32 {
 
 // GetQuantityOk returns a tuple with the Quantity field value
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetQuantityOk() (*float32, bool) {
+func (o *StorageRecord) GetQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -410,12 +410,12 @@ func (o *PublicSubnetRecord) GetQuantityOk() (*float32, bool) {
 }
 
 // SetQuantity sets field value
-func (o *PublicSubnetRecord) SetQuantity(v float32) {
+func (o *StorageRecord) SetQuantity(v float32) {
 	o.Quantity = v
 }
 
 // GetActive returns the Active field value
-func (o *PublicSubnetRecord) GetActive() bool {
+func (o *StorageRecord) GetActive() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -426,7 +426,7 @@ func (o *PublicSubnetRecord) GetActive() bool {
 
 // GetActiveOk returns a tuple with the Active field value
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetActiveOk() (*bool, bool) {
+func (o *StorageRecord) GetActiveOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -434,12 +434,12 @@ func (o *PublicSubnetRecord) GetActiveOk() (*bool, bool) {
 }
 
 // SetActive sets field value
-func (o *PublicSubnetRecord) SetActive(v bool) {
+func (o *StorageRecord) SetActive(v bool) {
 	o.Active = v
 }
 
 // GetUsageSessionId returns the UsageSessionId field value
-func (o *PublicSubnetRecord) GetUsageSessionId() string {
+func (o *StorageRecord) GetUsageSessionId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -450,7 +450,7 @@ func (o *PublicSubnetRecord) GetUsageSessionId() string {
 
 // GetUsageSessionIdOk returns a tuple with the UsageSessionId field value
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetUsageSessionIdOk() (*string, bool) {
+func (o *StorageRecord) GetUsageSessionIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -458,12 +458,12 @@ func (o *PublicSubnetRecord) GetUsageSessionIdOk() (*string, bool) {
 }
 
 // SetUsageSessionId sets field value
-func (o *PublicSubnetRecord) SetUsageSessionId(v string) {
+func (o *StorageRecord) SetUsageSessionId(v string) {
 	o.UsageSessionId = v
 }
 
 // GetCorrelationId returns the CorrelationId field value
-func (o *PublicSubnetRecord) GetCorrelationId() string {
+func (o *StorageRecord) GetCorrelationId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -474,7 +474,7 @@ func (o *PublicSubnetRecord) GetCorrelationId() string {
 
 // GetCorrelationIdOk returns a tuple with the CorrelationId field value
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetCorrelationIdOk() (*string, bool) {
+func (o *StorageRecord) GetCorrelationIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -482,12 +482,12 @@ func (o *PublicSubnetRecord) GetCorrelationIdOk() (*string, bool) {
 }
 
 // SetCorrelationId sets field value
-func (o *PublicSubnetRecord) SetCorrelationId(v string) {
+func (o *StorageRecord) SetCorrelationId(v string) {
 	o.CorrelationId = v
 }
 
 // GetReservationId returns the ReservationId field value if set, zero value otherwise.
-func (o *PublicSubnetRecord) GetReservationId() string {
+func (o *StorageRecord) GetReservationId() string {
 	if o == nil || o.ReservationId == nil {
 		var ret string
 		return ret
@@ -497,7 +497,7 @@ func (o *PublicSubnetRecord) GetReservationId() string {
 
 // GetReservationIdOk returns a tuple with the ReservationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetReservationIdOk() (*string, bool) {
+func (o *StorageRecord) GetReservationIdOk() (*string, bool) {
 	if o == nil || o.ReservationId == nil {
 		return nil, false
 	}
@@ -505,7 +505,7 @@ func (o *PublicSubnetRecord) GetReservationIdOk() (*string, bool) {
 }
 
 // HasReservationId returns a boolean if a field has been set.
-func (o *PublicSubnetRecord) HasReservationId() bool {
+func (o *StorageRecord) HasReservationId() bool {
 	if o != nil && o.ReservationId != nil {
 		return true
 	}
@@ -514,14 +514,14 @@ func (o *PublicSubnetRecord) HasReservationId() bool {
 }
 
 // SetReservationId gets a reference to the given string and assigns it to the ReservationId field.
-func (o *PublicSubnetRecord) SetReservationId(v string) {
+func (o *StorageRecord) SetReservationId(v string) {
 	o.ReservationId = &v
 }
 
 // GetMetadata returns the Metadata field value
-func (o *PublicSubnetRecord) GetMetadata() PublicSubnetDetails {
+func (o *StorageRecord) GetMetadata() StorageDetails {
 	if o == nil {
-		var ret PublicSubnetDetails
+		var ret StorageDetails
 		return ret
 	}
 
@@ -530,7 +530,7 @@ func (o *PublicSubnetRecord) GetMetadata() PublicSubnetDetails {
 
 // GetMetadataOk returns a tuple with the Metadata field value
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetMetadataOk() (*PublicSubnetDetails, bool) {
+func (o *StorageRecord) GetMetadataOk() (*StorageDetails, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -538,11 +538,11 @@ func (o *PublicSubnetRecord) GetMetadataOk() (*PublicSubnetDetails, bool) {
 }
 
 // SetMetadata sets field value
-func (o *PublicSubnetRecord) SetMetadata(v PublicSubnetDetails) {
+func (o *StorageRecord) SetMetadata(v StorageDetails) {
 	o.Metadata = v
 }
 
-func (o PublicSubnetRecord) MarshalJSON() ([]byte, error) {
+func (o StorageRecord) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["id"] = o.Id
@@ -601,38 +601,38 @@ func (o PublicSubnetRecord) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-type NullablePublicSubnetRecord struct {
-	value *PublicSubnetRecord
+type NullableStorageRecord struct {
+	value *StorageRecord
 	isSet bool
 }
 
-func (v NullablePublicSubnetRecord) Get() *PublicSubnetRecord {
+func (v NullableStorageRecord) Get() *StorageRecord {
 	return v.value
 }
 
-func (v *NullablePublicSubnetRecord) Set(val *PublicSubnetRecord) {
+func (v *NullableStorageRecord) Set(val *StorageRecord) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePublicSubnetRecord) IsSet() bool {
+func (v NullableStorageRecord) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePublicSubnetRecord) Unset() {
+func (v *NullableStorageRecord) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePublicSubnetRecord(val *PublicSubnetRecord) *NullablePublicSubnetRecord {
-	return &NullablePublicSubnetRecord{value: val, isSet: true}
+func NewNullableStorageRecord(val *StorageRecord) *NullableStorageRecord {
+	return &NullableStorageRecord{value: val, isSet: true}
 }
 
-func (v NullablePublicSubnetRecord) MarshalJSON() ([]byte, error) {
+func (v NullableStorageRecord) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePublicSubnetRecord) UnmarshalJSON(src []byte) error {
+func (v *NullableStorageRecord) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

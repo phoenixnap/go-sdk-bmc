@@ -134,6 +134,9 @@ Class | Method | HTTP request | Description
  - [ServerProductMetadata](docs/ServerProductMetadata.md)
  - [ServerRecord](docs/ServerRecord.md)
  - [ServerRecordAllOf](docs/ServerRecordAllOf.md)
+ - [StorageDetails](docs/StorageDetails.md)
+ - [StorageRecord](docs/StorageRecord.md)
+ - [StorageRecordAllOf](docs/StorageRecordAllOf.md)
  - [ThresholdConfigurationDetails](docs/ThresholdConfigurationDetails.md)
 
 

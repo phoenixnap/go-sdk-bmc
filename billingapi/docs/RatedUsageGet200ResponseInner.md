@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **StartDateTime** | **time.Time** | The point in time (in UTC) when usage has started. | 
 **EndDateTime** | **time.Time** | The point in time (in UTC) until usage has been rated. | 
 **Cost** | **int64** | The rated usage in cents. | 
+**CostDescription** | Pointer to **string** | The rated usage cost description. | [optional] 
 **PriceModel** | **string** | The price model applied to this usage record. | 
 **UnitPrice** | **float32** | The unit price. | 
 **UnitPriceDescription** | **string** | User friendly description of the unit price. | 
@@ -20,13 +21,13 @@ Name | Type | Description | Notes
 **UsageSessionId** | **string** | The usage session ID is used to correlate rated usage records across periods of time. For example, a server used for over a month will generate multiple rated usage records. The entire usage session cost can be computed by aggregating the records having the same usage session ID. It is usual to have one rated usage record per month or invoice. | 
 **CorrelationId** | **string** | Holds usage record id | 
 **ReservationId** | Pointer to **string** | Reservation id associated with this rated usage record. | [optional] 
-**Metadata** | [**PublicSubnetDetails**](PublicSubnetDetails.md) |  | 
+**Metadata** | [**StorageDetails**](StorageDetails.md) |  | 
 
 ## Methods
 
 ### NewRatedUsageGet200ResponseInner
 
-`func NewRatedUsageGet200ResponseInner(id string, productCategory string, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, usageSessionId string, correlationId string, metadata PublicSubnetDetails, ) *RatedUsageGet200ResponseInner`
+`func NewRatedUsageGet200ResponseInner(id string, productCategory string, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, usageSessionId string, correlationId string, metadata StorageDetails, ) *RatedUsageGet200ResponseInner`
 
 NewRatedUsageGet200ResponseInner instantiates a new RatedUsageGet200ResponseInner object
 This constructor will assign default values to properties that have it defined,
@@ -206,6 +207,31 @@ and a boolean to check if the value has been set.
 SetCost sets Cost field to given value.
 
 
+### GetCostDescription
+
+`func (o *RatedUsageGet200ResponseInner) GetCostDescription() string`
+
+GetCostDescription returns the CostDescription field if non-nil, zero value otherwise.
+
+### GetCostDescriptionOk
+
+`func (o *RatedUsageGet200ResponseInner) GetCostDescriptionOk() (*string, bool)`
+
+GetCostDescriptionOk returns a tuple with the CostDescription field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCostDescription
+
+`func (o *RatedUsageGet200ResponseInner) SetCostDescription(v string)`
+
+SetCostDescription sets CostDescription field to given value.
+
+### HasCostDescription
+
+`func (o *RatedUsageGet200ResponseInner) HasCostDescription() bool`
+
+HasCostDescription returns a boolean if a field has been set.
+
 ### GetPriceModel
 
 `func (o *RatedUsageGet200ResponseInner) GetPriceModel() string`
@@ -373,20 +399,20 @@ HasReservationId returns a boolean if a field has been set.
 
 ### GetMetadata
 
-`func (o *RatedUsageGet200ResponseInner) GetMetadata() PublicSubnetDetails`
+`func (o *RatedUsageGet200ResponseInner) GetMetadata() StorageDetails`
 
 GetMetadata returns the Metadata field if non-nil, zero value otherwise.
 
 ### GetMetadataOk
 
-`func (o *RatedUsageGet200ResponseInner) GetMetadataOk() (*PublicSubnetDetails, bool)`
+`func (o *RatedUsageGet200ResponseInner) GetMetadataOk() (*StorageDetails, bool)`
 
 GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMetadata
 
-`func (o *RatedUsageGet200ResponseInner) SetMetadata(v PublicSubnetDetails)`
+`func (o *RatedUsageGet200ResponseInner) SetMetadata(v StorageDetails)`
 
 SetMetadata sets Metadata field to given value.
 
