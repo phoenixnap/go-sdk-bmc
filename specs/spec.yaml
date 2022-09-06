@@ -1,0 +1,559 @@
+openapi: 3.0.2
+info:
+  title: Network Storage API
+  description: >
+    Create, list, edit, and delete storage networks with the Network Storage
+    API. Use storage networks to expand storage capacity on a private network.
+
+    <br>
+
+    <span class='pnap-api-knowledge-base-link'>
+
+    Knowledge base articles to help you can be found
+
+    <a href='' target='_blank'>here</a>
+
+    </span>
+
+    <br>
+
+    <b>All URLs are relative to
+    (https://api-dev.phoenixnap.com/network-storage/v1/)</b>
+  termsOfService: >-
+    https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
+  version: '1.0'
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+  contact:
+    name: PhoenixNAP Team
+    email: support@phoenixnap.com
+    url: 'https://phoenixnap.com/'
+security:
+  - OAuth2:
+      - networkstorage
+      - networkstorage.read
+servers:
+  - url: 'https://api-dev.phoenixnap.com/network-storage/v1'
+tags:
+  - name: Storage Networks
+    description: Storage Networks operations.
+paths:
+  /storage-networks:
+    get:
+      parameters:
+        - in: query
+          name: location
+          required: false
+          description: If present will filter the result by the given location.
+          schema:
+            description: Supported values are `PHX` and `ASH`.
+            type: string
+          example: PHX
+      tags:
+        - Storage Networks
+      description: List all storage networks.
+      summary: List all storage networks.
+      operationId: storageNetworksGet
+      security:
+        - OAuth2:
+            - networkstorage.read
+      responses:
+        '200':
+          description: List all storage networks.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StorageNetwork'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - Storage Networks
+      description: Create a storage network and volume.
+      summary: Create a storage network and volume.
+      operationId: storageNetworksPost
+      security:
+        - OAuth2:
+            - networkstorage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StorageNetworkCreate'
+      responses:
+        '202':
+          description: Storage network that was created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageNetwork'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  '/storage-networks/{storageNetworkId}':
+    parameters:
+      - $ref: '#/components/parameters/storageNetworkIdParam'
+    get:
+      tags:
+        - Storage Networks
+      description: Get storage network details.
+      summary: Get storage network details.
+      operationId: storageNetworksIdGet
+      security:
+        - OAuth2:
+            - networkstorage.read
+      responses:
+        '200':
+          description: Get storage network details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageNetwork'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    patch:
+      tags:
+        - Storage Networks
+      description: Update storage network details.
+      summary: Update storage network details.
+      operationId: storageNetworksIdPatch
+      security:
+        - OAuth2:
+            - networkstorage
+      requestBody:
+        description: Storage network to be updated.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StorageNetworkUpdate'
+            example:
+              name: My storage network
+              description: Storage network description
+      responses:
+        '200':
+          description: Updated storage network.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageNetwork'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      tags:
+        - Storage Networks
+      description: >-
+        Delete a storage network and its volume. A storage network can only be
+        removed if it's not in 'BUSY' state. Billing stops on storage network
+        deletion.
+      summary: Delete a storage network and its volume.
+      operationId: storageNetworksIdDelete
+      security:
+        - OAuth2:
+            - networkstorage
+      responses:
+        '204':
+          description: Storage Network is deleted.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  '/storage-networks/{storageNetworkId}/volumes':
+    parameters:
+      - $ref: '#/components/parameters/storageNetworkIdParam'
+    get:
+      tags:
+        - Storage Networks
+      description: Display one or more volumes belonging to a storage network.
+      summary: Display one or more volumes belonging to a storage network.
+      operationId: storageNetworksStorageNetworkIdVolumesGet
+      security:
+        - OAuth2:
+            - networkstorage.read
+      responses:
+        '200':
+          description: Get a storage network's volume details.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Volume'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  '/storage-networks/{storageNetworkId}/volumes/{volumeId}':
+    parameters:
+      - $ref: '#/components/parameters/storageNetworkIdParam'
+      - $ref: '#/components/parameters/volumeIdParam'
+    get:
+      tags:
+        - Storage Networks
+      description: Get a storage network's volume details.
+      summary: Get a storage network's volume details.
+      operationId: storageNetworksStorageNetworkIdVolumesVolumeIdGet
+      security:
+        - OAuth2:
+            - networkstorage.read
+      responses:
+        '200':
+          description: Get a storage network's volume details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: >-
+            https://auth-dev.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
+          scopes:
+            networkstorage: Grants full access to Network Storage API.
+            networkstorage.read: Grants read only access to Network Storage API.
+  schemas:
+    StorageNetwork:
+      type: object
+      description: Storage network.
+      properties:
+        id:
+          description: Storage network ID.
+          type: string
+          example: 603f3b2cfcaf050643b89a4b
+        name:
+          description: Storage network friendly name.
+          type: string
+          example: My storage network
+        description:
+          description: Storage network description.
+          type: string
+          example: My storage network description
+        status:
+          $ref: '#/components/schemas/Status'
+        location:
+          description: >-
+            Location of storage network. Currently this field should be set to
+            `PHX` or `ASH`.
+          type: string
+          example: PHX
+        networkId:
+          description: Id of network the storage belongs to.
+          type: string
+          example: 603f3b2cfcaf050643b89a4b
+        ips:
+          description: IP of the storage network.
+          type: array
+          items:
+            type: string
+          example:
+            - 100.64.0.1
+            - 100.64.0.2
+        createdOn:
+          description: Date and time when this storage network was created.
+          type: string
+          format: date-time
+          example: '2021-03-13T20:24:32.491Z'
+        volumes:
+          description: Volume for a storage network.
+          type: array
+          items:
+            $ref: '#/components/schemas/Volume'
+    StorageNetworkCreate:
+      type: object
+      description: Create Storage Network.
+      required:
+        - name
+        - location
+        - volumes
+      properties:
+        name:
+          description: Storage network friendly name.
+          type: string
+          minLength: 1
+          maxLength: 100
+          example: My storage network
+        description:
+          description: Storage network description.
+          type: string
+          maxLength: 250
+          example: My storage network description
+        location:
+          description: >-
+            Location of storage network. Currently this field should be set to
+            `PHX`.
+          type: string
+          example: PHX
+        volumes:
+          description: >-
+            Volume to be created alongside storage. Currently only 1 volume is
+            supported.
+          type: array
+          minItems: 1
+          maxItems: 1
+          items:
+            $ref: '#/components/schemas/VolumeCreate'
+    StorageNetworkUpdate:
+      type: object
+      description: Update storage network.
+      properties:
+        name:
+          description: Storage network friendly name.
+          type: string
+          minLength: 1
+          maxLength: 100
+          example: My storage network
+        description:
+          description: Storage network description.
+          type: string
+          maxLength: 250
+          example: My storage network description
+    Volume:
+      type: object
+      description: Volume for a storage network.
+      properties:
+        id:
+          description: Volume ID.
+          type: string
+          example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        name:
+          description: Volume friendly name.
+          type: string
+          example: My volume name
+        description:
+          description: Volume description.
+          type: string
+          example: My volume description
+        path:
+          description: 'Volume''s full path. It is in form of `/{volumeId}/pathSuffix`''.'
+          type: string
+          example: /qjul77ahf5fplr2ba484/shared-docs
+        pathSuffix:
+          description: Last part of volume's path.
+          type: string
+          example: /shared-docs
+        capacityInGb:
+          description: Maximum capacity in GB.
+          type: integer
+          example: 2000
+        protocol:
+          description: File system protocol. Currently this field should be set to `NFS`.
+          type: string
+          example: NFS
+        status:
+          $ref: '#/components/schemas/Status'
+        createdOn:
+          type: string
+          format: date-time
+          example: '2021-03-13T20:24:32.491Z'
+        permissions:
+          $ref: '#/components/schemas/Permissions'
+    VolumeCreate:
+      title: VolumeCreate
+      type: object
+      description: Create Volume.
+      required:
+        - name
+        - capacityInGb
+      properties:
+        name:
+          description: Volume friendly name.
+          type: string
+          minLength: 1
+          maxLength: 100
+          example: My volume name
+        description:
+          description: Volume description.
+          type: string
+          maxLength: 250
+          example: My volume description
+        pathSuffix:
+          description: Last part of volume's path.
+          type: string
+          minLength: 1
+          maxLength: 100
+          pattern: '^(\/[\w-]+)+$'
+          example: /shared-docs
+        capacityInGb:
+          description: >-
+            Capacity of Volume in GB. Currently only whole numbers and multiples
+            of 1000GB are supported.
+          type: integer
+          minimum: 1000
+          example: 2000
+    Permissions:
+      type: object
+      description: Permissions for a volume.
+      properties:
+        nfs:
+          $ref: '#/components/schemas/NfsPermissions'
+    NfsPermissions:
+      type: object
+      description: NFS specific permissions on a volume.
+      properties:
+        readWrite:
+          description: Read/Write access.
+          type: array
+          items:
+            type: string
+            example: 100.80.0.5
+          example:
+            - 100.80.0.5
+            - 100.80.0.6
+        readOnly:
+          description: Read only access.
+          type: array
+          items:
+            type: string
+            example: 100.80.0.5
+          example:
+            - 100.80.0.5
+        rootSquash:
+          description: Root squash permission.
+          type: array
+          items:
+            type: string
+            example: 100.80.0.5/24
+          example:
+            - 100.80.0.5
+            - 100.80.0.4/24
+        noSquash:
+          description: No squash permission.
+          type: array
+          items:
+            type: string
+            example: 100.80.0.*
+          example:
+            - 100.80.0.7
+            - 100.80.0.*
+        allSquash:
+          description: All squash permission.
+          type: array
+          items:
+            type: string
+            example: 100.80.0.5
+          example:
+            - 100.80.0.5
+            - 100.80.0.6
+    Status:
+      description: >-
+        Status of the resource. Currently this field should be set to `READY`,
+        `BUSY` or `ERROR`.
+      type: string
+      enum:
+        - READY
+        - BUSY
+        - ERROR
+      example: READY
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          readOnly: true
+          description: The description detailing the cause of the error code.
+        validationErrors:
+          type: array
+          items:
+            type: string
+          readOnly: true
+          description: 'Validation errors, if any.'
+  responses:
+    BadRequest:
+      description: >-
+        The request failed due to wrong data. Please check the provided
+        parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: >-
+        The request failed due to invalid credentials. Please check the provided
+        credentials and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: >-
+        The request failed since this resource cannot be accessed by the
+        provided credentials.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: >-
+        The server encountered an unexpected condition that prevented it from
+        fulfilling the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: The resource is in an incompatible state.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    storageNetworkIdParam:
+      in: path
+      name: storageNetworkId
+      required: true
+      schema:
+        type: string
+      description: ID of storage network.
+      example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+    volumeIdParam:
+      in: path
+      name: volumeId
+      required: true
+      schema:
+        type: string
+      description: ID of volume.
+      example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
