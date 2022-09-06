@@ -83,7 +83,7 @@ jobs:
       - uses: ./.github/workflows/composite/generate-sdk
         with:
           # spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/bmc-networkstorage/download_spec
-          spec-link: ../../specs/spec.yaml
+          spec-link: https://developers-dev.phoenixnap.com/portals/api/sites/phoenixnap-non-prod-development/liveportal/apis/network-storage-dev/download_spec
           package-name: networkstorageapi
 
   # Push generated code
