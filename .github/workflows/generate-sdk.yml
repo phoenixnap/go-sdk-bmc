@@ -75,6 +75,16 @@ jobs:
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/bmc-billing/download_spec
           package-name: billingapi
+  generate-networkstorageapi:
+    name: Generate Storage Network API
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/workflows/composite/generate-sdk
+        with:
+          # spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/bmc-networkstorage/download_spec
+          spec-link: ../../specs/spec.yaml
+          package-name: networkstorageapi
 
   # Push generated code
   push-changes:
@@ -95,6 +105,7 @@ jobs:
       - generate-auditapi
       - generate-tagapi
       - generate-billingapi
+      - generate-networkstorageapi
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -202,6 +213,18 @@ jobs:
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: billingapi
+  build-networkstorageapi:
+    name: Build Newtwork Storage API
+    runs-on: ubuntu-latest
+    needs:
+      - generate-networkstorageapi
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+      - uses: ./.github/workflows/composite/build-sdk
+        with:
+          module-name: networkstorageapi
   
   # Lint stage
   lint-bmcapi:
@@ -288,6 +311,18 @@ jobs:
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: billingapi
+  lint-networkstorageapi:
+    name: Lint Tag API
+    runs-on: ubuntu-latest
+    needs:
+      - build-networkstorageapi
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+      - uses: ./.github/workflows/composite/lint-sdk
+        with:
+          module-name: networkstorageapi
 
   test-auditapi:
     name: Test Audit API
@@ -408,6 +443,23 @@ jobs:
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestBillingApiTestSuite
+  # test-networkstorageapi:
+  #   name: Test Billing API
+  #   runs-on: ubuntu-latest
+  #   needs:
+  #     - lint-networkstorageapi
+  #   services:
+  #     mockserver:
+  #       image: mockserver/mockserver:5.13.0
+  #       ports:
+  #         - 1080:1080
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Download Artifacts
+  #       uses: actions/download-artifact@v2
+  #     - uses: ./.github/workflows/composite/test-sdk
+  #       with:
+  #         test-suite: TestNetworkStorageApiTestSuite
 
   publish-test-results:
     name: Publish Test Results
@@ -419,6 +471,7 @@ jobs:
       - test-auditapi
       - test-tagapi
       - test-billingapi
+      # - test-networkstorageapi
     runs-on: ubuntu-latest
     if: always()
     steps:
