@@ -214,7 +214,7 @@ jobs:
         with:
           module-name: billingapi
   build-networkstorageapi:
-    name: Build Newtwork Storage API
+    name: Build Network Storage API
     runs-on: ubuntu-latest
     needs:
       - generate-networkstorageapi
@@ -312,7 +312,7 @@ jobs:
         with:
           module-name: billingapi
   lint-networkstorageapi:
-    name: Lint Tag API
+    name: Lint Network Storage API
     runs-on: ubuntu-latest
     needs:
       - build-networkstorageapi
