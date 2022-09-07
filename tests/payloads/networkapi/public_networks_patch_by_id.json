@@ -23,6 +23,7 @@
       "location": "PHX",
       "description": "The new description of my public network",
       "ipBlocks": [],
+      "status": "BUSY",
       "vlanId": 10,
       "createdOn": "2022-04-05T13:50:30.491Z",
       "memberships": []

@@ -1,3 +1,3 @@
 package ipapi
 
-const SdkVersion = "1.1.3-SNAPSHOT"
+const SdkVersion = "2.0.0"

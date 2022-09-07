@@ -14,10 +14,16 @@ Alternatively, you can also run an instance of `portainer` by running the follow
 
 ## Running
 
-Tests can be run per-module by running its respective `tc_` script, or all at once by running `ts_sdk.rb`:
+Tests can be run per-module by running its respective go script:
 
 ```sh
-bundler exec ruby ./ts_sdk.rb
+go test -v -run <TestSuiteName>
+```
+
+To run all tests for all modules at the same time, use:
+
+```sh
+go test -v -run ./
 ```
 
 ## Payloads
