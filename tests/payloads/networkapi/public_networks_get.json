@@ -51,6 +51,7 @@
             "id": "613b51c01f4b04615ba1d3be"
           }
         ],
+        "status": "BUSY",
         "vlanId": 10,
         "createdOn": "2022-04-05T13:50:30.491Z",
         "memberships": [

@@ -24,6 +24,7 @@
       "name": "My Default Backend Network",
       "description": "My Default Backend Network",
       "vlanId": 10,
+      "status": "BUSY",
       "type": "PRIVATE",
       "location": "PHX",
       "locationDefault": true,
