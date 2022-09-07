@@ -2059,6 +2059,7 @@ components:
       description: OS specific configuration properties.
       example:
         managementUiUrl: https://172.217.22.14
+        installOsToRam: false
         windows:
           rdpAllowedIps:
           - 172.217.22.14
@@ -2097,6 +2098,12 @@ components:
             type: string
           minItems: 1
           type: array
+        installOsToRam:
+          default: false
+          description: "If true, OS will be installed to and booted from the server's\
+            \ RAM. On restart RAM OS will be lost and the server will not be reachable\
+            \ unless a custom bootable OS has been deployed. Only supported for ubuntu/focal."
+          type: boolean
       type: object
     ServerPrivateNetwork:
       description: Private network details of bare metal server.
@@ -2355,6 +2362,7 @@ components:
         os: ubuntu/bionic
         osConfiguration:
           managementUiUrl: https://172.217.22.14
+          installOsToRam: false
           windows:
             rdpAllowedIps:
             - 172.217.22.14
@@ -2623,6 +2631,7 @@ components:
         os: ubuntu/bionic
         osConfiguration:
           managementUiUrl: https://172.217.22.14
+          installOsToRam: false
           windows:
             rdpAllowedIps:
             - 172.217.22.14

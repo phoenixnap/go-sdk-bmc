@@ -24,6 +24,8 @@ type OsConfiguration struct {
 	ManagementUiUrl *string `json:"managementUiUrl,omitempty"`
 	// List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
 	ManagementAccessAllowedIps []string `json:"managementAccessAllowedIps,omitempty"`
+	// If true, OS will be installed to and booted from the server's RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Only supported for ubuntu/focal.
+	InstallOsToRam *bool `json:"installOsToRam,omitempty"`
 }
 
 // NewOsConfiguration instantiates a new OsConfiguration object
@@ -32,6 +34,8 @@ type OsConfiguration struct {
 // will change when the set of required properties is changed
 func NewOsConfiguration() *OsConfiguration {
 	this := OsConfiguration{}
+	var installOsToRam bool = false
+	this.InstallOsToRam = &installOsToRam
 	return &this
 }
 
@@ -40,6 +44,8 @@ func NewOsConfiguration() *OsConfiguration {
 // but it doesn't guarantee that properties required by API are set
 func NewOsConfigurationWithDefaults() *OsConfiguration {
 	this := OsConfiguration{}
+	var installOsToRam bool = false
+	this.InstallOsToRam = &installOsToRam
 	return &this
 }
 
@@ -171,6 +177,38 @@ func (o *OsConfiguration) SetManagementAccessAllowedIps(v []string) {
 	o.ManagementAccessAllowedIps = v
 }
 
+// GetInstallOsToRam returns the InstallOsToRam field value if set, zero value otherwise.
+func (o *OsConfiguration) GetInstallOsToRam() bool {
+	if o == nil || o.InstallOsToRam == nil {
+		var ret bool
+		return ret
+	}
+	return *o.InstallOsToRam
+}
+
+// GetInstallOsToRamOk returns a tuple with the InstallOsToRam field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OsConfiguration) GetInstallOsToRamOk() (*bool, bool) {
+	if o == nil || o.InstallOsToRam == nil {
+		return nil, false
+	}
+	return o.InstallOsToRam, true
+}
+
+// HasInstallOsToRam returns a boolean if a field has been set.
+func (o *OsConfiguration) HasInstallOsToRam() bool {
+	if o != nil && o.InstallOsToRam != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInstallOsToRam gets a reference to the given bool and assigns it to the InstallOsToRam field.
+func (o *OsConfiguration) SetInstallOsToRam(v bool) {
+	o.InstallOsToRam = &v
+}
+
 func (o OsConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Windows != nil {
@@ -184,6 +222,9 @@ func (o OsConfiguration) MarshalJSON() ([]byte, error) {
 	}
 	if o.ManagementAccessAllowedIps != nil {
 		toSerialize["managementAccessAllowedIps"] = o.ManagementAccessAllowedIps
+	}
+	if o.InstallOsToRam != nil {
+		toSerialize["installOsToRam"] = o.InstallOsToRam
 	}
 	return json.Marshal(toSerialize)
 }
