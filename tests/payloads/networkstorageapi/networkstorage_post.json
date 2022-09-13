@@ -1,0 +1,61 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/network-storage/v1/storage-networks",
+    "body": {
+      "type": "JSON",
+      "json": {
+        "name": "name",
+        "description": "description",
+        "location": "PHX",
+        "volumes": [
+          {
+            "name": "volumeName",
+            "description": "volumeDescription",
+            "pathSuffix": "/pathSuffix",
+            "capacityInGb": 1000
+          }
+        ]
+      },
+      "matchType": "STRICT"
+    }
+  },
+  "response": {
+    "statusCode": 202,
+    "body": {
+      "id": "fakeId",
+      "name": "name",
+      "description": "description",
+      "status": "READY",
+      "location": "PHX",
+      "networkId": "fakeNetworkId",
+      "ips": [
+        "1.1.1.1",
+        "1.1.1.2"
+      ],
+      "createdOn": "2021-04-27T16:24:57Z",
+      "volumes": [
+        {
+          "id": "fakeVolumeId",
+          "name": "volumeName",
+          "description": "volumeDescription",
+          "path": "/fakeVolumeId/pathSuffix",
+          "pathSuffix": "/pathSuffix",
+          "capacityInGb": 1000,
+          "protocol": "NFS",
+          "status": "READY",
+          "createdOn": "2021-04-27T16:24:57Z",
+          "permissions": {
+            "nfs": {
+              "readWrite": [],
+              "readOnly": [],
+              "rootSquash": [],
+              "noSquash": [],
+              "allSquash": []
+            }
+          }
+        }
+      ]
+    }
+  }
+}
