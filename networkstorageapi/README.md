@@ -7,7 +7,7 @@ Knowledge base articles to help you can be found
 <a href='https://phoenixnap.com/kb/bare-metal-cloud-storage' target='_blank'>here</a>
 </span>
 <br>
-<b>All URLs are relative to (https://api-dev.phoenixnap.com/network-storage/v1/)</b>
+<b>All URLs are relative to (https://api-staging.phoenixnap.com/network-storage/v1/)</b>
 
 
 ## Overview
@@ -81,7 +81,7 @@ ctx = context.WithValue(context.Background(), networkstorageapi.ContextOperation
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api-dev.phoenixnap.com/network-storage/v1*
+All URIs are relative to *https://api-staging.phoenixnap.com/network-storage/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------

@@ -1,6 +1,6 @@
 # \StorageNetworksApi
 
-All URIs are relative to *https://api-dev.phoenixnap.com/network-storage/v1*
+All URIs are relative to *https://api-staging.phoenixnap.com/network-storage/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

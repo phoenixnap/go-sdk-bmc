@@ -8,7 +8,7 @@ info:
     \ API. Use storage networks to expand storage capacity on a private network.\n\
     <br>\n<span class='pnap-api-knowledge-base-link'>\nKnowledge base articles to\
     \ help you can be found\n<a href='https://phoenixnap.com/kb/bare-metal-cloud-storage'\
-    \ target='_blank'>here</a>\n</span>\n<br>\n<b>All URLs are relative to (https://api-dev.phoenixnap.com/network-storage/v1/)</b>\n"
+    \ target='_blank'>here</a>\n</span>\n<br>\n<b>All URLs are relative to (https://api-staging.phoenixnap.com/network-storage/v1/)</b>\n"
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -16,7 +16,7 @@ info:
   title: Network Storage API
   version: "1.0"
 servers:
-- url: https://api-dev.phoenixnap.com/network-storage/v1
+- url: https://api-staging.phoenixnap.com/network-storage/v1
 security:
 - OAuth2:
   - networkstorage
@@ -858,5 +858,5 @@ components:
           scopes:
             networkstorage: Grants full access to Network Storage API.
             networkstorage.read: Grants read only access to Network Storage API.
-          tokenUrl: https://auth-dev.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
+          tokenUrl: https://auth-staging.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
       type: oauth2
