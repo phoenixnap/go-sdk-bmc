@@ -442,23 +442,23 @@ jobs:
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestBillingApiTestSuite
-  # test-networkstorageapi:
-  #   name: Test Billing API
-  #   runs-on: ubuntu-latest
-  #   needs:
-  #     - lint-networkstorageapi
-  #   services:
-  #     mockserver:
-  #       image: mockserver/mockserver:5.13.0
-  #       ports:
-  #         - 1080:1080
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Download Artifacts
-  #       uses: actions/download-artifact@v2
-  #     - uses: ./.github/workflows/composite/test-sdk
-  #       with:
-  #         test-suite: TestNetworkStorageApiTestSuite
+  test-networkstorageapi:
+    name: Test Billing API
+    runs-on: ubuntu-latest
+    needs:
+      - lint-networkstorageapi
+    services:
+      mockserver:
+        image: mockserver/mockserver:5.13.0
+        ports:
+          - 1080:1080
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+      - uses: ./.github/workflows/composite/test-sdk
+        with:
+          test-suite: TestNetworkStorageApiTestSuite
 
   publish-test-results:
     name: Publish Test Results
@@ -470,7 +470,7 @@ jobs:
       - test-auditapi
       - test-tagapi
       - test-billingapi
-      # - test-networkstorageapi
+      - test-networkstorageapi
     runs-on: ubuntu-latest
     if: always()
     steps:
