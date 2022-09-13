@@ -82,7 +82,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./.github/workflows/composite/generate-sdk
         with:
-          spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/bmc-networkstorage/download_spec
+          spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/network-storage/download_spec
           package-name: networkstorageapi
 
   # Push generated code
