@@ -3,6 +3,7 @@ package tests
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"testing"
 
 	"github.com/phoenixnap/go-sdk-bmc/ipapi"
@@ -49,8 +50,18 @@ func (suite *IpApiTestSuite) TestGetIpBlocks() {
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
+	// Fetch a map of query parameters
+	qpMap := TestUtilsImpl{}.generateQueryParams(request)
+
+	tag := fmt.Sprintf("%v", qpMap["tag"])
+
+	var tagArray [1]string
+	tagArray[0] = tag
+	// to
+	tagSlice := []string{tag}
+
 	// Operation Execution
-	result, _, _ := suite.Client.IPBlocksApi.IpBlocksGet(suite.Ctx).Execute()
+	result, _, _ := suite.Client.IPBlocksApi.IpBlocksGet(suite.Ctx).Tag(tagSlice).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
