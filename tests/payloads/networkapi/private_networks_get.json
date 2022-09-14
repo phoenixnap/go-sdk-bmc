@@ -19,6 +19,7 @@
         "name": "My Default Backend Network",
         "description": "My Default Backend Network",
         "vlanId": 10,
+        "status": "BUSY",
         "type": "PRIVATE",
         "location": "PHX",
         "locationDefault": true,
@@ -42,8 +43,7 @@
             ]
           }
         ],
-        "createdOn": "2022-04-07T13:20:30.491Z",
-        
+        "createdOn": "2022-04-07T13:20:30.491Z"        
       }
     ]
   }
