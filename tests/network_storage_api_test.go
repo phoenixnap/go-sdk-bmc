@@ -178,7 +178,7 @@ func (suite *NetworkStorageApiTestSuite) TestDeleteStorageNetworkById() {
 func (suite *NetworkStorageApiTestSuite) TestGetVolumesByStorageNetworkId() {
 
 	// Generate payload
-	request, response := TestUtilsImpl{}.generatePayloadsFrom("networkstorageapi/networkstorage_get_volumes_by_storagenetwork_id", "./payloads")
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("networkstorageapi/networkstorage_get_volumes", "./payloads")
 
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
@@ -205,7 +205,7 @@ func (suite *NetworkStorageApiTestSuite) TestGetVolumesByStorageNetworkId() {
 func (suite *NetworkStorageApiTestSuite) TestGetVolumeByStorageNetworkIdAndVolumeId() {
 
 	// Generate payload
-	request, response := TestUtilsImpl{}.generatePayloadsFrom("networkstorageapi/networkstorage_get_volume_by_storagenetwork_id_and_volume_id", "./payloads")
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("networkstorageapi/networkstorage_get_volume_by_id", "./payloads")
 
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
