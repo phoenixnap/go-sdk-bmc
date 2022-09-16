@@ -9,7 +9,7 @@
     }
   },
   "response": {
-    "statusCode": 201,
+    "statusCode": 200,
     "body": {
       "result": "fakeId",
       "clusterId": "123"

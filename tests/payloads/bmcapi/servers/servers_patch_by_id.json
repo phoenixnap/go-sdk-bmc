@@ -62,6 +62,7 @@
                 ]
             },
             "networkConfiguration": {
+              "gatewayAddress": "gatewayAddress",
                 "privateNetworkConfiguration": {
                     "gatewayAddress": "10.0.0.10",
                     "configurationType": "USE_OR_CREATE_DEFAULT",
@@ -71,7 +72,8 @@
                         "ips": [
                           "10.0.0.11 - 10.0.0.15"
                         ],
-                        "dhcp": false
+                        "dhcp": false,
+                        "statusDescription": "statusDescription"
                       },
                       {
                         "id": "60f93142c5c1d6082d31382a",
@@ -79,7 +81,8 @@
                           "10.0.0.16",
                           "10.0.0.17"
                         ],
-                        "dhcp": false
+                        "dhcp": false,
+                        "statusDescription": "statusDescription"
                       }
                     ]
                 },
@@ -89,6 +92,25 @@
                         "id": "60473a6115e34466c9f8f083",
                         "vlanId": 10
                     }]
+                },
+                "publicNetworkConfiguration": {
+                    "publicNetworks": [
+                        {
+                          "id": "60f81608e2f4665962b214dd",
+                          "ips": [
+                            "10.0.0.11 - 10.0.0.15"
+                          ],
+                          "statusDescription": "statusDescription"
+                        },
+                        {
+                          "id": "60f93142c5c1d6082d31382c",
+                          "ips": [
+                            "10.0.0.16",
+                            "10.0.0.17"
+                          ],
+                          "statusDescription": "statusDescription"
+                        }
+                      ]
                 }
             }
         }

@@ -35,6 +35,7 @@
           "startDateTime" : "2020-03-19T16:39:00Z",
           "endDateTime" : "2020-03-19T16:39:00Z",
           "cost" : 20,
+          "costDescription" : "costDescription",
           "priceModel" : "hourly",
           "unitPrice" : 10,
           "unitPriceDescription" : "per hour",

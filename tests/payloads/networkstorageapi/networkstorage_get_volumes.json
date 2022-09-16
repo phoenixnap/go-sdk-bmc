@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/network-storage/v1/storage-networks/{storageNetworkId}/volumes",
+    "pathParameters": {
+      "storageNetworkId": [
+        "50dc434c-9bba-427b-bcd6-0bdba45c4dd2"
+      ]
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "body": [
+      {
+        "id": "fakeVolumeId",
+        "name": "volumeName",
+        "description": "volumeDescription",
+        "path": "/fakeVolumeId/pathSuffix",
+        "pathSuffix": "/pathSuffix",
+        "capacityInGb": 1000,
+        "protocol": "NFS",
+        "status": "READY",
+        "createdOn": "2021-04-27T16:24:57Z",
+        "permissions": {
+          "nfs": {
+            "readWrite": [],
+            "readOnly": [],
+            "rootSquash": [],
+            "noSquash": [],
+            "allSquash": []
+          }
+        }
+      }
+    ]
+  }
+}
