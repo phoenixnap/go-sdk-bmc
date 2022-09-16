@@ -55,9 +55,6 @@ func (suite *IpApiTestSuite) TestGetIpBlocks() {
 
 	tag := fmt.Sprintf("%v", qpMap["tag"])
 
-	var tagArray [1]string
-	tagArray[0] = tag
-	// to
 	tagSlice := []string{tag}
 
 	// Operation Execution

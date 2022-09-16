@@ -443,7 +443,7 @@ jobs:
         with:
           test-suite: TestBillingApiTestSuite
   test-networkstorageapi:
-    name: Test Billing API
+    name: Test Network Storage API
     runs-on: ubuntu-latest
     needs:
       - lint-networkstorageapi
