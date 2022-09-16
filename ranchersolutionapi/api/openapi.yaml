@@ -99,7 +99,9 @@ paths:
       description: "Create a Rancher Server Deployment as described in <a href='https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture'\
         \ target='_blank'>Rancher Docs Architecture</a>. Rancher Server allows the\
         \ creation, import and management of multiple Downstream User Kubernetes Clusters.\n\
-        <b>This is not a Downstream User Cluster</b>.\n"
+        <b>This is not a Downstream User Cluster</b>. Knowledge base article to help\
+        \ you can be found <a href='https://phoenixnap.com/kb/bmc-rancher-workload-cluster#ftoc-heading-5'\
+        \ target='_blank'>here</a>.\n"
       operationId: clustersPost
       requestBody:
         content:
@@ -232,7 +234,7 @@ paths:
           type: string
         style: simple
       responses:
-        "201":
+        "200":
           content:
             application/json:
               schema:

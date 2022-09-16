@@ -1,15 +1,15 @@
 {
-    "request": {
-      "method": "GET",
-      "path": "/billing/v1/account-billing-configurations/me"
-    },
-    "response": {
-      "statusCode": 200,
-      "body": {
-        "thresholdConfiguration" : {
-          "thresholdAmount" : 5
-        }
+  "request": {
+    "method": "GET",
+    "path": "/billing/v1/account-billing-configurations/me"
+  },
+  "response": {
+    "statusCode": 200,
+    "body": {
+      "thresholdConfiguration" : {
+        "thresholdAmount" : 5
       }
     }
   }
+}
   

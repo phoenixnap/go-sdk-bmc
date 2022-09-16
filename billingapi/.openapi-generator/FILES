@@ -42,6 +42,9 @@ docs/ServerProductAllOf.md
 docs/ServerProductMetadata.md
 docs/ServerRecord.md
 docs/ServerRecordAllOf.md
+docs/StorageDetails.md
+docs/StorageRecord.md
+docs/StorageRecordAllOf.md
 docs/ThresholdConfigurationDetails.md
 go.mod
 go.sum
@@ -77,6 +80,9 @@ model_server_product_all_of.go
 model_server_product_metadata.go
 model_server_record.go
 model_server_record_all_of.go
+model_storage_details.go
+model_storage_record.go
+model_storage_record_all_of.go
 model_threshold_configuration_details.go
 response.go
 utils.go

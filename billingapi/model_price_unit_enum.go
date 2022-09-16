@@ -21,11 +21,12 @@ type PriceUnitEnum string
 
 // List of PriceUnitEnum
 const (
-	HOUR  PriceUnitEnum = "HOUR"
-	MONTH PriceUnitEnum = "MONTH"
-	GB    PriceUnitEnum = "GB"
-	UNIT  PriceUnitEnum = "UNIT"
-	FLAT  PriceUnitEnum = "FLAT"
+	HOUR        PriceUnitEnum = "HOUR"
+	MONTH       PriceUnitEnum = "MONTH"
+	GB          PriceUnitEnum = "GB"
+	UNIT        PriceUnitEnum = "UNIT"
+	FLAT        PriceUnitEnum = "FLAT"
+	TB_PER_HOUR PriceUnitEnum = "TB_PER_HOUR"
 )
 
 // All allowed values of PriceUnitEnum enum
@@ -35,6 +36,7 @@ var AllowedPriceUnitEnumEnumValues = []PriceUnitEnum{
 	"GB",
 	"UNIT",
 	"FLAT",
+	"TB_PER_HOUR",
 }
 
 func (v *PriceUnitEnum) UnmarshalJSON(src []byte) error {

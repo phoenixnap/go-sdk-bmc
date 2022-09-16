@@ -14,13 +14,14 @@ Name | Type | Description | Notes
 **Cidr** | **string** | IP range associated with this private network in CIDR notation. | 
 **Servers** | [**[]PrivateNetworkServer**](PrivateNetworkServer.md) |  | 
 **Memberships** | [**[]NetworkMembership**](NetworkMembership.md) | A list of resources that are members of this private network. | 
+**Status** | **string** | The status of the private network. Can have one of the following values: &#x60;BUSY&#x60; or &#x60;READY&#x60;. | 
 **CreatedOn** | **time.Time** | Date and time when this private network was created. | 
 
 ## Methods
 
 ### NewPrivateNetwork
 
-`func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, cidr string, servers []PrivateNetworkServer, memberships []NetworkMembership, createdOn time.Time, ) *PrivateNetwork`
+`func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, cidr string, servers []PrivateNetworkServer, memberships []NetworkMembership, status string, createdOn time.Time, ) *PrivateNetwork`
 
 NewPrivateNetwork instantiates a new PrivateNetwork object
 This constructor will assign default values to properties that have it defined,
@@ -238,6 +239,26 @@ and a boolean to check if the value has been set.
 `func (o *PrivateNetwork) SetMemberships(v []NetworkMembership)`
 
 SetMemberships sets Memberships field to given value.
+
+
+### GetStatus
+
+`func (o *PrivateNetwork) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *PrivateNetwork) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *PrivateNetwork) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
 
 
 ### GetCreatedOn

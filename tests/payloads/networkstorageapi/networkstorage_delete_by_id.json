@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "DELETE",
+    "path": "/network-storage/v1/storage-networks/{storageNetworkId}",
+    "pathParameters": {
+      "storageNetworkId": [
+        "50dc434c-9bba-427b-bcd6-0bdba45c4dd2"
+      ]
+    }
+  },
+  "response": {
+    "statusCode": 204
+  }
+}

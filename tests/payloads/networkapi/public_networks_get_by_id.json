@@ -16,6 +16,7 @@
       "location": "PHX",
       "description": "My first public network #1",
       "ipBlocks": [],
+      "status": "BUSY",
       "vlanId": 10,
       "createdOn": "2022-04-05T13:50:30.491Z",
       "memberships": []

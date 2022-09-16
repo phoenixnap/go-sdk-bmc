@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **StartDateTime** | **time.Time** | The point in time (in UTC) when usage has started. | 
 **EndDateTime** | **time.Time** | The point in time (in UTC) until usage has been rated. | 
 **Cost** | **int64** | The rated usage in cents. | 
+**CostDescription** | Pointer to **string** | The rated usage cost description. | [optional] 
 **PriceModel** | **string** | The price model applied to this usage record. | 
 **UnitPrice** | **float32** | The unit price. | 
 **UnitPriceDescription** | **string** | User friendly description of the unit price. | 
@@ -205,6 +206,31 @@ and a boolean to check if the value has been set.
 
 SetCost sets Cost field to given value.
 
+
+### GetCostDescription
+
+`func (o *BandwidthRecord) GetCostDescription() string`
+
+GetCostDescription returns the CostDescription field if non-nil, zero value otherwise.
+
+### GetCostDescriptionOk
+
+`func (o *BandwidthRecord) GetCostDescriptionOk() (*string, bool)`
+
+GetCostDescriptionOk returns a tuple with the CostDescription field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCostDescription
+
+`func (o *BandwidthRecord) SetCostDescription(v string)`
+
+SetCostDescription sets CostDescription field to given value.
+
+### HasCostDescription
+
+`func (o *BandwidthRecord) HasCostDescription() bool`
+
+HasCostDescription returns a boolean if a field has been set.
 
 ### GetPriceModel
 

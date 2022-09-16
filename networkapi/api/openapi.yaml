@@ -72,6 +72,7 @@ paths:
                   ips:
                   - 10.0.0.2
                   - 10.0.0.3
+                status: READY
                 createdOn: 2022-04-07T13:20:30.491Z
               - id: 604724ac9ed2abd18e9f1cb6
                 name: My Additional Backend Network
@@ -92,6 +93,7 @@ paths:
                   ips:
                   - 10.0.0.4
                   - 10.0.0.5
+                status: READY
                 createdOn: 2022-04-07T13:20:30.491Z
               schema:
                 items:
@@ -172,6 +174,7 @@ paths:
                     cidr: 10.0.0.0/24
                     servers: []
                     memberships: []
+                    status: READY
                     createdOn: 2022-04-07T13:20:30.491Z
                 PrivateNetworkNonDefaultCreated:
                   value:
@@ -185,6 +188,7 @@ paths:
                     cidr: 10.0.0.0/24
                     servers: []
                     memberships: []
+                    status: READY
                     createdOn: 2022-04-07T13:20:30.491Z
               schema:
                 $ref: '#/components/schemas/PrivateNetwork'
@@ -313,6 +317,7 @@ paths:
                       ips:
                       - 10.0.0.2
                       - 10.0.0.3
+                    status: READY
                     createdOn: 2022-04-07T13:20:30.491Z
                 AdditionalPrivateNetwork:
                   value:
@@ -335,6 +340,7 @@ paths:
                       ips:
                       - 10.0.0.4
                       - 10.0.0.5
+                    status: READY
                     createdOn: 2022-04-07T13:20:30.491Z
               schema:
                 $ref: '#/components/schemas/PrivateNetwork'
@@ -427,6 +433,7 @@ paths:
                       ips:
                       - 10.0.0.2
                       - 10.0.0.3
+                    status: READY
                     createdOn: 2022-04-07T13:20:30.491Z
                 PrivateNetworkNonDefaultModified:
                   value:
@@ -449,6 +456,7 @@ paths:
                       ips:
                       - 10.0.0.4
                       - 10.0.0.5
+                    status: READY
                     createdOn: 2022-04-07T13:20:30.491Z
               schema:
                 $ref: '#/components/schemas/PrivateNetwork'
@@ -532,6 +540,7 @@ paths:
                 - id: 613b51c01f4b04615ba1d3be
                 vlanId: 10
                 createdOn: 2022-04-05T13:50:30.491Z
+                status: READY
                 memberships:
                 - resourceId: 6128d3754b478b76ee8b3cdd
                   resourceType: server
@@ -549,6 +558,7 @@ paths:
                 description: "My second public network #2"
                 ipBlocks: []
                 vlanId: 11
+                status: READY
                 createdOn: 2022-04-05T13:50:30.491Z
                 memberships: []
               schema:
@@ -636,6 +646,7 @@ paths:
                     location: PHX
                     ipBlocks: []
                     vlanId: 10
+                    status: READY
                     createdOn: 2022-04-05T13:50:30.491Z
                     memberships: []
                 PublicNetworkOnlyWithoutIpBlocks:
@@ -646,6 +657,7 @@ paths:
                     description: "My first public network #1"
                     ipBlocks: []
                     vlanId: 10
+                    status: READY
                     createdOn: 2022-04-05T13:50:30.491Z
                     memberships: []
                 PublicNetworkWithAllParameters:
@@ -666,6 +678,7 @@ paths:
                     - id: 610001e7da283e36d0a0df9f
                     - id: 613b51c01f4b04615ba1d3be
                     vlanId: 10
+                    status: READY
                     createdOn: 2022-04-05T13:50:30.491Z
                     memberships: []
               schema:
@@ -795,6 +808,7 @@ paths:
                     location: PHX
                     ipBlocks: []
                     vlanId: 10
+                    status: READY
                     createdOn: 2022-04-05T13:50:30.491Z
                     memberships: []
                 PublicNetworkOnlyWithoutIpBlocks:
@@ -805,6 +819,7 @@ paths:
                     description: "My first public network #1"
                     ipBlocks: []
                     vlanId: 10
+                    status: READY
                     createdOn: 2022-04-05T13:50:30.491Z
                     memberships: []
                 PublicNetworkWithIpBlocks:
@@ -825,6 +840,7 @@ paths:
                     - id: 610001e7da283e36d0a0df9f
                     - id: 613b51c01f4b04615ba1d3be
                     vlanId: 10
+                    status: READY
                     createdOn: 2022-04-05T13:50:30.491Z
                     memberships: []
                 PublicNetworkWithIpBlocksAndServers:
@@ -845,6 +861,7 @@ paths:
                     - id: 610001e7da283e36d0a0df9f
                     - id: 613b51c01f4b04615ba1d3be
                     vlanId: 10
+                    status: READY
                     createdOn: 2022-04-05T13:50:30.491Z
                     memberships:
                     - resourceId: 6128d3754b478b76ee8b3cdd
@@ -927,6 +944,7 @@ paths:
                 description: The new description of my public network
                 ipBlocks: []
                 vlanId: 10
+                status: READY
                 createdOn: 2022-04-05T13:50:30.491Z
                 memberships: []
               schema:
@@ -1227,6 +1245,7 @@ components:
           - 10.111.14.105
           - 10.111.14.106
           resourceType: server
+        status: READY
       properties:
         id:
           description: The private network identifier.
@@ -1274,6 +1293,11 @@ components:
           items:
             $ref: '#/components/schemas/NetworkMembership'
           type: array
+        status:
+          description: "The status of the private network. Can have one of the following\
+            \ values: `BUSY` or `READY`."
+          example: READY
+          type: string
         createdOn:
           description: Date and time when this private network was created.
           example: 2022-04-07T13:30:30.491Z
@@ -1288,6 +1312,7 @@ components:
       - memberships
       - name
       - servers
+      - status
       - type
       - vlanId
       type: object
@@ -1410,6 +1435,7 @@ components:
           - 10.111.14.105
           - 10.111.14.106
           resourceType: server
+        status: READY
       properties:
         id:
           description: The public network identifier.
@@ -1440,6 +1466,11 @@ components:
           example: Further details on the network.
           maxLength: 250
           type: string
+        status:
+          description: "The status of the public network. Can have one of the following\
+            \ values: `BUSY` or `READY`."
+          example: READY
+          type: string
         createdOn:
           description: Date and time when this public network was created.
           example: 2022-04-05T13:50:30.491Z
@@ -1457,6 +1488,7 @@ components:
       - location
       - memberships
       - name
+      - status
       - vlanId
       type: object
     PublicNetworkIpBlock:

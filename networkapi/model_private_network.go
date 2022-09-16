@@ -38,6 +38,8 @@ type PrivateNetwork struct {
 	Servers []PrivateNetworkServer `json:"servers"`
 	// A list of resources that are members of this private network.
 	Memberships []NetworkMembership `json:"memberships"`
+	// The status of the private network. Can have one of the following values: `BUSY` or `READY`.
+	Status string `json:"status"`
 	// Date and time when this private network was created.
 	CreatedOn time.Time `json:"createdOn"`
 }
@@ -46,7 +48,7 @@ type PrivateNetwork struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, cidr string, servers []PrivateNetworkServer, memberships []NetworkMembership, createdOn time.Time) *PrivateNetwork {
+func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, cidr string, servers []PrivateNetworkServer, memberships []NetworkMembership, status string, createdOn time.Time) *PrivateNetwork {
 	this := PrivateNetwork{}
 	this.Id = id
 	this.Name = name
@@ -57,6 +59,7 @@ func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, locat
 	this.Cidr = cidr
 	this.Servers = servers
 	this.Memberships = memberships
+	this.Status = status
 	this.CreatedOn = createdOn
 	return &this
 }
@@ -320,6 +323,30 @@ func (o *PrivateNetwork) SetMemberships(v []NetworkMembership) {
 	o.Memberships = v
 }
 
+// GetStatus returns the Status field value
+func (o *PrivateNetwork) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *PrivateNetwork) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *PrivateNetwork) SetStatus(v string) {
+	o.Status = v
+}
+
 // GetCreatedOn returns the CreatedOn field value
 func (o *PrivateNetwork) GetCreatedOn() time.Time {
 	if o == nil {
@@ -375,6 +402,9 @@ func (o PrivateNetwork) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["memberships"] = o.Memberships
+	}
+	if true {
+		toSerialize["status"] = o.Status
 	}
 	if true {
 		toSerialize["createdOn"] = o.CreatedOn

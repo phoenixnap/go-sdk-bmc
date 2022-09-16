@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Description** | **string** | The Quota description. | 
 **Status** | **string** | The status of the quota resource usage. | 
 **Limit** | **int32** | The limit set for the quota. | 
-**Unit** | **string** | An enum field describing what the limit is measured in. | 
+**Unit** | **string** | Unit of the quota type. Supported values are &#39;COUNT&#39; and &#39;GB&#39;. | 
 **Used** | **int32** | The quota used expressed as a number. | 
 **QuotaEditLimitRequestDetails** | [**[]QuotaEditLimitRequestDetails**](QuotaEditLimitRequestDetails.md) |  | [readonly] 
 

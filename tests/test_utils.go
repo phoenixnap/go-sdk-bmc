@@ -115,9 +115,19 @@ func (t TestUtilsImpl) verifyExpectationMatchedTimes(expectationId string, times
 
 }
 
+var executed = false
+
 func (t TestUtilsImpl) resetExpectations() {
 
-	req, err := http.NewRequest(http.MethodPut, "http://localhost:1080/mockserver/reset", http.NoBody)
+	var req *http.Request
+	var err error
+
+	if !executed {
+		req, err = http.NewRequest(http.MethodPut, "http://localhost:1080/mockserver/reset", http.NoBody)
+		executed = true
+	} else {
+		req, err = http.NewRequest(http.MethodPut, "http://localhost:1080/mockserver/clear", http.NoBody)
+	}
 
 	if err != nil {
 		log.Fatal(err)

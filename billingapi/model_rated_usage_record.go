@@ -33,6 +33,8 @@ type RatedUsageRecord struct {
 	EndDateTime time.Time `json:"endDateTime"`
 	// The rated usage in cents.
 	Cost int64 `json:"cost"`
+	// The rated usage cost description.
+	CostDescription *string `json:"costDescription,omitempty"`
 	// The price model applied to this usage record.
 	PriceModel string `json:"priceModel"`
 	// The unit price.
@@ -282,6 +284,38 @@ func (o *RatedUsageRecord) SetCost(v int64) {
 	o.Cost = v
 }
 
+// GetCostDescription returns the CostDescription field value if set, zero value otherwise.
+func (o *RatedUsageRecord) GetCostDescription() string {
+	if o == nil || o.CostDescription == nil {
+		var ret string
+		return ret
+	}
+	return *o.CostDescription
+}
+
+// GetCostDescriptionOk returns a tuple with the CostDescription field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RatedUsageRecord) GetCostDescriptionOk() (*string, bool) {
+	if o == nil || o.CostDescription == nil {
+		return nil, false
+	}
+	return o.CostDescription, true
+}
+
+// HasCostDescription returns a boolean if a field has been set.
+func (o *RatedUsageRecord) HasCostDescription() bool {
+	if o != nil && o.CostDescription != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCostDescription gets a reference to the given string and assigns it to the CostDescription field.
+func (o *RatedUsageRecord) SetCostDescription(v string) {
+	o.CostDescription = &v
+}
+
 // GetPriceModel returns the PriceModel field value
 func (o *RatedUsageRecord) GetPriceModel() string {
 	if o == nil {
@@ -507,6 +541,9 @@ func (o RatedUsageRecord) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["cost"] = o.Cost
+	}
+	if o.CostDescription != nil {
+		toSerialize["costDescription"] = o.CostDescription
 	}
 	if true {
 		toSerialize["priceModel"] = o.PriceModel

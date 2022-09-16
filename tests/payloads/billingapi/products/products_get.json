@@ -35,7 +35,19 @@
         {
           "productCode" : "d1.tiny",
           "productCategory" : "SERVER",
-          "plans" : [],
+          "plans" : [
+            {
+              "sku": "xxx-xxx-xxx",
+              "skuDescription": "skuDescription",
+              "location": "PHX",
+              "pricingModel": "HOURLY",
+              "price": 1,
+              "priceUnit": "HOUR",
+              "correlatedProductCode": "d1.tiny",
+              "packageQuantity": 1,
+              "packageUnit": "GB"
+            }
+          ],
           "metadata" : {
             "ramInGb" : 10,
             "cpu" : "intel",

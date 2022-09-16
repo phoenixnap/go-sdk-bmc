@@ -495,7 +495,9 @@ paths:
       description: Adds an IP block to this server. <b>No actual configuration is
         performed on the operating system.</b> BMC configures exclusively the networking
         devices in the datacenter infrastructure. Manual network configuration changes
-        in the operating system of this server are required.
+        in the operating system of this server are required. Knowledge base article
+        to help you can be found <a href='https://phoenixnap.com/kb/configure-server-with-public-ip-block#ftoc-heading-2'
+        target='_blank'>here</a>.
       operationId: serversServerIdIpBlocksPost
       parameters:
       - description: The server's ID.
@@ -652,7 +654,12 @@ paths:
       - Servers
   /servers/{serverId}/network-configuration/private-network-configuration/private-networks:
     post:
-      description: Adds the server to a private network.
+      description: Adds the server to a private network. <b>No actual configuration
+        is performed on the operating system.</b> BMC configures exclusively the networking
+        devices in the datacenter infrastructure. Manual network configuration changes
+        in the operating system of this server are required. Knowledge base article
+        to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3'
+        target='_blank'>here</a>.
       operationId: serversServerIdPrivateNetworksPost
       parameters:
       - description: The server's ID.
@@ -805,7 +812,9 @@ paths:
       description: Adds the server to a Public Network. <b>No actual configuration
         is performed on the operating system.</b> BMC configures exclusively the networking
         devices in the datacenter infrastructure. Manual network configuration changes
-        in the operating system of this server are required.
+        in the operating system of this server are required. Knowledge base article
+        to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3'
+        target='_blank'>here</a>.
       operationId: serversServerIdPublicNetworksPost
       parameters:
       - description: The server's ID.
@@ -2181,7 +2190,7 @@ components:
           type: array
       type: object
     ServerIpBlock:
-      description: IP block ID assigned to server
+      description: IP block assigned to server
       example:
         vlanId: 10
         id: 60473a6115e34466c9f8f083
@@ -2439,8 +2448,8 @@ components:
         os:
           description: "The server’s OS ID used when the server was created. Currently\
             \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
-            \ `centos/centos7`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2`,\
-            \ `debian/bullseye` or `proxmox/bullseye`."
+            \ `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`,\
+            \ `esxi/esxi70u2`, `debian/bullseye` or `proxmox/bullseye`."
           example: ubuntu/bionic
           type: string
         type:
@@ -2451,9 +2460,10 @@ components:
             \ `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`,\
             \ `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`,\
             \ `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`,\
-            \ `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c3.medium`,\
-            \ `d2.c4.medium`, `d2.c5.medium`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`,\
-            \ `d2.m2.medium`, `d2.m2.large` or `d2.m2.xlarge`."
+            \ `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`,\
+            \ `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`,\
+            \ `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`,\
+            \ `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge` or `d2.c4.storage.pliops1`."
           example: s1.c1.small
           type: string
         location:
@@ -2687,8 +2697,8 @@ components:
         os:
           description: "The server’s OS ID used when the server was created. Currently\
             \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
-            \ `centos/centos7`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2`,\
-            \ `debian/bullseye` or `proxmox/bullseye`."
+            \ `centos/centos7`,`centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`,\
+            \ `esxi/esxi70u2`, `debian/bullseye` or `proxmox/bullseye`."
           example: ubuntu/bionic
           type: string
         type:
@@ -2699,9 +2709,10 @@ components:
             \ `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`,\
             \ `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`,\
             \ `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`,\
-            \ `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c3.medium`,\
-            \ `d2.c4.medium`, `d2.c5.medium`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`,\
-            \ `d2.m2.medium`, `d2.m2.large` or `d2.m2.xlarge`."
+            \ `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`,\
+            \ `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`,\
+            \ `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`,\
+            \ `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge` or `d2.c4.storage.pliops1`."
           example: s1.c1.small
           type: string
         location:
@@ -2757,7 +2768,8 @@ components:
         osConfiguration:
           $ref: '#/components/schemas/OsConfiguration'
         tags:
-          description: "Tags to set to server, if any."
+          description: "Tags to set to the server. To create a new tag or list all\
+            \ the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview)."
           items:
             $ref: '#/components/schemas/TagAssignmentRequest'
           type: array
@@ -3164,9 +3176,8 @@ components:
           minimum: 0
           type: integer
         unit:
-          description: An enum field describing what the limit is measured in.
-          enum:
-          - COUNT
+          description: Unit of the quota type. Supported values are 'COUNT' and 'GB'.
+          example: COUNT
           type: string
         used:
           description: The quota used expressed as a number.
