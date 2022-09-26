@@ -4,7 +4,7 @@ Create, list, edit, and delete storage networks with the Network Storage API. Us
 <br>
 <span class='pnap-api-knowledge-base-link'>
 Knowledge base articles to help you can be found
-<a href='https://phoenixnap.com/kb/bare-metal-cloud-storage' target='_blank'>here</a>
+<a href='' target='_blank'>here</a>
 </span>
 <br>
 <b>All URLs are relative to (https://api.phoenixnap.com/network-storage/v1/)</b>

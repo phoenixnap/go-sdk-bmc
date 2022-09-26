@@ -654,14 +654,12 @@ paths:
       - Servers
   /servers/{serverId}/network-configuration/private-network-configuration/private-networks:
     post:
-      description: "Adds the server to a private network. <b>No actual configuration\
-        \ is performed on the operating system.</b> BMC configures exclusively the\
-        \ networking devices in the datacenter infrastructure. Manual network configuration\
-        \ changes in the operating system of this server are required. If the network\
-        \ contains a membership of type 'storage', the first twelve IPs are already\
-        \ reserved by BMC and not usable. These will return a Bad Request (400) if\
-        \ selected. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3'\
-        \ target='_blank'>here</a>."
+      description: Adds the server to a private network. <b>No actual configuration
+        is performed on the operating system.</b> BMC configures exclusively the networking
+        devices in the datacenter infrastructure. Manual network configuration changes
+        in the operating system of this server are required. Knowledge base article
+        to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3'
+        target='_blank'>here</a>.
       operationId: serversServerIdPrivateNetworksPost
       parameters:
       - description: The server's ID.
@@ -2061,7 +2059,6 @@ components:
       description: OS specific configuration properties.
       example:
         managementUiUrl: https://172.217.22.14
-        installOsToRam: false
         windows:
           rdpAllowedIps:
           - 172.217.22.14
@@ -2100,12 +2097,6 @@ components:
             type: string
           minItems: 1
           type: array
-        installOsToRam:
-          default: false
-          description: "If true, OS will be installed to and booted from the server's\
-            \ RAM. On restart RAM OS will be lost and the server will not be reachable\
-            \ unless a custom bootable OS has been deployed. Only supported for ubuntu/focal."
-          type: boolean
       type: object
     ServerPrivateNetwork:
       description: Private network details of bare metal server.
@@ -2122,10 +2113,8 @@ components:
           example: 603f3b2cfcaf050643b89a4b
           type: string
         ips:
-          description: "IPs to configure/configured on the server. Should be null\
-            \ or empty list if DHCP is true. If the network contains a membership\
-            \ of type 'storage', the first twelve IPs are already reserved by BMC\
-            \ and not usable. These will return a Bad Request (400) if selected."
+          description: IPs to configure/configured on the server. Should be null or
+            empty list if DHCP is true.
           example:
           - 10.1.1.1
           - 10.1.1.2
@@ -2366,7 +2355,6 @@ components:
         os: ubuntu/bionic
         osConfiguration:
           managementUiUrl: https://172.217.22.14
-          installOsToRam: false
           windows:
             rdpAllowedIps:
             - 172.217.22.14
@@ -2635,7 +2623,6 @@ components:
         os: ubuntu/bionic
         osConfiguration:
           managementUiUrl: https://172.217.22.14
-          installOsToRam: false
           windows:
             rdpAllowedIps:
             - 172.217.22.14

@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **RootPassword** | Pointer to **string** | Password set for user root on an ESXi server which will only be returned in response to provisioning a server. | [optional] [readonly] 
 **ManagementUiUrl** | Pointer to **string** | The URL of the management UI which will only be returned in response to provisioning a server. | [optional] [readonly] 
 **ManagementAccessAllowedIps** | Pointer to **[]string** | List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server. | [optional] 
-**InstallOsToRam** | Pointer to **bool** | If true, OS will be installed to and booted from the server&#39;s RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Only supported for ubuntu/focal. | [optional] [default to false]
 
 ## Methods
 
@@ -128,31 +127,6 @@ SetManagementAccessAllowedIps sets ManagementAccessAllowedIps field to given val
 `func (o *OsConfiguration) HasManagementAccessAllowedIps() bool`
 
 HasManagementAccessAllowedIps returns a boolean if a field has been set.
-
-### GetInstallOsToRam
-
-`func (o *OsConfiguration) GetInstallOsToRam() bool`
-
-GetInstallOsToRam returns the InstallOsToRam field if non-nil, zero value otherwise.
-
-### GetInstallOsToRamOk
-
-`func (o *OsConfiguration) GetInstallOsToRamOk() (*bool, bool)`
-
-GetInstallOsToRamOk returns a tuple with the InstallOsToRam field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetInstallOsToRam
-
-`func (o *OsConfiguration) SetInstallOsToRam(v bool)`
-
-SetInstallOsToRam sets InstallOsToRam field to given value.
-
-### HasInstallOsToRam
-
-`func (o *OsConfiguration) HasInstallOsToRam() bool`
-
-HasInstallOsToRam returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
