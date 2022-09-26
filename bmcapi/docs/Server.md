@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **Ram** | **string** | A description of the machine RAM. | 
 **Storage** | **string** | A description of the machine storage. | 
 **PrivateIpAddresses** | **[]string** | Private IP addresses assigned to server. | 
-**PublicIpAddresses** | **[]string** | Public IP addresses assigned to server. | 
+**PublicIpAddresses** | Pointer to **[]string** | Public IP addresses assigned to server. | [optional] 
 **ReservationId** | Pointer to **string** | The reservation reference id if any. | [optional] 
 **PricingModel** | **string** | The pricing model this server is being billed. Currently this field should be set to &#x60;HOURLY&#x60;, &#x60;ONE_MONTH_RESERVATION&#x60;, &#x60;TWELVE_MONTHS_RESERVATION&#x60;, &#x60;TWENTY_FOUR_MONTHS_RESERVATION&#x60; or &#x60;THIRTY_SIX_MONTHS_RESERVATION&#x60;. | [default to "HOURLY"]
 **Password** | Pointer to **string** | Password set for user Admin on Windows server or user root on ESXi server which will only be returned in response to provisioning a server. | [optional] 
@@ -33,7 +33,7 @@ Name | Type | Description | Notes
 
 ### NewServer
 
-`func NewServer(id string, status string, hostname string, os string, type_ string, location string, cpu string, cpuCount int32, coresPerCpu int32, cpuFrequency float32, ram string, storage string, privateIpAddresses []string, publicIpAddresses []string, pricingModel string, networkConfiguration NetworkConfiguration, ) *Server`
+`func NewServer(id string, status string, hostname string, os string, type_ string, location string, cpu string, cpuCount int32, coresPerCpu int32, cpuFrequency float32, ram string, storage string, privateIpAddresses []string, pricingModel string, networkConfiguration NetworkConfiguration, ) *Server`
 
 NewServer instantiates a new Server object
 This constructor will assign default values to properties that have it defined,
@@ -352,6 +352,11 @@ and a boolean to check if the value has been set.
 
 SetPublicIpAddresses sets PublicIpAddresses field to given value.
 
+### HasPublicIpAddresses
+
+`func (o *Server) HasPublicIpAddresses() bool`
+
+HasPublicIpAddresses returns a boolean if a field has been set.
 
 ### GetReservationId
 

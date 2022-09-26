@@ -2530,7 +2530,7 @@ components:
           items:
             example: 182.16.0.1
             type: string
-          minItems: 1
+          minItems: 0
           type: array
         reservationId:
           description: The reservation reference id if any.
@@ -2585,7 +2585,6 @@ components:
       - os
       - pricingModel
       - privateIpAddresses
-      - publicIpAddresses
       - ram
       - status
       - storage

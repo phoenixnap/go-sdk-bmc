@@ -126,6 +126,34 @@ paths:
                   $ref: '#/components/schemas/Event'
                 type: array
           description: The truncated list of events recorded.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
       security:
       - OAuth2:
         - audit.read
@@ -133,7 +161,59 @@ paths:
       tags:
       - Events
 components:
+  responses:
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed due to wrong data. Please check the provided
+        parameters and try again.
+    Unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed due to invalid credentials. Please check the
+        provided credentials and try again.
+    Forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed since this resource cannot be accessed by the
+        provided credentials.
+    InternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server encountered an unexpected condition that prevented it
+        from fulfilling the request.
   schemas:
+    UserInfo:
+      description: Details related to the user / application performing this request
+      example:
+        accountId: 1234dfgdsf
+        clientId: e9d335b1-3aa4-4760-9bad-2595c0449035
+        username: johnd@phoenixnap.com
+      properties:
+        accountId:
+          description: The BMC account ID
+          example: 1234dfgdsf
+          type: string
+        clientId:
+          description: The client ID of the application
+          example: e9d335b1-3aa4-4760-9bad-2595c0449035
+          type: string
+        username:
+          description: The logged in user or owner of the client application
+          example: johnd@phoenixnap.com
+          type: string
+      required:
+      - accountId
+      - username
+      type: object
     Event:
       description: The event log.
       example:
@@ -158,90 +238,20 @@ components:
       - timestamp
       - userInfo
       type: object
-    Request:
-      description: The request sent by the user / application.
+    Error:
       properties:
-        headers:
-          $ref: '#/components/schemas/Headers'
-        uri:
-          description: The request URI.
-          example: /v1/servers/jghf757HGhjghg
+        message:
+          description: The description detailing the cause of the error code.
+          readOnly: true
           type: string
-        verb:
-          description: The HTTP request verb.
-          enum:
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-          example: PATCH
-          type: string
+        validationErrors:
+          description: "Validation errors, if any."
+          items:
+            type: string
+          readOnly: true
+          type: array
       required:
-      - headers
-      - uri
-      - verb
-      type: object
-    ApiAction:
-      allOf:
-      - $ref: '#/components/schemas/Event'
-      - $ref: '#/components/schemas/ApiAction_allOf'
-    Response:
-      description: The response returned from the API.
-      properties:
-        statusCode:
-          description: The status code returned in the response sent to the API.
-          example: 200
-          type: integer
-        resourceId:
-          description: The ID of the resource that was created.
-          example: 5edf1c9b4215748ac543d721
-          type: string
-      required:
-      - statusCode
-      type: object
-    UserInfo:
-      description: Details related to the user / application performing this request
-      example:
-        accountId: 1234dfgdsf
-        clientId: e9d335b1-3aa4-4760-9bad-2595c0449035
-        username: johnd@phoenixnap.com
-      properties:
-        accountId:
-          description: The BMC account ID
-          example: 1234dfgdsf
-          type: string
-        clientId:
-          description: The client ID of the application
-          example: e9d335b1-3aa4-4760-9bad-2595c0449035
-          type: string
-        username:
-          description: The logged in user or owner of the client application
-          example: johnd@phoenixnap.com
-          type: string
-      required:
-      - accountId
-      - username
-      type: object
-    Headers:
-      description: The headers received as part of this request.
-      properties:
-        userAgent:
-          description: The UA String
-          example: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,\
-            \ like Gecko) Chrome/90.0.4430.93 Safari/537.36"
-          type: string
-      required:
-      - userAgent
-      type: object
-    ApiAction_allOf:
-      properties:
-        response:
-          $ref: '#/components/schemas/Response'
-        request:
-          $ref: '#/components/schemas/Request'
-      required:
-      - request
-      - response
+      - message
       type: object
   securitySchemes:
     OAuth2:

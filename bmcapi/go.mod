@@ -1,4 +1,4 @@
-module github.com/phoenixnap/go-sdk-bmc/bmcapi/v2
+module github.com/phoenixnap/go-sdk-bmc/bmcapi
 
 go 1.17
 

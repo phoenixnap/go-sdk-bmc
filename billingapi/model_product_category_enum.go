@@ -23,16 +23,18 @@ type ProductCategoryEnum string
 const (
 	SERVER           ProductCategoryEnum = "SERVER"
 	BANDWIDTH        ProductCategoryEnum = "BANDWIDTH"
-	OPERATING_SYSTEM ProductCategoryEnum = "OPERATING-SYSTEM"
+	OPERATING_SYSTEM ProductCategoryEnum = "OPERATING_SYSTEM"
 	PUBLIC_IP        ProductCategoryEnum = "PUBLIC_IP"
+	STORAGE          ProductCategoryEnum = "STORAGE"
 )
 
 // All allowed values of ProductCategoryEnum enum
 var AllowedProductCategoryEnumEnumValues = []ProductCategoryEnum{
 	"SERVER",
 	"BANDWIDTH",
-	"OPERATING-SYSTEM",
+	"OPERATING_SYSTEM",
 	"PUBLIC_IP",
+	"STORAGE",
 }
 
 func (v *ProductCategoryEnum) UnmarshalJSON(src []byte) error {
