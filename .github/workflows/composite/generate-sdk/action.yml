@@ -31,7 +31,7 @@ runs:
     - name: Download spec files
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       shell: bash
-      run: wget ${{ inputs.spec-link }} -O ./${{ inputs.package-name }}/api-spec.yaml
+      run: wget ${{ inputs.spec-link }} -O ./${{ inputs.package-name }}/${{ inputs.package-name }}.spec.yaml
     - name: Setup Go
       uses: actions/setup-go@v3
       with:
