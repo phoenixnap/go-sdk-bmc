@@ -42,7 +42,13 @@ runs:
     - name: Fix imports
       shell: bash
       run: cd ${{ inputs.package-name }} && goimports -w .
-    - name: Upload Artifacts
+    - name: Upload spec artifact
+      if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: ./specs/${{ inputs.package-name }}.yaml
+        path: ./specs/${{ inputs.package-name }}.yaml
+    - name: Upload SDK Artifacts
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       uses: actions/upload-artifact@v2
       with:
