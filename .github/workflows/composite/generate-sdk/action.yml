@@ -28,6 +28,10 @@ runs:
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       shell: bash
       run: openapi-generator-cli generate -i ${{ inputs.spec-link }} -c openapi-generator-config.yaml -o ${{ inputs.package-name }} --additional-properties packageName=${{ inputs.package-name }}
+    - name: Download spec files
+      if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
+      shell: bash
+      run: wget ${{ inputs.spec-link }} -O ./specs/${{ inputs.package-name }}.yaml
     - name: Setup Go
       uses: actions/setup-go@v3
       with:
