@@ -1,0 +1,611 @@
+openapi: 3.0.3
+info:
+  title: Rancher Solution API
+  description: >
+    Simplify enterprise-grade Kubernetes cluster operations and management with
+    Rancher on Bare Metal Cloud.
+
+    Deploy Kubernetes clusters using a few API calls.<br>
+
+    <br>
+
+    <span class='pnap-api-knowledge-base-link'>
+
+    Knowledge base articles to help you can be found
+
+    <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes'
+    target='_blank'>here</a>
+
+    </span><br>
+
+    <br>
+
+    <b>All URLs are relative to
+    (https://api.phoenixnap.com/solutions/rancher/v1beta)</b>
+  termsOfService: >-
+    https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
+  version: '0.1'
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+  contact:
+    name: PhoenixNAP Team
+    email: support@phoenixnap.com
+    url: 'https://phoenixnap.com/'
+security:
+  - OAuth2:
+      - bmc
+      - bmc.read
+servers:
+  - url: 'https://api.phoenixnap.com/solutions/rancher/v1beta'
+tags:
+  - name: Clusters
+    description: Cluster operations
+paths:
+  /clusters:
+    post:
+      tags:
+        - Clusters
+      description: >
+        Create a Rancher Server Deployment as described in <a
+        href='https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture'
+        target='_blank'>Rancher Docs Architecture</a>. Rancher Server allows the
+        creation, import and management of multiple Downstream User Kubernetes
+        Clusters.
+
+        <b>This is not a Downstream User Cluster</b>. Knowledge base article to
+        help you can be found <a
+        href='https://phoenixnap.com/kb/bmc-rancher-workload-cluster#ftoc-heading-5'
+        target='_blank'>here</a>.
+      summary: Create a Rancher Server Deployment.
+      security:
+        - OAuth2:
+            - bmc
+      operationId: clustersPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cluster'
+            examples:
+              Location:
+                value:
+                  location: PHX
+              NameDescriptionLocation:
+                value:
+                  name: Rancher Deployment
+                  description: >-
+                    A Rancher Server deployment. Sane defaults for all
+                    configuration options are applied.
+                  location: PHX
+              LocationNodePools:
+                value:
+                  name: Rancher Deployment
+                  description: >-
+                    A Rancher Server deployment with specific location and
+                    server type.
+                  location: ASH
+                  nodePools:
+                    - serverType: s1.c1.medium
+                      sshConfig:
+                        installDefaultKeys: false
+                        keys:
+                          - >-
+                            ssh-rsa
+                            AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+                            userOne
+                          - >-
+                            ssh-rsa
+                            AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+                            userTwo
+              AdvancedRancherConfig:
+                value:
+                  name: Rancher Deployment
+                  description: >-
+                    A Rancher Server deployment. Advanced configurations
+                    parameters are used.
+                  location: ASH
+                  configuration:
+                    token: gS7SnDnY5st0ryJxMXA7
+                    tlsSan: mydomain.com
+                    nodeTaint: 'CriticalAddonsOnly=true:NoExecute'
+              WorkloadClusterConfig:
+                value:
+                  name: Rancher cluster deployment
+                  description: Deployment of both management and workload clusters.
+                  location: ASH
+                  nodePools:
+                    - serverType: s1.c1.medium
+                      sshConfig:
+                        installDefaultKeys: false
+                        keys:
+                          - >-
+                            ssh-rsa
+                            AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+                            userOne
+                          - >-
+                            ssh-rsa
+                            AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+                            userTwo
+                  workloadConfiguration:
+                    name: Workload cluster
+                    location: PHX
+                    serverCount: 3
+                    serverType: s0.d1.small
+      responses:
+        '201':
+          description: Cluster is being created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cluster'
+              example:
+                id: 60a773b89fd9035858ce8902
+                name: Rancher Deployment
+                description: A Rancher Server deployment.
+                location: PHX
+                initialClusterVersion: v2.5.9
+                metadata:
+                  url: 'https://rancher'
+                  username: admin
+                  password: 1234567890abcd!
+                nodePools:
+                  - name: Rancher Server Node Pool
+                    nodeCount: 1
+                    serverType: s0.d1.small
+                    nodes:
+                      - serverId: 60b08f04adab617be44068bb
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    get:
+      tags:
+        - Clusters
+      description: Cluster list.
+      summary: Cluster list.
+      security:
+        - OAuth2:
+            - bmc.read
+      operationId: clustersGet
+      responses:
+        '200':
+          description: Cluster list.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cluster'
+              examples:
+                SampleList:
+                  value:
+                    - id: 60a773b89fd9035858ce8902
+                      name: Rancher Deployment
+                      description: A Rancher Server deployment in Phoenix.
+                      location: PHX
+                      initialClusterVersion: v2.5.9
+                      nodePools:
+                        - name: Rancher Server Node Pool
+                          nodeCount: 1
+                          serverType: s0.d1.small
+                          nodes:
+                            - serverId: 60b08f04adab617be44068bb
+                    - id: 60b0901020e265e2245aaead
+                      name: Rancher Deployment
+                      description: A Rancher Server deployment in Ashburn.
+                      location: ASH
+                      initialClusterVersion: v2.5.9
+                      nodePools:
+                        - name: Rancher Server Node Pool
+                          nodeCount: 1
+                          serverType: s0.d1.small
+                          nodes:
+                            - serverId: 60b090093f1b23d1d8726c0f
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  '/clusters/{id}':
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: The Cluster identifier.
+        example: '123'
+    get:
+      tags:
+        - Clusters
+      description: Retrieve a Cluster
+      summary: Retrieve a Cluster
+      security:
+        - OAuth2:
+            - bmc.read
+      operationId: clustersIdGet
+      responses:
+        '200':
+          description: Cluster details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cluster'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      tags:
+        - Clusters
+      description: Delete a cluster.
+      summary: Delete a cluster.
+      security:
+        - OAuth2:
+            - bmc
+      operationId: clustersIdDelete
+      responses:
+        '200':
+          description: Cluster is being deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: >-
+            https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
+          scopes:
+            bmc: Grants full access to bmc-api.
+            bmc.read: Grants read only access to bmc-api.
+  schemas:
+    Cluster:
+      type: object
+      description: Cluster details.
+      properties:
+        id:
+          description: (Read-only) The Cluster identifier.
+          type: string
+          readOnly: true
+          example: 6047127fed34ecc3ba8402d2
+        name:
+          description: Cluster name. This field is autogenerated if not provided.
+          type: string
+          example: Rancher Management Cluster
+        description:
+          description: Cluster description.
+          type: string
+          example: My first Rancher Server Cluster.
+        location:
+          description: >-
+            Deployment location. Cannot be changed once a cluster is created.
+            Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`,
+            `CHI`, `SEA` or `AUS`.
+          type: string
+          example: PHX
+        initialClusterVersion:
+          description: >-
+            (Read-only) The Rancher version that was installed on the cluster
+            during the first creation process.
+          type: string
+          readOnly: true
+          example: v2.5.9
+        nodePools:
+          description: The node pools associated with the cluster.
+          type: array
+          items:
+            $ref: '#/components/schemas/NodePool'
+          minItems: 1
+          maxItems: 1
+        configuration:
+          writeOnly: true
+          allOf:
+            - $ref: '#/components/schemas/RancherClusterConfig'
+        metadata:
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/RancherServerMetadata'
+        workloadConfiguration:
+          writeOnly: true
+          allOf:
+            - $ref: '#/components/schemas/WorkloadClusterConfig'
+        statusDescription:
+          readOnly: true
+          description: The cluster status
+          type: string
+          example: Creating
+      required:
+        - location
+    NodePool:
+      type: object
+      description: >-
+        Node Pool Configuration. A node pool contains the name and configuration
+        for a cluster's node pool. Node pools are set of nodes with a common
+        configuration and specification.
+      properties:
+        name:
+          description: The name of the node pool.
+          type: string
+          example: Rancher Server node pool.
+        nodeCount:
+          description: >-
+            Number of configured nodes, currently only node counts of 1 and 3
+            are possible.
+          type: integer
+        serverType:
+          description: >-
+            Node server type. Cannot be changed once a server is created.
+            Currently this field should be set to either `s0.d1.small`,
+            `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`,
+            `s1.c2.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`,
+            `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `s1.e1.small`,
+            `s1.e1.medium`, `s1.e1.large`.
+          type: string
+          default: s0.d1.small
+          example: s0.d1.small
+        sshConfig:
+          writeOnly: true
+          allOf:
+            - $ref: '#/components/schemas/SshConfig'
+        nodes:
+          description: (Read-only) The nodes associated with this node pool.
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Node'
+    Node:
+      type: object
+      description: Node details.
+      properties:
+        serverId:
+          description: The server identifier.
+          type: string
+          example: 60b08f04adab617be44068bb
+    RancherClusterConfig:
+      type: object
+      description: (Write-only) Rancher configuration parameters.
+      properties:
+        token:
+          description: Shared secret used to join a server or agent to a cluster.
+          type: string
+          example: gS7SnDnY5st0ryJxMXA7
+        tlsSan:
+          description: >-
+            This maps to ranchers `tls-san`. Add additional hostname or IP as a
+            Subject Alternative Name in the TLS cert.
+          type: string
+          example: mydomain.com
+        etcdSnapshotScheduleCron:
+          description: >-
+            This maps to ranchers `etcd-snapshot-schedule-cron`. Snapshot
+            interval time in cron spec. eg. every 5 hours ‘0 */5 * * *’.
+            Default: at 12 am/pm
+          type: string
+          default: '0 0,12 * * *'
+          example: '0 0,12 * * *'
+        etcdSnapshotRetention:
+          description: >-
+            This maps to ranchers `etcd-snapshot-retention`. Number of snapshots
+            to retain.
+          type: integer
+          default: 5
+          example: 5
+        nodeTaint:
+          description: >-
+            This maps to ranchers `node-taint`. Registering kubelet with set of
+            taints. By default, server nodes will be schedulable and thus your
+            workloads can get launched on them. If you wish to have a dedicated
+            control plane where no user workloads will run, you can use taints.
+          type: string
+          example: 'CriticalAddonsOnly=true:NoExecute'
+        clusterDomain:
+          description: This maps to ranchers `cluster-domain`. Cluster Domain.
+          type: string
+          example: cluster.local
+        certificates:
+          writeOnly: true
+          allOf:
+            - $ref: '#/components/schemas/RancherClusterCertificates'
+    WorkloadClusterConfig:
+      type: object
+      description: (Write-only) Workload cluster configuration parameters.
+      writeOnly: true
+      required:
+        - serverType
+        - location
+      properties:
+        name:
+          description: >-
+            The name of the workload cluster. This field is autogenerated if not
+            provided.
+          type: string
+          example: Workload CLuster
+        serverCount:
+          description: >-
+            Number of configured servers. Currently only server counts of 1 and
+            3 are possible.
+          type: integer
+          default: 1
+          example: 3
+        serverType:
+          description: >-
+            Node server type. Cannot be changed once the cluster is created.
+            Currently this field should be set to either `s0.d1.small`,
+            `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`,
+            `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`,
+            `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`,
+            `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`,
+            `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`,
+            `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`,
+            `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`,
+            `d1.m3.medium`, `d1.m4.medium`, `d2.c3.medium`, `d2.c4.medium`,
+            `d2.c5.medium`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`,
+            `d2.m2.medium`, `d2.m2.large` or `d2.m2.xlarge`.
+          type: string
+          default: s0.d1.small
+          example: s0.d1.small
+        location:
+          description: >-
+            Workload cluster location. Cannot be changed once cluster is
+            created. Currently this field should be set to `PHX`, `ASH`, `SGP`,
+            `NLD`, `CHI`, `SEA` or `AUS`.
+          type: string
+          example: PHX
+    SshConfig:
+      type: object
+      description: >-
+        (Write-only) Configuration defining which public SSH keys are
+        pre-installed as authorized on the server.
+      properties:
+        installDefaultKeys:
+          description: >-
+            Define whether public keys marked as default should be installed on
+            this node. These are public keys that were already recorded on this
+            system. Use <a
+            href='https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get'
+            target='_blank'>GET /ssh-keys</a> to retrieve a list of possible
+            values.
+          type: boolean
+          default: true
+          example: true
+        keys:
+          description: List of public SSH keys.
+          type: array
+          items:
+            type: string
+          example: >-
+            [ssh-rsa
+            AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+            user]
+        keyIds:
+          description: >-
+            List of public SSH key identifiers. These are public keys that were
+            already recorded on this system. Use <a
+            href='https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get'
+            target='_blank'>GET /ssh-keys</a> to retrieve a list of possible
+            values.
+          type: array
+          items:
+            type: string
+          example:
+            - 5fa54d1e91867c03a0a7b4a4
+    RancherServerMetadata:
+      type: object
+      description: >-
+        (Read Only) Connection parameters to use to connect to the Rancher
+        Server Administrative GUI.
+      properties:
+        url:
+          description: The Rancher Server URL.
+          type: string
+          example: 'https://rancher/'
+        username:
+          description: >-
+            The username to use to login to the Rancher Server. This field is
+            returned only as a response to the create cluster request. Make sure
+            to take note or you will not be able to access the server.
+          type: string
+          example: admin
+        password:
+          description: >-
+            This is the password to be used to login to the Rancher Server. This
+            field is returned only as a response to the create cluster request.
+            Make sure to take note or you will not be able to access the server.
+          type: string
+          example: 1234567890abcd!
+    RancherClusterCertificates:
+      type: object
+      description: >-
+        (Write-only) Define the custom SSL certificates to be used instead of
+        defaults.
+      properties:
+        caCertificate:
+          description: The SSL CA certificate to be used for rancher admin.
+          type: string
+        certificate:
+          description: The SSL certificate to be used for rancher admin.
+          type: string
+        certificateKey:
+          description: The SSL certificate key to be used for rancher admin.
+          type: string
+    DeleteResult:
+      type: object
+      description: Result of a successful delete action.
+      required:
+        - result
+        - clusterId
+      properties:
+        result:
+          description: Solution cluster has been deleted.
+          type: string
+          example: Solution cluster has been deleted.
+        clusterId:
+          description: The unique identifier of the solution cluster.
+          type: string
+          example: x78sdkjds879sd7cx8
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          readOnly: true
+          description: The description detailing the cause of the error code.
+        validationErrors:
+          type: array
+          items:
+            type: string
+          readOnly: true
+          description: 'Validation errors, if any.'
+  responses:
+    Unauthorized:
+      description: >-
+        The request failed due to invalid credentials. Please check the provided
+        credentials and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: >-
+        The request failed since this resource cannot be accessed by the
+        provided credentials.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: >-
+        The server encountered an unexpected condition that prevented it from
+        fulfilling the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: >-
+        The request failed due to wrong data. Please check the provided
+        parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
