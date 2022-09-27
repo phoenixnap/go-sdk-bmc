@@ -31,7 +31,7 @@ runs:
     - name: Download spec files
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       shell: bash
-      run: wget ${{ inputs.spec-link }} -O ./specs/${{ inputs.package-name }}.yaml
+      run: wget ${{ inputs.spec-link }} -O ./${{ inputs.package-name }}/api-spec.yaml
     - name: Setup Go
       uses: actions/setup-go@v3
       with:
@@ -42,12 +42,6 @@ runs:
     - name: Fix imports
       shell: bash
       run: cd ${{ inputs.package-name }} && goimports -w .
-    - name: Upload spec artifact
-      if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
-      uses: actions/upload-artifact@v2
-      with:
-        name: ./specs/${{ inputs.package-name }}.yaml
-        path: ./specs/${{ inputs.package-name }}.yaml
     - name: Upload SDK Artifacts
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       uses: actions/upload-artifact@v2
