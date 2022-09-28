@@ -47,7 +47,7 @@ type Server struct {
 	// Private IP addresses assigned to server.
 	PrivateIpAddresses []string `json:"privateIpAddresses"`
 	// Public IP addresses assigned to server.
-	PublicIpAddresses []string `json:"publicIpAddresses"`
+	PublicIpAddresses []string `json:"publicIpAddresses,omitempty"`
 	// The reservation reference id if any.
 	ReservationId *string `json:"reservationId,omitempty"`
 	// The pricing model this server is being billed. Currently this field should be set to `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`.
@@ -70,7 +70,7 @@ type Server struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServer(id string, status string, hostname string, os string, type_ string, location string, cpu string, cpuCount int32, coresPerCpu int32, cpuFrequency float32, ram string, storage string, privateIpAddresses []string, publicIpAddresses []string, pricingModel string, networkConfiguration NetworkConfiguration) *Server {
+func NewServer(id string, status string, hostname string, os string, type_ string, location string, cpu string, cpuCount int32, coresPerCpu int32, cpuFrequency float32, ram string, storage string, privateIpAddresses []string, pricingModel string, networkConfiguration NetworkConfiguration) *Server {
 	this := Server{}
 	this.Id = id
 	this.Status = status
@@ -85,7 +85,6 @@ func NewServer(id string, status string, hostname string, os string, type_ strin
 	this.Ram = ram
 	this.Storage = storage
 	this.PrivateIpAddresses = privateIpAddresses
-	this.PublicIpAddresses = publicIpAddresses
 	this.PricingModel = pricingModel
 	var networkType string = "PUBLIC_AND_PRIVATE"
 	this.NetworkType = &networkType
@@ -449,26 +448,34 @@ func (o *Server) SetPrivateIpAddresses(v []string) {
 	o.PrivateIpAddresses = v
 }
 
-// GetPublicIpAddresses returns the PublicIpAddresses field value
+// GetPublicIpAddresses returns the PublicIpAddresses field value if set, zero value otherwise.
 func (o *Server) GetPublicIpAddresses() []string {
-	if o == nil {
+	if o == nil || o.PublicIpAddresses == nil {
 		var ret []string
 		return ret
 	}
-
 	return o.PublicIpAddresses
 }
 
-// GetPublicIpAddressesOk returns a tuple with the PublicIpAddresses field value
+// GetPublicIpAddressesOk returns a tuple with the PublicIpAddresses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Server) GetPublicIpAddressesOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || o.PublicIpAddresses == nil {
 		return nil, false
 	}
 	return o.PublicIpAddresses, true
 }
 
-// SetPublicIpAddresses sets field value
+// HasPublicIpAddresses returns a boolean if a field has been set.
+func (o *Server) HasPublicIpAddresses() bool {
+	if o != nil && o.PublicIpAddresses != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPublicIpAddresses gets a reference to the given []string and assigns it to the PublicIpAddresses field.
 func (o *Server) SetPublicIpAddresses(v []string) {
 	o.PublicIpAddresses = v
 }
@@ -789,7 +796,7 @@ func (o Server) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["privateIpAddresses"] = o.PrivateIpAddresses
 	}
-	if true {
+	if o.PublicIpAddresses != nil {
 		toSerialize["publicIpAddresses"] = o.PublicIpAddresses
 	}
 	if o.ReservationId != nil {

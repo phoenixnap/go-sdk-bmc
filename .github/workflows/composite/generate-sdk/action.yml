@@ -28,6 +28,10 @@ runs:
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       shell: bash
       run: openapi-generator-cli generate -i ${{ inputs.spec-link }} -c openapi-generator-config.yaml -o ${{ inputs.package-name }} --additional-properties packageName=${{ inputs.package-name }}
+    - name: Download spec files
+      if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
+      shell: bash
+      run: wget ${{ inputs.spec-link }} -O ./${{ inputs.package-name }}/${{ inputs.package-name }}.spec.yaml
     - name: Setup Go
       uses: actions/setup-go@v3
       with:
@@ -38,7 +42,7 @@ runs:
     - name: Fix imports
       shell: bash
       run: cd ${{ inputs.package-name }} && goimports -w .
-    - name: Upload Artifacts
+    - name: Upload SDK Artifacts
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       uses: actions/upload-artifact@v2
       with:

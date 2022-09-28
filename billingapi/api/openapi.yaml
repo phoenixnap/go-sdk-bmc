@@ -1382,8 +1382,9 @@ components:
       enum:
       - SERVER
       - BANDWIDTH
-      - OPERATING-SYSTEM
+      - OPERATING_SYSTEM
       - PUBLIC_IP
+      - STORAGE
       type: string
     PriceUnitEnum:
       description: The unit to which the price applies.

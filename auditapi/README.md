@@ -90,12 +90,8 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [ApiAction](docs/ApiAction.md)
- - [ApiActionAllOf](docs/ApiActionAllOf.md)
+ - [Error](docs/Error.md)
  - [Event](docs/Event.md)
- - [Headers](docs/Headers.md)
- - [Request](docs/Request.md)
- - [Response](docs/Response.md)
  - [UserInfo](docs/UserInfo.md)
 
 
