@@ -70,8 +70,10 @@ func main() {
 :bulb: For each submodule, API-specific documentation is available as follows: 
 
 - [Audit Logs API](auditapi/README.md): read audit log entries and track API calls and activities in the BMC Portal
+- [Billing API](billingapi/README.md): automate infrastructure billing, reserve server instances, retrieve your servers' rated usage, and enable or disable auto-renewals.
 - [BMC API](bmcapi/README.md): create, power on, power off, reset, reboot or shut down your servers. Deprovision your servers, get SSH keys, and more. 
 - [Network API](networkapi/README.md): create, list, edit, and delete private networks. 
+- [Network Storage API](networkstorageapi/README.md): Create, list, edit, and delete storage networks.
 - [Rancher solutions API](ranchersolutionapi/README.md): deploy Kubernetes clusters faster using BMC integration with Rancher. 
 - [Tag API](tagapi/README.md): assign tags to relevant resources in your BMC portal to group and categorize them. 
 - [IP API](ipapi/README.md): request and delete IP Blocks.
