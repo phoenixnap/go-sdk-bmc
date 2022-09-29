@@ -1,4 +1,4 @@
-module github.com/phoenixnap/go-sdk-bmc/tagapi
+module github.com/phoenixnap/go-sdk-bmc/tagapi/v2
 
 go 1.17
 
