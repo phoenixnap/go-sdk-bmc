@@ -37,7 +37,12 @@ runs:
             suffix="/v${VER[0]}"
         fi
 
-        openapi-generator-cli generate -i ${{ inputs.spec-link }} -c openapi-generator-config.yaml -o ${{ inputs.package-name }} --additional-properties packageName=${{ inputs.package-name }} --additional-properties majorVersion=$suffix
+        openapi-generator-cli generate \
+          -i ${{ inputs.spec-link }} \
+          -c openapi-generator-config.yaml \
+          -o ${{ inputs.package-name }} \
+          --additional-properties packageName=${{ inputs.package-name }} \
+          --additional-properties majorVersion=$suffix
     - name: Download spec files
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       shell: bash
