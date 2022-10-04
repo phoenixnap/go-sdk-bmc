@@ -28,14 +28,7 @@ runs:
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       shell: bash
       run: |
-        versionline="$(sed '3q;d' ./${{ inputs.package-name }}/VERSION.go)"
-        version="$(grep -o '[0-9].[0-9].[0-9]' <<< $versionline)"
-        IFS='.' read -ra VER <<< "$version"
-
-        suffix=""
-        if [ "${VER[0]}" -gt "1" ]; then
-            suffix="/v${VER[0]}"
-        fi
+        suffix=$(./extract-version.sh ./${{ inputs.package-name }}/VERSION.go)
 
         openapi-generator-cli generate \
           -i ${{ inputs.spec-link }} \
