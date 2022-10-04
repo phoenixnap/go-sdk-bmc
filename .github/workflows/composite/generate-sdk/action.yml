@@ -28,7 +28,7 @@ runs:
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       shell: bash
       run: |
-        suffix=$(./extract-version.sh ./${{ inputs.package-name }}/VERSION.go)
+        suffix=$(./extract-version-suffix.sh ./${{ inputs.package-name }}/VERSION.go)
 
         openapi-generator-cli generate \
           -i ${{ inputs.spec-link }} \
