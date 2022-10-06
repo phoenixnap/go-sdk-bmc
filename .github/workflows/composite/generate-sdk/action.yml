@@ -27,7 +27,15 @@ runs:
     - name: Generate SDK
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       shell: bash
-      run: openapi-generator-cli generate -i ${{ inputs.spec-link }} -c openapi-generator-config.yaml -o ${{ inputs.package-name }} --additional-properties packageName=${{ inputs.package-name }}
+      run: |
+        suffix=$(./extract-version-suffix.sh ./${{ inputs.package-name }}/VERSION.go)
+
+        openapi-generator-cli generate \
+          -i ${{ inputs.spec-link }} \
+          -c openapi-generator-config.yaml \
+          -o ${{ inputs.package-name }} \
+          --additional-properties packageName=${{ inputs.package-name }} \
+          --additional-properties majorVersion=$suffix
     - name: Download spec files
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       shell: bash
