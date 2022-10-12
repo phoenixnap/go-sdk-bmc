@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **ManagementUiUrl** | Pointer to **string** | The URL of the management UI which will only be returned in response to provisioning a server. | [optional] [readonly] 
 **ManagementAccessAllowedIps** | Pointer to **[]string** | List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server. | [optional] 
 **InstallOsToRam** | Pointer to **bool** | If true, OS will be installed to and booted from the server&#39;s RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Only supported for ubuntu/focal. | [optional] [default to false]
+**CloudInit** | Pointer to [**OsConfigurationCloudInit**](OsConfigurationCloudInit.md) |  | [optional] 
 
 ## Methods
 
@@ -153,6 +154,31 @@ SetInstallOsToRam sets InstallOsToRam field to given value.
 `func (o *OsConfiguration) HasInstallOsToRam() bool`
 
 HasInstallOsToRam returns a boolean if a field has been set.
+
+### GetCloudInit
+
+`func (o *OsConfiguration) GetCloudInit() OsConfigurationCloudInit`
+
+GetCloudInit returns the CloudInit field if non-nil, zero value otherwise.
+
+### GetCloudInitOk
+
+`func (o *OsConfiguration) GetCloudInitOk() (*OsConfigurationCloudInit, bool)`
+
+GetCloudInitOk returns a tuple with the CloudInit field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCloudInit
+
+`func (o *OsConfiguration) SetCloudInit(v OsConfigurationCloudInit)`
+
+SetCloudInit sets CloudInit field to given value.
+
+### HasCloudInit
+
+`func (o *OsConfiguration) HasCloudInit() bool`
+
+HasCloudInit returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

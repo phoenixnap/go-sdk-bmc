@@ -12,6 +12,7 @@ docs/Error.md
 docs/IpBlocksConfiguration.md
 docs/NetworkConfiguration.md
 docs/OsConfiguration.md
+docs/OsConfigurationCloudInit.md
 docs/OsConfigurationMap.md
 docs/OsConfigurationMapEsxi.md
 docs/OsConfigurationMapProxmox.md
@@ -49,6 +50,7 @@ model_error.go
 model_ip_blocks_configuration.go
 model_network_configuration.go
 model_os_configuration.go
+model_os_configuration_cloud_init.go
 model_os_configuration_map.go
 model_os_configuration_map_esxi.go
 model_os_configuration_map_proxmox.go

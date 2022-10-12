@@ -125,6 +125,7 @@ Class | Method | HTTP request | Description
  - [IpBlocksConfiguration](docs/IpBlocksConfiguration.md)
  - [NetworkConfiguration](docs/NetworkConfiguration.md)
  - [OsConfiguration](docs/OsConfiguration.md)
+ - [OsConfigurationCloudInit](docs/OsConfigurationCloudInit.md)
  - [OsConfigurationMap](docs/OsConfigurationMap.md)
  - [OsConfigurationMapEsxi](docs/OsConfigurationMapEsxi.md)
  - [OsConfigurationMapProxmox](docs/OsConfigurationMapProxmox.md)
