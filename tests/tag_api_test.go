@@ -19,6 +19,9 @@ type TagApiTestSuite struct {
 
 // this function executes before each test
 func (suite *TagApiTestSuite) SetupSuite() {
+	// Remove any existing expectations
+	TestUtilsImpl{}.resetExpectations()
+
 	// Set configuration
 	suite.configuration = tagapi.NewConfiguration()
 	suite.configuration.Host = "127.0.0.1:1080"
