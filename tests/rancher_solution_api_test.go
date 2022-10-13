@@ -19,6 +19,9 @@ type RancherSolutionApiTestSuite struct {
 
 // this function executes before each test
 func (suite *RancherSolutionApiTestSuite) SetupSuite() {
+	// Remove any existing expectations
+	TestUtilsImpl{}.resetExpectations()
+
 	// Set configuration
 	suite.configuration = ranchersolutionapi.NewConfiguration()
 	suite.configuration.Host = "127.0.0.1:1080"

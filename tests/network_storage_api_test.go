@@ -21,6 +21,9 @@ func TestNetworkStorageApiTestSuite(t *testing.T) {
 }
 
 func (suite *NetworkStorageApiTestSuite) SetupSuite() {
+	// Remove any existing expectations
+	TestUtilsImpl{}.resetExpectations()
+
 	// Set configuration
 	configuration := networkstorageapi.NewConfiguration()
 	configuration.Host = "127.0.0.1:1080"

@@ -19,6 +19,9 @@ type NetworkApiTestSuite struct {
 
 // this function executes before each test
 func (suite *NetworkApiTestSuite) SetupSuite() {
+	// Remove any existing expectations
+	TestUtilsImpl{}.resetExpectations()
+
 	// Set configuration
 	suite.configuration = networkapi.NewConfiguration()
 	suite.configuration.Host = "127.0.0.1:1080"

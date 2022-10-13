@@ -193,9 +193,6 @@ func (a *StorageNetworksApiService) StorageNetworksGetExecute(r ApiStorageNetwor
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion
-	localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion
-
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
 
@@ -335,9 +332,6 @@ func (a *StorageNetworksApiService) StorageNetworksIdDeleteExecute(r ApiStorageN
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-
-	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion
-	localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -482,9 +476,6 @@ func (a *StorageNetworksApiService) StorageNetworksIdGetExecute(r ApiStorageNetw
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion
-	localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion
-
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
 
@@ -623,9 +614,6 @@ func (a *StorageNetworksApiService) StorageNetworksIdPatchExecute(r ApiStorageNe
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-
-	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion
-	localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -783,9 +771,6 @@ func (a *StorageNetworksApiService) StorageNetworksPostExecute(r ApiStorageNetwo
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion
-	localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion
-
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
 
@@ -930,9 +915,6 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesGetExe
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion
-	localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion
-
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
 
@@ -1068,9 +1050,6 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 	if localVarHTTPContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-
-	localVarHeaderParams["X-Powered-By"] = "PNAP-go-sdk-bmc/" + SdkVersion
-	localVarHeaderParams["User-Agent"] = "PNAP-go-sdk-bmc/" + SdkVersion
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
