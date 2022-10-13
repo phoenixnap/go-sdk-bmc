@@ -92,6 +92,7 @@ type Configuration struct {
 	Scheme           string            `json:"scheme,omitempty"`
 	DefaultHeader    map[string]string `json:"defaultHeader,omitempty"`
 	UserAgent        string            `json:"userAgent,omitempty"`
+	XPoweredBy       string            `json:"xPoweredBy,omitempty"`
 	Debug            bool              `json:"debug,omitempty"`
 	Servers          ServerConfigurations
 	OperationServers map[string]ServerConfigurations
@@ -102,7 +103,8 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader: make(map[string]string),
-		UserAgent:     "OpenAPI-Generator/1.0.0/go",
+		UserAgent:     "PNAP-go-sdk-bmc/" + SdkVersion,
+		XPoweredBy:    "PNAP-go-sdk-bmc/" + SdkVersion,
 		Debug:         false,
 		Servers: ServerConfigurations{
 			{
