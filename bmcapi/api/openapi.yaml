@@ -3244,12 +3244,12 @@ components:
           type: array
       type: object
     OsConfiguration_cloudInit:
-      description: Details for cloud-init configuration.
+      description: Cloud-init configuration details.
       example:
         userData: userData
       properties:
         userData:
-          description: User data for cloud init configuration in base64 encoding.
+          description: User data for the cloud-init configuration in base64 encoding.
             NoCloud format is supported.
           format: byte
           type: string

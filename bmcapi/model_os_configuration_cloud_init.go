@@ -15,9 +15,9 @@ import (
 	"encoding/json"
 )
 
-// OsConfigurationCloudInit Details for cloud-init configuration.
+// OsConfigurationCloudInit Cloud-init configuration details.
 type OsConfigurationCloudInit struct {
-	// User data for cloud init configuration in base64 encoding. NoCloud format is supported.
+	// User data for the cloud-init configuration in base64 encoding. NoCloud format is supported.
 	UserData *string `json:"userData,omitempty"`
 }
 
