@@ -35,7 +35,10 @@
                       "10.111.14.40/29",
                       "10.111.14.66 - 10.111.14.71"
                     ],
-                    "installOsToRam": false
+                    "installOsToRam": false,
+                    "cloudInit": {
+                      "userData": "data"
+                    }
                 },
                 "networkConfiguration": {
                   "gatewayAddress": "gatewayAddress",
@@ -139,7 +142,10 @@
                   "10.111.14.40/29",
                   "10.111.14.66 - 10.111.14.71"
                 ],
-                "installOsToRam": false
+                "installOsToRam": false,
+                "cloudInit": {
+                  "userData": "data"
+                }
             },
             "networkConfiguration": {
               "gatewayAddress": "gatewayAddress",
