@@ -2061,6 +2061,8 @@ components:
       description: OS specific configuration properties.
       example:
         managementUiUrl: https://172.217.22.14
+        cloudInit:
+          userData: userData
         installOsToRam: false
         windows:
           rdpAllowedIps:
@@ -2106,6 +2108,8 @@ components:
             \ RAM. On restart RAM OS will be lost and the server will not be reachable\
             \ unless a custom bootable OS has been deployed. Only supported for ubuntu/focal."
           type: boolean
+        cloudInit:
+          $ref: '#/components/schemas/OsConfiguration_cloudInit'
       type: object
     ServerPrivateNetwork:
       description: Private network details of bare metal server.
@@ -2366,6 +2370,8 @@ components:
         os: ubuntu/bionic
         osConfiguration:
           managementUiUrl: https://172.217.22.14
+          cloudInit:
+            userData: userData
           installOsToRam: false
           windows:
             rdpAllowedIps:
@@ -2634,6 +2640,8 @@ components:
         os: ubuntu/bionic
         osConfiguration:
           managementUiUrl: https://172.217.22.14
+          cloudInit:
+            userData: userData
           installOsToRam: false
           windows:
             rdpAllowedIps:
@@ -3234,6 +3242,18 @@ components:
             type: string
           minItems: 1
           type: array
+      type: object
+    OsConfiguration_cloudInit:
+      description: Details for cloud-init configuration.
+      example:
+        userData: userData
+      properties:
+        userData:
+          description: User data for cloud init configuration in base64 encoding.
+            NoCloud format is supported.
+          format: byte
+          type: string
+          writeOnly: true
       type: object
     OsConfigurationMap_esxi:
       description: VMWare ESXi configuration properties.

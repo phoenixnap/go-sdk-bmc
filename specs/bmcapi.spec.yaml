@@ -1328,6 +1328,17 @@ components:
             ubuntu/focal.
           type: boolean
           default: false
+        cloudInit:
+          type: object
+          description: Details for cloud-init configuration.
+          properties:
+            userData:
+              description: >-
+                User data for cloud init configuration in base64 encoding.
+                NoCloud format is supported.
+              type: string
+              format: byte
+              writeOnly: true
     ServerPrivateNetwork:
       type: object
       description: Private network details of bare metal server.

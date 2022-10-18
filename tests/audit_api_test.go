@@ -21,6 +21,9 @@ type AuditApiTestSuite struct {
 }
 
 func (suite *AuditApiTestSuite) SetupSuite() {
+	// Remove any existing expectations
+	TestUtilsImpl{}.resetExpectations()
+
 	// Set configuration
 	suite.configuration = auditapi.NewConfiguration()
 	suite.configuration.Host = "127.0.0.1:1080"
@@ -64,13 +67,13 @@ func (suite *AuditApiTestSuite) Test_get_events_all_query_params() {
 		panic(ok)
 	}
 
-	from, _ := time.Parse(time.RFC3339, request.QueryStringParameters[0].Values[0]) 
-	to, _ := time.Parse(time.RFC3339, request.QueryStringParameters[1].Values[0])   
+	from, _ := time.Parse(time.RFC3339, request.QueryStringParameters[0].Values[0])
+	to, _ := time.Parse(time.RFC3339, request.QueryStringParameters[1].Values[0])
 	limit64, _ := strconv.ParseInt(limitstring, 10, 32)
-	limit := int32(limit64)                          
-	order := fmt.Sprintf("%v", qpMap["order"])       
-	username := fmt.Sprintf("%v", qpMap["username"]) 
-	verb := fmt.Sprintf("%v", qpMap["verb"])         
+	limit := int32(limit64)
+	order := fmt.Sprintf("%v", qpMap["order"])
+	username := fmt.Sprintf("%v", qpMap["username"])
+	verb := fmt.Sprintf("%v", qpMap["verb"])
 	uri := fmt.Sprintf("%v", qpMap["uri"])
 
 	// Operation Execution

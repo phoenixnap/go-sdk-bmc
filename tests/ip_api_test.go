@@ -17,6 +17,9 @@ type IpApiTestSuite struct {
 }
 
 func (suite *IpApiTestSuite) SetupSuite() {
+	// Remove any existing expectations
+	TestUtilsImpl{}.resetExpectations()
+
 	// Set configuration
 	configuration := ipapi.NewConfiguration()
 	configuration.Host = "127.0.0.1:1080"
