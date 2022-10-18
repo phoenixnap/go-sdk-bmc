@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**UserData** | Pointer to **string** | User data for cloud init configuration in base64 encoding. NoCloud format is supported. | [optional] 
+**UserData** | Pointer to **string** | User data for the cloud-init configuration in base64 encoding. NoCloud format is supported. | [optional] 
 
 ## Methods
 

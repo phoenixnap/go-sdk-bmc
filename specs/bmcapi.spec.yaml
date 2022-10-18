@@ -1330,11 +1330,11 @@ components:
           default: false
         cloudInit:
           type: object
-          description: Details for cloud-init configuration.
+          description: Cloud-init configuration details.
           properties:
             userData:
               description: >-
-                User data for cloud init configuration in base64 encoding.
+                User data for the cloud-init configuration in base64 encoding.
                 NoCloud format is supported.
               type: string
               format: byte
