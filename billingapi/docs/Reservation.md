@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **Price** | **float32** | Reservation price. | 
 **PriceUnit** | [**PriceUnitEnum**](PriceUnitEnum.md) |  | 
 **AssignedResourceId** | Pointer to **string** | The resource ID currently being assigned to Reservation. | [optional] 
+**NextBillingDate** | Pointer to **string** | Next billing date for Reservation. | [optional] 
 
 ## Methods
 
@@ -363,6 +364,31 @@ SetAssignedResourceId sets AssignedResourceId field to given value.
 `func (o *Reservation) HasAssignedResourceId() bool`
 
 HasAssignedResourceId returns a boolean if a field has been set.
+
+### GetNextBillingDate
+
+`func (o *Reservation) GetNextBillingDate() string`
+
+GetNextBillingDate returns the NextBillingDate field if non-nil, zero value otherwise.
+
+### GetNextBillingDateOk
+
+`func (o *Reservation) GetNextBillingDateOk() (*string, bool)`
+
+GetNextBillingDateOk returns a tuple with the NextBillingDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNextBillingDate
+
+`func (o *Reservation) SetNextBillingDate(v string)`
+
+SetNextBillingDate sets NextBillingDate field to given value.
+
+### HasNextBillingDate
+
+`func (o *Reservation) HasNextBillingDate() bool`
+
+HasNextBillingDate returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

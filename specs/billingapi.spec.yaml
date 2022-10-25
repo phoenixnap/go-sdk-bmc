@@ -999,6 +999,11 @@ components:
           description: "The resource ID currently being assigned to Reservation."
           type: string
           example: "83604275-bdba-490a-b87a-978e8dffdb14"
+        nextBillingDate:
+          description: "Next billing date for Reservation."
+          type: string
+          format: date
+          example: "2020-04-19"
       required:
         - id
         - productCode

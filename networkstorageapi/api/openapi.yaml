@@ -414,6 +414,77 @@ paths:
       summary: Get a storage network's volume details.
       tags:
       - Storage Networks
+    patch:
+      description: Update a storage network's volume details.
+      operationId: storageNetworksStorageNetworkIdVolumesVolumeIdPatch
+      parameters:
+      - description: ID of storage network.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: storageNetworkId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of volume.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: volumeId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              capacityInGb: 2000
+            schema:
+              $ref: '#/components/schemas/VolumeUpdate'
+        description: Storage network volume to be updated.
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+          description: Updating volume details.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - networkstorage
+      summary: Update a storage network's volume details.
+      tags:
+      - Storage Networks
 components:
   parameters:
     storageNetworkIdParam:
@@ -741,6 +812,18 @@ components:
       - capacityInGb
       - name
       title: VolumeCreate
+      type: object
+    VolumeUpdate:
+      description: Update storage network volume.
+      example:
+        capacityInGb: 2000
+      properties:
+        capacityInGb:
+          description: Capacity of Volume in GB. Currently only whole numbers and
+            multiples of 1000GB are supported.
+          example: 2000
+          minimum: 2000
+          type: integer
       type: object
     Permissions:
       description: Permissions for a volume.

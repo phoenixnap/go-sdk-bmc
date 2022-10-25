@@ -1137,6 +1137,7 @@ components:
       description: Reservation details
       example:
         priceUnit: MONTH
+        nextBillingDate: 2020-04-19T00:00:00.000+00:00
         initialInvoiceModel: null
         endDateTime: 2020-04-19T16:39:00Z
         productCategory: server
@@ -1216,6 +1217,11 @@ components:
         assignedResourceId:
           description: The resource ID currently being assigned to Reservation.
           example: 83604275-bdba-490a-b87a-978e8dffdb14
+          type: string
+        nextBillingDate:
+          description: Next billing date for Reservation.
+          example: 2020-04-19
+          format: date
           type: string
       required:
       - autoRenew
