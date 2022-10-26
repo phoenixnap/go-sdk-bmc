@@ -1440,6 +1440,7 @@ components:
           BANDWIDTH: '#/components/schemas/Product'
           OPERATING_SYSTEM: '#/components/schemas/Product'
           STORAGE: '#/components/schemas/Product'
+          PUBLIC_IP: '#/components/schemas/Product'
         propertyName: productCategory
       oneOf:
       - $ref: '#/components/schemas/Product'

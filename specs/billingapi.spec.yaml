@@ -200,6 +200,7 @@ paths:
                       BANDWIDTH: '#/components/schemas/Product'
                       OPERATING_SYSTEM: '#/components/schemas/Product'
                       STORAGE: '#/components/schemas/Product'
+                      PUBLIC_IP: '#/components/schemas/Product'
         '400':
           $ref: '#/components/responses/BadRequest'
         '500':
