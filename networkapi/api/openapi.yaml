@@ -1344,6 +1344,7 @@ components:
     PrivateNetworkCreate:
       description: Details of Private Network to be created.
       example:
+        vlanId: 10
         name: Sample Network
         description: Further details on the network
         location: PHX
@@ -1373,6 +1374,12 @@ components:
             location.
           example: true
           type: boolean
+        vlanId:
+          description: The VLAN that will be assigned to this network.
+          example: 10
+          maximum: 4094
+          minimum: 2
+          type: integer
         cidr:
           description: IP range associated with this private network in CIDR notation.
           example: 10.0.0.0/24
@@ -1506,6 +1513,7 @@ components:
     PublicNetworkCreate:
       description: Details of Public Network to be created.
       example:
+        vlanId: 10
         ipBlocks:
         - id: 60473a6115e34466c9f8f083
         - id: 60473a6115e34466c9f8f083
@@ -1533,6 +1541,12 @@ components:
             \ `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`."
           example: PHX
           type: string
+        vlanId:
+          description: The VLAN that will be assigned to this network.
+          example: 10
+          maximum: 4094
+          minimum: 2
+          type: integer
         ipBlocks:
           description: A list of IP Blocks that will be associated with this public
             network.

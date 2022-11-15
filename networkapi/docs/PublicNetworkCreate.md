@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Name** | **string** | The friendly name of this public network. This name should be unique. | 
 **Description** | Pointer to **string** | The description of this public network. | [optional] 
 **Location** | **string** | The location of this public network. Supported values are &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60;, &#x60;SEA&#x60; and &#x60;AUS&#x60;. | 
+**VlanId** | Pointer to **int32** | The VLAN that will be assigned to this network. | [optional] 
 **IpBlocks** | Pointer to [**[]PublicNetworkIpBlock**](PublicNetworkIpBlock.md) | A list of IP Blocks that will be associated with this public network. | [optional] 
 
 ## Methods
@@ -92,6 +93,31 @@ and a boolean to check if the value has been set.
 
 SetLocation sets Location field to given value.
 
+
+### GetVlanId
+
+`func (o *PublicNetworkCreate) GetVlanId() int32`
+
+GetVlanId returns the VlanId field if non-nil, zero value otherwise.
+
+### GetVlanIdOk
+
+`func (o *PublicNetworkCreate) GetVlanIdOk() (*int32, bool)`
+
+GetVlanIdOk returns a tuple with the VlanId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVlanId
+
+`func (o *PublicNetworkCreate) SetVlanId(v int32)`
+
+SetVlanId sets VlanId field to given value.
+
+### HasVlanId
+
+`func (o *PublicNetworkCreate) HasVlanId() bool`
+
+HasVlanId returns a boolean if a field has been set.
 
 ### GetIpBlocks
 

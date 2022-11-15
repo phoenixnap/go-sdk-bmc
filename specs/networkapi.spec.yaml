@@ -965,6 +965,12 @@ components:
           type: boolean
           default: false
           example: true
+        vlanId:
+          description: The VLAN that will be assigned to this network.
+          type: integer
+          minimum: 2
+          maximum: 4094
+          example: 10
         cidr:
           description: IP range associated with this private network in CIDR notation.
           type: string
@@ -1090,6 +1096,12 @@ components:
             `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
           type: string
           example: PHX
+        vlanId:
+          description: The VLAN that will be assigned to this network.
+          type: integer
+          minimum: 2
+          maximum: 4094
+          example: 10
         ipBlocks:
           description: >-
             A list of IP Blocks that will be associated with this public

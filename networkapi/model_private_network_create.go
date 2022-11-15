@@ -25,6 +25,8 @@ type PrivateNetworkCreate struct {
 	Location string `json:"location"`
 	// Identifies network as the default private network for the specified location.
 	LocationDefault *bool `json:"locationDefault,omitempty"`
+	// The VLAN that will be assigned to this network.
+	VlanId *int32 `json:"vlanId,omitempty"`
 	// IP range associated with this private network in CIDR notation.
 	Cidr string `json:"cidr"`
 }
@@ -165,6 +167,38 @@ func (o *PrivateNetworkCreate) SetLocationDefault(v bool) {
 	o.LocationDefault = &v
 }
 
+// GetVlanId returns the VlanId field value if set, zero value otherwise.
+func (o *PrivateNetworkCreate) GetVlanId() int32 {
+	if o == nil || o.VlanId == nil {
+		var ret int32
+		return ret
+	}
+	return *o.VlanId
+}
+
+// GetVlanIdOk returns a tuple with the VlanId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PrivateNetworkCreate) GetVlanIdOk() (*int32, bool) {
+	if o == nil || o.VlanId == nil {
+		return nil, false
+	}
+	return o.VlanId, true
+}
+
+// HasVlanId returns a boolean if a field has been set.
+func (o *PrivateNetworkCreate) HasVlanId() bool {
+	if o != nil && o.VlanId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetVlanId gets a reference to the given int32 and assigns it to the VlanId field.
+func (o *PrivateNetworkCreate) SetVlanId(v int32) {
+	o.VlanId = &v
+}
+
 // GetCidr returns the Cidr field value
 func (o *PrivateNetworkCreate) GetCidr() string {
 	if o == nil {
@@ -202,6 +236,9 @@ func (o PrivateNetworkCreate) MarshalJSON() ([]byte, error) {
 	}
 	if o.LocationDefault != nil {
 		toSerialize["locationDefault"] = o.LocationDefault
+	}
+	if o.VlanId != nil {
+		toSerialize["vlanId"] = o.VlanId
 	}
 	if true {
 		toSerialize["cidr"] = o.Cidr

@@ -23,6 +23,8 @@ type PublicNetworkCreate struct {
 	Description *string `json:"description,omitempty"`
 	// The location of this public network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
 	Location string `json:"location"`
+	// The VLAN that will be assigned to this network.
+	VlanId *int32 `json:"vlanId,omitempty"`
 	// A list of IP Blocks that will be associated with this public network.
 	IpBlocks []PublicNetworkIpBlock `json:"ipBlocks,omitempty"`
 }
@@ -126,6 +128,38 @@ func (o *PublicNetworkCreate) SetLocation(v string) {
 	o.Location = v
 }
 
+// GetVlanId returns the VlanId field value if set, zero value otherwise.
+func (o *PublicNetworkCreate) GetVlanId() int32 {
+	if o == nil || o.VlanId == nil {
+		var ret int32
+		return ret
+	}
+	return *o.VlanId
+}
+
+// GetVlanIdOk returns a tuple with the VlanId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PublicNetworkCreate) GetVlanIdOk() (*int32, bool) {
+	if o == nil || o.VlanId == nil {
+		return nil, false
+	}
+	return o.VlanId, true
+}
+
+// HasVlanId returns a boolean if a field has been set.
+func (o *PublicNetworkCreate) HasVlanId() bool {
+	if o != nil && o.VlanId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetVlanId gets a reference to the given int32 and assigns it to the VlanId field.
+func (o *PublicNetworkCreate) SetVlanId(v int32) {
+	o.VlanId = &v
+}
+
 // GetIpBlocks returns the IpBlocks field value if set, zero value otherwise.
 func (o *PublicNetworkCreate) GetIpBlocks() []PublicNetworkIpBlock {
 	if o == nil || o.IpBlocks == nil {
@@ -168,6 +202,9 @@ func (o PublicNetworkCreate) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["location"] = o.Location
+	}
+	if o.VlanId != nil {
+		toSerialize["vlanId"] = o.VlanId
 	}
 	if o.IpBlocks != nil {
 		toSerialize["ipBlocks"] = o.IpBlocks
