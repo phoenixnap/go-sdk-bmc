@@ -568,6 +568,7 @@ components:
               allSquash:
               - 100.80.0.5
               - 100.80.0.6
+          usedCapacityInGb: 1000
           name: My volume name
           description: My volume description
           id: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
@@ -593,6 +594,7 @@ components:
               allSquash:
               - 100.80.0.5
               - 100.80.0.6
+          usedCapacityInGb: 1000
           name: My volume name
           description: My volume description
           id: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
@@ -732,6 +734,7 @@ components:
             allSquash:
             - 100.80.0.5
             - 100.80.0.6
+        usedCapacityInGb: 1000
         name: My volume name
         description: My volume description
         id: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
@@ -761,6 +764,10 @@ components:
         capacityInGb:
           description: Maximum capacity in GB.
           example: 2000
+          type: integer
+        usedCapacityInGb:
+          description: "Used capacity in GB, updated periodically."
+          example: 1000
           type: integer
         protocol:
           description: File system protocol. Currently this field should be set to

@@ -30,6 +30,8 @@ type Volume struct {
 	PathSuffix *string `json:"pathSuffix,omitempty"`
 	// Maximum capacity in GB.
 	CapacityInGb *int32 `json:"capacityInGb,omitempty"`
+	// Used capacity in GB, updated periodically.
+	UsedCapacityInGb *int32 `json:"usedCapacityInGb,omitempty"`
 	// File system protocol. Currently this field should be set to `NFS`.
 	Protocol    *string      `json:"protocol,omitempty"`
 	Status      *Status      `json:"status,omitempty"`
@@ -246,6 +248,38 @@ func (o *Volume) SetCapacityInGb(v int32) {
 	o.CapacityInGb = &v
 }
 
+// GetUsedCapacityInGb returns the UsedCapacityInGb field value if set, zero value otherwise.
+func (o *Volume) GetUsedCapacityInGb() int32 {
+	if o == nil || o.UsedCapacityInGb == nil {
+		var ret int32
+		return ret
+	}
+	return *o.UsedCapacityInGb
+}
+
+// GetUsedCapacityInGbOk returns a tuple with the UsedCapacityInGb field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Volume) GetUsedCapacityInGbOk() (*int32, bool) {
+	if o == nil || o.UsedCapacityInGb == nil {
+		return nil, false
+	}
+	return o.UsedCapacityInGb, true
+}
+
+// HasUsedCapacityInGb returns a boolean if a field has been set.
+func (o *Volume) HasUsedCapacityInGb() bool {
+	if o != nil && o.UsedCapacityInGb != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUsedCapacityInGb gets a reference to the given int32 and assigns it to the UsedCapacityInGb field.
+func (o *Volume) SetUsedCapacityInGb(v int32) {
+	o.UsedCapacityInGb = &v
+}
+
 // GetProtocol returns the Protocol field value if set, zero value otherwise.
 func (o *Volume) GetProtocol() string {
 	if o == nil || o.Protocol == nil {
@@ -393,6 +427,9 @@ func (o Volume) MarshalJSON() ([]byte, error) {
 	}
 	if o.CapacityInGb != nil {
 		toSerialize["capacityInGb"] = o.CapacityInGb
+	}
+	if o.UsedCapacityInGb != nil {
+		toSerialize["usedCapacityInGb"] = o.UsedCapacityInGb
 	}
 	if o.Protocol != nil {
 		toSerialize["protocol"] = o.Protocol
