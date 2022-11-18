@@ -97,7 +97,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StorageNetwork'
-          description: Storage network that was created.
+          description: Accepted request for creating a Storage network.
         "400":
           content:
             application/json:
@@ -119,6 +119,12 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
@@ -288,12 +294,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
-        "409":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
@@ -472,6 +472,12 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
         "500":
           content:
             application/json:

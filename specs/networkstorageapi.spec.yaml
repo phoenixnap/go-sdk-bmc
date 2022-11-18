@@ -92,7 +92,7 @@ paths:
               $ref: '#/components/schemas/StorageNetworkCreate'
       responses:
         '202':
-          description: Storage network that was created.
+          description: Accepted request for creating a Storage network.
           content:
             application/json:
               schema:
@@ -103,6 +103,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
   '/storage-networks/{storageNetworkId}':
@@ -161,8 +163,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
-        '409':
-          $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
     delete:
@@ -273,6 +273,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
