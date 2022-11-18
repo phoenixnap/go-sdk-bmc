@@ -136,8 +136,8 @@ IpBlocksGet List IP Blocks.
 
 List all IP Blocks.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiIpBlocksGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiIpBlocksGetRequest
 */
 func (a *IPBlocksApiService) IpBlocksGet(ctx context.Context) ApiIpBlocksGetRequest {
 	return ApiIpBlocksGetRequest{
@@ -147,7 +147,8 @@ func (a *IPBlocksApiService) IpBlocksGet(ctx context.Context) ApiIpBlocksGetRequ
 }
 
 // Execute executes the request
-//  @return []IpBlock
+//
+//	@return []IpBlock
 func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBlock, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -276,9 +277,9 @@ IpBlocksIpBlockIdDelete Delete IP Block.
 
 Delete an IP Block. An IP Block can only be deleted if not assigned to any resource.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param ipBlockId The IP Block identifier.
- @return ApiIpBlocksIpBlockIdDeleteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param ipBlockId The IP Block identifier.
+	@return ApiIpBlocksIpBlockIdDeleteRequest
 */
 func (a *IPBlocksApiService) IpBlocksIpBlockIdDelete(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdDeleteRequest {
 	return ApiIpBlocksIpBlockIdDeleteRequest{
@@ -289,7 +290,8 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDelete(ctx context.Context, ipBloc
 }
 
 // Execute executes the request
-//  @return DeleteIpBlockResult
+//
+//	@return DeleteIpBlockResult
 func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlockIdDeleteRequest) (*DeleteIpBlockResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
@@ -408,9 +410,9 @@ IpBlocksIpBlockIdGet Get IP Block.
 
 Get IP Block.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param ipBlockId The IP Block identifier.
- @return ApiIpBlocksIpBlockIdGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param ipBlockId The IP Block identifier.
+	@return ApiIpBlocksIpBlockIdGetRequest
 */
 func (a *IPBlocksApiService) IpBlocksIpBlockIdGet(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdGetRequest {
 	return ApiIpBlocksIpBlockIdGetRequest{
@@ -421,7 +423,8 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGet(ctx context.Context, ipBlockId
 }
 
 // Execute executes the request
-//  @return IpBlock
+//
+//	@return IpBlock
 func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdGetRequest) (*IpBlock, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -546,9 +549,9 @@ IpBlocksIpBlockIdPatch Update IP block.
 
 Update IP Block's details.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param ipBlockId The IP Block identifier.
- @return ApiIpBlocksIpBlockIdPatchRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param ipBlockId The IP Block identifier.
+	@return ApiIpBlocksIpBlockIdPatchRequest
 */
 func (a *IPBlocksApiService) IpBlocksIpBlockIdPatch(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdPatchRequest {
 	return ApiIpBlocksIpBlockIdPatchRequest{
@@ -559,7 +562,8 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatch(ctx context.Context, ipBlock
 }
 
 // Execute executes the request
-//  @return IpBlock
+//
+//	@return IpBlock
 func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockIdPatchRequest) (*IpBlock, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
@@ -706,9 +710,9 @@ IpBlocksIpBlockIdTagsPut Overwrite tags assigned for IP Block.
 
 Overwrites tags assigned for IP Block and unassigns any tags not part of the request.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param ipBlockId The IP Block identifier.
- @return ApiIpBlocksIpBlockIdTagsPutRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param ipBlockId The IP Block identifier.
+	@return ApiIpBlocksIpBlockIdTagsPutRequest
 */
 func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPut(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdTagsPutRequest {
 	return ApiIpBlocksIpBlockIdTagsPutRequest{
@@ -719,7 +723,8 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPut(ctx context.Context, ipBlo
 }
 
 // Execute executes the request
-//  @return IpBlock
+//
+//	@return IpBlock
 func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBlockIdTagsPutRequest) (*IpBlock, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
@@ -855,8 +860,8 @@ IpBlocksPost Create an IP Block.
 
 Request an IP Block. An IP Block is a set of contiguous IPs that can be assigned to other resources such as servers.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiIpBlocksPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiIpBlocksPostRequest
 */
 func (a *IPBlocksApiService) IpBlocksPost(ctx context.Context) ApiIpBlocksPostRequest {
 	return ApiIpBlocksPostRequest{
@@ -866,7 +871,8 @@ func (a *IPBlocksApiService) IpBlocksPost(ctx context.Context) ApiIpBlocksPostRe
 }
 
 // Execute executes the request
-//  @return IpBlock
+//
+//	@return IpBlock
 func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (*IpBlock, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
