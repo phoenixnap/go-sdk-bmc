@@ -9,4 +9,4 @@ runs:
   steps:
     - name: Build go module
       shell: bash
-      run: cd ${{ inputs.module-name }} && go mod tidy && go build
+      run: cd ${{ inputs.module-name }} && go version && go mod tidy && go build
