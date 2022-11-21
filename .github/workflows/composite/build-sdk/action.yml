@@ -7,6 +7,11 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Install golang
+      shell: bash
+      run: |
+        sudo apt-get update 
+        sudo apt-get install golang-go
     - name: Build go module
       shell: bash
       run: cd ${{ inputs.module-name }} && go version && go mod tidy && go build
