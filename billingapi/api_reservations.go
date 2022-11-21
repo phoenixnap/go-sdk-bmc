@@ -135,8 +135,8 @@ ReservationsGet List all Reservations.
 
 Retrieves all reservations associated with the authenticated account. All date & times are in UTC.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiReservationsGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReservationsGetRequest
 */
 func (a *ReservationsApiService) ReservationsGet(ctx context.Context) ApiReservationsGetRequest {
 	return ApiReservationsGetRequest{
@@ -146,7 +146,8 @@ func (a *ReservationsApiService) ReservationsGet(ctx context.Context) ApiReserva
 }
 
 // Execute executes the request
-//  @return []Reservation
+//
+//	@return []Reservation
 func (a *ReservationsApiService) ReservationsGetExecute(r ApiReservationsGetRequest) ([]Reservation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -272,8 +273,8 @@ ReservationsPost Create a reservation.
 
 Creates new package reservation for authenticated account.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiReservationsPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReservationsPostRequest
 */
 func (a *ReservationsApiService) ReservationsPost(ctx context.Context) ApiReservationsPostRequest {
 	return ApiReservationsPostRequest{
@@ -283,7 +284,8 @@ func (a *ReservationsApiService) ReservationsPost(ctx context.Context) ApiReserv
 }
 
 // Execute executes the request
-//  @return Reservation
+//
+//	@return Reservation
 func (a *ReservationsApiService) ReservationsPostExecute(r ApiReservationsPostRequest) (*Reservation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -419,9 +421,9 @@ ReservationsReservationIdActionsAutoRenewDisablePost Disable auto-renewal for re
 
 Disable auto-renewal for reservation by reservation id.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param reservationId The reservation's ID.
- @return ApiReservationsReservationIdActionsAutoRenewDisablePostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param reservationId The reservation's ID.
+	@return ApiReservationsReservationIdActionsAutoRenewDisablePostRequest
 */
 func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewDisablePost(ctx context.Context, reservationId string) ApiReservationsReservationIdActionsAutoRenewDisablePostRequest {
 	return ApiReservationsReservationIdActionsAutoRenewDisablePostRequest{
@@ -432,7 +434,8 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewDisabl
 }
 
 // Execute executes the request
-//  @return Reservation
+//
+//	@return Reservation
 func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewDisablePostExecute(r ApiReservationsReservationIdActionsAutoRenewDisablePostRequest) (*Reservation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -573,9 +576,9 @@ ReservationsReservationIdActionsAutoRenewEnablePost Enable auto-renewal for unex
 
 Enable auto-renewal for unexpired reservation by reservation id.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param reservationId The reservation's ID.
- @return ApiReservationsReservationIdActionsAutoRenewEnablePostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param reservationId The reservation's ID.
+	@return ApiReservationsReservationIdActionsAutoRenewEnablePostRequest
 */
 func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewEnablePost(ctx context.Context, reservationId string) ApiReservationsReservationIdActionsAutoRenewEnablePostRequest {
 	return ApiReservationsReservationIdActionsAutoRenewEnablePostRequest{
@@ -586,7 +589,8 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewEnable
 }
 
 // Execute executes the request
-//  @return Reservation
+//
+//	@return Reservation
 func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewEnablePostExecute(r ApiReservationsReservationIdActionsAutoRenewEnablePostRequest) (*Reservation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -731,9 +735,9 @@ ReservationsReservationIdActionsConvertPost Convert reservation pricing model by
 
 Convert reservation pricing model by reservation id.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param reservationId The reservation's ID.
- @return ApiReservationsReservationIdActionsConvertPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param reservationId The reservation's ID.
+	@return ApiReservationsReservationIdActionsConvertPostRequest
 */
 func (a *ReservationsApiService) ReservationsReservationIdActionsConvertPost(ctx context.Context, reservationId string) ApiReservationsReservationIdActionsConvertPostRequest {
 	return ApiReservationsReservationIdActionsConvertPostRequest{
@@ -744,7 +748,8 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsConvertPost(ctx
 }
 
 // Execute executes the request
-//  @return Reservation
+//
+//	@return Reservation
 func (a *ReservationsApiService) ReservationsReservationIdActionsConvertPostExecute(r ApiReservationsReservationIdActionsConvertPostRequest) (*Reservation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -875,9 +880,9 @@ ReservationsReservationIdGet Get a reservation.
 
 Retrieves the reservations with the specified identifier. All date & times are in UTC.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param reservationId The reservation's ID.
- @return ApiReservationsReservationIdGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param reservationId The reservation's ID.
+	@return ApiReservationsReservationIdGetRequest
 */
 func (a *ReservationsApiService) ReservationsReservationIdGet(ctx context.Context, reservationId string) ApiReservationsReservationIdGetRequest {
 	return ApiReservationsReservationIdGetRequest{
@@ -888,7 +893,8 @@ func (a *ReservationsApiService) ReservationsReservationIdGet(ctx context.Contex
 }
 
 // Execute executes the request
-//  @return Reservation
+//
+//	@return Reservation
 func (a *ReservationsApiService) ReservationsReservationIdGetExecute(r ApiReservationsReservationIdGetRequest) (*Reservation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
