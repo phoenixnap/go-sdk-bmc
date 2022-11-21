@@ -19,6 +19,7 @@ runs:
       run: |
         cd tests
         go install github.com/jstemmer/go-junit-report
+        go mod tidy
         go test -v -run ${{ inputs.test-suite }} | go-junit-report -set-exit-code > ${{inputs.test-suite}}.xml
     - name: Upload Test Results
       if: always()
