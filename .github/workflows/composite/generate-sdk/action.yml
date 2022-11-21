@@ -4,7 +4,7 @@ inputs:
   spec-link: 
     description: 'Link to the spec file.'
     required: true
-  module-name:
+  package-name:
     description: 'Name of the go module.'
     required: true
 runs:
@@ -28,18 +28,18 @@ runs:
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       shell: bash
       run: |
-        suffix=$(./extract-version-suffix.sh ./${{ inputs.module-name }}/VERSION.go)
+        suffix=$(./extract-version-suffix.sh ./${{ inputs.package-name }}/VERSION.go)
 
         openapi-generator-cli generate \
           -i ${{ inputs.spec-link }} \
           -c openapi-generator-config.yaml \
-          -o ${{ inputs.module-name }} \
-          --additional-properties moduleName=${{ inputs.module-name }} \
+          -o ${{ inputs.package-name }} \
+          --additional-properties packageName=${{ inputs.package-name }} \
           --additional-properties majorVersion=$suffix
     - name: Download spec files
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       shell: bash
-      run: wget ${{ inputs.spec-link }} -O ./${{ inputs.module-name }}/${{ inputs.module-name }}.spec.yaml
+      run: wget ${{ inputs.spec-link }} -O ./${{ inputs.package-name }}/${{ inputs.package-name }}.spec.yaml
     - name: Setup Go
       uses: actions/setup-go@v3
       with:
@@ -49,10 +49,10 @@ runs:
       run: go install golang.org/x/tools/cmd/goimports@latest
     - name: Fix imports
       shell: bash
-      run: cd ${{ inputs.module-name }} && goimports -w .
+      run: cd ${{ inputs.package-name }} && goimports -w .
     - name: Upload SDK Artifacts
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       uses: actions/upload-artifact@v2
       with:
-        name: ${{ inputs.module-name }}
-        path: ${{ inputs.module-name }}
+        name: ${{ inputs.package-name }}
+        path: ${{ inputs.package-name }}
