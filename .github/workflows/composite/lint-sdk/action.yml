@@ -7,11 +7,13 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Install golang
+    - name: Setup Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.19
+    - name: Install goimports
       shell: bash
-      run: |
-        sudo apt-get update 
-        sudo apt-get install golang-go
+      run: cd ${{ inputs.module-name }} && go install golang.org/x/tools/cmd/goimports@latest && goimports -w .
     - name: Lint module
       shell: bash
       run: cd ${{ inputs.module-name }} && go vet ./...
