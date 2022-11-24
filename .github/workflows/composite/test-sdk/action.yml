@@ -7,6 +7,9 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - uses: actions/checkout@v3
+    - name: Download Artifacts
+      uses: actions/download-artifact@v2
     - name: Setup Go
       uses: actions/setup-go@v3
       with:
@@ -16,7 +19,10 @@ runs:
       run: cd ${{ inputs.module-name }} && go install golang.org/x/tools/cmd/goimports@latest && goimports -w .
     - name: Install go-junit-report
       shell: bash
-      run: cd ${{ inputs.module-name }} && go install github.com/jstemmer/go-junit-report
+      run: |
+          export GOPATH="$HOME/go/"
+          export PATH=$PATH:$GOPATH/bin
+          go install github.com/jstemmer/go-junit-report@latest
     - name: Run tests
       shell: bash
       run: cd tests go test -v -run ${{ inputs.test-suite }} | go-junit-report -set-exit-code > ${{inputs.test-suite}}.xml
