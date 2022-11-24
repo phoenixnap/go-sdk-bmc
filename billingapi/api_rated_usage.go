@@ -1,7 +1,7 @@
 /*
 Billing API
 
-Automate your infrastructure billing with the Bare Metal Cloud Billing API. Reserve your server instances to ensure guaranteed resource availability for 12, 24, and 36 months. Retrieve your server’s rated usage for a given period and enable or disable auto-renewals.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/phoenixnap-bare-metal-cloud-billing-models' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/billing/v1/)</b> 
+Automate your infrastructure billing with the Bare Metal Cloud Billing API. Reserve your server instances to ensure guaranteed resource availability for 12, 24, and 36 months. Retrieve your server’s rated usage for a given period and enable or disable auto-renewals.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/phoenixnap-bare-metal-cloud-billing-models' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/billing/v1/)</b>
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -19,16 +19,15 @@ import (
 	"net/url"
 )
 
-
 type RatedUsageApi interface {
 
 	/*
-	RatedUsageGet List the rated usage.
+		RatedUsageGet List the rated usage.
 
-	Retrieves all rated usage for given time period. The information is presented as a list of rated usage records. Every record corresponds to a charge. All date & times are in UTC.
+		Retrieves all rated usage for given time period. The information is presented as a list of rated usage records. Every record corresponds to a charge. All date & times are in UTC.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiRatedUsageGetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiRatedUsageGetRequest
 	*/
 	RatedUsageGet(ctx context.Context) ApiRatedUsageGetRequest
 
@@ -37,12 +36,12 @@ type RatedUsageApi interface {
 	RatedUsageGetExecute(r ApiRatedUsageGetRequest) ([]RatedUsageGet200ResponseInner, *http.Response, error)
 
 	/*
-	RatedUsageMonthToDateGet List the rated usage records for the current calendar month.
+		RatedUsageMonthToDateGet List the rated usage records for the current calendar month.
 
-	Retrieves all rated usage for the current calendar month. The information is presented as a list of rated usage records. Every record corresponds to a charge. All date & times are in UTC.
+		Retrieves all rated usage for the current calendar month. The information is presented as a list of rated usage records. Every record corresponds to a charge. All date & times are in UTC.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiRatedUsageMonthToDateGetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiRatedUsageMonthToDateGetRequest
 	*/
 	RatedUsageMonthToDateGet(ctx context.Context) ApiRatedUsageMonthToDateGetRequest
 
@@ -55,10 +54,10 @@ type RatedUsageApi interface {
 type RatedUsageApiService service
 
 type ApiRatedUsageGetRequest struct {
-	ctx context.Context
-	ApiService RatedUsageApi
-	fromYearMonth *string
-	toYearMonth *string
+	ctx             context.Context
+	ApiService      RatedUsageApi
+	fromYearMonth   *string
+	toYearMonth     *string
 	productCategory *ProductCategoryEnum
 }
 
@@ -89,24 +88,25 @@ RatedUsageGet List the rated usage.
 
 Retrieves all rated usage for given time period. The information is presented as a list of rated usage records. Every record corresponds to a charge. All date & times are in UTC.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRatedUsageGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRatedUsageGetRequest
 */
 func (a *RatedUsageApiService) RatedUsageGet(ctx context.Context) ApiRatedUsageGetRequest {
 	return ApiRatedUsageGetRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []RatedUsageGet200ResponseInner
+//
+//	@return []RatedUsageGet200ResponseInner
 func (a *RatedUsageApiService) RatedUsageGetExecute(r ApiRatedUsageGetRequest) ([]RatedUsageGet200ResponseInner, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []RatedUsageGet200ResponseInner
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []RatedUsageGet200ResponseInner
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RatedUsageApiService.RatedUsageGet")
@@ -215,8 +215,8 @@ func (a *RatedUsageApiService) RatedUsageGetExecute(r ApiRatedUsageGetRequest) (
 }
 
 type ApiRatedUsageMonthToDateGetRequest struct {
-	ctx context.Context
-	ApiService RatedUsageApi
+	ctx             context.Context
+	ApiService      RatedUsageApi
 	productCategory *ProductCategoryEnum
 }
 
@@ -235,24 +235,25 @@ RatedUsageMonthToDateGet List the rated usage records for the current calendar m
 
 Retrieves all rated usage for the current calendar month. The information is presented as a list of rated usage records. Every record corresponds to a charge. All date & times are in UTC.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRatedUsageMonthToDateGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRatedUsageMonthToDateGetRequest
 */
 func (a *RatedUsageApiService) RatedUsageMonthToDateGet(ctx context.Context) ApiRatedUsageMonthToDateGetRequest {
 	return ApiRatedUsageMonthToDateGetRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []RatedUsageGet200ResponseInner
+//
+//	@return []RatedUsageGet200ResponseInner
 func (a *RatedUsageApiService) RatedUsageMonthToDateGetExecute(r ApiRatedUsageMonthToDateGetRequest) ([]RatedUsageGet200ResponseInner, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []RatedUsageGet200ResponseInner
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []RatedUsageGet200ResponseInner
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RatedUsageApiService.RatedUsageMonthToDateGet")

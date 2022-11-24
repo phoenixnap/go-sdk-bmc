@@ -1,7 +1,7 @@
 /*
 Billing API
 
-Automate your infrastructure billing with the Bare Metal Cloud Billing API. Reserve your server instances to ensure guaranteed resource availability for 12, 24, and 36 months. Retrieve your server’s rated usage for a given period and enable or disable auto-renewals.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/phoenixnap-bare-metal-cloud-billing-models' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/billing/v1/)</b> 
+Automate your infrastructure billing with the Bare Metal Cloud Billing API. Reserve your server instances to ensure guaranteed resource availability for 12, 24, and 36 months. Retrieve your server’s rated usage for a given period and enable or disable auto-renewals.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/phoenixnap-bare-metal-cloud-billing-models' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/billing/v1/)</b>
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -23,9 +23,9 @@ type Reservation struct {
 	// The code identifying the product. This code has significant across all locations.
 	ProductCode string `json:"productCode"`
 	// The product category.
-	ProductCategory string `json:"productCategory"`
-	Location LocationEnum `json:"location"`
-	ReservationModel ReservationModelEnum `json:"reservationModel"`
+	ProductCategory     string                         `json:"productCategory"`
+	Location            LocationEnum                   `json:"location"`
+	ReservationModel    ReservationModelEnum           `json:"reservationModel"`
 	InitialInvoiceModel *ReservationInvoicingModelEnum `json:"initialInvoiceModel,omitempty"`
 	// The point in time (in UTC) when the reservation starts.
 	StartDateTime time.Time `json:"startDateTime"`
@@ -40,7 +40,7 @@ type Reservation struct {
 	// The sku that will be applied to this reservation. It is useful to find out the price by querying the /product endpoint.
 	Sku string `json:"sku"`
 	// Reservation price.
-	Price float32 `json:"price"`
+	Price     float32       `json:"price"`
 	PriceUnit PriceUnitEnum `json:"priceUnit"`
 	// The resource ID currently being assigned to Reservation.
 	AssignedResourceId *string `json:"assignedResourceId,omitempty"`
@@ -595,5 +595,3 @@ func (v *NullableReservation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -1,7 +1,7 @@
 /*
 Billing API
 
-Automate your infrastructure billing with the Bare Metal Cloud Billing API. Reserve your server instances to ensure guaranteed resource availability for 12, 24, and 36 months. Retrieve your server’s rated usage for a given period and enable or disable auto-renewals.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/phoenixnap-bare-metal-cloud-billing-models' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/billing/v1/)</b> 
+Automate your infrastructure billing with the Bare Metal Cloud Billing API. Reserve your server instances to ensure guaranteed resource availability for 12, 24, and 36 months. Retrieve your server’s rated usage for a given period and enable or disable auto-renewals.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/phoenixnap-bare-metal-cloud-billing-models' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/billing/v1/)</b>
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -13,17 +13,16 @@ package billingapi
 
 import (
 	"encoding/json"
-	"time"
 	"fmt"
 )
 
 // RatedUsageGet200ResponseInner - struct for RatedUsageGet200ResponseInner
 type RatedUsageGet200ResponseInner struct {
-	BandwidthRecord *BandwidthRecord
+	BandwidthRecord       *BandwidthRecord
 	OperatingSystemRecord *OperatingSystemRecord
-	PublicSubnetRecord *PublicSubnetRecord
-	ServerRecord *ServerRecord
-	StorageRecord *StorageRecord
+	PublicSubnetRecord    *PublicSubnetRecord
+	ServerRecord          *ServerRecord
+	StorageRecord         *StorageRecord
 }
 
 // BandwidthRecordAsRatedUsageGet200ResponseInner is a convenience function that returns BandwidthRecord wrapped in RatedUsageGet200ResponseInner
@@ -60,7 +59,6 @@ func StorageRecordAsRatedUsageGet200ResponseInner(v *StorageRecord) RatedUsageGe
 		StorageRecord: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *RatedUsageGet200ResponseInner) UnmarshalJSON(data []byte) error {
@@ -221,7 +219,7 @@ func (src RatedUsageGet200ResponseInner) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *RatedUsageGet200ResponseInner) GetActualInstance() (interface{}) {
+func (obj *RatedUsageGet200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -284,5 +282,3 @@ func (v *NullableRatedUsageGet200ResponseInner) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

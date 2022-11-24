@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b> 
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -20,16 +20,15 @@ import (
 	"strings"
 )
 
-
 type SSHKeysApi interface {
 
 	/*
-	SshKeysGet List SSH Keys.
+		SshKeysGet List SSH Keys.
 
-	List all SSH Keys.
+		List all SSH Keys.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSshKeysGetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiSshKeysGetRequest
 	*/
 	SshKeysGet(ctx context.Context) ApiSshKeysGetRequest
 
@@ -38,12 +37,12 @@ type SSHKeysApi interface {
 	SshKeysGetExecute(r ApiSshKeysGetRequest) ([]SshKey, *http.Response, error)
 
 	/*
-	SshKeysPost Create SSH Key.
+		SshKeysPost Create SSH Key.
 
-	Create an SSH Key. SSH Keys created can be used for server creation and reset functionality.
+		Create an SSH Key. SSH Keys created can be used for server creation and reset functionality.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSshKeysPostRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiSshKeysPostRequest
 	*/
 	SshKeysPost(ctx context.Context) ApiSshKeysPostRequest
 
@@ -52,13 +51,13 @@ type SSHKeysApi interface {
 	SshKeysPostExecute(r ApiSshKeysPostRequest) (*SshKey, *http.Response, error)
 
 	/*
-	SshKeysSshKeyIdDelete Delete SSH Key.
+		SshKeysSshKeyIdDelete Delete SSH Key.
 
-	Delete an SSH Key.
+		Delete an SSH Key.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param sshKeyId The SSH Key's ID.
-	@return ApiSshKeysSshKeyIdDeleteRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param sshKeyId The SSH Key's ID.
+		@return ApiSshKeysSshKeyIdDeleteRequest
 	*/
 	SshKeysSshKeyIdDelete(ctx context.Context, sshKeyId string) ApiSshKeysSshKeyIdDeleteRequest
 
@@ -67,13 +66,13 @@ type SSHKeysApi interface {
 	SshKeysSshKeyIdDeleteExecute(r ApiSshKeysSshKeyIdDeleteRequest) (*DeleteSshKeyResult, *http.Response, error)
 
 	/*
-	SshKeysSshKeyIdGet Get SSH Key.
+		SshKeysSshKeyIdGet Get SSH Key.
 
-	Get SSH Key details.
+		Get SSH Key details.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param sshKeyId The SSH Key's ID.
-	@return ApiSshKeysSshKeyIdGetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param sshKeyId The SSH Key's ID.
+		@return ApiSshKeysSshKeyIdGetRequest
 	*/
 	SshKeysSshKeyIdGet(ctx context.Context, sshKeyId string) ApiSshKeysSshKeyIdGetRequest
 
@@ -82,13 +81,13 @@ type SSHKeysApi interface {
 	SshKeysSshKeyIdGetExecute(r ApiSshKeysSshKeyIdGetRequest) (*SshKey, *http.Response, error)
 
 	/*
-	SshKeysSshKeyIdPut Edit SSH Key.
+		SshKeysSshKeyIdPut Edit SSH Key.
 
-	Edit SSH Key details.
+		Edit SSH Key details.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param sshKeyId The SSH Key's ID.
-	@return ApiSshKeysSshKeyIdPutRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param sshKeyId The SSH Key's ID.
+		@return ApiSshKeysSshKeyIdPutRequest
 	*/
 	SshKeysSshKeyIdPut(ctx context.Context, sshKeyId string) ApiSshKeysSshKeyIdPutRequest
 
@@ -101,7 +100,7 @@ type SSHKeysApi interface {
 type SSHKeysApiService service
 
 type ApiSshKeysGetRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SSHKeysApi
 }
 
@@ -114,24 +113,25 @@ SshKeysGet List SSH Keys.
 
 List all SSH Keys.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSshKeysGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSshKeysGetRequest
 */
 func (a *SSHKeysApiService) SshKeysGet(ctx context.Context) ApiSshKeysGetRequest {
 	return ApiSshKeysGetRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []SshKey
+//
+//	@return []SshKey
 func (a *SSHKeysApiService) SshKeysGetExecute(r ApiSshKeysGetRequest) ([]SshKey, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []SshKey
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []SshKey
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SSHKeysApiService.SshKeysGet")
@@ -229,8 +229,8 @@ func (a *SSHKeysApiService) SshKeysGetExecute(r ApiSshKeysGetRequest) ([]SshKey,
 }
 
 type ApiSshKeysPostRequest struct {
-	ctx context.Context
-	ApiService SSHKeysApi
+	ctx          context.Context
+	ApiService   SSHKeysApi
 	sshKeyCreate *SshKeyCreate
 }
 
@@ -248,24 +248,25 @@ SshKeysPost Create SSH Key.
 
 Create an SSH Key. SSH Keys created can be used for server creation and reset functionality.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSshKeysPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSshKeysPostRequest
 */
 func (a *SSHKeysApiService) SshKeysPost(ctx context.Context) ApiSshKeysPostRequest {
 	return ApiSshKeysPostRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return SshKey
+//
+//	@return SshKey
 func (a *SSHKeysApiService) SshKeysPostExecute(r ApiSshKeysPostRequest) (*SshKey, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SshKey
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SshKey
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SSHKeysApiService.SshKeysPost")
@@ -385,9 +386,9 @@ func (a *SSHKeysApiService) SshKeysPostExecute(r ApiSshKeysPostRequest) (*SshKey
 }
 
 type ApiSshKeysSshKeyIdDeleteRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SSHKeysApi
-	sshKeyId string
+	sshKeyId   string
 }
 
 func (r ApiSshKeysSshKeyIdDeleteRequest) Execute() (*DeleteSshKeyResult, *http.Response, error) {
@@ -399,26 +400,27 @@ SshKeysSshKeyIdDelete Delete SSH Key.
 
 Delete an SSH Key.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param sshKeyId The SSH Key's ID.
- @return ApiSshKeysSshKeyIdDeleteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sshKeyId The SSH Key's ID.
+	@return ApiSshKeysSshKeyIdDeleteRequest
 */
 func (a *SSHKeysApiService) SshKeysSshKeyIdDelete(ctx context.Context, sshKeyId string) ApiSshKeysSshKeyIdDeleteRequest {
 	return ApiSshKeysSshKeyIdDeleteRequest{
 		ApiService: a,
-		ctx: ctx,
-		sshKeyId: sshKeyId,
+		ctx:        ctx,
+		sshKeyId:   sshKeyId,
 	}
 }
 
 // Execute executes the request
-//  @return DeleteSshKeyResult
+//
+//	@return DeleteSshKeyResult
 func (a *SSHKeysApiService) SshKeysSshKeyIdDeleteExecute(r ApiSshKeysSshKeyIdDeleteRequest) (*DeleteSshKeyResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *DeleteSshKeyResult
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DeleteSshKeyResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SSHKeysApiService.SshKeysSshKeyIdDelete")
@@ -527,9 +529,9 @@ func (a *SSHKeysApiService) SshKeysSshKeyIdDeleteExecute(r ApiSshKeysSshKeyIdDel
 }
 
 type ApiSshKeysSshKeyIdGetRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SSHKeysApi
-	sshKeyId string
+	sshKeyId   string
 }
 
 func (r ApiSshKeysSshKeyIdGetRequest) Execute() (*SshKey, *http.Response, error) {
@@ -541,26 +543,27 @@ SshKeysSshKeyIdGet Get SSH Key.
 
 Get SSH Key details.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param sshKeyId The SSH Key's ID.
- @return ApiSshKeysSshKeyIdGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sshKeyId The SSH Key's ID.
+	@return ApiSshKeysSshKeyIdGetRequest
 */
 func (a *SSHKeysApiService) SshKeysSshKeyIdGet(ctx context.Context, sshKeyId string) ApiSshKeysSshKeyIdGetRequest {
 	return ApiSshKeysSshKeyIdGetRequest{
 		ApiService: a,
-		ctx: ctx,
-		sshKeyId: sshKeyId,
+		ctx:        ctx,
+		sshKeyId:   sshKeyId,
 	}
 }
 
 // Execute executes the request
-//  @return SshKey
+//
+//	@return SshKey
 func (a *SSHKeysApiService) SshKeysSshKeyIdGetExecute(r ApiSshKeysSshKeyIdGetRequest) (*SshKey, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SshKey
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SshKey
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SSHKeysApiService.SshKeysSshKeyIdGet")
@@ -669,9 +672,9 @@ func (a *SSHKeysApiService) SshKeysSshKeyIdGetExecute(r ApiSshKeysSshKeyIdGetReq
 }
 
 type ApiSshKeysSshKeyIdPutRequest struct {
-	ctx context.Context
-	ApiService SSHKeysApi
-	sshKeyId string
+	ctx          context.Context
+	ApiService   SSHKeysApi
+	sshKeyId     string
 	sshKeyUpdate *SshKeyUpdate
 }
 
@@ -689,26 +692,27 @@ SshKeysSshKeyIdPut Edit SSH Key.
 
 Edit SSH Key details.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param sshKeyId The SSH Key's ID.
- @return ApiSshKeysSshKeyIdPutRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sshKeyId The SSH Key's ID.
+	@return ApiSshKeysSshKeyIdPutRequest
 */
 func (a *SSHKeysApiService) SshKeysSshKeyIdPut(ctx context.Context, sshKeyId string) ApiSshKeysSshKeyIdPutRequest {
 	return ApiSshKeysSshKeyIdPutRequest{
 		ApiService: a,
-		ctx: ctx,
-		sshKeyId: sshKeyId,
+		ctx:        ctx,
+		sshKeyId:   sshKeyId,
 	}
 }
 
 // Execute executes the request
-//  @return SshKey
+//
+//	@return SshKey
 func (a *SSHKeysApiService) SshKeysSshKeyIdPutExecute(r ApiSshKeysSshKeyIdPutRequest) (*SshKey, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SshKey
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SshKey
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SSHKeysApiService.SshKeysSshKeyIdPut")

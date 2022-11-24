@@ -1,7 +1,7 @@
 /*
 Rancher Solution API
 
-Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b> 
+Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b>
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -20,16 +20,15 @@ import (
 	"strings"
 )
 
-
 type ClustersApi interface {
 
 	/*
-	ClustersGet Cluster list.
+		ClustersGet Cluster list.
 
-	Cluster list.
+		Cluster list.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiClustersGetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiClustersGetRequest
 	*/
 	ClustersGet(ctx context.Context) ApiClustersGetRequest
 
@@ -38,13 +37,13 @@ type ClustersApi interface {
 	ClustersGetExecute(r ApiClustersGetRequest) ([]Cluster, *http.Response, error)
 
 	/*
-	ClustersIdDelete Delete a cluster.
+		ClustersIdDelete Delete a cluster.
 
-	Delete a cluster.
+		Delete a cluster.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The Cluster identifier.
-	@return ApiClustersIdDeleteRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id The Cluster identifier.
+		@return ApiClustersIdDeleteRequest
 	*/
 	ClustersIdDelete(ctx context.Context, id string) ApiClustersIdDeleteRequest
 
@@ -53,13 +52,13 @@ type ClustersApi interface {
 	ClustersIdDeleteExecute(r ApiClustersIdDeleteRequest) (*DeleteResult, *http.Response, error)
 
 	/*
-	ClustersIdGet Retrieve a Cluster
+		ClustersIdGet Retrieve a Cluster
 
-	Retrieve a Cluster
+		Retrieve a Cluster
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The Cluster identifier.
-	@return ApiClustersIdGetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id The Cluster identifier.
+		@return ApiClustersIdGetRequest
 	*/
 	ClustersIdGet(ctx context.Context, id string) ApiClustersIdGetRequest
 
@@ -68,14 +67,14 @@ type ClustersApi interface {
 	ClustersIdGetExecute(r ApiClustersIdGetRequest) (*Cluster, *http.Response, error)
 
 	/*
-	ClustersPost Create a Rancher Server Deployment.
+			ClustersPost Create a Rancher Server Deployment.
 
-	Create a Rancher Server Deployment as described in <a href='https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture' target='_blank'>Rancher Docs Architecture</a>. Rancher Server allows the creation, import and management of multiple Downstream User Kubernetes Clusters.
-<b>This is not a Downstream User Cluster</b>. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/bmc-rancher-workload-cluster#ftoc-heading-5' target='_blank'>here</a>.
+			Create a Rancher Server Deployment as described in <a href='https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture' target='_blank'>Rancher Docs Architecture</a>. Rancher Server allows the creation, import and management of multiple Downstream User Kubernetes Clusters.
+		<b>This is not a Downstream User Cluster</b>. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/bmc-rancher-workload-cluster#ftoc-heading-5' target='_blank'>here</a>.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiClustersPostRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiClustersPostRequest
 	*/
 	ClustersPost(ctx context.Context) ApiClustersPostRequest
 
@@ -88,7 +87,7 @@ type ClustersApi interface {
 type ClustersApiService service
 
 type ApiClustersGetRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ClustersApi
 }
 
@@ -101,24 +100,25 @@ ClustersGet Cluster list.
 
 Cluster list.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiClustersGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiClustersGetRequest
 */
 func (a *ClustersApiService) ClustersGet(ctx context.Context) ApiClustersGetRequest {
 	return ApiClustersGetRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Cluster
+//
+//	@return []Cluster
 func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) ([]Cluster, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Cluster
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Cluster
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClustersApiService.ClustersGet")
@@ -216,9 +216,9 @@ func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) ([]Clus
 }
 
 type ApiClustersIdDeleteRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ClustersApi
-	id string
+	id         string
 }
 
 func (r ApiClustersIdDeleteRequest) Execute() (*DeleteResult, *http.Response, error) {
@@ -230,26 +230,27 @@ ClustersIdDelete Delete a cluster.
 
 Delete a cluster.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id The Cluster identifier.
- @return ApiClustersIdDeleteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id The Cluster identifier.
+	@return ApiClustersIdDeleteRequest
 */
 func (a *ClustersApiService) ClustersIdDelete(ctx context.Context, id string) ApiClustersIdDeleteRequest {
 	return ApiClustersIdDeleteRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return DeleteResult
+//
+//	@return DeleteResult
 func (a *ClustersApiService) ClustersIdDeleteExecute(r ApiClustersIdDeleteRequest) (*DeleteResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *DeleteResult
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DeleteResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClustersApiService.ClustersIdDelete")
@@ -348,9 +349,9 @@ func (a *ClustersApiService) ClustersIdDeleteExecute(r ApiClustersIdDeleteReques
 }
 
 type ApiClustersIdGetRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ClustersApi
-	id string
+	id         string
 }
 
 func (r ApiClustersIdGetRequest) Execute() (*Cluster, *http.Response, error) {
@@ -362,26 +363,27 @@ ClustersIdGet Retrieve a Cluster
 
 Retrieve a Cluster
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id The Cluster identifier.
- @return ApiClustersIdGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id The Cluster identifier.
+	@return ApiClustersIdGetRequest
 */
 func (a *ClustersApiService) ClustersIdGet(ctx context.Context, id string) ApiClustersIdGetRequest {
 	return ApiClustersIdGetRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return Cluster
+//
+//	@return Cluster
 func (a *ClustersApiService) ClustersIdGetExecute(r ApiClustersIdGetRequest) (*Cluster, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Cluster
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Cluster
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClustersApiService.ClustersIdGet")
@@ -480,9 +482,9 @@ func (a *ClustersApiService) ClustersIdGetExecute(r ApiClustersIdGetRequest) (*C
 }
 
 type ApiClustersPostRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ClustersApi
-	cluster *Cluster
+	cluster    *Cluster
 }
 
 func (r ApiClustersPostRequest) Cluster(cluster Cluster) ApiClustersPostRequest {
@@ -500,25 +502,25 @@ ClustersPost Create a Rancher Server Deployment.
 Create a Rancher Server Deployment as described in <a href='https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture' target='_blank'>Rancher Docs Architecture</a>. Rancher Server allows the creation, import and management of multiple Downstream User Kubernetes Clusters.
 <b>This is not a Downstream User Cluster</b>. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/bmc-rancher-workload-cluster#ftoc-heading-5' target='_blank'>here</a>.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiClustersPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiClustersPostRequest
 */
 func (a *ClustersApiService) ClustersPost(ctx context.Context) ApiClustersPostRequest {
 	return ApiClustersPostRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return Cluster
+//
+//	@return Cluster
 func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (*Cluster, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Cluster
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Cluster
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClustersApiService.ClustersPost")
