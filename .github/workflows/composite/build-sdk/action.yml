@@ -16,4 +16,4 @@ runs:
       run: go version && go install golang.org/x/tools/cmd/goimports@latest && goimports -w .
     - name: Build go module
       shell: bash
-      run: cd ${{ inputs.module-name }} && go build
+      run: cd ${{ inputs.module-name }} && go mod tudy && go build
