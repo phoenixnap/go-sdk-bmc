@@ -138,7 +138,6 @@ jobs:
       - generate-bmcapi
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/build-sdk
@@ -151,7 +150,6 @@ jobs:
       - generate-rancherapi
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/build-sdk
@@ -164,7 +162,6 @@ jobs:
       - generate-networkapi
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/build-sdk
@@ -177,7 +174,6 @@ jobs:
       - generate-ipapi
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/build-sdk
@@ -190,7 +186,6 @@ jobs:
       - generate-auditapi
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/build-sdk
@@ -203,7 +198,6 @@ jobs:
       - generate-tagapi
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/build-sdk
@@ -216,7 +210,6 @@ jobs:
       - generate-billingapi
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/build-sdk
@@ -229,7 +222,6 @@ jobs:
       - generate-networkstorageapi
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/build-sdk
@@ -244,7 +236,6 @@ jobs:
       - build-bmcapi
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/lint-sdk
@@ -257,7 +248,6 @@ jobs:
       - build-rancherapi
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/lint-sdk
@@ -270,7 +260,6 @@ jobs:
       - build-networkapi
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/lint-sdk
@@ -283,7 +272,6 @@ jobs:
       - build-ipapi
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/lint-sdk
@@ -296,7 +284,6 @@ jobs:
       - build-auditapi
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/lint-sdk
@@ -309,7 +296,6 @@ jobs:
       - build-tagapi
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/lint-sdk
@@ -322,7 +308,6 @@ jobs:
       - build-billingapi
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/lint-sdk
@@ -335,7 +320,6 @@ jobs:
       - build-networkstorageapi
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/lint-sdk
@@ -354,7 +338,6 @@ jobs:
           - 1080:1080
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
@@ -372,7 +355,6 @@ jobs:
           - 1080:1080
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
@@ -390,7 +372,6 @@ jobs:
           - 1080:1080
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
@@ -408,7 +389,6 @@ jobs:
           - 1080:1080
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
@@ -426,7 +406,6 @@ jobs:
           - 1080:1080
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
@@ -444,7 +423,6 @@ jobs:
           - 1080:1080
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
@@ -462,7 +440,6 @@ jobs:
           - 1080:1080
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
@@ -480,7 +457,6 @@ jobs:
           - 1080:1080
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/composite/setup-go
       - name: Download Artifacts
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk

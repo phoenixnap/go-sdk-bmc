@@ -7,6 +7,3 @@ runs:
       uses: actions/setup-go@v3
       with:
         go-version: 1.19
-    - name: Setup goimports
-      shell: bash
-      run: go version && go install golang.org/x/tools/cmd/goimports@latest && goimports -w .

@@ -7,6 +7,7 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - uses: ./.github/workflows/composite/setup-go
     - name: Build go module
       shell: bash
       run: cd ${{ inputs.module-name }} && go mod tidy && go build
