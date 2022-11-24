@@ -1,7 +1,7 @@
 /*
 Billing API
 
-Automate your infrastructure billing with the Bare Metal Cloud Billing API. Reserve your server instances to ensure guaranteed resource availability for 12, 24, and 36 months. Retrieve your server’s rated usage for a given period and enable or disable auto-renewals.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/phoenixnap-bare-metal-cloud-billing-models' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/billing/v1/)</b>
+Automate your infrastructure billing with the Bare Metal Cloud Billing API. Reserve your server instances to ensure guaranteed resource availability for 12, 24, and 36 months. Retrieve your server’s rated usage for a given period and enable or disable auto-renewals.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/phoenixnap-bare-metal-cloud-billing-models' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/billing/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -20,15 +20,16 @@ import (
 	"reflect"
 )
 
+
 type ProductsApi interface {
 
 	/*
-		ProductAvailabilityGet List all Product availabilities.
+	ProductAvailabilityGet List all Product availabilities.
 
-		Retrieves the list of product availability details.
+	Retrieves the list of product availability details.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiProductAvailabilityGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiProductAvailabilityGetRequest
 	*/
 	ProductAvailabilityGet(ctx context.Context) ApiProductAvailabilityGetRequest
 
@@ -37,12 +38,12 @@ type ProductsApi interface {
 	ProductAvailabilityGetExecute(r ApiProductAvailabilityGetRequest) ([]ProductAvailability, *http.Response, error)
 
 	/*
-		ProductsGet List all Products.
+	ProductsGet List all Products.
 
-		Retrieves all Products.
+	Retrieves all Products.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiProductsGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiProductsGetRequest
 	*/
 	ProductsGet(ctx context.Context) ApiProductsGetRequest
 
@@ -55,14 +56,14 @@ type ProductsApi interface {
 type ProductsApiService service
 
 type ApiProductAvailabilityGetRequest struct {
-	ctx                          context.Context
-	ApiService                   ProductsApi
-	productCategory              *[]string
-	productCode                  *[]string
+	ctx context.Context
+	ApiService ProductsApi
+	productCategory *[]string
+	productCode *[]string
 	showOnlyMinQuantityAvailable *bool
-	location                     *[]LocationEnum
-	solution                     *[]string
-	minQuantity                  *float32
+	location *[]LocationEnum
+	solution *[]string
+	minQuantity *float32
 }
 
 // Product category. Currently only SERVER category is supported.
@@ -107,25 +108,24 @@ ProductAvailabilityGet List all Product availabilities.
 
 Retrieves the list of product availability details.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiProductAvailabilityGetRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiProductAvailabilityGetRequest
 */
 func (a *ProductsApiService) ProductAvailabilityGet(ctx context.Context) ApiProductAvailabilityGetRequest {
 	return ApiProductAvailabilityGetRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []ProductAvailability
+//  @return []ProductAvailability
 func (a *ProductsApiService) ProductAvailabilityGetExecute(r ApiProductAvailabilityGetRequest) ([]ProductAvailability, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []ProductAvailability
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []ProductAvailability
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProductsApiService.ProductAvailabilityGet")
@@ -263,12 +263,12 @@ func (a *ProductsApiService) ProductAvailabilityGetExecute(r ApiProductAvailabil
 }
 
 type ApiProductsGetRequest struct {
-	ctx             context.Context
-	ApiService      ProductsApi
-	productCode     *string
+	ctx context.Context
+	ApiService ProductsApi
+	productCode *string
 	productCategory *string
-	skuCode         *string
-	location        *string
+	skuCode *string
+	location *string
 }
 
 func (r ApiProductsGetRequest) ProductCode(productCode string) ApiProductsGetRequest {
@@ -300,25 +300,24 @@ ProductsGet List all Products.
 
 Retrieves all Products.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiProductsGetRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiProductsGetRequest
 */
 func (a *ProductsApiService) ProductsGet(ctx context.Context) ApiProductsGetRequest {
 	return ApiProductsGetRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []ProductsGet200ResponseInner
+//  @return []ProductsGet200ResponseInner
 func (a *ProductsApiService) ProductsGetExecute(r ApiProductsGetRequest) ([]ProductsGet200ResponseInner, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []ProductsGet200ResponseInner
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []ProductsGet200ResponseInner
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProductsApiService.ProductsGet")

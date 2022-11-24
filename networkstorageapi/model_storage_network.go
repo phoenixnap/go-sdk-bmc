@@ -1,7 +1,7 @@
 /*
 Network Storage API
 
-Create, list, edit, and delete storage networks with the Network Storage API. Use storage networks to expand storage capacity on a private network. <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bare-metal-cloud-storage' target='_blank'>here</a> </span> <br> <b>All URLs are relative to (https://api.phoenixnap.com/network-storage/v1/)</b>
+Create, list, edit, and delete storage networks with the Network Storage API. Use storage networks to expand storage capacity on a private network. <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/bare-metal-cloud-storage' target='_blank'>here</a> </span> <br> <b>All URLs are relative to (https://api.phoenixnap.com/network-storage/v1/)</b> 
 
 API version: 1.0
 Contact: support@phoenixnap.com
@@ -24,7 +24,7 @@ type StorageNetwork struct {
 	Name *string `json:"name,omitempty"`
 	// Storage network description.
 	Description *string `json:"description,omitempty"`
-	Status      *Status `json:"status,omitempty"`
+	Status *Status `json:"status,omitempty"`
 	// Location of storage network. Currently this field should be set to `PHX` or `ASH`.
 	Location *string `json:"location,omitempty"`
 	// Id of network the storage belongs to.
@@ -409,3 +409,5 @@ func (v *NullableStorageNetwork) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

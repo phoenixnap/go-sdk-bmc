@@ -255,7 +255,7 @@ paths:
             schema:
               $ref: '#/components/schemas/ServerCreate'
       responses:
-        "200":
+        "202":
           content:
             application/json:
               schema:
@@ -803,6 +803,40 @@ paths:
                 example: The server is being removed from the specified private network.
                 type: string
           description: The server is being removed from the specified private network.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
       security:
       - OAuth2:
         - bmc
@@ -3253,7 +3287,9 @@ components:
             target='_blank'>cloud-init</a> configuration in base64 encoding. NoCloud
             format is supported. Follow the <a href='https://phoenixnap.com/kb/bmc-cloud-init'
             target='_blank'>instructions</a> on how to provision a server using cloud-init.
-            Only ubuntu/bionic and ubuntu/focal are supported.
+            Only ubuntu/bionic and ubuntu/focal are supported. User data will not
+            be stored and cannot be retrieved once you deploy the server. Copy and
+            save it for future reference.
           format: byte
           type: string
           writeOnly: true

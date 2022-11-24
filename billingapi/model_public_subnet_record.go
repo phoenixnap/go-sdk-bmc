@@ -1,7 +1,7 @@
 /*
 Billing API
 
-Automate your infrastructure billing with the Bare Metal Cloud Billing API. Reserve your server instances to ensure guaranteed resource availability for 12, 24, and 36 months. Retrieve your server’s rated usage for a given period and enable or disable auto-renewals.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/phoenixnap-bare-metal-cloud-billing-models' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/billing/v1/)</b>
+Automate your infrastructure billing with the Bare Metal Cloud Billing API. Reserve your server instances to ensure guaranteed resource availability for 12, 24, and 36 months. Retrieve your server’s rated usage for a given period and enable or disable auto-renewals.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/phoenixnap-bare-metal-cloud-billing-models' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/billing/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -23,8 +23,8 @@ type PublicSubnetRecord struct {
 	// The category of the product associated with this usage record.
 	ProductCategory string `json:"productCategory"`
 	// The code identifying the product associated to this usage record.
-	ProductCode string       `json:"productCode"`
-	Location    LocationEnum `json:"location"`
+	ProductCode string `json:"productCode"`
+	Location LocationEnum `json:"location"`
 	// Year and month of the usage record.
 	YearMonth *string `json:"yearMonth,omitempty"`
 	// The point in time (in UTC) when usage has started.
@@ -50,8 +50,8 @@ type PublicSubnetRecord struct {
 	// Holds usage record id
 	CorrelationId string `json:"correlationId"`
 	// Reservation id associated with this rated usage record.
-	ReservationId *string             `json:"reservationId,omitempty"`
-	Metadata      PublicSubnetDetails `json:"metadata"`
+	ReservationId *string `json:"reservationId,omitempty"`
+	Metadata PublicSubnetDetails `json:"metadata"`
 }
 
 // NewPublicSubnetRecord instantiates a new PublicSubnetRecord object
@@ -636,3 +636,5 @@ func (v *NullablePublicSubnetRecord) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

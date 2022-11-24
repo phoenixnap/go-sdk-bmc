@@ -1,7 +1,7 @@
 /*
 Rancher Solution API
 
-Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b>
+Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -28,8 +28,8 @@ type RancherClusterConfig struct {
 	// This maps to ranchers `node-taint`. Registering kubelet with set of taints. By default, server nodes will be schedulable and thus your workloads can get launched on them. If you wish to have a dedicated control plane where no user workloads will run, you can use taints.
 	NodeTaint *string `json:"nodeTaint,omitempty"`
 	// This maps to ranchers `cluster-domain`. Cluster Domain.
-	ClusterDomain *string                           `json:"clusterDomain,omitempty"`
-	Certificates  *RancherClusterConfigCertificates `json:"certificates,omitempty"`
+	ClusterDomain *string `json:"clusterDomain,omitempty"`
+	Certificates *RancherClusterConfigCertificates `json:"certificates,omitempty"`
 }
 
 // NewRancherClusterConfig instantiates a new RancherClusterConfig object
@@ -342,3 +342,5 @@ func (v *NullableRancherClusterConfig) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+
