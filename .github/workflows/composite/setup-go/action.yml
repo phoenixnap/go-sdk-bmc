@@ -1,0 +1,12 @@
+name: 'Setup GO'
+description: 'Sets up GO and generic configuration'
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Go with Version
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.19
+    - name: Setup goimports
+      shell: bash
+      run: go version && go install golang.org/x/tools/cmd/goimports@latest && goimports -w .
