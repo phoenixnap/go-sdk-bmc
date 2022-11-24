@@ -16,6 +16,7 @@ jobs:
     name: Generate BMC API
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./.github/workflows/composite/generate-sdk
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/bmc/download_spec
@@ -24,6 +25,7 @@ jobs:
     name: Generate Rancher API
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./.github/workflows/composite/generate-sdk
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/rancher/download_spec
@@ -32,6 +34,7 @@ jobs:
     name: Generate Network API
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./.github/workflows/composite/generate-sdk
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/networks/download_spec
@@ -40,6 +43,7 @@ jobs:
     name: Generate IP API
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./.github/workflows/composite/generate-sdk
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/ips/download_spec
@@ -48,6 +52,7 @@ jobs:
     name: Generate Audit API
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./.github/workflows/composite/generate-sdk
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/bmc-audit/download_spec
@@ -56,6 +61,7 @@ jobs:
     name: Generate Tag API
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./.github/workflows/composite/generate-sdk
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/tags/download_spec
@@ -64,6 +70,7 @@ jobs:
     name: Generate Billing API
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./.github/workflows/composite/generate-sdk
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/bmc-billing/download_spec
@@ -72,6 +79,7 @@ jobs:
     name: Generate Storage Network API
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./.github/workflows/composite/generate-sdk
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/network-storage/download_spec
@@ -99,7 +107,7 @@ jobs:
       - generate-networkstorageapi
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
           persist-credentials: false
           fetch-depth: 0
@@ -129,6 +137,9 @@ jobs:
     needs:
       - generate-bmcapi
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: bmcapi
@@ -138,6 +149,9 @@ jobs:
     needs:
       - generate-rancherapi
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: ranchersolutionapi
@@ -147,6 +161,9 @@ jobs:
     needs:
       - generate-networkapi
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: networkapi
@@ -156,6 +173,9 @@ jobs:
     needs:
       - generate-ipapi
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: ipapi
@@ -165,6 +185,9 @@ jobs:
     needs:
       - generate-auditapi
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: auditapi
@@ -174,6 +197,9 @@ jobs:
     needs:
       - generate-tagapi
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: tagapi
@@ -183,6 +209,9 @@ jobs:
     needs:
       - generate-billingapi
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: billingapi
@@ -192,6 +221,9 @@ jobs:
     needs:
       - generate-networkstorageapi
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: networkstorageapi
@@ -203,6 +235,9 @@ jobs:
     needs:
       - build-bmcapi
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: bmcapi
@@ -212,6 +247,9 @@ jobs:
     needs:
       - build-rancherapi
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: ranchersolutionapi
@@ -221,6 +259,9 @@ jobs:
     needs:
       - build-networkapi
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: networkapi
@@ -230,6 +271,9 @@ jobs:
     needs:
       - build-ipapi
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: ipapi
@@ -239,6 +283,9 @@ jobs:
     needs:
       - build-auditapi
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: auditapi
@@ -248,6 +295,9 @@ jobs:
     needs:
       - build-tagapi
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: tagapi
@@ -257,6 +307,9 @@ jobs:
     needs:
       - build-billingapi
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: billingapi
@@ -266,6 +319,9 @@ jobs:
     needs:
       - build-networkstorageapi
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: networkstorageapi
@@ -281,6 +337,9 @@ jobs:
         ports:
           - 1080:1080
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestAuditApiTestSuite
@@ -295,6 +354,9 @@ jobs:
         ports:
           - 1080:1080
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestIpApiTestSuite
@@ -309,6 +371,9 @@ jobs:
         ports:
           - 1080:1080
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestBmcApiTestSuite
@@ -323,6 +388,9 @@ jobs:
         ports:
           - 1080:1080
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestTagApiTestSuite
@@ -337,6 +405,9 @@ jobs:
         ports:
           - 1080:1080
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestRancherSolutionApiTestSuite
@@ -351,6 +422,9 @@ jobs:
         ports:
           - 1080:1080
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestNetworkApiTestSuite
@@ -365,6 +439,9 @@ jobs:
         ports:
           - 1080:1080
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestBillingApiTestSuite
@@ -379,6 +456,9 @@ jobs:
         ports:
           - 1080:1080
     steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestNetworkStorageApiTestSuite
