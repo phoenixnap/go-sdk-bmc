@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -30,7 +30,7 @@ type Quota struct {
 	// Unit of the quota type. Supported values are 'COUNT' and 'GB'.
 	Unit string `json:"unit"`
 	// The quota used expressed as a number.
-	Used                         int32                          `json:"used"`
+	Used int32 `json:"used"`
 	QuotaEditLimitRequestDetails []QuotaEditLimitRequestDetails `json:"quotaEditLimitRequestDetails"`
 }
 
@@ -315,3 +315,5 @@ func (v *NullableQuota) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

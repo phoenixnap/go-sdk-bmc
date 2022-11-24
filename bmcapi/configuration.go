@@ -1,7 +1,7 @@
 /*
 Bare Metal Cloud API
 
-Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
+Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API.  Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more.  Manage your infrastructure more efficiently using just a few simple API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -78,9 +78,9 @@ type ServerVariable struct {
 
 // ServerConfiguration stores the information about a server
 type ServerConfiguration struct {
-	URL         string
+	URL string
 	Description string
-	Variables   map[string]ServerVariable
+	Variables map[string]ServerVariable
 }
 
 // ServerConfigurations stores multiple ServerConfiguration items
@@ -102,17 +102,18 @@ type Configuration struct {
 // NewConfiguration returns a new Configuration object
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
-		DefaultHeader: make(map[string]string),
-		UserAgent:     "PNAP-go-sdk-bmc/" + SdkVersion,
-		XPoweredBy:    "PNAP-go-sdk-bmc/" + SdkVersion,
-		Debug:         false,
-		Servers: ServerConfigurations{
+		DefaultHeader:    make(map[string]string),
+		UserAgent:        "PNAP-go-sdk-bmc/" + SdkVersion,
+        XPoweredBy:       "PNAP-go-sdk-bmc/" + SdkVersion,
+		Debug:            false,
+		Servers:          ServerConfigurations{
 			{
-				URL:         "https://api.phoenixnap.com/bmc/v1",
+				URL: "https://api.phoenixnap.com/bmc/v1",
 				Description: "No description provided",
 			},
 		},
-		OperationServers: map[string]ServerConfigurations{},
+		OperationServers: map[string]ServerConfigurations{
+		},
 	}
 	return cfg
 }

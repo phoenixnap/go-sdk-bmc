@@ -1,7 +1,7 @@
 /*
 Billing API
 
-Automate your infrastructure billing with the Bare Metal Cloud Billing API. Reserve your server instances to ensure guaranteed resource availability for 12, 24, and 36 months. Retrieve your server’s rated usage for a given period and enable or disable auto-renewals.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/phoenixnap-bare-metal-cloud-billing-models' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/billing/v1/)</b>
+Automate your infrastructure billing with the Bare Metal Cloud Billing API. Reserve your server instances to ensure guaranteed resource availability for 12, 24, and 36 months. Retrieve your server’s rated usage for a given period and enable or disable auto-renewals.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/phoenixnap-bare-metal-cloud-billing-models' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/billing/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -19,15 +19,16 @@ import (
 	"net/url"
 )
 
+
 type BillingConfigurationsApi interface {
 
 	/*
-		AccountBillingConfigurationMeGet Retrieves billing configuration associated with the authenticated account.
+	AccountBillingConfigurationMeGet Retrieves billing configuration associated with the authenticated account.
 
-		Retrieves billing configuration associated with the authenticated account.
+	Retrieves billing configuration associated with the authenticated account.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiAccountBillingConfigurationMeGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAccountBillingConfigurationMeGetRequest
 	*/
 	AccountBillingConfigurationMeGet(ctx context.Context) ApiAccountBillingConfigurationMeGetRequest
 
@@ -40,7 +41,7 @@ type BillingConfigurationsApi interface {
 type BillingConfigurationsApiService service
 
 type ApiAccountBillingConfigurationMeGetRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService BillingConfigurationsApi
 }
 
@@ -53,25 +54,24 @@ AccountBillingConfigurationMeGet Retrieves billing configuration associated with
 
 Retrieves billing configuration associated with the authenticated account.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAccountBillingConfigurationMeGetRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiAccountBillingConfigurationMeGetRequest
 */
 func (a *BillingConfigurationsApiService) AccountBillingConfigurationMeGet(ctx context.Context) ApiAccountBillingConfigurationMeGetRequest {
 	return ApiAccountBillingConfigurationMeGetRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ConfigurationDetails
+//  @return ConfigurationDetails
 func (a *BillingConfigurationsApiService) AccountBillingConfigurationMeGetExecute(r ApiAccountBillingConfigurationMeGetRequest) (*ConfigurationDetails, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ConfigurationDetails
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ConfigurationDetails
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingConfigurationsApiService.AccountBillingConfigurationMeGet")

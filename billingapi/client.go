@@ -1,7 +1,7 @@
 /*
 Billing API
 
-Automate your infrastructure billing with the Bare Metal Cloud Billing API. Reserve your server instances to ensure guaranteed resource availability for 12, 24, and 36 months. Retrieve your server’s rated usage for a given period and enable or disable auto-renewals.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/phoenixnap-bare-metal-cloud-billing-models' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/billing/v1/)</b>
+Automate your infrastructure billing with the Bare Metal Cloud Billing API. Reserve your server instances to ensure guaranteed resource availability for 12, 24, and 36 months. Retrieve your server’s rated usage for a given period and enable or disable auto-renewals.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/phoenixnap-bare-metal-cloud-billing-models' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/billing/v1/)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -200,9 +200,9 @@ func (c *APIClient) GetConfig() *Configuration {
 }
 
 type formFile struct {
-	fileBytes    []byte
-	fileName     string
-	formFileName string
+		fileBytes []byte
+		fileName string
+		formFileName string
 }
 
 // prepareRequest build the request
@@ -256,11 +256,11 @@ func (c *APIClient) prepareRequest(
 				w.Boundary()
 				part, err := w.CreateFormFile(formFile.formFileName, filepath.Base(formFile.fileName))
 				if err != nil {
-					return nil, err
+						return nil, err
 				}
 				_, err = part.Write(formFile.fileBytes)
 				if err != nil {
-					return nil, err
+						return nil, err
 				}
 			}
 		}
@@ -331,7 +331,7 @@ func (c *APIClient) prepareRequest(
 
 	// Add the user agent to the request.
 	localVarRequest.Header.Add("User-Agent", c.cfg.UserAgent)
-	localVarRequest.Header.Add("X-Powered-By", c.cfg.XPoweredBy)
+    localVarRequest.Header.Add("X-Powered-By", c.cfg.XPoweredBy)
 
 	if ctx != nil {
 		// add context to the request

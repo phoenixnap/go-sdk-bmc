@@ -1,7 +1,7 @@
 /*
 Rancher Solution API
 
-Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b>
+Simplify enterprise-grade Kubernetes cluster operations and management with Rancher on Bare Metal Cloud. Deploy Kubernetes clusters using a few API calls.<br> <br> <span class='pnap-api-knowledge-base-link'> Knowledge base articles to help you can be found <a href='https://phoenixnap.com/kb/rancher-bmc-integration-kubernetes' target='_blank'>here</a> </span><br> <br> <b>All URLs are relative to (https://api.phoenixnap.com/solutions/rancher/v1beta)</b> 
 
 API version: 0.1
 Contact: support@phoenixnap.com
@@ -22,8 +22,8 @@ type NodePool struct {
 	// Number of configured nodes, currently only node counts of 1 and 3 are possible.
 	NodeCount *int32 `json:"nodeCount,omitempty"`
 	// Node server type. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`.
-	ServerType *string            `json:"serverType,omitempty"`
-	SshConfig  *NodePoolSshConfig `json:"sshConfig,omitempty"`
+	ServerType *string `json:"serverType,omitempty"`
+	SshConfig *NodePoolSshConfig `json:"sshConfig,omitempty"`
 	// (Read-only) The nodes associated with this node pool.
 	Nodes []Node `json:"nodes,omitempty"`
 }
@@ -264,3 +264,5 @@ func (v *NullableNodePool) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+
