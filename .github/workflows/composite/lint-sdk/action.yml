@@ -7,13 +7,13 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Setup Go Version
+    - name: Setup Go with Version
       uses: actions/setup-go@v3
       with:
         go-version: 1.19
-    - name: Setup Go Configuration
+    - name: Setup goimports
       shell: bash
-      run: cd ${{ inputs.module-name }} && go version && goimports -w . && go mod tidy 
+      run: go version && go install golang.org/x/tools/cmd/goimports@latest && goimports -w .
     - name: Lint module
       shell: bash
-      run: cd ${{ inputs.module-name }} && go vet ./...
+      run: cd ${{ inputs.module-name }} && go mod tidy && go vet ./...

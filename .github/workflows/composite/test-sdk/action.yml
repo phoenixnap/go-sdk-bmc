@@ -10,13 +10,16 @@ inputs:
 runs:
   using: "composite"
   steps:
-   - name: Setup Go Version
+    - name: Setup Go with Version
       uses: actions/setup-go@v3
       with:
         go-version: 1.19
-    - name: Setup Go Configuration
+    - name: Setup goimports
       shell: bash
-      run: cd ${{ inputs.module-name }} && go version && goimports -w . && go install github.com/jstemmer/go-junit-report@latest && go mod tidy 
+      run: go version && go install golang.org/x/tools/cmd/goimports@latest && goimports -w .
+    - name: Setup go-junit-report
+      shell: bash
+      run: go install github.com/jstemmer/go-junit-report@latest
     - name: Run tests
       shell: bash
       run: cd tests go test -v -run ${{ inputs.test-suite }} | go-junit-report -set-exit-code > ${{inputs.test-suite}}.xml
