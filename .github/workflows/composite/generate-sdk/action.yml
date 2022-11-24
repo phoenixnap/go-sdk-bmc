@@ -36,20 +36,14 @@ runs:
           -o ${{ inputs.package-name }} \
           --additional-properties packageName=${{ inputs.package-name }} \
           --additional-properties majorVersion=$suffix
+    - uses: ./.github/workflows/composite/setup-go
+    - name: Fix goimports
+      shell: bash
+      run: go install golang.org/x/tools/cmd/goimports@latest && goimports -w .
     - name: Download spec files
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       shell: bash
       run: wget ${{ inputs.spec-link }} -O ./${{ inputs.package-name }}/${{ inputs.package-name }}.spec.yaml
-    - name: Setup Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: 1.19
-    - name: Install goimports
-      shell: bash
-      run: go install golang.org/x/tools/cmd/goimports@latest
-    - name: Fix imports
-      shell: bash
-      run: cd ${{ inputs.package-name }} && goimports -w .
     - name: Upload SDK Artifacts
       if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       uses: actions/upload-artifact@v2
