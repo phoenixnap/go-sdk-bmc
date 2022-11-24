@@ -1,6 +1,9 @@
 name: 'Test SDK'
 description: 'Test SDK using a given test file.'
 inputs:
+  module-name: 
+    description: 'Name of the module to test.'
+    required: true
   test-suite: 
     description: 'Name of the test suite to run.'
     required: true
@@ -11,18 +14,8 @@ runs:
       uses: actions/setup-go@v3
       with:
         go-version: 1.19
-    - name: Install goimports
       shell: bash
-      run: go install golang.org/x/tools/cmd/goimports@latest
-    - name: Fix imports
-      shell: bash
-      run: cd ${{ inputs.package-name }} && goimports -w .
-    - name: Install go-junit-report
-      shell: bash
-      run: |
-          export GOPATH="$HOME/go/"
-          export PATH=$PATH:$GOPATH/bin
-          go install github.com/jstemmer/go-junit-report@latest
+      run: cd ${{ inputs.module-name }} && go version && goimports -w . && go install github.com/jstemmer/go-junit-report@latest && go mod tidy 
     - name: Run tests
       shell: bash
       run: cd tests go test -v -run ${{ inputs.test-suite }} | go-junit-report -set-exit-code > ${{inputs.test-suite}}.xml

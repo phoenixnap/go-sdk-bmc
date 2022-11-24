@@ -342,6 +342,7 @@ jobs:
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
         with:
+          module-name: auditapi
           test-suite: TestAuditApiTestSuite
   test-ipapi:
     name: Test IP API
@@ -359,6 +360,7 @@ jobs:
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
         with:
+          module-name: billingapi
           test-suite: TestIpApiTestSuite
   test-bmcapi:
     name: Test BMC API
@@ -376,6 +378,7 @@ jobs:
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
         with:
+          module-name: bmcapi
           test-suite: TestBmcApiTestSuite
   test-tagapi:
     name: Test Tag API
@@ -393,6 +396,7 @@ jobs:
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
         with:
+          module-name: tagapi
           test-suite: TestTagApiTestSuite
   test-rancherapi:
     name: Test Rancher API
@@ -410,6 +414,7 @@ jobs:
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
         with:
+          module-name: rancherapi
           test-suite: TestRancherSolutionApiTestSuite
   test-networkapi:
     name: Test Network API
@@ -427,6 +432,7 @@ jobs:
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
         with:
+          module-name: networkapi
           test-suite: TestNetworkApiTestSuite
   test-billingapi:
     name: Test Billing API
@@ -444,6 +450,7 @@ jobs:
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
         with:
+          module-name: billingapi
           test-suite: TestBillingApiTestSuite
   test-networkstorageapi:
     name: Test Network Storage API
@@ -461,6 +468,7 @@ jobs:
         uses: actions/download-artifact@v2
       - uses: ./.github/workflows/composite/test-sdk
         with:
+          module-name: networkstorageapi
           test-suite: TestNetworkStorageApiTestSuite
 
   publish-test-results:
