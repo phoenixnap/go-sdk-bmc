@@ -7,7 +7,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v3
     - uses: ./.github/workflows/composite/setup-go
     - name: Setup go-junit-report
       shell: bash
