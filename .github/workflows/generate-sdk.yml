@@ -111,6 +111,8 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
           ref: ${{ github.event_name == 'schedule' && 'develop' || github.head_ref }}
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
       - name: Move spec files
         run: |
           find . -type f -name "*.spec.yaml" -not -path "./specs/*" -print0 | xargs -0 mv -ft ./specs/
