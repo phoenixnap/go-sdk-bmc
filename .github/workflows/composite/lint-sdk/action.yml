@@ -7,6 +7,7 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - uses: actions/download-artifact@v3
     - uses: ./.github/workflows/composite/setup-go
     - name: Lint module
       shell: bash
