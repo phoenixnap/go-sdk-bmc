@@ -1,5 +1,8 @@
 name: 'Test SDK'
 description: 'Test SDK using a given test file.'
+strategy:
+  matrix:
+    go: [ '1.17', '1.19' ]
 inputs:
   test-suite: 
     description: 'Name of the test suite to run.'
@@ -9,6 +12,8 @@ runs:
   steps:
     - uses: actions/download-artifact@v3
     - uses: ./.github/workflows/composite/setup-go
+        with:
+          go-version: ${{ matrix.go }}
     - name: Setup go-junit-report
       shell: bash
       run: go install github.com/jstemmer/go-junit-report@latest
