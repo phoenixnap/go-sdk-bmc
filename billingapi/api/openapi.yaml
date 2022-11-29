@@ -160,7 +160,7 @@ paths:
       description: Retrieves all Products.
       operationId: productsGet
       parameters:
-      - example: d1.tiny
+      - example: s1.c1.small
         explode: true
         in: query
         name: productCode
@@ -1010,7 +1010,7 @@ components:
         productCode:
           description: The code identifying the product. This code has significant
             across all locations.
-          example: d1.tiny
+          example: s1.c1.small
           type: string
         productCategory:
           description: The product category.
@@ -1034,7 +1034,7 @@ components:
           type: string
         skuDescription:
           description: Description of this pricing plan.
-          example: Hourly Rate for d1.tiny in Phoenix
+          example: Hourly Rate for s1.c1.small in Phoenix
           type: string
         location:
           description: The code identifying the location.
@@ -1070,7 +1070,7 @@ components:
           $ref: '#/components/schemas/PriceUnitEnum'
         correlatedProductCode:
           description: Product code of the product this product is correlated with
-          example: d1.tiny
+          example: s1.c1.small
           type: string
         packageQuantity:
           description: Package size per month.
@@ -1142,7 +1142,7 @@ components:
         endDateTime: 2020-04-19T16:39:00Z
         productCategory: server
         lastRenewalDateTime: 2020-03-19T16:39:00Z
-        productCode: d1.tiny
+        productCode: s1.c1.small
         startDateTime: 2020-03-19T16:39:00Z
         price: 175.0
         reservationModel: null
@@ -1160,7 +1160,7 @@ components:
         productCode:
           description: The code identifying the product. This code has significant
             across all locations.
-          example: d1.tiny
+          example: s1.c1.small
           type: string
         productCategory:
           description: The product category.

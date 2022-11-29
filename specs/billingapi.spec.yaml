@@ -163,7 +163,7 @@ paths:
           required: false
           schema:
             type: string
-          example: "d1.tiny"
+          example: "s1.c1.small"
         - in: query
           name: productCategory
           required: false
@@ -807,7 +807,7 @@ components:
           description: "The code identifying the product. This code has significant\
                     \ across all locations."
           type: string
-          example: "d1.tiny"
+          example: "s1.c1.small"
         productCategory:
           description: "The product category."
           type: string
@@ -832,7 +832,7 @@ components:
         skuDescription:
           description: "Description of this pricing plan."
           type: string
-          example: "Hourly Rate for d1.tiny in Phoenix"
+          example: "Hourly Rate for s1.c1.small in Phoenix"
         location:
           description: "The code identifying the location."
           type: string
@@ -868,7 +868,7 @@ components:
         correlatedProductCode:
           description: "Product code of the product this product is correlated with"
           type: string
-          example: "d1.tiny"
+          example: "s1.c1.small"
         packageQuantity:
           description: "Package size per month."
           type: number
@@ -950,7 +950,7 @@ components:
           description: "The code identifying the product. This code has significant\
                     \ across all locations."
           type: string
-          example: "d1.tiny"
+          example: "s1.c1.small"
         productCategory:
           description: "The product category."
           type: string
