@@ -4,11 +4,17 @@ inputs:
   test-suite: 
     description: 'Name of the test suite to run.'
     required: true
+  go-version: 
+    description: 'Version of GO to run tests on.'
+    required: true
 runs:
   using: "composite"
   steps:
     - uses: actions/download-artifact@v3
-    - uses: ./.github/workflows/composite/setup-go
+    - name: Setup GO
+      uses: ./.github/workflows/composite/setup-go
+      with:
+        go-version: ${{ inputs.go-version }}
     - name: Setup go-junit-report
       shell: bash
       run: go install github.com/jstemmer/go-junit-report@latest
