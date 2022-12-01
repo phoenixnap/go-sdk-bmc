@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**StorageNetworksIdPatch**](StorageNetworksApi.md#StorageNetworksIdPatch) | **Patch** /storage-networks/{storageNetworkId} | Update storage network details.
 [**StorageNetworksPost**](StorageNetworksApi.md#StorageNetworksPost) | **Post** /storage-networks | Create a storage network and volume.
 [**StorageNetworksStorageNetworkIdVolumesGet**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesGet) | **Get** /storage-networks/{storageNetworkId}/volumes | Display one or more volumes belonging to a storage network.
+[**StorageNetworksStorageNetworkIdVolumesVolumeIdDelete**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesVolumeIdDelete) | **Delete** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Delete a Storage Network&#39;s Volume
 [**StorageNetworksStorageNetworkIdVolumesVolumeIdGet**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesVolumeIdGet) | **Get** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Get a storage network&#39;s volume details.
 [**StorageNetworksStorageNetworkIdVolumesVolumeIdPatch**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesVolumeIdPatch) | **Patch** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Update a storage network&#39;s volume details.
 
@@ -412,6 +413,77 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[]Volume**](Volume.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## StorageNetworksStorageNetworkIdVolumesVolumeIdDelete
+
+> StorageNetworksStorageNetworkIdVolumesVolumeIdDelete(ctx, storageNetworkId, volumeId).Execute()
+
+Delete a Storage Network's Volume
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    storageNetworkId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of storage network.
+    volumeId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of volume.
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdDelete(context.Background(), storageNetworkId, volumeId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdDelete``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storageNetworkId** | **string** | ID of storage network. | 
+**volumeId** | **string** | ID of volume. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiStorageNetworksStorageNetworkIdVolumesVolumeIdDeleteRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
 
 ### Authorization
 
