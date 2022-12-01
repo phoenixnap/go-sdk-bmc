@@ -53,8 +53,8 @@ AccountBillingConfigurationMeGet Retrieves billing configuration associated with
 
 Retrieves billing configuration associated with the authenticated account.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAccountBillingConfigurationMeGetRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiAccountBillingConfigurationMeGetRequest
 */
 func (a *BillingConfigurationsApiService) AccountBillingConfigurationMeGet(ctx context.Context) ApiAccountBillingConfigurationMeGetRequest {
 	return ApiAccountBillingConfigurationMeGetRequest{
@@ -64,8 +64,7 @@ func (a *BillingConfigurationsApiService) AccountBillingConfigurationMeGet(ctx c
 }
 
 // Execute executes the request
-//
-//	@return ConfigurationDetails
+//  @return ConfigurationDetails
 func (a *BillingConfigurationsApiService) AccountBillingConfigurationMeGetExecute(r ApiAccountBillingConfigurationMeGetRequest) (*ConfigurationDetails, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet

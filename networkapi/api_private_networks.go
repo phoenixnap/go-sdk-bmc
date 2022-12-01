@@ -119,8 +119,8 @@ PrivateNetworksGet List Private Networks.
 
 List all Private Networks owned by account.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPrivateNetworksGetRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPrivateNetworksGetRequest
 */
 func (a *PrivateNetworksApiService) PrivateNetworksGet(ctx context.Context) ApiPrivateNetworksGetRequest {
 	return ApiPrivateNetworksGetRequest{
@@ -130,8 +130,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksGet(ctx context.Context) ApiP
 }
 
 // Execute executes the request
-//
-//	@return []PrivateNetwork
+//  @return []PrivateNetwork
 func (a *PrivateNetworksApiService) PrivateNetworksGetExecute(r ApiPrivateNetworksGetRequest) ([]PrivateNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -262,9 +261,9 @@ PrivateNetworksNetworkIdDelete Delete a Private Network.
 
 Delete Private Network.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param privateNetworkId The private network identifier.
-	@return ApiPrivateNetworksNetworkIdDeleteRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param privateNetworkId The private network identifier.
+ @return ApiPrivateNetworksNetworkIdDeleteRequest
 */
 func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdDelete(ctx context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdDeleteRequest {
 	return ApiPrivateNetworksNetworkIdDeleteRequest{
@@ -393,9 +392,9 @@ PrivateNetworksNetworkIdGet Get a Private Network.
 
 Retrieve Private Network Details.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param privateNetworkId The private network identifier.
-	@return ApiPrivateNetworksNetworkIdGetRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param privateNetworkId The private network identifier.
+ @return ApiPrivateNetworksNetworkIdGetRequest
 */
 func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGet(ctx context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdGetRequest {
 	return ApiPrivateNetworksNetworkIdGetRequest{
@@ -406,8 +405,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGet(ctx context.Cont
 }
 
 // Execute executes the request
-//
-//	@return PrivateNetwork
+//  @return PrivateNetwork
 func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGetExecute(r ApiPrivateNetworksNetworkIdGetRequest) (*PrivateNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -542,9 +540,9 @@ PrivateNetworksNetworkIdPut Update a Private Network.
 
 Update Private Network Details.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param privateNetworkId The private network identifier.
-	@return ApiPrivateNetworksNetworkIdPutRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param privateNetworkId The private network identifier.
+ @return ApiPrivateNetworksNetworkIdPutRequest
 */
 func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPut(ctx context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdPutRequest {
 	return ApiPrivateNetworksNetworkIdPutRequest{
@@ -555,8 +553,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPut(ctx context.Cont
 }
 
 // Execute executes the request
-//
-//	@return PrivateNetwork
+//  @return PrivateNetwork
 func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPutExecute(r ApiPrivateNetworksNetworkIdPutRequest) (*PrivateNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
@@ -702,8 +699,8 @@ PrivateNetworksPost Create a Private Network.
 
 Create a Private Network.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPrivateNetworksPostRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPrivateNetworksPostRequest
 */
 func (a *PrivateNetworksApiService) PrivateNetworksPost(ctx context.Context) ApiPrivateNetworksPostRequest {
 	return ApiPrivateNetworksPostRequest{
@@ -713,8 +710,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksPost(ctx context.Context) Api
 }
 
 // Execute executes the request
-//
-//	@return PrivateNetwork
+//  @return PrivateNetwork
 func (a *PrivateNetworksApiService) PrivateNetworksPostExecute(r ApiPrivateNetworksPostRequest) (*PrivateNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost

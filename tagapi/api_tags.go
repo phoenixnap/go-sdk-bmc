@@ -120,8 +120,8 @@ TagsGet List tags.
 
 Retrieve all tags belonging to the BMC Account.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiTagsGetRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiTagsGetRequest
 */
 func (a *TagsApiService) TagsGet(ctx context.Context) ApiTagsGetRequest {
 	return ApiTagsGetRequest{
@@ -131,8 +131,7 @@ func (a *TagsApiService) TagsGet(ctx context.Context) ApiTagsGetRequest {
 }
 
 // Execute executes the request
-//
-//	@return []Tag
+//  @return []Tag
 func (a *TagsApiService) TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -259,8 +258,8 @@ TagsPost Create a Tag.
 
 Create a tag with the provided information.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiTagsPostRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiTagsPostRequest
 */
 func (a *TagsApiService) TagsPost(ctx context.Context) ApiTagsPostRequest {
 	return ApiTagsPostRequest{
@@ -270,8 +269,7 @@ func (a *TagsApiService) TagsPost(ctx context.Context) ApiTagsPostRequest {
 }
 
 // Execute executes the request
-//
-//	@return Tag
+//  @return Tag
 func (a *TagsApiService) TagsPostExecute(r ApiTagsPostRequest) (*Tag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -414,9 +412,9 @@ TagsTagIdDelete Delete a Tag.
 
 Delete the tag with the given ID.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tagId The tag's ID.
-	@return ApiTagsTagIdDeleteRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tagId The tag's ID.
+ @return ApiTagsTagIdDeleteRequest
 */
 func (a *TagsApiService) TagsTagIdDelete(ctx context.Context, tagId string) ApiTagsTagIdDeleteRequest {
 	return ApiTagsTagIdDeleteRequest{
@@ -427,8 +425,7 @@ func (a *TagsApiService) TagsTagIdDelete(ctx context.Context, tagId string) ApiT
 }
 
 // Execute executes the request
-//
-//	@return DeleteResult
+//  @return DeleteResult
 func (a *TagsApiService) TagsTagIdDeleteExecute(r ApiTagsTagIdDeleteRequest) (*DeleteResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
@@ -547,9 +544,9 @@ TagsTagIdGet Get a Tag.
 
 Retrieve the tag with the given ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tagId The tag's ID.
-	@return ApiTagsTagIdGetRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tagId The tag's ID.
+ @return ApiTagsTagIdGetRequest
 */
 func (a *TagsApiService) TagsTagIdGet(ctx context.Context, tagId string) ApiTagsTagIdGetRequest {
 	return ApiTagsTagIdGetRequest{
@@ -560,8 +557,7 @@ func (a *TagsApiService) TagsTagIdGet(ctx context.Context, tagId string) ApiTags
 }
 
 // Execute executes the request
-//
-//	@return Tag
+//  @return Tag
 func (a *TagsApiService) TagsTagIdGetExecute(r ApiTagsTagIdGetRequest) (*Tag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -687,9 +683,9 @@ TagsTagIdPatch Modify a Tag.
 
 Updates the tag with the given ID.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tagId The tag's ID.
-	@return ApiTagsTagIdPatchRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tagId The tag's ID.
+ @return ApiTagsTagIdPatchRequest
 */
 func (a *TagsApiService) TagsTagIdPatch(ctx context.Context, tagId string) ApiTagsTagIdPatchRequest {
 	return ApiTagsTagIdPatchRequest{
@@ -700,8 +696,7 @@ func (a *TagsApiService) TagsTagIdPatch(ctx context.Context, tagId string) ApiTa
 }
 
 // Execute executes the request
-//
-//	@return Tag
+//  @return Tag
 func (a *TagsApiService) TagsTagIdPatchExecute(r ApiTagsTagIdPatchRequest) (*Tag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch

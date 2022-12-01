@@ -107,8 +107,8 @@ ProductAvailabilityGet List all Product availabilities.
 
 Retrieves the list of product availability details.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiProductAvailabilityGetRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiProductAvailabilityGetRequest
 */
 func (a *ProductsApiService) ProductAvailabilityGet(ctx context.Context) ApiProductAvailabilityGetRequest {
 	return ApiProductAvailabilityGetRequest{
@@ -118,8 +118,7 @@ func (a *ProductsApiService) ProductAvailabilityGet(ctx context.Context) ApiProd
 }
 
 // Execute executes the request
-//
-//	@return []ProductAvailability
+//  @return []ProductAvailability
 func (a *ProductsApiService) ProductAvailabilityGetExecute(r ApiProductAvailabilityGetRequest) ([]ProductAvailability, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -300,8 +299,8 @@ ProductsGet List all Products.
 
 Retrieves all Products.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiProductsGetRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiProductsGetRequest
 */
 func (a *ProductsApiService) ProductsGet(ctx context.Context) ApiProductsGetRequest {
 	return ApiProductsGetRequest{
@@ -311,8 +310,7 @@ func (a *ProductsApiService) ProductsGet(ctx context.Context) ApiProductsGetRequ
 }
 
 // Execute executes the request
-//
-//	@return []ProductsGet200ResponseInner
+//  @return []ProductsGet200ResponseInner
 func (a *ProductsApiService) ProductsGetExecute(r ApiProductsGetRequest) ([]ProductsGet200ResponseInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet

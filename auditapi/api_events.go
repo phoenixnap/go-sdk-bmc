@@ -103,8 +103,8 @@ EventsGet List event logs.
 
 Retrieves the event logs for given time period. All date & times are in UTC.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiEventsGetRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiEventsGetRequest
 */
 func (a *EventsApiService) EventsGet(ctx context.Context) ApiEventsGetRequest {
 	return ApiEventsGetRequest{
@@ -114,8 +114,7 @@ func (a *EventsApiService) EventsGet(ctx context.Context) ApiEventsGetRequest {
 }
 
 // Execute executes the request
-//
-//	@return []Event
+//  @return []Event
 func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet

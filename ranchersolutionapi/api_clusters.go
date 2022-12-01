@@ -100,8 +100,8 @@ ClustersGet Cluster list.
 
 Cluster list.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiClustersGetRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiClustersGetRequest
 */
 func (a *ClustersApiService) ClustersGet(ctx context.Context) ApiClustersGetRequest {
 	return ApiClustersGetRequest{
@@ -111,8 +111,7 @@ func (a *ClustersApiService) ClustersGet(ctx context.Context) ApiClustersGetRequ
 }
 
 // Execute executes the request
-//
-//	@return []Cluster
+//  @return []Cluster
 func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) ([]Cluster, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -230,9 +229,9 @@ ClustersIdDelete Delete a cluster.
 
 Delete a cluster.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The Cluster identifier.
-	@return ApiClustersIdDeleteRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The Cluster identifier.
+ @return ApiClustersIdDeleteRequest
 */
 func (a *ClustersApiService) ClustersIdDelete(ctx context.Context, id string) ApiClustersIdDeleteRequest {
 	return ApiClustersIdDeleteRequest{
@@ -243,8 +242,7 @@ func (a *ClustersApiService) ClustersIdDelete(ctx context.Context, id string) Ap
 }
 
 // Execute executes the request
-//
-//	@return DeleteResult
+//  @return DeleteResult
 func (a *ClustersApiService) ClustersIdDeleteExecute(r ApiClustersIdDeleteRequest) (*DeleteResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
@@ -363,9 +361,9 @@ ClustersIdGet Retrieve a Cluster
 
 Retrieve a Cluster
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The Cluster identifier.
-	@return ApiClustersIdGetRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The Cluster identifier.
+ @return ApiClustersIdGetRequest
 */
 func (a *ClustersApiService) ClustersIdGet(ctx context.Context, id string) ApiClustersIdGetRequest {
 	return ApiClustersIdGetRequest{
@@ -376,8 +374,7 @@ func (a *ClustersApiService) ClustersIdGet(ctx context.Context, id string) ApiCl
 }
 
 // Execute executes the request
-//
-//	@return Cluster
+//  @return Cluster
 func (a *ClustersApiService) ClustersIdGetExecute(r ApiClustersIdGetRequest) (*Cluster, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -502,8 +499,9 @@ ClustersPost Create a Rancher Server Deployment.
 Create a Rancher Server Deployment as described in <a href='https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture' target='_blank'>Rancher Docs Architecture</a>. Rancher Server allows the creation, import and management of multiple Downstream User Kubernetes Clusters.
 <b>This is not a Downstream User Cluster</b>. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/bmc-rancher-workload-cluster#ftoc-heading-5' target='_blank'>here</a>.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiClustersPostRequest
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiClustersPostRequest
 */
 func (a *ClustersApiService) ClustersPost(ctx context.Context) ApiClustersPostRequest {
 	return ApiClustersPostRequest{
@@ -513,8 +511,7 @@ func (a *ClustersApiService) ClustersPost(ctx context.Context) ApiClustersPostRe
 }
 
 // Execute executes the request
-//
-//	@return Cluster
+//  @return Cluster
 func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (*Cluster, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
