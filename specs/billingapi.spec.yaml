@@ -169,7 +169,7 @@ paths:
           required: false
           schema:
             type: string
-          example: "server"
+          example: "SERVER"
         - in: query
           name: skuCode
           required: false
@@ -811,7 +811,7 @@ components:
         productCategory:
           description: "The product category."
           type: string
-          example: "server"
+          example: "SERVER"
         plans:
           description: "The pricing plans available for this product."
           type: array
