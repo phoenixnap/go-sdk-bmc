@@ -1,3 +1,3 @@
 package bmcapi
 
-const SdkVersion = "2.1.1"
+const SdkVersion = "2.1.2-SNAPSHOT"
