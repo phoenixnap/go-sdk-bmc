@@ -168,7 +168,7 @@ paths:
         schema:
           type: string
         style: form
-      - example: server
+      - example: SERVER
         explode: true
         in: query
         name: productCategory
@@ -1014,7 +1014,7 @@ components:
           type: string
         productCategory:
           description: The product category.
-          example: server
+          example: SERVER
           type: string
         plans:
           description: The pricing plans available for this product.

@@ -107,7 +107,7 @@ import (
 
 func main() {
     productCode := "s1.c1.small" // string |  (optional)
-    productCategory := "server" // string |  (optional)
+    productCategory := "SERVER" // string |  (optional)
     skuCode := "xxx-xxx-xxx" // string |  (optional)
     location := "PHX" // string |  (optional)
 
