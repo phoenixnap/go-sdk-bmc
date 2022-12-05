@@ -229,3 +229,28 @@ func (suite *NetworkStorageApiTestSuite) TestGetVolumeByStorageNetworkIdAndVolum
 	// Verify
 	suite.verifyCalledOnce(expectationId)
 }
+
+func (suite *NetworkStorageApiTestSuite) TestPatchVolumeByStorageNetworkIdAndVolumeId() {
+
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("networkstorageapi/networkstorage_patch_volume_by_id", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	storageNetworkId := request.PathParameters["storageNetworkId"][0]
+	volumeId := request.PathParameters["volumeId"][0]
+
+	// Operation Execution
+	result, _, _ := suite.apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdPatch(suite.ctx, storageNetworkId, volumeId).Execute()
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	// Asserts
+	suite.Equal(jsonResult, jsonResponseBody)
+
+	// Verify
+	suite.verifyCalledOnce(expectationId)
+}
