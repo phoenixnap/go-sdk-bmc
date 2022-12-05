@@ -241,8 +241,12 @@ func (suite *NetworkStorageApiTestSuite) TestPatchVolumeByStorageNetworkIdAndVol
 	storageNetworkId := request.PathParameters["storageNetworkId"][0]
 	volumeId := request.PathParameters["volumeId"][0]
 
+	body, _ := json.Marshal(request.Body.Json)
+	var volumeUpdate networkstorageapi.VolumeUpdate
+	json.Unmarshal(body, &volumeUpdate)
+
 	// Operation Execution
-	result, _, _ := suite.apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdPatch(suite.ctx, storageNetworkId, volumeId).Execute()
+	result, _, _ := suite.apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdPatch(suite.ctx, storageNetworkId, volumeId).VolumeUpdate(volumeUpdate).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
