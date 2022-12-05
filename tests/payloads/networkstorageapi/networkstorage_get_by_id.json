@@ -2,7 +2,7 @@
   "request": {
     "method": "GET",
     "path": "/network-storage/v1/storage-networks/{storageNetworkId}",
-    "pathParameters":{
+    "pathParameters": {
       "storageNetworkId": [
         "50dc434c-9bba-427b-bcd6-0bdba45c4dd2"
       ]
