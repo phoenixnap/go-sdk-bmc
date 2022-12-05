@@ -9,7 +9,8 @@
         "location": "PHX",
         "locationDefault": true,
         "description": "My Default Backend Network",
-        "cidr": "10.0.0.0/24"
+        "cidr": "10.0.0.0/24",
+        "vlanId": 1111
       },
       "matchType": "STRICT"
     }
@@ -20,7 +21,7 @@
       "id": "604724a5a807f2d3be8660c7",
       "name": "My Default Backend Network",
       "description": "My Default Backend Network",
-      "vlanId": 10,
+      "vlanId": 1111,
       "status": "BUSY",
       "type": "PRIVATE",
       "location": "PHX",
