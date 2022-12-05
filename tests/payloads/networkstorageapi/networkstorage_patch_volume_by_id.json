@@ -1,6 +1,6 @@
 {
   "request": {
-    "method": "GET",
+    "method": "PATCH",
     "path": "/network-storage/v1/storage-networks/{storageNetworkId}/volumes/{volumeId}",
     "pathParameters": {
       "storageNetworkId": [
