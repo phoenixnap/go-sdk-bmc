@@ -258,3 +258,27 @@ func (suite *NetworkStorageApiTestSuite) TestPatchVolumeByStorageNetworkIdAndVol
 	// Verify
 	suite.verifyCalledOnce(expectationId)
 }
+
+func (suite *NetworkStorageApiTestSuite) TestDeleteVolumeByStorageNetworkIdAndVolumeId() {
+
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("networkstorageapi/networkstorage_delete_volume_by_id", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	storageNetworkId := request.PathParameters["storageNetworkId"][0]
+	volumeId := request.PathParameters["volumeId"][0]
+
+	// Operation Execution
+	result, _ := suite.apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdDelete(suite.ctx, storageNetworkId, volumeId).Execute()
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+
+	// Asserts
+	suite.Empty(string(jsonResult))
+
+	// Verify
+	suite.verifyCalledOnce(expectationId)
+}
