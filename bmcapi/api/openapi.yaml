@@ -2138,7 +2138,8 @@ components:
           default: false
           description: "If true, OS will be installed to and booted from the server's\
             \ RAM. On restart RAM OS will be lost and the server will not be reachable\
-            \ unless a custom bootable OS has been deployed. Only supported for ubuntu/focal."
+            \ unless a custom bootable OS has been deployed. Only supported for ubuntu/focal\
+            \ and ubuntu/jammy."
           type: boolean
         cloudInit:
           $ref: '#/components/schemas/OsConfiguration_cloudInit'
@@ -2500,8 +2501,8 @@ components:
         os:
           description: "The server’s OS ID used when the server was created. Currently\
             \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
-            \ `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`,\
-            \ `esxi/esxi70u2`, `debian/bullseye` or `proxmox/bullseye`."
+            \ `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`,\
+            \ `windows/srv2019dc`, `esxi/esxi70u2`, `debian/bullseye` or `proxmox/bullseye`."
           example: ubuntu/bionic
           type: string
         type:
@@ -2751,8 +2752,8 @@ components:
         os:
           description: "The server’s OS ID used when the server was created. Currently\
             \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
-            \ `centos/centos7`,`centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`,\
-            \ `esxi/esxi70u2`, `debian/bullseye` or `proxmox/bullseye`."
+            \ `ubuntu/jammy`, `centos/centos7`,`centos/centos8`, `windows/srv2019std`,\
+            \ `windows/srv2019dc`, `esxi/esxi70u2`, `debian/bullseye` or `proxmox/bullseye`."
           example: ubuntu/bionic
           type: string
         type:
@@ -3283,13 +3284,13 @@ components:
         userData: userData
       properties:
         userData:
-          description: User data for the <a href='https://cloudinit.readthedocs.io/en/latest/'
-            target='_blank'>cloud-init</a> configuration in base64 encoding. NoCloud
-            format is supported. Follow the <a href='https://phoenixnap.com/kb/bmc-cloud-init'
-            target='_blank'>instructions</a> on how to provision a server using cloud-init.
-            Only ubuntu/bionic and ubuntu/focal are supported. User data will not
-            be stored and cannot be retrieved once you deploy the server. Copy and
-            save it for future reference.
+          description: "User data for the <a href='https://cloudinit.readthedocs.io/en/latest/'\
+            \ target='_blank'>cloud-init</a> configuration in base64 encoding. NoCloud\
+            \ format is supported. Follow the <a href='https://phoenixnap.com/kb/bmc-cloud-init'\
+            \ target='_blank'>instructions</a> on how to provision a server using\
+            \ cloud-init. Only ubuntu/bionic, ubuntu/focal and ubuntu/jammy are supported.\
+            \ User data will not be stored and cannot be retrieved once you deploy\
+            \ the server. Copy and save it for future reference."
           format: byte
           type: string
           writeOnly: true
