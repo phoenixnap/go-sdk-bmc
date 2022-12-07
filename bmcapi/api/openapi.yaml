@@ -654,14 +654,12 @@ paths:
       - Servers
   /servers/{serverId}/network-configuration/private-network-configuration/private-networks:
     post:
-      description: "Adds the server to a private network. <b>No actual configuration\
-        \ is performed on the operating system.</b> BMC configures exclusively the\
-        \ networking devices in the datacenter infrastructure. Manual network configuration\
-        \ changes in the operating system of this server are required. If the network\
-        \ contains a membership of type 'storage', the first twelve IPs are already\
-        \ reserved by BMC and not usable. These will return a Bad Request (400) if\
-        \ selected. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3'\
-        \ target='_blank'>here</a>."
+      description: Adds the server to a private network. <b>No actual configuration
+        is performed on the operating system.</b> BMC configures exclusively the networking
+        devices in the datacenter infrastructure. Manual network configuration changes
+        in the operating system of this server are required. Knowledge base article
+        to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3'
+        target='_blank'>here</a>.
       operationId: serversServerIdPrivateNetworksPost
       parameters:
       - description: The server's ID.
@@ -2161,7 +2159,9 @@ components:
           type: string
         ips:
           description: "IPs to configure/configured on the server. Should be null\
-            \ or empty list if DHCP is true. If the network contains a membership\
+            \ or empty list if DHCP is true. IPs must be within the network's range.\
+            \ If no IPs are provided and DHCP is false, next available IP in network\
+            \ will be automatically allocated. If the network contains a membership\
             \ of type 'storage', the first twelve IPs are already reserved by BMC\
             \ and not usable. These will return a Bad Request (400) if selected."
           example:

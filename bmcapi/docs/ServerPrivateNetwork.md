@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | The network identifier. | 
-**Ips** | Pointer to **[]string** | IPs to configure/configured on the server. Should be null or empty list if DHCP is true. If the network contains a membership of type &#39;storage&#39;, the first twelve IPs are already reserved by BMC and not usable. These will return a Bad Request (400) if selected. | [optional] 
+**Ips** | Pointer to **[]string** | IPs to configure/configured on the server. Should be null or empty list if DHCP is true. IPs must be within the network&#39;s range. If no IPs are provided and DHCP is false, next available IP in network will be automatically allocated. If the network contains a membership of type &#39;storage&#39;, the first twelve IPs are already reserved by BMC and not usable. These will return a Bad Request (400) if selected. | [optional] 
 **Dhcp** | Pointer to **bool** | Determines whether DHCP is enabled for this server. Should be false if ips is not an empty list. Not supported for proxmox OS. | [optional] [default to false]
 **StatusDescription** | Pointer to **string** | The status of the network. | [optional] [readonly] 
 
