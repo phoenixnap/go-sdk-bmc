@@ -28,6 +28,7 @@
         "endDateTime" : "2020-03-19T16:39:00Z",
         "lastRenewalDateTime" : "2020-03-19T16:39:00Z",
         "nextRenewalDateTime" : "2020-03-19T16:39:00Z",
+        "nextBillingDate" : "2020-04-19T16:39:00Z",
         "autoRenew" : true,
         "sku" : "XXX-XXX-XXX",
         "price" : 175,
