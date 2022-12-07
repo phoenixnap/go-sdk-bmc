@@ -1,46 +1,32 @@
 openapi: 3.0.2
 info:
   title: Bare Metal Cloud API
-  description: >
-    Create, power off, power on, reset, reboot, or shut down your server with
-    the Bare Metal Cloud API. 
-
-    Deprovision servers, get or edit SSH key details, assign public IPs, assign
-    servers to networks and a lot more. 
-
-    Manage your infrastructure more efficiently using just a few simple API
-    calls.<br>
-
+  description: |
+    Create, power off, power on, reset, reboot, or shut down your server with the Bare Metal Cloud API. 
+    Deprovision servers, get or edit SSH key details, assign public IPs, assign servers to networks and a lot more. 
+    Manage your infrastructure more efficiently using just a few simple API calls.<br>
     <br>
-
     <span class='pnap-api-knowledge-base-link'>
-
     Knowledge base articles to help you can be found
-
-    <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server'
-    target='_blank'>here</a>
-
+    <a href='https://phoenixnap.com/kb/how-to-deploy-bare-metal-cloud-server' target='_blank'>here</a>
     </span><br>
-
     <br>
-
     <b>All URLs are relative to (https://api.phoenixnap.com/bmc/v1/)</b>
-  termsOfService: >-
-    https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
+  termsOfService: https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
   version: '0.1'
   license:
     name: Apache 2.0
-    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
   contact:
     name: PhoenixNAP Team
     email: support@phoenixnap.com
-    url: 'https://phoenixnap.com/'
+    url: https://phoenixnap.com/
 security:
   - OAuth2:
       - bmc
       - bmc.read
 servers:
-  - url: 'https://api.phoenixnap.com/bmc/v1'
+  - url: https://api.phoenixnap.com/bmc/v1
 tags:
   - name: Servers
     description: Server operations
@@ -66,9 +52,7 @@ paths:
             type: array
             items:
               type: string
-          description: >-
-            A list of query parameters related to tags in the form of
-            tagName.tagValue
+          description: A list of query parameters related to tags in the form of tagName.tagValue
           explode: true
           example: env.dev
       responses:
@@ -89,9 +73,7 @@ paths:
     post:
       tags:
         - Servers
-      description: >-
-        Create (request) new server for account. Server DNS will be configured
-        to access Google's public DNS at 8.8.8.8 .
+      description: Create (request) new server for account. Server DNS will be configured to access Google's public DNS at 8.8.8.8 .
       summary: Create new server.
       operationId: serversPost
       security:
@@ -118,10 +100,7 @@ paths:
                   type: s1.c1.small
                   installDefaultSshKeys: true
                   sshKeys:
-                    - >-
-                      ssh-rsa
-                      AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-                      user@my_ip
+                    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip
                   sshKeyIds:
                     - 5fa54d1e91867c03a0a7b4a4
                   reservationId: x78sdkjds879sd7cx8
@@ -149,10 +128,7 @@ paths:
                   type: s1.c1.small
                   installDefaultSshKeys: true
                   sshKeys:
-                    - >-
-                      ssh-rsa
-                      AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-                      user@my_ip
+                    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip
                   sshKeyIds:
                     - 5fa54d1e91867c03a0a7b4a4
                   reservationId: x78sdkjds879sd7cx8
@@ -168,10 +144,7 @@ paths:
                   installDefaultSshKeys: true
                   networkType: PUBLIC_AND_PRIVATE
                   sshKeys:
-                    - >-
-                      ssh-rsa
-                      AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-                      user@my_ip
+                    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip
                   sshKeyIds:
                     - 5fa54d1e91867c03a0a7b4a4
                   reservationId: x78sdkjds879sd7cx8
@@ -191,10 +164,7 @@ paths:
                   installDefaultSshKeys: true
                   networkType: PUBLIC_AND_PRIVATE
                   sshKeys:
-                    - >-
-                      ssh-rsa
-                      AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-                      user@my_ip
+                    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip
                   sshKeyIds:
                     - 5fa54d1e91867c03a0a7b4a4
                   reservationId: x78sdkjds879sd7cx8
@@ -225,10 +195,7 @@ paths:
                   type: s1.c1.small
                   installDefaultSshKeys: true
                   sshKeys:
-                    - >-
-                      ssh-rsa
-                      AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-                      user@my_ip
+                    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip
                   sshKeyIds:
                     - 5fa54d1e91867c03a0a7b4a4
                   pricingModel: HOURLY
@@ -252,10 +219,7 @@ paths:
                   type: s1.c1.small
                   installDefaultSshKeys: true
                   sshKeys:
-                    - >-
-                      ssh-rsa
-                      AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-                      user@my_ip
+                    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip
                   sshKeyIds:
                     - 5fa54d1e91867c03a0a7b4a4
                   reservationId: x78sdkjds879sd7cx8
@@ -277,7 +241,7 @@ paths:
                             - 182.16.0.146
                             - 182.16.0.147
       responses:
-        '200':
+        '202':
           description: Request to create server is accepted.
           content:
             application/json:
@@ -295,7 +259,7 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/servers/{serverId}':
+  /servers/{serverId}:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
     get:
@@ -325,12 +289,7 @@ paths:
     patch:
       tags:
         - Servers
-      description: >-
-        Any changes to the hostname or description using the BMC API will
-        reflect solely in the BMC API and portal. The changes are intended to
-        keep the BMC data up to date with your server. We do not have access to
-        your server's settings. Local changes to the server's hostname will not
-        be reflected in the API or portal.
+      description: Any changes to the hostname or description using the BMC API will reflect solely in the BMC API and portal. The changes are intended to keep the BMC data up to date with your server. We do not have access to your server's settings. Local changes to the server's hostname will not be reflected in the API or portal.
       summary: Patch a Server.
       operationId: serversServerIdPatch
       security:
@@ -364,10 +323,7 @@ paths:
     delete:
       tags:
         - Servers
-      description: >-
-        Deprovision specific server. Any IP blocks assigned to this server will
-        also be relinquished and deleted. Deprecated: see
-        /servers/{serverId}/actions/deprovision
+      description: 'Deprovision specific server. Any IP blocks assigned to this server will also be relinquished and deleted. Deprecated: see /servers/{serverId}/actions/deprovision'
       summary: Delete server.
       deprecated: true
       operationId: serversServerIdDelete
@@ -389,20 +345,13 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks':
+  /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
     post:
       tags:
         - Servers
-      description: >-
-        Adds an IP block to this server. <b>No actual configuration is performed
-        on the operating system.</b> BMC configures exclusively the networking
-        devices in the datacenter infrastructure. Manual network configuration
-        changes in the operating system of this server are required. Knowledge
-        base article to help you can be found <a
-        href='https://phoenixnap.com/kb/configure-server-with-public-ip-block#ftoc-heading-2'
-        target='_blank'>here</a>.
+      description: Adds an IP block to this server. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/configure-server-with-public-ip-block#ftoc-heading-2' target='_blank'>here</a>.
       summary: Assign IP Block to Server.
       operationId: serversServerIdIpBlocksPost
       security:
@@ -435,22 +384,14 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks/{ipBlockId}':
+  /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks/{ipBlockId}:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
       - $ref: '#/components/parameters/ipBlockIdPathParam'
     delete:
       tags:
         - Servers
-      description: >-
-        Removes the IP block from the server. <b>No actual configuration is
-        performed on the operating system.</b> BMC configures exclusively the
-        networking devices in the datacenter infrastructure. Manual network
-        configuration changes in the operating system of this server are
-        required. <b>This is an advanced network action that can make your
-        server completely unavailable over any network. Make sure this server is
-        reachable over remote console for guaranteed access in case of
-        misconfiguration.</b>
+      description: Removes the IP block from the server. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. <b>This is an advanced network action that can make your server completely unavailable over any network. Make sure this server is reachable over remote console for guaranteed access in case of misconfiguration.</b>
       summary: Unassign IP Block from Server.
       operationId: serversServerIdIpBlocksIpBlockIdDelete
       security:
@@ -483,23 +424,13 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/servers/{serverId}/network-configuration/private-network-configuration/private-networks':
+  /servers/{serverId}/network-configuration/private-network-configuration/private-networks:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
     post:
       tags:
         - Servers
-      description: >-
-        Adds the server to a private network. <b>No actual configuration is
-        performed on the operating system.</b> BMC configures exclusively the
-        networking devices in the datacenter infrastructure. Manual network
-        configuration changes in the operating system of this server are
-        required. If the network contains a membership of type 'storage', the
-        first twelve IPs are already reserved by BMC and not usable. These will
-        return a Bad Request (400) if selected. Knowledge base article to help
-        you can be found <a
-        href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3'
-        target='_blank'>here</a>.
+      description: Adds the server to a private network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. If the network contains a membership of type 'storage', the first twelve IPs are already reserved by BMC and not usable. These will return a Bad Request (400) if selected. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3' target='_blank'>here</a>.
       summary: Adds the server to a private network.
       operationId: serversServerIdPrivateNetworksPost
       security:
@@ -569,22 +500,14 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId}':
+  /servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId}:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
       - $ref: '#/components/parameters/privateNetworkIdPathParam'
     delete:
       tags:
         - Servers
-      description: >-
-        Removes the server from private network. <b>No actual configuration is
-        performed on the operating system.</b> BMC configures exclusively the
-        networking devices in the datacenter infrastructure. Manual network
-        configuration changes in the operating system of this server are
-        required. <b>This is an advanced network action that can make your
-        server completely unavailable over any network. Make sure this server is
-        reachable over remote console for guaranteed access in case of
-        misconfiguration.</b>
+      description: Removes the server from private network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. <b>This is an advanced network action that can make your server completely unavailable over any network. Make sure this server is reachable over remote console for guaranteed access in case of misconfiguration.</b>
       summary: Removes the server from private network.
       security:
         - OAuth2:
@@ -597,27 +520,26 @@ paths:
             application/json:
               schema:
                 type: string
-                description: >-
-                  The server is being removed from the specified private
-                  network.
-                example: >-
-                  The server is being removed from the specified private
-                  network.
+                description: The server is being removed from the specified private network.
+                example: The server is being removed from the specified private network.
               example: The server is being removed from the specified private network.
-  '/servers/{serverId}/network-configuration/public-network-configuration/public-networks':
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /servers/{serverId}/network-configuration/public-network-configuration/public-networks:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
     post:
       tags:
         - Servers
-      description: >-
-        Adds the server to a Public Network. <b>No actual configuration is
-        performed on the operating system.</b> BMC configures exclusively the
-        networking devices in the datacenter infrastructure. Manual network
-        configuration changes in the operating system of this server are
-        required. Knowledge base article to help you can be found <a
-        href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3'
-        target='_blank'>here</a>.
+      description: Adds the server to a Public Network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3' target='_blank'>here</a>.
       summary: Adds the server to a Public Network.
       operationId: serversServerIdPublicNetworksPost
       security:
@@ -650,22 +572,14 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId}':
+  /servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId}:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
       - $ref: '#/components/parameters/publicNetworkIdPathParam'
     delete:
       tags:
         - Servers
-      description: >-
-        Removes the server from the Public Network. <b>No actual configuration
-        is performed on the operating system.</b> BMC configures exclusively the
-        networking devices in the datacenter infrastructure. Manual network
-        configuration changes in the operating system of this server are
-        required. <b>This is an advanced network action that can make your
-        server completely unavailable over any network. Make sure this server is
-        reachable over remote console for guaranteed access in case of
-        misconfiguration.</b>
+      description: Removes the server from the Public Network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. <b>This is an advanced network action that can make your server completely unavailable over any network. Make sure this server is reachable over remote console for guaranteed access in case of misconfiguration.</b>
       summary: Removes the server from the Public Network
       operationId: serversServerIdPublicNetworksDelete
       security:
@@ -691,15 +605,13 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/servers/{serverId}/tags':
+  /servers/{serverId}/tags:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
     put:
       tags:
         - Servers
-      description: >-
-        Overwrites tags assigned for Server and unassigns any tags not part of
-        the request.
+      description: Overwrites tags assigned for Server and unassigns any tags not part of the request.
       summary: Overwrite tags assigned for Server.
       operationId: serversServerIdTagsPut
       security:
@@ -727,7 +639,7 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/servers/{serverId}/actions/deprovision':
+  /servers/{serverId}/actions/deprovision:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
     post:
@@ -748,22 +660,14 @@ paths:
               deleteIpBlocks: false
       responses:
         '202':
-          description: >-
-            The server has been deprovisioned and related network setup is being
-            updated.
+          description: The server has been deprovisioned and related network setup is being updated.
           content:
             application/json:
               schema:
                 type: string
-                description: >-
-                  The server has been deprovisioned and related network setup is
-                  being updated.
-                example: >-
-                  The server has been deprovisioned and related network setup is
-                  being updated.
-              example: >-
-                The server has been deprovisioned and related network setup is
-                being updated.
+                description: The server has been deprovisioned and related network setup is being updated.
+                example: The server has been deprovisioned and related network setup is being updated.
+              example: The server has been deprovisioned and related network setup is being updated.
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -774,7 +678,7 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/servers/{serverId}/actions/power-on':
+  /servers/{serverId}/actions/power-on:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
     post:
@@ -803,7 +707,7 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/servers/{serverId}/actions/power-off':
+  /servers/{serverId}/actions/power-off:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
     post:
@@ -832,7 +736,7 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/servers/{serverId}/actions/reboot':
+  /servers/{serverId}/actions/reboot:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
     post:
@@ -861,7 +765,7 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/servers/{serverId}/actions/shutdown':
+  /servers/{serverId}/actions/shutdown:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
     post:
@@ -890,17 +794,13 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/servers/{serverId}/actions/reset':
+  /servers/{serverId}/actions/reset:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
     post:
       tags:
         - Servers
-      description: >-
-        Deprecated: Reset specific server. Reset only supports network
-        configurations of type 'private network' or 'IP blocks'. As an
-        alternative, the suggested action is to deprovision the server and
-        provision a new one with the same configuration.
+      description: 'Deprecated: Reset specific server. Reset only supports network configurations of type ''private network'' or ''IP blocks''. As an alternative, the suggested action is to deprovision the server and provision a new one with the same configuration.'
       summary: Reset server.
       deprecated: true
       operationId: serversServerIdActionsResetPost
@@ -915,10 +815,7 @@ paths:
             example:
               installDefaultSshKeys: true
               sshKeys:
-                - >-
-                  ssh-rsa
-                  AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-                  user@my_ip
+                - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip
               sshKeyIds:
                 - 5fa54d1e91867c03a0a7b4a4
       responses:
@@ -938,7 +835,7 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/servers/{serverId}/actions/reserve':
+  /servers/{serverId}/actions/reserve:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
     post:
@@ -978,9 +875,7 @@ paths:
     post:
       tags:
         - SSH Keys
-      description: >-
-        Create an SSH Key. SSH Keys created can be used for server creation and
-        reset functionality.
+      description: Create an SSH Key. SSH Keys created can be used for server creation and reset functionality.
       summary: Create SSH Key.
       operationId: sshKeysPost
       security:
@@ -994,10 +889,7 @@ paths:
             example:
               name: my-sshkey-01
               default: false
-              key: >-
-                ssh-rsa
-                AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-                user@my_ip
+              key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip
       responses:
         '201':
           description: SSH Key successfully created.
@@ -1039,7 +931,7 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ssh-keys/{sshKeyId}':
+  /ssh-keys/{sshKeyId}:
     parameters:
       - in: path
         name: sshKeyId
@@ -1159,7 +1051,7 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/quotas/{quotaId}':
+  /quotas/{quotaId}:
     parameters:
       - in: path
         name: quotaId
@@ -1192,7 +1084,7 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/quotas/{quotaId}/actions/request-edit':
+  /quotas/{quotaId}/actions/request-edit:
     parameters:
       - in: path
         name: quotaId
@@ -1232,8 +1124,7 @@ components:
       type: oauth2
       flows:
         clientCredentials:
-          tokenUrl: >-
-            https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
+          tokenUrl: https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
           scopes:
             bmc: Grants full access to bmc-api.
             bmc.read: Grants read only access to bmc-api.
@@ -1277,11 +1168,7 @@ components:
           type: object
           properties:
             rdpAllowedIps:
-              description: >-
-                List of IPs allowed for RDP access to Windows OS. Supported in
-                single IP, CIDR and range format. When undefined, RDP is
-                disabled. To allow RDP access from any IP use 0.0.0.0/0. This
-                will only be returned in response to provisioning a server.
+              description: List of IPs allowed for RDP access to Windows OS. Supported in single IP, CIDR and range format. When undefined, RDP is disabled. To allow RDP access from any IP use 0.0.0.0/0. This will only be returned in response to provisioning a server.
               type: array
               items:
                 type: string
@@ -1292,25 +1179,17 @@ components:
                 - 10.111.14.40/29
                 - 10.111.14.66 - 10.111.14.71
         rootPassword:
-          description: >-
-            Password set for user root on an ESXi server which will only be
-            returned in response to provisioning a server.
+          description: Password set for user root on an ESXi server which will only be returned in response to provisioning a server.
           type: string
           example: MyP@ssw0rd_01
           readOnly: true
         managementUiUrl:
-          description: >-
-            The URL of the management UI which will only be returned in response
-            to provisioning a server.
+          description: The URL of the management UI which will only be returned in response to provisioning a server.
           type: string
-          example: 'https://172.217.22.14'
+          example: https://172.217.22.14
           readOnly: true
         managementAccessAllowedIps:
-          description: >-
-            List of IPs allowed to access the Management UI. Supported in single
-            IP, CIDR and range format. When undefined, Management UI is
-            disabled. This will only be returned in response to provisioning a
-            server.
+          description: List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
           type: array
           items:
             type: string
@@ -1321,21 +1200,15 @@ components:
             - 10.111.14.40/29
             - 10.111.14.66 - 10.111.14.71
         installOsToRam:
-          description: >-
-            If true, OS will be installed to and booted from the server's RAM.
-            On restart RAM OS will be lost and the server will not be reachable
-            unless a custom bootable OS has been deployed. Only supported for
-            ubuntu/focal.
+          description: If true, OS will be installed to and booted from the server's RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Only supported for ubuntu/focal.
           type: boolean
           default: false
         cloudInit:
           type: object
-          description: Details for cloud-init configuration.
+          description: Cloud-init configuration details.
           properties:
             userData:
-              description: >-
-                User data for cloud init configuration in base64 encoding.
-                NoCloud format is supported.
+              description: User data for the <a href='https://cloudinit.readthedocs.io/en/latest/' target='_blank'>cloud-init</a> configuration in base64 encoding. NoCloud format is supported. Follow the <a href='https://phoenixnap.com/kb/bmc-cloud-init' target='_blank'>instructions</a> on how to provision a server using cloud-init. Only ubuntu/bionic and ubuntu/focal are supported. User data will not be stored and cannot be retrieved once you deploy the server. Copy and save it for future reference.
               type: string
               format: byte
               writeOnly: true
@@ -1350,11 +1223,7 @@ components:
           type: string
           example: 603f3b2cfcaf050643b89a4b
         ips:
-          description: >-
-            IPs to configure/configured on the server. Should be null or empty
-            list if DHCP is true. If the network contains a membership of type
-            'storage', the first twelve IPs are already reserved by BMC and not
-            usable. These will return a Bad Request (400) if selected.
+          description: IPs to configure/configured on the server. Should be null or empty list if DHCP is true. If the network contains a membership of type 'storage', the first twelve IPs are already reserved by BMC and not usable. These will return a Bad Request (400) if selected.
           type: array
           maxItems: 10
           items:
@@ -1364,9 +1233,7 @@ components:
             - 10.1.1.1
             - 10.1.1.2
         dhcp:
-          description: >-
-            Determines whether DHCP is enabled for this server. Should be false
-            if ips is not an empty list. Not supported for proxmox OS.
+          description: Determines whether DHCP is enabled for this server. Should be false if ips is not an empty list. Not supported for proxmox OS.
           type: boolean
           default: false
           example: false
@@ -1380,30 +1247,18 @@ components:
       description: Private network details of bare metal server.
       properties:
         gatewayAddress:
-          description: >-
-            The address of the gateway assigned / to assign to the server. When
-            used as part of request body, it has to match one of the IP
-            addresses used in the existing assigned private networks for the
-            relevant location. Deprecated in favour of a common gateway address
-            across all networks available under NetworkConfiguration.
+          description: The address of the gateway assigned / to assign to the server. When used as part of request body, it has to match one of the IP addresses used in the existing assigned private networks for the relevant location. Deprecated in favour of a common gateway address across all networks available under NetworkConfiguration.
           deprecated: true
           type: string
           example: 10.0.0.10
         configurationType:
-          description: >-
-            Determines the approach for configuring private network(s) for the
-            server being provisioned. Currently this field should be set to
-            `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.
+          description: Determines the approach for configuring private network(s) for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.
           type: string
           writeOnly: true
           default: USE_OR_CREATE_DEFAULT
           example: USER_DEFINED
         privateNetworks:
-          description: >-
-            The list of private networks this server is member of. When this
-            field is part of request body, it'll be used to specify the private
-            networks to assign to this server upon provisioning. Used alongside
-            the `USER_DEFINED` configurationType.
+          description: The list of private networks this server is member of. When this field is part of request body, it'll be used to specify the private networks to assign to this server upon provisioning. Used alongside the `USER_DEFINED` configurationType.
           type: array
           items:
             $ref: '#/components/schemas/ServerPrivateNetwork'
@@ -1429,25 +1284,15 @@ components:
           example: 60473a6115e34466c9f8f083
         vlanId:
           readOnly: true
-          description: >-
-            The VLAN on which this IP block has been configured within the
-            network switch.
+          description: The VLAN on which this IP block has been configured within the network switch.
           type: integer
           example: 10
     IpBlocksConfiguration:
       type: object
-      description: >-
-        The IP blocks to assign to this server. <b>This is an exclusive
-        allocation</b>, i.e. the IP blocks cannot be shared with other servers.
-        If IpBlocksConfiguration is not defined, the purchase of a new IP block
-        is determined by the networkType field.
+      description: The IP blocks to assign to this server. <b>This is an exclusive allocation</b>, i.e. the IP blocks cannot be shared with other servers. If IpBlocksConfiguration is not defined, the purchase of a new IP block is determined by the networkType field.
       properties:
         configurationType:
-          description: >-
-            Determines the approach for configuring IP blocks for the server
-            being provisioned. If PURCHASE_NEW is selected, the smallest
-            supported range, depending on the operating system, is allocated to
-            the server.
+          description: Determines the approach for configuring IP blocks for the server being provisioned. If PURCHASE_NEW is selected, the smallest supported range, depending on the operating system, is allocated to the server.
           writeOnly: true
           type: string
           enum:
@@ -1456,10 +1301,7 @@ components:
             - NONE
           default: PURCHASE_NEW
         ipBlocks:
-          description: >-
-            Used to specify the previously purchased IP blocks to assign to this
-            server upon provisioning. Used alongside the USER_DEFINED
-            configurationType.
+          description: Used to specify the previously purchased IP blocks to assign to this server upon provisioning. Used alongside the USER_DEFINED configurationType.
           type: array
           maxItems: 1
           items:
@@ -1476,9 +1318,7 @@ components:
           type: string
           example: 60473c2509268bc77fd06d29
         ips:
-          description: >-
-            IPs to configure/configured on the server. IPs must be within the
-            network's range.
+          description: IPs to configure/configured on the server. IPs must be within the network's range.
           type: array
           items:
             type: string
@@ -1497,10 +1337,7 @@ components:
       description: Public network details of bare metal server.
       properties:
         publicNetworks:
-          description: >-
-            The list of public networks this server is member of. When this
-            field is part of request body, it'll be used to specify the public
-            networks to assign to this server upon provisioning.
+          description: The list of public networks this server is member of. When this field is part of request body, it'll be used to specify the public networks to assign to this server upon provisioning.
           type: array
           items:
             $ref: '#/components/schemas/ServerPublicNetwork'
@@ -1517,10 +1354,7 @@ components:
       description: Entire network details of bare metal server.
       properties:
         gatewayAddress:
-          description: >-
-            The address of the gateway assigned / to assign to the server. When
-            used as part of request body, IP address has to be part of
-            private/public network assigned to this server.
+          description: The address of the gateway assigned / to assign to the server. When used as part of request body, IP address has to be part of private/public network assigned to this server.
           type: string
           example: 182.16.0.145
         privateNetworkConfiguration:
@@ -1563,44 +1397,22 @@ components:
           example: my-server-1
           minLength: 1
           maxLength: 100
-          pattern: '^(?=.*[a-zA-Z])([a-zA-Z0-9().-])+$'
+          pattern: ^(?=.*[a-zA-Z])([a-zA-Z0-9().-])+$
         description:
           description: Description of server.
           type: string
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: >-
-            The server’s OS ID used when the server was created. Currently this
-            field should be set to either `ubuntu/bionic`, `ubuntu/focal`,
-            `centos/centos7`, `centos/centos8`, `windows/srv2019std`,
-            `windows/srv2019dc`, `esxi/esxi70u2`, `debian/bullseye` or
-            `proxmox/bullseye`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2`, `debian/bullseye` or `proxmox/bullseye`.
           type: string
           example: ubuntu/bionic
         type:
-          description: >-
-            Server type ID. Cannot be changed once a server is created.
-            Currently this field should be set to either `s0.d1.small`,
-            `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`,
-            `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`,
-            `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`,
-            `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`,
-            `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`,
-            `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`,
-            `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`,
-            `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`,
-            `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`,
-            `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`,
-            `d2.m1.medium`, `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`,
-            `d2.m2.xlarge` or `d2.c4.storage.pliops1`.
+          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`, `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge` or `d2.c4.storage.pliops1`.
           type: string
           example: s1.c1.small
         location:
-          description: >-
-            Server location ID. Cannot be changed once a server is created.
-            Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`,
-            `CHI`, `SEA` or `AUS`.
+          description: Server location ID. Cannot be changed once a server is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
           type: string
           example: PHX
         cpu:
@@ -1656,25 +1468,16 @@ components:
           type: string
           example: x78sdkjds879sd7cx8
         pricingModel:
-          description: >-
-            The pricing model this server is being billed. Currently this field
-            should be set to `HOURLY`, `ONE_MONTH_RESERVATION`,
-            `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION` or
-            `THIRTY_SIX_MONTHS_RESERVATION`.
+          description: The pricing model this server is being billed. Currently this field should be set to `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`.
           type: string
           default: HOURLY
           example: HOURLY
         password:
-          description: >-
-            Password set for user Admin on Windows server or user root on ESXi
-            server which will only be returned in response to provisioning a
-            server.
+          description: Password set for user Admin on Windows server or user root on ESXi server which will only be returned in response to provisioning a server.
           type: string
           example: MyP@ssw0rd_01
         networkType:
-          description: >-
-            The type of network configuration for this server. Currently this
-            field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
+          description: The type of network configuration for this server. Currently this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
           type: string
           default: PUBLIC_AND_PRIVATE
           example: PUBLIC_AND_PRIVATE
@@ -1710,7 +1513,7 @@ components:
           items:
             type: string
           readOnly: true
-          description: 'Validation errors, if any.'
+          description: Validation errors, if any.
     TagAssignmentRequest:
       type: object
       description: Tag request to assign to resource.
@@ -1718,19 +1521,11 @@ components:
         - name
       properties:
         name:
-          description: >-
-            The name of the tag. Tag names are case-sensitive, and should be
-            composed of a maximum of 100 characters including UTF-8 Unicode
-            letters, numbers, and the following symbols: '-', '_'. Regex:
-            [A-zÀ-ú0-9_-]{1,100}.
+          description: 'The name of the tag. Tag names are case-sensitive, and should be composed of a maximum of 100 characters including UTF-8 Unicode letters, numbers, and the following symbols: ''-'', ''_''. Regex: [A-zÀ-ú0-9_-]{1,100}.'
           type: string
           example: Environment
         value:
-          description: >-
-            The value of the tag assigned to the resource. Tag values are
-            case-sensitive, and should be composed of a maximum of 100
-            characters including UTF-8 Unicode letters, numbers, and the
-            following symbols: '-', '_'. Regex: [A-zÀ-ú0-9_-]{1,100}.
+          description: 'The value of the tag assigned to the resource. Tag values are case-sensitive, and should be composed of a maximum of 100 characters including UTF-8 Unicode letters, numbers, and the following symbols: ''-'', ''_''. Regex: [A-zÀ-ú0-9_-]{1,100}.'
           type: string
           example: PROD
     ServerCreate:
@@ -1748,50 +1543,26 @@ components:
           example: my-server-1
           minLength: 1
           maxLength: 100
-          pattern: '^(?=.*[a-zA-Z])([a-zA-Z0-9().-])+$'
+          pattern: ^(?=.*[a-zA-Z])([a-zA-Z0-9().-])+$
         description:
           description: Description of server.
           type: string
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: >-
-            The server’s OS ID used when the server was created. Currently this
-            field should be set to either `ubuntu/bionic`, `ubuntu/focal`,
-            `centos/centos7`,`centos/centos8`, `windows/srv2019std`,
-            `windows/srv2019dc`, `esxi/esxi70u2`, `debian/bullseye` or
-            `proxmox/bullseye`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `centos/centos7`,`centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2`, `debian/bullseye` or `proxmox/bullseye`.
           type: string
           example: ubuntu/bionic
         type:
-          description: >-
-            Server type ID. Cannot be changed once a server is created.
-            Currently this field should be set to either `s0.d1.small`,
-            `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`,
-            `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`,
-            `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`,
-            `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`,
-            `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`,
-            `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`,
-            `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`,
-            `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`,
-            `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`,
-            `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`,
-            `d2.m1.medium`, `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`,
-            `d2.m2.xlarge` or `d2.c4.storage.pliops1`.
+          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`, `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge` or `d2.c4.storage.pliops1`.
           type: string
           example: s1.c1.small
         location:
-          description: >-
-            Server location ID. Cannot be changed once a server is created.
-            Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`,
-            `CHI`, `SEA` or `AUS`.
+          description: Server location ID. Cannot be changed once a server is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
           type: string
           example: PHX
         installDefaultSshKeys:
-          description: >-
-            Whether or not to install SSH keys marked as default in addition to
-            any SSH keys specified in this request.
+          description: Whether or not to install SSH keys marked as default in addition to any SSH keys specified in this request.
           default: true
           type: boolean
           example: false
@@ -1800,19 +1571,11 @@ components:
           type: array
           items:
             type: string
-            example: >-
-              ssh-rsa
-              AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-              user@my_ip
+            example: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip
           example:
-            - >-
-              ssh-rsa
-              AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-              user@my_ip
+            - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip
         sshKeyIds:
-          description: >-
-            A list of SSH key IDs that will be installed on the server in
-            addition to any SSH keys specified in this request.
+          description: A list of SSH key IDs that will be installed on the server in addition to any SSH keys specified in this request.
           type: array
           items:
             type: string
@@ -1826,27 +1589,19 @@ components:
           type: string
           example: 5f622c8032b458306b40d824
         pricingModel:
-          description: >-
-            Server pricing model. Currently this field should be set to
-            `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`,
-            `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`.
+          description: Server pricing model. Currently this field should be set to `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`.
           type: string
           default: HOURLY
           example: ONE_MONTH_RESERVATION
         networkType:
-          description: >-
-            The type of network configuration for this server. Currently this
-            field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
+          description: The type of network configuration for this server. Currently this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
           type: string
           default: PUBLIC_AND_PRIVATE
           example: PUBLIC_AND_PRIVATE
         osConfiguration:
           $ref: '#/components/schemas/OsConfiguration'
         tags:
-          description: >-
-            Tags to set to the server. To create a new tag or list all the
-            existing tags that you can use, refer to [Tags
-            API](https://developers.phoenixnap.com/docs/tags/1/overview).
+          description: Tags to set to the server. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).
           type: array
           items:
             $ref: '#/components/schemas/TagAssignmentRequest'
@@ -1885,14 +1640,10 @@ components:
           pattern: '[a-zA-Z0-9().-]+'
     RelinquishIpBlock:
       type: object
-      description: >-
-        Object used to determine whether to relinquish ownership of the IP block
-        upon server deletion.
+      description: Object used to determine whether to relinquish ownership of the IP block upon server deletion.
       properties:
         deleteIpBlocks:
-          description: >-
-            Determines whether the IP blocks assigned to the server should be
-            deleted or not.
+          description: Determines whether the IP blocks assigned to the server should be deleted or not.
           type: boolean
           default: false
           example: true
@@ -1915,11 +1666,7 @@ components:
           type: object
           properties:
             rdpAllowedIps:
-              description: >-
-                List of IPs allowed for RDP access to Windows OS. Supported in
-                single IP, CIDR and range format. When undefined, RDP is
-                disabled. To allow RDP access from any IP use 0.0.0.0/0. This
-                will only be returned in response to provisioning a server.
+              description: List of IPs allowed for RDP access to Windows OS. Supported in single IP, CIDR and range format. When undefined, RDP is disabled. To allow RDP access from any IP use 0.0.0.0/0. This will only be returned in response to provisioning a server.
               type: array
               items:
                 type: string
@@ -1934,25 +1681,17 @@ components:
           type: object
           properties:
             rootPassword:
-              description: >-
-                Password set for user root on an ESXi server which will only be
-                returned in response to provisioning a server.
+              description: Password set for user root on an ESXi server which will only be returned in response to provisioning a server.
               type: string
               example: MyP@ssw0rd_01
               readOnly: true
             managementUiUrl:
-              description: >-
-                The URL of the management UI which will only be returned in
-                response to provisioning a server.
+              description: The URL of the management UI which will only be returned in response to provisioning a server.
               type: string
-              example: 'https://172.217.22.14'
+              example: https://172.217.22.14
               readOnly: true
             managementAccessAllowedIps:
-              description: >-
-                List of IPs allowed to access the Management UI. Supported in
-                single IP, CIDR and range format. When undefined, Management UI
-                is disabled. This will only be returned in response to
-                provisioning a server.
+              description: List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
               type: array
               items:
                 type: string
@@ -1967,25 +1706,17 @@ components:
           type: object
           properties:
             rootPassword:
-              description: >-
-                Password set for user root on a Proxmox server which will only
-                be returned in response to provisioning a server.
+              description: Password set for user root on a Proxmox server which will only be returned in response to provisioning a server.
               type: string
               example: MyP@ssw0rd_01
               readOnly: true
             managementUiUrl:
-              description: >-
-                The URL of the management UI which will only be returned in
-                response to provisioning a server.
+              description: The URL of the management UI which will only be returned in response to provisioning a server.
               type: string
-              example: 'https://172.217.22.14:8006'
+              example: https://172.217.22.14:8006
               readOnly: true
             managementAccessAllowedIps:
-              description: >-
-                List of IPs allowed to access the Management UI. Supported in
-                single IP, CIDR and range format. When undefined, Management UI
-                is disabled. This will only be returned in response to
-                provisioning a server.
+              description: List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
               type: array
               items:
                 type: string
@@ -2000,9 +1731,7 @@ components:
       description: Reset bare metal server.
       properties:
         installDefaultSshKeys:
-          description: >-
-            Whether or not to install SSH keys marked as default in addition to
-            any SSH keys specified in this request.
+          description: Whether or not to install SSH keys marked as default in addition to any SSH keys specified in this request.
           default: true
           type: boolean
           example: false
@@ -2011,19 +1740,11 @@ components:
           type: array
           items:
             type: string
-            example: >-
-              ssh-rsa
-              AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-              user@my_ip
+            example: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip
           example:
-            - >-
-              ssh-rsa
-              AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-              user@my_ip
+            - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip
         sshKeyIds:
-          description: >-
-            A list of SSH key IDs that will be installed on the server in
-            addition to any SSH keys specified in this request.
+          description: A list of SSH key IDs that will be installed on the server in addition to any SSH keys specified in this request.
           type: array
           items:
             type: string
@@ -2045,9 +1766,7 @@ components:
           type: string
           example: Resetting server.
         password:
-          description: >-
-            Password set for user Admin on Windows server or user root on ESXi
-            server.
+          description: Password set for user Admin on Windows server or user root on ESXi server.
           type: string
           example: MyP@ssw0rd_01
         osConfiguration:
@@ -2059,10 +1778,7 @@ components:
         - pricingModel
       properties:
         pricingModel:
-          description: >-
-            Server pricing model. Currently this field should be set to
-            `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`,
-            `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`.
+          description: Server pricing model. Currently this field should be set to `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`.
           type: string
           example: ONE_MONTH_RESERVATION
     SshKey:
@@ -2082,9 +1798,7 @@ components:
           type: string
           example: 5fa54d1e91867c03a0a7b4a4
         default:
-          description: >-
-            Keys marked as default are always included on server creation and
-            reset unless toggled off in creation/reset request.
+          description: Keys marked as default are always included on server creation and reset unless toggled off in creation/reset request.
           type: boolean
           example: true
         name:
@@ -2094,10 +1808,7 @@ components:
         key:
           description: SSH Key value.
           type: string
-          example: >-
-            ssh-rsa
-            AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-            user@my_ip
+          example: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip
         fingerprint:
           description: SSH key auto-generated SHA-256 fingerprint.
           type: string
@@ -2121,9 +1832,7 @@ components:
         - key
       properties:
         default:
-          description: >-
-            Keys marked as default are always included on server creation and
-            reset unless toggled off in creation/reset request.
+          description: Keys marked as default are always included on server creation and reset unless toggled off in creation/reset request.
           type: boolean
           example: true
         name:
@@ -2135,10 +1844,7 @@ components:
         key:
           description: SSH key actual key value.
           type: string
-          example: >-
-            ssh-rsa
-            AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
-            user@my_ip
+          example: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip
     SshKeyUpdate:
       type: object
       description: SSH key modification model.
@@ -2147,9 +1853,7 @@ components:
         - name
       properties:
         default:
-          description: >-
-            Keys marked as default are always included on server creation and
-            reset unless toggled off in creation/reset request.
+          description: Keys marked as default are always included on server creation and reset unless toggled off in creation/reset request.
           type: boolean
           example: true
         name:
@@ -2259,33 +1963,25 @@ components:
             $ref: '#/components/schemas/QuotaEditLimitRequestDetails'
   responses:
     Unauthorized:
-      description: >-
-        The request failed due to invalid credentials. Please check the provided
-        credentials and try again.
+      description: The request failed due to invalid credentials. Please check the provided credentials and try again.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     Forbidden:
-      description: >-
-        The request failed since this resource cannot be accessed by the
-        provided credentials.
+      description: The request failed since this resource cannot be accessed by the provided credentials.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     InternalServerError:
-      description: >-
-        The server encountered an unexpected condition that prevented it from
-        fulfilling the request.
+      description: The server encountered an unexpected condition that prevented it from fulfilling the request.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     BadRequest:
-      description: >-
-        The request failed due to wrong data. Please check the provided
-        parameters and try again.
+      description: The request failed due to wrong data. Please check the provided parameters and try again.
       content:
         application/json:
           schema:

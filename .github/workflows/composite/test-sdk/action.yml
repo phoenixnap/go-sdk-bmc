@@ -4,25 +4,26 @@ inputs:
   test-suite: 
     description: 'Name of the test suite to run.'
     required: true
+  go-version: 
+    description: 'Version of GO to run tests on.'
+    required: true
 runs:
   using: "composite"
   steps:
-    - name: Install golang
+    - uses: actions/download-artifact@v3
+    - name: Setup GO
+      uses: ./.github/workflows/composite/setup-go
+      with:
+        go-version: ${{ inputs.go-version }}
+    - name: Setup go-junit-report
       shell: bash
-      run: |
-        sudo apt-get update
-        sudo apt-get install golang-go
+      run: go install github.com/jstemmer/go-junit-report@latest
     - name: Run tests
       shell: bash
-      run: |
-        cd tests
-        export GOPATH="$HOME/go/"
-        export PATH=$PATH:$GOPATH/bin
-        go install github.com/jstemmer/go-junit-report
-        go test -v -run ${{ inputs.test-suite }} | go-junit-report -set-exit-code > ${{inputs.test-suite}}.xml
+      run: cd tests && go test -v -run ${{ inputs.test-suite }} | go-junit-report -set-exit-code > ${{inputs.test-suite}}.xml
     - name: Upload Test Results
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Test Results
         path: 'tests/*'

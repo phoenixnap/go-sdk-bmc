@@ -229,3 +229,56 @@ func (suite *NetworkStorageApiTestSuite) TestGetVolumeByStorageNetworkIdAndVolum
 	// Verify
 	suite.verifyCalledOnce(expectationId)
 }
+
+func (suite *NetworkStorageApiTestSuite) TestPatchVolumeByStorageNetworkIdAndVolumeId() {
+
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("networkstorageapi/networkstorage_patch_volume_by_id", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	storageNetworkId := request.PathParameters["storageNetworkId"][0]
+	volumeId := request.PathParameters["volumeId"][0]
+
+	body, _ := json.Marshal(request.Body.Json)
+	var volumeUpdate networkstorageapi.VolumeUpdate
+	json.Unmarshal(body, &volumeUpdate)
+
+	// Operation Execution
+	result, _, _ := suite.apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdPatch(suite.ctx, storageNetworkId, volumeId).VolumeUpdate(volumeUpdate).Execute()
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	// Asserts
+	suite.Equal(jsonResult, jsonResponseBody)
+
+	// Verify
+	suite.verifyCalledOnce(expectationId)
+}
+
+func (suite *NetworkStorageApiTestSuite) TestDeleteVolumeByStorageNetworkIdAndVolumeId() {
+
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("networkstorageapi/networkstorage_delete_volume_by_id", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	storageNetworkId := request.PathParameters["storageNetworkId"][0]
+	volumeId := request.PathParameters["volumeId"][0]
+
+	// Operation Execution
+	result, _ := suite.apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdDelete(suite.ctx, storageNetworkId, volumeId).Execute()
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+
+	// Asserts
+	suite.Empty(string(jsonResult))
+
+	// Verify
+	suite.verifyCalledOnce(expectationId)
+}

@@ -1,40 +1,29 @@
 openapi: 3.0.3
 info:
   title: Audit Log API
-  description: >
-    The Audit Logs API lets you read audit log entries and track API calls or
-    activities in the Bare Metal Cloud Portal.<br>
-
+  description: |
+    The Audit Logs API lets you read audit log entries and track API calls or activities in the Bare Metal Cloud Portal.<br>
     <br>
-
     <span class='pnap-api-knowledge-base-link'>
-
     Knowledge base articles to help you can be found
-
-    <a
-    href='https://phoenixnap.com/kb/bmc-server-management-via-api#audit-log-api'
-    target='_blank'>here</a>
-
+    <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#audit-log-api' target='_blank'>here</a>
     </span><br>
-
     <br>
-
     <b>All URLs are relative to (https://api.phoenixnap.com/audit/v1/)</b>
-  termsOfService: >-
-    https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
+  termsOfService: https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
   version: '1.0'
   license:
     name: Apache 2.0
-    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
   contact:
     name: PhoenixNAP Team
     email: support@phoenixnap.com
-    url: 'https://phoenixnap.com/'
+    url: https://phoenixnap.com/
 security:
   - OAuth2:
       - audit.read
 servers:
-  - url: 'https://api.phoenixnap.com/audit/v1'
+  - url: https://api.phoenixnap.com/audit/v1
 tags:
   - name: Events
     description: Event operations
@@ -46,9 +35,7 @@ paths:
       security:
         - OAuth2:
             - audit.read
-      description: >-
-        Retrieves the event logs for given time period. All date & times are in
-        UTC.
+      description: Retrieves the event logs for given time period. All date & times are in UTC.
       summary: List event logs.
       operationId: eventsGet
       parameters:
@@ -141,8 +128,7 @@ components:
       type: oauth2
       flows:
         clientCredentials:
-          tokenUrl: >-
-            https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
+          tokenUrl: https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
           scopes:
             audit.read: Grants read only access to audit-log-api.
   schemas:
@@ -180,7 +166,7 @@ components:
           description: The UTC time the event initiated.
           type: string
           format: date-time
-          example: '2020-03-19T16:39.123Z'
+          example: 2020-03-19T16:39.123Z
         userInfo:
           $ref: '#/components/schemas/UserInfo'
     Error:
@@ -197,36 +183,28 @@ components:
           items:
             type: string
           readOnly: true
-          description: 'Validation errors, if any.'
+          description: Validation errors, if any.
   responses:
     BadRequest:
-      description: >-
-        The request failed due to wrong data. Please check the provided
-        parameters and try again.
+      description: The request failed due to wrong data. Please check the provided parameters and try again.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     Unauthorized:
-      description: >-
-        The request failed due to invalid credentials. Please check the provided
-        credentials and try again.
+      description: The request failed due to invalid credentials. Please check the provided credentials and try again.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     Forbidden:
-      description: >-
-        The request failed since this resource cannot be accessed by the
-        provided credentials.
+      description: The request failed since this resource cannot be accessed by the provided credentials.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     InternalServerError:
-      description: >-
-        The server encountered an unexpected condition that prevented it from
-        fulfilling the request.
+      description: The server encountered an unexpected condition that prevented it from fulfilling the request.
       content:
         application/json:
           schema:

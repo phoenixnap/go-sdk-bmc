@@ -160,7 +160,7 @@ paths:
       description: Retrieves all Products.
       operationId: productsGet
       parameters:
-      - example: d1.tiny
+      - example: s1.c1.small
         explode: true
         in: query
         name: productCode
@@ -168,7 +168,7 @@ paths:
         schema:
           type: string
         style: form
-      - example: server
+      - example: SERVER
         explode: true
         in: query
         name: productCategory
@@ -1010,11 +1010,11 @@ components:
         productCode:
           description: The code identifying the product. This code has significant
             across all locations.
-          example: d1.tiny
+          example: s1.c1.small
           type: string
         productCategory:
           description: The product category.
-          example: server
+          example: SERVER
           type: string
         plans:
           description: The pricing plans available for this product.
@@ -1034,7 +1034,7 @@ components:
           type: string
         skuDescription:
           description: Description of this pricing plan.
-          example: Hourly Rate for d1.tiny in Phoenix
+          example: Hourly Rate for s1.c1.small in Phoenix
           type: string
         location:
           description: The code identifying the location.
@@ -1070,7 +1070,7 @@ components:
           $ref: '#/components/schemas/PriceUnitEnum'
         correlatedProductCode:
           description: Product code of the product this product is correlated with
-          example: d1.tiny
+          example: s1.c1.small
           type: string
         packageQuantity:
           description: Package size per month.
@@ -1137,11 +1137,12 @@ components:
       description: Reservation details
       example:
         priceUnit: MONTH
+        nextBillingDate: 2020-04-19T00:00:00.000+00:00
         initialInvoiceModel: null
         endDateTime: 2020-04-19T16:39:00Z
         productCategory: server
         lastRenewalDateTime: 2020-03-19T16:39:00Z
-        productCode: d1.tiny
+        productCode: s1.c1.small
         startDateTime: 2020-03-19T16:39:00Z
         price: 175.0
         reservationModel: null
@@ -1159,7 +1160,7 @@ components:
         productCode:
           description: The code identifying the product. This code has significant
             across all locations.
-          example: d1.tiny
+          example: s1.c1.small
           type: string
         productCategory:
           description: The product category.
@@ -1216,6 +1217,11 @@ components:
         assignedResourceId:
           description: The resource ID currently being assigned to Reservation.
           example: 83604275-bdba-490a-b87a-978e8dffdb14
+          type: string
+        nextBillingDate:
+          description: Next billing date for Reservation.
+          example: 2020-04-19
+          format: date
           type: string
       required:
       - autoRenew
@@ -1434,6 +1440,7 @@ components:
           BANDWIDTH: '#/components/schemas/Product'
           OPERATING_SYSTEM: '#/components/schemas/Product'
           STORAGE: '#/components/schemas/Product'
+          PUBLIC_IP: '#/components/schemas/Product'
         propertyName: productCategory
       oneOf:
       - $ref: '#/components/schemas/Product'

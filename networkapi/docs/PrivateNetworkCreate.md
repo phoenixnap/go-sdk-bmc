@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | The description of this private network. | [optional] 
 **Location** | **string** | The location of this private network. Supported values are &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60;, &#x60;SEA&#x60; and &#x60;AUS&#x60;. | 
 **LocationDefault** | Pointer to **bool** | Identifies network as the default private network for the specified location. | [optional] [default to false]
+**VlanId** | Pointer to **int32** | The VLAN that will be assigned to this network. | [optional] 
 **Cidr** | **string** | IP range associated with this private network in CIDR notation. | 
 
 ## Methods
@@ -118,6 +119,31 @@ SetLocationDefault sets LocationDefault field to given value.
 `func (o *PrivateNetworkCreate) HasLocationDefault() bool`
 
 HasLocationDefault returns a boolean if a field has been set.
+
+### GetVlanId
+
+`func (o *PrivateNetworkCreate) GetVlanId() int32`
+
+GetVlanId returns the VlanId field if non-nil, zero value otherwise.
+
+### GetVlanIdOk
+
+`func (o *PrivateNetworkCreate) GetVlanIdOk() (*int32, bool)`
+
+GetVlanIdOk returns a tuple with the VlanId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVlanId
+
+`func (o *PrivateNetworkCreate) SetVlanId(v int32)`
+
+SetVlanId sets VlanId field to given value.
+
+### HasVlanId
+
+`func (o *PrivateNetworkCreate) HasVlanId() bool`
+
+HasVlanId returns a boolean if a field has been set.
 
 ### GetCidr
 

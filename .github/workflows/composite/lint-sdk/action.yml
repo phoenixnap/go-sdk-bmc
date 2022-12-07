@@ -7,11 +7,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Install golang
-      shell: bash
-      run: |
-        sudo apt-get update 
-        sudo apt-get install golang-go
+    - uses: actions/download-artifact@v3
+    - uses: ./.github/workflows/composite/setup-go
     - name: Lint module
       shell: bash
-      run: cd ${{ inputs.module-name }} && go vet ./...
+      run: cd ${{ inputs.module-name }} && go mod tidy && go vet ./...

@@ -163,13 +163,13 @@ paths:
           required: false
           schema:
             type: string
-          example: "d1.tiny"
+          example: "s1.c1.small"
         - in: query
           name: productCategory
           required: false
           schema:
             type: string
-          example: "server"
+          example: "SERVER"
         - in: query
           name: skuCode
           required: false
@@ -200,6 +200,7 @@ paths:
                       BANDWIDTH: '#/components/schemas/Product'
                       OPERATING_SYSTEM: '#/components/schemas/Product'
                       STORAGE: '#/components/schemas/Product'
+                      PUBLIC_IP: '#/components/schemas/Product'
         '400':
           $ref: '#/components/responses/BadRequest'
         '500':
@@ -806,11 +807,11 @@ components:
           description: "The code identifying the product. This code has significant\
                     \ across all locations."
           type: string
-          example: "d1.tiny"
+          example: "s1.c1.small"
         productCategory:
           description: "The product category."
           type: string
-          example: "server"
+          example: "SERVER"
         plans:
           description: "The pricing plans available for this product."
           type: array
@@ -831,7 +832,7 @@ components:
         skuDescription:
           description: "Description of this pricing plan."
           type: string
-          example: "Hourly Rate for d1.tiny in Phoenix"
+          example: "Hourly Rate for s1.c1.small in Phoenix"
         location:
           description: "The code identifying the location."
           type: string
@@ -867,7 +868,7 @@ components:
         correlatedProductCode:
           description: "Product code of the product this product is correlated with"
           type: string
-          example: "d1.tiny"
+          example: "s1.c1.small"
         packageQuantity:
           description: "Package size per month."
           type: number
@@ -949,7 +950,7 @@ components:
           description: "The code identifying the product. This code has significant\
                     \ across all locations."
           type: string
-          example: "d1.tiny"
+          example: "s1.c1.small"
         productCategory:
           description: "The product category."
           type: string
@@ -999,6 +1000,11 @@ components:
           description: "The resource ID currently being assigned to Reservation."
           type: string
           example: "83604275-bdba-490a-b87a-978e8dffdb14"
+        nextBillingDate:
+          description: "Next billing date for Reservation."
+          type: string
+          format: date
+          example: "2020-04-19"
       required:
         - id
         - productCode

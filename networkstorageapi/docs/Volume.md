@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Path** | Pointer to **string** | Volume&#39;s full path. It is in form of &#x60;/{volumeId}/pathSuffix&#x60;&#39;. | [optional] 
 **PathSuffix** | Pointer to **string** | Last part of volume&#39;s path. | [optional] 
 **CapacityInGb** | Pointer to **int32** | Maximum capacity in GB. | [optional] 
+**UsedCapacityInGb** | Pointer to **int32** | Used capacity in GB, updated periodically. | [optional] 
 **Protocol** | Pointer to **string** | File system protocol. Currently this field should be set to &#x60;NFS&#x60;. | [optional] 
 **Status** | Pointer to [**Status**](Status.md) |  | [optional] 
 **CreatedOn** | Pointer to **time.Time** |  | [optional] 
@@ -183,6 +184,31 @@ SetCapacityInGb sets CapacityInGb field to given value.
 `func (o *Volume) HasCapacityInGb() bool`
 
 HasCapacityInGb returns a boolean if a field has been set.
+
+### GetUsedCapacityInGb
+
+`func (o *Volume) GetUsedCapacityInGb() int32`
+
+GetUsedCapacityInGb returns the UsedCapacityInGb field if non-nil, zero value otherwise.
+
+### GetUsedCapacityInGbOk
+
+`func (o *Volume) GetUsedCapacityInGbOk() (*int32, bool)`
+
+GetUsedCapacityInGbOk returns a tuple with the UsedCapacityInGb field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUsedCapacityInGb
+
+`func (o *Volume) SetUsedCapacityInGb(v int32)`
+
+SetUsedCapacityInGb sets UsedCapacityInGb field to given value.
+
+### HasUsedCapacityInGb
+
+`func (o *Volume) HasUsedCapacityInGb() bool`
+
+HasUsedCapacityInGb returns a boolean if a field has been set.
 
 ### GetProtocol
 

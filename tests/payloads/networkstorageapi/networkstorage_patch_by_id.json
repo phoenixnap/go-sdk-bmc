@@ -38,6 +38,7 @@
           "path": "/fakeVolumeId/pathSuffix",
           "pathSuffix": "/pathSuffix",
           "capacityInGb": 1000,
+          "usedCapacityInGb": 10,
           "protocol": "NFS",
           "status": "READY",
           "createdOn": "2021-04-27T16:24:57Z",

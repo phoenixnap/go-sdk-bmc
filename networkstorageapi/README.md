@@ -91,7 +91,9 @@ Class | Method | HTTP request | Description
 *StorageNetworksApi* | [**StorageNetworksIdPatch**](docs/StorageNetworksApi.md#storagenetworksidpatch) | **Patch** /storage-networks/{storageNetworkId} | Update storage network details.
 *StorageNetworksApi* | [**StorageNetworksPost**](docs/StorageNetworksApi.md#storagenetworkspost) | **Post** /storage-networks | Create a storage network and volume.
 *StorageNetworksApi* | [**StorageNetworksStorageNetworkIdVolumesGet**](docs/StorageNetworksApi.md#storagenetworksstoragenetworkidvolumesget) | **Get** /storage-networks/{storageNetworkId}/volumes | Display one or more volumes belonging to a storage network.
+*StorageNetworksApi* | [**StorageNetworksStorageNetworkIdVolumesVolumeIdDelete**](docs/StorageNetworksApi.md#storagenetworksstoragenetworkidvolumesvolumeiddelete) | **Delete** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Delete a Storage Network&#39;s Volume
 *StorageNetworksApi* | [**StorageNetworksStorageNetworkIdVolumesVolumeIdGet**](docs/StorageNetworksApi.md#storagenetworksstoragenetworkidvolumesvolumeidget) | **Get** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Get a storage network&#39;s volume details.
+*StorageNetworksApi* | [**StorageNetworksStorageNetworkIdVolumesVolumeIdPatch**](docs/StorageNetworksApi.md#storagenetworksstoragenetworkidvolumesvolumeidpatch) | **Patch** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Update a storage network&#39;s volume details.
 
 
 ## Documentation For Models
@@ -105,6 +107,7 @@ Class | Method | HTTP request | Description
  - [StorageNetworkUpdate](docs/StorageNetworkUpdate.md)
  - [Volume](docs/Volume.md)
  - [VolumeCreate](docs/VolumeCreate.md)
+ - [VolumeUpdate](docs/VolumeUpdate.md)
 
 
 ## Documentation For Authorization

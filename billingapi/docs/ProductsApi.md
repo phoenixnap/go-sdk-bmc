@@ -106,8 +106,8 @@ import (
 )
 
 func main() {
-    productCode := "d1.tiny" // string |  (optional)
-    productCategory := "server" // string |  (optional)
+    productCode := "s1.c1.small" // string |  (optional)
+    productCategory := "SERVER" // string |  (optional)
     skuCode := "xxx-xxx-xxx" // string |  (optional)
     location := "PHX" // string |  (optional)
 

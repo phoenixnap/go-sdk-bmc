@@ -10,13 +10,12 @@ on:
   workflow_dispatch:
 
 jobs:
-
   # Generate stage
   generate-bmcapi:
     name: Generate BMC API
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/generate-sdk
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/bmc/download_spec
@@ -25,7 +24,7 @@ jobs:
     name: Generate Rancher API
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/generate-sdk
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/rancher/download_spec
@@ -34,7 +33,7 @@ jobs:
     name: Generate Network API
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/generate-sdk
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/networks/download_spec
@@ -43,7 +42,7 @@ jobs:
     name: Generate IP API
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/generate-sdk
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/ips/download_spec
@@ -52,7 +51,7 @@ jobs:
     name: Generate Audit API
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/generate-sdk
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/bmc-audit/download_spec
@@ -61,7 +60,7 @@ jobs:
     name: Generate Tag API
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/generate-sdk
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/tags/download_spec
@@ -70,7 +69,7 @@ jobs:
     name: Generate Billing API
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/generate-sdk
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/bmc-billing/download_spec
@@ -79,7 +78,7 @@ jobs:
     name: Generate Storage Network API
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/generate-sdk
         with:
           spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/network-storage/download_spec
@@ -107,13 +106,13 @@ jobs:
       - generate-networkstorageapi
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           persist-credentials: false
           fetch-depth: 0
           ref: ${{ github.event_name == 'schedule' && 'develop' || github.head_ref }}
       - name: Download Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
       - name: Move spec files
         run: |
           find . -type f -name "*.spec.yaml" -not -path "./specs/*" -print0 | xargs -0 mv -ft ./specs/
@@ -137,9 +136,7 @@ jobs:
     needs:
       - generate-bmcapi
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: bmcapi
@@ -149,9 +146,7 @@ jobs:
     needs:
       - generate-rancherapi
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: ranchersolutionapi
@@ -161,9 +156,7 @@ jobs:
     needs:
       - generate-networkapi
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: networkapi
@@ -173,9 +166,7 @@ jobs:
     needs:
       - generate-ipapi
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: ipapi
@@ -185,9 +176,7 @@ jobs:
     needs:
       - generate-auditapi
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: auditapi
@@ -197,9 +186,7 @@ jobs:
     needs:
       - generate-tagapi
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: tagapi
@@ -209,9 +196,7 @@ jobs:
     needs:
       - generate-billingapi
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: billingapi
@@ -221,9 +206,7 @@ jobs:
     needs:
       - generate-networkstorageapi
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/build-sdk
         with:
           module-name: networkstorageapi
@@ -235,9 +218,7 @@ jobs:
     needs:
       - build-bmcapi
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: bmcapi
@@ -247,9 +228,7 @@ jobs:
     needs:
       - build-rancherapi
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: ranchersolutionapi
@@ -259,9 +238,7 @@ jobs:
     needs:
       - build-networkapi
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: networkapi
@@ -271,9 +248,7 @@ jobs:
     needs:
       - build-ipapi
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: ipapi
@@ -283,9 +258,7 @@ jobs:
     needs:
       - build-auditapi
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: auditapi
@@ -295,9 +268,7 @@ jobs:
     needs:
       - build-tagapi
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: tagapi
@@ -307,9 +278,7 @@ jobs:
     needs:
       - build-billingapi
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: billingapi
@@ -319,9 +288,7 @@ jobs:
     needs:
       - build-networkstorageapi
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/lint-sdk
         with:
           module-name: networkstorageapi
@@ -336,13 +303,16 @@ jobs:
         image: mockserver/mockserver:5.13.0
         ports:
           - 1080:1080
+    strategy:
+      fail-fast: false
+      matrix:
+        go-version: [ '1.17', '1.19' ]
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestAuditApiTestSuite
+          go-version: ${{ matrix.go-version }}
   test-ipapi:
     name: Test IP API
     runs-on: ubuntu-latest
@@ -353,13 +323,16 @@ jobs:
         image: mockserver/mockserver:5.13.0
         ports:
           - 1080:1080
+    strategy:
+      fail-fast: false
+      matrix:
+        go-version: [ '1.17', '1.19' ]
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestIpApiTestSuite
+          go-version: ${{ matrix.go-version }}
   test-bmcapi:
     name: Test BMC API
     runs-on: ubuntu-latest
@@ -370,13 +343,16 @@ jobs:
         image: mockserver/mockserver:5.13.0
         ports:
           - 1080:1080
+    strategy:
+      fail-fast: false
+      matrix:
+        go-version: [ '1.17', '1.19' ]
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestBmcApiTestSuite
+          go-version: ${{ matrix.go-version }}
   test-tagapi:
     name: Test Tag API
     runs-on: ubuntu-latest
@@ -387,13 +363,16 @@ jobs:
         image: mockserver/mockserver:5.13.0
         ports:
           - 1080:1080
+    strategy:
+      fail-fast: false
+      matrix:
+        go-version: [ '1.17', '1.19' ]
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestTagApiTestSuite
+          go-version: ${{ matrix.go-version }}
   test-rancherapi:
     name: Test Rancher API
     runs-on: ubuntu-latest
@@ -404,13 +383,16 @@ jobs:
         image: mockserver/mockserver:5.13.0
         ports:
           - 1080:1080
+    strategy:
+      fail-fast: false
+      matrix:
+        go-version: [ '1.17', '1.19' ]
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestRancherSolutionApiTestSuite
+          go-version: ${{ matrix.go-version }}
   test-networkapi:
     name: Test Network API
     runs-on: ubuntu-latest
@@ -421,13 +403,16 @@ jobs:
         image: mockserver/mockserver:5.13.0
         ports:
           - 1080:1080
+    strategy:
+      fail-fast: false
+      matrix:
+        go-version: [ '1.17', '1.19' ]
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestNetworkApiTestSuite
+          go-version: ${{ matrix.go-version }}
   test-billingapi:
     name: Test Billing API
     runs-on: ubuntu-latest
@@ -438,13 +423,16 @@ jobs:
         image: mockserver/mockserver:5.13.0
         ports:
           - 1080:1080
+    strategy:
+      fail-fast: false
+      matrix:
+        go-version: [ '1.17', '1.19' ]
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestBillingApiTestSuite
+          go-version: ${{ matrix.go-version }}
   test-networkstorageapi:
     name: Test Network Storage API
     runs-on: ubuntu-latest
@@ -455,14 +443,17 @@ jobs:
         image: mockserver/mockserver:5.13.0
         ports:
           - 1080:1080
+    strategy:
+      fail-fast: false
+      matrix:
+        go-version: [ '1.17', '1.19' ]
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: TestNetworkStorageApiTestSuite
-
+          go-version: ${{ matrix.go-version }}
+          
   publish-test-results:
     name: Publish Test Results
     needs:
@@ -478,7 +469,7 @@ jobs:
     if: always()
     steps:
       - name: Download Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           path: test-reports
       - name: Publish Test Results
@@ -486,5 +477,3 @@ jobs:
         with:
           files: test-reports/**/*.xml
           check_name: "Test Results"
-
-

@@ -44,6 +44,8 @@ type Reservation struct {
 	PriceUnit PriceUnitEnum `json:"priceUnit"`
 	// The resource ID currently being assigned to Reservation.
 	AssignedResourceId *string `json:"assignedResourceId,omitempty"`
+	// Next billing date for Reservation.
+	NextBillingDate *string `json:"nextBillingDate,omitempty"`
 }
 
 // NewReservation instantiates a new Reservation object
@@ -473,6 +475,38 @@ func (o *Reservation) SetAssignedResourceId(v string) {
 	o.AssignedResourceId = &v
 }
 
+// GetNextBillingDate returns the NextBillingDate field value if set, zero value otherwise.
+func (o *Reservation) GetNextBillingDate() string {
+	if o == nil || o.NextBillingDate == nil {
+		var ret string
+		return ret
+	}
+	return *o.NextBillingDate
+}
+
+// GetNextBillingDateOk returns a tuple with the NextBillingDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Reservation) GetNextBillingDateOk() (*string, bool) {
+	if o == nil || o.NextBillingDate == nil {
+		return nil, false
+	}
+	return o.NextBillingDate, true
+}
+
+// HasNextBillingDate returns a boolean if a field has been set.
+func (o *Reservation) HasNextBillingDate() bool {
+	if o != nil && o.NextBillingDate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNextBillingDate gets a reference to the given string and assigns it to the NextBillingDate field.
+func (o *Reservation) SetNextBillingDate(v string) {
+	o.NextBillingDate = &v
+}
+
 func (o Reservation) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -519,6 +553,9 @@ func (o Reservation) MarshalJSON() ([]byte, error) {
 	}
 	if o.AssignedResourceId != nil {
 		toSerialize["assignedResourceId"] = o.AssignedResourceId
+	}
+	if o.NextBillingDate != nil {
+		toSerialize["nextBillingDate"] = o.NextBillingDate
 	}
 	return json.Marshal(toSerialize)
 }

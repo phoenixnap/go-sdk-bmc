@@ -1,43 +1,31 @@
 openapi: 3.0.2
 info:
   title: IP Addresses API
-  description: >
-    Public IP blocks are a set of contiguous IPs that allow you to access your
-    servers or networks from the internet.
-
+  description: |
+    Public IP blocks are a set of contiguous IPs that allow you to access your servers or networks from the internet.
     Use the IP Addresses API to request and delete IP blocks.<br>
-
     <br>
-
     <span class='pnap-api-knowledge-base-link'>
-
     Knowledge base articles to help you can be found
-
-    <a
-    href='https://phoenixnap.com/kb/public-ip-management#bmc-public-ip-allocations-api'
-    target='_blank'>here</a>
-
+    <a href='https://phoenixnap.com/kb/public-ip-management#bmc-public-ip-allocations-api' target='_blank'>here</a>
     </span><br>
-
     <br>
-
     <b>All URLs are relative to (https://api.phoenixnap.com/ips/v1/)</b>
-  termsOfService: >-
-    https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
+  termsOfService: https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
   version: '1.0'
   license:
     name: Apache 2.0
-    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
   contact:
     name: PhoenixNAP Team
     email: support@phoenixnap.com
-    url: 'https://phoenixnap.com/'
+    url: https://phoenixnap.com/
 security:
   - OAuth2:
       - bmc
       - bmc.read
 servers:
-  - url: 'https://api.phoenixnap.com/ips/v1'
+  - url: https://api.phoenixnap.com/ips/v1
 tags:
   - name: IP Blocks
     description: Public IP Block operations.
@@ -59,7 +47,7 @@ paths:
             type: array
             items:
               type: string
-          description: 'List of tags, in the form tagName.tagValue, to filter by.'
+          description: List of tags, in the form tagName.tagValue, to filter by.
           explode: true
           example:
             - env.dev
@@ -82,9 +70,7 @@ paths:
     post:
       tags:
         - IP Blocks
-      description: >-
-        Request an IP Block. An IP Block is a set of contiguous IPs that can be
-        assigned to other resources such as servers.
+      description: Request an IP Block. An IP Block is a set of contiguous IPs that can be assigned to other resources such as servers.
       summary: Create an IP Block.
       operationId: ipBlocksPost
       security:
@@ -125,7 +111,7 @@ paths:
           $ref: '#/components/responses/NotAccepted'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ip-blocks/{ipBlockId}':
+  /ip-blocks/{ipBlockId}:
     parameters:
       - $ref: '#/components/parameters/ipBlockIdPathParam'
     get:
@@ -153,9 +139,7 @@ paths:
     delete:
       tags:
         - IP Blocks
-      description: >-
-        Delete an IP Block. An IP Block can only be deleted if not assigned to
-        any resource.
+      description: Delete an IP Block. An IP Block can only be deleted if not assigned to any resource.
       summary: Delete IP Block.
       operationId: ipBlocksIpBlockIdDelete
       security:
@@ -207,15 +191,13 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ip-blocks/{ipBlockId}/tags':
+  /ip-blocks/{ipBlockId}/tags:
     parameters:
       - $ref: '#/components/parameters/ipBlockIdPathParam'
     put:
       tags:
         - IP Blocks
-      description: >-
-        Overwrites tags assigned for IP Block and unassigns any tags not part of
-        the request.
+      description: Overwrites tags assigned for IP Block and unassigns any tags not part of the request.
       summary: Overwrite tags assigned for IP Block.
       operationId: ipBlocksIpBlockIdTagsPut
       security:
@@ -254,8 +236,7 @@ components:
       type: oauth2
       flows:
         clientCredentials:
-          tokenUrl: >-
-            https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
+          tokenUrl: https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
           scopes:
             bmc: Grants full access to bmc-api.
             bmc.read: Grants read only access to bmc-api.
@@ -277,16 +258,11 @@ components:
         - cidrBlockSize
       properties:
         location:
-          description: >-
-            IP Block location ID. Currently this field should be set to `PHX`,
-            `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
+          description: IP Block location ID. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
           type: string
           example: PHX
         cidrBlockSize:
-          description: >-
-            CIDR IP Block Size. Currently this field should be set to either
-            `/31`, `/30`, `/29` or `/28`. For a larger Block Size contact
-            support.
+          description: CIDR IP Block Size. Currently this field should be set to either `/31`, `/30`, `/29` or `/28`. For a larger Block Size contact support.
           type: string
           example: /30
         description:
@@ -295,10 +271,7 @@ components:
           example: 'IP Block #1 used for publicly accessing server #1.'
           maxLength: 250
         tags:
-          description: >-
-            Tags to set to the ip-block. To create a new tag or list all the
-            existing tags that you can use, refer to [Tags
-            API](https://developers.phoenixnap.com/docs/tags/1/overview).
+          description: Tags to set to the ip-block. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).
           type: array
           items:
             $ref: '#/components/schemas/TagAssignmentRequest'
@@ -324,16 +297,11 @@ components:
           type: string
           example: 6047127fed34ecc3ba8402d2
         location:
-          description: >-
-            IP Block location ID. Currently this field should be set to `PHX`,
-            `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
+          description: IP Block location ID. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
           type: string
           example: PHX
         cidrBlockSize:
-          description: >-
-            CIDR IP Block Size. Currently this field should be set to either
-            `/31`, `/30`, `/29`, `/28`, `/27`, `/26`, `/25`, `/24`, `/23` or
-            `/22`.
+          description: CIDR IP Block Size. Currently this field should be set to either `/31`, `/30`, `/29`, `/28`, `/27`, `/26`, `/25`, `/24`, `/23` or `/22`.
           type: string
           example: /30
         cidr:
@@ -435,7 +403,7 @@ components:
           items:
             type: string
           readOnly: true
-          description: 'Validation errors, if any.'
+          description: Validation errors, if any.
     TagAssignmentRequest:
       type: object
       description: Tag request to assign to resource.
@@ -443,50 +411,34 @@ components:
         - name
       properties:
         name:
-          description: >-
-            The name of the tag. Tag names are case-sensitive, and should be
-            composed of a maximum of 100 characters including UTF-8 Unicode
-            letters, numbers, and the following symbols: '-', '_'. Regex:
-            [A-zÀ-ú0-9_-]{1,100}.
+          description: 'The name of the tag. Tag names are case-sensitive, and should be composed of a maximum of 100 characters including UTF-8 Unicode letters, numbers, and the following symbols: ''-'', ''_''. Regex: [A-zÀ-ú0-9_-]{1,100}.'
           type: string
           example: Environment
         value:
-          description: >-
-            The value of the tag assigned to the resource. Tag values are
-            case-sensitive, and should be composed of a maximum of 100
-            characters including UTF-8 Unicode letters, numbers, and the
-            following symbols: '-', '_'. Regex: [A-zÀ-ú0-9_-]{1,100}.
+          description: 'The value of the tag assigned to the resource. Tag values are case-sensitive, and should be composed of a maximum of 100 characters including UTF-8 Unicode letters, numbers, and the following symbols: ''-'', ''_''. Regex: [A-zÀ-ú0-9_-]{1,100}.'
           type: string
           example: PROD
   responses:
     Unauthorized:
-      description: >-
-        The request failed due to invalid credentials. Please check the provided
-        credentials and try again.
+      description: The request failed due to invalid credentials. Please check the provided credentials and try again.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     Forbidden:
-      description: >-
-        The request failed since this resource cannot be accessed by the
-        provided credentials.
+      description: The request failed since this resource cannot be accessed by the provided credentials.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     InternalServerError:
-      description: >-
-        The server encountered an unexpected condition that prevented it from
-        fulfilling the request.
+      description: The server encountered an unexpected condition that prevented it from fulfilling the request.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     BadRequest:
-      description: >-
-        The request failed due to wrong data. Please check the provided
-        parameters and try again.
+      description: The request failed due to wrong data. Please check the provided parameters and try again.
       content:
         application/json:
           schema:

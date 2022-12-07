@@ -1,51 +1,33 @@
 openapi: 3.0.2
 info:
   title: Networks API
-  description: >
-    Create, list, edit and delete public/private networks with the Network API.
-    Use public networks to place multiple 
-
-    servers on the same network or VLAN. Assign new servers with IP addresses
-    from the same CIDR range. Use private 
-
-    networks to avoid unnecessary egress data charges. Model your networks
-    according to your business needs.<br>
-
+  description: |
+    Create, list, edit and delete public/private networks with the Network API. Use public networks to place multiple 
+    servers on the same network or VLAN. Assign new servers with IP addresses from the same CIDR range. Use private 
+    networks to avoid unnecessary egress data charges. Model your networks according to your business needs.<br>
     <br>
-
     <span class='pnap-api-knowledge-base-link'>
-
     Helpful knowledge base articles are available for 
-
-    <a
-    href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api'
-    target='_blank'>multi-private backend networks</a>
-
-    and <a
-    href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-15'
-    target='_blank'>public networks</a>.
-
+    <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>multi-private backend networks</a>
+    and <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-15' target='_blank'>public networks</a>.
     </span><br>
-
     <br>
-
     <b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b>
-  termsOfService: >-
-    https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
+  termsOfService: https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
   version: '1.0'
   license:
     name: Apache 2.0
-    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
   contact:
     name: PhoenixNAP Team
     email: support@phoenixnap.com
-    url: 'https://phoenixnap.com/'
+    url: https://phoenixnap.com/
 security:
   - OAuth2:
       - bmc
       - bmc.read
 servers:
-  - url: 'https://api.phoenixnap.com/networks/v1'
+  - url: https://api.phoenixnap.com/networks/v1
 tags:
   - name: Private Networks
     description: Private Network operations
@@ -66,13 +48,9 @@ paths:
         - in: query
           name: location
           required: false
-          description: >-
-            If present will filter the result by the given location of the
-            Private Networks.
+          description: If present will filter the result by the given location of the Private Networks.
           schema:
-            description: >-
-              Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and
-              `AUS`.
+            description: Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
             type: string
           example: PHX
       responses:
@@ -208,7 +186,7 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/private-networks/{privateNetworkId}':
+  /private-networks/{privateNetworkId}:
     parameters:
       - $ref: '#/components/parameters/privateNetworkIdPathParam'
     get:
@@ -405,13 +383,9 @@ paths:
         - in: query
           name: location
           required: false
-          description: >-
-            If present will filter the result by the given location of the
-            Public Networks.
+          description: If present will filter the result by the given location of the Public Networks.
           schema:
-            description: >-
-              Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and
-              `AUS`.
+            description: Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
             type: string
           example: PHX
       responses:
@@ -570,7 +544,7 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/public-networks/{publicNetworkId}':
+  /public-networks/{publicNetworkId}:
     parameters:
       - $ref: '#/components/parameters/publicNetworkIdPathParam'
     get:
@@ -724,10 +698,7 @@ paths:
     delete:
       tags:
         - Public Networks
-      description: >-
-        Delete Public Network. The request is accepted only if no resources are
-        members of this network. The IP Block(s) will be freed and can be
-        re-used in the future.
+      description: Delete Public Network. The request is accepted only if no resources are members of this network. The IP Block(s) will be freed and can be re-used in the future.
       summary: Delete a Public Network.
       operationId: publicNetworksNetworkIdDelete
       security:
@@ -746,7 +717,7 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/public-networks/{publicNetworkId}/ip-blocks':
+  /public-networks/{publicNetworkId}/ip-blocks:
     parameters:
       - $ref: '#/components/parameters/publicNetworkIdPathParam'
     post:
@@ -784,18 +755,14 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/public-networks/{publicNetworkId}/ip-blocks/{ipBlockId}':
+  /public-networks/{publicNetworkId}/ip-blocks/{ipBlockId}:
     parameters:
       - $ref: '#/components/parameters/publicNetworkIdPathParam'
       - $ref: '#/components/parameters/ipBlockIdPathParam'
     delete:
       tags:
         - Public Networks
-      description: >-
-        Removes the IP Block from the Public Network. The result of this is that
-        any traffic addressed to any IP within the block will not be routed to
-        this network anymore. Please ensure that no resource members within this
-        network have any IPs assigned from the IP Block being removed.
+      description: Removes the IP Block from the Public Network. The result of this is that any traffic addressed to any IP within the block will not be routed to this network anymore. Please ensure that no resource members within this network have any IPs assigned from the IP Block being removed.
       summary: Removes the IP Block from the Public Network.
       operationId: publicNetworksNetworkIdIpBlocksIpBlockIdDelete
       security:
@@ -808,12 +775,8 @@ paths:
             application/json:
               schema:
                 type: string
-                description: >-
-                  The specified IP block is being removed from the Public
-                  Network.
-                example: >-
-                  The specified IP block is being removed from the Public
-                  Network.
+                description: The specified IP block is being removed from the Public Network.
+                example: The specified IP block is being removed from the Public Network.
               example: The specified IP block is being removed from the Public Network.
         '400':
           $ref: '#/components/responses/BadRequest'
@@ -831,8 +794,7 @@ components:
       type: oauth2
       flows:
         clientCredentials:
-          tokenUrl: >-
-            https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
+          tokenUrl: https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
           scopes:
             bmc: Grants full access to bmc-api.
             bmc.read: Grants read only access to bmc-api.
@@ -881,9 +843,7 @@ components:
           type: string
           example: PHX
         locationDefault:
-          description: >-
-            Identifies network as the default private network for the specified
-            location.
+          description: Identifies network as the default private network for the specified location.
           type: boolean
           example: true
         cidr:
@@ -901,9 +861,7 @@ components:
           items:
             $ref: '#/components/schemas/NetworkMembership'
         status:
-          description: >-
-            The status of the private network. Can have one of the following
-            values: `BUSY` or `READY`.
+          description: 'The status of the private network. Can have one of the following values: `BUSY` or `READY`.'
           type: string
           example: READY
         createdOn:
@@ -940,9 +898,7 @@ components:
         - cidr
       properties:
         name:
-          description: >-
-            The friendly name of this private network. This name should be
-            unique.
+          description: The friendly name of this private network. This name should be unique.
           type: string
           minLength: 1
           maxLength: 100
@@ -953,18 +909,20 @@ components:
           maxLength: 250
           example: Further details on the network
         location:
-          description: >-
-            The location of this private network. Supported values are `PHX`,
-            `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+          description: The location of this private network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
           type: string
           example: PHX
         locationDefault:
-          description: >-
-            Identifies network as the default private network for the specified
-            location.
+          description: Identifies network as the default private network for the specified location.
           type: boolean
           default: false
           example: true
+        vlanId:
+          description: The VLAN that will be assigned to this network.
+          type: integer
+          minimum: 2
+          maximum: 4094
+          example: 10
         cidr:
           description: IP range associated with this private network in CIDR notation.
           type: string
@@ -978,9 +936,7 @@ components:
       properties:
         name:
           type: string
-          description: >-
-            A friendly name given to the private network. This name should be
-            unique.
+          description: A friendly name given to the private network. This name should be unique.
           minLength: 1
           maxLength: 100
           example: Sample network
@@ -990,9 +946,7 @@ components:
           maxLength: 250
           example: Further details on the network.
         locationDefault:
-          description: >-
-            Identifies network as the default private network for the specified
-            location.
+          description: Identifies network as the default private network for the specified location.
           type: boolean
           example: true
     PublicNetwork:
@@ -1028,9 +982,7 @@ components:
           maxLength: 100
           example: Sample Network
         location:
-          description: >-
-            The location of this public network. Supported values are `PHX`,
-            `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+          description: The location of this public network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
           type: string
           example: PHX
         description:
@@ -1039,9 +991,7 @@ components:
           maxLength: 250
           example: Further details on the network.
         status:
-          description: >-
-            The status of the public network. Can have one of the following
-            values: `BUSY` or `READY`.
+          description: 'The status of the public network. Can have one of the following values: `BUSY` or `READY`.'
           type: string
           example: READY
         createdOn:
@@ -1072,9 +1022,7 @@ components:
         - location
       properties:
         name:
-          description: >-
-            The friendly name of this public network. This name should be
-            unique.
+          description: The friendly name of this public network. This name should be unique.
           type: string
           minLength: 1
           maxLength: 100
@@ -1085,15 +1033,17 @@ components:
           maxLength: 250
           example: Further details on the network.
         location:
-          description: >-
-            The location of this public network. Supported values are `PHX`,
-            `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+          description: The location of this public network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
           type: string
           example: PHX
+        vlanId:
+          description: The VLAN that will be assigned to this network.
+          type: integer
+          minimum: 2
+          maximum: 4094
+          example: 10
         ipBlocks:
-          description: >-
-            A list of IP Blocks that will be associated with this public
-            network.
+          description: A list of IP Blocks that will be associated with this public network.
           type: array
           maxItems: 10
           items:
@@ -1152,36 +1102,28 @@ components:
           items:
             type: string
           readOnly: true
-          description: 'Validation errors, if any.'
+          description: Validation errors, if any.
   responses:
     BadRequest:
-      description: >-
-        The request failed due to wrong data. Please check the provided
-        parameters and try again.
+      description: The request failed due to wrong data. Please check the provided parameters and try again.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     Unauthorized:
-      description: >-
-        The request failed due to invalid credentials. Please check the provided
-        credentials and try again.
+      description: The request failed due to invalid credentials. Please check the provided credentials and try again.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     Forbidden:
-      description: >-
-        The request failed since this resource cannot be accessed by the
-        provided credentials.
+      description: The request failed since this resource cannot be accessed by the provided credentials.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     InternalServerError:
-      description: >-
-        The server encountered an unexpected condition that prevented it from
-        fulfilling the request.
+      description: The server encountered an unexpected condition that prevented it from fulfilling the request.
       content:
         application/json:
           schema:

@@ -13,6 +13,7 @@ docs/StorageNetworkUpdate.md
 docs/StorageNetworksApi.md
 docs/Volume.md
 docs/VolumeCreate.md
+docs/VolumeUpdate.md
 go.mod
 go.sum
 model_error.go
@@ -24,5 +25,6 @@ model_storage_network_create.go
 model_storage_network_update.go
 model_volume.go
 model_volume_create.go
+model_volume_update.go
 response.go
 utils.go

@@ -70,6 +70,18 @@ func (dst *ProductsGet200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'PUBLIC_IP'
+	if jsonDict["productCategory"] == "PUBLIC_IP" {
+		// try to unmarshal JSON data into Product
+		err = json.Unmarshal(data, &dst.Product)
+		if err == nil {
+			return nil // data stored in dst.Product, return on the first match
+		} else {
+			dst.Product = nil
+			return fmt.Errorf("Failed to unmarshal ProductsGet200ResponseInner as Product: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'Product'
 	if jsonDict["productCategory"] == "Product" {
 		// try to unmarshal JSON data into Product
