@@ -362,7 +362,7 @@ components:
           maxLength: 250
           example: My storage network description
         location:
-          description: Location of storage network. Currently this field should be set to `PHX`.
+          description: Location of storage network. Currently this field should be set to `PHX` or `ASH`.
           type: string
           example: PHX
         volumes:

@@ -750,7 +750,7 @@ components:
           type: string
         location:
           description: Location of storage network. Currently this field should be
-            set to `PHX`.
+            set to `PHX` or `ASH`.
           example: PHX
           type: string
         volumes:

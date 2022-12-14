@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Storage network friendly name. | 
 **Description** | Pointer to **string** | Storage network description. | [optional] 
-**Location** | **string** | Location of storage network. Currently this field should be set to &#x60;PHX&#x60;. | 
+**Location** | **string** | Location of storage network. Currently this field should be set to &#x60;PHX&#x60; or &#x60;ASH&#x60;. | 
 **Volumes** | [**[]VolumeCreate**](VolumeCreate.md) | Volume to be created alongside storage. Currently only 1 volume is supported. | 
 
 ## Methods
