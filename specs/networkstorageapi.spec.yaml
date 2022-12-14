@@ -245,6 +245,8 @@ paths:
             schema:
               $ref: '#/components/schemas/VolumeUpdate'
             example:
+              name: New Volume name
+              description: New Volume description
               capacityInGb: 2000
       responses:
         '202':
@@ -464,6 +466,17 @@ components:
       type: object
       description: Update storage network volume.
       properties:
+        name:
+          description: Volume friendly name.
+          type: string
+          minLength: 1
+          maxLength: 100
+          example: New Volume name
+        description:
+          description: Volume description.
+          type: string
+          maxLength: 250
+          example: New Volume description
         capacityInGb:
           description: Capacity of Volume in GB. Currently only whole numbers and multiples of 1000GB are supported.
           type: integer
