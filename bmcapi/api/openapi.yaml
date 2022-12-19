@@ -2502,7 +2502,7 @@ components:
           description: "The server’s OS ID used when the server was created. Currently\
             \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
             \ `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`,\
-            \ `windows/srv2019dc`, `esxi/esxi70u2`, `debian/bullseye` or `proxmox/bullseye`."
+            \ `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye` or `proxmox/bullseye`."
           example: ubuntu/bionic
           type: string
         type:
@@ -2753,7 +2753,7 @@ components:
           description: "The server’s OS ID used when the server was created. Currently\
             \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
             \ `ubuntu/jammy`, `centos/centos7`,`centos/centos8`, `windows/srv2019std`,\
-            \ `windows/srv2019dc`, `esxi/esxi70u2`, `debian/bullseye` or `proxmox/bullseye`."
+            \ `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye` or `proxmox/bullseye`."
           example: ubuntu/bionic
           type: string
         type:

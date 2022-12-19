@@ -1404,7 +1404,7 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2`, `debian/bullseye` or `proxmox/bullseye`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye` or `proxmox/bullseye`.
           type: string
           example: ubuntu/bionic
         type:
@@ -1550,7 +1550,7 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`,`centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2`, `debian/bullseye` or `proxmox/bullseye`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`,`centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye` or `proxmox/bullseye`.
           type: string
           example: ubuntu/bionic
         type:
