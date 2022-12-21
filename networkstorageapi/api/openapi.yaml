@@ -357,6 +357,71 @@ paths:
       summary: Display one or more volumes belonging to a storage network.
       tags:
       - Storage Networks
+    post:
+      description: Create a volume belonging to a storage network.
+      operationId: storageNetworksStorageNetworkIdVolumesPost
+      parameters:
+      - description: ID of storage network.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: storageNetworkId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VolumeCreate'
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+          description: Volume that is being created.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - networkstorage
+      summary: Create a volume belonging to a storage network.
+      tags:
+      - Storage Networks
   /storage-networks/{storageNetworkId}/volumes/{volumeId}:
     delete:
       description: Delete a Storage Network's Volume
