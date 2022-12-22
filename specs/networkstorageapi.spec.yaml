@@ -280,6 +280,12 @@ paths:
               description: New Volume description
               capacityInGb: 2000
       responses:
+        '200':
+          description: Updated volume details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
         '202':
           description: Updating volume details.
           content:

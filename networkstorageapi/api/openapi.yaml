@@ -577,6 +577,12 @@ paths:
               $ref: '#/components/schemas/VolumeUpdate'
         description: Storage network volume to be updated.
       responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+          description: Updated volume details.
         "202":
           content:
             application/json:
