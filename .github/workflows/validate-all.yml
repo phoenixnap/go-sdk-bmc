@@ -15,37 +15,37 @@ jobs:
     uses: ./.github/workflows/_common.yml
     with:
       module-name: ranchersolutionapi
-      test-file: TestRancherApiSuite
+      test-suite: TestRancherApiSuite
   build-and-test-networkapi:
     uses: ./.github/workflows/_common.yml
     with:
       module-name: networkapi
-      test-file: TestNetworkApiSuite
+      test-suite: TestNetworkApiSuite
   build-and-test-ipapi:
     uses: ./.github/workflows/_common.yml
     with:
       module-name: ipapi
-      test-file: TestIpApiSuite
+      test-suite: TestIpApiSuite
   build-and-test-auditapi:
     uses: ./.github/workflows/_common.yml
     with:
       module-name: auditapi
-      test-file: TestAuditApiSuite
+      test-suite: TestAuditApiSuite
   build-and-test-tagapi:
     uses: ./.github/workflows/_common.yml
     with:
       module-name: tagapi
-      test-file: TestTagApiSuite
+      test-suite: TestTagApiSuite
   build-and-test-billingapi:
     uses: ./.github/workflows/_common.yml
     with:
       module-name: billingapi
-      test-file: TestBillingApiSuite
+      test-suite: TestBillingApiSuite
   build-and-test-networkstorageapi:
     uses: ./.github/workflows/_common.yml
     with:
       module-name: networkstorageapi
-      test-file: TestNetworkStorageApiSuite
+      test-suite: TestNetworkStorageApiSuite
 
   publish-test-results:
     name: Publish Test Results

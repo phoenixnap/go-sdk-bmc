@@ -6,7 +6,7 @@ on:
       module-name:
         required: true
         type: string
-      test-file:
+      test-suite:
         required: true
         type: string
 
