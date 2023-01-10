@@ -1,0 +1,72 @@
+name: validate-all
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:  
+  # Build stage
+  build-and-test-bmcapi:
+    uses: ./.github/workflows/_common.yml
+    with:
+      module-name: bmcapi
+      test-suite: TestBmcApiSuite
+  build-and-test-rancherapi:
+    uses: ./.github/workflows/_common.yml
+    with:
+      module-name: ranchersolutionapi
+      test-file: TestRancherApiSuite
+  build-and-test-networkapi:
+    uses: ./.github/workflows/_common.yml
+    with:
+      module-name: networkapi
+      test-file: TestNetworkApiSuite
+  build-and-test-ipapi:
+    uses: ./.github/workflows/_common.yml
+    with:
+      module-name: ipapi
+      test-file: TestIpApiSuite
+  build-and-test-auditapi:
+    uses: ./.github/workflows/_common.yml
+    with:
+      module-name: auditapi
+      test-file: TestAuditApiSuite
+  build-and-test-tagapi:
+    uses: ./.github/workflows/_common.yml
+    with:
+      module-name: tagapi
+      test-file: TestTagApiSuite
+  build-and-test-billingapi:
+    uses: ./.github/workflows/_common.yml
+    with:
+      module-name: billingapi
+      test-file: TestBillingApiSuite
+  build-and-test-networkstorageapi:
+    uses: ./.github/workflows/_common.yml
+    with:
+      module-name: networkstorageapi
+      test-file: TestNetworkStorageApiSuite
+
+  publish-test-results:
+    name: Publish Test Results
+    needs:
+      - build-and-test-bmcapi
+      - build-and-test-rancherapi
+      - build-and-test-networkapi
+      - build-and-test-ipapi
+      - build-and-test-auditapi
+      - build-and-test-tagapi
+      - build-and-test-billingapi
+      - build-and-test-networkstorageapi
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: test-reports
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        with:
+          files: test-reports/**/*.xml
+          check_name: "Test Results"

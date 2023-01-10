@@ -1,0 +1,106 @@
+name: generate-all
+
+on:
+  schedule:
+    - cron: '15 */24 * * *'
+  push:
+    branches:
+      - 'develop'
+      - 'feature/**'
+
+jobs:
+  prerequisite:
+    name: Prerequisite for Generation
+    if: github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feature')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prerequisite
+        run: |
+          echo Prerequisites passed!
+
+  generate-bmcapi:
+    needs: prerequisite
+    uses: ./.github/workflows/_generate.yml
+    with:
+      spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/bmc/download_spec
+      package-name: bmcapi
+  generate-rancherapi:
+    needs: prerequisite
+    uses: ./.github/workflows/_generate.yml
+    with:
+      spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/rancher/download_spec
+      package-name: ranchersolutionapi
+  generate-networkapi:
+    needs: prerequisite
+    uses: ./.github/workflows/_generate.yml
+    with:
+      spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/networks/download_spec
+      package-name: networkapi
+  generate-ipapi:
+    needs: prerequisite
+    uses: ./.github/workflows/_generate.yml
+    with:
+      spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/ips/download_spec
+      package-name: ipapi
+  generate-auditapi:
+    needs: prerequisite
+    uses: ./.github/workflows/_generate.yml
+    with:
+      spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/bmc-audit/download_spec
+      package-name: auditapi
+  generate-tagapi:
+    needs: prerequisite
+    uses: ./.github/workflows/_generate.yml
+    with:
+      spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/tags/download_spec
+      package-name: tagapi
+  generate-billingapi:
+    needs: prerequisite
+    uses: ./.github/workflows/_generate.yml
+    with:
+      spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/bmc-billing/download_spec
+      package-name: billingapi
+  generate-networkstorageapi:
+    needs: prerequisite
+    uses: ./.github/workflows/_generate.yml
+    with:
+      spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/network-storage/download_spec
+      package-name: networkstorageapi
+
+  # Push generated code
+  push-changes:
+    name: Push Changes
+    runs-on: ubuntu-latest
+    needs:
+      - generate-bmcapi
+      - generate-rancherapi
+      - generate-networkapi
+      - generate-ipapi
+      - generate-auditapi
+      - generate-tagapi
+      - generate-billingapi
+      - generate-networkstorageapi
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+        # with:
+        #   persist-credentials: false
+        #   fetch-depth: 0
+        #   ref: ${{ github.event_name == 'schedule' && 'develop' || github.head_ref }}
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+      - name: Move spec files
+        run: |
+          find . -type f -name "*.spec.yaml" -not -path "./specs/*" -print0 | xargs -0 mv -ft ./specs/
+      - name: Add and Commit files
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -A
+
+          if test "$(git status --porcelain=v1 2>/dev/null | wc -l)" -gt "0" ; then git commit -m "Add changes"; else echo No changes found; fi
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
