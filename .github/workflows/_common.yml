@@ -48,4 +48,4 @@ jobs:
       - uses: ./.github/workflows/composite/test-sdk
         with:
           test-suite: ${{ inputs.test-suite }}
-          go-version: ${{ matrix.ruby-version }}
+          go-version: ${{ matrix.go-version }}
