@@ -2,7 +2,7 @@ name: generate-all
 
 on:
   schedule:
-    - cron: '15 */24 * * *'
+    - cron: '15 */4 * * *'
   push:
     branches:
       - 'develop'

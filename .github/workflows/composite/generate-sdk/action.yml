@@ -10,22 +10,17 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Check if Release Branch
+    - name: Logging head_ref and ref_name
       shell: bash
-      if: startsWith(github.head_ref, 'release') == false && github.head_ref != 'master'
-      id: checkReleaseBranch
       run: |
-        echo "Release or master source branch. Skipping generation"
-        echo "::set-output name=IS_FEATURE_BRANCH::true"
+        echo "head_ref = ${{ github.head_ref }}"
+        echo "ref_name = ${{ github.ref_name }}"
     - name: Install node
-      if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       uses: actions/setup-node@v2
     - name: Install openapi-generator-cli
-      if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       shell: bash
       run: npm install -g @openapitools/openapi-generator-cli
     - name: Generate SDK
-      if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       shell: bash
       run: |
         suffix=$(./extract-version-suffix.sh ./${{ inputs.package-name }}/VERSION.go)
@@ -41,11 +36,9 @@ runs:
       shell: bash
       run: go install golang.org/x/tools/cmd/goimports@latest && goimports -w .
     - name: Download spec files
-      if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       shell: bash
       run: wget ${{ inputs.spec-link }} -O ./${{ inputs.package-name }}/${{ inputs.package-name }}.spec.yaml
     - name: Upload SDK Artifacts
-      if: ${{ steps.checkReleaseBranch.outputs.IS_FEATURE_BRANCH }}
       uses: actions/upload-artifact@v3
       with:
         name: ${{ inputs.package-name }}
