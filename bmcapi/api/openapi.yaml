@@ -87,6 +87,19 @@ paths:
       description: Create (request) new server for account. Server DNS will be configured
         to access Google's public DNS at 8.8.8.8 .
       operationId: serversPost
+      parameters:
+      - description: Query parameter controlling advanced features availability. Currently
+          applicable for networking. It is advised to use with caution since it might
+          lead to unhealthy setups.
+        example: true
+        explode: true
+        in: query
+        name: force
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       requestBody:
         content:
           application/json:
@@ -662,6 +675,18 @@ paths:
         target='_blank'>here</a>.
       operationId: serversServerIdPrivateNetworksPost
       parameters:
+      - description: Query parameter controlling advanced features availability. Currently
+          applicable for networking. It is advised to use with caution since it might
+          lead to unhealthy setups.
+        example: true
+        explode: true
+        in: query
+        name: force
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       - description: The server's ID.
         example: e6afba51-7de8-4080-83ab-0f915570659c
         explode: false
@@ -682,7 +707,7 @@ paths:
                   - 10.0.0.1
                   - 10.0.0.2
                   dhcp: false
-              PrivateNetworkIdProvidedOnly:
+              PrivateNetworkIpsAutoAssigned:
                 value:
                   id: 60473a6115e34466c9f8f083
               DhcpFalseIpsNotProvided:
@@ -690,11 +715,6 @@ paths:
                   id: 60473a6115e34466c9f8f083
                   dhcp: false
               DhcpTrueIpsEmpty:
-                value:
-                  id: 60473a6115e34466c9f8f083
-                  ips: []
-                  dhcp: true
-              DhcpTrueIpsNull:
                 value:
                   id: 60473a6115e34466c9f8f083
                   ips: []
@@ -723,6 +743,12 @@ paths:
                     id: 60473a6115e34466c9f8f083
                     ips: []
                     dhcp: true
+                    statusDescription: in-progress
+                PrivateNetworkWithNoIpsAndForceTrue:
+                  value:
+                    id: 60473a6115e34466c9f8f083
+                    ips: []
+                    dhcp: false
                     statusDescription: in-progress
               schema:
                 $ref: '#/components/schemas/ServerPrivateNetwork'
@@ -1965,6 +1991,19 @@ paths:
       - Quotas
 components:
   parameters:
+    forceQueryParam:
+      description: Query parameter controlling advanced features availability. Currently
+        applicable for networking. It is advised to use with caution since it might
+        lead to unhealthy setups.
+      example: true
+      explode: true
+      in: query
+      name: force
+      required: false
+      schema:
+        default: false
+        type: boolean
+      style: form
     serverIdPathParam:
       description: The server's ID.
       example: e6afba51-7de8-4080-83ab-0f915570659c
@@ -2159,12 +2198,14 @@ components:
           example: 603f3b2cfcaf050643b89a4b
           type: string
         ips:
-          description: "IPs to configure/configured on the server. Should be null\
-            \ or empty list if DHCP is true. IPs must be within the network's range.\
-            \ If no IPs are provided and DHCP is false, next available IP in network\
-            \ will be automatically allocated. If the network contains a membership\
+          description: "IPs to configure/configured on the server.<br> Should be null\
+            \ or empty list if DHCP is true. IPs must be within the network's range.<br>\
+            \ If field is undefined and DHCP is false, next available IP in network\
+            \ will be automatically allocated.<br> If the network contains a membership\
             \ of type 'storage', the first twelve IPs are already reserved by BMC\
-            \ and not usable. These will return a Bad Request (400) if selected."
+            \ and not usable.<br> Defining `force` query parameter in combination\
+            \ with an empty array allows a server to be assigned to a network without\
+            \ configuring any IPs."
           example:
           - 10.1.1.1
           - 10.1.1.2
@@ -2176,7 +2217,7 @@ components:
         dhcp:
           default: false
           description: Determines whether DHCP is enabled for this server. Should
-            be false if ips is not an empty list. Not supported for proxmox OS.
+            be false if any IPs are provided. Not supported for proxmox OS.
           example: false
           type: boolean
         statusDescription:

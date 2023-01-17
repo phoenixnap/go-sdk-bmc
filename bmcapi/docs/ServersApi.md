@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 
 ## ServersPost
 
-> Server ServersPost(ctx).ServerCreate(serverCreate).Execute()
+> Server ServersPost(ctx).Force(force).ServerCreate(serverCreate).Execute()
 
 Create new server.
 
@@ -186,11 +186,12 @@ import (
 )
 
 func main() {
+    force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
     serverCreate := *openapiclient.NewServerCreate("my-server-1", "ubuntu/bionic", "s1.c1.small", "PHX") // ServerCreate |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersPost(context.Background()).ServerCreate(serverCreate).Execute()
+    resp, r, err := apiClient.ServersApi.ServersPost(context.Background()).Force(force).ServerCreate(serverCreate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -211,6 +212,7 @@ Other parameters are passed through a pointer to a apiServersPostRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **force** | **bool** | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. | [default to false]
  **serverCreate** | [**ServerCreate**](ServerCreate.md) |  | 
 
 ### Return type
@@ -1088,7 +1090,7 @@ Name | Type | Description  | Notes
 
 ## ServersServerIdPrivateNetworksPost
 
-> ServerPrivateNetwork ServersServerIdPrivateNetworksPost(ctx, serverId).ServerPrivateNetwork(serverPrivateNetwork).Execute()
+> ServerPrivateNetwork ServersServerIdPrivateNetworksPost(ctx, serverId).Force(force).ServerPrivateNetwork(serverPrivateNetwork).Execute()
 
 Adds the server to a private network.
 
@@ -1108,11 +1110,12 @@ import (
 
 func main() {
     serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
+    force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
     serverPrivateNetwork := *openapiclient.NewServerPrivateNetwork("603f3b2cfcaf050643b89a4b") // ServerPrivateNetwork |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdPrivateNetworksPost(context.Background(), serverId).ServerPrivateNetwork(serverPrivateNetwork).Execute()
+    resp, r, err := apiClient.ServersApi.ServersServerIdPrivateNetworksPost(context.Background(), serverId).Force(force).ServerPrivateNetwork(serverPrivateNetwork).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPrivateNetworksPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1138,6 +1141,7 @@ Other parameters are passed through a pointer to a apiServersServerIdPrivateNetw
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **force** | **bool** | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. | [default to false]
  **serverPrivateNetwork** | [**ServerPrivateNetwork**](ServerPrivateNetwork.md) |  | 
 
 ### Return type

@@ -624,7 +624,14 @@ func (a *ServersApiService) ServersGetExecute(r ApiServersGetRequest) ([]Server,
 type ApiServersPostRequest struct {
 	ctx          context.Context
 	ApiService   ServersApi
+	force        *bool
 	serverCreate *ServerCreate
+}
+
+// Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
+func (r ApiServersPostRequest) Force(force bool) ApiServersPostRequest {
+	r.force = &force
+	return r
 }
 
 func (r ApiServersPostRequest) ServerCreate(serverCreate ServerCreate) ApiServersPostRequest {
@@ -672,6 +679,9 @@ func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (*Server
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.force != nil {
+		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -2653,7 +2663,14 @@ type ApiServersServerIdPrivateNetworksPostRequest struct {
 	ctx                  context.Context
 	ApiService           ServersApi
 	serverId             string
+	force                *bool
 	serverPrivateNetwork *ServerPrivateNetwork
+}
+
+// Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
+func (r ApiServersServerIdPrivateNetworksPostRequest) Force(force bool) ApiServersServerIdPrivateNetworksPostRequest {
+	r.force = &force
+	return r
 }
 
 func (r ApiServersServerIdPrivateNetworksPostRequest) ServerPrivateNetwork(serverPrivateNetwork ServerPrivateNetwork) ApiServersServerIdPrivateNetworksPostRequest {
@@ -2704,6 +2721,9 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPostExecute(r ApiServe
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.force != nil {
+		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

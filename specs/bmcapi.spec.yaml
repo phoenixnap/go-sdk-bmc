@@ -79,6 +79,8 @@ paths:
       security:
         - OAuth2:
             - bmc
+      parameters:
+        - $ref: '#/components/parameters/forceQueryParam'
       requestBody:
         content:
           application/json:
@@ -426,6 +428,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
   /servers/{serverId}/network-configuration/private-network-configuration/private-networks:
     parameters:
+      - $ref: '#/components/parameters/forceQueryParam'
       - $ref: '#/components/parameters/serverIdPathParam'
     post:
       tags:
@@ -449,7 +452,7 @@ paths:
                     - 10.0.0.1
                     - 10.0.0.2
                   dhcp: false
-              PrivateNetworkIdProvidedOnly:
+              PrivateNetworkIpsAutoAssigned:
                 value:
                   id: 60473a6115e34466c9f8f083
               DhcpFalseIpsNotProvided:
@@ -457,11 +460,6 @@ paths:
                   id: 60473a6115e34466c9f8f083
                   dhcp: false
               DhcpTrueIpsEmpty:
-                value:
-                  id: 60473a6115e34466c9f8f083
-                  ips: []
-                  dhcp: true
-              DhcpTrueIpsNull:
                 value:
                   id: 60473a6115e34466c9f8f083
                   ips: []
@@ -491,6 +489,12 @@ paths:
                     id: 60473a6115e34466c9f8f083
                     ips: []
                     dhcp: true
+                    statusDescription: in-progress
+                PrivateNetworkWithNoIpsAndForceTrue:
+                  value:
+                    id: 60473a6115e34466c9f8f083
+                    ips: []
+                    dhcp: false
                     statusDescription: in-progress
         '400':
           $ref: '#/components/responses/BadRequest'
@@ -1223,7 +1227,7 @@ components:
           type: string
           example: 603f3b2cfcaf050643b89a4b
         ips:
-          description: IPs to configure/configured on the server. Should be null or empty list if DHCP is true. IPs must be within the network's range. If no IPs are provided and DHCP is false, next available IP in network will be automatically allocated. If the network contains a membership of type 'storage', the first twelve IPs are already reserved by BMC and not usable. These will return a Bad Request (400) if selected.
+          description: IPs to configure/configured on the server.<br> Should be null or empty list if DHCP is true. IPs must be within the network's range.<br> If field is undefined and DHCP is false, next available IP in network will be automatically allocated.<br> If the network contains a membership of type 'storage', the first twelve IPs are already reserved by BMC and not usable.<br> Defining `force` query parameter in combination with an empty array allows a server to be assigned to a network without configuring any IPs.
           type: array
           maxItems: 10
           items:
@@ -1233,7 +1237,7 @@ components:
             - 10.1.1.1
             - 10.1.1.2
         dhcp:
-          description: Determines whether DHCP is enabled for this server. Should be false if ips is not an empty list. Not supported for proxmox OS.
+          description: Determines whether DHCP is enabled for this server. Should be false if any IPs are provided. Not supported for proxmox OS.
           type: boolean
           default: false
           example: false
@@ -2005,6 +2009,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   parameters:
+    forceQueryParam:
+      name: force
+      in: query
+      description: Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
+      required: false
+      schema:
+        type: boolean
+        default: false
+      example: true
     serverIdPathParam:
       in: path
       name: serverId
