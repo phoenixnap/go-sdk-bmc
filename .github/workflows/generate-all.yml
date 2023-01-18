@@ -87,10 +87,6 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
-        # with:
-        #   persist-credentials: false
-        #   fetch-depth: 0
-        #   ref: ${{ github.event_name == 'schedule' && 'develop' || github.head_ref }}
       - name: Download Artifacts
         uses: actions/download-artifact@v3
       - name: Move spec files
