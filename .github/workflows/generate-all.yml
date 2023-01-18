@@ -9,7 +9,7 @@ on:
       - 'feature/**'
       - 'chore/**'
       - 'bugfix/**'
-      - 'story//**'
+      - 'story/**'
   workflow_dispatch:
 
 jobs:
