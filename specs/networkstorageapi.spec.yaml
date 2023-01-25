@@ -279,6 +279,7 @@ paths:
               name: New Volume name
               description: New Volume description
               capacityInGb: 2000
+              pathSuffix: /new-path
       responses:
         '200':
           description: Updated volume details.
@@ -491,7 +492,7 @@ components:
           description: Last part of volume's path.
           type: string
           minLength: 1
-          maxLength: 100
+          maxLength: 27
           pattern: ^(\/[\w-]+)+$
           example: /shared-docs
         capacityInGb:
@@ -519,6 +520,12 @@ components:
           type: integer
           minimum: 2000
           example: 2000
+        pathSuffix:
+          description: Last part of volume's path.
+          type: string
+          minLength: 1
+          maxLength: 27
+          pattern: ^(\/[\w-]+)+$
     Permissions:
       type: object
       description: Permissions for a volume.
