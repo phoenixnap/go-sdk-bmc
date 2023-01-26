@@ -1237,7 +1237,7 @@ components:
             - 10.1.1.1
             - 10.1.1.2
         dhcp:
-          description: Determines whether DHCP is enabled for this server. Should be false if any IPs are provided. Not supported for proxmox OS.
+          description: Determines whether DHCP is enabled for this server. Should be false if any IPs are provided. Not supported for Proxmox OS and ESXi OS.
           type: boolean
           default: false
           example: false
