@@ -17,7 +17,7 @@ import (
 
 // PrivateNetworkConfiguration Private network details of bare metal server.
 type PrivateNetworkConfiguration struct {
-	// The address of the gateway assigned / to assign to the server. When used as part of request body, it has to match one of the IP addresses used in the existing assigned private networks for the relevant location. Deprecated in favour of a common gateway address across all networks available under NetworkConfiguration.
+	// Deprecated in favour of a common gateway address across all networks available under NetworkConfiguration.<br> The address of the gateway assigned / to assign to the server.<br> When used as part of request body, IP address has to be part of private network assigned to this server.<br> Gateway address also has to be assigned on an already deployed resource unless the `force` query parameter is true.
 	// Deprecated
 	GatewayAddress *string `json:"gatewayAddress,omitempty"`
 	// Determines the approach for configuring private network(s) for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.

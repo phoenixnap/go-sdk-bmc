@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | The network identifier. | 
-**Ips** | **[]string** | IPs to configure/configured on the server. IPs must be within the network&#39;s range. | 
+**Ips** | **[]string** | IPs to configure/configured on the server. IPs must be within the network&#39;s range.&lt;br&gt; Note that at least one IP is required for the gateway to be selected from this network. | 
 **StatusDescription** | Pointer to **string** | The status of the assignment to the network. | [optional] [readonly] 
 
 ## Methods

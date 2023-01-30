@@ -1227,7 +1227,7 @@ components:
           type: string
           example: 603f3b2cfcaf050643b89a4b
         ips:
-          description: IPs to configure/configured on the server.<br> Should be null or empty list if DHCP is true. IPs must be within the network's range.<br> If field is undefined and DHCP is false, next available IP in network will be automatically allocated.<br> If the network contains a membership of type 'storage', the first twelve IPs are already reserved by BMC and not usable.<br> Defining `force` query parameter in combination with an empty array allows a server to be assigned to a network without configuring any IPs.
+          description: IPs to configure/configured on the server.<br> Should be null or empty list if DHCP is true. IPs must be within the network's range.<br> If field is undefined and DHCP is false, next available IP in network will be automatically allocated.<br> If the network contains a membership of type 'storage', the first twelve IPs are already reserved by BMC and not usable.<br> Note that at least one IP is required for the gateway to be selected from this network.<br> Defining `force` query parameter in combination with an empty array allows a server to be assigned to a network without designating any IPs.
           type: array
           maxItems: 10
           items:
@@ -1251,7 +1251,7 @@ components:
       description: Private network details of bare metal server.
       properties:
         gatewayAddress:
-          description: The address of the gateway assigned / to assign to the server. When used as part of request body, it has to match one of the IP addresses used in the existing assigned private networks for the relevant location. Deprecated in favour of a common gateway address across all networks available under NetworkConfiguration.
+          description: Deprecated in favour of a common gateway address across all networks available under NetworkConfiguration.<br> The address of the gateway assigned / to assign to the server.<br> When used as part of request body, IP address has to be part of private network assigned to this server.<br> Gateway address also has to be assigned on an already deployed resource unless the `force` query parameter is true.
           deprecated: true
           type: string
           example: 10.0.0.10
@@ -1322,7 +1322,7 @@ components:
           type: string
           example: 60473c2509268bc77fd06d29
         ips:
-          description: IPs to configure/configured on the server. IPs must be within the network's range.
+          description: IPs to configure/configured on the server. IPs must be within the network's range.<br> Note that at least one IP is required for the gateway to be selected from this network.
           type: array
           items:
             type: string
@@ -1358,7 +1358,7 @@ components:
       description: Entire network details of bare metal server.
       properties:
         gatewayAddress:
-          description: The address of the gateway assigned / to assign to the server. When used as part of request body, IP address has to be part of private/public network assigned to this server.
+          description: The address of the gateway assigned / to assign to the server.<br> When used as part of request body, IP address has to be part of a private/public network or an IP block assigned to this server.<br> Gateway address also has to be assigned on an already deployed resource unless the address matches the BMC gateway address in a public network/IP block or the `force` query parameter is true.
           type: string
           example: 182.16.0.145
         privateNetworkConfiguration:
