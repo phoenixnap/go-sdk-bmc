@@ -571,6 +571,11 @@ components:
           type: integer
           format: int64
           example: 384
+        costBeforeDiscount:
+          description: "The cost in cents before discount."
+          type: integer
+          format: int64
+          example: 15456
         costDescription:
           description: "The rated usage cost description."
           type: string
@@ -610,6 +615,8 @@ components:
           description: "Reservation id associated with this rated usage record."
           type: string
           example: "c32a24a1-5949-4b60-99c0-c8aaa3a92b04"
+        discountDetails:
+          $ref: '#/components/schemas/DiscountDetails'
       required:
         - id
         - productCategory
@@ -625,6 +632,27 @@ components:
         - active
         - usageSessionId
         - correlationId
+
+    DiscountDetails:
+      type: object
+      description: "Discount details."
+      properties:
+        code:
+          description: "Discount code."
+          type: string
+          example: "new-year-2022-monthly"
+        type:
+          type: string
+          enum: [ PRODUCT_CATEGORY_PERCENTAGE ]
+          example: "PRODUCT_CATEGORY_PERCENTAGE"
+        value:
+          description: "A number representing the discount value."
+          type: number
+          example: 20.5
+      required:
+        - code
+        - type
+        - value
 
     ServerRecord:
       allOf:

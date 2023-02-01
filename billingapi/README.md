@@ -106,6 +106,7 @@ Class | Method | HTTP request | Description
  - [BandwidthRecord](docs/BandwidthRecord.md)
  - [BandwidthRecordAllOf](docs/BandwidthRecordAllOf.md)
  - [ConfigurationDetails](docs/ConfigurationDetails.md)
+ - [DiscountDetails](docs/DiscountDetails.md)
  - [Error](docs/Error.md)
  - [LocationAvailabilityDetail](docs/LocationAvailabilityDetail.md)
  - [LocationEnum](docs/LocationEnum.md)

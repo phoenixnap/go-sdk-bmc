@@ -33,6 +33,8 @@ type RatedUsageRecord struct {
 	EndDateTime time.Time `json:"endDateTime"`
 	// The rated usage in cents.
 	Cost int64 `json:"cost"`
+	// The cost in cents before discount.
+	CostBeforeDiscount *int64 `json:"costBeforeDiscount,omitempty"`
 	// The rated usage cost description.
 	CostDescription *string `json:"costDescription,omitempty"`
 	// The price model applied to this usage record.
@@ -50,7 +52,8 @@ type RatedUsageRecord struct {
 	// Holds usage record id
 	CorrelationId string `json:"correlationId"`
 	// Reservation id associated with this rated usage record.
-	ReservationId *string `json:"reservationId,omitempty"`
+	ReservationId   *string          `json:"reservationId,omitempty"`
+	DiscountDetails *DiscountDetails `json:"discountDetails,omitempty"`
 }
 
 // NewRatedUsageRecord instantiates a new RatedUsageRecord object
@@ -282,6 +285,38 @@ func (o *RatedUsageRecord) GetCostOk() (*int64, bool) {
 // SetCost sets field value
 func (o *RatedUsageRecord) SetCost(v int64) {
 	o.Cost = v
+}
+
+// GetCostBeforeDiscount returns the CostBeforeDiscount field value if set, zero value otherwise.
+func (o *RatedUsageRecord) GetCostBeforeDiscount() int64 {
+	if o == nil || o.CostBeforeDiscount == nil {
+		var ret int64
+		return ret
+	}
+	return *o.CostBeforeDiscount
+}
+
+// GetCostBeforeDiscountOk returns a tuple with the CostBeforeDiscount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RatedUsageRecord) GetCostBeforeDiscountOk() (*int64, bool) {
+	if o == nil || o.CostBeforeDiscount == nil {
+		return nil, false
+	}
+	return o.CostBeforeDiscount, true
+}
+
+// HasCostBeforeDiscount returns a boolean if a field has been set.
+func (o *RatedUsageRecord) HasCostBeforeDiscount() bool {
+	if o != nil && o.CostBeforeDiscount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCostBeforeDiscount gets a reference to the given int64 and assigns it to the CostBeforeDiscount field.
+func (o *RatedUsageRecord) SetCostBeforeDiscount(v int64) {
+	o.CostBeforeDiscount = &v
 }
 
 // GetCostDescription returns the CostDescription field value if set, zero value otherwise.
@@ -516,6 +551,38 @@ func (o *RatedUsageRecord) SetReservationId(v string) {
 	o.ReservationId = &v
 }
 
+// GetDiscountDetails returns the DiscountDetails field value if set, zero value otherwise.
+func (o *RatedUsageRecord) GetDiscountDetails() DiscountDetails {
+	if o == nil || o.DiscountDetails == nil {
+		var ret DiscountDetails
+		return ret
+	}
+	return *o.DiscountDetails
+}
+
+// GetDiscountDetailsOk returns a tuple with the DiscountDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RatedUsageRecord) GetDiscountDetailsOk() (*DiscountDetails, bool) {
+	if o == nil || o.DiscountDetails == nil {
+		return nil, false
+	}
+	return o.DiscountDetails, true
+}
+
+// HasDiscountDetails returns a boolean if a field has been set.
+func (o *RatedUsageRecord) HasDiscountDetails() bool {
+	if o != nil && o.DiscountDetails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDiscountDetails gets a reference to the given DiscountDetails and assigns it to the DiscountDetails field.
+func (o *RatedUsageRecord) SetDiscountDetails(v DiscountDetails) {
+	o.DiscountDetails = &v
+}
+
 func (o RatedUsageRecord) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -541,6 +608,9 @@ func (o RatedUsageRecord) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["cost"] = o.Cost
+	}
+	if o.CostBeforeDiscount != nil {
+		toSerialize["costBeforeDiscount"] = o.CostBeforeDiscount
 	}
 	if o.CostDescription != nil {
 		toSerialize["costDescription"] = o.CostDescription
@@ -568,6 +638,9 @@ func (o RatedUsageRecord) MarshalJSON() ([]byte, error) {
 	}
 	if o.ReservationId != nil {
 		toSerialize["reservationId"] = o.ReservationId
+	}
+	if o.DiscountDetails != nil {
+		toSerialize["discountDetails"] = o.DiscountDetails
 	}
 	return json.Marshal(toSerialize)
 }

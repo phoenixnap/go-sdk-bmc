@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **StartDateTime** | **time.Time** | The point in time (in UTC) when usage has started. | 
 **EndDateTime** | **time.Time** | The point in time (in UTC) until usage has been rated. | 
 **Cost** | **int64** | The rated usage in cents. | 
+**CostBeforeDiscount** | Pointer to **int64** | The cost in cents before discount. | [optional] 
 **CostDescription** | Pointer to **string** | The rated usage cost description. | [optional] 
 **PriceModel** | **string** | The price model applied to this usage record. | 
 **UnitPrice** | **float32** | The unit price. | 
@@ -21,6 +22,7 @@ Name | Type | Description | Notes
 **UsageSessionId** | **string** | The usage session ID is used to correlate rated usage records across periods of time. For example, a server used for over a month will generate multiple rated usage records. The entire usage session cost can be computed by aggregating the records having the same usage session ID. It is usual to have one rated usage record per month or invoice. | 
 **CorrelationId** | **string** | Holds usage record id | 
 **ReservationId** | Pointer to **string** | Reservation id associated with this rated usage record. | [optional] 
+**DiscountDetails** | Pointer to [**DiscountDetails**](DiscountDetails.md) |  | [optional] 
 **Metadata** | [**StorageDetails**](StorageDetails.md) |  | 
 
 ## Methods
@@ -206,6 +208,31 @@ and a boolean to check if the value has been set.
 
 SetCost sets Cost field to given value.
 
+
+### GetCostBeforeDiscount
+
+`func (o *RatedUsageGet200ResponseInner) GetCostBeforeDiscount() int64`
+
+GetCostBeforeDiscount returns the CostBeforeDiscount field if non-nil, zero value otherwise.
+
+### GetCostBeforeDiscountOk
+
+`func (o *RatedUsageGet200ResponseInner) GetCostBeforeDiscountOk() (*int64, bool)`
+
+GetCostBeforeDiscountOk returns a tuple with the CostBeforeDiscount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCostBeforeDiscount
+
+`func (o *RatedUsageGet200ResponseInner) SetCostBeforeDiscount(v int64)`
+
+SetCostBeforeDiscount sets CostBeforeDiscount field to given value.
+
+### HasCostBeforeDiscount
+
+`func (o *RatedUsageGet200ResponseInner) HasCostBeforeDiscount() bool`
+
+HasCostBeforeDiscount returns a boolean if a field has been set.
 
 ### GetCostDescription
 
@@ -396,6 +423,31 @@ SetReservationId sets ReservationId field to given value.
 `func (o *RatedUsageGet200ResponseInner) HasReservationId() bool`
 
 HasReservationId returns a boolean if a field has been set.
+
+### GetDiscountDetails
+
+`func (o *RatedUsageGet200ResponseInner) GetDiscountDetails() DiscountDetails`
+
+GetDiscountDetails returns the DiscountDetails field if non-nil, zero value otherwise.
+
+### GetDiscountDetailsOk
+
+`func (o *RatedUsageGet200ResponseInner) GetDiscountDetailsOk() (*DiscountDetails, bool)`
+
+GetDiscountDetailsOk returns a tuple with the DiscountDetails field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDiscountDetails
+
+`func (o *RatedUsageGet200ResponseInner) SetDiscountDetails(v DiscountDetails)`
+
+SetDiscountDetails sets DiscountDetails field to given value.
+
+### HasDiscountDetails
+
+`func (o *RatedUsageGet200ResponseInner) HasDiscountDetails() bool`
+
+HasDiscountDetails returns a boolean if a field has been set.
 
 ### GetMetadata
 
