@@ -1237,7 +1237,7 @@ Name | Type | Description  | Notes
 
 ## ServersServerIdPublicNetworksPost
 
-> ServerPublicNetwork ServersServerIdPublicNetworksPost(ctx, serverId).ServerPublicNetwork(serverPublicNetwork).Execute()
+> ServerPublicNetwork ServersServerIdPublicNetworksPost(ctx, serverId).Force(force).ServerPublicNetwork(serverPublicNetwork).Execute()
 
 Adds the server to a Public Network.
 
@@ -1257,11 +1257,12 @@ import (
 
 func main() {
     serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
-    serverPublicNetwork := *openapiclient.NewServerPublicNetwork("60473c2509268bc77fd06d29", []string{"182.16.0.146"}) // ServerPublicNetwork |  (optional)
+    force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
+    serverPublicNetwork := *openapiclient.NewServerPublicNetwork("60473c2509268bc77fd06d29") // ServerPublicNetwork |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdPublicNetworksPost(context.Background(), serverId).ServerPublicNetwork(serverPublicNetwork).Execute()
+    resp, r, err := apiClient.ServersApi.ServersServerIdPublicNetworksPost(context.Background(), serverId).Force(force).ServerPublicNetwork(serverPublicNetwork).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPublicNetworksPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1287,6 +1288,7 @@ Other parameters are passed through a pointer to a apiServersServerIdPublicNetwo
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **force** | **bool** | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. | [default to false]
  **serverPublicNetwork** | [**ServerPublicNetwork**](ServerPublicNetwork.md) |  | 
 
 ### Return type

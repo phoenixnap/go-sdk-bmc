@@ -268,7 +268,7 @@ paths:
             schema:
               $ref: '#/components/schemas/ServerCreate'
       responses:
-        "202":
+        "200":
           content:
             application/json:
               schema:
@@ -723,6 +723,11 @@ paths:
                 value:
                   id: 60473a6115e34466c9f8f083
                   dhcp: true
+              DhcpFalseIpsEmptyForceTrue:
+                value:
+                  id: 60473a6115e34466c9f8f083
+                  ips: []
+                  dhcp: false
             schema:
               $ref: '#/components/schemas/ServerPrivateNetwork'
       responses:
@@ -744,7 +749,7 @@ paths:
                     ips: []
                     dhcp: true
                     statusDescription: in-progress
-                PrivateNetworkWithNoIpsAndForceTrue:
+                DhcpFalseIpsEmptyForceTrue:
                   value:
                     id: 60473a6115e34466c9f8f083
                     ips: []
@@ -886,14 +891,32 @@ paths:
         schema:
           type: string
         style: simple
+      - description: Query parameter controlling advanced features availability. Currently
+          applicable for networking. It is advised to use with caution since it might
+          lead to unhealthy setups.
+        example: true
+        explode: true
+        in: query
+        name: force
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       requestBody:
         content:
           application/json:
-            example:
-              id: 60473c2509268bc77fd06d29
-              ips:
-              - 182.16.0.146
-              - 182.16.0.147
+            examples:
+              PublicNetworkWithProvidedIps:
+                value:
+                  id: 60473c2509268bc77fd06d29
+                  ips:
+                  - 182.16.0.146
+                  - 182.16.0.147
+              PublicNetworkWithNoIpsAndForceTrue:
+                value:
+                  id: 60473c2509268bc77fd06d29
+                  ips: []
             schema:
               $ref: '#/components/schemas/ServerPublicNetwork'
       responses:
@@ -2347,16 +2370,17 @@ components:
           example: 60473c2509268bc77fd06d29
           type: string
         ips:
-          description: IPs to configure/configured on the server. IPs must be within
-            the network's range.<br> Note that at least one IP is required for the
-            gateway to be selected from this network.
+          description: Configurable/configured IPs on the server.<br> At least 1 IP
+            address is required. All IPs must be within the network's range.<br> Setting
+            the `force` query parameter to `true` allows you to assign no specific
+            IP addresses by designating an empty array of IPs. Note that at least
+            one IP is required for the gateway address to be selected from this network.
           example:
           - 182.16.0.146
           - 182.16.0.147
           items:
             example: 182.16.0.146
             type: string
-          minItems: 1
           type: array
         statusDescription:
           description: The status of the assignment to the network.
@@ -2365,7 +2389,6 @@ components:
           type: string
       required:
       - id
-      - ips
       type: object
     PublicNetworkConfiguration:
       description: Public network details of bare metal server.

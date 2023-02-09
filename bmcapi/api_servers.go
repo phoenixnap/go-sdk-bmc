@@ -2979,7 +2979,14 @@ type ApiServersServerIdPublicNetworksPostRequest struct {
 	ctx                 context.Context
 	ApiService          ServersApi
 	serverId            string
+	force               *bool
 	serverPublicNetwork *ServerPublicNetwork
+}
+
+// Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
+func (r ApiServersServerIdPublicNetworksPostRequest) Force(force bool) ApiServersServerIdPublicNetworksPostRequest {
+	r.force = &force
+	return r
 }
 
 func (r ApiServersServerIdPublicNetworksPostRequest) ServerPublicNetwork(serverPublicNetwork ServerPublicNetwork) ApiServersServerIdPublicNetworksPostRequest {
@@ -3030,6 +3037,9 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPostExecute(r ApiServer
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.force != nil {
+		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

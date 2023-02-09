@@ -19,8 +19,8 @@ import (
 type ServerPublicNetwork struct {
 	// The network identifier.
 	Id string `json:"id"`
-	// IPs to configure/configured on the server. IPs must be within the network's range.<br> Note that at least one IP is required for the gateway to be selected from this network.
-	Ips []string `json:"ips"`
+	// Configurable/configured IPs on the server.<br> At least 1 IP address is required. All IPs must be within the network's range.<br> Setting the `force` query parameter to `true` allows you to assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network.
+	Ips []string `json:"ips,omitempty"`
 	// The status of the assignment to the network.
 	StatusDescription *string `json:"statusDescription,omitempty"`
 }
@@ -29,10 +29,9 @@ type ServerPublicNetwork struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServerPublicNetwork(id string, ips []string) *ServerPublicNetwork {
+func NewServerPublicNetwork(id string) *ServerPublicNetwork {
 	this := ServerPublicNetwork{}
 	this.Id = id
-	this.Ips = ips
 	return &this
 }
 
@@ -68,26 +67,34 @@ func (o *ServerPublicNetwork) SetId(v string) {
 	o.Id = v
 }
 
-// GetIps returns the Ips field value
+// GetIps returns the Ips field value if set, zero value otherwise.
 func (o *ServerPublicNetwork) GetIps() []string {
-	if o == nil {
+	if o == nil || o.Ips == nil {
 		var ret []string
 		return ret
 	}
-
 	return o.Ips
 }
 
-// GetIpsOk returns a tuple with the Ips field value
+// GetIpsOk returns a tuple with the Ips field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerPublicNetwork) GetIpsOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || o.Ips == nil {
 		return nil, false
 	}
 	return o.Ips, true
 }
 
-// SetIps sets field value
+// HasIps returns a boolean if a field has been set.
+func (o *ServerPublicNetwork) HasIps() bool {
+	if o != nil && o.Ips != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIps gets a reference to the given []string and assigns it to the Ips field.
 func (o *ServerPublicNetwork) SetIps(v []string) {
 	o.Ips = v
 }
@@ -129,7 +136,7 @@ func (o ServerPublicNetwork) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["id"] = o.Id
 	}
-	if true {
+	if o.Ips != nil {
 		toSerialize["ips"] = o.Ips
 	}
 	if o.StatusDescription != nil {

@@ -243,7 +243,7 @@ paths:
                             - 182.16.0.146
                             - 182.16.0.147
       responses:
-        '202':
+        '200':
           description: Request to create server is accepted.
           content:
             application/json:
@@ -468,6 +468,11 @@ paths:
                 value:
                   id: 60473a6115e34466c9f8f083
                   dhcp: true
+              DhcpFalseIpsEmptyForceTrue:
+                value:
+                  id: 60473a6115e34466c9f8f083
+                  ips: []
+                  dhcp: false
       responses:
         '202':
           description: The server is being added to the specified private network.
@@ -490,7 +495,7 @@ paths:
                     ips: []
                     dhcp: true
                     statusDescription: in-progress
-                PrivateNetworkWithNoIpsAndForceTrue:
+                DhcpFalseIpsEmptyForceTrue:
                   value:
                     id: 60473a6115e34466c9f8f083
                     ips: []
@@ -540,6 +545,7 @@ paths:
   /servers/{serverId}/network-configuration/public-network-configuration/public-networks:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
+      - $ref: '#/components/parameters/forceQueryParam'
     post:
       tags:
         - Servers
@@ -554,11 +560,17 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ServerPublicNetwork'
-            example:
-              id: 60473c2509268bc77fd06d29
-              ips:
-                - 182.16.0.146
-                - 182.16.0.147
+            examples:
+              PublicNetworkWithProvidedIps:
+                value:
+                  id: 60473c2509268bc77fd06d29
+                  ips:
+                    - 182.16.0.146
+                    - 182.16.0.147
+              PublicNetworkWithNoIpsAndForceTrue:
+                value:
+                  id: 60473c2509268bc77fd06d29
+                  ips: []
       responses:
         '202':
           description: The server is being added to the specified Public Network.
@@ -1315,19 +1327,17 @@ components:
       description: Public network details of bare metal server.
       required:
         - id
-        - ips
       properties:
         id:
           description: The network identifier.
           type: string
           example: 60473c2509268bc77fd06d29
         ips:
-          description: IPs to configure/configured on the server. IPs must be within the network's range.<br> Note that at least one IP is required for the gateway to be selected from this network.
+          description: Configurable/configured IPs on the server.<br> At least 1 IP address is required. All IPs must be within the network's range.<br> Setting the `force` query parameter to `true` allows you to assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network.
           type: array
           items:
             type: string
             example: 182.16.0.146
-          minItems: 1
           example:
             - 182.16.0.146
             - 182.16.0.147
