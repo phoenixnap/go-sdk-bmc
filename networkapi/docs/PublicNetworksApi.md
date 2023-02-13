@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## PublicNetworksNetworkIdIpBlocksIpBlockIdDelete
 
-> string PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(ctx, publicNetworkId, ipBlockId).Execute()
+> string PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(ctx, publicNetworkId, ipBlockId).Force(force).Execute()
 
 Removes the IP Block from the Public Network.
 
@@ -241,10 +241,11 @@ import (
 func main() {
     publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
     ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
+    force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicNetworksApi.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(context.Background(), publicNetworkId, ipBlockId).Execute()
+    resp, r, err := apiClient.PublicNetworksApi.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(context.Background(), publicNetworkId, ipBlockId).Force(force).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksApi.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -272,6 +273,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **force** | **bool** | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. | [default to false]
 
 ### Return type
 

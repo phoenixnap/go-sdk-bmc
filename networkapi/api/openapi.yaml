@@ -1062,10 +1062,11 @@ paths:
       - Public Networks
   /public-networks/{publicNetworkId}/ip-blocks/{ipBlockId}:
     delete:
-      description: Removes the IP Block from the Public Network. The result of this
-        is that any traffic addressed to any IP within the block will not be routed
-        to this network anymore. Please ensure that no resource members within this
-        network have any IPs assigned from the IP Block being removed.
+      description: "Removes the IP Block from the Public Network.<br> Please ensure\
+        \ that no resource members within this network have any IPs assigned from\
+        \ the IP Block being removed.<br> Defining `force` query parameter allows\
+        \ resource assigned IP block to be removed anyway.  As a result, traffic addressed\
+        \ to any IP within the block will not be routed to this network anymore."
       operationId: publicNetworksNetworkIdIpBlocksIpBlockIdDelete
       parameters:
       - description: The Public Network identifier.
@@ -1086,6 +1087,18 @@ paths:
         schema:
           type: string
         style: simple
+      - description: Query parameter controlling advanced features availability. Currently
+          applicable for networking. It is advised to use with caution since it might
+          lead to unhealthy setups.
+        example: true
+        explode: true
+        in: query
+        name: force
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       responses:
         "202":
           content:
@@ -1169,6 +1182,19 @@ components:
       schema:
         type: string
       style: simple
+    forceQueryParam:
+      description: Query parameter controlling advanced features availability. Currently
+        applicable for networking. It is advised to use with caution since it might
+        lead to unhealthy setups.
+      example: true
+      explode: true
+      in: query
+      name: force
+      required: false
+      schema:
+        default: false
+        type: boolean
+      style: form
   responses:
     BadRequest:
       content:
