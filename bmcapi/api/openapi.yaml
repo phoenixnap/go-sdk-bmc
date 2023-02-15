@@ -2226,10 +2226,11 @@ components:
             \ If field is undefined and DHCP is false, next available IP in network\
             \ will be automatically allocated.<br> If the network contains a membership\
             \ of type 'storage', the first twelve IPs are already reserved by BMC\
-            \ and not usable.<br> Note that at least one IP is required for the gateway\
-            \ to be selected from this network.<br> Defining `force` query parameter\
-            \ in combination with an empty array allows a server to be assigned to\
-            \ a network without designating any IPs."
+            \ and not usable.<br> Setting the `force` query parameter to `true` allows\
+            \ you to:<ul> <li> Assign no specific IP addresses by designating an empty\
+            \ array of IPs. Note that at least one IP is required for the gateway\
+            \ address to be selected from this network. <li> Assign one or more IP\
+            \ addresses which are already configured on other resource(s) in network.</ul>"
           example:
           - 10.1.1.1
           - 10.1.1.2
@@ -2372,9 +2373,11 @@ components:
         ips:
           description: Configurable/configured IPs on the server.<br> At least 1 IP
             address is required. All IPs must be within the network's range.<br> Setting
-            the `force` query parameter to `true` allows you to assign no specific
-            IP addresses by designating an empty array of IPs. Note that at least
-            one IP is required for the gateway address to be selected from this network.
+            the `force` query parameter to `true` allows you to:<ul> <li> Assign no
+            specific IP addresses by designating an empty array of IPs. Note that
+            at least one IP is required for the gateway address to be selected from
+            this network. <li> Assign one or more IP addresses which are already configured
+            on other resource(s) in network.</ul>
           example:
           - 182.16.0.146
           - 182.16.0.147

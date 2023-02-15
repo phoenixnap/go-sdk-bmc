@@ -1239,7 +1239,7 @@ components:
           type: string
           example: 603f3b2cfcaf050643b89a4b
         ips:
-          description: IPs to configure/configured on the server.<br> Should be null or empty list if DHCP is true. IPs must be within the network's range.<br> If field is undefined and DHCP is false, next available IP in network will be automatically allocated.<br> If the network contains a membership of type 'storage', the first twelve IPs are already reserved by BMC and not usable.<br> Note that at least one IP is required for the gateway to be selected from this network.<br> Defining `force` query parameter in combination with an empty array allows a server to be assigned to a network without designating any IPs.
+          description: IPs to configure/configured on the server.<br> Should be null or empty list if DHCP is true. IPs must be within the network's range.<br> If field is undefined and DHCP is false, next available IP in network will be automatically allocated.<br> If the network contains a membership of type 'storage', the first twelve IPs are already reserved by BMC and not usable.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
           type: array
           maxItems: 10
           items:
@@ -1333,7 +1333,7 @@ components:
           type: string
           example: 60473c2509268bc77fd06d29
         ips:
-          description: Configurable/configured IPs on the server.<br> At least 1 IP address is required. All IPs must be within the network's range.<br> Setting the `force` query parameter to `true` allows you to assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network.
+          description: Configurable/configured IPs on the server.<br> At least 1 IP address is required. All IPs must be within the network's range.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
           type: array
           items:
             type: string
