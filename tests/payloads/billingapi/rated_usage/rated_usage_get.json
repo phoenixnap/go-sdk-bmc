@@ -36,6 +36,7 @@
           "endDateTime" : "2020-03-19T16:39:00Z",
           "cost" : 20,
           "costDescription" : "costDescription",
+          "costBeforeDiscount" : 15000,
           "priceModel" : "hourly",
           "unitPrice" : 10,
           "unitPriceDescription" : "per hour",
@@ -44,6 +45,11 @@
           "usageSessionId" : "ec4a9d49-1cef-49e9-b85e-b560f88bcd26",
           "correlationId" : "ec4a9d49-1cef-49e9-b85e-b560f88bcd26",
           "reservationId" : "c32a24a1-5949-4b60-99c0-c8aaa3a92b04",
+          "discountDetails" : {
+            "code": "new-year-discount",
+            "type": "PRODUCT_CATEGORY_PERCENTAGE",
+            "value": 20
+          },
           "metadata" : {
             "cores" : 8,
             "correlationId" : "ec4a9d49-1cef-49e9-b85e-b560f88bcd26"
