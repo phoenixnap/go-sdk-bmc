@@ -303,12 +303,7 @@ func (suite *BmcApiTestSuite) TestCreateServer() {
 
 	// Fetch a map of query parameters
 	qpMap := TestUtilsImpl{}.generateQueryParams(request)
-	force, err := strconv.ParseBool(qpMap["force"].(string))
-
-	if err != nil {
-		fmt.Printf("Error parsing boolean value: %s\n", err)
-		return
-	}
+	force, _ := strconv.ParseBool(qpMap["force"].(string))
 
 	// Operation Execution
 	result, _, _ := suite.Client.ServersApi.ServersPost(suite.Ctx).ServerCreate(serverCreate).Force(force).Execute()
@@ -660,12 +655,7 @@ func (suite *BmcApiTestSuite) TestCreatePrivateNetworkOnServerById() {
 
 	// Fetch a map of query parameters
 	qpMap := TestUtilsImpl{}.generateQueryParams(request)
-	force, err := strconv.ParseBool(qpMap["force"].(string))
-
-	if err != nil {
-		fmt.Printf("Error parsing boolean value: %s\n", err)
-		return
-	}
+	force, _ := strconv.ParseBool(qpMap["force"].(string))
 
 	// Operation Execution
 	result, _, _ := suite.Client.ServersApi.ServersServerIdPrivateNetworksPost(suite.Ctx, serverId).ServerPrivateNetwork(serverPrivateNetwork).Force(force).Execute()
@@ -723,12 +713,7 @@ func (suite *BmcApiTestSuite) TestCreatePublicNetworkOnServerById() {
 
 	// Fetch a map of query parameters
 	qpMap := TestUtilsImpl{}.generateQueryParams(request)
-	force, err := strconv.ParseBool(qpMap["force"].(string))
-
-	if err != nil {
-		fmt.Printf("Error parsing boolean value: %s\n", err)
-		return
-	}
+	force, _ := strconv.ParseBool(qpMap["force"].(string))
 
 	// Operation Execution
 	result, _, _ := suite.Client.ServersApi.ServersServerIdPublicNetworksPost(suite.Ctx, serverId).ServerPublicNetwork(serverPublicNetwork).Force(force).Execute()
