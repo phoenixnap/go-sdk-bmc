@@ -2,9 +2,14 @@
     "request": {
         "method": "POST",
         "path": "/bmc/v1/servers",
-        "pathParameters": {
-          "force": true
-        },
+        "queryStringParameters": [
+          {
+            "name": "force",
+            "values": [
+              "true"
+            ]
+          }
+        ],
         "body": {
             "type": "JSON",
             "json": {

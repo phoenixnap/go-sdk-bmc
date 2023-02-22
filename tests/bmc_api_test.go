@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"fmt"
+	"strconv"
 
 	"github.com/phoenixnap/go-sdk-bmc/bmcapi"
 	"github.com/stretchr/testify/suite"
@@ -300,8 +301,17 @@ func (suite *BmcApiTestSuite) TestCreateServer() {
 	var serverCreate bmcapi.ServerCreate
 	json.Unmarshal(body, &serverCreate)
 
+	// Fetch a map of query parameters
+	qpMap := TestUtilsImpl{}.generateQueryParams(request)
+	force, err := strconv.ParseBool(qpMap["force"].(string))
+
+	if err != nil {
+		fmt.Printf("Error parsing boolean value: %s\n", err)
+		return
+	}
+
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersPost(suite.Ctx).ServerCreate(serverCreate).Execute()
+	result, _, _ := suite.Client.ServersApi.ServersPost(suite.Ctx).ServerCreate(serverCreate).Force(force).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -648,8 +658,17 @@ func (suite *BmcApiTestSuite) TestCreatePrivateNetworkOnServerById() {
 	// Extract the quotaId
 	serverId := request.PathParameters["id"][0]
 
+	// Fetch a map of query parameters
+	qpMap := TestUtilsImpl{}.generateQueryParams(request)
+	force, err := strconv.ParseBool(qpMap["force"].(string))
+
+	if err != nil {
+		fmt.Printf("Error parsing boolean value: %s\n", err)
+		return
+	}
+
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdPrivateNetworksPost(suite.Ctx, serverId).ServerPrivateNetwork(serverPrivateNetwork).Execute()
+	result, _, _ := suite.Client.ServersApi.ServersServerIdPrivateNetworksPost(suite.Ctx, serverId).ServerPrivateNetwork(serverPrivateNetwork).Force(force).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -702,8 +721,17 @@ func (suite *BmcApiTestSuite) TestCreatePublicNetworkOnServerById() {
 	// Extract the quotaId
 	serverId := request.PathParameters["id"][0]
 
+	// Fetch a map of query parameters
+	qpMap := TestUtilsImpl{}.generateQueryParams(request)
+	force, err := strconv.ParseBool(qpMap["force"].(string))
+
+	if err != nil {
+		fmt.Printf("Error parsing boolean value: %s\n", err)
+		return
+	}
+
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdPublicNetworksPost(suite.Ctx, serverId).ServerPublicNetwork(serverPublicNetwork).Execute()
+	result, _, _ := suite.Client.ServersApi.ServersServerIdPublicNetworksPost(suite.Ctx, serverId).ServerPublicNetwork(serverPublicNetwork).Force(force).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)

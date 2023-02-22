@@ -3,9 +3,16 @@
         "method": "POST",
         "path": "/bmc/v1/servers/{id}/network-configuration/public-network-configuration/public-networks",
         "pathParameters": {
-            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"],
-            "force": true
+            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"]
         },
+        "queryStringParameters": [
+            {
+              "name": "force",
+              "values": [
+                "true"
+              ]
+            }
+          ],
         "body": {
             "type": "JSON",
             "json": {
