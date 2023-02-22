@@ -2,6 +2,9 @@
     "request": {
         "method": "POST",
         "path": "/bmc/v1/servers",
+        "pathParameters": {
+          "force": true
+        },
         "body": {
             "type": "JSON",
             "json": {

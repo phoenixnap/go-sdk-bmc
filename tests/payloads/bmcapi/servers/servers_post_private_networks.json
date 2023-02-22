@@ -3,7 +3,8 @@
         "method": "POST",
         "path": "/bmc/v1/servers/{id}/network-configuration/private-network-configuration/private-networks",
         "pathParameters": {
-            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"]
+            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"],
+            "force": true
         },
         "body": {
             "type": "JSON",
