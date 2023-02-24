@@ -1,39 +1,36 @@
 {
   "request": {
-    "method": "PATCH",
-    "path": "/network-storage/v1/storage-networks/{storageNetworkId}/volumes/{volumeId}",
+    "method": "POST",
+    "path": "/network-storage/v1/storage-networks/{storageNetworkId}/volumes",
     "pathParameters": {
       "storageNetworkId": [
-        "50dc434c-9bba-427b-bcd6-0bdba45c4dd2"
-      ],
-      "volumeId": [
         "50dc434c-9bba-427b-bcd6-0bdba45c4dd2"
       ]
     },
     "body": {
       "type": "JSON",
       "json": {
-        "capacityInGb": 3000,
-        "name" : "name",
-        "description" : "description",
+        "capacityInGb": 2000,
+        "name" : "volumeName",
+        "description" : "volumeDescription",
         "pathSuffix" : "/pathSuffix"
       },
       "matchType": "STRICT"
     }
   },
   "response": {
-    "statusCode": 200,
+    "statusCode": 202,
     "body": {
       "id": "fakeVolumeId",
       "name": "volumeName",
       "description": "volumeDescription",
       "path": "/fakeVolumeId/pathSuffix",
       "pathSuffix": "/pathSuffix",
-      "capacityInGb": 1000,
+      "capacityInGb": 2000,
       "usedCapacityInGb": 10,
       "protocol": "NFS",
-      "status": "BUSY",
-      "createdOn": "2021-04-27T16:24:57Z",
+      "status": "READY",
+      "createdOn": "2023-02-22T16:24:57Z",
       "permissions": {
         "nfs": {
           "readWrite": [],

@@ -21,7 +21,7 @@ type StorageNetworkCreate struct {
 	Name string `json:"name"`
 	// Storage network description.
 	Description *string `json:"description,omitempty"`
-	// Location of storage network. Currently this field should be set to `PHX`.
+	// Location of storage network. Currently this field should be set to `PHX` or `ASH`.
 	Location string `json:"location"`
 	// Volume to be created alongside storage. Currently only 1 volume is supported.
 	Volumes []VolumeCreate `json:"volumes"`

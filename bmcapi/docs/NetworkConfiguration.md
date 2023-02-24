@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**GatewayAddress** | Pointer to **string** | The address of the gateway assigned / to assign to the server. When used as part of request body, IP address has to be part of private/public network assigned to this server. | [optional] 
+**GatewayAddress** | Pointer to **string** | The address of the gateway assigned / to assign to the server.&lt;br&gt; When used as part of request body, IP address has to be part of a private/public network or an IP block assigned to this server.&lt;br&gt; Gateway address also has to be assigned on an already deployed resource unless the address matches the BMC gateway address in a public network/IP block or the &#x60;force&#x60; query parameter is true. | [optional] 
 **PrivateNetworkConfiguration** | Pointer to [**PrivateNetworkConfiguration**](PrivateNetworkConfiguration.md) |  | [optional] 
 **IpBlocksConfiguration** | Pointer to [**IpBlocksConfiguration**](IpBlocksConfiguration.md) |  | [optional] 
 **PublicNetworkConfiguration** | Pointer to [**PublicNetworkConfiguration**](PublicNetworkConfiguration.md) |  | [optional] 

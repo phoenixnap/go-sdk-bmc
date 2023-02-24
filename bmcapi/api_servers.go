@@ -257,7 +257,7 @@ type ServersApi interface {
 	/*
 		ServersServerIdPrivateNetworksPost Adds the server to a private network.
 
-		Adds the server to a private network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. If the network contains a membership of type 'storage', the first twelve IPs are already reserved by BMC and not usable. These will return a Bad Request (400) if selected. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3' target='_blank'>here</a>.
+		Adds the server to a private network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3' target='_blank'>here</a>.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param serverId The server's ID.
@@ -624,7 +624,14 @@ func (a *ServersApiService) ServersGetExecute(r ApiServersGetRequest) ([]Server,
 type ApiServersPostRequest struct {
 	ctx          context.Context
 	ApiService   ServersApi
+	force        *bool
 	serverCreate *ServerCreate
+}
+
+// Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
+func (r ApiServersPostRequest) Force(force bool) ApiServersPostRequest {
+	r.force = &force
+	return r
 }
 
 func (r ApiServersPostRequest) ServerCreate(serverCreate ServerCreate) ApiServersPostRequest {
@@ -672,6 +679,9 @@ func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (*Server
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.force != nil {
+		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -2653,7 +2663,14 @@ type ApiServersServerIdPrivateNetworksPostRequest struct {
 	ctx                  context.Context
 	ApiService           ServersApi
 	serverId             string
+	force                *bool
 	serverPrivateNetwork *ServerPrivateNetwork
+}
+
+// Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
+func (r ApiServersServerIdPrivateNetworksPostRequest) Force(force bool) ApiServersServerIdPrivateNetworksPostRequest {
+	r.force = &force
+	return r
 }
 
 func (r ApiServersServerIdPrivateNetworksPostRequest) ServerPrivateNetwork(serverPrivateNetwork ServerPrivateNetwork) ApiServersServerIdPrivateNetworksPostRequest {
@@ -2668,7 +2685,7 @@ func (r ApiServersServerIdPrivateNetworksPostRequest) Execute() (*ServerPrivateN
 /*
 ServersServerIdPrivateNetworksPost Adds the server to a private network.
 
-Adds the server to a private network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. If the network contains a membership of type 'storage', the first twelve IPs are already reserved by BMC and not usable. These will return a Bad Request (400) if selected. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3' target='_blank'>here</a>.
+Adds the server to a private network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3' target='_blank'>here</a>.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param serverId The server's ID.
@@ -2704,6 +2721,9 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPostExecute(r ApiServe
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.force != nil {
+		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -2959,7 +2979,14 @@ type ApiServersServerIdPublicNetworksPostRequest struct {
 	ctx                 context.Context
 	ApiService          ServersApi
 	serverId            string
+	force               *bool
 	serverPublicNetwork *ServerPublicNetwork
+}
+
+// Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
+func (r ApiServersServerIdPublicNetworksPostRequest) Force(force bool) ApiServersServerIdPublicNetworksPostRequest {
+	r.force = &force
+	return r
 }
 
 func (r ApiServersServerIdPublicNetworksPostRequest) ServerPublicNetwork(serverPublicNetwork ServerPublicNetwork) ApiServersServerIdPublicNetworksPostRequest {
@@ -3010,6 +3037,9 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPostExecute(r ApiServer
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.force != nil {
+		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

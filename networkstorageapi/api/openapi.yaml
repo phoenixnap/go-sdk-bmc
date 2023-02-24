@@ -357,6 +357,71 @@ paths:
       summary: Display one or more volumes belonging to a storage network.
       tags:
       - Storage Networks
+    post:
+      description: Create a volume belonging to a storage network.
+      operationId: storageNetworksStorageNetworkIdVolumesPost
+      parameters:
+      - description: ID of storage network.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: storageNetworkId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VolumeCreate'
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+          description: Volume that is being created.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - networkstorage
+      summary: Create a volume belonging to a storage network.
+      tags:
+      - Storage Networks
   /storage-networks/{storageNetworkId}/volumes/{volumeId}:
     delete:
       description: Delete a Storage Network's Volume
@@ -505,11 +570,20 @@ paths:
         content:
           application/json:
             example:
+              name: New Volume name
+              description: New Volume description
               capacityInGb: 2000
+              pathSuffix: /new-path
             schema:
               $ref: '#/components/schemas/VolumeUpdate'
         description: Storage network volume to be updated.
       responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+          description: Updated volume details.
         "202":
           content:
             application/json:
@@ -748,7 +822,7 @@ components:
           type: string
         location:
           description: Location of storage network. Currently this field should be
-            set to `PHX`.
+            set to `PHX` or `ASH`.
           example: PHX
           type: string
         volumes:
@@ -876,9 +950,9 @@ components:
         pathSuffix:
           description: Last part of volume's path.
           example: /shared-docs
-          maxLength: 100
-          minLength: 1
-          pattern: "^(\\/[\\w-]+)+$"
+          maxLength: 27
+          minLength: 0
+          pattern: "^(\\/[\\w-]+)+$|^$"
           type: string
         capacityInGb:
           description: Capacity of Volume in GB. Currently only whole numbers and
@@ -895,13 +969,33 @@ components:
       description: Update storage network volume.
       example:
         capacityInGb: 2000
+        pathSuffix: pathSuffix
+        name: New Volume name
+        description: New Volume description
       properties:
+        name:
+          description: Volume friendly name.
+          example: New Volume name
+          maxLength: 100
+          minLength: 1
+          type: string
+        description:
+          description: Volume description.
+          example: New Volume description
+          maxLength: 250
+          type: string
         capacityInGb:
           description: Capacity of Volume in GB. Currently only whole numbers and
             multiples of 1000GB are supported.
           example: 2000
           minimum: 2000
           type: integer
+        pathSuffix:
+          description: Last part of volume's path.
+          maxLength: 27
+          minLength: 0
+          pattern: "^(\\/[\\w-]+)+$|^$"
+          type: string
       type: object
     Permissions:
       description: Permissions for a volume.

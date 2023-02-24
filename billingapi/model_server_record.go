@@ -33,6 +33,8 @@ type ServerRecord struct {
 	EndDateTime time.Time `json:"endDateTime"`
 	// The rated usage in cents.
 	Cost int64 `json:"cost"`
+	// The cost in cents before discount.
+	CostBeforeDiscount *int64 `json:"costBeforeDiscount,omitempty"`
 	// The rated usage cost description.
 	CostDescription *string `json:"costDescription,omitempty"`
 	// The price model applied to this usage record.
@@ -50,8 +52,9 @@ type ServerRecord struct {
 	// Holds usage record id
 	CorrelationId string `json:"correlationId"`
 	// Reservation id associated with this rated usage record.
-	ReservationId *string       `json:"reservationId,omitempty"`
-	Metadata      ServerDetails `json:"metadata"`
+	ReservationId   *string          `json:"reservationId,omitempty"`
+	DiscountDetails *DiscountDetails `json:"discountDetails,omitempty"`
+	Metadata        ServerDetails    `json:"metadata"`
 }
 
 // NewServerRecord instantiates a new ServerRecord object
@@ -286,6 +289,38 @@ func (o *ServerRecord) SetCost(v int64) {
 	o.Cost = v
 }
 
+// GetCostBeforeDiscount returns the CostBeforeDiscount field value if set, zero value otherwise.
+func (o *ServerRecord) GetCostBeforeDiscount() int64 {
+	if o == nil || o.CostBeforeDiscount == nil {
+		var ret int64
+		return ret
+	}
+	return *o.CostBeforeDiscount
+}
+
+// GetCostBeforeDiscountOk returns a tuple with the CostBeforeDiscount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServerRecord) GetCostBeforeDiscountOk() (*int64, bool) {
+	if o == nil || o.CostBeforeDiscount == nil {
+		return nil, false
+	}
+	return o.CostBeforeDiscount, true
+}
+
+// HasCostBeforeDiscount returns a boolean if a field has been set.
+func (o *ServerRecord) HasCostBeforeDiscount() bool {
+	if o != nil && o.CostBeforeDiscount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCostBeforeDiscount gets a reference to the given int64 and assigns it to the CostBeforeDiscount field.
+func (o *ServerRecord) SetCostBeforeDiscount(v int64) {
+	o.CostBeforeDiscount = &v
+}
+
 // GetCostDescription returns the CostDescription field value if set, zero value otherwise.
 func (o *ServerRecord) GetCostDescription() string {
 	if o == nil || o.CostDescription == nil {
@@ -518,6 +553,38 @@ func (o *ServerRecord) SetReservationId(v string) {
 	o.ReservationId = &v
 }
 
+// GetDiscountDetails returns the DiscountDetails field value if set, zero value otherwise.
+func (o *ServerRecord) GetDiscountDetails() DiscountDetails {
+	if o == nil || o.DiscountDetails == nil {
+		var ret DiscountDetails
+		return ret
+	}
+	return *o.DiscountDetails
+}
+
+// GetDiscountDetailsOk returns a tuple with the DiscountDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServerRecord) GetDiscountDetailsOk() (*DiscountDetails, bool) {
+	if o == nil || o.DiscountDetails == nil {
+		return nil, false
+	}
+	return o.DiscountDetails, true
+}
+
+// HasDiscountDetails returns a boolean if a field has been set.
+func (o *ServerRecord) HasDiscountDetails() bool {
+	if o != nil && o.DiscountDetails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDiscountDetails gets a reference to the given DiscountDetails and assigns it to the DiscountDetails field.
+func (o *ServerRecord) SetDiscountDetails(v DiscountDetails) {
+	o.DiscountDetails = &v
+}
+
 // GetMetadata returns the Metadata field value
 func (o *ServerRecord) GetMetadata() ServerDetails {
 	if o == nil {
@@ -568,6 +635,9 @@ func (o ServerRecord) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["cost"] = o.Cost
 	}
+	if o.CostBeforeDiscount != nil {
+		toSerialize["costBeforeDiscount"] = o.CostBeforeDiscount
+	}
 	if o.CostDescription != nil {
 		toSerialize["costDescription"] = o.CostDescription
 	}
@@ -594,6 +664,9 @@ func (o ServerRecord) MarshalJSON() ([]byte, error) {
 	}
 	if o.ReservationId != nil {
 		toSerialize["reservationId"] = o.ReservationId
+	}
+	if o.DiscountDetails != nil {
+		toSerialize["discountDetails"] = o.DiscountDetails
 	}
 	if true {
 		toSerialize["metadata"] = o.Metadata

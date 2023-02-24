@@ -811,6 +811,11 @@ components:
           example: 384
           format: int64
           type: integer
+        costBeforeDiscount:
+          description: The cost in cents before discount.
+          example: 15456
+          format: int64
+          type: integer
         costDescription:
           description: The rated usage cost description.
           example: 24 Hour(s) @ $0.16 /Hour
@@ -852,6 +857,8 @@ components:
           description: Reservation id associated with this rated usage record.
           example: c32a24a1-5949-4b60-99c0-c8aaa3a92b04
           type: string
+        discountDetails:
+          $ref: '#/components/schemas/DiscountDetails'
       required:
       - active
       - correlationId
@@ -867,6 +874,27 @@ components:
       - unitPrice
       - unitPriceDescription
       - usageSessionId
+      type: object
+    DiscountDetails:
+      description: Discount details.
+      properties:
+        code:
+          description: Discount code.
+          example: new-year-2022-monthly
+          type: string
+        type:
+          enum:
+          - PRODUCT_CATEGORY_PERCENTAGE
+          example: PRODUCT_CATEGORY_PERCENTAGE
+          type: string
+        value:
+          description: A number representing the discount value.
+          example: 20.5
+          type: number
+      required:
+      - code
+      - type
+      - value
       type: object
     ServerRecord:
       allOf:

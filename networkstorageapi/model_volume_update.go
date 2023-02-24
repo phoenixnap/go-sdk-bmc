@@ -17,8 +17,14 @@ import (
 
 // VolumeUpdate Update storage network volume.
 type VolumeUpdate struct {
+	// Volume friendly name.
+	Name *string `json:"name,omitempty"`
+	// Volume description.
+	Description *string `json:"description,omitempty"`
 	// Capacity of Volume in GB. Currently only whole numbers and multiples of 1000GB are supported.
 	CapacityInGb *int32 `json:"capacityInGb,omitempty"`
+	// Last part of volume's path.
+	PathSuffix *string `json:"pathSuffix,omitempty"`
 }
 
 // NewVolumeUpdate instantiates a new VolumeUpdate object
@@ -36,6 +42,70 @@ func NewVolumeUpdate() *VolumeUpdate {
 func NewVolumeUpdateWithDefaults() *VolumeUpdate {
 	this := VolumeUpdate{}
 	return &this
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *VolumeUpdate) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VolumeUpdate) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *VolumeUpdate) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *VolumeUpdate) SetName(v string) {
+	o.Name = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *VolumeUpdate) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VolumeUpdate) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *VolumeUpdate) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *VolumeUpdate) SetDescription(v string) {
+	o.Description = &v
 }
 
 // GetCapacityInGb returns the CapacityInGb field value if set, zero value otherwise.
@@ -70,10 +140,51 @@ func (o *VolumeUpdate) SetCapacityInGb(v int32) {
 	o.CapacityInGb = &v
 }
 
+// GetPathSuffix returns the PathSuffix field value if set, zero value otherwise.
+func (o *VolumeUpdate) GetPathSuffix() string {
+	if o == nil || o.PathSuffix == nil {
+		var ret string
+		return ret
+	}
+	return *o.PathSuffix
+}
+
+// GetPathSuffixOk returns a tuple with the PathSuffix field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VolumeUpdate) GetPathSuffixOk() (*string, bool) {
+	if o == nil || o.PathSuffix == nil {
+		return nil, false
+	}
+	return o.PathSuffix, true
+}
+
+// HasPathSuffix returns a boolean if a field has been set.
+func (o *VolumeUpdate) HasPathSuffix() bool {
+	if o != nil && o.PathSuffix != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPathSuffix gets a reference to the given string and assigns it to the PathSuffix field.
+func (o *VolumeUpdate) SetPathSuffix(v string) {
+	o.PathSuffix = &v
+}
+
 func (o VolumeUpdate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
+	}
 	if o.CapacityInGb != nil {
 		toSerialize["capacityInGb"] = o.CapacityInGb
+	}
+	if o.PathSuffix != nil {
+		toSerialize["pathSuffix"] = o.PathSuffix
 	}
 	return json.Marshal(toSerialize)
 }

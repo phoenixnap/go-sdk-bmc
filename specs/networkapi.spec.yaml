@@ -762,12 +762,14 @@ paths:
     delete:
       tags:
         - Public Networks
-      description: Removes the IP Block from the Public Network. The result of this is that any traffic addressed to any IP within the block will not be routed to this network anymore. Please ensure that no resource members within this network have any IPs assigned from the IP Block being removed.
+      description: Removes the IP Block from the Public Network.<br> Please ensure that no resource members within this network have any IPs assigned from the IP Block being removed.<br> Defining `force` query parameter allows resource assigned IP block to be removed anyway.  As a result, traffic addressed to any IP within the block will not be routed to this network anymore.
       summary: Removes the IP Block from the Public Network.
       operationId: publicNetworksNetworkIdIpBlocksIpBlockIdDelete
       security:
         - OAuth2:
             - bmc
+      parameters:
+        - $ref: '#/components/parameters/forceQueryParam'
       responses:
         '202':
           description: The specified IP block is being removed from the Public Network.
@@ -1165,3 +1167,12 @@ components:
         type: string
       description: The IP Block identifier.
       example: 6047127fed34ecc3ba8402d2
+    forceQueryParam:
+      name: force
+      in: query
+      description: Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
+      required: false
+      schema:
+        type: boolean
+        default: false
+      example: true

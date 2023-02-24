@@ -17,7 +17,7 @@ import (
 
 // NetworkConfiguration Entire network details of bare metal server.
 type NetworkConfiguration struct {
-	// The address of the gateway assigned / to assign to the server. When used as part of request body, IP address has to be part of private/public network assigned to this server.
+	// The address of the gateway assigned / to assign to the server.<br> When used as part of request body, IP address has to be part of a private/public network or an IP block assigned to this server.<br> Gateway address also has to be assigned on an already deployed resource unless the address matches the BMC gateway address in a public network/IP block or the `force` query parameter is true.
 	GatewayAddress              *string                      `json:"gatewayAddress,omitempty"`
 	PrivateNetworkConfiguration *PrivateNetworkConfiguration `json:"privateNetworkConfiguration,omitempty"`
 	IpBlocksConfiguration       *IpBlocksConfiguration       `json:"ipBlocksConfiguration,omitempty"`

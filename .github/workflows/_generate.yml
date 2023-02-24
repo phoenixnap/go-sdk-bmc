@@ -1,0 +1,23 @@
+name: (internal) - Generate
+
+on:
+  workflow_call:
+    inputs:
+      spec-link:
+        required: true
+        type: string
+      package-name:
+        required: true
+        type: string
+
+
+jobs:
+  generate:
+    name: Generate ${{ inputs.module-name }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/composite/generate-sdk
+        with:
+          spec-link: ${{ inputs.spec-link }}
+          package-name: ${{ inputs.package-name }}

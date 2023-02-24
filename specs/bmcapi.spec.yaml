@@ -79,6 +79,8 @@ paths:
       security:
         - OAuth2:
             - bmc
+      parameters:
+        - $ref: '#/components/parameters/forceQueryParam'
       requestBody:
         content:
           application/json:
@@ -241,7 +243,7 @@ paths:
                             - 182.16.0.146
                             - 182.16.0.147
       responses:
-        '202':
+        '200':
           description: Request to create server is accepted.
           content:
             application/json:
@@ -426,11 +428,12 @@ paths:
           $ref: '#/components/responses/InternalServerError'
   /servers/{serverId}/network-configuration/private-network-configuration/private-networks:
     parameters:
+      - $ref: '#/components/parameters/forceQueryParam'
       - $ref: '#/components/parameters/serverIdPathParam'
     post:
       tags:
         - Servers
-      description: Adds the server to a private network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. If the network contains a membership of type 'storage', the first twelve IPs are already reserved by BMC and not usable. These will return a Bad Request (400) if selected. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3' target='_blank'>here</a>.
+      description: Adds the server to a private network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3' target='_blank'>here</a>.
       summary: Adds the server to a private network.
       operationId: serversServerIdPrivateNetworksPost
       security:
@@ -449,7 +452,7 @@ paths:
                     - 10.0.0.1
                     - 10.0.0.2
                   dhcp: false
-              PrivateNetworkIdProvidedOnly:
+              PrivateNetworkIpsAutoAssigned:
                 value:
                   id: 60473a6115e34466c9f8f083
               DhcpFalseIpsNotProvided:
@@ -461,15 +464,15 @@ paths:
                   id: 60473a6115e34466c9f8f083
                   ips: []
                   dhcp: true
-              DhcpTrueIpsNull:
-                value:
-                  id: 60473a6115e34466c9f8f083
-                  ips: []
-                  dhcp: true
               DhcpTrueIpsNotProvided:
                 value:
                   id: 60473a6115e34466c9f8f083
                   dhcp: true
+              DhcpFalseIpsEmptyForceTrue:
+                value:
+                  id: 60473a6115e34466c9f8f083
+                  ips: []
+                  dhcp: false
       responses:
         '202':
           description: The server is being added to the specified private network.
@@ -491,6 +494,12 @@ paths:
                     id: 60473a6115e34466c9f8f083
                     ips: []
                     dhcp: true
+                    statusDescription: in-progress
+                DhcpFalseIpsEmptyForceTrue:
+                  value:
+                    id: 60473a6115e34466c9f8f083
+                    ips: []
+                    dhcp: false
                     statusDescription: in-progress
         '400':
           $ref: '#/components/responses/BadRequest'
@@ -536,6 +545,7 @@ paths:
   /servers/{serverId}/network-configuration/public-network-configuration/public-networks:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
+      - $ref: '#/components/parameters/forceQueryParam'
     post:
       tags:
         - Servers
@@ -550,11 +560,17 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ServerPublicNetwork'
-            example:
-              id: 60473c2509268bc77fd06d29
-              ips:
-                - 182.16.0.146
-                - 182.16.0.147
+            examples:
+              PublicNetworkWithProvidedIps:
+                value:
+                  id: 60473c2509268bc77fd06d29
+                  ips:
+                    - 182.16.0.146
+                    - 182.16.0.147
+              PublicNetworkWithNoIpsAndForceTrue:
+                value:
+                  id: 60473c2509268bc77fd06d29
+                  ips: []
       responses:
         '202':
           description: The server is being added to the specified Public Network.
@@ -1200,7 +1216,7 @@ components:
             - 10.111.14.40/29
             - 10.111.14.66 - 10.111.14.71
         installOsToRam:
-          description: If true, OS will be installed to and booted from the server's RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Only supported for ubuntu/focal.
+          description: If true, OS will be installed to and booted from the server's RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Only supported for ubuntu/focal and ubuntu/jammy.
           type: boolean
           default: false
         cloudInit:
@@ -1208,7 +1224,7 @@ components:
           description: Cloud-init configuration details.
           properties:
             userData:
-              description: User data for the <a href='https://cloudinit.readthedocs.io/en/latest/' target='_blank'>cloud-init</a> configuration in base64 encoding. NoCloud format is supported. Follow the <a href='https://phoenixnap.com/kb/bmc-cloud-init' target='_blank'>instructions</a> on how to provision a server using cloud-init. Only ubuntu/bionic and ubuntu/focal are supported. User data will not be stored and cannot be retrieved once you deploy the server. Copy and save it for future reference.
+              description: User data for the <a href='https://cloudinit.readthedocs.io/en/latest/' target='_blank'>cloud-init</a> configuration in base64 encoding. NoCloud format is supported. Follow the <a href='https://phoenixnap.com/kb/bmc-cloud-init' target='_blank'>instructions</a> on how to provision a server using cloud-init. Only ubuntu/bionic, ubuntu/focal and ubuntu/jammy are supported. User data will not be stored and cannot be retrieved once you deploy the server. Copy and save it for future reference.
               type: string
               format: byte
               writeOnly: true
@@ -1223,7 +1239,7 @@ components:
           type: string
           example: 603f3b2cfcaf050643b89a4b
         ips:
-          description: IPs to configure/configured on the server. Should be null or empty list if DHCP is true. If the network contains a membership of type 'storage', the first twelve IPs are already reserved by BMC and not usable. These will return a Bad Request (400) if selected.
+          description: IPs to configure/configured on the server.<br> Should be null or empty list if DHCP is true. IPs must be within the network's range.<br> If field is undefined and DHCP is false, next available IP in network will be automatically allocated.<br> If the network contains a membership of type 'storage', the first twelve IPs are already reserved by BMC and not usable.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
           type: array
           maxItems: 10
           items:
@@ -1233,7 +1249,7 @@ components:
             - 10.1.1.1
             - 10.1.1.2
         dhcp:
-          description: Determines whether DHCP is enabled for this server. Should be false if ips is not an empty list. Not supported for proxmox OS.
+          description: Determines whether DHCP is enabled for this server. Should be false if any IPs are provided. Not supported for Proxmox OS and ESXi OS.
           type: boolean
           default: false
           example: false
@@ -1247,7 +1263,7 @@ components:
       description: Private network details of bare metal server.
       properties:
         gatewayAddress:
-          description: The address of the gateway assigned / to assign to the server. When used as part of request body, it has to match one of the IP addresses used in the existing assigned private networks for the relevant location. Deprecated in favour of a common gateway address across all networks available under NetworkConfiguration.
+          description: Deprecated in favour of a common gateway address across all networks available under NetworkConfiguration.<br> The address of the gateway assigned / to assign to the server.<br> When used as part of request body, IP address has to be part of private network assigned to this server.<br> Gateway address also has to be assigned on an already deployed resource unless the `force` query parameter is true.
           deprecated: true
           type: string
           example: 10.0.0.10
@@ -1311,19 +1327,17 @@ components:
       description: Public network details of bare metal server.
       required:
         - id
-        - ips
       properties:
         id:
           description: The network identifier.
           type: string
           example: 60473c2509268bc77fd06d29
         ips:
-          description: IPs to configure/configured on the server. IPs must be within the network's range.
+          description: Configurable/configured IPs on the server.<br> At least 1 IP address is required. All IPs must be within the network's range.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
           type: array
           items:
             type: string
             example: 182.16.0.146
-          minItems: 1
           example:
             - 182.16.0.146
             - 182.16.0.147
@@ -1354,7 +1368,7 @@ components:
       description: Entire network details of bare metal server.
       properties:
         gatewayAddress:
-          description: The address of the gateway assigned / to assign to the server. When used as part of request body, IP address has to be part of private/public network assigned to this server.
+          description: The address of the gateway assigned / to assign to the server.<br> When used as part of request body, IP address has to be part of a private/public network or an IP block assigned to this server.<br> Gateway address also has to be assigned on an already deployed resource unless the address matches the BMC gateway address in a public network/IP block or the `force` query parameter is true.
           type: string
           example: 182.16.0.145
         privateNetworkConfiguration:
@@ -1404,7 +1418,7 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2`, `debian/bullseye` or `proxmox/bullseye`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye` or `proxmox/bullseye`.
           type: string
           example: ubuntu/bionic
         type:
@@ -1550,7 +1564,7 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `centos/centos7`,`centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70u2`, `debian/bullseye` or `proxmox/bullseye`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`,`centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye` or `proxmox/bullseye`.
           type: string
           example: ubuntu/bionic
         type:
@@ -2005,6 +2019,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   parameters:
+    forceQueryParam:
+      name: force
+      in: query
+      description: Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
+      required: false
+      schema:
+        type: boolean
+        default: false
+      example: true
     serverIdPathParam:
       in: path
       name: serverId

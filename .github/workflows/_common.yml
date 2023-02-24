@@ -1,0 +1,51 @@
+name: (internal) - Build, Lint, Test
+
+on:
+  workflow_call:
+    inputs:
+      module-name:
+        required: true
+        type: string
+      test-suite:
+        required: true
+        type: string
+
+jobs:
+  build:
+    name: Build ${{ inputs.module-name }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/composite/build-sdk
+        with:
+          module-name: ${{ inputs.module-name }}
+  lint:
+    name: Lint ${{ inputs.module-name }}
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/composite/lint-sdk
+        with:
+          module-name: ${{ inputs.module-name }}
+  test:
+    name: Test ${{ inputs.module-name }}
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+    services:
+      mockserver:
+        image: mockserver/mockserver:5.13.0
+        ports:
+          - 1080:1080
+    strategy:
+      fail-fast: false
+      matrix:
+        go-version: [ '1.17', '1.19' ]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/composite/test-sdk
+        with:
+          test-suite: ${{ inputs.test-suite }}
+          go-version: ${{ matrix.go-version }}

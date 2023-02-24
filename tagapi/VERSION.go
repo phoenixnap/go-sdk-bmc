@@ -1,3 +1,3 @@
 package tagapi
 
-const SdkVersion = "2.0.2"
+const SdkVersion = "2.0.3"
