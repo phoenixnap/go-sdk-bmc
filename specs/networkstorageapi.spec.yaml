@@ -491,9 +491,9 @@ components:
         pathSuffix:
           description: Last part of volume's path.
           type: string
-          minLength: 1
+          minLength: 0
           maxLength: 27
-          pattern: ^(\/[\w-]+)+$
+          pattern: ^(\/[\w-]+)+$|^$
           example: /shared-docs
         capacityInGb:
           description: Capacity of Volume in GB. Currently only whole numbers and multiples of 1000GB are supported.
@@ -523,9 +523,9 @@ components:
         pathSuffix:
           description: Last part of volume's path.
           type: string
-          minLength: 1
+          minLength: 0
           maxLength: 27
-          pattern: ^(\/[\w-]+)+$
+          pattern: ^(\/[\w-]+)+$|^$
     Permissions:
       type: object
       description: Permissions for a volume.
