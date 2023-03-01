@@ -27,21 +27,20 @@ type PrivateNetworkCreate struct {
 	LocationDefault *bool `json:"locationDefault,omitempty"`
 	// The VLAN that will be assigned to this network.
 	VlanId *int32 `json:"vlanId,omitempty"`
-	// IP range associated with this private network in CIDR notation.
-	Cidr string `json:"cidr"`
+	// IP range associated with this private network in CIDR notation.<br> Setting the `force` query parameter to `true` allows you to skip assigning a specific IP range to network.
+	Cidr *string `json:"cidr,omitempty"`
 }
 
 // NewPrivateNetworkCreate instantiates a new PrivateNetworkCreate object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPrivateNetworkCreate(name string, location string, cidr string) *PrivateNetworkCreate {
+func NewPrivateNetworkCreate(name string, location string) *PrivateNetworkCreate {
 	this := PrivateNetworkCreate{}
 	this.Name = name
 	this.Location = location
 	var locationDefault bool = false
 	this.LocationDefault = &locationDefault
-	this.Cidr = cidr
 	return &this
 }
 
@@ -199,28 +198,36 @@ func (o *PrivateNetworkCreate) SetVlanId(v int32) {
 	o.VlanId = &v
 }
 
-// GetCidr returns the Cidr field value
+// GetCidr returns the Cidr field value if set, zero value otherwise.
 func (o *PrivateNetworkCreate) GetCidr() string {
-	if o == nil {
+	if o == nil || o.Cidr == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Cidr
+	return *o.Cidr
 }
 
-// GetCidrOk returns a tuple with the Cidr field value
+// GetCidrOk returns a tuple with the Cidr field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivateNetworkCreate) GetCidrOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Cidr == nil {
 		return nil, false
 	}
-	return &o.Cidr, true
+	return o.Cidr, true
 }
 
-// SetCidr sets field value
+// HasCidr returns a boolean if a field has been set.
+func (o *PrivateNetworkCreate) HasCidr() bool {
+	if o != nil && o.Cidr != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCidr gets a reference to the given string and assigns it to the Cidr field.
 func (o *PrivateNetworkCreate) SetCidr(v string) {
-	o.Cidr = v
+	o.Cidr = &v
 }
 
 func (o PrivateNetworkCreate) MarshalJSON() ([]byte, error) {
@@ -240,7 +247,7 @@ func (o PrivateNetworkCreate) MarshalJSON() ([]byte, error) {
 	if o.VlanId != nil {
 		toSerialize["vlanId"] = o.VlanId
 	}
-	if true {
+	if o.Cidr != nil {
 		toSerialize["cidr"] = o.Cidr
 	}
 	return json.Marshal(toSerialize)

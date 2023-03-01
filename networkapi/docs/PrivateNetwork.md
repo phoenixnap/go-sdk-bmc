@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Type** | **string** | The type of the private network. | 
 **Location** | **string** | The location of this private network. | 
 **LocationDefault** | **bool** | Identifies network as the default private network for the specified location. | 
-**Cidr** | **string** | IP range associated with this private network in CIDR notation. | 
+**Cidr** | Pointer to **string** | IP range associated with this private network in CIDR notation. | [optional] 
 **Servers** | [**[]PrivateNetworkServer**](PrivateNetworkServer.md) |  | 
 **Memberships** | [**[]NetworkMembership**](NetworkMembership.md) | A list of resources that are members of this private network. | 
 **Status** | **string** | The status of the private network. Can have one of the following values: &#x60;BUSY&#x60; or &#x60;READY&#x60;. | 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewPrivateNetwork
 
-`func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, cidr string, servers []PrivateNetworkServer, memberships []NetworkMembership, status string, createdOn time.Time, ) *PrivateNetwork`
+`func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, servers []PrivateNetworkServer, memberships []NetworkMembership, status string, createdOn time.Time, ) *PrivateNetwork`
 
 NewPrivateNetwork instantiates a new PrivateNetwork object
 This constructor will assign default values to properties that have it defined,
@@ -200,6 +200,11 @@ and a boolean to check if the value has been set.
 
 SetCidr sets Cidr field to given value.
 
+### HasCidr
+
+`func (o *PrivateNetwork) HasCidr() bool`
+
+HasCidr returns a boolean if a field has been set.
 
 ### GetServers
 
