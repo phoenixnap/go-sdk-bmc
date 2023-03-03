@@ -30,6 +30,7 @@ docs/SSHKeysApi.md
 docs/Server.md
 docs/ServerCreate.md
 docs/ServerIpBlock.md
+docs/ServerNetworkUpdate.md
 docs/ServerPatch.md
 docs/ServerPrivateNetwork.md
 docs/ServerPublicNetwork.md
@@ -66,6 +67,7 @@ model_reset_result.go
 model_server.go
 model_server_create.go
 model_server_ip_block.go
+model_server_network_update.go
 model_server_patch.go
 model_server_private_network.go
 model_server_public_network.go

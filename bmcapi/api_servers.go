@@ -255,6 +255,22 @@ type ServersApi interface {
 	ServersServerIdPatchExecute(r ApiServersServerIdPatchRequest) (*Server, *http.Response, error)
 
 	/*
+		ServersServerIdPrivateNetworksPatch Updates the server's private network's IP addresses
+
+		IP address changes intended to keep the BMC data up to date with server's operating system. We do not have access to the server's operating system and therefore manual configuration is required to apply the changes on the host.
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param serverId The server's ID.
+		@param privateNetworkId The private network identifier.
+		@return ApiServersServerIdPrivateNetworksPatchRequest
+	*/
+	ServersServerIdPrivateNetworksPatch(ctx context.Context, serverId string, privateNetworkId string) ApiServersServerIdPrivateNetworksPatchRequest
+
+	// ServersServerIdPrivateNetworksPatchExecute executes the request
+	//  @return ServerPrivateNetwork
+	ServersServerIdPrivateNetworksPatchExecute(r ApiServersServerIdPrivateNetworksPatchRequest) (*ServerPrivateNetwork, *http.Response, error)
+
+	/*
 		ServersServerIdPrivateNetworksPost Adds the server to a private network.
 
 		Adds the server to a private network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3' target='_blank'>here</a>.
@@ -284,6 +300,22 @@ type ServersApi interface {
 	// ServersServerIdPublicNetworksDeleteExecute executes the request
 	//  @return string
 	ServersServerIdPublicNetworksDeleteExecute(r ApiServersServerIdPublicNetworksDeleteRequest) (string, *http.Response, error)
+
+	/*
+		ServersServerIdPublicNetworksPatch Updates the server's public network's IP addresses.
+
+		IP address changes intended to keep the BMC data up to date with server's operating system. We do not have access to the server's operating system and therefore manual configuration is required to apply the changes on the host.
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param serverId The server's ID.
+		@param publicNetworkId The Public Network identifier.
+		@return ApiServersServerIdPublicNetworksPatchRequest
+	*/
+	ServersServerIdPublicNetworksPatch(ctx context.Context, serverId string, publicNetworkId string) ApiServersServerIdPublicNetworksPatchRequest
+
+	// ServersServerIdPublicNetworksPatchExecute executes the request
+	//  @return ServerPublicNetwork
+	ServersServerIdPublicNetworksPatchExecute(r ApiServersServerIdPublicNetworksPatchRequest) (*ServerPublicNetwork, *http.Response, error)
 
 	/*
 		ServersServerIdPublicNetworksPost Adds the server to a Public Network.
@@ -2659,6 +2691,180 @@ func (a *ServersApiService) ServersServerIdPatchExecute(r ApiServersServerIdPatc
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiServersServerIdPrivateNetworksPatchRequest struct {
+	ctx                 context.Context
+	ApiService          ServersApi
+	serverId            string
+	privateNetworkId    string
+	force               *bool
+	serverNetworkUpdate *ServerNetworkUpdate
+}
+
+// Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
+func (r ApiServersServerIdPrivateNetworksPatchRequest) Force(force bool) ApiServersServerIdPrivateNetworksPatchRequest {
+	r.force = &force
+	return r
+}
+
+func (r ApiServersServerIdPrivateNetworksPatchRequest) ServerNetworkUpdate(serverNetworkUpdate ServerNetworkUpdate) ApiServersServerIdPrivateNetworksPatchRequest {
+	r.serverNetworkUpdate = &serverNetworkUpdate
+	return r
+}
+
+func (r ApiServersServerIdPrivateNetworksPatchRequest) Execute() (*ServerPrivateNetwork, *http.Response, error) {
+	return r.ApiService.ServersServerIdPrivateNetworksPatchExecute(r)
+}
+
+/*
+ServersServerIdPrivateNetworksPatch Updates the server's private network's IP addresses
+
+IP address changes intended to keep the BMC data up to date with server's operating system. We do not have access to the server's operating system and therefore manual configuration is required to apply the changes on the host.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param serverId The server's ID.
+ @param privateNetworkId The private network identifier.
+ @return ApiServersServerIdPrivateNetworksPatchRequest
+*/
+func (a *ServersApiService) ServersServerIdPrivateNetworksPatch(ctx context.Context, serverId string, privateNetworkId string) ApiServersServerIdPrivateNetworksPatchRequest {
+	return ApiServersServerIdPrivateNetworksPatchRequest{
+		ApiService:       a,
+		ctx:              ctx,
+		serverId:         serverId,
+		privateNetworkId: privateNetworkId,
+	}
+}
+
+// Execute executes the request
+//  @return ServerPrivateNetwork
+func (a *ServersApiService) ServersServerIdPrivateNetworksPatchExecute(r ApiServersServerIdPrivateNetworksPatchRequest) (*ServerPrivateNetwork, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ServerPrivateNetwork
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdPrivateNetworksPatch")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"privateNetworkId"+"}", url.PathEscape(parameterToString(r.privateNetworkId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.force != nil {
+		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.serverNetworkUpdate
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiServersServerIdPrivateNetworksPostRequest struct {
 	ctx                  context.Context
 	ApiService           ServersApi
@@ -2889,6 +3095,180 @@ func (a *ServersApiService) ServersServerIdPublicNetworksDeleteExecute(r ApiServ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiServersServerIdPublicNetworksPatchRequest struct {
+	ctx                 context.Context
+	ApiService          ServersApi
+	serverId            string
+	publicNetworkId     string
+	force               *bool
+	serverNetworkUpdate *ServerNetworkUpdate
+}
+
+// Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
+func (r ApiServersServerIdPublicNetworksPatchRequest) Force(force bool) ApiServersServerIdPublicNetworksPatchRequest {
+	r.force = &force
+	return r
+}
+
+func (r ApiServersServerIdPublicNetworksPatchRequest) ServerNetworkUpdate(serverNetworkUpdate ServerNetworkUpdate) ApiServersServerIdPublicNetworksPatchRequest {
+	r.serverNetworkUpdate = &serverNetworkUpdate
+	return r
+}
+
+func (r ApiServersServerIdPublicNetworksPatchRequest) Execute() (*ServerPublicNetwork, *http.Response, error) {
+	return r.ApiService.ServersServerIdPublicNetworksPatchExecute(r)
+}
+
+/*
+ServersServerIdPublicNetworksPatch Updates the server's public network's IP addresses.
+
+IP address changes intended to keep the BMC data up to date with server's operating system. We do not have access to the server's operating system and therefore manual configuration is required to apply the changes on the host.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param serverId The server's ID.
+ @param publicNetworkId The Public Network identifier.
+ @return ApiServersServerIdPublicNetworksPatchRequest
+*/
+func (a *ServersApiService) ServersServerIdPublicNetworksPatch(ctx context.Context, serverId string, publicNetworkId string) ApiServersServerIdPublicNetworksPatchRequest {
+	return ApiServersServerIdPublicNetworksPatchRequest{
+		ApiService:      a,
+		ctx:             ctx,
+		serverId:        serverId,
+		publicNetworkId: publicNetworkId,
+	}
+}
+
+// Execute executes the request
+//  @return ServerPublicNetwork
+func (a *ServersApiService) ServersServerIdPublicNetworksPatchExecute(r ApiServersServerIdPublicNetworksPatchRequest) (*ServerPublicNetwork, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ServerPublicNetwork
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdPublicNetworksPatch")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"publicNetworkId"+"}", url.PathEscape(parameterToString(r.publicNetworkId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.force != nil {
+		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.serverNetworkUpdate
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
