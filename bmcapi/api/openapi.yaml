@@ -872,6 +872,115 @@ paths:
       summary: Removes the server from private network.
       tags:
       - Servers
+    patch:
+      description: IP address changes intended to keep the BMC data up to date with
+        server's operating system. We do not have access to the server's operating
+        system and therefore manual configuration is required to apply the changes
+        on the host.
+      operationId: serversServerIdPrivateNetworksPatch
+      parameters:
+      - description: The server's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The private network identifier.
+        example: 603f3b2cfcaf050643b89a4b
+        explode: false
+        in: path
+        name: privateNetworkId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Query parameter controlling advanced features availability. Currently
+          applicable for networking. It is advised to use with caution since it might
+          lead to unhealthy setups.
+        example: true
+        explode: true
+        in: query
+        name: force
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            examples:
+              privateNetworkWithIps:
+                value:
+                  ips:
+                  - 10.0.0.1
+                  - 10.0.0.2
+              privateNetworkWithoutIpsForceTrue:
+                value:
+                  ips: []
+            schema:
+              $ref: '#/components/schemas/ServerNetworkUpdate'
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                privateNetworkWithIps:
+                  value:
+                    id: 60473a6115e34466c9f8f083
+                    ips:
+                    - 10.0.0.1
+                    - 10.0.0.2
+                privateNetworkWithoutIpsForceTrue:
+                  value:
+                    id: 60473a6115e34466c9f8f083
+                    ips: []
+              schema:
+                $ref: '#/components/schemas/ServerPrivateNetwork'
+          description: Updated IP addresses assigned to server.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Updates the server's private network's IP addresses
+      tags:
+      - Servers
   /servers/{serverId}/network-configuration/public-network-configuration/public-networks:
     post:
       description: Adds the server to a Public Network. <b>No actual configuration
@@ -1044,6 +1153,117 @@ paths:
       - OAuth2:
         - bmc
       summary: Removes the server from the Public Network
+      tags:
+      - Servers
+    patch:
+      description: IP address changes intended to keep the BMC data up to date with
+        server's operating system. We do not have access to the server's operating
+        system and therefore manual configuration is required to apply the changes
+        on the host.
+      operationId: serversServerIdPublicNetworksPatch
+      parameters:
+      - description: The server's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The Public Network identifier.
+        example: 603f3b2cfcaf050643b89a4b
+        explode: false
+        in: path
+        name: publicNetworkId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Query parameter controlling advanced features availability. Currently
+          applicable for networking. It is advised to use with caution since it might
+          lead to unhealthy setups.
+        example: true
+        explode: true
+        in: query
+        name: force
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            examples:
+              PublicNetworkWithProvidedIps:
+                value:
+                  ips:
+                  - 182.16.0.146
+                  - 182.16.0.147
+              PublicNetworkWithNoIpsAndForceTrue:
+                value:
+                  ips: []
+            schema:
+              $ref: '#/components/schemas/ServerNetworkUpdate'
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                PublicNetworkWithProvidedIps:
+                  value:
+                    id: 60473a6115e34466c9f8f088
+                    ips:
+                    - 182.16.0.146
+                    - 182.16.0.147
+                    statusDescription: assigned
+                PublicNetworkWithNoIpsAndForceTrue:
+                  value:
+                    id: 60473a6115e34466c9f8f088
+                    ips: []
+                    statusDescription: assigned
+              schema:
+                $ref: '#/components/schemas/ServerPublicNetwork'
+          description: Updated IP addresses assigned to server.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Updates the server's public network's IP addresses.
       tags:
       - Servers
   /servers/{serverId}/tags:
@@ -2959,6 +3179,27 @@ components:
             be deleted or not.
           example: true
           type: boolean
+      type: object
+    ServerNetworkUpdate:
+      description: Update network details of bare metal server.
+      example:
+        ips:
+        - 10.1.1.1
+        - 10.1.1.2
+      properties:
+        ips:
+          description: List of IPs to be associated to the server.<br> Setting the
+            `force` query parameter to `true` allows you to:<ul> <li> Assign no specific
+            IP addresses by designating an empty array of IPs. <li> Assign one or
+            more IP addresses which are already configured on other resource(s) in
+            network.</ul>
+          example:
+          - 10.1.1.1
+          - 10.1.1.2
+          items:
+            example: 10.1.1.1
+            type: string
+          type: array
       type: object
     ActionResult:
       description: Result of a successful action.

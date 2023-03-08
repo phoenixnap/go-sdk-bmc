@@ -110,8 +110,10 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**ServersServerIdIpBlocksIpBlockIdDelete**](docs/ServersApi.md#serversserveridipblocksipblockiddelete) | **Delete** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks/{ipBlockId} | Unassign IP Block from Server.
 *ServersApi* | [**ServersServerIdIpBlocksPost**](docs/ServersApi.md#serversserveridipblockspost) | **Post** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks | Assign IP Block to Server.
 *ServersApi* | [**ServersServerIdPatch**](docs/ServersApi.md#serversserveridpatch) | **Patch** /servers/{serverId} | Patch a Server.
+*ServersApi* | [**ServersServerIdPrivateNetworksPatch**](docs/ServersApi.md#serversserveridprivatenetworkspatch) | **Patch** /servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId} | Updates the server&#39;s private network&#39;s IP addresses
 *ServersApi* | [**ServersServerIdPrivateNetworksPost**](docs/ServersApi.md#serversserveridprivatenetworkspost) | **Post** /servers/{serverId}/network-configuration/private-network-configuration/private-networks | Adds the server to a private network.
 *ServersApi* | [**ServersServerIdPublicNetworksDelete**](docs/ServersApi.md#serversserveridpublicnetworksdelete) | **Delete** /servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId} | Removes the server from the Public Network
+*ServersApi* | [**ServersServerIdPublicNetworksPatch**](docs/ServersApi.md#serversserveridpublicnetworkspatch) | **Patch** /servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId} | Updates the server&#39;s public network&#39;s IP addresses.
 *ServersApi* | [**ServersServerIdPublicNetworksPost**](docs/ServersApi.md#serversserveridpublicnetworkspost) | **Post** /servers/{serverId}/network-configuration/public-network-configuration/public-networks | Adds the server to a Public Network.
 *ServersApi* | [**ServersServerIdTagsPut**](docs/ServersApi.md#serversserveridtagsput) | **Put** /servers/{serverId}/tags | Overwrite tags assigned for Server.
 
@@ -141,6 +143,7 @@ Class | Method | HTTP request | Description
  - [Server](docs/Server.md)
  - [ServerCreate](docs/ServerCreate.md)
  - [ServerIpBlock](docs/ServerIpBlock.md)
+ - [ServerNetworkUpdate](docs/ServerNetworkUpdate.md)
  - [ServerPatch](docs/ServerPatch.md)
  - [ServerPrivateNetwork](docs/ServerPrivateNetwork.md)
  - [ServerPublicNetwork](docs/ServerPublicNetwork.md)

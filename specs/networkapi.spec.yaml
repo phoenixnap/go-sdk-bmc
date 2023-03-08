@@ -122,6 +122,8 @@ paths:
       security:
         - OAuth2:
             - bmc
+      parameters:
+        - $ref: '#/components/parameters/forceQueryParam'
       requestBody:
         content:
           application/json:
@@ -811,7 +813,6 @@ components:
         - type
         - location
         - locationDefault
-        - cidr
         - servers
         - memberships
         - status
@@ -897,7 +898,6 @@ components:
       required:
         - name
         - location
-        - cidr
       properties:
         name:
           description: The friendly name of this private network. This name should be unique.
@@ -926,7 +926,7 @@ components:
           maximum: 4094
           example: 10
         cidr:
-          description: IP range associated with this private network in CIDR notation.
+          description: IP range associated with this private network in CIDR notation.<br> Setting the `force` query parameter to `true` allows you to skip assigning a specific IP range to network.
           type: string
           example: 10.0.0.0/24
     PrivateNetworkModify:
@@ -1143,6 +1143,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   parameters:
+    forceQueryParam:
+      name: force
+      in: query
+      description: Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
+      required: false
+      schema:
+        type: boolean
+        default: false
+      example: true
     privateNetworkIdPathParam:
       in: path
       name: privateNetworkId
@@ -1167,12 +1176,3 @@ components:
         type: string
       description: The IP Block identifier.
       example: 6047127fed34ecc3ba8402d2
-    forceQueryParam:
-      name: force
-      in: query
-      description: Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
-      required: false
-      schema:
-        type: boolean
-        default: false
-      example: true
