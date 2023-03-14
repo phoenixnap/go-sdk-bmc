@@ -101,7 +101,9 @@ Class | Method | HTTP request | Description
 
  - [Error](docs/Error.md)
  - [NfsPermissions](docs/NfsPermissions.md)
+ - [NfsPermissionsUpdate](docs/NfsPermissionsUpdate.md)
  - [Permissions](docs/Permissions.md)
+ - [PermissionsUpdate](docs/PermissionsUpdate.md)
  - [Status](docs/Status.md)
  - [StorageNetwork](docs/StorageNetwork.md)
  - [StorageNetworkCreate](docs/StorageNetworkCreate.md)

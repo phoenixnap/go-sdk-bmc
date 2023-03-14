@@ -526,12 +526,20 @@ components:
           minLength: 0
           maxLength: 27
           pattern: ^(\/[\w-]+)+$|^$
+        permissions:
+          $ref: '#/components/schemas/PermissionsUpdate'
     Permissions:
       type: object
       description: Permissions for a volume.
       properties:
         nfs:
           $ref: '#/components/schemas/NfsPermissions'
+    PermissionsUpdate:
+      type: object
+      description: Update permissions for a volume.
+      properties:
+        nfs:
+          $ref: '#/components/schemas/NfsPermissionsUpdate'
     NfsPermissions:
       type: object
       description: NFS specific permissions on a volume.
@@ -576,6 +584,59 @@ components:
           type: array
           items:
             type: string
+            example: 100.80.0.5
+          example:
+            - 100.80.0.5
+            - 100.80.0.6
+    NfsPermissionsUpdate:
+      type: object
+      description: Update NFS specific permissions on a volume.
+      properties:
+        readWrite:
+          description: Read/Write access.
+          type: array
+          items:
+            type: string
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\b){4}(\\/(3[0-2]|[1-2]\\d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            example: 100.80.0.5
+          example:
+            - 100.80.0.5
+            - 100.80.0.6
+        readOnly:
+          description: Read only access.
+          type: array
+          items:
+            type: string
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\b){4}(\\/(3[0-2]|[1-2]\\d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            example: 100.80.0.5
+          example:
+            - 100.80.0.5
+        rootSquash:
+          description: Root squash permission.
+          type: array
+          items:
+            type: string
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\b){4}(\\/(3[0-2]|[1-2]\\d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            example: 100.80.0.5/24
+          example:
+            - 100.80.0.5
+            - 100.80.0.4/24
+        noSquash:
+          description: No squash permission.
+          type: array
+          items:
+            type: string
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\b){4}(\\/(3[0-2]|[1-2]\\d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            example: 100.80.0.*
+          example:
+            - 100.80.0.7
+            - 100.80.0.*
+        allSquash:
+          description: All squash permission.
+          type: array
+          items:
+            type: string
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\b){4}(\\/(3[0-2]|[1-2]\\d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
             example: 100.80.0.5
           example:
             - 100.80.0.5

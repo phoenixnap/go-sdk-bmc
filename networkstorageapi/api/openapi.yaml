@@ -970,6 +970,22 @@ components:
       example:
         capacityInGb: 2000
         pathSuffix: pathSuffix
+        permissions:
+          nfs:
+            rootSquash:
+            - 100.80.0.5
+            - 100.80.0.4/24
+            noSquash:
+            - 100.80.0.7
+            - 100.80.0.*
+            readWrite:
+            - 100.80.0.5
+            - 100.80.0.6
+            readOnly:
+            - 100.80.0.5
+            allSquash:
+            - 100.80.0.5
+            - 100.80.0.6
         name: New Volume name
         description: New Volume description
       properties:
@@ -996,6 +1012,8 @@ components:
           minLength: 0
           pattern: "^(\\/[\\w-]+)+$|^$"
           type: string
+        permissions:
+          $ref: '#/components/schemas/PermissionsUpdate'
       type: object
     Permissions:
       description: Permissions for a volume.
@@ -1018,6 +1036,28 @@ components:
       properties:
         nfs:
           $ref: '#/components/schemas/NfsPermissions'
+      type: object
+    PermissionsUpdate:
+      description: Update permissions for a volume.
+      example:
+        nfs:
+          rootSquash:
+          - 100.80.0.5
+          - 100.80.0.4/24
+          noSquash:
+          - 100.80.0.7
+          - 100.80.0.*
+          readWrite:
+          - 100.80.0.5
+          - 100.80.0.6
+          readOnly:
+          - 100.80.0.5
+          allSquash:
+          - 100.80.0.5
+          - 100.80.0.6
+      properties:
+        nfs:
+          $ref: '#/components/schemas/NfsPermissionsUpdate'
       type: object
     NfsPermissions:
       description: NFS specific permissions on a volume.
@@ -1079,6 +1119,79 @@ components:
           - 100.80.0.6
           items:
             example: 100.80.0.5
+            type: string
+          type: array
+      type: object
+    NfsPermissionsUpdate:
+      description: Update NFS specific permissions on a volume.
+      example:
+        rootSquash:
+        - 100.80.0.5
+        - 100.80.0.4/24
+        noSquash:
+        - 100.80.0.7
+        - 100.80.0.*
+        readWrite:
+        - 100.80.0.5
+        - 100.80.0.6
+        readOnly:
+        - 100.80.0.5
+        allSquash:
+        - 100.80.0.5
+        - 100.80.0.6
+      properties:
+        readWrite:
+          description: Read/Write access.
+          example:
+          - 100.80.0.5
+          - 100.80.0.6
+          items:
+            example: 100.80.0.5
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+        readOnly:
+          description: Read only access.
+          example:
+          - 100.80.0.5
+          items:
+            example: 100.80.0.5
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+        rootSquash:
+          description: Root squash permission.
+          example:
+          - 100.80.0.5
+          - 100.80.0.4/24
+          items:
+            example: 100.80.0.5/24
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+        noSquash:
+          description: No squash permission.
+          example:
+          - 100.80.0.7
+          - 100.80.0.*
+          items:
+            example: 100.80.0.*
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+        allSquash:
+          description: All squash permission.
+          example:
+          - 100.80.0.5
+          - 100.80.0.6
+          items:
+            example: 100.80.0.5
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
             type: string
           type: array
       type: object

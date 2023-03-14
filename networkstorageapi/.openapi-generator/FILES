@@ -5,7 +5,9 @@ client.go
 configuration.go
 docs/Error.md
 docs/NfsPermissions.md
+docs/NfsPermissionsUpdate.md
 docs/Permissions.md
+docs/PermissionsUpdate.md
 docs/Status.md
 docs/StorageNetwork.md
 docs/StorageNetworkCreate.md
@@ -18,7 +20,9 @@ go.mod
 go.sum
 model_error.go
 model_nfs_permissions.go
+model_nfs_permissions_update.go
 model_permissions.go
+model_permissions_update.go
 model_status.go
 model_storage_network.go
 model_storage_network_create.go
