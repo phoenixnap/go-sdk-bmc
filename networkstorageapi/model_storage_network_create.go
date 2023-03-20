@@ -24,14 +24,14 @@ type StorageNetworkCreate struct {
 	// Location of storage network. Currently this field should be set to `PHX` or `ASH`.
 	Location string `json:"location"`
 	// Volume to be created alongside storage. Currently only 1 volume is supported.
-	Volumes []VolumeCreate `json:"volumes"`
+	Volumes []StorageNetworkVolumeCreate `json:"volumes"`
 }
 
 // NewStorageNetworkCreate instantiates a new StorageNetworkCreate object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStorageNetworkCreate(name string, location string, volumes []VolumeCreate) *StorageNetworkCreate {
+func NewStorageNetworkCreate(name string, location string, volumes []StorageNetworkVolumeCreate) *StorageNetworkCreate {
 	this := StorageNetworkCreate{}
 	this.Name = name
 	this.Location = location
@@ -128,9 +128,9 @@ func (o *StorageNetworkCreate) SetLocation(v string) {
 }
 
 // GetVolumes returns the Volumes field value
-func (o *StorageNetworkCreate) GetVolumes() []VolumeCreate {
+func (o *StorageNetworkCreate) GetVolumes() []StorageNetworkVolumeCreate {
 	if o == nil {
-		var ret []VolumeCreate
+		var ret []StorageNetworkVolumeCreate
 		return ret
 	}
 
@@ -139,7 +139,7 @@ func (o *StorageNetworkCreate) GetVolumes() []VolumeCreate {
 
 // GetVolumesOk returns a tuple with the Volumes field value
 // and a boolean to check if the value has been set.
-func (o *StorageNetworkCreate) GetVolumesOk() ([]VolumeCreate, bool) {
+func (o *StorageNetworkCreate) GetVolumesOk() ([]StorageNetworkVolumeCreate, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -147,7 +147,7 @@ func (o *StorageNetworkCreate) GetVolumesOk() ([]VolumeCreate, bool) {
 }
 
 // SetVolumes sets field value
-func (o *StorageNetworkCreate) SetVolumes(v []VolumeCreate) {
+func (o *StorageNetworkCreate) SetVolumes(v []StorageNetworkVolumeCreate) {
 	o.Volumes = v
 }
 

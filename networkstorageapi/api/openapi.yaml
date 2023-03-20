@@ -829,7 +829,7 @@ components:
           description: Volume to be created alongside storage. Currently only 1 volume
             is supported.
           items:
-            $ref: '#/components/schemas/VolumeCreate'
+            $ref: '#/components/schemas/StorageNetworkVolumeCreate'
           maxItems: 1
           minItems: 1
           type: array
@@ -837,6 +837,43 @@ components:
       - location
       - name
       - volumes
+      type: object
+    StorageNetworkVolumeCreate:
+      description: Create Volume.
+      example:
+        capacityInGb: 2000
+        pathSuffix: /shared-docs
+        name: My volume name
+        description: My volume description
+      properties:
+        name:
+          description: Volume friendly name.
+          example: My volume name
+          maxLength: 100
+          minLength: 1
+          type: string
+        description:
+          description: Volume description.
+          example: My volume description
+          maxLength: 250
+          type: string
+        pathSuffix:
+          description: Last part of volume's path.
+          example: /shared-docs
+          maxLength: 27
+          minLength: 0
+          pattern: "^(\\/[\\w-]+)+$|^$"
+          type: string
+        capacityInGb:
+          description: Capacity of Volume in GB. Currently only whole numbers and
+            multiples of 1000GB are supported.
+          example: 2000
+          minimum: 1000
+          type: integer
+      required:
+      - capacityInGb
+      - name
+      title: StorageNetworkVolumeCreate
       type: object
     StorageNetworkUpdate:
       description: Update storage network.
@@ -933,6 +970,22 @@ components:
       example:
         capacityInGb: 2000
         pathSuffix: /shared-docs
+        permissions:
+          nfs:
+            rootSquash:
+            - 100.80.0.5
+            - 100.80.0.4/24
+            noSquash:
+            - 100.80.0.7
+            - 100.80.0.*
+            readWrite:
+            - 100.80.0.5
+            - 100.80.0.6
+            readOnly:
+            - 100.80.0.5
+            allSquash:
+            - 100.80.0.5
+            - 100.80.0.6
         name: My volume name
         description: My volume description
       properties:
@@ -960,6 +1013,8 @@ components:
           example: 2000
           minimum: 1000
           type: integer
+        permissions:
+          $ref: '#/components/schemas/PermissionsCreate'
       required:
       - capacityInGb
       - name
@@ -1036,6 +1091,28 @@ components:
       properties:
         nfs:
           $ref: '#/components/schemas/NfsPermissions'
+      type: object
+    PermissionsCreate:
+      description: Update permissions for a volume.
+      example:
+        nfs:
+          rootSquash:
+          - 100.80.0.5
+          - 100.80.0.4/24
+          noSquash:
+          - 100.80.0.7
+          - 100.80.0.*
+          readWrite:
+          - 100.80.0.5
+          - 100.80.0.6
+          readOnly:
+          - 100.80.0.5
+          allSquash:
+          - 100.80.0.5
+          - 100.80.0.6
+      properties:
+        nfs:
+          $ref: '#/components/schemas/NfsPermissionsCreate'
       type: object
     PermissionsUpdate:
       description: Update permissions for a volume.
@@ -1119,6 +1196,79 @@ components:
           - 100.80.0.6
           items:
             example: 100.80.0.5
+            type: string
+          type: array
+      type: object
+    NfsPermissionsCreate:
+      description: NFS specific permissions on a volume.
+      example:
+        rootSquash:
+        - 100.80.0.5
+        - 100.80.0.4/24
+        noSquash:
+        - 100.80.0.7
+        - 100.80.0.*
+        readWrite:
+        - 100.80.0.5
+        - 100.80.0.6
+        readOnly:
+        - 100.80.0.5
+        allSquash:
+        - 100.80.0.5
+        - 100.80.0.6
+      properties:
+        readWrite:
+          description: Read/Write access.
+          example:
+          - 100.80.0.5
+          - 100.80.0.6
+          items:
+            example: 100.80.0.5
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+        readOnly:
+          description: Read only access.
+          example:
+          - 100.80.0.5
+          items:
+            example: 100.80.0.5
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+        rootSquash:
+          description: Root squash permission.
+          example:
+          - 100.80.0.5
+          - 100.80.0.4/24
+          items:
+            example: 100.80.0.5/24
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+        noSquash:
+          description: No squash permission.
+          example:
+          - 100.80.0.7
+          - 100.80.0.*
+          items:
+            example: 100.80.0.*
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+        allSquash:
+          description: All squash permission.
+          example:
+          - 100.80.0.5
+          - 100.80.0.6
+          items:
+            example: 100.80.0.5
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
             type: string
           type: array
       type: object

@@ -7,13 +7,13 @@ Name | Type | Description | Notes
 **Name** | **string** | Storage network friendly name. | 
 **Description** | Pointer to **string** | Storage network description. | [optional] 
 **Location** | **string** | Location of storage network. Currently this field should be set to &#x60;PHX&#x60; or &#x60;ASH&#x60;. | 
-**Volumes** | [**[]VolumeCreate**](VolumeCreate.md) | Volume to be created alongside storage. Currently only 1 volume is supported. | 
+**Volumes** | [**[]StorageNetworkVolumeCreate**](StorageNetworkVolumeCreate.md) | Volume to be created alongside storage. Currently only 1 volume is supported. | 
 
 ## Methods
 
 ### NewStorageNetworkCreate
 
-`func NewStorageNetworkCreate(name string, location string, volumes []VolumeCreate, ) *StorageNetworkCreate`
+`func NewStorageNetworkCreate(name string, location string, volumes []StorageNetworkVolumeCreate, ) *StorageNetworkCreate`
 
 NewStorageNetworkCreate instantiates a new StorageNetworkCreate object
 This constructor will assign default values to properties that have it defined,
@@ -95,20 +95,20 @@ SetLocation sets Location field to given value.
 
 ### GetVolumes
 
-`func (o *StorageNetworkCreate) GetVolumes() []VolumeCreate`
+`func (o *StorageNetworkCreate) GetVolumes() []StorageNetworkVolumeCreate`
 
 GetVolumes returns the Volumes field if non-nil, zero value otherwise.
 
 ### GetVolumesOk
 
-`func (o *StorageNetworkCreate) GetVolumesOk() (*[]VolumeCreate, bool)`
+`func (o *StorageNetworkCreate) GetVolumesOk() (*[]StorageNetworkVolumeCreate, bool)`
 
 GetVolumesOk returns a tuple with the Volumes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVolumes
 
-`func (o *StorageNetworkCreate) SetVolumes(v []VolumeCreate)`
+`func (o *StorageNetworkCreate) SetVolumes(v []StorageNetworkVolumeCreate)`
 
 SetVolumes sets Volumes field to given value.
 

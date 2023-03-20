@@ -15,8 +15,8 @@ import (
 	"encoding/json"
 )
 
-// VolumeCreate Create Volume.
-type VolumeCreate struct {
+// StorageNetworkVolumeCreate Create Volume.
+type StorageNetworkVolumeCreate struct {
 	// Volume friendly name.
 	Name string `json:"name"`
 	// Volume description.
@@ -24,31 +24,30 @@ type VolumeCreate struct {
 	// Last part of volume's path.
 	PathSuffix *string `json:"pathSuffix,omitempty"`
 	// Capacity of Volume in GB. Currently only whole numbers and multiples of 1000GB are supported.
-	CapacityInGb int32              `json:"capacityInGb"`
-	Permissions  *PermissionsCreate `json:"permissions,omitempty"`
+	CapacityInGb int32 `json:"capacityInGb"`
 }
 
-// NewVolumeCreate instantiates a new VolumeCreate object
+// NewStorageNetworkVolumeCreate instantiates a new StorageNetworkVolumeCreate object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVolumeCreate(name string, capacityInGb int32) *VolumeCreate {
-	this := VolumeCreate{}
+func NewStorageNetworkVolumeCreate(name string, capacityInGb int32) *StorageNetworkVolumeCreate {
+	this := StorageNetworkVolumeCreate{}
 	this.Name = name
 	this.CapacityInGb = capacityInGb
 	return &this
 }
 
-// NewVolumeCreateWithDefaults instantiates a new VolumeCreate object
+// NewStorageNetworkVolumeCreateWithDefaults instantiates a new StorageNetworkVolumeCreate object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewVolumeCreateWithDefaults() *VolumeCreate {
-	this := VolumeCreate{}
+func NewStorageNetworkVolumeCreateWithDefaults() *StorageNetworkVolumeCreate {
+	this := StorageNetworkVolumeCreate{}
 	return &this
 }
 
 // GetName returns the Name field value
-func (o *VolumeCreate) GetName() string {
+func (o *StorageNetworkVolumeCreate) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -59,7 +58,7 @@ func (o *VolumeCreate) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *VolumeCreate) GetNameOk() (*string, bool) {
+func (o *StorageNetworkVolumeCreate) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -67,12 +66,12 @@ func (o *VolumeCreate) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value
-func (o *VolumeCreate) SetName(v string) {
+func (o *StorageNetworkVolumeCreate) SetName(v string) {
 	o.Name = v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
-func (o *VolumeCreate) GetDescription() string {
+func (o *StorageNetworkVolumeCreate) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
 		return ret
@@ -82,7 +81,7 @@ func (o *VolumeCreate) GetDescription() string {
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VolumeCreate) GetDescriptionOk() (*string, bool) {
+func (o *StorageNetworkVolumeCreate) GetDescriptionOk() (*string, bool) {
 	if o == nil || o.Description == nil {
 		return nil, false
 	}
@@ -90,7 +89,7 @@ func (o *VolumeCreate) GetDescriptionOk() (*string, bool) {
 }
 
 // HasDescription returns a boolean if a field has been set.
-func (o *VolumeCreate) HasDescription() bool {
+func (o *StorageNetworkVolumeCreate) HasDescription() bool {
 	if o != nil && o.Description != nil {
 		return true
 	}
@@ -99,12 +98,12 @@ func (o *VolumeCreate) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *VolumeCreate) SetDescription(v string) {
+func (o *StorageNetworkVolumeCreate) SetDescription(v string) {
 	o.Description = &v
 }
 
 // GetPathSuffix returns the PathSuffix field value if set, zero value otherwise.
-func (o *VolumeCreate) GetPathSuffix() string {
+func (o *StorageNetworkVolumeCreate) GetPathSuffix() string {
 	if o == nil || o.PathSuffix == nil {
 		var ret string
 		return ret
@@ -114,7 +113,7 @@ func (o *VolumeCreate) GetPathSuffix() string {
 
 // GetPathSuffixOk returns a tuple with the PathSuffix field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VolumeCreate) GetPathSuffixOk() (*string, bool) {
+func (o *StorageNetworkVolumeCreate) GetPathSuffixOk() (*string, bool) {
 	if o == nil || o.PathSuffix == nil {
 		return nil, false
 	}
@@ -122,7 +121,7 @@ func (o *VolumeCreate) GetPathSuffixOk() (*string, bool) {
 }
 
 // HasPathSuffix returns a boolean if a field has been set.
-func (o *VolumeCreate) HasPathSuffix() bool {
+func (o *StorageNetworkVolumeCreate) HasPathSuffix() bool {
 	if o != nil && o.PathSuffix != nil {
 		return true
 	}
@@ -131,12 +130,12 @@ func (o *VolumeCreate) HasPathSuffix() bool {
 }
 
 // SetPathSuffix gets a reference to the given string and assigns it to the PathSuffix field.
-func (o *VolumeCreate) SetPathSuffix(v string) {
+func (o *StorageNetworkVolumeCreate) SetPathSuffix(v string) {
 	o.PathSuffix = &v
 }
 
 // GetCapacityInGb returns the CapacityInGb field value
-func (o *VolumeCreate) GetCapacityInGb() int32 {
+func (o *StorageNetworkVolumeCreate) GetCapacityInGb() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -147,7 +146,7 @@ func (o *VolumeCreate) GetCapacityInGb() int32 {
 
 // GetCapacityInGbOk returns a tuple with the CapacityInGb field value
 // and a boolean to check if the value has been set.
-func (o *VolumeCreate) GetCapacityInGbOk() (*int32, bool) {
+func (o *StorageNetworkVolumeCreate) GetCapacityInGbOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -155,43 +154,11 @@ func (o *VolumeCreate) GetCapacityInGbOk() (*int32, bool) {
 }
 
 // SetCapacityInGb sets field value
-func (o *VolumeCreate) SetCapacityInGb(v int32) {
+func (o *StorageNetworkVolumeCreate) SetCapacityInGb(v int32) {
 	o.CapacityInGb = v
 }
 
-// GetPermissions returns the Permissions field value if set, zero value otherwise.
-func (o *VolumeCreate) GetPermissions() PermissionsCreate {
-	if o == nil || o.Permissions == nil {
-		var ret PermissionsCreate
-		return ret
-	}
-	return *o.Permissions
-}
-
-// GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *VolumeCreate) GetPermissionsOk() (*PermissionsCreate, bool) {
-	if o == nil || o.Permissions == nil {
-		return nil, false
-	}
-	return o.Permissions, true
-}
-
-// HasPermissions returns a boolean if a field has been set.
-func (o *VolumeCreate) HasPermissions() bool {
-	if o != nil && o.Permissions != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPermissions gets a reference to the given PermissionsCreate and assigns it to the Permissions field.
-func (o *VolumeCreate) SetPermissions(v PermissionsCreate) {
-	o.Permissions = &v
-}
-
-func (o VolumeCreate) MarshalJSON() ([]byte, error) {
+func (o StorageNetworkVolumeCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["name"] = o.Name
@@ -205,44 +172,41 @@ func (o VolumeCreate) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["capacityInGb"] = o.CapacityInGb
 	}
-	if o.Permissions != nil {
-		toSerialize["permissions"] = o.Permissions
-	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableVolumeCreate struct {
-	value *VolumeCreate
+type NullableStorageNetworkVolumeCreate struct {
+	value *StorageNetworkVolumeCreate
 	isSet bool
 }
 
-func (v NullableVolumeCreate) Get() *VolumeCreate {
+func (v NullableStorageNetworkVolumeCreate) Get() *StorageNetworkVolumeCreate {
 	return v.value
 }
 
-func (v *NullableVolumeCreate) Set(val *VolumeCreate) {
+func (v *NullableStorageNetworkVolumeCreate) Set(val *StorageNetworkVolumeCreate) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableVolumeCreate) IsSet() bool {
+func (v NullableStorageNetworkVolumeCreate) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableVolumeCreate) Unset() {
+func (v *NullableStorageNetworkVolumeCreate) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableVolumeCreate(val *VolumeCreate) *NullableVolumeCreate {
-	return &NullableVolumeCreate{value: val, isSet: true}
+func NewNullableStorageNetworkVolumeCreate(val *StorageNetworkVolumeCreate) *NullableStorageNetworkVolumeCreate {
+	return &NullableStorageNetworkVolumeCreate{value: val, isSet: true}
 }
 
-func (v NullableVolumeCreate) MarshalJSON() ([]byte, error) {
+func (v NullableStorageNetworkVolumeCreate) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableVolumeCreate) UnmarshalJSON(src []byte) error {
+func (v *NullableStorageNetworkVolumeCreate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

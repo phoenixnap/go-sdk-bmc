@@ -409,7 +409,38 @@ components:
           minItems: 1
           maxItems: 1
           items:
-            $ref: '#/components/schemas/VolumeCreate'
+            $ref: '#/components/schemas/StorageNetworkVolumeCreate'
+    StorageNetworkVolumeCreate:
+      title: StorageNetworkVolumeCreate
+      type: object
+      description: Create Volume.
+      required:
+        - name
+        - capacityInGb
+      properties:
+        name:
+          description: Volume friendly name.
+          type: string
+          minLength: 1
+          maxLength: 100
+          example: My volume name
+        description:
+          description: Volume description.
+          type: string
+          maxLength: 250
+          example: My volume description
+        pathSuffix:
+          description: Last part of volume's path.
+          type: string
+          minLength: 0
+          maxLength: 27
+          pattern: ^(\/[\w-]+)+$|^$
+          example: /shared-docs
+        capacityInGb:
+          description: Capacity of Volume in GB. Currently only whole numbers and multiples of 1000GB are supported.
+          type: integer
+          minimum: 1000
+          example: 2000
     StorageNetworkUpdate:
       type: object
       description: Update storage network.
@@ -500,6 +531,8 @@ components:
           type: integer
           minimum: 1000
           example: 2000
+        permissions:
+          $ref: '#/components/schemas/PermissionsCreate'
     VolumeUpdate:
       type: object
       description: Update storage network volume.
@@ -534,6 +567,12 @@ components:
       properties:
         nfs:
           $ref: '#/components/schemas/NfsPermissions'
+    PermissionsCreate:
+      type: object
+      description: Update permissions for a volume.
+      properties:
+        nfs:
+          $ref: '#/components/schemas/NfsPermissionsCreate'
     PermissionsUpdate:
       type: object
       description: Update permissions for a volume.
@@ -584,6 +623,59 @@ components:
           type: array
           items:
             type: string
+            example: 100.80.0.5
+          example:
+            - 100.80.0.5
+            - 100.80.0.6
+    NfsPermissionsCreate:
+      type: object
+      description: NFS specific permissions on a volume.
+      properties:
+        readWrite:
+          description: Read/Write access.
+          type: array
+          items:
+            type: string
+            pattern: ^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}(\/(3[0-2]|[1-2]\d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.){0,3}\*$
+            example: 100.80.0.5
+          example:
+            - 100.80.0.5
+            - 100.80.0.6
+        readOnly:
+          description: Read only access.
+          type: array
+          items:
+            type: string
+            pattern: ^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}(\/(3[0-2]|[1-2]\d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.){0,3}\*$
+            example: 100.80.0.5
+          example:
+            - 100.80.0.5
+        rootSquash:
+          description: Root squash permission.
+          type: array
+          items:
+            type: string
+            pattern: ^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}(\/(3[0-2]|[1-2]\d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.){0,3}\*$
+            example: 100.80.0.5/24
+          example:
+            - 100.80.0.5
+            - 100.80.0.4/24
+        noSquash:
+          description: No squash permission.
+          type: array
+          items:
+            type: string
+            pattern: ^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}(\/(3[0-2]|[1-2]\d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.){0,3}\*$
+            example: 100.80.0.*
+          example:
+            - 100.80.0.7
+            - 100.80.0.*
+        allSquash:
+          description: All squash permission.
+          type: array
+          items:
+            type: string
+            pattern: ^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}(\/(3[0-2]|[1-2]\d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.){0,3}\*$
             example: 100.80.0.5
           example:
             - 100.80.0.5
