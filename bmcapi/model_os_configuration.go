@@ -24,7 +24,7 @@ type OsConfiguration struct {
 	ManagementUiUrl *string `json:"managementUiUrl,omitempty"`
 	// List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
 	ManagementAccessAllowedIps []string `json:"managementAccessAllowedIps,omitempty"`
-	// If true, OS will be installed to and booted from the server's RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Only supported for ubuntu/focal and ubuntu/jammy.
+	// If true, OS will be installed to and booted from the server's RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Follow the <a href='https://phoenixnap.com/kb/bmc-custom-os' target='_blank'>instructions</a> on how to install custom OS on BMC. Only supported for ubuntu/focal and ubuntu/jammy.
 	InstallOsToRam *bool                     `json:"installOsToRam,omitempty"`
 	CloudInit      *OsConfigurationCloudInit `json:"cloudInit,omitempty"`
 }

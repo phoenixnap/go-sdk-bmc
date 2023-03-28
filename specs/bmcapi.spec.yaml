@@ -1324,7 +1324,7 @@ components:
             - 10.111.14.40/29
             - 10.111.14.66 - 10.111.14.71
         installOsToRam:
-          description: If true, OS will be installed to and booted from the server's RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Only supported for ubuntu/focal and ubuntu/jammy.
+          description: If true, OS will be installed to and booted from the server's RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Follow the <a href='https://phoenixnap.com/kb/bmc-custom-os' target='_blank'>instructions</a> on how to install custom OS on BMC. Only supported for ubuntu/focal and ubuntu/jammy.
           type: boolean
           default: false
         cloudInit:
