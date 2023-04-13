@@ -17,10 +17,12 @@ import (
 
 // OsConfiguration OS specific configuration properties.
 type OsConfiguration struct {
-	Windows *OsConfigurationWindows `json:"windows,omitempty"`
-	// Password set for user root on an ESXi server which will only be returned in response to provisioning a server.
+	NetrisController *OsConfigurationNetrisController `json:"netrisController,omitempty"`
+	NetrisSoftgate   *OsConfigurationNetrisSoftgate   `json:"netrisSoftgate,omitempty"`
+	Windows          *OsConfigurationWindows          `json:"windows,omitempty"`
+	// (Read-only) Auto-generated password set for user 'root' on an ESXi or Proxmox server.<br>  The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
 	RootPassword *string `json:"rootPassword,omitempty"`
-	// The URL of the management UI which will only be returned in response to provisioning a server.
+	// (Read-only) The URL of the management UI which will only be returned in response to provisioning a server.
 	ManagementUiUrl *string `json:"managementUiUrl,omitempty"`
 	// List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
 	ManagementAccessAllowedIps []string `json:"managementAccessAllowedIps,omitempty"`
@@ -48,6 +50,70 @@ func NewOsConfigurationWithDefaults() *OsConfiguration {
 	var installOsToRam bool = false
 	this.InstallOsToRam = &installOsToRam
 	return &this
+}
+
+// GetNetrisController returns the NetrisController field value if set, zero value otherwise.
+func (o *OsConfiguration) GetNetrisController() OsConfigurationNetrisController {
+	if o == nil || o.NetrisController == nil {
+		var ret OsConfigurationNetrisController
+		return ret
+	}
+	return *o.NetrisController
+}
+
+// GetNetrisControllerOk returns a tuple with the NetrisController field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OsConfiguration) GetNetrisControllerOk() (*OsConfigurationNetrisController, bool) {
+	if o == nil || o.NetrisController == nil {
+		return nil, false
+	}
+	return o.NetrisController, true
+}
+
+// HasNetrisController returns a boolean if a field has been set.
+func (o *OsConfiguration) HasNetrisController() bool {
+	if o != nil && o.NetrisController != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNetrisController gets a reference to the given OsConfigurationNetrisController and assigns it to the NetrisController field.
+func (o *OsConfiguration) SetNetrisController(v OsConfigurationNetrisController) {
+	o.NetrisController = &v
+}
+
+// GetNetrisSoftgate returns the NetrisSoftgate field value if set, zero value otherwise.
+func (o *OsConfiguration) GetNetrisSoftgate() OsConfigurationNetrisSoftgate {
+	if o == nil || o.NetrisSoftgate == nil {
+		var ret OsConfigurationNetrisSoftgate
+		return ret
+	}
+	return *o.NetrisSoftgate
+}
+
+// GetNetrisSoftgateOk returns a tuple with the NetrisSoftgate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OsConfiguration) GetNetrisSoftgateOk() (*OsConfigurationNetrisSoftgate, bool) {
+	if o == nil || o.NetrisSoftgate == nil {
+		return nil, false
+	}
+	return o.NetrisSoftgate, true
+}
+
+// HasNetrisSoftgate returns a boolean if a field has been set.
+func (o *OsConfiguration) HasNetrisSoftgate() bool {
+	if o != nil && o.NetrisSoftgate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNetrisSoftgate gets a reference to the given OsConfigurationNetrisSoftgate and assigns it to the NetrisSoftgate field.
+func (o *OsConfiguration) SetNetrisSoftgate(v OsConfigurationNetrisSoftgate) {
+	o.NetrisSoftgate = &v
 }
 
 // GetWindows returns the Windows field value if set, zero value otherwise.
@@ -244,6 +310,12 @@ func (o *OsConfiguration) SetCloudInit(v OsConfigurationCloudInit) {
 
 func (o OsConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.NetrisController != nil {
+		toSerialize["netrisController"] = o.NetrisController
+	}
+	if o.NetrisSoftgate != nil {
+		toSerialize["netrisSoftgate"] = o.NetrisSoftgate
+	}
 	if o.Windows != nil {
 		toSerialize["windows"] = o.Windows
 	}

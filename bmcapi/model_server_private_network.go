@@ -23,7 +23,7 @@ type ServerPrivateNetwork struct {
 	Ips []string `json:"ips,omitempty"`
 	// Determines whether DHCP is enabled for this server. Should be false if any IPs are provided. Not supported for Proxmox OS and ESXi OS.
 	Dhcp *bool `json:"dhcp,omitempty"`
-	// The status of the network.
+	// (Read-only) The status of the network.
 	StatusDescription *string `json:"statusDescription,omitempty"`
 }
 

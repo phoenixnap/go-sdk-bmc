@@ -17,9 +17,9 @@ import (
 
 // OsConfigurationMapEsxi VMWare ESXi configuration properties.
 type OsConfigurationMapEsxi struct {
-	// Password set for user root on an ESXi server which will only be returned in response to provisioning a server.
+	// (Read-only) Password set for user root on an ESXi server which will only be returned in response to provisioning a server.
 	RootPassword *string `json:"rootPassword,omitempty"`
-	// The URL of the management UI which will only be returned in response to provisioning a server.
+	// (Read-only) The URL of the management UI which will only be returned in response to provisioning a server.
 	ManagementUiUrl *string `json:"managementUiUrl,omitempty"`
 	// List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
 	ManagementAccessAllowedIps []string `json:"managementAccessAllowedIps,omitempty"`

@@ -1287,6 +1287,49 @@ components:
       type: object
       description: OS specific configuration properties.
       properties:
+        netrisController:
+          description: Netris Controller configuration properties.
+          type: object
+          properties:
+            hostOs:
+              description: (Read-only) Host OS on which the Netris Controller is installed.
+              readOnly: true
+              type: string
+              example: ubuntu/jammy
+            netrisWebConsoleUrl:
+              description: (Read-only) The URL for the Netris Controller web console. Will only be returned in response to provisioning a server.
+              readOnly: true
+              type: string
+              example: https://172.217.22.14
+            netrisUserPassword:
+              description: (Read-only) Auto-generated password set for user 'netris' in the web console.<br>  The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
+              readOnly: true
+              type: string
+              example: cNC1jPFXG2h7f
+        netrisSoftgate:
+          description: Netris Softgate configuration properties.
+          type: object
+          properties:
+            hostOs:
+              description: (Read-only) Host OS on which the Netris Softgate is installed.
+              readOnly: true
+              type: string
+              example: ubuntu/jammy
+            controllerAddress:
+              description: (Write-only) IP address or hostname through which to reach the Netris Controller.
+              writeOnly: true
+              type: string
+              example: 120.153.203.227
+            controllerVersion:
+              description: (Write-only) The version of the Netris Controller to connect to.
+              writeOnly: true
+              type: string
+              example: 3.4.0-003
+            controllerAuthKey:
+              description: (Write-only) The authentication key of the Netris Controller to connect to. Required for the softgate agent to be able to interact with the Netris Controller.
+              writeOnly: true
+              type: string
+              example: w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw
         windows:
           description: Windows OS configuration properties.
           type: object
@@ -1303,15 +1346,15 @@ components:
                 - 10.111.14.40/29
                 - 10.111.14.66 - 10.111.14.71
         rootPassword:
-          description: Password set for user root on an ESXi server which will only be returned in response to provisioning a server.
+          description: (Read-only) Auto-generated password set for user 'root' on an ESXi or Proxmox server.<br>  The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
+          readOnly: true
           type: string
           example: MyP@ssw0rd_01
-          readOnly: true
         managementUiUrl:
-          description: The URL of the management UI which will only be returned in response to provisioning a server.
+          description: (Read-only) The URL of the management UI which will only be returned in response to provisioning a server.
+          readOnly: true
           type: string
           example: https://172.217.22.14
-          readOnly: true
         managementAccessAllowedIps:
           description: List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
           type: array
@@ -1327,15 +1370,16 @@ components:
           description: If true, OS will be installed to and booted from the server's RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Follow the <a href='https://phoenixnap.com/kb/bmc-custom-os' target='_blank'>instructions</a> on how to install custom OS on BMC. Only supported for ubuntu/focal and ubuntu/jammy.
           type: boolean
           default: false
+          example: true
         cloudInit:
           type: object
           description: Cloud-init configuration details.
           properties:
             userData:
               description: User data for the <a href='https://cloudinit.readthedocs.io/en/latest/' target='_blank'>cloud-init</a> configuration in base64 encoding. NoCloud format is supported. Follow the <a href='https://phoenixnap.com/kb/bmc-cloud-init' target='_blank'>instructions</a> on how to provision a server using cloud-init. Only ubuntu/bionic, ubuntu/focal and ubuntu/jammy are supported. User data will not be stored and cannot be retrieved once you deploy the server. Copy and save it for future reference.
+              writeOnly: true
               type: string
               format: byte
-              writeOnly: true
     ServerPrivateNetwork:
       type: object
       description: Private network details of bare metal server.
@@ -1362,7 +1406,7 @@ components:
           default: false
           example: false
         statusDescription:
-          description: The status of the network.
+          description: (Read-only) The status of the network.
           readOnly: true
           type: string
           example: assigned
@@ -1376,9 +1420,9 @@ components:
           type: string
           example: 10.0.0.10
         configurationType:
-          description: Determines the approach for configuring private network(s) for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.
-          type: string
+          description: (Write-only) Determines the approach for configuring private network(s) for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.
           writeOnly: true
+          type: string
           default: USE_OR_CREATE_DEFAULT
           example: USER_DEFINED
         privateNetworks:
@@ -1407,8 +1451,8 @@ components:
           type: string
           example: 60473a6115e34466c9f8f083
         vlanId:
+          description: (Read-only) The VLAN on which this IP block has been configured within the network switch.
           readOnly: true
-          description: The VLAN on which this IP block has been configured within the network switch.
           type: integer
           example: 10
     IpBlocksConfiguration:
@@ -1416,7 +1460,7 @@ components:
       description: The IP blocks to assign to this server. <b>This is an exclusive allocation</b>, i.e. the IP blocks cannot be shared with other servers. If IpBlocksConfiguration is not defined, the purchase of a new IP block is determined by the networkType field.
       properties:
         configurationType:
-          description: Determines the approach for configuring IP blocks for the server being provisioned. If PURCHASE_NEW is selected, the smallest supported range, depending on the operating system, is allocated to the server.
+          description: (Write-only) Determines the approach for configuring IP blocks for the server being provisioned. If PURCHASE_NEW is selected, the smallest supported range, depending on the operating system, is allocated to the server.
           writeOnly: true
           type: string
           enum:
@@ -1450,7 +1494,7 @@ components:
             - 182.16.0.146
             - 182.16.0.147
         statusDescription:
-          description: The status of the assignment to the network.
+          description: (Read-only) The status of the assignment to the network.
           readOnly: true
           type: string
           example: assigned
@@ -1526,7 +1570,7 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye` or `proxmox/bullseye`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`.
           type: string
           example: ubuntu/bionic
         type:
@@ -1595,7 +1639,7 @@ components:
           default: HOURLY
           example: HOURLY
         password:
-          description: Password set for user Admin on Windows server or user root on ESXi server which will only be returned in response to provisioning a server.
+          description: Auto-generated password set for user `Admin` on Windows server, user `root` on ESXi servers, user `root` on Proxmox server and user `netris` on Netris servers.<br> The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
           type: string
           example: MyP@ssw0rd_01
         networkType:
@@ -1672,7 +1716,7 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`,`centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye` or `proxmox/bullseye`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`.
           type: string
           example: ubuntu/bionic
         type:
@@ -1816,15 +1860,15 @@ components:
           type: object
           properties:
             rootPassword:
-              description: Password set for user root on an ESXi server which will only be returned in response to provisioning a server.
+              description: (Read-only) Password set for user root on an ESXi server which will only be returned in response to provisioning a server.
+              readOnly: true
               type: string
               example: MyP@ssw0rd_01
-              readOnly: true
             managementUiUrl:
-              description: The URL of the management UI which will only be returned in response to provisioning a server.
+              description: (Read-only) The URL of the management UI which will only be returned in response to provisioning a server.
+              readOnly: true
               type: string
               example: https://172.217.22.14
-              readOnly: true
             managementAccessAllowedIps:
               description: List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
               type: array
@@ -1841,15 +1885,15 @@ components:
           type: object
           properties:
             rootPassword:
-              description: Password set for user root on a Proxmox server which will only be returned in response to provisioning a server.
+              description: (Read-only) Password set for user root on a Proxmox server which will only be returned in response to provisioning a server.
+              readOnly: true
               type: string
               example: MyP@ssw0rd_01
-              readOnly: true
             managementUiUrl:
-              description: The URL of the management UI which will only be returned in response to provisioning a server.
+              description: (Read-only) The URL of the management UI which will only be returned in response to provisioning a server.
+              readOnly: true
               type: string
               example: https://172.217.22.14:8006
-              readOnly: true
             managementAccessAllowedIps:
               description: List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
               type: array

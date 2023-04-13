@@ -2379,7 +2379,16 @@ components:
         managementUiUrl: https://172.217.22.14
         cloudInit:
           userData: userData
-        installOsToRam: false
+        netrisController:
+          netrisUserPassword: cNC1jPFXG2h7f
+          netrisWebConsoleUrl: https://172.217.22.14
+          hostOs: ubuntu/jammy
+        installOsToRam: true
+        netrisSoftgate:
+          hostOs: ubuntu/jammy
+          controllerAuthKey: w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw
+          controllerAddress: 120.153.203.227
+          controllerVersion: 3.4.0-003
         windows:
           rdpAllowedIps:
           - 172.217.22.14
@@ -2391,17 +2400,23 @@ components:
         - 10.111.14.40/29
         - 10.111.14.66 - 10.111.14.71
       properties:
+        netrisController:
+          $ref: '#/components/schemas/OsConfiguration_netrisController'
+        netrisSoftgate:
+          $ref: '#/components/schemas/OsConfiguration_netrisSoftgate'
         windows:
           $ref: '#/components/schemas/OsConfiguration_windows'
         rootPassword:
-          description: Password set for user root on an ESXi server which will only
-            be returned in response to provisioning a server.
+          description: (Read-only) Auto-generated password set for user 'root' on
+            an ESXi or Proxmox server.<br>  The password is not stored and therefore
+            will only be returned in response to provisioning a server. Copy and save
+            it for future reference.
           example: MyP@ssw0rd_01
           readOnly: true
           type: string
         managementUiUrl:
-          description: The URL of the management UI which will only be returned in
-            response to provisioning a server.
+          description: (Read-only) The URL of the management UI which will only be
+            returned in response to provisioning a server.
           example: https://172.217.22.14
           readOnly: true
           type: string
@@ -2425,6 +2440,7 @@ components:
             \ unless a custom bootable OS has been deployed. Follow the <a href='https://phoenixnap.com/kb/bmc-custom-os'\
             \ target='_blank'>instructions</a> on how to install custom OS on BMC.\
             \ Only supported for ubuntu/focal and ubuntu/jammy."
+          example: true
           type: boolean
         cloudInit:
           $ref: '#/components/schemas/OsConfiguration_cloudInit'
@@ -2470,7 +2486,7 @@ components:
           example: false
           type: boolean
         statusDescription:
-          description: The status of the network.
+          description: (Read-only) The status of the network.
           example: assigned
           readOnly: true
           type: string
@@ -2505,9 +2521,9 @@ components:
           type: string
         configurationType:
           default: USE_OR_CREATE_DEFAULT
-          description: Determines the approach for configuring private network(s)
-            for the server being provisioned. Currently this field should be set to
-            `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.
+          description: (Write-only) Determines the approach for configuring private
+            network(s) for the server being provisioned. Currently this field should
+            be set to `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.
           example: USER_DEFINED
           type: string
           writeOnly: true
@@ -2541,8 +2557,8 @@ components:
           example: 60473a6115e34466c9f8f083
           type: string
         vlanId:
-          description: The VLAN on which this IP block has been configured within
-            the network switch.
+          description: (Read-only) The VLAN on which this IP block has been configured
+            within the network switch.
           example: 10
           readOnly: true
           type: integer
@@ -2562,8 +2578,8 @@ components:
       properties:
         configurationType:
           default: PURCHASE_NEW
-          description: "Determines the approach for configuring IP blocks for the\
-            \ server being provisioned. If PURCHASE_NEW is selected, the smallest\
+          description: "(Write-only) Determines the approach for configuring IP blocks\
+            \ for the server being provisioned. If PURCHASE_NEW is selected, the smallest\
             \ supported range, depending on the operating system, is allocated to\
             \ the server."
           enum:
@@ -2609,7 +2625,7 @@ components:
             type: string
           type: array
         statusDescription:
-          description: The status of the assignment to the network.
+          description: (Read-only) The status of the assignment to the network.
           example: assigned
           readOnly: true
           type: string
@@ -2704,7 +2720,16 @@ components:
           managementUiUrl: https://172.217.22.14
           cloudInit:
             userData: userData
-          installOsToRam: false
+          netrisController:
+            netrisUserPassword: cNC1jPFXG2h7f
+            netrisWebConsoleUrl: https://172.217.22.14
+            hostOs: ubuntu/jammy
+          installOsToRam: true
+          netrisSoftgate:
+            hostOs: ubuntu/jammy
+            controllerAuthKey: w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw
+            controllerAddress: 120.153.203.227
+            controllerVersion: 3.4.0-003
           windows:
             rdpAllowedIps:
             - 172.217.22.14
@@ -2799,7 +2824,8 @@ components:
           description: "The server’s OS ID used when the server was created. Currently\
             \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
             \ `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`,\
-            \ `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye` or `proxmox/bullseye`."
+            \ `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye`, `proxmox/bullseye`,\
+            \ `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`."
           example: ubuntu/bionic
           type: string
         type:
@@ -2883,9 +2909,11 @@ components:
           example: HOURLY
           type: string
         password:
-          description: Password set for user Admin on Windows server or user root
-            on ESXi server which will only be returned in response to provisioning
-            a server.
+          description: "Auto-generated password set for user `Admin` on Windows server,\
+            \ user `root` on ESXi servers, user `root` on Proxmox server and user\
+            \ `netris` on Netris servers.<br> The password is not stored and therefore\
+            \ will only be returned in response to provisioning a server. Copy and\
+            \ save it for future reference."
           example: MyP@ssw0rd_01
           type: string
         networkType:
@@ -2975,7 +3003,16 @@ components:
           managementUiUrl: https://172.217.22.14
           cloudInit:
             userData: userData
-          installOsToRam: false
+          netrisController:
+            netrisUserPassword: cNC1jPFXG2h7f
+            netrisWebConsoleUrl: https://172.217.22.14
+            hostOs: ubuntu/jammy
+          installOsToRam: true
+          netrisSoftgate:
+            hostOs: ubuntu/jammy
+            controllerAuthKey: w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw
+            controllerAddress: 120.153.203.227
+            controllerVersion: 3.4.0-003
           windows:
             rdpAllowedIps:
             - 172.217.22.14
@@ -3050,8 +3087,9 @@ components:
         os:
           description: "The server’s OS ID used when the server was created. Currently\
             \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
-            \ `ubuntu/jammy`, `centos/centos7`,`centos/centos8`, `windows/srv2019std`,\
-            \ `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye` or `proxmox/bullseye`."
+            \ `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`,\
+            \ `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye`, `proxmox/bullseye`,\
+            \ `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`."
           example: ubuntu/bionic
           type: string
         type:
@@ -3575,6 +3613,66 @@ components:
       - unit
       - used
       type: object
+    OsConfiguration_netrisController:
+      description: Netris Controller configuration properties.
+      example:
+        netrisUserPassword: cNC1jPFXG2h7f
+        netrisWebConsoleUrl: https://172.217.22.14
+        hostOs: ubuntu/jammy
+      properties:
+        hostOs:
+          description: (Read-only) Host OS on which the Netris Controller is installed.
+          example: ubuntu/jammy
+          readOnly: true
+          type: string
+        netrisWebConsoleUrl:
+          description: (Read-only) The URL for the Netris Controller web console.
+            Will only be returned in response to provisioning a server.
+          example: https://172.217.22.14
+          readOnly: true
+          type: string
+        netrisUserPassword:
+          description: (Read-only) Auto-generated password set for user 'netris' in
+            the web console.<br>  The password is not stored and therefore will only
+            be returned in response to provisioning a server. Copy and save it for
+            future reference.
+          example: cNC1jPFXG2h7f
+          readOnly: true
+          type: string
+      type: object
+    OsConfiguration_netrisSoftgate:
+      description: Netris Softgate configuration properties.
+      example:
+        hostOs: ubuntu/jammy
+        controllerAuthKey: w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw
+        controllerAddress: 120.153.203.227
+        controllerVersion: 3.4.0-003
+      properties:
+        hostOs:
+          description: (Read-only) Host OS on which the Netris Softgate is installed.
+          example: ubuntu/jammy
+          readOnly: true
+          type: string
+        controllerAddress:
+          description: (Write-only) IP address or hostname through which to reach
+            the Netris Controller.
+          example: 120.153.203.227
+          type: string
+          writeOnly: true
+        controllerVersion:
+          description: (Write-only) The version of the Netris Controller to connect
+            to.
+          example: 3.4.0-003
+          type: string
+          writeOnly: true
+        controllerAuthKey:
+          description: (Write-only) The authentication key of the Netris Controller
+            to connect to. Required for the softgate agent to be able to interact
+            with the Netris Controller.
+          example: w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw
+          type: string
+          writeOnly: true
+      type: object
     OsConfiguration_windows:
       description: Windows OS configuration properties.
       example:
@@ -3626,14 +3724,14 @@ components:
         - 10.111.14.66 - 10.111.14.71
       properties:
         rootPassword:
-          description: Password set for user root on an ESXi server which will only
-            be returned in response to provisioning a server.
+          description: (Read-only) Password set for user root on an ESXi server which
+            will only be returned in response to provisioning a server.
           example: MyP@ssw0rd_01
           readOnly: true
           type: string
         managementUiUrl:
-          description: The URL of the management UI which will only be returned in
-            response to provisioning a server.
+          description: (Read-only) The URL of the management UI which will only be
+            returned in response to provisioning a server.
           example: https://172.217.22.14
           readOnly: true
           type: string
@@ -3662,14 +3760,14 @@ components:
         - 10.111.14.66 - 10.111.14.71
       properties:
         rootPassword:
-          description: Password set for user root on a Proxmox server which will only
-            be returned in response to provisioning a server.
+          description: (Read-only) Password set for user root on a Proxmox server
+            which will only be returned in response to provisioning a server.
           example: MyP@ssw0rd_01
           readOnly: true
           type: string
         managementUiUrl:
-          description: The URL of the management UI which will only be returned in
-            response to provisioning a server.
+          description: (Read-only) The URL of the management UI which will only be
+            returned in response to provisioning a server.
           example: https://172.217.22.14:8006
           readOnly: true
           type: string

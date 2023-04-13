@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RootPassword** | Pointer to **string** | Password set for user root on a Proxmox server which will only be returned in response to provisioning a server. | [optional] [readonly] 
-**ManagementUiUrl** | Pointer to **string** | The URL of the management UI which will only be returned in response to provisioning a server. | [optional] [readonly] 
+**RootPassword** | Pointer to **string** | (Read-only) Password set for user root on a Proxmox server which will only be returned in response to provisioning a server. | [optional] [readonly] 
+**ManagementUiUrl** | Pointer to **string** | (Read-only) The URL of the management UI which will only be returned in response to provisioning a server. | [optional] [readonly] 
 **ManagementAccessAllowedIps** | Pointer to **[]string** | List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server. | [optional] 
 
 ## Methods

@@ -17,7 +17,7 @@ import (
 
 // IpBlocksConfiguration The IP blocks to assign to this server. <b>This is an exclusive allocation</b>, i.e. the IP blocks cannot be shared with other servers. If IpBlocksConfiguration is not defined, the purchase of a new IP block is determined by the networkType field.
 type IpBlocksConfiguration struct {
-	// Determines the approach for configuring IP blocks for the server being provisioned. If PURCHASE_NEW is selected, the smallest supported range, depending on the operating system, is allocated to the server.
+	// (Write-only) Determines the approach for configuring IP blocks for the server being provisioned. If PURCHASE_NEW is selected, the smallest supported range, depending on the operating system, is allocated to the server.
 	ConfigurationType *string `json:"configurationType,omitempty"`
 	// Used to specify the previously purchased IP blocks to assign to this server upon provisioning. Used alongside the USER_DEFINED configurationType.
 	IpBlocks []ServerIpBlock `json:"ipBlocks,omitempty"`

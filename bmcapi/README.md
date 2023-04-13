@@ -131,6 +131,8 @@ Class | Method | HTTP request | Description
  - [OsConfigurationMap](docs/OsConfigurationMap.md)
  - [OsConfigurationMapEsxi](docs/OsConfigurationMapEsxi.md)
  - [OsConfigurationMapProxmox](docs/OsConfigurationMapProxmox.md)
+ - [OsConfigurationNetrisController](docs/OsConfigurationNetrisController.md)
+ - [OsConfigurationNetrisSoftgate](docs/OsConfigurationNetrisSoftgate.md)
  - [OsConfigurationWindows](docs/OsConfigurationWindows.md)
  - [PrivateNetworkConfiguration](docs/PrivateNetworkConfiguration.md)
  - [PublicNetworkConfiguration](docs/PublicNetworkConfiguration.md)

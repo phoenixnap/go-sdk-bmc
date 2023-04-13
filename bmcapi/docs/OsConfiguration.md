@@ -4,9 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**NetrisController** | Pointer to [**OsConfigurationNetrisController**](OsConfigurationNetrisController.md) |  | [optional] 
+**NetrisSoftgate** | Pointer to [**OsConfigurationNetrisSoftgate**](OsConfigurationNetrisSoftgate.md) |  | [optional] 
 **Windows** | Pointer to [**OsConfigurationWindows**](OsConfigurationWindows.md) |  | [optional] 
-**RootPassword** | Pointer to **string** | Password set for user root on an ESXi server which will only be returned in response to provisioning a server. | [optional] [readonly] 
-**ManagementUiUrl** | Pointer to **string** | The URL of the management UI which will only be returned in response to provisioning a server. | [optional] [readonly] 
+**RootPassword** | Pointer to **string** | (Read-only) Auto-generated password set for user &#39;root&#39; on an ESXi or Proxmox server.&lt;br&gt;  The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference. | [optional] [readonly] 
+**ManagementUiUrl** | Pointer to **string** | (Read-only) The URL of the management UI which will only be returned in response to provisioning a server. | [optional] [readonly] 
 **ManagementAccessAllowedIps** | Pointer to **[]string** | List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server. | [optional] 
 **InstallOsToRam** | Pointer to **bool** | If true, OS will be installed to and booted from the server&#39;s RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Follow the &lt;a href&#x3D;&#39;https://phoenixnap.com/kb/bmc-custom-os&#39; target&#x3D;&#39;_blank&#39;&gt;instructions&lt;/a&gt; on how to install custom OS on BMC. Only supported for ubuntu/focal and ubuntu/jammy. | [optional] [default to false]
 **CloudInit** | Pointer to [**OsConfigurationCloudInit**](OsConfigurationCloudInit.md) |  | [optional] 
@@ -29,6 +31,56 @@ will change when the set of required properties is changed
 NewOsConfigurationWithDefaults instantiates a new OsConfiguration object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetNetrisController
+
+`func (o *OsConfiguration) GetNetrisController() OsConfigurationNetrisController`
+
+GetNetrisController returns the NetrisController field if non-nil, zero value otherwise.
+
+### GetNetrisControllerOk
+
+`func (o *OsConfiguration) GetNetrisControllerOk() (*OsConfigurationNetrisController, bool)`
+
+GetNetrisControllerOk returns a tuple with the NetrisController field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNetrisController
+
+`func (o *OsConfiguration) SetNetrisController(v OsConfigurationNetrisController)`
+
+SetNetrisController sets NetrisController field to given value.
+
+### HasNetrisController
+
+`func (o *OsConfiguration) HasNetrisController() bool`
+
+HasNetrisController returns a boolean if a field has been set.
+
+### GetNetrisSoftgate
+
+`func (o *OsConfiguration) GetNetrisSoftgate() OsConfigurationNetrisSoftgate`
+
+GetNetrisSoftgate returns the NetrisSoftgate field if non-nil, zero value otherwise.
+
+### GetNetrisSoftgateOk
+
+`func (o *OsConfiguration) GetNetrisSoftgateOk() (*OsConfigurationNetrisSoftgate, bool)`
+
+GetNetrisSoftgateOk returns a tuple with the NetrisSoftgate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNetrisSoftgate
+
+`func (o *OsConfiguration) SetNetrisSoftgate(v OsConfigurationNetrisSoftgate)`
+
+SetNetrisSoftgate sets NetrisSoftgate field to given value.
+
+### HasNetrisSoftgate
+
+`func (o *OsConfiguration) HasNetrisSoftgate() bool`
+
+HasNetrisSoftgate returns a boolean if a field has been set.
 
 ### GetWindows
 
