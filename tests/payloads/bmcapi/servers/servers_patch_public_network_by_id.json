@@ -1,0 +1,33 @@
+{
+    "request": {
+        "method": "PATCH",
+        "path": "/bmc/v1/servers/{id}/network-configuration/public-network-configuration/public-networks/{networkId}",
+        "pathParameters": {
+            "id": [ "e6afba51-7de8-4080-83ab-0f915570659c" ],
+            "networkId": [ "e6afba51-7de8-4080-83ab-0f915570659c" ]
+        },
+        "queryStringParameters": [
+            {
+                "name": "force",
+                "values": [ "true" ]
+            }
+        ],
+        "body": {
+            "type": "JSON",
+            "json": {
+                "ips": [ "10.1.1.1" ]
+            },
+            "matchType": "STRICT"
+        }
+    },
+    "response": {
+        "statusCode": 200,
+        "body": {
+            "id": "603f3b2cfcaf059323941b9a8dPRIV",
+            "ips": [
+                "10.1.1.1"
+            ],
+            "statusDescription": "assigned"
+        }
+    }
+}
