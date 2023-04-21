@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 )
 
-// OsConfigurationNetrisSoftgate Netris Softgate configuration properties.
+// OsConfigurationNetrisSoftgate Netris Softgate configuration properties. Follow <a href='https://phoenixnap.com/kb/netris-bare-metal-cloud#deploy-netris-softgate' target='_blank'>instructions</a> for retrieving the required details.
 type OsConfigurationNetrisSoftgate struct {
 	// (Read-only) Host OS on which the Netris Softgate is installed.
 	HostOs *string `json:"hostOs,omitempty"`

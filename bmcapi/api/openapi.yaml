@@ -3614,7 +3614,9 @@ components:
       - used
       type: object
     OsConfiguration_netrisController:
-      description: Netris Controller configuration properties.
+      description: Netris Controller configuration properties. Knowledge base article
+        to help you can be found <a href='https://phoenixnap.com/kb/netris-bare-metal-cloud#deploy-netris-controller'
+        target='_blank'>here</a>.
       example:
         netrisUserPassword: cNC1jPFXG2h7f
         netrisWebConsoleUrl: https://172.217.22.14
@@ -3627,7 +3629,7 @@ components:
           type: string
         netrisWebConsoleUrl:
           description: (Read-only) The URL for the Netris Controller web console.
-            Will only be returned in response to provisioning a server.
+            It will only be returned in response to provisioning a server.
           example: https://172.217.22.14
           readOnly: true
           type: string
@@ -3641,7 +3643,8 @@ components:
           type: string
       type: object
     OsConfiguration_netrisSoftgate:
-      description: Netris Softgate configuration properties.
+      description: Netris Softgate configuration properties. Follow <a href='https://phoenixnap.com/kb/netris-bare-metal-cloud#deploy-netris-softgate'
+        target='_blank'>instructions</a> for retrieving the required details.
       example:
         hostOs: ubuntu/jammy
         controllerAuthKey: w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw

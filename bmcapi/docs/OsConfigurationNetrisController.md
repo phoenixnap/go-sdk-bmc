@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **HostOs** | Pointer to **string** | (Read-only) Host OS on which the Netris Controller is installed. | [optional] [readonly] 
-**NetrisWebConsoleUrl** | Pointer to **string** | (Read-only) The URL for the Netris Controller web console. Will only be returned in response to provisioning a server. | [optional] [readonly] 
+**NetrisWebConsoleUrl** | Pointer to **string** | (Read-only) The URL for the Netris Controller web console. It will only be returned in response to provisioning a server. | [optional] [readonly] 
 **NetrisUserPassword** | Pointer to **string** | (Read-only) Auto-generated password set for user &#39;netris&#39; in the web console.&lt;br&gt;  The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference. | [optional] [readonly] 
 
 ## Methods

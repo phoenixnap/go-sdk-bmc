@@ -1288,7 +1288,7 @@ components:
       description: OS specific configuration properties.
       properties:
         netrisController:
-          description: Netris Controller configuration properties.
+          description: Netris Controller configuration properties. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/netris-bare-metal-cloud#deploy-netris-controller' target='_blank'>here</a>.
           type: object
           properties:
             hostOs:
@@ -1297,7 +1297,7 @@ components:
               type: string
               example: ubuntu/jammy
             netrisWebConsoleUrl:
-              description: (Read-only) The URL for the Netris Controller web console. Will only be returned in response to provisioning a server.
+              description: (Read-only) The URL for the Netris Controller web console. It will only be returned in response to provisioning a server.
               readOnly: true
               type: string
               example: https://172.217.22.14
@@ -1307,7 +1307,7 @@ components:
               type: string
               example: cNC1jPFXG2h7f
         netrisSoftgate:
-          description: Netris Softgate configuration properties.
+          description: Netris Softgate configuration properties. Follow <a href='https://phoenixnap.com/kb/netris-bare-metal-cloud#deploy-netris-softgate' target='_blank'>instructions</a> for retrieving the required details.
           type: object
           properties:
             hostOs:
