@@ -37,7 +37,7 @@ type ServerCreate struct {
 	ReservationId *string `json:"reservationId,omitempty"`
 	// Server pricing model. Currently this field should be set to `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`.
 	PricingModel *string `json:"pricingModel,omitempty"`
-	// The type of network configuration for this server. Currently this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
+	// The type of network configuration for this server.<br> Currently this field should be set to `PUBLIC_AND_PRIVATE`, `PRIVATE_ONLY` or `PUBLIC_ONLY`.<br> Setting the `force` query parameter to `true` allows you to configure network configuration type as `NONE`.
 	NetworkType     *string          `json:"networkType,omitempty"`
 	OsConfiguration *OsConfiguration `json:"osConfiguration,omitempty"`
 	// Tags to set to the server. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).

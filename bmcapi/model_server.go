@@ -54,7 +54,7 @@ type Server struct {
 	PricingModel string `json:"pricingModel"`
 	// Auto-generated password set for user `Admin` on Windows server, user `root` on ESXi servers, user `root` on Proxmox server and user `netris` on Netris servers.<br> The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
 	Password *string `json:"password,omitempty"`
-	// The type of network configuration for this server. Currently this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
+	// The type of network configuration for this server. Currently this field should be set to `PUBLIC_AND_PRIVATE`, `PRIVATE_ONLY`, `PUBLIC_ONLY` or `NONE`.
 	NetworkType *string `json:"networkType,omitempty"`
 	// The cluster reference id if any.
 	ClusterId *string `json:"clusterId,omitempty"`

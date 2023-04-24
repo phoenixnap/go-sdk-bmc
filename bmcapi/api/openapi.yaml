@@ -2521,9 +2521,9 @@ components:
           type: string
         configurationType:
           default: USE_OR_CREATE_DEFAULT
-          description: (Write-only) Determines the approach for configuring private
-            network(s) for the server being provisioned. Currently this field should
-            be set to `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.
+          description: "(Write-only) Determines the approach for configuring private\
+            \ network(s) for the server being provisioned. Currently this field should\
+            \ be set to `USE_OR_CREATE_DEFAULT`, `USER_DEFINED` or `NONE`."
           example: USER_DEFINED
           type: string
           writeOnly: true
@@ -2918,8 +2918,9 @@ components:
           type: string
         networkType:
           default: PUBLIC_AND_PRIVATE
-          description: The type of network configuration for this server. Currently
-            this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
+          description: "The type of network configuration for this server. Currently\
+            \ this field should be set to `PUBLIC_AND_PRIVATE`, `PRIVATE_ONLY`, `PUBLIC_ONLY`\
+            \ or `NONE`."
           example: PUBLIC_AND_PRIVATE
           type: string
         clusterId:
@@ -3153,8 +3154,10 @@ components:
           type: string
         networkType:
           default: PUBLIC_AND_PRIVATE
-          description: The type of network configuration for this server. Currently
-            this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
+          description: "The type of network configuration for this server.<br> Currently\
+            \ this field should be set to `PUBLIC_AND_PRIVATE`, `PRIVATE_ONLY` or\
+            \ `PUBLIC_ONLY`.<br> Setting the `force` query parameter to `true` allows\
+            \ you to configure network configuration type as `NONE`."
           example: PUBLIC_AND_PRIVATE
           type: string
         osConfiguration:
