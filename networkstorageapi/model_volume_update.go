@@ -24,7 +24,8 @@ type VolumeUpdate struct {
 	// Capacity of Volume in GB. Currently only whole numbers and multiples of 1000GB are supported.
 	CapacityInGb *int32 `json:"capacityInGb,omitempty"`
 	// Last part of volume's path.
-	PathSuffix *string `json:"pathSuffix,omitempty"`
+	PathSuffix  *string            `json:"pathSuffix,omitempty"`
+	Permissions *PermissionsUpdate `json:"permissions,omitempty"`
 }
 
 // NewVolumeUpdate instantiates a new VolumeUpdate object
@@ -172,6 +173,38 @@ func (o *VolumeUpdate) SetPathSuffix(v string) {
 	o.PathSuffix = &v
 }
 
+// GetPermissions returns the Permissions field value if set, zero value otherwise.
+func (o *VolumeUpdate) GetPermissions() PermissionsUpdate {
+	if o == nil || o.Permissions == nil {
+		var ret PermissionsUpdate
+		return ret
+	}
+	return *o.Permissions
+}
+
+// GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VolumeUpdate) GetPermissionsOk() (*PermissionsUpdate, bool) {
+	if o == nil || o.Permissions == nil {
+		return nil, false
+	}
+	return o.Permissions, true
+}
+
+// HasPermissions returns a boolean if a field has been set.
+func (o *VolumeUpdate) HasPermissions() bool {
+	if o != nil && o.Permissions != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPermissions gets a reference to the given PermissionsUpdate and assigns it to the Permissions field.
+func (o *VolumeUpdate) SetPermissions(v PermissionsUpdate) {
+	o.Permissions = &v
+}
+
 func (o VolumeUpdate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Name != nil {
@@ -185,6 +218,9 @@ func (o VolumeUpdate) MarshalJSON() ([]byte, error) {
 	}
 	if o.PathSuffix != nil {
 		toSerialize["pathSuffix"] = o.PathSuffix
+	}
+	if o.Permissions != nil {
+		toSerialize["permissions"] = o.Permissions
 	}
 	return json.Marshal(toSerialize)
 }

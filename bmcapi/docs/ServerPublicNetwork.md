@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | The network identifier. | 
 **Ips** | Pointer to **[]string** | Configurable/configured IPs on the server.&lt;br&gt; At least 1 IP address is required. All IPs must be within the network&#39;s range.&lt;br&gt; Setting the &#x60;force&#x60; query parameter to &#x60;true&#x60; allows you to:&lt;ul&gt; &lt;li&gt; Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. &lt;li&gt; Assign one or more IP addresses which are already configured on other resource(s) in network.&lt;/ul&gt; | [optional] 
-**StatusDescription** | Pointer to **string** | The status of the assignment to the network. | [optional] [readonly] 
+**StatusDescription** | Pointer to **string** | (Read-only) The status of the assignment to the network. | [optional] [readonly] 
 
 ## Methods
 

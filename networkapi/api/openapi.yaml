@@ -137,6 +137,19 @@ paths:
     post:
       description: Create a Private Network.
       operationId: privateNetworksPost
+      parameters:
+      - description: Query parameter controlling advanced features availability. Currently
+          applicable for networking. It is advised to use with caution since it might
+          lead to unhealthy setups.
+        example: true
+        explode: true
+        in: query
+        name: force
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       requestBody:
         content:
           application/json:
@@ -1152,6 +1165,19 @@ paths:
       - Public Networks
 components:
   parameters:
+    forceQueryParam:
+      description: Query parameter controlling advanced features availability. Currently
+        applicable for networking. It is advised to use with caution since it might
+        lead to unhealthy setups.
+      example: true
+      explode: true
+      in: query
+      name: force
+      required: false
+      schema:
+        default: false
+        type: boolean
+      style: form
     privateNetworkIdPathParam:
       description: The private network identifier.
       example: 603f3b2cfcaf050643b89a4b
@@ -1182,19 +1208,6 @@ components:
       schema:
         type: string
       style: simple
-    forceQueryParam:
-      description: Query parameter controlling advanced features availability. Currently
-        applicable for networking. It is advised to use with caution since it might
-        lead to unhealthy setups.
-      example: true
-      explode: true
-      in: query
-      name: force
-      required: false
-      schema:
-        default: false
-        type: boolean
-      style: form
   responses:
     BadRequest:
       content:
@@ -1330,7 +1343,6 @@ components:
           format: date-time
           type: string
       required:
-      - cidr
       - createdOn
       - id
       - location
@@ -1407,11 +1419,12 @@ components:
           minimum: 2
           type: integer
         cidr:
-          description: IP range associated with this private network in CIDR notation.
+          description: IP range associated with this private network in CIDR notation.<br>
+            Setting the `force` query parameter to `true` allows you to skip assigning
+            a specific IP range to network.
           example: 10.0.0.0/24
           type: string
       required:
-      - cidr
       - location
       - name
       type: object

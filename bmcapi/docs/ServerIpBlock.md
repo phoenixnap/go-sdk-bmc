@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | The IP block&#39;s ID. | 
-**VlanId** | Pointer to **int32** | The VLAN on which this IP block has been configured within the network switch. | [optional] [readonly] 
+**VlanId** | Pointer to **int32** | (Read-only) The VLAN on which this IP block has been configured within the network switch. | [optional] [readonly] 
 
 ## Methods
 

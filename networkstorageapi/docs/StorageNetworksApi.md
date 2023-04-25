@@ -314,7 +314,7 @@ import (
 )
 
 func main() {
-    storageNetworkCreate := *openapiclient.NewStorageNetworkCreate("My storage network", "PHX", []openapiclient.VolumeCreate{*openapiclient.NewVolumeCreate("My volume name", int32(2000))}) // StorageNetworkCreate |  (optional)
+    storageNetworkCreate := *openapiclient.NewStorageNetworkCreate("My storage network", "PHX", []openapiclient.StorageNetworkVolumeCreate{*openapiclient.NewStorageNetworkVolumeCreate("My volume name", int32(2000))}) // StorageNetworkCreate |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

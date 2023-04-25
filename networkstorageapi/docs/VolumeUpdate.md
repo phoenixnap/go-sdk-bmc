@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Volume description. | [optional] 
 **CapacityInGb** | Pointer to **int32** | Capacity of Volume in GB. Currently only whole numbers and multiples of 1000GB are supported. | [optional] 
 **PathSuffix** | Pointer to **string** | Last part of volume&#39;s path. | [optional] 
+**Permissions** | Pointer to [**PermissionsUpdate**](PermissionsUpdate.md) |  | [optional] 
 
 ## Methods
 
@@ -127,6 +128,31 @@ SetPathSuffix sets PathSuffix field to given value.
 `func (o *VolumeUpdate) HasPathSuffix() bool`
 
 HasPathSuffix returns a boolean if a field has been set.
+
+### GetPermissions
+
+`func (o *VolumeUpdate) GetPermissions() PermissionsUpdate`
+
+GetPermissions returns the Permissions field if non-nil, zero value otherwise.
+
+### GetPermissionsOk
+
+`func (o *VolumeUpdate) GetPermissionsOk() (*PermissionsUpdate, bool)`
+
+GetPermissionsOk returns a tuple with the Permissions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPermissions
+
+`func (o *VolumeUpdate) SetPermissions(v PermissionsUpdate)`
+
+SetPermissions sets Permissions field to given value.
+
+### HasPermissions
+
+`func (o *VolumeUpdate) HasPermissions() bool`
+
+HasPermissions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -513,6 +513,59 @@ paths:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
       - $ref: '#/components/parameters/privateNetworkIdPathParam'
+    patch:
+      tags:
+        - Servers
+      description: IP address changes intended to keep the BMC data up to date with server's operating system. We do not have access to the server's operating system and therefore manual configuration is required to apply the changes on the host. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-6' target='_blank'>here</a>
+      summary: Updates the server's private network's IP addresses
+      operationId: serversServerIdPrivateNetworksPatch
+      security:
+        - OAuth2:
+            - bmc
+      parameters:
+        - $ref: '#/components/parameters/forceQueryParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServerNetworkUpdate'
+            examples:
+              privateNetworkWithIps:
+                value:
+                  ips:
+                    - 10.0.0.1
+                    - 10.0.0.2
+              privateNetworkWithoutIpsForceTrue:
+                value:
+                  ips: []
+      responses:
+        '200':
+          description: Updated IP addresses assigned to server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerPrivateNetwork'
+              examples:
+                privateNetworkWithIps:
+                  value:
+                    id: 60473a6115e34466c9f8f083
+                    ips:
+                      - 10.0.0.1
+                      - 10.0.0.2
+                privateNetworkWithoutIpsForceTrue:
+                  value:
+                    id: 60473a6115e34466c9f8f083
+                    ips: []
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags:
         - Servers
@@ -592,6 +645,61 @@ paths:
     parameters:
       - $ref: '#/components/parameters/serverIdPathParam'
       - $ref: '#/components/parameters/publicNetworkIdPathParam'
+    patch:
+      tags:
+        - Servers
+      description: IP address changes intended to keep the BMC data up to date with server's operating system. We do not have access to the server's operating system and therefore manual configuration is required to apply the changes on the host. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-6' target='_blank'>here</a>
+      summary: Updates the server's public network's IP addresses.
+      operationId: serversServerIdPublicNetworksPatch
+      security:
+        - OAuth2:
+            - bmc
+      parameters:
+        - $ref: '#/components/parameters/forceQueryParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServerNetworkUpdate'
+            examples:
+              PublicNetworkWithProvidedIps:
+                value:
+                  ips:
+                    - 182.16.0.146
+                    - 182.16.0.147
+              PublicNetworkWithNoIpsAndForceTrue:
+                value:
+                  ips: []
+      responses:
+        '200':
+          description: Updated IP addresses assigned to server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerPublicNetwork'
+              examples:
+                PublicNetworkWithProvidedIps:
+                  value:
+                    id: 60473a6115e34466c9f8f088
+                    ips:
+                      - 182.16.0.146
+                      - 182.16.0.147
+                    statusDescription: assigned
+                PublicNetworkWithNoIpsAndForceTrue:
+                  value:
+                    id: 60473a6115e34466c9f8f088
+                    ips: []
+                    statusDescription: assigned
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags:
         - Servers
@@ -1179,6 +1287,49 @@ components:
       type: object
       description: OS specific configuration properties.
       properties:
+        netrisController:
+          description: Netris Controller configuration properties.
+          type: object
+          properties:
+            hostOs:
+              description: (Read-only) Host OS on which the Netris Controller is installed.
+              readOnly: true
+              type: string
+              example: ubuntu/jammy
+            netrisWebConsoleUrl:
+              description: (Read-only) The URL for the Netris Controller web console. Will only be returned in response to provisioning a server.
+              readOnly: true
+              type: string
+              example: https://172.217.22.14
+            netrisUserPassword:
+              description: (Read-only) Auto-generated password set for user 'netris' in the web console.<br>  The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
+              readOnly: true
+              type: string
+              example: cNC1jPFXG2h7f
+        netrisSoftgate:
+          description: Netris Softgate configuration properties.
+          type: object
+          properties:
+            hostOs:
+              description: (Read-only) Host OS on which the Netris Softgate is installed.
+              readOnly: true
+              type: string
+              example: ubuntu/jammy
+            controllerAddress:
+              description: (Write-only) IP address or hostname through which to reach the Netris Controller.
+              writeOnly: true
+              type: string
+              example: 120.153.203.227
+            controllerVersion:
+              description: (Write-only) The version of the Netris Controller to connect to.
+              writeOnly: true
+              type: string
+              example: 3.4.0-003
+            controllerAuthKey:
+              description: (Write-only) The authentication key of the Netris Controller to connect to. Required for the softgate agent to be able to interact with the Netris Controller.
+              writeOnly: true
+              type: string
+              example: w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw
         windows:
           description: Windows OS configuration properties.
           type: object
@@ -1195,15 +1346,15 @@ components:
                 - 10.111.14.40/29
                 - 10.111.14.66 - 10.111.14.71
         rootPassword:
-          description: Password set for user root on an ESXi server which will only be returned in response to provisioning a server.
+          description: (Read-only) Auto-generated password set for user 'root' on an ESXi or Proxmox server.<br>  The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
+          readOnly: true
           type: string
           example: MyP@ssw0rd_01
-          readOnly: true
         managementUiUrl:
-          description: The URL of the management UI which will only be returned in response to provisioning a server.
+          description: (Read-only) The URL of the management UI which will only be returned in response to provisioning a server.
+          readOnly: true
           type: string
           example: https://172.217.22.14
-          readOnly: true
         managementAccessAllowedIps:
           description: List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
           type: array
@@ -1216,18 +1367,19 @@ components:
             - 10.111.14.40/29
             - 10.111.14.66 - 10.111.14.71
         installOsToRam:
-          description: If true, OS will be installed to and booted from the server's RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Only supported for ubuntu/focal and ubuntu/jammy.
+          description: If true, OS will be installed to and booted from the server's RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Follow the <a href='https://phoenixnap.com/kb/bmc-custom-os' target='_blank'>instructions</a> on how to install custom OS on BMC. Only supported for ubuntu/focal and ubuntu/jammy.
           type: boolean
           default: false
+          example: true
         cloudInit:
           type: object
           description: Cloud-init configuration details.
           properties:
             userData:
               description: User data for the <a href='https://cloudinit.readthedocs.io/en/latest/' target='_blank'>cloud-init</a> configuration in base64 encoding. NoCloud format is supported. Follow the <a href='https://phoenixnap.com/kb/bmc-cloud-init' target='_blank'>instructions</a> on how to provision a server using cloud-init. Only ubuntu/bionic, ubuntu/focal and ubuntu/jammy are supported. User data will not be stored and cannot be retrieved once you deploy the server. Copy and save it for future reference.
+              writeOnly: true
               type: string
               format: byte
-              writeOnly: true
     ServerPrivateNetwork:
       type: object
       description: Private network details of bare metal server.
@@ -1254,7 +1406,7 @@ components:
           default: false
           example: false
         statusDescription:
-          description: The status of the network.
+          description: (Read-only) The status of the network.
           readOnly: true
           type: string
           example: assigned
@@ -1268,9 +1420,9 @@ components:
           type: string
           example: 10.0.0.10
         configurationType:
-          description: Determines the approach for configuring private network(s) for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.
-          type: string
+          description: (Write-only) Determines the approach for configuring private network(s) for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.
           writeOnly: true
+          type: string
           default: USE_OR_CREATE_DEFAULT
           example: USER_DEFINED
         privateNetworks:
@@ -1299,8 +1451,8 @@ components:
           type: string
           example: 60473a6115e34466c9f8f083
         vlanId:
+          description: (Read-only) The VLAN on which this IP block has been configured within the network switch.
           readOnly: true
-          description: The VLAN on which this IP block has been configured within the network switch.
           type: integer
           example: 10
     IpBlocksConfiguration:
@@ -1308,7 +1460,7 @@ components:
       description: The IP blocks to assign to this server. <b>This is an exclusive allocation</b>, i.e. the IP blocks cannot be shared with other servers. If IpBlocksConfiguration is not defined, the purchase of a new IP block is determined by the networkType field.
       properties:
         configurationType:
-          description: Determines the approach for configuring IP blocks for the server being provisioned. If PURCHASE_NEW is selected, the smallest supported range, depending on the operating system, is allocated to the server.
+          description: (Write-only) Determines the approach for configuring IP blocks for the server being provisioned. If PURCHASE_NEW is selected, the smallest supported range, depending on the operating system, is allocated to the server.
           writeOnly: true
           type: string
           enum:
@@ -1342,7 +1494,7 @@ components:
             - 182.16.0.146
             - 182.16.0.147
         statusDescription:
-          description: The status of the assignment to the network.
+          description: (Read-only) The status of the assignment to the network.
           readOnly: true
           type: string
           example: assigned
@@ -1418,11 +1570,11 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye` or `proxmox/bullseye`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`.
           type: string
           example: ubuntu/bionic
         type:
-          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`, `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge` or `d2.c4.storage.pliops1`.
+          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`, `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge`, `d2.c4.storage.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge` or `d3.m6.xlarge`.
           type: string
           example: s1.c1.small
         location:
@@ -1487,7 +1639,7 @@ components:
           default: HOURLY
           example: HOURLY
         password:
-          description: Password set for user Admin on Windows server or user root on ESXi server which will only be returned in response to provisioning a server.
+          description: Auto-generated password set for user `Admin` on Windows server, user `root` on ESXi servers, user `root` on Proxmox server and user `netris` on Netris servers.<br> The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
           type: string
           example: MyP@ssw0rd_01
         networkType:
@@ -1564,11 +1716,11 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`,`centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye` or `proxmox/bullseye`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`.
           type: string
           example: ubuntu/bionic
         type:
-          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`, `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge` or `d2.c4.storage.pliops1`.
+          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`, `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge`, `d2.c4.storage.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge` or `d3.m6.xlarge`.
           type: string
           example: s1.c1.small
         location:
@@ -1661,6 +1813,19 @@ components:
           type: boolean
           default: false
           example: true
+    ServerNetworkUpdate:
+      type: object
+      description: Update network details of bare metal server.
+      properties:
+        ips:
+          description: List of IPs to be associated to the server.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
+          type: array
+          items:
+            type: string
+            example: 10.1.1.1
+          example:
+            - 10.1.1.1
+            - 10.1.1.2
     ActionResult:
       type: object
       description: Result of a successful action.
@@ -1695,15 +1860,15 @@ components:
           type: object
           properties:
             rootPassword:
-              description: Password set for user root on an ESXi server which will only be returned in response to provisioning a server.
+              description: (Read-only) Password set for user root on an ESXi server which will only be returned in response to provisioning a server.
+              readOnly: true
               type: string
               example: MyP@ssw0rd_01
-              readOnly: true
             managementUiUrl:
-              description: The URL of the management UI which will only be returned in response to provisioning a server.
+              description: (Read-only) The URL of the management UI which will only be returned in response to provisioning a server.
+              readOnly: true
               type: string
               example: https://172.217.22.14
-              readOnly: true
             managementAccessAllowedIps:
               description: List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
               type: array
@@ -1720,15 +1885,15 @@ components:
           type: object
           properties:
             rootPassword:
-              description: Password set for user root on a Proxmox server which will only be returned in response to provisioning a server.
+              description: (Read-only) Password set for user root on a Proxmox server which will only be returned in response to provisioning a server.
+              readOnly: true
               type: string
               example: MyP@ssw0rd_01
-              readOnly: true
             managementUiUrl:
-              description: The URL of the management UI which will only be returned in response to provisioning a server.
+              description: (Read-only) The URL of the management UI which will only be returned in response to provisioning a server.
+              readOnly: true
               type: string
               example: https://172.217.22.14:8006
-              readOnly: true
             managementAccessAllowedIps:
               description: List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
               type: array

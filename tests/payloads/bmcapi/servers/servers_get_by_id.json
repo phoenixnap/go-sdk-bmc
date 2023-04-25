@@ -38,6 +38,17 @@
             }],
             "provisionedOn": "2021-03-13T20:24:32.491Z",
             "osConfiguration": {
+                "netrisController": {
+                  "hostOs": "ubuntu/jammy",
+                  "netrisWebConsoleUrl": "https://172.217.22.14",
+                  "netrisUserPassword": "cNC1jPFXG2h7f"
+                },
+                "netrisSoftgate": {
+                  "hostOs": "ubuntu/jammy",
+                  "controllerAddress": "120.153.203.227",
+                  "controllerVersion": "3.4.0-003",
+                  "controllerAuthKey": "w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw"
+                },
                 "windows": {
                     "rdpAllowedIps": [
                       "172.217.22.14",

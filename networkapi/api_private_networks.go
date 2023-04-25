@@ -682,7 +682,14 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPutExecute(r ApiPriv
 type ApiPrivateNetworksPostRequest struct {
 	ctx                  context.Context
 	ApiService           PrivateNetworksApi
+	force                *bool
 	privateNetworkCreate *PrivateNetworkCreate
+}
+
+// Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
+func (r ApiPrivateNetworksPostRequest) Force(force bool) ApiPrivateNetworksPostRequest {
+	r.force = &force
+	return r
 }
 
 func (r ApiPrivateNetworksPostRequest) PrivateNetworkCreate(privateNetworkCreate PrivateNetworkCreate) ApiPrivateNetworksPostRequest {
@@ -730,6 +737,9 @@ func (a *PrivateNetworksApiService) PrivateNetworksPostExecute(r ApiPrivateNetwo
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.force != nil {
+		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

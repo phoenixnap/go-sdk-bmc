@@ -19,7 +19,7 @@ import (
 type ServerIpBlock struct {
 	// The IP block's ID.
 	Id string `json:"id"`
-	// The VLAN on which this IP block has been configured within the network switch.
+	// (Read-only) The VLAN on which this IP block has been configured within the network switch.
 	VlanId *int32 `json:"vlanId,omitempty"`
 }
 

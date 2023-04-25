@@ -24,7 +24,8 @@ type VolumeCreate struct {
 	// Last part of volume's path.
 	PathSuffix *string `json:"pathSuffix,omitempty"`
 	// Capacity of Volume in GB. Currently only whole numbers and multiples of 1000GB are supported.
-	CapacityInGb int32 `json:"capacityInGb"`
+	CapacityInGb int32              `json:"capacityInGb"`
+	Permissions  *PermissionsCreate `json:"permissions,omitempty"`
 }
 
 // NewVolumeCreate instantiates a new VolumeCreate object
@@ -158,6 +159,38 @@ func (o *VolumeCreate) SetCapacityInGb(v int32) {
 	o.CapacityInGb = v
 }
 
+// GetPermissions returns the Permissions field value if set, zero value otherwise.
+func (o *VolumeCreate) GetPermissions() PermissionsCreate {
+	if o == nil || o.Permissions == nil {
+		var ret PermissionsCreate
+		return ret
+	}
+	return *o.Permissions
+}
+
+// GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VolumeCreate) GetPermissionsOk() (*PermissionsCreate, bool) {
+	if o == nil || o.Permissions == nil {
+		return nil, false
+	}
+	return o.Permissions, true
+}
+
+// HasPermissions returns a boolean if a field has been set.
+func (o *VolumeCreate) HasPermissions() bool {
+	if o != nil && o.Permissions != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPermissions gets a reference to the given PermissionsCreate and assigns it to the Permissions field.
+func (o *VolumeCreate) SetPermissions(v PermissionsCreate) {
+	o.Permissions = &v
+}
+
 func (o VolumeCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -171,6 +204,9 @@ func (o VolumeCreate) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["capacityInGb"] = o.CapacityInGb
+	}
+	if o.Permissions != nil {
+		toSerialize["permissions"] = o.Permissions
 	}
 	return json.Marshal(toSerialize)
 }
