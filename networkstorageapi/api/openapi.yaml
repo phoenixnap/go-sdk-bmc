@@ -806,6 +806,7 @@ components:
           pathSuffix: /shared-docs
           name: My volume name
           description: My volume description
+        clientVlan: 329
         description: My storage network description
         location: PHX
       properties:
@@ -833,6 +834,11 @@ components:
           maxItems: 1
           minItems: 1
           type: array
+        clientVlan:
+          description: Custom Client VLAN that the Storage Network will be set to.
+          maximum: 4094
+          minimum: 2
+          type: integer
       required:
       - location
       - name

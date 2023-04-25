@@ -410,6 +410,11 @@ components:
           maxItems: 1
           items:
             $ref: '#/components/schemas/StorageNetworkVolumeCreate'
+        clientVlan:
+          description: Custom Client VLAN that the Storage Network will be set to.
+          type: integer
+          minimum: 2
+          maximum: 4094
     StorageNetworkVolumeCreate:
       title: StorageNetworkVolumeCreate
       type: object

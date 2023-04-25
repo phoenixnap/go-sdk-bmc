@@ -25,6 +25,8 @@ type StorageNetworkCreate struct {
 	Location string `json:"location"`
 	// Volume to be created alongside storage. Currently only 1 volume is supported.
 	Volumes []StorageNetworkVolumeCreate `json:"volumes"`
+	// Custom Client VLAN that the Storage Network will be set to.
+	ClientVlan *int32 `json:"clientVlan,omitempty"`
 }
 
 // NewStorageNetworkCreate instantiates a new StorageNetworkCreate object
@@ -151,6 +153,38 @@ func (o *StorageNetworkCreate) SetVolumes(v []StorageNetworkVolumeCreate) {
 	o.Volumes = v
 }
 
+// GetClientVlan returns the ClientVlan field value if set, zero value otherwise.
+func (o *StorageNetworkCreate) GetClientVlan() int32 {
+	if o == nil || o.ClientVlan == nil {
+		var ret int32
+		return ret
+	}
+	return *o.ClientVlan
+}
+
+// GetClientVlanOk returns a tuple with the ClientVlan field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StorageNetworkCreate) GetClientVlanOk() (*int32, bool) {
+	if o == nil || o.ClientVlan == nil {
+		return nil, false
+	}
+	return o.ClientVlan, true
+}
+
+// HasClientVlan returns a boolean if a field has been set.
+func (o *StorageNetworkCreate) HasClientVlan() bool {
+	if o != nil && o.ClientVlan != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetClientVlan gets a reference to the given int32 and assigns it to the ClientVlan field.
+func (o *StorageNetworkCreate) SetClientVlan(v int32) {
+	o.ClientVlan = &v
+}
+
 func (o StorageNetworkCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -164,6 +198,9 @@ func (o StorageNetworkCreate) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["volumes"] = o.Volumes
+	}
+	if o.ClientVlan != nil {
+		toSerialize["clientVlan"] = o.ClientVlan
 	}
 	return json.Marshal(toSerialize)
 }
