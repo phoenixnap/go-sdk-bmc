@@ -2,6 +2,12 @@
   "request": {
     "method": "POST",
     "path": "/networks/v1/private-networks",
+    "queryStringParameters": [
+        {
+            "name": "force",
+            "values": [ "true" ]
+        }
+    ],
     "body": {
       "type": "JSON",
       "json": {

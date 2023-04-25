@@ -81,12 +81,16 @@ func (suite *NetworkApiTestSuite) TestCreatePrivateNetwork() {
 	// Extract the response expectation id
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
+	// Fetch a map of query parameters
+	qpMap := TestUtilsImpl{}.generateQueryParams(request)
+	force := fmt.Sprintf("%v", qpMap["force"]) == "true"
+
 	body, _ := json.Marshal(request.Body.Json)
 	var networkCreate networkapi.PrivateNetworkCreate
 	json.Unmarshal(body, &networkCreate)
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.PrivateNetworksApi.PrivateNetworksPost(suite.ctx).PrivateNetworkCreate(networkCreate).Execute()
+	result, _, _ := suite.apiClient.PrivateNetworksApi.PrivateNetworksPost(suite.ctx).PrivateNetworkCreate(networkCreate).Force(force).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)

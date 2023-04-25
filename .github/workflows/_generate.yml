@@ -1,4 +1,4 @@
-name: (internal) - Generate
+name: (abstract) - Generate
 
 on:
   workflow_call:
