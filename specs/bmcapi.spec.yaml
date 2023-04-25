@@ -1288,7 +1288,7 @@ components:
       description: OS specific configuration properties.
       properties:
         netrisController:
-          description: Netris Controller configuration properties.
+          description: Netris Controller configuration properties. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/netris-bare-metal-cloud#deploy-netris-controller' target='_blank'>here</a>.
           type: object
           properties:
             hostOs:
@@ -1297,7 +1297,7 @@ components:
               type: string
               example: ubuntu/jammy
             netrisWebConsoleUrl:
-              description: (Read-only) The URL for the Netris Controller web console. Will only be returned in response to provisioning a server.
+              description: (Read-only) The URL for the Netris Controller web console. It will only be returned in response to provisioning a server.
               readOnly: true
               type: string
               example: https://172.217.22.14
@@ -1307,7 +1307,7 @@ components:
               type: string
               example: cNC1jPFXG2h7f
         netrisSoftgate:
-          description: Netris Softgate configuration properties.
+          description: Netris Softgate configuration properties. Follow <a href='https://phoenixnap.com/kb/netris-bare-metal-cloud#deploy-netris-softgate' target='_blank'>instructions</a> for retrieving the required details.
           type: object
           properties:
             hostOs:
@@ -1420,7 +1420,7 @@ components:
           type: string
           example: 10.0.0.10
         configurationType:
-          description: (Write-only) Determines the approach for configuring private network(s) for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.
+          description: (Write-only) Determines the approach for configuring private network(s) for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT`, `USER_DEFINED` or `NONE`.
           writeOnly: true
           type: string
           default: USE_OR_CREATE_DEFAULT
@@ -1570,7 +1570,7 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `esxi/esxi80`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`.
           type: string
           example: ubuntu/bionic
         type:
@@ -1643,7 +1643,7 @@ components:
           type: string
           example: MyP@ssw0rd_01
         networkType:
-          description: The type of network configuration for this server. Currently this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
+          description: The type of network configuration for this server. Currently this field should be set to `PUBLIC_AND_PRIVATE`, `PRIVATE_ONLY`, `PUBLIC_ONLY` or `NONE`.
           type: string
           default: PUBLIC_AND_PRIVATE
           example: PUBLIC_AND_PRIVATE
@@ -1716,7 +1716,7 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `esxi/esxi80`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`.
           type: string
           example: ubuntu/bionic
         type:
@@ -1760,7 +1760,7 @@ components:
           default: HOURLY
           example: ONE_MONTH_RESERVATION
         networkType:
-          description: The type of network configuration for this server. Currently this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
+          description: The type of network configuration for this server.<br> Currently this field should be set to `PUBLIC_AND_PRIVATE`, `PRIVATE_ONLY` or `PUBLIC_ONLY`.<br> Setting the `force` query parameter to `true` allows you to configure network configuration type as `NONE`.
           type: string
           default: PUBLIC_AND_PRIVATE
           example: PUBLIC_AND_PRIVATE

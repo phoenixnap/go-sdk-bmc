@@ -1,3 +1,3 @@
 package ranchersolutionapi
 
-const SdkVersion = "2.0.4"
+const SdkVersion = "2.0.5-SNAPSHOT"

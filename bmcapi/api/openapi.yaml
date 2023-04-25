@@ -2521,9 +2521,9 @@ components:
           type: string
         configurationType:
           default: USE_OR_CREATE_DEFAULT
-          description: (Write-only) Determines the approach for configuring private
-            network(s) for the server being provisioned. Currently this field should
-            be set to `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.
+          description: "(Write-only) Determines the approach for configuring private\
+            \ network(s) for the server being provisioned. Currently this field should\
+            \ be set to `USE_OR_CREATE_DEFAULT`, `USER_DEFINED` or `NONE`."
           example: USER_DEFINED
           type: string
           writeOnly: true
@@ -2824,8 +2824,8 @@ components:
           description: "The server’s OS ID used when the server was created. Currently\
             \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
             \ `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`,\
-            \ `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye`, `proxmox/bullseye`,\
-            \ `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`."
+            \ `windows/srv2019dc`, `esxi/esxi70`, `esxi/esxi80`, `debian/bullseye`,\
+            \ `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`."
           example: ubuntu/bionic
           type: string
         type:
@@ -2918,8 +2918,9 @@ components:
           type: string
         networkType:
           default: PUBLIC_AND_PRIVATE
-          description: The type of network configuration for this server. Currently
-            this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
+          description: "The type of network configuration for this server. Currently\
+            \ this field should be set to `PUBLIC_AND_PRIVATE`, `PRIVATE_ONLY`, `PUBLIC_ONLY`\
+            \ or `NONE`."
           example: PUBLIC_AND_PRIVATE
           type: string
         clusterId:
@@ -3088,8 +3089,8 @@ components:
           description: "The server’s OS ID used when the server was created. Currently\
             \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
             \ `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`,\
-            \ `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye`, `proxmox/bullseye`,\
-            \ `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`."
+            \ `windows/srv2019dc`, `esxi/esxi70`, `esxi/esxi80`, `debian/bullseye`,\
+            \ `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`."
           example: ubuntu/bionic
           type: string
         type:
@@ -3153,8 +3154,10 @@ components:
           type: string
         networkType:
           default: PUBLIC_AND_PRIVATE
-          description: The type of network configuration for this server. Currently
-            this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
+          description: "The type of network configuration for this server.<br> Currently\
+            \ this field should be set to `PUBLIC_AND_PRIVATE`, `PRIVATE_ONLY` or\
+            \ `PUBLIC_ONLY`.<br> Setting the `force` query parameter to `true` allows\
+            \ you to configure network configuration type as `NONE`."
           example: PUBLIC_AND_PRIVATE
           type: string
         osConfiguration:
@@ -3614,7 +3617,9 @@ components:
       - used
       type: object
     OsConfiguration_netrisController:
-      description: Netris Controller configuration properties.
+      description: Netris Controller configuration properties. Knowledge base article
+        to help you can be found <a href='https://phoenixnap.com/kb/netris-bare-metal-cloud#deploy-netris-controller'
+        target='_blank'>here</a>.
       example:
         netrisUserPassword: cNC1jPFXG2h7f
         netrisWebConsoleUrl: https://172.217.22.14
@@ -3627,7 +3632,7 @@ components:
           type: string
         netrisWebConsoleUrl:
           description: (Read-only) The URL for the Netris Controller web console.
-            Will only be returned in response to provisioning a server.
+            It will only be returned in response to provisioning a server.
           example: https://172.217.22.14
           readOnly: true
           type: string
@@ -3641,7 +3646,8 @@ components:
           type: string
       type: object
     OsConfiguration_netrisSoftgate:
-      description: Netris Softgate configuration properties.
+      description: Netris Softgate configuration properties. Follow <a href='https://phoenixnap.com/kb/netris-bare-metal-cloud#deploy-netris-softgate'
+        target='_blank'>instructions</a> for retrieving the required details.
       example:
         hostOs: ubuntu/jammy
         controllerAuthKey: w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw
