@@ -1,4 +1,4 @@
-name: (internal) - Build, Lint, Test
+name: (abstract) - Build, Lint, Test
 
 on:
   workflow_call:
