@@ -2476,7 +2476,7 @@ components:
           items:
             example: 10.1.1.1
             type: string
-          maxItems: 10
+          maxItems: 256
           type: array
         dhcp:
           default: false
