@@ -3663,6 +3663,8 @@ components:
           description: (Write-only) IP address or hostname through which to reach
             the Netris Controller.
           example: 120.153.203.227
+          maxLength: 253
+          pattern: "^(?!-)[\\w\\-]{1,63}(?<!-)(\\.(?!-)[\\w\\-]{1,63}(?<!-))*$"
           type: string
           writeOnly: true
         controllerVersion:
@@ -3676,6 +3678,7 @@ components:
             to connect to. Required for the softgate agent to be able to interact
             with the Netris Controller.
           example: w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw
+          pattern: ^\S+$
           type: string
           writeOnly: true
       type: object

@@ -1320,6 +1320,8 @@ components:
               writeOnly: true
               type: string
               example: 120.153.203.227
+              maxLength: 253
+              pattern: ^(?!-)[\w\-]{1,63}(?<!-)(\.(?!-)[\w\-]{1,63}(?<!-))*$
             controllerVersion:
               description: (Write-only) The version of the Netris Controller to connect to.
               writeOnly: true
@@ -1330,6 +1332,7 @@ components:
               writeOnly: true
               type: string
               example: w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw
+              pattern: ^\S+$
         windows:
           description: Windows OS configuration properties.
           type: object
