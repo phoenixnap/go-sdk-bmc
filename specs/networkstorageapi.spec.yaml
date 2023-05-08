@@ -275,11 +275,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/VolumeUpdate'
-            example:
-              name: New Volume name
-              description: New Volume description
-              capacityInGb: 2000
-              pathSuffix: /new-path
       responses:
         '200':
           description: Updated volume details.

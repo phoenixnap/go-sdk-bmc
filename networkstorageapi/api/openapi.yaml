@@ -569,11 +569,6 @@ paths:
       requestBody:
         content:
           application/json:
-            example:
-              name: New Volume name
-              description: New Volume description
-              capacityInGb: 2000
-              pathSuffix: /new-path
             schema:
               $ref: '#/components/schemas/VolumeUpdate'
         description: Storage network volume to be updated.
