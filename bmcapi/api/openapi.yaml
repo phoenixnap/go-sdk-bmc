@@ -3155,9 +3155,9 @@ components:
         networkType:
           default: PUBLIC_AND_PRIVATE
           description: "The type of network configuration for this server.<br> Currently\
-            \ this field should be set to `PUBLIC_AND_PRIVATE`, `PRIVATE_ONLY` or\
-            \ `PUBLIC_ONLY`.<br> Setting the `force` query parameter to `true` allows\
-            \ you to configure network configuration type as `NONE`."
+            \ this field should be set to `PUBLIC_AND_PRIVATE`, `PRIVATE_ONLY`, `PUBLIC_ONLY`\
+            \ or `USER_DEFINED`.<br> Setting the `force` query parameter to `true`\
+            \ allows you to configure network configuration type as `NONE`."
           example: PUBLIC_AND_PRIVATE
           type: string
         osConfiguration:
