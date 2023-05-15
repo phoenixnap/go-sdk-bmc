@@ -19,12 +19,12 @@ info:
     name: PhoenixNAP Team
     email: support@phoenixnap.com
     url: https://phoenixnap.com/
+servers:
+  - url: https://api.phoenixnap.com/network-storage/v1
 security:
   - OAuth2:
       - networkstorage
       - networkstorage.read
-servers:
-  - url: https://api.phoenixnap.com/network-storage/v1
 tags:
   - name: Storage Networks
     description: Storage Networks operations.
