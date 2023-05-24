@@ -28,12 +28,13 @@ Name | Type | Description | Notes
 **ProvisionedOn** | Pointer to **time.Time** | Date and time when server was provisioned. | [optional] 
 **OsConfiguration** | Pointer to [**OsConfiguration**](OsConfiguration.md) |  | [optional] 
 **NetworkConfiguration** | [**NetworkConfiguration**](NetworkConfiguration.md) |  | 
+**StorageConfiguration** | [**StorageConfiguration**](StorageConfiguration.md) |  | 
 
 ## Methods
 
 ### NewServer
 
-`func NewServer(id string, status string, hostname string, os string, type_ string, location string, cpu string, cpuCount int32, coresPerCpu int32, cpuFrequency float32, ram string, storage string, privateIpAddresses []string, pricingModel string, networkConfiguration NetworkConfiguration, ) *Server`
+`func NewServer(id string, status string, hostname string, os string, type_ string, location string, cpu string, cpuCount int32, coresPerCpu int32, cpuFrequency float32, ram string, storage string, privateIpAddresses []string, pricingModel string, networkConfiguration NetworkConfiguration, storageConfiguration StorageConfiguration, ) *Server`
 
 NewServer instantiates a new Server object
 This constructor will assign default values to properties that have it defined,
@@ -571,6 +572,26 @@ and a boolean to check if the value has been set.
 `func (o *Server) SetNetworkConfiguration(v NetworkConfiguration)`
 
 SetNetworkConfiguration sets NetworkConfiguration field to given value.
+
+
+### GetStorageConfiguration
+
+`func (o *Server) GetStorageConfiguration() StorageConfiguration`
+
+GetStorageConfiguration returns the StorageConfiguration field if non-nil, zero value otherwise.
+
+### GetStorageConfigurationOk
+
+`func (o *Server) GetStorageConfigurationOk() (*StorageConfiguration, bool)`
+
+GetStorageConfigurationOk returns a tuple with the StorageConfiguration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStorageConfiguration
+
+`func (o *Server) SetStorageConfiguration(v StorageConfiguration)`
+
+SetStorageConfiguration sets StorageConfiguration field to given value.
 
 
 

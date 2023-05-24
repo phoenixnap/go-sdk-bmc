@@ -43,6 +43,7 @@ type ServerCreate struct {
 	// Tags to set to the server. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).
 	Tags                 []TagAssignmentRequest `json:"tags,omitempty"`
 	NetworkConfiguration *NetworkConfiguration  `json:"networkConfiguration,omitempty"`
+	StorageConfiguration *StorageConfiguration  `json:"storageConfiguration,omitempty"`
 }
 
 // NewServerCreate instantiates a new ServerCreate object
@@ -494,6 +495,38 @@ func (o *ServerCreate) SetNetworkConfiguration(v NetworkConfiguration) {
 	o.NetworkConfiguration = &v
 }
 
+// GetStorageConfiguration returns the StorageConfiguration field value if set, zero value otherwise.
+func (o *ServerCreate) GetStorageConfiguration() StorageConfiguration {
+	if o == nil || o.StorageConfiguration == nil {
+		var ret StorageConfiguration
+		return ret
+	}
+	return *o.StorageConfiguration
+}
+
+// GetStorageConfigurationOk returns a tuple with the StorageConfiguration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServerCreate) GetStorageConfigurationOk() (*StorageConfiguration, bool) {
+	if o == nil || o.StorageConfiguration == nil {
+		return nil, false
+	}
+	return o.StorageConfiguration, true
+}
+
+// HasStorageConfiguration returns a boolean if a field has been set.
+func (o *ServerCreate) HasStorageConfiguration() bool {
+	if o != nil && o.StorageConfiguration != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageConfiguration gets a reference to the given StorageConfiguration and assigns it to the StorageConfiguration field.
+func (o *ServerCreate) SetStorageConfiguration(v StorageConfiguration) {
+	o.StorageConfiguration = &v
+}
+
 func (o ServerCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -537,6 +570,9 @@ func (o ServerCreate) MarshalJSON() ([]byte, error) {
 	}
 	if o.NetworkConfiguration != nil {
 		toSerialize["networkConfiguration"] = o.NetworkConfiguration
+	}
+	if o.StorageConfiguration != nil {
+		toSerialize["storageConfiguration"] = o.StorageConfiguration
 	}
 	return json.Marshal(toSerialize)
 }

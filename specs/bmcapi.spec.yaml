@@ -1532,6 +1532,22 @@ components:
           $ref: '#/components/schemas/IpBlocksConfiguration'
         publicNetworkConfiguration:
           $ref: '#/components/schemas/PublicNetworkConfiguration'
+    StorageConfiguration:
+      type: object
+      description: Storage configuration.
+      properties:
+        rootPartition:
+          type: object
+          description: Root partition configuration.
+          properties:
+            raid:
+              description: 'Software RAID configuration. The following RAID options are available: NO_RAID, RAID_0, RAID_1.'
+              type: string
+              default: NO_RAID
+            size:
+              description: The size of the root partition in GB. -1 to use all available space.
+              type: integer
+              default: -1
     Server:
       type: object
       description: Bare metal server.
@@ -1551,6 +1567,7 @@ components:
         - privateIpAddresses
         - pricingModel
         - networkConfiguration
+        - storageConfiguration
       properties:
         id:
           description: The unique identifier of the server.
@@ -1668,6 +1685,8 @@ components:
           $ref: '#/components/schemas/OsConfiguration'
         networkConfiguration:
           $ref: '#/components/schemas/NetworkConfiguration'
+        storageConfiguration:
+          $ref: '#/components/schemas/StorageConfiguration'
     Error:
       type: object
       required:
@@ -1776,6 +1795,8 @@ components:
             $ref: '#/components/schemas/TagAssignmentRequest'
         networkConfiguration:
           $ref: '#/components/schemas/NetworkConfiguration'
+        storageConfiguration:
+          $ref: '#/components/schemas/StorageConfiguration'
     DeleteResult:
       type: object
       description: Result of a successful delete action.

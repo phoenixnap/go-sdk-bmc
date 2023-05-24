@@ -64,13 +64,14 @@ type Server struct {
 	ProvisionedOn        *time.Time           `json:"provisionedOn,omitempty"`
 	OsConfiguration      *OsConfiguration     `json:"osConfiguration,omitempty"`
 	NetworkConfiguration NetworkConfiguration `json:"networkConfiguration"`
+	StorageConfiguration StorageConfiguration `json:"storageConfiguration"`
 }
 
 // NewServer instantiates a new Server object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServer(id string, status string, hostname string, os string, type_ string, location string, cpu string, cpuCount int32, coresPerCpu int32, cpuFrequency float32, ram string, storage string, privateIpAddresses []string, pricingModel string, networkConfiguration NetworkConfiguration) *Server {
+func NewServer(id string, status string, hostname string, os string, type_ string, location string, cpu string, cpuCount int32, coresPerCpu int32, cpuFrequency float32, ram string, storage string, privateIpAddresses []string, pricingModel string, networkConfiguration NetworkConfiguration, storageConfiguration StorageConfiguration) *Server {
 	this := Server{}
 	this.Id = id
 	this.Status = status
@@ -89,6 +90,7 @@ func NewServer(id string, status string, hostname string, os string, type_ strin
 	var networkType string = "PUBLIC_AND_PRIVATE"
 	this.NetworkType = &networkType
 	this.NetworkConfiguration = networkConfiguration
+	this.StorageConfiguration = storageConfiguration
 	return &this
 }
 
@@ -752,6 +754,30 @@ func (o *Server) SetNetworkConfiguration(v NetworkConfiguration) {
 	o.NetworkConfiguration = v
 }
 
+// GetStorageConfiguration returns the StorageConfiguration field value
+func (o *Server) GetStorageConfiguration() StorageConfiguration {
+	if o == nil {
+		var ret StorageConfiguration
+		return ret
+	}
+
+	return o.StorageConfiguration
+}
+
+// GetStorageConfigurationOk returns a tuple with the StorageConfiguration field value
+// and a boolean to check if the value has been set.
+func (o *Server) GetStorageConfigurationOk() (*StorageConfiguration, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.StorageConfiguration, true
+}
+
+// SetStorageConfiguration sets field value
+func (o *Server) SetStorageConfiguration(v StorageConfiguration) {
+	o.StorageConfiguration = v
+}
+
 func (o Server) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -825,6 +851,9 @@ func (o Server) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["networkConfiguration"] = o.NetworkConfiguration
+	}
+	if true {
+		toSerialize["storageConfiguration"] = o.StorageConfiguration
 	}
 	return json.Marshal(toSerialize)
 }

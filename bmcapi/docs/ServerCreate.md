@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **OsConfiguration** | Pointer to [**OsConfiguration**](OsConfiguration.md) |  | [optional] 
 **Tags** | Pointer to [**[]TagAssignmentRequest**](TagAssignmentRequest.md) | Tags to set to the server. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview). | [optional] 
 **NetworkConfiguration** | Pointer to [**NetworkConfiguration**](NetworkConfiguration.md) |  | [optional] 
+**StorageConfiguration** | Pointer to [**StorageConfiguration**](StorageConfiguration.md) |  | [optional] 
 
 ## Methods
 
@@ -367,6 +368,31 @@ SetNetworkConfiguration sets NetworkConfiguration field to given value.
 `func (o *ServerCreate) HasNetworkConfiguration() bool`
 
 HasNetworkConfiguration returns a boolean if a field has been set.
+
+### GetStorageConfiguration
+
+`func (o *ServerCreate) GetStorageConfiguration() StorageConfiguration`
+
+GetStorageConfiguration returns the StorageConfiguration field if non-nil, zero value otherwise.
+
+### GetStorageConfigurationOk
+
+`func (o *ServerCreate) GetStorageConfigurationOk() (*StorageConfiguration, bool)`
+
+GetStorageConfigurationOk returns a tuple with the StorageConfiguration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStorageConfiguration
+
+`func (o *ServerCreate) SetStorageConfiguration(v StorageConfiguration)`
+
+SetStorageConfiguration sets StorageConfiguration field to given value.
+
+### HasStorageConfiguration
+
+`func (o *ServerCreate) HasStorageConfiguration() bool`
+
+HasStorageConfiguration returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

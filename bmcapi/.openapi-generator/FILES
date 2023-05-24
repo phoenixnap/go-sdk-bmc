@@ -42,6 +42,8 @@ docs/ServersApi.md
 docs/SshKey.md
 docs/SshKeyCreate.md
 docs/SshKeyUpdate.md
+docs/StorageConfiguration.md
+docs/StorageConfigurationRootPartition.md
 docs/TagAssignment.md
 docs/TagAssignmentRequest.md
 go.mod
@@ -80,6 +82,8 @@ model_server_reset.go
 model_ssh_key.go
 model_ssh_key_create.go
 model_ssh_key_update.go
+model_storage_configuration.go
+model_storage_configuration_root_partition.go
 model_tag_assignment.go
 model_tag_assignment_request.go
 response.go
