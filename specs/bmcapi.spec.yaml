@@ -1544,10 +1544,12 @@ components:
               description: 'Software RAID configuration. The following RAID options are available: NO_RAID, RAID_0, RAID_1.'
               type: string
               default: NO_RAID
+              example: NO_RAID
             size:
               description: The size of the root partition in GB. -1 to use all available space.
               type: integer
               default: -1
+              example: -1
     Server:
       type: object
       description: Bare metal server.

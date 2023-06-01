@@ -2712,7 +2712,7 @@ components:
       description: Storage configuration.
       example:
         rootPartition:
-          size: 0
+          size: -1
           raid: NO_RAID
       properties:
         rootPartition:
@@ -2732,7 +2732,7 @@ components:
         reservationId: x78sdkjds879sd7cx8
         storageConfiguration:
           rootPartition:
-            size: 0
+            size: -1
             raid: NO_RAID
         id: x78sdkjds879sd7cx8
         networkType: PUBLIC_AND_PRIVATE
@@ -3086,7 +3086,7 @@ components:
         reservationId: 5f622c8032b458306b40d824
         storageConfiguration:
           rootPartition:
-            size: 0
+            size: -1
             raid: NO_RAID
         location: PHX
         sshKeys:
@@ -3748,18 +3748,20 @@ components:
     StorageConfiguration_rootPartition:
       description: Root partition configuration.
       example:
-        size: 0
+        size: -1
         raid: NO_RAID
       properties:
         raid:
           default: NO_RAID
           description: "Software RAID configuration. The following RAID options are\
             \ available: NO_RAID, RAID_0, RAID_1."
+          example: NO_RAID
           type: string
         size:
           default: -1
           description: The size of the root partition in GB. -1 to use all available
             space.
+          example: -1
           type: integer
       type: object
     OsConfigurationMap_esxi:
