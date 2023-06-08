@@ -441,6 +441,16 @@ components:
           type: integer
           minimum: 1000
           example: 2000
+        tags:
+          description: Tags to set to the resource. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).
+          type: array
+          items:
+            $ref: '#/components/schemas/TagAssignmentRequest'
+          example:
+            - name: stage
+              value: beta
+            - name: group
+              value: discounted
     StorageNetworkUpdate:
       type: object
       description: Update storage network.
@@ -500,6 +510,16 @@ components:
           example: '2021-03-13T20:24:32.491Z'
         permissions:
           $ref: '#/components/schemas/Permissions'
+        tags:
+          description: The tags assigned if any.
+          type: array
+          items:
+            $ref: '#/components/schemas/TagAssignment'
+          example:
+            - name: stage
+              value: beta
+            - name: group
+              value: discounted
     VolumeCreate:
       title: VolumeCreate
       type: object
@@ -533,6 +553,16 @@ components:
           example: 2000
         permissions:
           $ref: '#/components/schemas/PermissionsCreate'
+        tags:
+          description: Tags to set to the resource. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).
+          type: array
+          items:
+            $ref: '#/components/schemas/TagAssignmentRequest'
+          example:
+            - name: stage
+              value: beta
+            - name: group
+              value: discounted
     VolumeUpdate:
       type: object
       description: Update storage network volume.
@@ -741,6 +771,36 @@ components:
         - BUSY
         - ERROR
       example: READY
+    TagAssignment:
+      type: object
+      description: Tag assigned to resource.
+      required:
+        - id
+        - name
+        - isBillingTag
+      properties:
+        id:
+          description: The unique id of the tag.
+          type: string
+          example: 60ffafcdffb8b074c7968dad
+        name:
+          description: The name of the tag.
+          type: string
+          example: Environment
+        value:
+          description: The value of the tag assigned to the resource.
+          type: string
+          example: PROD
+        isBillingTag:
+          description: Whether or not to show the tag as part of billing and invoices
+          type: boolean
+          example: true
+        createdBy:
+          description: Who the tag was created by.
+          type: string
+          enum:
+            - USER
+            - SYSTEM
     Error:
       type: object
       required:
@@ -756,6 +816,20 @@ components:
             type: string
           readOnly: true
           description: Validation errors, if any.
+    TagAssignmentRequest:
+      type: object
+      description: Tag request to assign to resource.
+      required:
+        - name
+      properties:
+        name:
+          description: 'The name of the tag. Tag names are case-sensitive, and should be composed of a maximum of 100 characters including UTF-8 Unicode letters, numbers, and the following symbols: ''-'', ''_''. Regex: [A-zÀ-ú0-9_-]{1,100}.'
+          type: string
+          example: Environment
+        value:
+          description: 'The value of the tag assigned to the resource. Tag values are case-sensitive, and should be composed of a maximum of 100 characters including UTF-8 Unicode letters, numbers, and the following symbols: ''-'', ''_''. Regex: [A-zÀ-ú0-9_-]{1,100}.'
+          type: string
+          example: PROD
   responses:
     BadRequest:
       description: The request failed due to wrong data. Please check the provided parameters and try again.

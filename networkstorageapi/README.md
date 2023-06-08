@@ -111,6 +111,8 @@ Class | Method | HTTP request | Description
  - [StorageNetworkCreate](docs/StorageNetworkCreate.md)
  - [StorageNetworkUpdate](docs/StorageNetworkUpdate.md)
  - [StorageNetworkVolumeCreate](docs/StorageNetworkVolumeCreate.md)
+ - [TagAssignment](docs/TagAssignment.md)
+ - [TagAssignmentRequest](docs/TagAssignmentRequest.md)
  - [Volume](docs/Volume.md)
  - [VolumeCreate](docs/VolumeCreate.md)
  - [VolumeUpdate](docs/VolumeUpdate.md)

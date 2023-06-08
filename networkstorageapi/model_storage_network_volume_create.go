@@ -25,6 +25,8 @@ type StorageNetworkVolumeCreate struct {
 	PathSuffix *string `json:"pathSuffix,omitempty"`
 	// Capacity of Volume in GB. Currently only whole numbers and multiples of 1000GB are supported.
 	CapacityInGb int32 `json:"capacityInGb"`
+	// Tags to set to the resource. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).
+	Tags []TagAssignmentRequest `json:"tags,omitempty"`
 }
 
 // NewStorageNetworkVolumeCreate instantiates a new StorageNetworkVolumeCreate object
@@ -158,6 +160,38 @@ func (o *StorageNetworkVolumeCreate) SetCapacityInGb(v int32) {
 	o.CapacityInGb = v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *StorageNetworkVolumeCreate) GetTags() []TagAssignmentRequest {
+	if o == nil || o.Tags == nil {
+		var ret []TagAssignmentRequest
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StorageNetworkVolumeCreate) GetTagsOk() ([]TagAssignmentRequest, bool) {
+	if o == nil || o.Tags == nil {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *StorageNetworkVolumeCreate) HasTags() bool {
+	if o != nil && o.Tags != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []TagAssignmentRequest and assigns it to the Tags field.
+func (o *StorageNetworkVolumeCreate) SetTags(v []TagAssignmentRequest) {
+	o.Tags = v
+}
+
 func (o StorageNetworkVolumeCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -171,6 +205,9 @@ func (o StorageNetworkVolumeCreate) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["capacityInGb"] = o.CapacityInGb
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
 	}
 	return json.Marshal(toSerialize)
 }
