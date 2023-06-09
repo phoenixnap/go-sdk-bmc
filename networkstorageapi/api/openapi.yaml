@@ -625,6 +625,84 @@ paths:
       summary: Update a storage network's volume details.
       tags:
       - Storage Networks
+  /storage-networks/{storageNetworkId}/volumes/{volumeId}/tags:
+    put:
+      description: Overwrites tags assigned for the volume.
+      operationId: storageNetworksStorageNetworkIdVolumesVolumeIdTagsPut
+      parameters:
+      - description: ID of storage network.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: storageNetworkId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of volume.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: volumeId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/TagAssignmentRequest'
+              type: array
+        description: Tags to assign to the volume.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+          description: Volume tags set.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - networkstorage
+      summary: Overwrites tags assigned for the volume.
+      tags:
+      - Storage Networks
 components:
   parameters:
     storageNetworkIdParam:
@@ -1464,6 +1542,9 @@ components:
       type: object
     TagAssignmentRequest:
       description: Tag request to assign to resource.
+      example:
+        name: Environment
+        value: PROD
       properties:
         name:
           description: "The name of the tag. Tag names are case-sensitive, and should\

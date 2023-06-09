@@ -95,6 +95,7 @@ Class | Method | HTTP request | Description
 *StorageNetworksApi* | [**StorageNetworksStorageNetworkIdVolumesVolumeIdDelete**](docs/StorageNetworksApi.md#storagenetworksstoragenetworkidvolumesvolumeiddelete) | **Delete** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Delete a Storage Network&#39;s Volume
 *StorageNetworksApi* | [**StorageNetworksStorageNetworkIdVolumesVolumeIdGet**](docs/StorageNetworksApi.md#storagenetworksstoragenetworkidvolumesvolumeidget) | **Get** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Get a storage network&#39;s volume details.
 *StorageNetworksApi* | [**StorageNetworksStorageNetworkIdVolumesVolumeIdPatch**](docs/StorageNetworksApi.md#storagenetworksstoragenetworkidvolumesvolumeidpatch) | **Patch** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Update a storage network&#39;s volume details.
+*StorageNetworksApi* | [**StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut**](docs/StorageNetworksApi.md#storagenetworksstoragenetworkidvolumesvolumeidtagsput) | **Put** /storage-networks/{storageNetworkId}/volumes/{volumeId}/tags | Overwrites tags assigned for the volume.
 
 
 ## Documentation For Models
