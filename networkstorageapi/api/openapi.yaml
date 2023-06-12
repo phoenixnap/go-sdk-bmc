@@ -321,6 +321,17 @@ paths:
         schema:
           type: string
         style: simple
+      - description: A list of query parameters related to tags in the form of tagName.tagValue
+        example: env.dev
+        explode: true
+        in: query
+        name: tag
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
       responses:
         "200":
           content:

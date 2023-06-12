@@ -180,6 +180,15 @@ paths:
     parameters:
       - $ref: '#/components/parameters/storageNetworkIdParam'
     get:
+      parameters:
+        - in: query
+          name: tag
+          schema:
+            type: array
+            items:
+              type: string
+          description: A list of query parameters related to tags in the form of tagName.tagValue
+          example: env.dev
       tags:
         - Storage Networks
       description: Display one or more volumes belonging to a storage network.

@@ -17,6 +17,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 )
 
@@ -923,6 +924,13 @@ type ApiStorageNetworksStorageNetworkIdVolumesGetRequest struct {
 	ctx              context.Context
 	ApiService       StorageNetworksApi
 	storageNetworkId string
+	tag              *[]string
+}
+
+// A list of query parameters related to tags in the form of tagName.tagValue
+func (r ApiStorageNetworksStorageNetworkIdVolumesGetRequest) Tag(tag []string) ApiStorageNetworksStorageNetworkIdVolumesGetRequest {
+	r.tag = &tag
+	return r
 }
 
 func (r ApiStorageNetworksStorageNetworkIdVolumesGetRequest) Execute() ([]Volume, *http.Response, error) {
@@ -968,6 +976,17 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesGetExe
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.tag != nil {
+		t := *r.tag
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("tag", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("tag", parameterToString(t, "multi"))
+		}
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

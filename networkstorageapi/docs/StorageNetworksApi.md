@@ -362,7 +362,7 @@ Name | Type | Description  | Notes
 
 ## StorageNetworksStorageNetworkIdVolumesGet
 
-> []Volume StorageNetworksStorageNetworkIdVolumesGet(ctx, storageNetworkId).Execute()
+> []Volume StorageNetworksStorageNetworkIdVolumesGet(ctx, storageNetworkId).Tag(tag).Execute()
 
 Display one or more volumes belonging to a storage network.
 
@@ -382,10 +382,11 @@ import (
 
 func main() {
     storageNetworkId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of storage network.
+    tag := []string{"Inner_example"} // []string | A list of query parameters related to tags in the form of tagName.tagValue (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesGet(context.Background(), storageNetworkId).Execute()
+    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesGet(context.Background(), storageNetworkId).Tag(tag).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -411,6 +412,7 @@ Other parameters are passed through a pointer to a apiStorageNetworksStorageNetw
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **tag** | **[]string** | A list of query parameters related to tags in the form of tagName.tagValue | 
 
 ### Return type
 
