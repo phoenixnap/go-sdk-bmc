@@ -2090,7 +2090,10 @@ components:
         - reason
       properties:
         limit:
-          description: The new limit that is requested.
+          description: |-
+            The new limit that is requested. Minimum allowed limit values:
+            - 0 (Server, IPs)
+            - 1000 (Network Storage)
           type: integer
           format: int32
           minimum: 0

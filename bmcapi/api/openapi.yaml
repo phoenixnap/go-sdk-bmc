@@ -3557,7 +3557,8 @@ components:
         limit: 10
       properties:
         limit:
-          description: The new limit that is requested.
+          description: "The new limit that is requested. Minimum allowed limit values:\n\
+            - 0 (Server, IPs)\n- 1000 (Network Storage)"
           example: 10
           format: int32
           minimum: 0

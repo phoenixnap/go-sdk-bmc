@@ -17,7 +17,7 @@ import (
 
 // QuotaEditLimitRequest A request to change the limit on a quota.
 type QuotaEditLimitRequest struct {
-	// The new limit that is requested.
+	// The new limit that is requested. Minimum allowed limit values: - 0 (Server, IPs) - 1000 (Network Storage)
 	Limit int32 `json:"limit"`
 	// The reason for changing the limit.
 	Reason string `json:"reason"`
