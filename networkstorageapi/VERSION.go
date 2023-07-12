@@ -1,3 +1,3 @@
 package networkstorageapi
 
-const SdkVersion = "1.3.1-SNAPSHOT"
+const SdkVersion = "1.4.0"
