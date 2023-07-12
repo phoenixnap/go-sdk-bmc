@@ -2,6 +2,8 @@ package tests
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"testing"
 
 	"github.com/phoenixnap/go-sdk-bmc/locationapi"
@@ -46,4 +48,31 @@ func (suite *LocationApiTestSuite) verifyCalledOnce(expectationId string) {
 
 	// Asserts a successful result
 	suite.Equal(202, verifyResult.StatusCode)
+}
+
+func (suite *LocationApiTestSuite) TestGetLocations() {
+	// generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("locationapi/locations_get", "./payloads")
+
+	// extract expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	// fetch query parameters
+	qpMap := TestUtilsImpl{}.generateQueryParams(request)
+
+	location := fmt.Sprintf("%v", qpMap["location"])
+	productCategory := fmt.Sprintf("%v", qpMap["productCategory"])
+
+	// execution
+	result, _, _ := suite.apiClient.LocationsApi.LocationsGet(suite.ctx).Location(location).ProductCategory(productCategory).Execute()
+
+	// convert to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	// asserts
+	suite.Equal(jsonResult, jsonResponseBody)
+
+	// verify
+	suite.verifyCalledOnce(expectationId)
 }
