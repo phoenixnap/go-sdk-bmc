@@ -20,12 +20,12 @@ info:
     name: PhoenixNAP Team
     email: support@phoenixnap.com
     url: https://phoenixnap.com/
+servers:
+  - url: https://api.phoenixnap.com/solutions/rancher/v1beta
 security:
   - OAuth2:
       - bmc
       - bmc.read
-servers:
-  - url: https://api.phoenixnap.com/solutions/rancher/v1beta
 tags:
   - name: Clusters
     description: Cluster operations

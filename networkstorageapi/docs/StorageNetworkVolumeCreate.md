@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Volume description. | [optional] 
 **PathSuffix** | Pointer to **string** | Last part of volume&#39;s path. | [optional] 
 **CapacityInGb** | **int32** | Capacity of Volume in GB. Currently only whole numbers and multiples of 1000GB are supported. | 
+**Tags** | Pointer to [**[]TagAssignmentRequest**](TagAssignmentRequest.md) | Tags to set to the resource. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview). | [optional] 
 
 ## Methods
 
@@ -117,6 +118,31 @@ and a boolean to check if the value has been set.
 
 SetCapacityInGb sets CapacityInGb field to given value.
 
+
+### GetTags
+
+`func (o *StorageNetworkVolumeCreate) GetTags() []TagAssignmentRequest`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *StorageNetworkVolumeCreate) GetTagsOk() (*[]TagAssignmentRequest, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *StorageNetworkVolumeCreate) SetTags(v []TagAssignmentRequest)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *StorageNetworkVolumeCreate) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

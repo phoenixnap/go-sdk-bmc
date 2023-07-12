@@ -2476,7 +2476,7 @@ components:
           items:
             example: 10.1.1.1
             type: string
-          maxItems: 10
+          maxItems: 256
           type: array
         dhcp:
           default: false
@@ -2708,13 +2708,39 @@ components:
         publicNetworkConfiguration:
           $ref: '#/components/schemas/PublicNetworkConfiguration'
       type: object
+    StorageConfiguration:
+      description: Storage configuration.
+      example:
+        rootPartition:
+          size: -1
+          raid: NO_RAID
+      properties:
+        rootPartition:
+          $ref: '#/components/schemas/StorageConfiguration_rootPartition'
+      type: object
     Server:
       description: Bare metal server.
       example:
+        cpuFrequency: 3.6
+        description: "Server #1 used for computing."
+        storage: 1x 960GB NVMe
+        clusterId: x78sdkjds879sd7cx8
+        type: s1.c1.small
+        hostname: my-server-1
+        coresPerCpu: 28
+        password: MyP@ssw0rd_01
+        reservationId: x78sdkjds879sd7cx8
+        storageConfiguration:
+          rootPartition:
+            size: -1
+            raid: NO_RAID
+        id: x78sdkjds879sd7cx8
+        networkType: PUBLIC_AND_PRIVATE
+        cpuCount: 2
+        ram: 64GB RAM
         privateIpAddresses:
         - 172.16.0.1
         pricingModel: HOURLY
-        cpuFrequency: 3.6
         os: ubuntu/bionic
         osConfiguration:
           managementUiUrl: https://172.217.22.14
@@ -2769,11 +2795,7 @@ components:
               - 10.0.0.16
               - 10.0.0.17
               dhcp: false
-        description: "Server #1 used for computing."
         cpu: E-2276G
-        storage: 1x 960GB NVMe
-        clusterId: x78sdkjds879sd7cx8
-        type: s1.c1.small
         tags:
         - createdBy: USER
           name: Environment
@@ -2785,20 +2807,12 @@ components:
           id: 60ffafcdffb8b074c7968dad
           value: PROD
           isBillingTag: true
-        hostname: my-server-1
-        coresPerCpu: 28
-        password: MyP@ssw0rd_01
         provisionedOn: 2021-03-13T20:24:32.491Z
         publicIpAddresses:
         - 182.16.0.1
         - 183.16.0.1
-        reservationId: x78sdkjds879sd7cx8
         location: PHX
-        id: x78sdkjds879sd7cx8
-        networkType: PUBLIC_AND_PRIVATE
-        cpuCount: 2
         status: creating
-        ram: 64GB RAM
       properties:
         id:
           description: The unique identifier of the server.
@@ -2839,8 +2853,8 @@ components:
             \ `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`,\
             \ `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`,\
             \ `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`,\
-            \ `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge`, `d2.c4.storage.pliops1`,\
-            \ `d3.m4.xlarge`, `d3.m5.xlarge` or `d3.m6.xlarge`."
+            \ `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge`, `d2.c4.db1.pliops1`,\
+            \ `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge` or `a1.c5.large`."
           example: s1.c1.small
           type: string
         location:
@@ -2941,6 +2955,8 @@ components:
           $ref: '#/components/schemas/OsConfiguration'
         networkConfiguration:
           $ref: '#/components/schemas/NetworkConfiguration'
+        storageConfiguration:
+          $ref: '#/components/schemas/StorageConfiguration'
       required:
       - coresPerCpu
       - cpu
@@ -2956,6 +2972,7 @@ components:
       - ram
       - status
       - storage
+      - storageConfiguration
       - type
       type: object
     Error:
@@ -3067,6 +3084,10 @@ components:
         hostname: my-server-1
         installDefaultSshKeys: false
         reservationId: 5f622c8032b458306b40d824
+        storageConfiguration:
+          rootPartition:
+            size: -1
+            raid: NO_RAID
         location: PHX
         sshKeys:
         - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
@@ -3104,8 +3125,8 @@ components:
             \ `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`,\
             \ `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`,\
             \ `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`,\
-            \ `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge`, `d2.c4.storage.pliops1`,\
-            \ `d3.m4.xlarge`, `d3.m5.xlarge` or `d3.m6.xlarge`."
+            \ `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge`, `d2.c4.db1.pliops1`,\
+            \ `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge` or `a1.c5.large`."
           example: s1.c1.small
           type: string
         location:
@@ -3155,9 +3176,9 @@ components:
         networkType:
           default: PUBLIC_AND_PRIVATE
           description: "The type of network configuration for this server.<br> Currently\
-            \ this field should be set to `PUBLIC_AND_PRIVATE`, `PRIVATE_ONLY` or\
-            \ `PUBLIC_ONLY`.<br> Setting the `force` query parameter to `true` allows\
-            \ you to configure network configuration type as `NONE`."
+            \ this field should be set to `PUBLIC_AND_PRIVATE`, `PRIVATE_ONLY`, `PUBLIC_ONLY`\
+            \ or `USER_DEFINED`.<br> Setting the `force` query parameter to `true`\
+            \ allows you to configure network configuration type as `NONE`."
           example: PUBLIC_AND_PRIVATE
           type: string
         osConfiguration:
@@ -3170,6 +3191,8 @@ components:
           type: array
         networkConfiguration:
           $ref: '#/components/schemas/NetworkConfiguration'
+        storageConfiguration:
+          $ref: '#/components/schemas/StorageConfiguration'
       required:
       - hostname
       - location
@@ -3534,7 +3557,8 @@ components:
         limit: 10
       properties:
         limit:
-          description: The new limit that is requested.
+          description: "The new limit that is requested. Minimum allowed limit values:\n\
+            - 0 (Server, IPs)\n- 1000 (Network Storage)"
           example: 10
           format: int32
           minimum: 0
@@ -3663,6 +3687,8 @@ components:
           description: (Write-only) IP address or hostname through which to reach
             the Netris Controller.
           example: 120.153.203.227
+          maxLength: 253
+          pattern: "^(?!-)[\\w\\-]{1,63}(?<!-)(\\.(?!-)[\\w\\-]{1,63}(?<!-))*$"
           type: string
           writeOnly: true
         controllerVersion:
@@ -3676,6 +3702,7 @@ components:
             to connect to. Required for the softgate agent to be able to interact
             with the Netris Controller.
           example: w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw
+          pattern: ^\S+$
           type: string
           writeOnly: true
       type: object
@@ -3718,6 +3745,25 @@ components:
           format: byte
           type: string
           writeOnly: true
+      type: object
+    StorageConfiguration_rootPartition:
+      description: Root partition configuration.
+      example:
+        size: -1
+        raid: NO_RAID
+      properties:
+        raid:
+          default: NO_RAID
+          description: "Software RAID configuration. The following RAID options are\
+            \ available: NO_RAID, RAID_0, RAID_1."
+          example: NO_RAID
+          type: string
+        size:
+          default: -1
+          description: The size of the root partition in GB. -1 to use all available
+            space.
+          example: -1
+          type: integer
       type: object
     OsConfigurationMap_esxi:
       description: VMWare ESXi configuration properties.

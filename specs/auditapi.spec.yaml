@@ -19,11 +19,11 @@ info:
     name: PhoenixNAP Team
     email: support@phoenixnap.com
     url: https://phoenixnap.com/
+servers:
+  - url: https://api.phoenixnap.com/audit/v1
 security:
   - OAuth2:
       - audit.read
-servers:
-  - url: https://api.phoenixnap.com/audit/v1
 tags:
   - name: Events
     description: Event operations

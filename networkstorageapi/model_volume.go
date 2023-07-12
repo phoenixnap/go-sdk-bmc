@@ -37,6 +37,8 @@ type Volume struct {
 	Status      *Status      `json:"status,omitempty"`
 	CreatedOn   *time.Time   `json:"createdOn,omitempty"`
 	Permissions *Permissions `json:"permissions,omitempty"`
+	// The tags assigned if any.
+	Tags []TagAssignment `json:"tags,omitempty"`
 }
 
 // NewVolume instantiates a new Volume object
@@ -408,6 +410,38 @@ func (o *Volume) SetPermissions(v Permissions) {
 	o.Permissions = &v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *Volume) GetTags() []TagAssignment {
+	if o == nil || o.Tags == nil {
+		var ret []TagAssignment
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Volume) GetTagsOk() ([]TagAssignment, bool) {
+	if o == nil || o.Tags == nil {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *Volume) HasTags() bool {
+	if o != nil && o.Tags != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []TagAssignment and assigns it to the Tags field.
+func (o *Volume) SetTags(v []TagAssignment) {
+	o.Tags = v
+}
+
 func (o Volume) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -442,6 +476,9 @@ func (o Volume) MarshalJSON() ([]byte, error) {
 	}
 	if o.Permissions != nil {
 		toSerialize["permissions"] = o.Permissions
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
 	}
 	return json.Marshal(toSerialize)
 }
