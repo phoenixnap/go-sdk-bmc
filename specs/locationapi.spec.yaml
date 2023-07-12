@@ -1,0 +1,161 @@
+openapi: 3.0.2
+info:
+  title: Locations API
+  termsOfService: https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
+  version: '1.0'
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: PhoenixNAP Team
+    email: support@phoenixnap.com
+    url: https://phoenixnap.com
+servers:
+  - url: https://api.phoenixnap.com/location-api/v1
+tags:
+  - name: Locations
+    description: Location operations
+paths:
+  /locations:
+    get:
+      summary: Get All Locations
+      tags:
+        - Locations
+      operationId: getLocations
+      description: Retrieve the locations info.
+      parameters:
+        - name: location
+          required: false
+          description: Location of interest
+          in: query
+          schema:
+            $ref: '#/components/schemas/LocationEnum'
+          example: ASH
+        - name: productCategory
+          required: false
+          description: Product category of interest
+          in: query
+          schema:
+            $ref: '#/components/schemas/ProductCategoryEnum'
+          example: SERVER
+      responses:
+        '200':
+          description: Locations found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+              examples:
+                LocationsArray:
+                  $ref: '#/components/examples/LocationsArrayExample'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    Location:
+      title: Location
+      type: object
+      description: Location resource
+      x-examples:
+        Example 1:
+          location: PHX
+          locationDescription: Phoenix, USA
+          productCategories:
+            - productCategory: SERVER
+              productCategoryDescription: Bare metal server
+            - productCategory: STORAGE
+              productCategoryDescription: Network storage
+      properties:
+        location:
+          $ref: '#/components/schemas/LocationEnum'
+        locationDescription:
+          type: string
+          example: Phoenix, USA
+        productCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductCategory'
+      required:
+        - location
+    ProductCategory:
+      title: ProductCategory
+      type: object
+      x-examples:
+        Example 1:
+          productCategory: SERVER
+          productCategoryDescription: Bare metal server
+      properties:
+        productCategory:
+          $ref: '#/components/schemas/ProductCategoryEnum'
+        productCategoryDescription:
+          type: string
+          example: Bare metal server
+      required:
+        - productCategory
+    LocationEnum:
+      description: The location code.
+      type: string
+      enum:
+        - PHX
+        - ASH
+        - NLD
+        - SGP
+        - CHI
+        - SEA
+        - AUS
+    ProductCategoryEnum:
+      description: The product category.
+      type: string
+      enum:
+        - SERVER
+        - BANDWIDTH
+        - OPERATING_SYSTEM
+        - PUBLIC_IP
+        - STORAGE
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          readOnly: true
+          description: The description detailing the cause of the error code.
+        validationErrors:
+          type: array
+          items:
+            type: string
+          readOnly: true
+          description: Validation errors, if any.
+  examples:
+    LocationsArrayExample:
+      value:
+        - location: PHX
+          locationDescription: Phoenix, USA
+          productCategories:
+            - productCategory: SERVER
+              productCategoryDescription: Bare metal server
+            - productCategory: STORAGE
+              productCategoryDescription: Network storage
+        - location: ASH
+          locationDescription: Ashburn, USA
+          productCategories:
+            - productCategory: SERVER
+              productCategoryDescription: Bare metal server
+  responses:
+    NotFound:
+      description: The request failed since the resource could not been found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: The server encountered an unexpected condition that prevented it from fulfilling the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

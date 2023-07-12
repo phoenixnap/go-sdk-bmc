@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/locations",
+    "queryStringParameters": [
+      {
+        "name": "location",
+        "values": [
+          "PHX"
+        ]
+      },
+      {
+        "name": "productCategory",
+        "values": [
+          "SERVER"
+        ]
+      }
+    ]
+  },
+  "response": {
+    "statusCode": 200,
+    "body": [
+      {
+        "location": "PHX",
+        "locationDescription": "Phoenix",
+        "productCategories": [
+          {
+            "productCategory": "SERVER",
+            "productCategoryDescription": "Bare metal server"
+          }
+        ]
+      }
+    ]
+  }
+}
