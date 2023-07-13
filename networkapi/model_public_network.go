@@ -30,7 +30,7 @@ type PublicNetwork struct {
 	Location string `json:"location"`
 	// The description of this public network.
 	Description *string `json:"description,omitempty"`
-	// The status of the public network. Can have one of the following values: `BUSY` or `READY`.
+	// The status of the public network. Can have one of the following values: `BUSY`, `READY`, `DELETING` or `ERROR`.
 	Status string `json:"status"`
 	// Date and time when this public network was created.
 	CreatedOn time.Time `json:"createdOn"`

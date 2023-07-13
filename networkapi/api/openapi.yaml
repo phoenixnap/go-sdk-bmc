@@ -1514,7 +1514,7 @@ components:
           type: string
         status:
           description: "The status of the public network. Can have one of the following\
-            \ values: `BUSY` or `READY`."
+            \ values: `BUSY`, `READY`, `DELETING` or `ERROR`."
           example: READY
           type: string
         createdOn:
