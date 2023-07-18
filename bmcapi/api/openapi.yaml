@@ -2712,8 +2712,8 @@ components:
       description: Storage configuration.
       example:
         rootPartition:
-          size: -1
-          raid: NO_RAID
+          size: 128
+          raid: RAID_1
       properties:
         rootPartition:
           $ref: '#/components/schemas/StorageConfiguration_rootPartition'
@@ -2732,8 +2732,8 @@ components:
         reservationId: x78sdkjds879sd7cx8
         storageConfiguration:
           rootPartition:
-            size: -1
-            raid: NO_RAID
+            size: 128
+            raid: RAID_1
         id: x78sdkjds879sd7cx8
         networkType: PUBLIC_AND_PRIVATE
         cpuCount: 2
@@ -3086,8 +3086,8 @@ components:
         reservationId: 5f622c8032b458306b40d824
         storageConfiguration:
           rootPartition:
-            size: -1
-            raid: NO_RAID
+            size: 128
+            raid: RAID_1
         location: PHX
         sshKeys:
         - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
@@ -3749,20 +3749,20 @@ components:
     StorageConfiguration_rootPartition:
       description: Root partition configuration.
       example:
-        size: -1
-        raid: NO_RAID
+        size: 128
+        raid: RAID_1
       properties:
         raid:
           default: NO_RAID
           description: "Software RAID configuration. The following RAID options are\
             \ available: NO_RAID, RAID_0, RAID_1."
-          example: NO_RAID
+          example: RAID_1
           type: string
         size:
           default: -1
           description: The size of the root partition in GB. -1 to use all available
             space.
-          example: -1
+          example: 128
           type: integer
       type: object
     OsConfigurationMap_esxi:
