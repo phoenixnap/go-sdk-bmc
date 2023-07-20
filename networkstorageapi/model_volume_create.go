@@ -26,6 +26,8 @@ type VolumeCreate struct {
 	// Capacity of Volume in GB. Currently only whole numbers and multiples of 1000GB are supported.
 	CapacityInGb int32              `json:"capacityInGb"`
 	Permissions  *PermissionsCreate `json:"permissions,omitempty"`
+	// Tags to set to the resource. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).
+	Tags []TagAssignmentRequest `json:"tags,omitempty"`
 }
 
 // NewVolumeCreate instantiates a new VolumeCreate object
@@ -191,6 +193,38 @@ func (o *VolumeCreate) SetPermissions(v PermissionsCreate) {
 	o.Permissions = &v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *VolumeCreate) GetTags() []TagAssignmentRequest {
+	if o == nil || o.Tags == nil {
+		var ret []TagAssignmentRequest
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VolumeCreate) GetTagsOk() ([]TagAssignmentRequest, bool) {
+	if o == nil || o.Tags == nil {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *VolumeCreate) HasTags() bool {
+	if o != nil && o.Tags != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []TagAssignmentRequest and assigns it to the Tags field.
+func (o *VolumeCreate) SetTags(v []TagAssignmentRequest) {
+	o.Tags = v
+}
+
 func (o VolumeCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -207,6 +241,9 @@ func (o VolumeCreate) MarshalJSON() ([]byte, error) {
 	}
 	if o.Permissions != nil {
 		toSerialize["permissions"] = o.Permissions
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
 	}
 	return json.Marshal(toSerialize)
 }

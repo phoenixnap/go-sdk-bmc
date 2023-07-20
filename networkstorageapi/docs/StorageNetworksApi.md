@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**StorageNetworksStorageNetworkIdVolumesVolumeIdDelete**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesVolumeIdDelete) | **Delete** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Delete a Storage Network&#39;s Volume
 [**StorageNetworksStorageNetworkIdVolumesVolumeIdGet**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesVolumeIdGet) | **Get** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Get a storage network&#39;s volume details.
 [**StorageNetworksStorageNetworkIdVolumesVolumeIdPatch**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesVolumeIdPatch) | **Patch** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Update a storage network&#39;s volume details.
+[**StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut) | **Put** /storage-networks/{storageNetworkId}/volumes/{volumeId}/tags | Overwrites tags assigned for the volume.
 
 
 
@@ -361,7 +362,7 @@ Name | Type | Description  | Notes
 
 ## StorageNetworksStorageNetworkIdVolumesGet
 
-> []Volume StorageNetworksStorageNetworkIdVolumesGet(ctx, storageNetworkId).Execute()
+> []Volume StorageNetworksStorageNetworkIdVolumesGet(ctx, storageNetworkId).Tag(tag).Execute()
 
 Display one or more volumes belonging to a storage network.
 
@@ -381,10 +382,11 @@ import (
 
 func main() {
     storageNetworkId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of storage network.
+    tag := []string{"Inner_example"} // []string | A list of query parameters related to tags in the form of tagName.tagValue (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesGet(context.Background(), storageNetworkId).Execute()
+    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesGet(context.Background(), storageNetworkId).Tag(tag).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -410,6 +412,7 @@ Other parameters are passed through a pointer to a apiStorageNetworksStorageNetw
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **tag** | **[]string** | A list of query parameters related to tags in the form of tagName.tagValue | 
 
 ### Return type
 
@@ -701,6 +704,81 @@ Name | Type | Description  | Notes
 
 
  **volumeUpdate** | [**VolumeUpdate**](VolumeUpdate.md) | Storage network volume to be updated. | 
+
+### Return type
+
+[**Volume**](Volume.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut
+
+> Volume StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut(ctx, storageNetworkId, volumeId).TagAssignmentRequest(tagAssignmentRequest).Execute()
+
+Overwrites tags assigned for the volume.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    storageNetworkId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of storage network.
+    volumeId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of volume.
+    tagAssignmentRequest := []openapiclient.TagAssignmentRequest{*openapiclient.NewTagAssignmentRequest("Environment")} // []TagAssignmentRequest | Tags to assign to the volume. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut(context.Background(), storageNetworkId, volumeId).TagAssignmentRequest(tagAssignmentRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut`: Volume
+    fmt.Fprintf(os.Stdout, "Response from `StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storageNetworkId** | **string** | ID of storage network. | 
+**volumeId** | **string** | ID of volume. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **tagAssignmentRequest** | [**[]TagAssignmentRequest**](TagAssignmentRequest.md) | Tags to assign to the volume. | 
 
 ### Return type
 

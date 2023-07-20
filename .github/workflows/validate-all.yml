@@ -46,6 +46,11 @@ jobs:
     with:
       module-name: networkstorageapi
       test-suite: TestNetworkStorageApiSuite
+  build-and-test-locationapi:
+    uses: ./.github/workflows/_common.yml
+    with:
+      module-name: locationapi
+      test-suite: TestLocationApiSuite
 
   publish-test-results:
     name: Publish Test Results
@@ -58,6 +63,7 @@ jobs:
       - build-and-test-tagapi
       - build-and-test-billingapi
       - build-and-test-networkstorageapi
+      - build-and-test-locationapi
     runs-on: ubuntu-latest
     if: always()
     steps:

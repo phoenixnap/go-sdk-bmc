@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Limit** | **int32** | The new limit that is requested. | 
+**Limit** | **int32** | The new limit that is requested. Minimum allowed limit values: - 0 (Server, IPs) - 1000 (Network Storage) | 
 **Reason** | **string** | The reason for changing the limit. | 
 
 ## Methods

@@ -21,9 +21,9 @@ type ServerCreate struct {
 	Hostname string `json:"hostname"`
 	// Description of server.
 	Description *string `json:"description,omitempty"`
-	// The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`.
+	// The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `esxi/esxi80`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`.
 	Os string `json:"os"`
-	// Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`, `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge`, `d2.c4.storage.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge` or `d3.m6.xlarge`.
+	// Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`, `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge`, `d2.c4.db1.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge` or `a1.c5.large`.
 	Type string `json:"type"`
 	// Server location ID. Cannot be changed once a server is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
 	Location string `json:"location"`
@@ -37,12 +37,13 @@ type ServerCreate struct {
 	ReservationId *string `json:"reservationId,omitempty"`
 	// Server pricing model. Currently this field should be set to `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`.
 	PricingModel *string `json:"pricingModel,omitempty"`
-	// The type of network configuration for this server. Currently this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
+	// The type of network configuration for this server.<br> Currently this field should be set to `PUBLIC_AND_PRIVATE`, `PRIVATE_ONLY`, `PUBLIC_ONLY` or `USER_DEFINED`.<br> Setting the `force` query parameter to `true` allows you to configure network configuration type as `NONE`.
 	NetworkType     *string          `json:"networkType,omitempty"`
 	OsConfiguration *OsConfiguration `json:"osConfiguration,omitempty"`
 	// Tags to set to the server. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).
 	Tags                 []TagAssignmentRequest `json:"tags,omitempty"`
 	NetworkConfiguration *NetworkConfiguration  `json:"networkConfiguration,omitempty"`
+	StorageConfiguration *StorageConfiguration  `json:"storageConfiguration,omitempty"`
 }
 
 // NewServerCreate instantiates a new ServerCreate object
@@ -494,6 +495,38 @@ func (o *ServerCreate) SetNetworkConfiguration(v NetworkConfiguration) {
 	o.NetworkConfiguration = &v
 }
 
+// GetStorageConfiguration returns the StorageConfiguration field value if set, zero value otherwise.
+func (o *ServerCreate) GetStorageConfiguration() StorageConfiguration {
+	if o == nil || o.StorageConfiguration == nil {
+		var ret StorageConfiguration
+		return ret
+	}
+	return *o.StorageConfiguration
+}
+
+// GetStorageConfigurationOk returns a tuple with the StorageConfiguration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServerCreate) GetStorageConfigurationOk() (*StorageConfiguration, bool) {
+	if o == nil || o.StorageConfiguration == nil {
+		return nil, false
+	}
+	return o.StorageConfiguration, true
+}
+
+// HasStorageConfiguration returns a boolean if a field has been set.
+func (o *ServerCreate) HasStorageConfiguration() bool {
+	if o != nil && o.StorageConfiguration != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageConfiguration gets a reference to the given StorageConfiguration and assigns it to the StorageConfiguration field.
+func (o *ServerCreate) SetStorageConfiguration(v StorageConfiguration) {
+	o.StorageConfiguration = &v
+}
+
 func (o ServerCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -537,6 +570,9 @@ func (o ServerCreate) MarshalJSON() ([]byte, error) {
 	}
 	if o.NetworkConfiguration != nil {
 		toSerialize["networkConfiguration"] = o.NetworkConfiguration
+	}
+	if o.StorageConfiguration != nil {
+		toSerialize["storageConfiguration"] = o.StorageConfiguration
 	}
 	return json.Marshal(toSerialize)
 }

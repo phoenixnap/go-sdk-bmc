@@ -17,6 +17,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 )
 
@@ -170,6 +171,22 @@ type StorageNetworksApi interface {
 	// StorageNetworksStorageNetworkIdVolumesVolumeIdPatchExecute executes the request
 	//  @return Volume
 	StorageNetworksStorageNetworkIdVolumesVolumeIdPatchExecute(r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdPatchRequest) (*Volume, *http.Response, error)
+
+	/*
+		StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut Overwrites tags assigned for the volume.
+
+		Overwrites tags assigned for the volume.
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param storageNetworkId ID of storage network.
+		@param volumeId ID of volume.
+		@return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest
+	*/
+	StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut(ctx context.Context, storageNetworkId string, volumeId string) ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest
+
+	// StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutExecute executes the request
+	//  @return Volume
+	StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutExecute(r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest) (*Volume, *http.Response, error)
 }
 
 // StorageNetworksApiService StorageNetworksApi service
@@ -907,6 +924,13 @@ type ApiStorageNetworksStorageNetworkIdVolumesGetRequest struct {
 	ctx              context.Context
 	ApiService       StorageNetworksApi
 	storageNetworkId string
+	tag              *[]string
+}
+
+// A list of query parameters related to tags in the form of tagName.tagValue
+func (r ApiStorageNetworksStorageNetworkIdVolumesGetRequest) Tag(tag []string) ApiStorageNetworksStorageNetworkIdVolumesGetRequest {
+	r.tag = &tag
+	return r
 }
 
 func (r ApiStorageNetworksStorageNetworkIdVolumesGetRequest) Execute() ([]Volume, *http.Response, error) {
@@ -952,6 +976,17 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesGetExe
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.tag != nil {
+		t := *r.tag
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("tag", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("tag", parameterToString(t, "multi"))
+		}
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1555,6 +1590,171 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 	}
 	// body params
 	localVarPostBody = r.volumeUpdate
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest struct {
+	ctx                  context.Context
+	ApiService           StorageNetworksApi
+	storageNetworkId     string
+	volumeId             string
+	tagAssignmentRequest *[]TagAssignmentRequest
+}
+
+// Tags to assign to the volume.
+func (r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest) TagAssignmentRequest(tagAssignmentRequest []TagAssignmentRequest) ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest {
+	r.tagAssignmentRequest = &tagAssignmentRequest
+	return r
+}
+
+func (r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest) Execute() (*Volume, *http.Response, error) {
+	return r.ApiService.StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutExecute(r)
+}
+
+/*
+StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut Overwrites tags assigned for the volume.
+
+Overwrites tags assigned for the volume.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param storageNetworkId ID of storage network.
+ @param volumeId ID of volume.
+ @return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest
+*/
+func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut(ctx context.Context, storageNetworkId string, volumeId string) ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest {
+	return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest{
+		ApiService:       a,
+		ctx:              ctx,
+		storageNetworkId: storageNetworkId,
+		volumeId:         volumeId,
+	}
+}
+
+// Execute executes the request
+//  @return Volume
+func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutExecute(r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest) (*Volume, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Volume
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksApiService.StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/storage-networks/{storageNetworkId}/volumes/{volumeId}/tags"
+	localVarPath = strings.Replace(localVarPath, "{"+"storageNetworkId"+"}", url.PathEscape(parameterToString(r.storageNetworkId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"volumeId"+"}", url.PathEscape(parameterToString(r.volumeId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.tagAssignmentRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

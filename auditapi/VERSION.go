@@ -1,3 +1,3 @@
 package auditapi
 
-const SdkVersion = "2.0.5"
+const SdkVersion = "2.0.6"

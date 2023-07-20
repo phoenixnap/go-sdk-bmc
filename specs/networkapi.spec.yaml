@@ -22,12 +22,12 @@ info:
     name: PhoenixNAP Team
     email: support@phoenixnap.com
     url: https://phoenixnap.com/
+servers:
+  - url: https://api.phoenixnap.com/networks/v1
 security:
   - OAuth2:
       - bmc
       - bmc.read
-servers:
-  - url: https://api.phoenixnap.com/networks/v1
 tags:
   - name: Private Networks
     description: Private Network operations

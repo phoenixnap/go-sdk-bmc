@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **PathSuffix** | Pointer to **string** | Last part of volume&#39;s path. | [optional] 
 **CapacityInGb** | **int32** | Capacity of Volume in GB. Currently only whole numbers and multiples of 1000GB are supported. | 
 **Permissions** | Pointer to [**PermissionsCreate**](PermissionsCreate.md) |  | [optional] 
+**Tags** | Pointer to [**[]TagAssignmentRequest**](TagAssignmentRequest.md) | Tags to set to the resource. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview). | [optional] 
 
 ## Methods
 
@@ -143,6 +144,31 @@ SetPermissions sets Permissions field to given value.
 `func (o *VolumeCreate) HasPermissions() bool`
 
 HasPermissions returns a boolean if a field has been set.
+
+### GetTags
+
+`func (o *VolumeCreate) GetTags() []TagAssignmentRequest`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *VolumeCreate) GetTagsOk() (*[]TagAssignmentRequest, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *VolumeCreate) SetTags(v []TagAssignmentRequest)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *VolumeCreate) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

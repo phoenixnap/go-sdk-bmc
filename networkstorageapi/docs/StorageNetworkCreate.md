@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Storage network description. | [optional] 
 **Location** | **string** | Location of storage network. Currently this field should be set to &#x60;PHX&#x60; or &#x60;ASH&#x60;. | 
 **Volumes** | [**[]StorageNetworkVolumeCreate**](StorageNetworkVolumeCreate.md) | Volume to be created alongside storage. Currently only 1 volume is supported. | 
+**ClientVlan** | Pointer to **int32** | Custom Client VLAN that the Storage Network will be set to. | [optional] 
 
 ## Methods
 
@@ -112,6 +113,31 @@ and a boolean to check if the value has been set.
 
 SetVolumes sets Volumes field to given value.
 
+
+### GetClientVlan
+
+`func (o *StorageNetworkCreate) GetClientVlan() int32`
+
+GetClientVlan returns the ClientVlan field if non-nil, zero value otherwise.
+
+### GetClientVlanOk
+
+`func (o *StorageNetworkCreate) GetClientVlanOk() (*int32, bool)`
+
+GetClientVlanOk returns a tuple with the ClientVlan field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClientVlan
+
+`func (o *StorageNetworkCreate) SetClientVlan(v int32)`
+
+SetClientVlan sets ClientVlan field to given value.
+
+### HasClientVlan
+
+`func (o *StorageNetworkCreate) HasClientVlan() bool`
+
+HasClientVlan returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

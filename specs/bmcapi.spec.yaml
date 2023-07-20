@@ -21,12 +21,12 @@ info:
     name: PhoenixNAP Team
     email: support@phoenixnap.com
     url: https://phoenixnap.com/
+servers:
+  - url: https://api.phoenixnap.com/bmc/v1
 security:
   - OAuth2:
       - bmc
       - bmc.read
-servers:
-  - url: https://api.phoenixnap.com/bmc/v1
 tags:
   - name: Servers
     description: Server operations
@@ -1288,7 +1288,7 @@ components:
       description: OS specific configuration properties.
       properties:
         netrisController:
-          description: Netris Controller configuration properties.
+          description: Netris Controller configuration properties. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/netris-bare-metal-cloud#deploy-netris-controller' target='_blank'>here</a>.
           type: object
           properties:
             hostOs:
@@ -1297,7 +1297,7 @@ components:
               type: string
               example: ubuntu/jammy
             netrisWebConsoleUrl:
-              description: (Read-only) The URL for the Netris Controller web console. Will only be returned in response to provisioning a server.
+              description: (Read-only) The URL for the Netris Controller web console. It will only be returned in response to provisioning a server.
               readOnly: true
               type: string
               example: https://172.217.22.14
@@ -1307,7 +1307,7 @@ components:
               type: string
               example: cNC1jPFXG2h7f
         netrisSoftgate:
-          description: Netris Softgate configuration properties.
+          description: Netris Softgate configuration properties. Follow <a href='https://phoenixnap.com/kb/netris-bare-metal-cloud#deploy-netris-softgate' target='_blank'>instructions</a> for retrieving the required details.
           type: object
           properties:
             hostOs:
@@ -1320,6 +1320,8 @@ components:
               writeOnly: true
               type: string
               example: 120.153.203.227
+              maxLength: 253
+              pattern: ^(?!-)[\w\-]{1,63}(?<!-)(\.(?!-)[\w\-]{1,63}(?<!-))*$
             controllerVersion:
               description: (Write-only) The version of the Netris Controller to connect to.
               writeOnly: true
@@ -1330,6 +1332,7 @@ components:
               writeOnly: true
               type: string
               example: w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw
+              pattern: ^\S+$
         windows:
           description: Windows OS configuration properties.
           type: object
@@ -1393,7 +1396,7 @@ components:
         ips:
           description: IPs to configure/configured on the server.<br> Should be null or empty list if DHCP is true. IPs must be within the network's range.<br> If field is undefined and DHCP is false, next available IP in network will be automatically allocated.<br> If the network contains a membership of type 'storage', the first twelve IPs are already reserved by BMC and not usable.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
           type: array
-          maxItems: 10
+          maxItems: 256
           items:
             type: string
             example: 10.1.1.1
@@ -1420,7 +1423,7 @@ components:
           type: string
           example: 10.0.0.10
         configurationType:
-          description: (Write-only) Determines the approach for configuring private network(s) for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT` or `USER_DEFINED`.
+          description: (Write-only) Determines the approach for configuring private network(s) for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT`, `USER_DEFINED` or `NONE`.
           writeOnly: true
           type: string
           default: USE_OR_CREATE_DEFAULT
@@ -1529,6 +1532,24 @@ components:
           $ref: '#/components/schemas/IpBlocksConfiguration'
         publicNetworkConfiguration:
           $ref: '#/components/schemas/PublicNetworkConfiguration'
+    StorageConfiguration:
+      type: object
+      description: Storage configuration.
+      properties:
+        rootPartition:
+          type: object
+          description: Root partition configuration.
+          properties:
+            raid:
+              description: 'Software RAID configuration. The following RAID options are available: NO_RAID, RAID_0, RAID_1.'
+              type: string
+              default: NO_RAID
+              example: NO_RAID
+            size:
+              description: The size of the root partition in GB. -1 to use all available space.
+              type: integer
+              default: -1
+              example: -1
     Server:
       type: object
       description: Bare metal server.
@@ -1548,6 +1569,7 @@ components:
         - privateIpAddresses
         - pricingModel
         - networkConfiguration
+        - storageConfiguration
       properties:
         id:
           description: The unique identifier of the server.
@@ -1570,11 +1592,11 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `esxi/esxi80`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`.
           type: string
           example: ubuntu/bionic
         type:
-          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`, `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge`, `d2.c4.storage.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge` or `d3.m6.xlarge`.
+          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`, `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge`, `d2.c4.db1.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge` or `a1.c5.large`.
           type: string
           example: s1.c1.small
         location:
@@ -1643,7 +1665,7 @@ components:
           type: string
           example: MyP@ssw0rd_01
         networkType:
-          description: The type of network configuration for this server. Currently this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
+          description: The type of network configuration for this server. Currently this field should be set to `PUBLIC_AND_PRIVATE`, `PRIVATE_ONLY`, `PUBLIC_ONLY` or `NONE`.
           type: string
           default: PUBLIC_AND_PRIVATE
           example: PUBLIC_AND_PRIVATE
@@ -1665,6 +1687,8 @@ components:
           $ref: '#/components/schemas/OsConfiguration'
         networkConfiguration:
           $ref: '#/components/schemas/NetworkConfiguration'
+        storageConfiguration:
+          $ref: '#/components/schemas/StorageConfiguration'
     Error:
       type: object
       required:
@@ -1716,11 +1740,11 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `esxi/esxi80`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`.
           type: string
           example: ubuntu/bionic
         type:
-          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`, `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge`, `d2.c4.storage.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge` or `d3.m6.xlarge`.
+          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`, `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge`, `d2.c4.db1.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge` or `a1.c5.large`.
           type: string
           example: s1.c1.small
         location:
@@ -1760,7 +1784,7 @@ components:
           default: HOURLY
           example: ONE_MONTH_RESERVATION
         networkType:
-          description: The type of network configuration for this server. Currently this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
+          description: The type of network configuration for this server.<br> Currently this field should be set to `PUBLIC_AND_PRIVATE`, `PRIVATE_ONLY`, `PUBLIC_ONLY` or `USER_DEFINED`.<br> Setting the `force` query parameter to `true` allows you to configure network configuration type as `NONE`.
           type: string
           default: PUBLIC_AND_PRIVATE
           example: PUBLIC_AND_PRIVATE
@@ -1773,6 +1797,8 @@ components:
             $ref: '#/components/schemas/TagAssignmentRequest'
         networkConfiguration:
           $ref: '#/components/schemas/NetworkConfiguration'
+        storageConfiguration:
+          $ref: '#/components/schemas/StorageConfiguration'
     DeleteResult:
       type: object
       description: Result of a successful delete action.
@@ -2064,7 +2090,10 @@ components:
         - reason
       properties:
         limit:
-          description: The new limit that is requested.
+          description: |-
+            The new limit that is requested. Minimum allowed limit values:
+            - 0 (Server, IPs)
+            - 1000 (Network Storage)
           type: integer
           format: int32
           minimum: 0

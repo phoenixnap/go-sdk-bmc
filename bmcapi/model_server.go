@@ -26,9 +26,9 @@ type Server struct {
 	Hostname string `json:"hostname"`
 	// Description of server.
 	Description *string `json:"description,omitempty"`
-	// The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`.
+	// The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `esxi/esxi80`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`.
 	Os string `json:"os"`
-	// Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`, `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge`, `d2.c4.storage.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge` or `d3.m6.xlarge`.
+	// Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`, `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge`, `d2.c4.db1.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge` or `a1.c5.large`.
 	Type string `json:"type"`
 	// Server location ID. Cannot be changed once a server is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
 	Location string `json:"location"`
@@ -54,7 +54,7 @@ type Server struct {
 	PricingModel string `json:"pricingModel"`
 	// Auto-generated password set for user `Admin` on Windows server, user `root` on ESXi servers, user `root` on Proxmox server and user `netris` on Netris servers.<br> The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
 	Password *string `json:"password,omitempty"`
-	// The type of network configuration for this server. Currently this field should be set to `PUBLIC_AND_PRIVATE` or `PRIVATE_ONLY`.
+	// The type of network configuration for this server. Currently this field should be set to `PUBLIC_AND_PRIVATE`, `PRIVATE_ONLY`, `PUBLIC_ONLY` or `NONE`.
 	NetworkType *string `json:"networkType,omitempty"`
 	// The cluster reference id if any.
 	ClusterId *string `json:"clusterId,omitempty"`
@@ -64,13 +64,14 @@ type Server struct {
 	ProvisionedOn        *time.Time           `json:"provisionedOn,omitempty"`
 	OsConfiguration      *OsConfiguration     `json:"osConfiguration,omitempty"`
 	NetworkConfiguration NetworkConfiguration `json:"networkConfiguration"`
+	StorageConfiguration StorageConfiguration `json:"storageConfiguration"`
 }
 
 // NewServer instantiates a new Server object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServer(id string, status string, hostname string, os string, type_ string, location string, cpu string, cpuCount int32, coresPerCpu int32, cpuFrequency float32, ram string, storage string, privateIpAddresses []string, pricingModel string, networkConfiguration NetworkConfiguration) *Server {
+func NewServer(id string, status string, hostname string, os string, type_ string, location string, cpu string, cpuCount int32, coresPerCpu int32, cpuFrequency float32, ram string, storage string, privateIpAddresses []string, pricingModel string, networkConfiguration NetworkConfiguration, storageConfiguration StorageConfiguration) *Server {
 	this := Server{}
 	this.Id = id
 	this.Status = status
@@ -89,6 +90,7 @@ func NewServer(id string, status string, hostname string, os string, type_ strin
 	var networkType string = "PUBLIC_AND_PRIVATE"
 	this.NetworkType = &networkType
 	this.NetworkConfiguration = networkConfiguration
+	this.StorageConfiguration = storageConfiguration
 	return &this
 }
 
@@ -752,6 +754,30 @@ func (o *Server) SetNetworkConfiguration(v NetworkConfiguration) {
 	o.NetworkConfiguration = v
 }
 
+// GetStorageConfiguration returns the StorageConfiguration field value
+func (o *Server) GetStorageConfiguration() StorageConfiguration {
+	if o == nil {
+		var ret StorageConfiguration
+		return ret
+	}
+
+	return o.StorageConfiguration
+}
+
+// GetStorageConfigurationOk returns a tuple with the StorageConfiguration field value
+// and a boolean to check if the value has been set.
+func (o *Server) GetStorageConfigurationOk() (*StorageConfiguration, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.StorageConfiguration, true
+}
+
+// SetStorageConfiguration sets field value
+func (o *Server) SetStorageConfiguration(v StorageConfiguration) {
+	o.StorageConfiguration = v
+}
+
 func (o Server) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -825,6 +851,9 @@ func (o Server) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["networkConfiguration"] = o.NetworkConfiguration
+	}
+	if true {
+		toSerialize["storageConfiguration"] = o.StorageConfiguration
 	}
 	return json.Marshal(toSerialize)
 }
