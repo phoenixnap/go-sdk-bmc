@@ -70,6 +70,12 @@ jobs:
     with:
       spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/network-storage/download_spec
       package-name: networkstorageapi
+  generate-locationapi:
+    needs: prerequisite
+    uses: ./.github/workflows/_generate.yml
+    with:
+      spec-link: https://developers.phoenixnap.com/portals/api/sites/phoenixnap-prod-developerportal/liveportal/apis/bmc-location/download_spec
+      package-name: locationapi
 
   # Push generated code
   push-changes:
@@ -84,6 +90,7 @@ jobs:
       - generate-tagapi
       - generate-billingapi
       - generate-networkstorageapi
+      - generate-locationapi
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
