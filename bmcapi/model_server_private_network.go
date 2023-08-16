@@ -21,7 +21,7 @@ type ServerPrivateNetwork struct {
 	Id string `json:"id"`
 	// IPs to configure/configured on the server.<br> Should be null or empty list if DHCP is true. IPs must be within the network's range.<br> If field is undefined and DHCP is false, next available IP in network will be automatically allocated.<br> If the network contains a membership of type 'storage', the first twelve IPs are already reserved by BMC and not usable.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
 	Ips []string `json:"ips,omitempty"`
-	// Determines whether DHCP is enabled for this server. Should be false if any IPs are provided. Not supported for Proxmox OS and ESXi OS.
+	// Determines whether DHCP is enabled for this server. Should be false if any IPs are provided. Not supported for Proxmox OS.
 	Dhcp *bool `json:"dhcp,omitempty"`
 	// (Read-only) The status of the network.
 	StatusDescription *string `json:"statusDescription,omitempty"`

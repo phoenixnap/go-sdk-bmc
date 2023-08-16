@@ -2481,8 +2481,7 @@ components:
         dhcp:
           default: false
           description: Determines whether DHCP is enabled for this server. Should
-            be false if any IPs are provided. Not supported for Proxmox OS and ESXi
-            OS.
+            be false if any IPs are provided. Not supported for Proxmox OS.
           example: false
           type: boolean
         statusDescription:
