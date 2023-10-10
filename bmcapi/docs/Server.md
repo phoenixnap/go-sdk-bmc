@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Status** | **string** | The status of the server. | 
 **Hostname** | **string** | Hostname of server. | 
 **Description** | Pointer to **string** | Description of server. | [optional] 
-**Os** | **string** | The server’s OS ID used when the server was created. Currently this field should be set to either &#x60;ubuntu/bionic&#x60;, &#x60;ubuntu/focal&#x60;, &#x60;ubuntu/jammy&#x60;, &#x60;centos/centos7&#x60;, &#x60;centos/centos8&#x60;, &#x60;windows/srv2019std&#x60;, &#x60;windows/srv2019dc&#x60;, &#x60;esxi/esxi70&#x60;, &#x60;esxi/esxi80&#x60;, &#x60;almalinux/almalinux8&#x60;, &#x60;rockylinux/rockylinux8&#x60;, &#x60;debian/bullseye&#x60;, &#x60;proxmox/bullseye&#x60;, &#x60;netris/controller&#x60;, &#x60;netris/softgate_1g&#x60; or &#x60;netris/softgate_10g&#x60;. | 
+**Os** | Pointer to **string** | The server’s OS ID used when the server was created. Currently this field should be set to either &#x60;ubuntu/bionic&#x60;, &#x60;ubuntu/focal&#x60;, &#x60;ubuntu/jammy&#x60;, &#x60;centos/centos7&#x60;, &#x60;centos/centos8&#x60;, &#x60;windows/srv2019std&#x60;, &#x60;windows/srv2019dc&#x60;, &#x60;esxi/esxi70&#x60;, &#x60;esxi/esxi80&#x60;, &#x60;almalinux/almalinux8&#x60;, &#x60;rockylinux/rockylinux8&#x60;, &#x60;debian/bullseye&#x60;, &#x60;proxmox/bullseye&#x60;, &#x60;netris/controller&#x60;, &#x60;netris/softgate_1g&#x60; or &#x60;netris/softgate_10g&#x60;. | [optional] 
 **Type** | **string** | Server type ID. Cannot be changed once a server is created. Currently this field should be set to either &#x60;s0.d1.small&#x60;, &#x60;s0.d1.medium&#x60;, &#x60;s1.c1.small&#x60;, &#x60;s1.c1.medium&#x60;, &#x60;s1.c2.medium&#x60;, &#x60;s1.c2.large&#x60;, &#x60;s1.e1.small&#x60;, &#x60;s1.e1.medium&#x60;, &#x60;s1.e1.large&#x60;, &#x60;s2.c1.small&#x60;, &#x60;s2.c1.medium&#x60;, &#x60;s2.c1.large&#x60;, &#x60;s2.c2.small&#x60;, &#x60;s2.c2.medium&#x60;, &#x60;s2.c2.large&#x60;, &#x60;d1.c1.small&#x60;, &#x60;d1.c2.small&#x60;, &#x60;d1.c3.small&#x60;, &#x60;d1.c4.small&#x60;, &#x60;d1.c1.medium&#x60;, &#x60;d1.c2.medium&#x60;, &#x60;d1.c3.medium&#x60;, &#x60;d1.c4.medium&#x60;, &#x60;d1.c1.large&#x60;, &#x60;d1.c2.large&#x60;, &#x60;d1.c3.large&#x60;, &#x60;d1.c4.large&#x60;, &#x60;d1.m1.medium&#x60;, &#x60;d1.m2.medium&#x60;, &#x60;d1.m3.medium&#x60;, &#x60;d1.m4.medium&#x60;, &#x60;d2.c1.medium&#x60;, &#x60;d2.c2.medium&#x60;, &#x60;d2.c3.medium&#x60;, &#x60;d2.c4.medium&#x60;, &#x60;d2.c5.medium&#x60;, &#x60;d2.c1.large&#x60;, &#x60;d2.c2.large&#x60;, &#x60;d2.c3.large&#x60;, &#x60;d2.c4.large&#x60;, &#x60;d2.c5.large&#x60;, &#x60;d2.m1.medium&#x60;, &#x60;d2.m1.large&#x60;, &#x60;d2.m2.medium&#x60;, &#x60;d2.m2.large&#x60;, &#x60;d2.m2.xlarge&#x60;, &#x60;d2.c4.db1.pliops1&#x60;, &#x60;d3.m4.xlarge&#x60;, &#x60;d3.m5.xlarge&#x60;, &#x60;d3.m6.xlarge&#x60; or &#x60;a1.c5.large&#x60;. | 
 **Location** | **string** | Server location ID. Cannot be changed once a server is created. Currently this field should be set to &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60;, &#x60;SEA&#x60; or &#x60;AUS&#x60;. | 
 **Cpu** | **string** | A description of the machine CPU. | 
@@ -29,12 +29,14 @@ Name | Type | Description | Notes
 **OsConfiguration** | Pointer to [**OsConfiguration**](OsConfiguration.md) |  | [optional] 
 **NetworkConfiguration** | [**NetworkConfiguration**](NetworkConfiguration.md) |  | 
 **StorageConfiguration** | [**StorageConfiguration**](StorageConfiguration.md) |  | 
+**SupersededBy** | Pointer to **string** | Unique identifier of the server to which the reservation has been transferred. | [optional] 
+**Supersedes** | Pointer to **string** | Unique identifier of the server from which the reservation has been transferred. | [optional] 
 
 ## Methods
 
 ### NewServer
 
-`func NewServer(id string, status string, hostname string, os string, type_ string, location string, cpu string, cpuCount int32, coresPerCpu int32, cpuFrequency float32, ram string, storage string, privateIpAddresses []string, pricingModel string, networkConfiguration NetworkConfiguration, storageConfiguration StorageConfiguration, ) *Server`
+`func NewServer(id string, status string, hostname string, type_ string, location string, cpu string, cpuCount int32, coresPerCpu int32, cpuFrequency float32, ram string, storage string, privateIpAddresses []string, pricingModel string, networkConfiguration NetworkConfiguration, storageConfiguration StorageConfiguration, ) *Server`
 
 NewServer instantiates a new Server object
 This constructor will assign default values to properties that have it defined,
@@ -153,6 +155,11 @@ and a boolean to check if the value has been set.
 
 SetOs sets Os field to given value.
 
+### HasOs
+
+`func (o *Server) HasOs() bool`
+
+HasOs returns a boolean if a field has been set.
 
 ### GetType
 
@@ -593,6 +600,56 @@ and a boolean to check if the value has been set.
 
 SetStorageConfiguration sets StorageConfiguration field to given value.
 
+
+### GetSupersededBy
+
+`func (o *Server) GetSupersededBy() string`
+
+GetSupersededBy returns the SupersededBy field if non-nil, zero value otherwise.
+
+### GetSupersededByOk
+
+`func (o *Server) GetSupersededByOk() (*string, bool)`
+
+GetSupersededByOk returns a tuple with the SupersededBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSupersededBy
+
+`func (o *Server) SetSupersededBy(v string)`
+
+SetSupersededBy sets SupersededBy field to given value.
+
+### HasSupersededBy
+
+`func (o *Server) HasSupersededBy() bool`
+
+HasSupersededBy returns a boolean if a field has been set.
+
+### GetSupersedes
+
+`func (o *Server) GetSupersedes() string`
+
+GetSupersedes returns the Supersedes field if non-nil, zero value otherwise.
+
+### GetSupersedesOk
+
+`func (o *Server) GetSupersedesOk() (*string, bool)`
+
+GetSupersedesOk returns a tuple with the Supersedes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSupersedes
+
+`func (o *Server) SetSupersedes(v string)`
+
+SetSupersedes sets Supersedes field to given value.
+
+### HasSupersedes
+
+`func (o *Server) HasSupersedes() bool`
+
+HasSupersedes returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

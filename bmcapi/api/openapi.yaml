@@ -2725,6 +2725,7 @@ components:
         storage: 1x 960GB NVMe
         clusterId: x78sdkjds879sd7cx8
         type: s1.c1.small
+        supersedes: 76915b5c85121d411f26e92f
         hostname: my-server-1
         coresPerCpu: 28
         password: MyP@ssw0rd_01
@@ -2811,6 +2812,7 @@ components:
         - 182.16.0.1
         - 183.16.0.1
         location: PHX
+        supersededBy: 64a539b8d9c2c9ba8424ca31
         status: creating
       properties:
         id:
@@ -2957,6 +2959,16 @@ components:
           $ref: '#/components/schemas/NetworkConfiguration'
         storageConfiguration:
           $ref: '#/components/schemas/StorageConfiguration'
+        supersededBy:
+          description: Unique identifier of the server to which the reservation has
+            been transferred.
+          example: 64a539b8d9c2c9ba8424ca31
+          type: string
+        supersedes:
+          description: Unique identifier of the server from which the reservation
+            has been transferred.
+          example: 76915b5c85121d411f26e92f
+          type: string
       required:
       - coresPerCpu
       - cpu
@@ -2966,7 +2978,6 @@ components:
       - id
       - location
       - networkConfiguration
-      - os
       - pricingModel
       - privateIpAddresses
       - ram

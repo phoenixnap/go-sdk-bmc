@@ -27,7 +27,7 @@ type Server struct {
 	// Description of server.
 	Description *string `json:"description,omitempty"`
 	// The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`.
-	Os string `json:"os"`
+	Os *string `json:"os,omitempty"`
 	// Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`, `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge`, `d2.c4.db1.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge` or `a1.c5.large`.
 	Type string `json:"type"`
 	// Server location ID. Cannot be changed once a server is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
@@ -65,18 +65,21 @@ type Server struct {
 	OsConfiguration      *OsConfiguration     `json:"osConfiguration,omitempty"`
 	NetworkConfiguration NetworkConfiguration `json:"networkConfiguration"`
 	StorageConfiguration StorageConfiguration `json:"storageConfiguration"`
+	// Unique identifier of the server to which the reservation has been transferred.
+	SupersededBy *string `json:"supersededBy,omitempty"`
+	// Unique identifier of the server from which the reservation has been transferred.
+	Supersedes *string `json:"supersedes,omitempty"`
 }
 
 // NewServer instantiates a new Server object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServer(id string, status string, hostname string, os string, type_ string, location string, cpu string, cpuCount int32, coresPerCpu int32, cpuFrequency float32, ram string, storage string, privateIpAddresses []string, pricingModel string, networkConfiguration NetworkConfiguration, storageConfiguration StorageConfiguration) *Server {
+func NewServer(id string, status string, hostname string, type_ string, location string, cpu string, cpuCount int32, coresPerCpu int32, cpuFrequency float32, ram string, storage string, privateIpAddresses []string, pricingModel string, networkConfiguration NetworkConfiguration, storageConfiguration StorageConfiguration) *Server {
 	this := Server{}
 	this.Id = id
 	this.Status = status
 	this.Hostname = hostname
-	this.Os = os
 	this.Type = type_
 	this.Location = location
 	this.Cpu = cpu
@@ -210,28 +213,36 @@ func (o *Server) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetOs returns the Os field value
+// GetOs returns the Os field value if set, zero value otherwise.
 func (o *Server) GetOs() string {
-	if o == nil {
+	if o == nil || o.Os == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Os
+	return *o.Os
 }
 
-// GetOsOk returns a tuple with the Os field value
+// GetOsOk returns a tuple with the Os field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Server) GetOsOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Os == nil {
 		return nil, false
 	}
-	return &o.Os, true
+	return o.Os, true
 }
 
-// SetOs sets field value
+// HasOs returns a boolean if a field has been set.
+func (o *Server) HasOs() bool {
+	if o != nil && o.Os != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOs gets a reference to the given string and assigns it to the Os field.
 func (o *Server) SetOs(v string) {
-	o.Os = v
+	o.Os = &v
 }
 
 // GetType returns the Type field value
@@ -778,6 +789,70 @@ func (o *Server) SetStorageConfiguration(v StorageConfiguration) {
 	o.StorageConfiguration = v
 }
 
+// GetSupersededBy returns the SupersededBy field value if set, zero value otherwise.
+func (o *Server) GetSupersededBy() string {
+	if o == nil || o.SupersededBy == nil {
+		var ret string
+		return ret
+	}
+	return *o.SupersededBy
+}
+
+// GetSupersededByOk returns a tuple with the SupersededBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Server) GetSupersededByOk() (*string, bool) {
+	if o == nil || o.SupersededBy == nil {
+		return nil, false
+	}
+	return o.SupersededBy, true
+}
+
+// HasSupersededBy returns a boolean if a field has been set.
+func (o *Server) HasSupersededBy() bool {
+	if o != nil && o.SupersededBy != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSupersededBy gets a reference to the given string and assigns it to the SupersededBy field.
+func (o *Server) SetSupersededBy(v string) {
+	o.SupersededBy = &v
+}
+
+// GetSupersedes returns the Supersedes field value if set, zero value otherwise.
+func (o *Server) GetSupersedes() string {
+	if o == nil || o.Supersedes == nil {
+		var ret string
+		return ret
+	}
+	return *o.Supersedes
+}
+
+// GetSupersedesOk returns a tuple with the Supersedes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Server) GetSupersedesOk() (*string, bool) {
+	if o == nil || o.Supersedes == nil {
+		return nil, false
+	}
+	return o.Supersedes, true
+}
+
+// HasSupersedes returns a boolean if a field has been set.
+func (o *Server) HasSupersedes() bool {
+	if o != nil && o.Supersedes != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSupersedes gets a reference to the given string and assigns it to the Supersedes field.
+func (o *Server) SetSupersedes(v string) {
+	o.Supersedes = &v
+}
+
 func (o Server) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -792,7 +867,7 @@ func (o Server) MarshalJSON() ([]byte, error) {
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if true {
+	if o.Os != nil {
 		toSerialize["os"] = o.Os
 	}
 	if true {
@@ -854,6 +929,12 @@ func (o Server) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["storageConfiguration"] = o.StorageConfiguration
+	}
+	if o.SupersededBy != nil {
+		toSerialize["supersededBy"] = o.SupersededBy
+	}
+	if o.Supersedes != nil {
+		toSerialize["supersedes"] = o.Supersedes
 	}
 	return json.Marshal(toSerialize)
 }

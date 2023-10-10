@@ -1557,7 +1557,6 @@ components:
         - id
         - status
         - hostname
-        - os
         - type
         - location
         - cpu
@@ -1689,6 +1688,14 @@ components:
           $ref: '#/components/schemas/NetworkConfiguration'
         storageConfiguration:
           $ref: '#/components/schemas/StorageConfiguration'
+        supersededBy:
+          description: Unique identifier of the server to which the reservation has been transferred.
+          type: string
+          example: 64a539b8d9c2c9ba8424ca31
+        supersedes:
+          description: Unique identifier of the server from which the reservation has been transferred.
+          type: string
+          example: 76915b5c85121d411f26e92f
     Error:
       type: object
       required:
