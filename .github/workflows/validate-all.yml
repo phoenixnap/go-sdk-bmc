@@ -51,6 +51,16 @@ jobs:
     with:
       module-name: locationapi
       test-suite: TestLocationApiSuite
+  build-and-test-invoicingapi:
+    uses: ./.github/workflows/_common.yml
+    with:
+      module-name: invoicingapi
+      test-suite: TestInvoicingApiSuite
+  build-and-test-paymentsapi:
+    uses: ./.github/workflows/_common.yml
+    with:
+      module-name: paymentsapi
+      test-suite: TestPaymentsApiSuite
 
   publish-test-results:
     name: Publish Test Results
@@ -64,6 +74,8 @@ jobs:
       - build-and-test-billingapi
       - build-and-test-networkstorageapi
       - build-and-test-locationapi
+      - build-and-test-invoicingapi
+      - build-and-test-paymentsapi
     runs-on: ubuntu-latest
     if: always()
     steps:
