@@ -1,10 +1,10 @@
-# \BillingConfigurationsApi
+# \BillingConfigurationsAPI
 
 All URIs are relative to *https://api.phoenixnap.com/billing/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AccountBillingConfigurationMeGet**](BillingConfigurationsApi.md#AccountBillingConfigurationMeGet) | **Get** /account-billing-configurations/me | Retrieves billing configuration associated with the authenticated account.
+[**AccountBillingConfigurationMeGet**](BillingConfigurationsAPI.md#AccountBillingConfigurationMeGet) | **Get** /account-billing-configurations/me | Retrieves billing configuration associated with the authenticated account.
 
 
 
@@ -22,23 +22,23 @@ Retrieves billing configuration associated with the authenticated account.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BillingConfigurationsApi.AccountBillingConfigurationMeGet(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BillingConfigurationsApi.AccountBillingConfigurationMeGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AccountBillingConfigurationMeGet`: ConfigurationDetails
-    fmt.Fprintf(os.Stdout, "Response from `BillingConfigurationsApi.AccountBillingConfigurationMeGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BillingConfigurationsAPI.AccountBillingConfigurationMeGet(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BillingConfigurationsAPI.AccountBillingConfigurationMeGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AccountBillingConfigurationMeGet`: ConfigurationDetails
+	fmt.Fprintf(os.Stdout, "Response from `BillingConfigurationsAPI.AccountBillingConfigurationMeGet`: %v\n", resp)
 }
 ```
 
