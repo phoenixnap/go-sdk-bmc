@@ -1,0 +1,609 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: support@phoenixnap.com
+    name: PhoenixNAP Team
+    url: https://phoenixnap.com/
+  description: |
+    List, fetch and pay invoices with the Invoicing API.
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
+  title: Invoicing API
+  version: "1.0"
+servers:
+- url: https://api.phoenixnap.com/invoicing/v1
+security:
+- OAuth2:
+  - invoices
+  - invoices.read
+tags:
+- description: Invoices operations.
+  name: Invoices
+paths:
+  /invoices:
+    get:
+      description: List invoices.
+      operationId: invoicesGet
+      parameters:
+      - description: A user-friendly reference number assigned to the invoice.
+        example: 13218-1180326
+        explode: true
+        in: query
+        name: number
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Payment status of the invoice.
+        explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          enum:
+          - PAID
+          - UNPAID
+          - OVERDUE
+          - PAYMENT_PROCESSING
+          type: string
+        style: form
+      - description: Minimum value to filter invoices by sent on date.
+        example: 2020-04-13T00:00:00.000Z
+        explode: true
+        in: query
+        name: sentOnFrom
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Maximum value to filter invoices by sent on date.
+        example: 2022-04-13T00:00:00.000Z
+        explode: true
+        in: query
+        name: sentOnTo
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The limit of the number of results returned. The number of records
+          returned may be smaller than the limit.
+        example: 25
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - description: The number of items to skip in the results.
+        example: 5
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+        style: form
+      - description: "If a sortField is requested, pagination will be done after sorting.\
+          \ Default sorting is by number."
+        explode: true
+        in: query
+        name: sortField
+        required: false
+        schema:
+          default: sentOn
+          enum:
+          - number
+          - sentOn
+          - dueDate
+          - amount
+          - outstandingAmount
+          type: string
+        style: form
+      - description: Sort Given Field depending on the desired direction. Default
+          sorting is descending.
+        explode: true
+        in: query
+        name: sortDirection
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedInvoices'
+          description: List all invoices.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - invoices.read
+      summary: List invoices.
+      tags:
+      - Invoices
+  /invoices/{invoiceId}:
+    get:
+      description: Get invoice details.
+      operationId: invoicesInvoiceIdGet
+      parameters:
+      - description: The unique resource identifier of the Invoice.
+        example: 5fa54d1e91867c03a0a7b4a4
+        explode: false
+        in: path
+        name: invoiceId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+          description: Get invoice details.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - invoices.read
+      summary: Get invoice details.
+      tags:
+      - Invoices
+  /invoices/{invoiceId}/actions/generate-pdf:
+    post:
+      description: Generate invoice details as PDF.
+      operationId: invoicesInvoiceIdGeneratePdfPost
+      parameters:
+      - description: The unique resource identifier of the Invoice.
+        example: 5fa54d1e91867c03a0a7b4a4
+        explode: false
+        in: path
+        name: invoiceId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/pdf:
+              schema:
+                format: binary
+                type: string
+          description: Generated invoice details as pdf.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - invoices.read
+      summary: Generate invoice details as PDF.
+      tags:
+      - Invoices
+  /invoices/{invoiceId}/actions/pay:
+    post:
+      description: Manually pay an invoice.
+      operationId: invoicesInvoiceIdPayPost
+      parameters:
+      - description: The unique resource identifier of the Invoice.
+        example: 5fa54d1e91867c03a0a7b4a4
+        explode: false
+        in: path
+        name: invoiceId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoicePaymentRequest'
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoicePaymentResponse'
+          description: Invoice payment is being processed
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - invoices
+      summary: Pay an invoice.
+      tags:
+      - Invoices
+components:
+  parameters:
+    invoiceNumberQueryParam:
+      description: A user-friendly reference number assigned to the invoice.
+      example: 13218-1180326
+      explode: true
+      in: query
+      name: number
+      required: false
+      schema:
+        type: string
+      style: form
+    invoiceStatusQueryParam:
+      description: Payment status of the invoice.
+      explode: true
+      in: query
+      name: status
+      required: false
+      schema:
+        enum:
+        - PAID
+        - UNPAID
+        - OVERDUE
+        - PAYMENT_PROCESSING
+        type: string
+      style: form
+    sentOnFromQueryParam:
+      description: Minimum value to filter invoices by sent on date.
+      example: 2020-04-13T00:00:00.000Z
+      explode: true
+      in: query
+      name: sentOnFrom
+      required: false
+      schema:
+        format: date-time
+        type: string
+      style: form
+    sentOnToQueryParam:
+      description: Maximum value to filter invoices by sent on date.
+      example: 2022-04-13T00:00:00.000Z
+      explode: true
+      in: query
+      name: sentOnTo
+      required: false
+      schema:
+        format: date-time
+        type: string
+      style: form
+    pagingLimitParameter:
+      description: The limit of the number of results returned. The number of records
+        returned may be smaller than the limit.
+      example: 25
+      explode: true
+      in: query
+      name: limit
+      required: false
+      schema:
+        default: 100
+        maximum: 1000
+        minimum: 1
+        type: integer
+      style: form
+    pagingOffsetParameter:
+      description: The number of items to skip in the results.
+      example: 5
+      explode: true
+      in: query
+      name: offset
+      required: false
+      schema:
+        default: 0
+        minimum: 0
+        type: integer
+      style: form
+    pagingSortFieldParameter:
+      description: "If a sortField is requested, pagination will be done after sorting.\
+        \ Default sorting is by number."
+      explode: true
+      in: query
+      name: sortField
+      required: false
+      schema:
+        default: sentOn
+        enum:
+        - number
+        - sentOn
+        - dueDate
+        - amount
+        - outstandingAmount
+        type: string
+      style: form
+    pagingSortDirectionParameter:
+      description: Sort Given Field depending on the desired direction. Default sorting
+        is descending.
+      explode: true
+      in: query
+      name: sortDirection
+      required: false
+      schema:
+        default: DESC
+        enum:
+        - ASC
+        - DESC
+        type: string
+      style: form
+    invoiceIdParam:
+      description: The unique resource identifier of the Invoice.
+      example: 5fa54d1e91867c03a0a7b4a4
+      explode: false
+      in: path
+      name: invoiceId
+      required: true
+      schema:
+        type: string
+      style: simple
+  responses:
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed due to wrong data. Please check the provided
+        parameters and try again.
+    Unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed due to invalid credentials. Please check the
+        provided credentials and try again.
+    Forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed since this resource cannot be accessed by the
+        provided credentials.
+    InternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server encountered an unexpected condition that prevented it
+        from fulfilling the request.
+    Conflict:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The resource is in an incompatible state.
+  schemas:
+    PaginatedInvoices:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedResponse'
+      example:
+        results:
+        - number: 34440-2488782
+          amount: 100.99
+          outstandingAmount: 100.99
+          sentOn: 2021-03-13T20:24:32.491Z
+          dueDate: 2021-04-13T20:24:32.491Z
+          currency: EUR
+          id: 5fa54d1e91867c03a0a7b4a4
+          status: UNPAID
+        - number: 34440-2488782
+          amount: 100.99
+          outstandingAmount: 100.99
+          sentOn: 2021-03-13T20:24:32.491Z
+          dueDate: 2021-04-13T20:24:32.491Z
+          currency: EUR
+          id: 5fa54d1e91867c03a0a7b4a4
+          status: UNPAID
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/Invoice'
+          type: array
+      required:
+      - results
+      type: object
+    Invoice:
+      example:
+        number: 34440-2488782
+        amount: 100.99
+        outstandingAmount: 100.99
+        sentOn: 2021-03-13T20:24:32.491Z
+        dueDate: 2021-04-13T20:24:32.491Z
+        currency: EUR
+        id: 5fa54d1e91867c03a0a7b4a4
+        status: UNPAID
+      properties:
+        id:
+          description: The unique resource identifier of the Invoice.
+          example: 5fa54d1e91867c03a0a7b4a4
+          type: string
+        number:
+          description: A user-friendly reference number assigned to the invoice.
+          example: 34440-2488782
+          type: string
+        currency:
+          description: "The currency of the invoice. Currently, this field should\
+            \ be set to `EUR` or `USD`."
+          example: EUR
+          type: string
+        amount:
+          description: The invoice amount.
+          example: 100.99
+          type: number
+        outstandingAmount:
+          description: The invoice outstanding amount.
+          example: 100.99
+          type: number
+        status:
+          description: "The status of the invoice. Currently, this field should be\
+            \ set to `PAID`, `OVERDUE`, `PROCESSING_PAYMENT`, or `UNPAID`."
+          example: UNPAID
+          type: string
+        sentOn:
+          description: Date and time when the invoice was sent.
+          example: 2021-03-13T20:24:32.491Z
+          format: date-time
+          type: string
+        dueDate:
+          description: Date and time when the invoice payment is due.
+          example: 2021-04-13T20:24:32.491Z
+          format: date-time
+          type: string
+      required:
+      - amount
+      - currency
+      - dueDate
+      - id
+      - number
+      - outstandingAmount
+      - sentOn
+      - status
+      title: Invoice
+      type: object
+    InvoicePaymentRequest:
+      title: InvoicePaymentRequest
+      type: object
+    InvoicePaymentResponse:
+      title: InvoicePaymentResponse
+      type: object
+    PaginatedResponse:
+      properties:
+        limit:
+          description: Maximum number of items in the page (actual returned length
+            can be less).
+          example: 5
+          type: integer
+        offset:
+          description: The number of returned items skipped.
+          example: 25
+          type: integer
+        total:
+          description: The total number of records available for retrieval.
+          example: 400
+          type: integer
+      required:
+      - limit
+      - offset
+      - total
+      type: object
+    Error:
+      properties:
+        message:
+          description: The description detailing the cause of the error code.
+          readOnly: true
+          type: string
+        validationErrors:
+          description: "Validation errors, if any."
+          items:
+            type: string
+          readOnly: true
+          type: array
+      required:
+      - message
+      type: object
+  securitySchemes:
+    OAuth2:
+      flows:
+        clientCredentials:
+          scopes:
+            invoices: Grants full access to Invoicing API.
+            invoices.read: Grants read only access to Invoicing API.
+          tokenUrl: https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
+      type: oauth2

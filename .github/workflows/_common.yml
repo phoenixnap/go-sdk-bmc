@@ -30,7 +30,7 @@ jobs:
         with:
           module-name: ${{ inputs.module-name }}
   test:
-    name: Test ${{ inputs.module-name }}
+    name: Test ${{ inputs.module-name }} go v ${{ matrix.go-version }}
     runs-on: ubuntu-latest
     needs:
       - lint
