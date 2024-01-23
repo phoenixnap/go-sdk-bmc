@@ -1,0 +1,507 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: support@phoenixnap.com
+    name: PhoenixNAP Team
+    url: https://phoenixnap.com/
+  description: |
+    Tags are case-sensitive key-value pairs that simplify resource management. The Tag Manager API allows you to create
+    and manage such tags to later assign them to related resources in your Bare Metal Cloud (through the respective
+    resource apis) in order to group and categorize them.<br>
+    <br>
+    <span class='pnap-api-knowledge-base-link'>
+    Knowledge base articles to help you can be found
+    <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#server-tag-manager-api' target='_blank'>here</a>
+    </span><br>
+    <br>
+    <b>All URLs are relative to (https://api.phoenixnap.com/tag-manager/v1/)</b>
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
+  title: Tags API
+  version: "1.0"
+servers:
+- url: https://api.phoenixnap.com/tag-manager/v1
+security:
+- OAuth2:
+  - tags
+  - tags.read
+tags:
+- description: Tag operations
+  name: Tags
+paths:
+  /tags:
+    get:
+      description: Retrieve all tags belonging to the BMC Account.
+      operationId: tagsGet
+      parameters:
+      - description: Query a tag by its name.
+        example: env
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Tag'
+                type: array
+          description: Tags list.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - tags.read
+      summary: List tags.
+      tags:
+      - Tags
+    post:
+      description: Create a tag with the provided information.
+      operationId: tagsPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagCreate'
+        description: The body containing the tag details.
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+          description: Tag created.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since a tag with the given name already
+            exists.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - tags
+      summary: Create a Tag.
+      tags:
+      - Tags
+  /tags/{tagId}:
+    delete:
+      description: Delete the tag with the given ID.
+      operationId: tagsTagIdDelete
+      parameters:
+      - description: The tag's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: tagId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResult'
+          description: Tag deleted.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - tags
+      summary: Delete a Tag.
+      tags:
+      - Tags
+    get:
+      description: Retrieve the tag with the given ID
+      operationId: tagsTagIdGet
+      parameters:
+      - description: The tag's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: tagId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+          description: Specific Tag details.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - tags.read
+      summary: Get a Tag.
+      tags:
+      - Tags
+    patch:
+      description: Updates the tag with the given ID.
+      operationId: tagsTagIdPatch
+      parameters:
+      - description: The tag's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: tagId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagUpdate'
+        description: The body containing the tag changes.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+          description: Tag partially updated.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since a tag with the given name already
+            exists.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - tags
+      summary: Modify a Tag.
+      tags:
+      - Tags
+components:
+  responses:
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed due to wrong data. Please check the provided
+        parameters and try again.
+    Unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed due to invalid credentials. Please check the
+        provided credentials and try again.
+    Forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed since this resource cannot be accessed by the
+        provided credentials.
+    Conflict:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed since a tag with the given name already exists.
+    InternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server encountered an unexpected condition that prevented it
+        from fulfilling the request.
+  schemas:
+    Tag:
+      description: Tag model.
+      example:
+        createdBy: USER
+        values: "[DEV, PROD]"
+        name: Environment
+        description: This tag is used for all resources that need to be assigned to
+          an environment.
+        id: 60ffafcdffb8b074c7968dad
+        isBillingTag: true
+        resourceAssignments:
+        - resourceName: /bmc/servers/60ffafcdffb8b074c7968dad
+          value: DEV
+        - resourceName: /bmc/servers/60ffafcdffb8b074c7968dad
+          value: DEV
+      properties:
+        id:
+          description: The unique id of the tag.
+          example: 60ffafcdffb8b074c7968dad
+          type: string
+        name:
+          description: The name of the tag.
+          example: Environment
+          type: string
+        values:
+          description: The optional values of the tag.
+          example: "[DEV, PROD]"
+          items:
+            type: string
+          type: array
+        description:
+          description: The description of the tag.
+          example: This tag is used for all resources that need to be assigned to
+            an environment.
+          type: string
+        isBillingTag:
+          description: Whether or not to show the tag as part of billing and invoices.
+          example: true
+          type: boolean
+        resourceAssignments:
+          description: The tag's assigned resources.
+          items:
+            $ref: '#/components/schemas/ResourceAssignment'
+          type: array
+        createdBy:
+          default: USER
+          description: The tag's creator.
+          enum:
+          - USER
+          - SYSTEM
+          type: string
+      required:
+      - id
+      - isBillingTag
+      - name
+      type: object
+    TagCreate:
+      description: Tag creation model.
+      example:
+        name: Environment
+        description: This tag is used for all resources that need to be assigned to
+          an environment.
+        isBillingTag: true
+      properties:
+        name:
+          description: "The unique name of the tag. Tag names are case-sensitive,\
+            \ and should be composed of a maximum of 100 characters including UTF-8\
+            \ Unicode letters, numbers, and the following symbols: '-', '_'. Regex:\
+            \ [A-zÀ-ú0-9_-]{1,100}"
+          example: Environment
+          type: string
+        description:
+          description: The description of the tag.
+          example: This tag is used for all resources that need to be assigned to
+            an environment.
+          type: string
+        isBillingTag:
+          description: Whether or not to show the tag as part of billing and invoices.
+          example: true
+          type: boolean
+      required:
+      - isBillingTag
+      - name
+      type: object
+    TagUpdate:
+      description: Tag update model.
+      example:
+        name: Environment
+        description: This tag is used for all resources that need to be assigned to
+          an environment.
+        isBillingTag: true
+      properties:
+        name:
+          description: "The unique name of the tag. Tag names are case-sensitive,\
+            \ and should be composed of a maximum of 100 characters including UTF-8\
+            \ Unicode letters, numbers, and the following symbols: '-', '_'. Regex:\
+            \ [A-zÀ-ú0-9_-]{1,100}"
+          example: Environment
+          type: string
+        description:
+          description: The description of the tag.
+          example: This tag is used for all resources that need to be assigned to
+            an environment.
+          type: string
+        isBillingTag:
+          description: Whether or not to show the tag as part of billing and invoices.
+          example: true
+          type: boolean
+      required:
+      - isBillingTag
+      - name
+      type: object
+    DeleteResult:
+      description: Result of a successful delete action.
+      example:
+        result: "Tag [tag-name] has been deleted."
+        tagId: 60ffafcdffb8b074c7968dad
+      properties:
+        result:
+          description: Tag deletion result message.
+          example: "Tag [tag-name] has been deleted."
+          type: string
+        tagId:
+          description: The unique identifier of the tag.
+          example: 60ffafcdffb8b074c7968dad
+          type: string
+      required:
+      - result
+      - tagId
+      type: object
+    ResourceAssignment:
+      description: Resource assigned to a tag.
+      example:
+        resourceName: /bmc/servers/60ffafcdffb8b074c7968dad
+        value: DEV
+      properties:
+        resourceName:
+          description: "The resource name which is automatically generated by the\
+            \ tags-api. It is a unique resource identifier made up of the API name\
+            \ (e.g. bmc, ips), the resource type and the resource ID. This is not\
+            \ to be confused with custom names that are defined for particular resources,\
+            \ such as the server name or network name."
+          example: /bmc/servers/60ffafcdffb8b074c7968dad
+          type: string
+        value:
+          description: The value of the tag assigned to the resource.
+          example: DEV
+          type: string
+      required:
+      - resourceName
+      type: object
+    Error:
+      properties:
+        message:
+          description: The description detailing the cause of the error code.
+          type: string
+        validationErrors:
+          description: "Validation errors, if any."
+          items:
+            type: string
+          type: array
+      required:
+      - message
+      type: object
+  securitySchemes:
+    OAuth2:
+      flows:
+        clientCredentials:
+          scopes:
+            tags: Grants full access to tags-api.
+            tags.read: Grants read only access to tags-api.
+          tokenUrl: https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
+      type: oauth2

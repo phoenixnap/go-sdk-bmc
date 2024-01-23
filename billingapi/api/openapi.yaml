@@ -1,0 +1,1543 @@
+openapi: 3.0.2
+info:
+  contact:
+    email: support@phoenixnap.com
+    name: PhoenixNAP Team
+    url: https://phoenixnap.com/
+  description: |
+    Automate your infrastructure billing with the Bare Metal Cloud Billing API. Reserve your server instances to
+    ensure guaranteed resource availability for 12, 24, and 36 months. Retrieve your server’s rated usage for a
+    given period and enable or disable auto-renewals.<br>
+    <br>
+    <span class='pnap-api-knowledge-base-link'>
+    Knowledge base articles to help you can be found
+    <a href='https://phoenixnap.com/kb/phoenixnap-bare-metal-cloud-billing-models' target='_blank'>here</a>
+    </span><br>
+    <br>
+    <b>All URLs are relative to (https://api.phoenixnap.com/billing/v1/)</b>
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
+  title: Billing API
+  version: "0.1"
+servers:
+- url: https://api.phoenixnap.com/billing/v1
+security:
+- OAuth2:
+  - bmc
+  - bmc.read
+tags:
+- description: Rated Usage operations
+  name: Rated Usage
+- description: Product operations
+  name: Products
+- description: Reservation operations
+  name: Reservations
+- description: Account Billing Configuration operations
+  name: Billing Configurations
+paths:
+  /rated-usage:
+    get:
+      description: Retrieves all rated usage for given time period. The information
+        is presented as a list of rated usage records. Every record corresponds to
+        a charge. All date & times are in UTC.
+      operationId: ratedUsageGet
+      parameters:
+      - description: From year month (inclusive) to filter rated usage records by.
+        example: 2020-03
+        explode: true
+        in: query
+        name: fromYearMonth
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: To year month (inclusive) to filter rated usage records by.
+        example: 2020-04
+        explode: true
+        in: query
+        name: toYearMonth
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: The product category
+        example: SERVER
+        explode: true
+        in: query
+        name: productCategory
+        required: false
+        schema:
+          $ref: '#/components/schemas/ProductCategoryEnum'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ratedUsageGet_200_response_inner'
+                type: array
+          description: List of all the rated usage records for given period of months.
+            If productCategory filter is not used returns all records.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc.read
+      summary: List the rated usage.
+      tags:
+      - Rated Usage
+  /rated-usage/month-to-date:
+    get:
+      description: Retrieves all rated usage for the current calendar month. The information
+        is presented as a list of rated usage records. Every record corresponds to
+        a charge. All date & times are in UTC.
+      operationId: ratedUsageMonthToDateGet
+      parameters:
+      - description: The product category
+        example: SERVER
+        explode: true
+        in: query
+        name: productCategory
+        required: false
+        schema:
+          $ref: '#/components/schemas/ProductCategoryEnum'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ratedUsageGet_200_response_inner'
+                type: array
+          description: List of all the rated usage records.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc.read
+      summary: List the rated usage records for the current calendar month.
+      tags:
+      - Rated Usage
+  /products:
+    get:
+      description: Retrieves all Products.
+      operationId: productsGet
+      parameters:
+      - example: s1.c1.small
+        explode: true
+        in: query
+        name: productCode
+        required: false
+        schema:
+          type: string
+        style: form
+      - example: SERVER
+        explode: true
+        in: query
+        name: productCategory
+        required: false
+        schema:
+          type: string
+        style: form
+      - example: xxx-xxx-xxx
+        explode: true
+        in: query
+        name: skuCode
+        required: false
+        schema:
+          type: string
+        style: form
+      - example: PHX
+        explode: true
+        in: query
+        name: location
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/productsGet_200_response_inner'
+                type: array
+          description: List of all the products.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc.read
+      summary: List all Products.
+      tags:
+      - Products
+  /reservations:
+    get:
+      description: Retrieves all reservations associated with the authenticated account.
+        All date & times are in UTC.
+      operationId: reservationsGet
+      parameters:
+      - description: The product category
+        example: SERVER
+        explode: true
+        in: query
+        name: productCategory
+        required: false
+        schema:
+          $ref: '#/components/schemas/ProductCategoryEnum'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Reservation'
+                type: array
+          description: List of all reservations is returned if productCategory parameter
+            is not specified.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc.read
+      summary: List all Reservations.
+      tags:
+      - Reservations
+    post:
+      description: Creates new package reservation for authenticated account.
+      operationId: reservationsPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservationRequest'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+          description: Returns created reservation instance.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since the resource could not been found.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Create a reservation.
+      tags:
+      - Reservations
+  /reservations/{reservationId}:
+    get:
+      description: Retrieves the reservations with the specified identifier. All date
+        & times are in UTC.
+      operationId: reservationsReservationIdGet
+      parameters:
+      - description: The reservation's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: reservationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+          description: The matched reservation.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since the resource could not been found.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since the resource was not in the correct
+            state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc.read
+      summary: Get a reservation.
+      tags:
+      - Reservations
+  /reservations/{reservationId}/actions/auto-renew/disable:
+    description: Disable auto-renewal for reservation by the reservation id.
+    post:
+      description: Disable auto-renewal for reservation by reservation id.
+      operationId: reservationsReservationIdActionsAutoRenewDisablePost
+      parameters:
+      - description: The reservation's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: reservationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservationAutoRenewDisableRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+          description: Reservation with auto-renewal disabled
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since the resource could not been found.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since the resource was not in the correct
+            state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Disable auto-renewal for reservation by id.
+      tags:
+      - Reservations
+  /reservations/{reservationId}/actions/auto-renew/enable:
+    description: Enable auto-renewal for reservation by the reservation id.
+    post:
+      description: Enable auto-renewal for unexpired reservation by reservation id.
+      operationId: reservationsReservationIdActionsAutoRenewEnablePost
+      parameters:
+      - description: The reservation's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: reservationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+          description: Reservation with auto-renewal enabled.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since the resource could not been found.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since the resource was not in the correct
+            state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Enable auto-renewal for unexpired reservation by reservation id.
+      tags:
+      - Reservations
+  /reservations/{reservationId}/actions/convert:
+    description: Convert reservation pricing model.
+    post:
+      description: Convert reservation pricing model by reservation id.
+      operationId: reservationsReservationIdActionsConvertPost
+      parameters:
+      - description: The reservation's ID.
+        example: e6afba51-7de8-4080-83ab-0f915570659c
+        explode: false
+        in: path
+        name: reservationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservationRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+          description: Converted reservation.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since the resource could not been found.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Convert reservation pricing model by reservation ID.
+      tags:
+      - Reservations
+  /account-billing-configurations/me:
+    description: Retrieves billing configuration associated with the authenticated
+      account.
+    get:
+      description: Retrieves billing configuration associated with the authenticated
+        account.
+      operationId: accountBillingConfigurationMeGet
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationDetails'
+          description: Billing configuration details for the account
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc.read
+      summary: Retrieves billing configuration associated with the authenticated account.
+      tags:
+      - Billing Configurations
+  /product-availability:
+    description: Retrieves all product availabilities.
+    get:
+      description: Retrieves the list of product availability details.
+      operationId: productAvailabilityGet
+      parameters:
+      - description: Product category. Currently only SERVER category is supported.
+        example:
+        - SERVER
+        explode: true
+        in: query
+        name: productCategory
+        required: false
+        schema:
+          items:
+            enum:
+            - SERVER
+            type: string
+          type: array
+        style: form
+      - example:
+        - d1.c1.small
+        explode: true
+        in: query
+        name: productCode
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Show only locations where product with requested quantity is
+          available or all locations where product is offered.
+        example: true
+        explode: true
+        in: query
+        name: showOnlyMinQuantityAvailable
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
+      - example:
+        - PHX
+        explode: true
+        in: query
+        name: location
+        required: false
+        schema:
+          items:
+            $ref: '#/components/schemas/LocationEnum'
+          type: array
+        style: form
+      - example:
+        - SERVER_RANCHER
+        explode: true
+        in: query
+        name: solution
+        required: false
+        schema:
+          items:
+            enum:
+            - SERVER_RANCHER
+            type: string
+          type: array
+        style: form
+      - description: "Minimal quantity of product needed. Minimum, maximum and default\
+          \ values might differ for different products. For servers, they are 1, 10\
+          \ and 1 respectively."
+        example: 2
+        explode: true
+        in: query
+        name: minQuantity
+        required: false
+        schema:
+          type: number
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ProductAvailability'
+                type: array
+          description: List of all product availabilities.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc.read
+      summary: List all Product availabilities.
+      tags:
+      - Products
+components:
+  responses:
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed due to wrong data. Please check the provided
+        parameters and try again.
+    NotFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed since the resource could not been found.
+    Conflict:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed since the resource was not in the correct state.
+    Unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed due to invalid credentials. Please check the
+        provided credentials and try again.
+    Forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed since this resource cannot be accessed by the
+        provided credentials.
+    InternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server encountered an unexpected condition that prevented it
+        from fulfilling the request.
+  schemas:
+    RatedUsageRecord:
+      description: Rated usage record.
+      properties:
+        id:
+          description: The unique identifier of the rated usage record.
+          example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
+          type: string
+        productCategory:
+          description: The category of the product associated with this usage record.
+          enum:
+          - bmc-server
+          - bandwidth
+          - operating-system
+          - public-ip
+          - storage
+          example: bmc-server
+          type: string
+        productCode:
+          description: The code identifying the product associated to this usage record.
+          example: s1.c1.small
+          type: string
+        location:
+          $ref: '#/components/schemas/LocationEnum'
+        yearMonth:
+          description: Year and month of the usage record.
+          example: 2020-03
+          type: string
+        startDateTime:
+          description: The point in time (in UTC) when usage has started.
+          example: 2020-03-19T16:39:00Z
+          format: date-time
+          type: string
+        endDateTime:
+          description: The point in time (in UTC) until usage has been rated.
+          example: 2020-03-20T17:00:00Z
+          format: date-time
+          type: string
+        cost:
+          description: The rated usage in cents.
+          example: 384
+          format: int64
+          type: integer
+        costBeforeDiscount:
+          description: The cost in cents before discount.
+          example: 15456
+          format: int64
+          type: integer
+        costDescription:
+          description: The rated usage cost description.
+          example: 24 Hour(s) @ $0.16 /Hour
+          type: string
+        priceModel:
+          description: The price model applied to this usage record.
+          example: hourly
+          type: string
+        unitPrice:
+          description: The unit price.
+          example: 0.16
+          type: number
+        unitPriceDescription:
+          description: User friendly description of the unit price.
+          example: per hour
+          type: string
+        quantity:
+          description: The number of units being charged.
+          example: 24
+          type: number
+        active:
+          description: A flag indicating whether the rated usage record is still active.
+          example: true
+          type: boolean
+        usageSessionId:
+          description: "The usage session ID is used to correlate rated usage records\
+            \ across periods of time. For example, a server used for over a month\
+            \ will generate multiple rated usage records. The entire usage session\
+            \ cost can be computed by aggregating the records having the same usage\
+            \ session ID. It is usual to have one rated usage record per month or\
+            \ invoice."
+          example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
+          type: string
+        correlationId:
+          description: Holds usage record id
+          example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
+          type: string
+        reservationId:
+          description: Reservation id associated with this rated usage record.
+          example: c32a24a1-5949-4b60-99c0-c8aaa3a92b04
+          type: string
+        discountDetails:
+          $ref: '#/components/schemas/DiscountDetails'
+      required:
+      - active
+      - correlationId
+      - cost
+      - endDateTime
+      - id
+      - location
+      - priceModel
+      - productCategory
+      - productCode
+      - quantity
+      - startDateTime
+      - unitPrice
+      - unitPriceDescription
+      - usageSessionId
+      type: object
+    ApplicableDiscounts:
+      description: "Represents the applicable discount details for a product, including\
+        \ the discounted price and discount information."
+      properties:
+        discountedPrice:
+          description: The price of the product after applying a discount.
+          example: 107.5
+          type: number
+        discountDetails:
+          items:
+            $ref: '#/components/schemas/DiscountDetails'
+          type: array
+      type: object
+    ServerRecord:
+      allOf:
+      - $ref: '#/components/schemas/RatedUsageRecord'
+      - description: Server usage record.
+        properties:
+          metadata:
+            $ref: '#/components/schemas/ServerDetails'
+        required:
+        - metadata
+        type: object
+    ServerDetails:
+      description: Details of the server associated with this rated usage record.
+      properties:
+        id:
+          description: The server identifier as returned by the BMC API.
+          example: 83604275-bdba-490a-b87a-978e8dffdb14
+          type: string
+        hostname:
+          description: The server hostname.
+          example: example-server
+          type: string
+      required:
+      - hostname
+      - id
+      type: object
+    OperatingSystemRecord:
+      allOf:
+      - $ref: '#/components/schemas/RatedUsageRecord'
+      - description: Operating system usage record.
+        properties:
+          metadata:
+            $ref: '#/components/schemas/OperatingSystemDetails'
+        required:
+        - metadata
+        type: object
+    OperatingSystemDetails:
+      description: Details of the operating system associated with this rated usage
+        record.
+      properties:
+        cores:
+          description: Number of cores.
+          example: 2
+          format: int32
+          type: integer
+        correlationId:
+          description: "Correlation is used to associate Operating System License\
+            \ charges and the Server on which it was installed. In this scenario,\
+            \ the correlation ID will be equal to the rated usage record ID representing\
+            \ the charge for the Server."
+          example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
+          type: string
+      required:
+      - cores
+      - correlationId
+      type: object
+    BandwidthRecord:
+      allOf:
+      - $ref: '#/components/schemas/RatedUsageRecord'
+      - description: Bandwidth usage record.
+        properties:
+          metadata:
+            $ref: '#/components/schemas/BandwidthDetails'
+        required:
+        - metadata
+        type: object
+    BandwidthDetails:
+      description: Details of the bandwidth associated with this rated usage record.
+      properties:
+        ingressGb:
+          description: The amount of GB consumed in ingress (IN).
+          example: 1.33
+          type: number
+        egressGb:
+          description: The amount of GB consumed in egress (OUT).
+          example: 1.33
+          type: number
+        packageQuantity:
+          description: Package size per month.
+          example: 15
+          type: number
+        packageUnit:
+          description: Package size unit.
+          enum:
+          - GB
+          - TB
+          type: string
+      required:
+      - egressGb
+      - ingressGb
+      type: object
+    PublicSubnetRecord:
+      allOf:
+      - $ref: '#/components/schemas/RatedUsageRecord'
+      - description: Public IP record.
+        properties:
+          metadata:
+            $ref: '#/components/schemas/PublicSubnetDetails'
+        required:
+        - metadata
+        type: object
+    PublicSubnetDetails:
+      description: Details of public subnets.
+      properties:
+        id:
+          description: Public Subnet identifier as returned by the BMC API.
+          example: 83604275-bdba-490a-b87a-978e8dffdb14
+          type: string
+        cidr:
+          description: Classless Inter-Domain Routing
+          example: 192.168.0.15/24
+          type: string
+        size:
+          description: CIDR size
+          example: /24
+          type: string
+      required:
+      - cidr
+      - size
+      type: object
+    StorageRecord:
+      allOf:
+      - $ref: '#/components/schemas/RatedUsageRecord'
+      - description: Storage usage record.
+        properties:
+          metadata:
+            $ref: '#/components/schemas/StorageDetails'
+        required:
+        - metadata
+        type: object
+    StorageDetails:
+      description: Details of the storage associated with this rated usage record.
+      properties:
+        networkStorageId:
+          description: Network storage ID.
+          example: 123asd239-323las2d2-123123a
+          type: string
+        networkStorageName:
+          description: Network storage name.
+          example: First network storage.
+          type: string
+        volumeId:
+          description: Volume ID.
+          example: 123asd239-323las2d2-123123a
+          type: string
+        volumeName:
+          description: Volume name.
+          example: First volume.
+          type: string
+        capacityInGb:
+          description: Capacity in GB.
+          example: 150000
+          format: int64
+          type: integer
+        createdOn:
+          description: Timestamp when the record was created.
+          example: 2020-03-19T16:39:00Z
+          format: date-time
+          type: string
+      required:
+      - capacityInGb
+      - createdOn
+      - networkStorageId
+      - networkStorageName
+      - volumeId
+      - volumeName
+      type: object
+    Product:
+      description: Product details
+      properties:
+        productCode:
+          description: The code identifying the product. This code has significant
+            across all locations.
+          example: s1.c1.small
+          type: string
+        productCategory:
+          description: The product category.
+          example: SERVER
+          type: string
+        plans:
+          description: The pricing plans available for this product.
+          items:
+            $ref: '#/components/schemas/PricingPlan'
+          type: array
+      required:
+      - productCategory
+      - productCode
+      type: object
+    PricingPlan:
+      description: Pricing plan details.
+      properties:
+        sku:
+          description: The SKU identifying this pricing plan.
+          example: XXX-XXX-XXX
+          type: string
+        skuDescription:
+          description: Description of this pricing plan.
+          example: Hourly Rate for s1.c1.small in Phoenix
+          type: string
+        location:
+          description: The code identifying the location.
+          enum:
+          - PHX
+          - ASH
+          - NLD
+          - SGP
+          - CHI
+          - SEA
+          - AUS
+          - GLOBAL
+          example: PHX
+          type: string
+        pricingModel:
+          description: The pricing model.
+          enum:
+          - HOURLY
+          - METERED
+          - ONE_MONTH_RESERVATION
+          - TWELVE_MONTHS_RESERVATION
+          - TWENTY_FOUR_MONTHS_RESERVATION
+          - THIRTY_SIX_MONTHS_RESERVATION
+          - MONTHLY_PACKAGE
+          - FREE_TIER
+          example: HOURLY
+          type: string
+        price:
+          description: The price per unit.
+          example: 0.22
+          type: number
+        priceUnit:
+          $ref: '#/components/schemas/PriceUnitEnum'
+        applicableDiscounts:
+          $ref: '#/components/schemas/ApplicableDiscounts'
+        correlatedProductCode:
+          description: Product code of the product this product is correlated with
+          example: s1.c1.small
+          type: string
+        packageQuantity:
+          description: Package size per month.
+          example: 50
+          type: number
+        packageUnit:
+          description: Package size unit.
+          enum:
+          - GB
+          - TB
+          type: string
+      required:
+      - location
+      - price
+      - priceUnit
+      - pricingModel
+      - sku
+      type: object
+    ServerProduct:
+      allOf:
+      - $ref: '#/components/schemas/Product'
+      - description: Server product.
+        properties:
+          metadata:
+            $ref: '#/components/schemas/ServerProductMetadata'
+        required:
+        - metadata
+        type: object
+    ServerProductMetadata:
+      description: Details of the server product.
+      properties:
+        ramInGb:
+          description: RAM in GB.
+          example: 256
+          type: number
+        cpu:
+          description: CPU name.
+          example: Dual Gold 6258R
+          type: string
+        cpuCount:
+          description: Number of CPUs.
+          example: 56
+          type: number
+        coresPerCpu:
+          description: The number of physical cores present on each CPU.
+          example: 2
+          type: number
+        cpuFrequency:
+          description: CPU frequency in GHz.
+          example: 2.7
+          type: number
+        network:
+          description: Server network.
+          example: 2x 25Gbps
+          type: string
+        storage:
+          description: Server storage.
+          example: 2x 2TB NVMe
+          type: string
+      required:
+      - coresPerCpu
+      - cpu
+      - cpuCount
+      - cpuFrequency
+      - network
+      - ramInGb
+      - storage
+      type: object
+    Reservation:
+      description: Reservation details
+      example:
+        priceUnit: MONTH
+        nextBillingDate: 2020-04-19T00:00:00.000+00:00
+        initialInvoiceModel: null
+        endDateTime: 2020-04-19T16:39:00Z
+        productCategory: server
+        lastRenewalDateTime: 2020-03-19T16:39:00Z
+        productCode: s1.c1.small
+        startDateTime: 2020-03-19T16:39:00Z
+        price: 175
+        reservationModel: null
+        autoRenew: true
+        location: null
+        id: 83604275-bdba-490a-b87a-978e8dffdb14
+        assignedResourceId: 83604275-bdba-490a-b87a-978e8dffdb14
+        sku: XXX-XXX-XXX
+        nextRenewalDateTime: 2020-04-19T16:39:00Z
+      properties:
+        id:
+          description: The reservation identifier.
+          example: 83604275-bdba-490a-b87a-978e8dffdb14
+          type: string
+        productCode:
+          description: The code identifying the product. This code has significant
+            across all locations.
+          example: s1.c1.small
+          type: string
+        productCategory:
+          description: The product category.
+          enum:
+          - server
+          - bandwidth
+          - operating-system
+          example: server
+          type: string
+        location:
+          $ref: '#/components/schemas/LocationEnum'
+        reservationModel:
+          $ref: '#/components/schemas/ReservationModelEnum'
+        initialInvoiceModel:
+          $ref: '#/components/schemas/ReservationInvoicingModelEnum'
+        startDateTime:
+          description: The point in time (in UTC) when the reservation starts.
+          example: 2020-03-19T16:39:00Z
+          format: date-time
+          type: string
+        endDateTime:
+          description: The point in time (in UTC) when the reservation end.
+          example: 2020-04-19T16:39:00Z
+          format: date-time
+          type: string
+        lastRenewalDateTime:
+          description: The point in time (in UTC) when the reservation was renewed
+            last.
+          example: 2020-03-19T16:39:00Z
+          format: date-time
+          type: string
+        nextRenewalDateTime:
+          description: The point in time (in UTC) when the reservation will be renewed
+            if auto renew is set to true.
+          example: 2020-04-19T16:39:00Z
+          format: date-time
+          type: string
+        autoRenew:
+          description: A flag indicating whether the reservation will auto-renew (default
+            is true).
+          example: true
+          type: boolean
+        sku:
+          description: The sku that will be applied to this reservation. It is useful
+            to find out the price by querying the /product endpoint.
+          example: XXX-XXX-XXX
+          type: string
+        price:
+          description: Reservation price.
+          example: 175
+          type: number
+        priceUnit:
+          $ref: '#/components/schemas/PriceUnitEnum'
+        assignedResourceId:
+          description: The resource ID currently being assigned to Reservation.
+          example: 83604275-bdba-490a-b87a-978e8dffdb14
+          type: string
+        nextBillingDate:
+          description: Next billing date for Reservation.
+          example: 2020-04-19
+          format: date
+          type: string
+      required:
+      - autoRenew
+      - id
+      - location
+      - price
+      - priceUnit
+      - productCategory
+      - productCode
+      - reservationModel
+      - sku
+      - startDateTime
+      type: object
+    ConfigurationDetails:
+      description: Billing configuration details.
+      example:
+        thresholdConfiguration:
+          thresholdAmount: 100
+      properties:
+        thresholdConfiguration:
+          $ref: '#/components/schemas/ThresholdConfigurationDetails'
+      type: object
+    ThresholdConfigurationDetails:
+      description: Threshold billing configuration.
+      example:
+        thresholdAmount: 100
+      properties:
+        thresholdAmount:
+          description: Threshold billing amount.
+          example: 100
+          type: number
+      required:
+      - thresholdAmount
+      type: object
+    ProductAvailability:
+      description: Product availability details.
+      example:
+        productCode: d1.c1.small
+        locationAvailabilityDetails:
+        - availableQuantity: 5
+          minQuantityRequested: 2
+          minQuantityAvailable: true
+          solutions:
+          - SERVER_RANCHER
+          - SERVER_RANCHER
+          location: null
+        - availableQuantity: 5
+          minQuantityRequested: 2
+          minQuantityAvailable: true
+          solutions:
+          - SERVER_RANCHER
+          - SERVER_RANCHER
+          location: null
+        productCategory: SERVER
+      properties:
+        productCode:
+          description: Product code.
+          example: d1.c1.small
+          type: string
+        productCategory:
+          description: Product category.
+          example: SERVER
+          type: string
+        locationAvailabilityDetails:
+          items:
+            $ref: '#/components/schemas/LocationAvailabilityDetail'
+          type: array
+      required:
+      - locationAvailabilityDetails
+      - productCategory
+      - productCode
+      type: object
+    LocationAvailabilityDetail:
+      description: "Info about location, solutions and availability for a product."
+      example:
+        availableQuantity: 5
+        minQuantityRequested: 2
+        minQuantityAvailable: true
+        solutions:
+        - SERVER_RANCHER
+        - SERVER_RANCHER
+        location: null
+      properties:
+        location:
+          $ref: '#/components/schemas/LocationEnum'
+        minQuantityRequested:
+          description: Requested quantity.
+          example: 2
+          type: number
+        minQuantityAvailable:
+          description: Is product available in specific location for requested quantity
+          example: true
+          type: boolean
+        availableQuantity:
+          description: Total available quantity of product in specific location. Max
+            value is 10.
+          example: 5
+          type: number
+        solutions:
+          description: Solutions supported in specific location for a product.
+          items:
+            enum:
+            - SERVER_RANCHER
+            type: string
+          type: array
+      required:
+      - availableQuantity
+      - location
+      - minQuantityAvailable
+      - minQuantityRequested
+      - solutions
+      type: object
+    ReservationAutoRenewDisableRequest:
+      description: Disabling auto-renewal for reservation request.
+      example:
+        autoRenewDisableReason: autoRenewDisableReason
+      properties:
+        autoRenewDisableReason:
+          type: string
+      type: object
+    ReservationRequest:
+      description: Reservation request.
+      example:
+        sku: XXX-XXX-XXX
+      properties:
+        sku:
+          description: The sku code of product pricing plan.
+          example: XXX-XXX-XXX
+          type: string
+      required:
+      - sku
+      type: object
+    LocationEnum:
+      description: The location code.
+      enum:
+      - PHX
+      - ASH
+      - NLD
+      - SGP
+      - CHI
+      - SEA
+      - AUS
+      type: string
+    ReservationModelEnum:
+      description: The reservation model.
+      enum:
+      - ONE_MONTH_RESERVATION
+      - TWELVE_MONTHS_RESERVATION
+      - TWENTY_FOUR_MONTHS_RESERVATION
+      - THIRTY_SIX_MONTHS_RESERVATION
+      - FREE_TIER
+      type: string
+    ReservationInvoicingModelEnum:
+      description: Reservations created with initial invoice model ON_CREATION will
+        be invoiced on same date when reservation is created. Reservation created
+        with CALENDAR_MONTH initial invoice model will be invoiced at the beginning
+        of next month.
+      enum:
+      - ON_CREATION
+      - CALENDAR_MONTH
+      type: string
+    ProductCategoryEnum:
+      description: The product category.
+      enum:
+      - SERVER
+      - BANDWIDTH
+      - OPERATING_SYSTEM
+      - PUBLIC_IP
+      - STORAGE
+      type: string
+    PriceUnitEnum:
+      description: The unit to which the price applies.
+      enum:
+      - HOUR
+      - MONTH
+      - GB
+      - UNIT
+      - FLAT
+      - TB_PER_HOUR
+      example: MONTH
+      type: string
+    Error:
+      properties:
+        message:
+          description: The description detailing the cause of the error code.
+          readOnly: true
+          type: string
+        validationErrors:
+          description: "Validation errors, if any."
+          items:
+            type: string
+          readOnly: true
+          type: array
+      required:
+      - message
+      type: object
+    DiscountDetails:
+      description: Represents the details of a discount applied to a product or charge.
+      properties:
+        code:
+          description: A unique code associated with the discount.
+          example: new-year-2022-monthly
+          type: string
+        type:
+          description: The type of discount applied.
+          enum:
+          - PRODUCT_CATEGORY_PERCENTAGE
+          - GLOBAL_PERCENTAGE
+          example: PRODUCT_CATEGORY_PERCENTAGE
+          type: string
+        value:
+          description: |
+            The value or amount of the discount. The interpretation of this value depends on the 'type' of discount.
+          example: 20.5
+          type: number
+      required:
+      - code
+      - type
+      - value
+      type: object
+    ratedUsageGet_200_response_inner:
+      discriminator:
+        mapping:
+          bmc-server: '#/components/schemas/ServerRecord'
+          bandwidth: '#/components/schemas/BandwidthRecord'
+          operating-system: '#/components/schemas/OperatingSystemRecord'
+          public-ip: '#/components/schemas/PublicSubnetRecord'
+          storage: '#/components/schemas/StorageRecord'
+        propertyName: productCategory
+      oneOf:
+      - $ref: '#/components/schemas/ServerRecord'
+      - $ref: '#/components/schemas/BandwidthRecord'
+      - $ref: '#/components/schemas/OperatingSystemRecord'
+      - $ref: '#/components/schemas/PublicSubnetRecord'
+      - $ref: '#/components/schemas/StorageRecord'
+    productsGet_200_response_inner:
+      discriminator:
+        mapping:
+          SERVER: '#/components/schemas/ServerProduct'
+          BANDWIDTH: '#/components/schemas/Product'
+          OPERATING_SYSTEM: '#/components/schemas/Product'
+          STORAGE: '#/components/schemas/Product'
+          PUBLIC_IP: '#/components/schemas/Product'
+        propertyName: productCategory
+      oneOf:
+      - $ref: '#/components/schemas/Product'
+      - $ref: '#/components/schemas/ServerProduct'
+  securitySchemes:
+    OAuth2:
+      flows:
+        clientCredentials:
+          scopes:
+            bmc: Grants full access to bmc-api.
+            bmc.read: Grants read only access to bmc-api.
+          tokenUrl: https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
+      type: oauth2

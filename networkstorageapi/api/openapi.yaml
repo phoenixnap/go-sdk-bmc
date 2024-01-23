@@ -1,0 +1,1641 @@
+openapi: 3.0.2
+info:
+  contact:
+    email: support@phoenixnap.com
+    name: PhoenixNAP Team
+    url: https://phoenixnap.com/
+  description: |
+    Create, list, edit, and delete storage networks with the Network Storage API. Use storage networks to expand storage capacity on a private network.
+    <br>
+    <span class='pnap-api-knowledge-base-link'>
+    Knowledge base articles to help you can be found
+    <a href='https://phoenixnap.com/kb/bare-metal-cloud-storage' target='_blank'>here</a>
+    </span>
+    <br>
+    <b>All URLs are relative to (https://api.phoenixnap.com/network-storage/v1/)</b>
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
+  title: Network Storage API
+  version: "1.0"
+servers:
+- url: https://api.phoenixnap.com/network-storage/v1
+security:
+- OAuth2:
+  - networkstorage
+  - networkstorage.read
+tags:
+- description: Storage Networks operations.
+  name: Storage Networks
+paths:
+  /storage-networks:
+    get:
+      description: List all storage networks.
+      operationId: storageNetworksGet
+      parameters:
+      - description: If present will filter the result by the given location.
+        example: PHX
+        explode: true
+        in: query
+        name: location
+        required: false
+        schema:
+          description: Supported values are `PHX` and `ASH`.
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/StorageNetwork'
+                type: array
+          description: List all storage networks.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - networkstorage.read
+      summary: List all storage networks.
+      tags:
+      - Storage Networks
+    post:
+      description: Create a storage network and volume.
+      operationId: storageNetworksPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StorageNetworkCreate'
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageNetwork'
+          description: Accepted request for creating a Storage network.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - networkstorage
+      summary: Create a storage network and volume.
+      tags:
+      - Storage Networks
+  /storage-networks/{storageId}:
+    delete:
+      description: Delete a storage network and its volume. A storage network can
+        only be removed if it's not in 'BUSY' state. Billing stops on storage network
+        deletion.
+      operationId: storageNetworksIdDelete
+      parameters:
+      - description: ID of the storage.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: storageId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Initiate the deletion process for the specified Storage Network.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed because service is currently unavailable.
+            Please try again later.
+      security:
+      - OAuth2:
+        - networkstorage
+      summary: Delete a storage network and its volume.
+      tags:
+      - Storage Networks
+    get:
+      description: Get storage network details.
+      operationId: storageNetworksIdGet
+      parameters:
+      - description: ID of the storage.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: storageId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageNetwork'
+          description: Get storage network details.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - networkstorage.read
+      summary: Get storage network details.
+      tags:
+      - Storage Networks
+    patch:
+      description: Update storage network details.
+      operationId: storageNetworksIdPatch
+      parameters:
+      - description: ID of the storage.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: storageId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              name: My storage network
+              description: Storage network description
+            schema:
+              $ref: '#/components/schemas/StorageNetworkUpdate'
+        description: Storage network to be updated.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageNetwork'
+          description: Updated storage network.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - networkstorage
+      summary: Update storage network details.
+      tags:
+      - Storage Networks
+  /storage-networks/{storageId}/volumes:
+    get:
+      description: Display one or more volumes belonging to a storage network.
+      operationId: storageNetworksStorageNetworkIdVolumesGet
+      parameters:
+      - description: ID of the storage.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: storageId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: A list of query parameters related to tags in the form of tagName.tagValue
+        example: env.dev
+        explode: true
+        in: query
+        name: tag
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Volume'
+                type: array
+          description: Get a storage network's volume details.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - networkstorage.read
+      summary: Display one or more volumes belonging to a storage network.
+      tags:
+      - Storage Networks
+    post:
+      description: Create a volume belonging to a storage network.
+      operationId: storageNetworksStorageNetworkIdVolumesPost
+      parameters:
+      - description: ID of the storage.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: storageId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VolumeCreate'
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+          description: Volume that is being created.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed because service is currently unavailable.
+            Please try again later.
+      security:
+      - OAuth2:
+        - networkstorage
+      summary: Create a volume belonging to a storage network.
+      tags:
+      - Storage Networks
+  /storage-networks/{storageId}/volumes/{volumeId}:
+    delete:
+      description: Delete a Storage Network's Volume
+      operationId: storageNetworksStorageNetworkIdVolumesVolumeIdDelete
+      parameters:
+      - description: ID of the storage.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: storageId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of volume.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: volumeId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Initiate the deletion process for the specified Volume.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - networkstorage
+      summary: Delete a Storage Network's Volume
+      tags:
+      - Storage Networks
+    get:
+      description: Get a storage network's volume details.
+      operationId: storageNetworksStorageNetworkIdVolumesVolumeIdGet
+      parameters:
+      - description: ID of the storage.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: storageId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of volume.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: volumeId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+          description: Get a storage network's volume details.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - networkstorage.read
+      summary: Get a storage network's volume details.
+      tags:
+      - Storage Networks
+    patch:
+      description: Update a storage network's volume details.
+      operationId: storageNetworksStorageNetworkIdVolumesVolumeIdPatch
+      parameters:
+      - description: ID of the storage.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: storageId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of volume.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: volumeId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VolumeUpdate'
+        description: Storage network volume to be updated.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+          description: Updated volume details.
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+          description: Updating volume details.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed because service is currently unavailable.
+            Please try again later.
+      security:
+      - OAuth2:
+        - networkstorage
+      summary: Update a storage network's volume details.
+      tags:
+      - Storage Networks
+  /storage-networks/{storageId}/volumes/{volumeId}/tags:
+    put:
+      description: Overwrites tags assigned for the volume.
+      operationId: storageNetworksStorageNetworkIdVolumesVolumeIdTagsPut
+      parameters:
+      - description: ID of the storage.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: storageId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of volume.
+        example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        explode: false
+        in: path
+        name: volumeId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/TagAssignmentRequest'
+              type: array
+        description: Tags to assign to the volume.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+          description: Volume tags set.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - networkstorage
+      summary: Overwrites tags assigned for the volume.
+      tags:
+      - Storage Networks
+components:
+  parameters:
+    storageIdParam:
+      description: ID of the storage.
+      example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+      explode: false
+      in: path
+      name: storageId
+      required: true
+      schema:
+        type: string
+      style: simple
+    volumeIdParam:
+      description: ID of volume.
+      example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+      explode: false
+      in: path
+      name: volumeId
+      required: true
+      schema:
+        type: string
+      style: simple
+  responses:
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed due to wrong data. Please check the provided
+        parameters and try again.
+    Unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed due to invalid credentials. Please check the
+        provided credentials and try again.
+    Forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed since this resource cannot be accessed by the
+        provided credentials.
+    InternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server encountered an unexpected condition that prevented it
+        from fulfilling the request.
+    Conflict:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The resource is in an incompatible state.
+    ServiceUnavailable:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed because service is currently unavailable. Please
+        try again later.
+  schemas:
+    StorageNetwork:
+      description: Storage network.
+      example:
+        name: My storage network
+        volumes:
+        - description: My volume description
+          deleteRequestedOn: 2022-04-07T08:50:20.359Z
+          createdOn: 2021-03-13T20:24:32.491Z
+          tags:
+          - name: stage
+            value: beta
+          - name: group
+            value: discounted
+          capacityInGb: 2000
+          path: /qjul77ahf5fplr2ba484/shared-docs
+          protocol: NFS
+          pathSuffix: /shared-docs
+          permissions:
+            nfs:
+              rootSquash:
+              - 100.80.0.5
+              - 100.80.0.4/24
+              noSquash:
+              - 100.80.0.7
+              - 100.80.0.*
+              readWrite:
+              - 100.80.0.5
+              - 100.80.0.6
+              readOnly:
+              - 100.80.0.5
+              allSquash:
+              - 100.80.0.5
+              - 100.80.0.6
+          usedCapacityInGb: 1000
+          name: My volume name
+          id: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+          status: READY
+        - description: My volume description
+          deleteRequestedOn: 2022-04-07T08:50:20.359Z
+          createdOn: 2021-03-13T20:24:32.491Z
+          tags:
+          - name: stage
+            value: beta
+          - name: group
+            value: discounted
+          capacityInGb: 2000
+          path: /qjul77ahf5fplr2ba484/shared-docs
+          protocol: NFS
+          pathSuffix: /shared-docs
+          permissions:
+            nfs:
+              rootSquash:
+              - 100.80.0.5
+              - 100.80.0.4/24
+              noSquash:
+              - 100.80.0.7
+              - 100.80.0.*
+              readWrite:
+              - 100.80.0.5
+              - 100.80.0.6
+              readOnly:
+              - 100.80.0.5
+              allSquash:
+              - 100.80.0.5
+              - 100.80.0.6
+          usedCapacityInGb: 1000
+          name: My volume name
+          id: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+          status: READY
+        description: My storage network description
+        deleteRequestedOn: 2022-04-07T08:50:20.359Z
+        location: PHX
+        networkId: 603f3b2cfcaf050643b89a4b
+        id: 603f3b2cfcaf050643b89a4b
+        ips:
+        - 100.64.0.1
+        - 100.64.0.2
+        createdOn: 2021-03-13T20:24:32.491Z
+        status: READY
+      properties:
+        id:
+          description: Storage network ID.
+          example: 603f3b2cfcaf050643b89a4b
+          type: string
+        name:
+          description: Storage network friendly name.
+          example: My storage network
+          type: string
+        description:
+          description: Storage network description.
+          example: My storage network description
+          type: string
+        status:
+          $ref: '#/components/schemas/Status'
+        location:
+          description: Location of storage network. Currently this field should be
+            set to `PHX` or `ASH`.
+          example: PHX
+          type: string
+        networkId:
+          description: Id of network the storage belongs to.
+          example: 603f3b2cfcaf050643b89a4b
+          type: string
+        ips:
+          description: IP of the storage network.
+          example:
+          - 100.64.0.1
+          - 100.64.0.2
+          items:
+            type: string
+          type: array
+        createdOn:
+          description: Date and time when this storage network was created.
+          example: 2021-03-13T20:24:32.491Z
+          format: date-time
+          type: string
+        deleteRequestedOn:
+          description: Date and time of the initial request for storage network deletion.
+          example: 2022-04-07T08:50:20.359Z
+          format: date-time
+          type: string
+        volumes:
+          description: Volume for a storage network.
+          items:
+            $ref: '#/components/schemas/Volume'
+          type: array
+      type: object
+    StorageNetworkCreate:
+      description: Create Storage Network.
+      example:
+        name: My storage network
+        volumes:
+        - capacityInGb: 2000
+          pathSuffix: /shared-docs
+          name: My volume name
+          description: My volume description
+          tags:
+          - name: stage
+            value: beta
+          - name: group
+            value: discounted
+        clientVlan: 329
+        description: My storage network description
+        location: PHX
+      properties:
+        name:
+          description: Storage network friendly name.
+          example: My storage network
+          maxLength: 100
+          minLength: 1
+          pattern: "^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"
+          type: string
+        description:
+          description: Storage network description.
+          example: My storage network description
+          maxLength: 250
+          type: string
+        location:
+          description: Location of storage network. Currently this field should be
+            set to `PHX` or `ASH`.
+          example: PHX
+          type: string
+        volumes:
+          description: Volume to be created alongside storage. Currently only 1 volume
+            is supported.
+          items:
+            $ref: '#/components/schemas/StorageNetworkVolumeCreate'
+          maxItems: 1
+          minItems: 1
+          type: array
+        clientVlan:
+          description: Custom Client VLAN that the Storage Network will be set to.
+          maximum: 4094
+          minimum: 2
+          type: integer
+      required:
+      - location
+      - name
+      - volumes
+      type: object
+    StorageNetworkVolumeCreate:
+      description: Create Volume.
+      example:
+        capacityInGb: 2000
+        pathSuffix: /shared-docs
+        name: My volume name
+        description: My volume description
+        tags:
+        - name: stage
+          value: beta
+        - name: group
+          value: discounted
+      properties:
+        name:
+          description: Volume friendly name.
+          example: My volume name
+          maxLength: 100
+          minLength: 1
+          pattern: "^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"
+          type: string
+        description:
+          description: Volume description.
+          example: My volume description
+          maxLength: 250
+          type: string
+        pathSuffix:
+          description: Last part of volume's path.
+          example: /shared-docs
+          maxLength: 27
+          minLength: 0
+          pattern: "^(\\/[\\w-]+)+$|^$"
+          type: string
+        capacityInGb:
+          description: Capacity of Volume in GB. Currently only whole numbers and
+            multiples of 1000GB are supported.
+          example: 2000
+          minimum: 1000
+          type: integer
+        tags:
+          description: "Tags to set to the resource. To create a new tag or list all\
+            \ the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview)."
+          example:
+          - name: stage
+            value: beta
+          - name: group
+            value: discounted
+          items:
+            $ref: '#/components/schemas/TagAssignmentRequest'
+          type: array
+      required:
+      - capacityInGb
+      - name
+      title: StorageNetworkVolumeCreate
+      type: object
+    StorageNetworkUpdate:
+      description: Update storage network.
+      example:
+        name: My storage network
+        description: My storage network description
+      properties:
+        name:
+          description: Storage network friendly name.
+          example: My storage network
+          maxLength: 100
+          minLength: 1
+          pattern: "^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"
+          type: string
+        description:
+          description: Storage network description.
+          example: My storage network description
+          maxLength: 250
+          type: string
+      type: object
+    Volume:
+      description: Volume for a storage network.
+      example:
+        description: My volume description
+        deleteRequestedOn: 2022-04-07T08:50:20.359Z
+        createdOn: 2021-03-13T20:24:32.491Z
+        tags:
+        - name: stage
+          value: beta
+        - name: group
+          value: discounted
+        capacityInGb: 2000
+        path: /qjul77ahf5fplr2ba484/shared-docs
+        protocol: NFS
+        pathSuffix: /shared-docs
+        permissions:
+          nfs:
+            rootSquash:
+            - 100.80.0.5
+            - 100.80.0.4/24
+            noSquash:
+            - 100.80.0.7
+            - 100.80.0.*
+            readWrite:
+            - 100.80.0.5
+            - 100.80.0.6
+            readOnly:
+            - 100.80.0.5
+            allSquash:
+            - 100.80.0.5
+            - 100.80.0.6
+        usedCapacityInGb: 1000
+        name: My volume name
+        id: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+        status: READY
+      properties:
+        id:
+          description: Volume ID.
+          example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
+          type: string
+        name:
+          description: Volume friendly name.
+          example: My volume name
+          type: string
+        description:
+          description: Volume description.
+          example: My volume description
+          type: string
+        path:
+          description: "Volume's full path. It is in form of `/{volumeId}/pathSuffix`'."
+          example: /qjul77ahf5fplr2ba484/shared-docs
+          type: string
+        pathSuffix:
+          description: Last part of volume's path.
+          example: /shared-docs
+          type: string
+        capacityInGb:
+          description: Maximum capacity in GB.
+          example: 2000
+          type: integer
+        usedCapacityInGb:
+          description: "Used capacity in GB, updated periodically."
+          example: 1000
+          type: integer
+        protocol:
+          description: File system protocol. Currently this field should be set to
+            `NFS`.
+          example: NFS
+          type: string
+        status:
+          $ref: '#/components/schemas/Status'
+        createdOn:
+          example: 2021-03-13T20:24:32.491Z
+          format: date-time
+          type: string
+        deleteRequestedOn:
+          description: Date and time of the initial request for volume deletion.
+          example: 2022-04-07T08:50:20.359Z
+          format: date-time
+          type: string
+        permissions:
+          $ref: '#/components/schemas/Permissions'
+        tags:
+          description: The tags assigned if any.
+          example:
+          - name: stage
+            value: beta
+          - name: group
+            value: discounted
+          items:
+            $ref: '#/components/schemas/TagAssignment'
+          type: array
+      type: object
+    VolumeCreate:
+      description: Create Volume.
+      example:
+        capacityInGb: 2000
+        pathSuffix: /shared-docs
+        permissions:
+          nfs:
+            rootSquash:
+            - 100.80.0.5
+            - 100.80.0.4/24
+            noSquash:
+            - 100.80.0.7
+            - 100.80.0.*
+            readWrite:
+            - 100.80.0.5
+            - 100.80.0.6
+            readOnly:
+            - 100.80.0.5
+            allSquash:
+            - 100.80.0.5
+            - 100.80.0.6
+        name: My volume name
+        description: My volume description
+        tags:
+        - name: stage
+          value: beta
+        - name: group
+          value: discounted
+      properties:
+        name:
+          description: Volume friendly name.
+          example: My volume name
+          maxLength: 100
+          minLength: 1
+          pattern: "^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"
+          type: string
+        description:
+          description: Volume description.
+          example: My volume description
+          maxLength: 250
+          type: string
+        pathSuffix:
+          description: Last part of volume's path.
+          example: /shared-docs
+          maxLength: 27
+          minLength: 0
+          pattern: "^(\\/[\\w-]+)+$|^$"
+          type: string
+        capacityInGb:
+          description: Capacity of Volume in GB. Currently only whole numbers and
+            multiples of 1000GB are supported.
+          example: 2000
+          minimum: 1000
+          type: integer
+        permissions:
+          $ref: '#/components/schemas/PermissionsCreate'
+        tags:
+          description: "Tags to set to the resource. To create a new tag or list all\
+            \ the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview)."
+          example:
+          - name: stage
+            value: beta
+          - name: group
+            value: discounted
+          items:
+            $ref: '#/components/schemas/TagAssignmentRequest'
+          type: array
+      required:
+      - capacityInGb
+      - name
+      title: VolumeCreate
+      type: object
+    VolumeUpdate:
+      description: Update storage network volume.
+      example:
+        capacityInGb: 2000
+        pathSuffix: pathSuffix
+        permissions:
+          nfs:
+            rootSquash:
+            - 100.80.0.5
+            - 100.80.0.4/24
+            noSquash:
+            - 100.80.0.7
+            - 100.80.0.*
+            readWrite:
+            - 100.80.0.5
+            - 100.80.0.6
+            readOnly:
+            - 100.80.0.5
+            allSquash:
+            - 100.80.0.5
+            - 100.80.0.6
+        name: New Volume name
+        description: New Volume description
+      properties:
+        name:
+          description: Volume friendly name.
+          example: New Volume name
+          maxLength: 100
+          minLength: 1
+          pattern: "^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"
+          type: string
+        description:
+          description: Volume description.
+          example: New Volume description
+          maxLength: 250
+          type: string
+        capacityInGb:
+          description: Capacity of Volume in GB. Currently only whole numbers and
+            multiples of 1000GB are supported.
+          example: 2000
+          minimum: 2000
+          type: integer
+        pathSuffix:
+          description: Last part of volume's path.
+          maxLength: 27
+          minLength: 0
+          pattern: "^(\\/[\\w-]+)+$|^$"
+          type: string
+        permissions:
+          $ref: '#/components/schemas/PermissionsUpdate'
+      type: object
+    Permissions:
+      description: Permissions for a volume.
+      example:
+        nfs:
+          rootSquash:
+          - 100.80.0.5
+          - 100.80.0.4/24
+          noSquash:
+          - 100.80.0.7
+          - 100.80.0.*
+          readWrite:
+          - 100.80.0.5
+          - 100.80.0.6
+          readOnly:
+          - 100.80.0.5
+          allSquash:
+          - 100.80.0.5
+          - 100.80.0.6
+      properties:
+        nfs:
+          $ref: '#/components/schemas/NfsPermissions'
+      type: object
+    PermissionsCreate:
+      description: Update permissions for a volume.
+      example:
+        nfs:
+          rootSquash:
+          - 100.80.0.5
+          - 100.80.0.4/24
+          noSquash:
+          - 100.80.0.7
+          - 100.80.0.*
+          readWrite:
+          - 100.80.0.5
+          - 100.80.0.6
+          readOnly:
+          - 100.80.0.5
+          allSquash:
+          - 100.80.0.5
+          - 100.80.0.6
+      properties:
+        nfs:
+          $ref: '#/components/schemas/NfsPermissionsCreate'
+      type: object
+    PermissionsUpdate:
+      description: Update permissions for a volume.
+      example:
+        nfs:
+          rootSquash:
+          - 100.80.0.5
+          - 100.80.0.4/24
+          noSquash:
+          - 100.80.0.7
+          - 100.80.0.*
+          readWrite:
+          - 100.80.0.5
+          - 100.80.0.6
+          readOnly:
+          - 100.80.0.5
+          allSquash:
+          - 100.80.0.5
+          - 100.80.0.6
+      properties:
+        nfs:
+          $ref: '#/components/schemas/NfsPermissionsUpdate'
+      type: object
+    NfsPermissions:
+      description: NFS specific permissions on a volume.
+      example:
+        rootSquash:
+        - 100.80.0.5
+        - 100.80.0.4/24
+        noSquash:
+        - 100.80.0.7
+        - 100.80.0.*
+        readWrite:
+        - 100.80.0.5
+        - 100.80.0.6
+        readOnly:
+        - 100.80.0.5
+        allSquash:
+        - 100.80.0.5
+        - 100.80.0.6
+      properties:
+        readWrite:
+          description: Read/Write access.
+          example:
+          - 100.80.0.5
+          - 100.80.0.6
+          items:
+            example: 100.80.0.5
+            type: string
+          type: array
+        readOnly:
+          description: Read only access.
+          example:
+          - 100.80.0.5
+          items:
+            example: 100.80.0.5
+            type: string
+          type: array
+        rootSquash:
+          description: Root squash permission.
+          example:
+          - 100.80.0.5
+          - 100.80.0.4/24
+          items:
+            example: 100.80.0.5/24
+            type: string
+          type: array
+        noSquash:
+          description: No squash permission.
+          example:
+          - 100.80.0.7
+          - 100.80.0.*
+          items:
+            example: 100.80.0.*
+            type: string
+          type: array
+        allSquash:
+          description: All squash permission.
+          example:
+          - 100.80.0.5
+          - 100.80.0.6
+          items:
+            example: 100.80.0.5
+            type: string
+          type: array
+      type: object
+    NfsPermissionsCreate:
+      description: NFS specific permissions on a volume.
+      example:
+        rootSquash:
+        - 100.80.0.5
+        - 100.80.0.4/24
+        noSquash:
+        - 100.80.0.7
+        - 100.80.0.*
+        readWrite:
+        - 100.80.0.5
+        - 100.80.0.6
+        readOnly:
+        - 100.80.0.5
+        allSquash:
+        - 100.80.0.5
+        - 100.80.0.6
+      properties:
+        readWrite:
+          description: Read/Write access.
+          example:
+          - 100.80.0.5
+          - 100.80.0.6
+          items:
+            example: 100.80.0.5
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+        readOnly:
+          description: Read only access.
+          example:
+          - 100.80.0.5
+          items:
+            example: 100.80.0.5
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+        rootSquash:
+          description: Root squash permission.
+          example:
+          - 100.80.0.5
+          - 100.80.0.4/24
+          items:
+            example: 100.80.0.5/24
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+        noSquash:
+          description: No squash permission.
+          example:
+          - 100.80.0.7
+          - 100.80.0.*
+          items:
+            example: 100.80.0.*
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+        allSquash:
+          description: All squash permission.
+          example:
+          - 100.80.0.5
+          - 100.80.0.6
+          items:
+            example: 100.80.0.5
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+      type: object
+    NfsPermissionsUpdate:
+      description: Update NFS specific permissions on a volume.
+      example:
+        rootSquash:
+        - 100.80.0.5
+        - 100.80.0.4/24
+        noSquash:
+        - 100.80.0.7
+        - 100.80.0.*
+        readWrite:
+        - 100.80.0.5
+        - 100.80.0.6
+        readOnly:
+        - 100.80.0.5
+        allSquash:
+        - 100.80.0.5
+        - 100.80.0.6
+      properties:
+        readWrite:
+          description: Read/Write access.
+          example:
+          - 100.80.0.5
+          - 100.80.0.6
+          items:
+            example: 100.80.0.5
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+        readOnly:
+          description: Read only access.
+          example:
+          - 100.80.0.5
+          items:
+            example: 100.80.0.5
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+        rootSquash:
+          description: Root squash permission.
+          example:
+          - 100.80.0.5
+          - 100.80.0.4/24
+          items:
+            example: 100.80.0.5/24
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+        noSquash:
+          description: No squash permission.
+          example:
+          - 100.80.0.7
+          - 100.80.0.*
+          items:
+            example: 100.80.0.*
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+        allSquash:
+          description: All squash permission.
+          example:
+          - 100.80.0.5
+          - 100.80.0.6
+          items:
+            example: 100.80.0.5
+            pattern: "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}(\\/(3[0-2]|[1-2]\\\
+              d|[1-9]))?$|^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){0,3}\\*$"
+            type: string
+          type: array
+      type: object
+    Status:
+      description: "Status of the resource. Currently this field should be set to\
+        \ `READY`, `BUSY`, `DELETING` or `ERROR`."
+      enum:
+      - READY
+      - BUSY
+      - DELETING
+      - ERROR
+      example: READY
+      type: string
+    TagAssignment:
+      description: Tag assigned to resource.
+      properties:
+        id:
+          description: The unique id of the tag.
+          example: 60ffafcdffb8b074c7968dad
+          type: string
+        name:
+          description: The name of the tag.
+          example: Environment
+          type: string
+        value:
+          description: The value of the tag assigned to the resource.
+          example: PROD
+          type: string
+        isBillingTag:
+          description: Whether or not to show the tag as part of billing and invoices
+          example: true
+          type: boolean
+        createdBy:
+          description: Who the tag was created by.
+          enum:
+          - USER
+          - SYSTEM
+          type: string
+      required:
+      - id
+      - isBillingTag
+      - name
+      type: object
+    Error:
+      properties:
+        message:
+          description: The description detailing the cause of the error code.
+          readOnly: true
+          type: string
+        validationErrors:
+          description: "Validation errors, if any."
+          items:
+            type: string
+          readOnly: true
+          type: array
+      required:
+      - message
+      type: object
+    TagAssignmentRequest:
+      description: Tag request to assign to resource.
+      example:
+        name: Environment
+        value: PROD
+      properties:
+        name:
+          description: "The name of the tag. Tag names are case-sensitive, and should\
+            \ be composed of a maximum of 100 characters including UTF-8 Unicode letters,\
+            \ numbers, and the following symbols: '-', '_'. Regex: [A-zÀ-ú0-9_-]{1,100}."
+          example: Environment
+          type: string
+        value:
+          description: "The value of the tag assigned to the resource. Tag values\
+            \ are case-sensitive, and should be composed of a maximum of 100 characters\
+            \ including UTF-8 Unicode letters, numbers, and the following symbols:\
+            \ '-', '_'. Regex: [A-zÀ-ú0-9_-]{1,100}."
+          example: PROD
+          type: string
+      required:
+      - name
+      type: object
+  securitySchemes:
+    OAuth2:
+      flows:
+        clientCredentials:
+          scopes:
+            networkstorage: Grants full access to Network Storage API.
+            networkstorage.read: Grants read only access to Network Storage API.
+          tokenUrl: https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
+      type: oauth2
