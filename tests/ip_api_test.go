@@ -61,7 +61,7 @@ func (suite *IpApiTestSuite) TestGetIpBlocks() {
 	tagSlice := []string{tag}
 
 	// Operation Execution
-	result, _, _ := suite.Client.IPBlocksApi.IpBlocksGet(suite.Ctx).Tag(tagSlice).Execute()
+	result, _, _ := suite.Client.IPBlocksAPI.IpBlocksGet(suite.Ctx).Tag(tagSlice).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -87,7 +87,7 @@ func (suite *IpApiTestSuite) TestCreateIpBlock() {
 	json.Unmarshal(body, &ipBlockCreate)
 
 	// Operation Execution
-	result, _, _ := suite.Client.IPBlocksApi.IpBlocksPost(suite.Ctx).IpBlockCreate(ipBlockCreate).Execute()
+	result, _, _ := suite.Client.IPBlocksAPI.IpBlocksPost(suite.Ctx).IpBlockCreate(ipBlockCreate).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -111,7 +111,7 @@ func (suite *IpApiTestSuite) TestGetIpBlocksById() {
 	ipBlockId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.IPBlocksApi.IpBlocksIpBlockIdGet(suite.Ctx, ipBlockId).Execute()
+	result, _, _ := suite.Client.IPBlocksAPI.IpBlocksIpBlockIdGet(suite.Ctx, ipBlockId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -135,7 +135,7 @@ func (suite *IpApiTestSuite) TestDeleteIpBlocksById() {
 	ipBlockId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.IPBlocksApi.IpBlocksIpBlockIdDelete(suite.Ctx, ipBlockId).Execute()
+	result, _, _ := suite.Client.IPBlocksAPI.IpBlocksIpBlockIdDelete(suite.Ctx, ipBlockId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -164,7 +164,7 @@ func (suite *IpApiTestSuite) TestPatchIpBlocksById() {
 	json.Unmarshal(body, &ipBlockPatch)
 
 	// Operation Execution
-	result, _, _ := suite.Client.IPBlocksApi.IpBlocksIpBlockIdPatch(suite.Ctx, ipBlockId).IpBlockPatch(ipBlockPatch).Execute()
+	result, _, _ := suite.Client.IPBlocksAPI.IpBlocksIpBlockIdPatch(suite.Ctx, ipBlockId).IpBlockPatch(ipBlockPatch).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -193,7 +193,7 @@ func (suite *IpApiTestSuite) TestPutTagsIpBlocksById() {
 	json.Unmarshal(body, &tagAssignmentRequest)
 
 	// Operation Execution
-	result, _, _ := suite.Client.IPBlocksApi.IpBlocksIpBlockIdTagsPut(suite.Ctx, ipBlockId).TagAssignmentRequest(tagAssignmentRequest).Execute()
+	result, _, _ := suite.Client.IPBlocksAPI.IpBlocksIpBlockIdTagsPut(suite.Ctx, ipBlockId).TagAssignmentRequest(tagAssignmentRequest).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)

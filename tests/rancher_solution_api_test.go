@@ -56,7 +56,7 @@ func (suite *RancherSolutionApiTestSuite) TestGetClusters() {
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.ClustersApi.ClustersGet(suite.ctx).Execute()
+	result, _, _ := suite.apiClient.ClustersAPI.ClustersGet(suite.ctx).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -81,7 +81,7 @@ func (suite *RancherSolutionApiTestSuite) TestCreateClusters() {
 	json.Unmarshal(body, &clusterCreate)
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.ClustersApi.ClustersPost(suite.ctx).Cluster(clusterCreate).Execute()
+	result, _, _ := suite.apiClient.ClustersAPI.ClustersPost(suite.ctx).Cluster(clusterCreate).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -104,7 +104,7 @@ func (suite *RancherSolutionApiTestSuite) TestGetClusterById() {
 	clusterId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.ClustersApi.ClustersIdGet(suite.ctx, clusterId).Execute()
+	result, _, _ := suite.apiClient.ClustersAPI.ClustersIdGet(suite.ctx, clusterId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -126,7 +126,7 @@ func (suite *RancherSolutionApiTestSuite) TestDeleteClusterById() {
 	clusterId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.ClustersApi.ClustersIdDelete(suite.ctx, clusterId).Execute()
+	result, _, _ := suite.apiClient.ClustersAPI.ClustersIdDelete(suite.ctx, clusterId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)

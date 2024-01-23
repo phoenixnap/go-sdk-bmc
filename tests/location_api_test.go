@@ -64,7 +64,7 @@ func (suite *LocationApiTestSuite) TestGetLocations() {
 	productCategory := fmt.Sprintf("%v", qpMap["productCategory"])
 
 	// execution
-	result, _, _ := suite.apiClient.LocationsApi.
+	result, _, _ := suite.apiClient.LocationsAPI.
 		GetLocations(suite.ctx).
 		Location(locationapi.LocationEnum(location)).
 		ProductCategory(locationapi.ProductCategoryEnum(productCategory)).
