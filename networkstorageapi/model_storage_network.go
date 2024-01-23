@@ -33,6 +33,8 @@ type StorageNetwork struct {
 	Ips []string `json:"ips,omitempty"`
 	// Date and time when this storage network was created.
 	CreatedOn *time.Time `json:"createdOn,omitempty"`
+	// Date and time of the initial request for storage network deletion.
+	DeleteRequestedOn *time.Time `json:"deleteRequestedOn,omitempty"`
 	// Volume for a storage network.
 	Volumes []Volume `json:"volumes,omitempty"`
 }
@@ -310,6 +312,38 @@ func (o *StorageNetwork) SetCreatedOn(v time.Time) {
 	o.CreatedOn = &v
 }
 
+// GetDeleteRequestedOn returns the DeleteRequestedOn field value if set, zero value otherwise.
+func (o *StorageNetwork) GetDeleteRequestedOn() time.Time {
+	if o == nil || o.DeleteRequestedOn == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.DeleteRequestedOn
+}
+
+// GetDeleteRequestedOnOk returns a tuple with the DeleteRequestedOn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StorageNetwork) GetDeleteRequestedOnOk() (*time.Time, bool) {
+	if o == nil || o.DeleteRequestedOn == nil {
+		return nil, false
+	}
+	return o.DeleteRequestedOn, true
+}
+
+// HasDeleteRequestedOn returns a boolean if a field has been set.
+func (o *StorageNetwork) HasDeleteRequestedOn() bool {
+	if o != nil && o.DeleteRequestedOn != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDeleteRequestedOn gets a reference to the given time.Time and assigns it to the DeleteRequestedOn field.
+func (o *StorageNetwork) SetDeleteRequestedOn(v time.Time) {
+	o.DeleteRequestedOn = &v
+}
+
 // GetVolumes returns the Volumes field value if set, zero value otherwise.
 func (o *StorageNetwork) GetVolumes() []Volume {
 	if o == nil || o.Volumes == nil {
@@ -367,6 +401,9 @@ func (o StorageNetwork) MarshalJSON() ([]byte, error) {
 	}
 	if o.CreatedOn != nil {
 		toSerialize["createdOn"] = o.CreatedOn
+	}
+	if o.DeleteRequestedOn != nil {
+		toSerialize["deleteRequestedOn"] = o.DeleteRequestedOn
 	}
 	if o.Volumes != nil {
 		toSerialize["volumes"] = o.Volumes

@@ -75,6 +75,7 @@ paths:
         - OAuth2:
             - networkstorage
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -96,9 +97,9 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  /storage-networks/{storageNetworkId}:
+  /storage-networks/{storageId}:
     parameters:
-      - $ref: '#/components/parameters/storageNetworkIdParam'
+      - $ref: '#/components/parameters/storageIdParam'
     get:
       tags:
         - Storage Networks
@@ -131,6 +132,7 @@ paths:
         - OAuth2:
             - networkstorage
       requestBody:
+        required: true
         description: Storage network to be updated.
         content:
           application/json:
@@ -165,7 +167,7 @@ paths:
             - networkstorage
       responses:
         '204':
-          description: Storage Network is deleted.
+          description: Initiate the deletion process for the specified Storage Network.
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -176,9 +178,11 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  /storage-networks/{storageNetworkId}/volumes:
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /storage-networks/{storageId}/volumes:
     parameters:
-      - $ref: '#/components/parameters/storageNetworkIdParam'
+      - $ref: '#/components/parameters/storageIdParam'
     get:
       parameters:
         - in: query
@@ -222,6 +226,7 @@ paths:
         - OAuth2:
             - networkstorage
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -243,9 +248,11 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  /storage-networks/{storageNetworkId}/volumes/{volumeId}:
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /storage-networks/{storageId}/volumes/{volumeId}:
     parameters:
-      - $ref: '#/components/parameters/storageNetworkIdParam'
+      - $ref: '#/components/parameters/storageIdParam'
       - $ref: '#/components/parameters/volumeIdParam'
     get:
       tags:
@@ -279,6 +286,7 @@ paths:
         - OAuth2:
             - networkstorage
       requestBody:
+        required: true
         description: Storage network volume to be updated.
         content:
           application/json:
@@ -307,6 +315,8 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
     delete:
       tags:
         - Storage Networks
@@ -318,7 +328,7 @@ paths:
             - networkstorage
       responses:
         '204':
-          description: Volume is deleted.
+          description: Initiate the deletion process for the specified Volume.
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -329,9 +339,9 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  /storage-networks/{storageNetworkId}/volumes/{volumeId}/tags:
+  /storage-networks/{storageId}/volumes/{volumeId}/tags:
     parameters:
-      - $ref: '#/components/parameters/storageNetworkIdParam'
+      - $ref: '#/components/parameters/storageIdParam'
       - $ref: '#/components/parameters/volumeIdParam'
     put:
       tags:
@@ -343,6 +353,7 @@ paths:
         - OAuth2:
             - networkstorage
       requestBody:
+        required: true
         description: Tags to assign to the volume.
         content:
           application/json:
@@ -417,6 +428,11 @@ components:
           type: string
           format: date-time
           example: '2021-03-13T20:24:32.491Z'
+        deleteRequestedOn:
+          description: Date and time of the initial request for storage network deletion.
+          type: string
+          format: date-time
+          example: '2022-04-07T08:50:20.359Z'
         volumes:
           description: Volume for a storage network.
           type: array
@@ -436,6 +452,7 @@ components:
           minLength: 1
           maxLength: 100
           example: My storage network
+          pattern: ^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$
         description:
           description: Storage network description.
           type: string
@@ -471,6 +488,7 @@ components:
           minLength: 1
           maxLength: 100
           example: My volume name
+          pattern: ^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$
         description:
           description: Volume description.
           type: string
@@ -508,6 +526,7 @@ components:
           minLength: 1
           maxLength: 100
           example: My storage network
+          pattern: ^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$
         description:
           description: Storage network description.
           type: string
@@ -555,6 +574,11 @@ components:
           type: string
           format: date-time
           example: '2021-03-13T20:24:32.491Z'
+        deleteRequestedOn:
+          description: Date and time of the initial request for volume deletion.
+          type: string
+          format: date-time
+          example: '2022-04-07T08:50:20.359Z'
         permissions:
           $ref: '#/components/schemas/Permissions'
         tags:
@@ -581,6 +605,7 @@ components:
           minLength: 1
           maxLength: 100
           example: My volume name
+          pattern: ^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$
         description:
           description: Volume description.
           type: string
@@ -620,6 +645,7 @@ components:
           minLength: 1
           maxLength: 100
           example: New Volume name
+          pattern: ^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$
         description:
           description: Volume description.
           type: string
@@ -811,11 +837,12 @@ components:
             - 100.80.0.5
             - 100.80.0.6
     Status:
-      description: Status of the resource. Currently this field should be set to `READY`, `BUSY` or `ERROR`.
+      description: Status of the resource. Currently this field should be set to `READY`, `BUSY`, `DELETING` or `ERROR`.
       type: string
       enum:
         - READY
         - BUSY
+        - DELETING
         - ERROR
       example: READY
     TagAssignment:
@@ -908,14 +935,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    ServiceUnavailable:
+      description: The request failed because service is currently unavailable. Please try again later.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    storageNetworkIdParam:
+    storageIdParam:
       in: path
-      name: storageNetworkId
+      name: storageId
       required: true
       schema:
         type: string
-      description: ID of storage network.
+      description: ID of the storage.
       example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
     volumeIdParam:
       in: path

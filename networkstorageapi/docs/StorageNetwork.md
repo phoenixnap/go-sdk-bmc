@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **NetworkId** | Pointer to **string** | Id of network the storage belongs to. | [optional] 
 **Ips** | Pointer to **[]string** | IP of the storage network. | [optional] 
 **CreatedOn** | Pointer to **time.Time** | Date and time when this storage network was created. | [optional] 
+**DeleteRequestedOn** | Pointer to **time.Time** | Date and time of the initial request for storage network deletion. | [optional] 
 **Volumes** | Pointer to [**[]Volume**](Volume.md) | Volume for a storage network. | [optional] 
 
 ## Methods
@@ -232,6 +233,31 @@ SetCreatedOn sets CreatedOn field to given value.
 `func (o *StorageNetwork) HasCreatedOn() bool`
 
 HasCreatedOn returns a boolean if a field has been set.
+
+### GetDeleteRequestedOn
+
+`func (o *StorageNetwork) GetDeleteRequestedOn() time.Time`
+
+GetDeleteRequestedOn returns the DeleteRequestedOn field if non-nil, zero value otherwise.
+
+### GetDeleteRequestedOnOk
+
+`func (o *StorageNetwork) GetDeleteRequestedOnOk() (*time.Time, bool)`
+
+GetDeleteRequestedOnOk returns a tuple with the DeleteRequestedOn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeleteRequestedOn
+
+`func (o *StorageNetwork) SetDeleteRequestedOn(v time.Time)`
+
+SetDeleteRequestedOn sets DeleteRequestedOn field to given value.
+
+### HasDeleteRequestedOn
+
+`func (o *StorageNetwork) HasDeleteRequestedOn() bool`
+
+HasDeleteRequestedOn returns a boolean if a field has been set.
 
 ### GetVolumes
 

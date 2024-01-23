@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Location** | **string** | IP Block location ID. Currently this field should be set to &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60;, &#x60;SEA&#x60; or &#x60;AUS&#x60;. | 
 **CidrBlockSize** | **string** | CIDR IP Block Size. Currently this field should be set to either &#x60;/31&#x60;, &#x60;/30&#x60;, &#x60;/29&#x60;, &#x60;/28&#x60;, &#x60;/27&#x60;, &#x60;/26&#x60;, &#x60;/25&#x60;, &#x60;/24&#x60;, &#x60;/23&#x60; or &#x60;/22&#x60;. | 
 **Cidr** | **string** | The IP Block in CIDR notation. | 
-**Status** | **string** | The status of the IP Block. | 
+**Status** | **string** | The status of the IP Block. Can have one of the following values: &#x60;creating&#x60; , &#x60;assigning&#x60; , &#x60;error assigning&#x60; , &#x60;assigned&#x60; , &#x60;unassigning&#x60; , &#x60;error unassigning&#x60; or &#x60;unassigned&#x60;. | 
 **AssignedResourceId** | Pointer to **string** | ID of the resource assigned to the IP Block. | [optional] 
 **AssignedResourceType** | Pointer to **string** | Type of the resource assigned to the IP Block. | [optional] 
 **Description** | Pointer to **string** | The description of the IP Block. | [optional] 

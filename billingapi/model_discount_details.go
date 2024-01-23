@@ -15,12 +15,13 @@ import (
 	"encoding/json"
 )
 
-// DiscountDetails Discount details.
+// DiscountDetails Represents the details of a discount applied to a product or charge.
 type DiscountDetails struct {
-	// Discount code.
+	// A unique code associated with the discount.
 	Code string `json:"code"`
+	// The type of discount applied.
 	Type string `json:"type"`
-	// A number representing the discount value.
+	// The value or amount of the discount. The interpretation of this value depends on the 'type' of discount.
 	Value float32 `json:"value"`
 }
 

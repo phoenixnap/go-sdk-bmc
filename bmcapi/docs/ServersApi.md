@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**ServersServerIdActionsDeprovisionPost**](ServersApi.md#ServersServerIdActionsDeprovisionPost) | **Post** /servers/{serverId}/actions/deprovision | Deprovision a server.
 [**ServersServerIdActionsPowerOffPost**](ServersApi.md#ServersServerIdActionsPowerOffPost) | **Post** /servers/{serverId}/actions/power-off | Power off server.
 [**ServersServerIdActionsPowerOnPost**](ServersApi.md#ServersServerIdActionsPowerOnPost) | **Post** /servers/{serverId}/actions/power-on | Power on server.
+[**ServersServerIdActionsProvisionPost**](ServersApi.md#ServersServerIdActionsProvisionPost) | **Post** /servers/{serverId}/actions/provision | Provision server.
 [**ServersServerIdActionsRebootPost**](ServersApi.md#ServersServerIdActionsRebootPost) | **Post** /servers/{serverId}/actions/reboot | Reboot server.
 [**ServersServerIdActionsReservePost**](ServersApi.md#ServersServerIdActionsReservePost) | **Post** /servers/{serverId}/actions/reserve | Reserve server.
 [**ServersServerIdActionsResetPost**](ServersApi.md#ServersServerIdActionsResetPost) | **Post** /servers/{serverId}/actions/reset | Reset server.
@@ -49,7 +50,7 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
     privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
 
     configuration := openapiclient.NewConfiguration()
@@ -169,7 +170,7 @@ Name | Type | Description  | Notes
 
 ## ServersPost
 
-> Server ServersPost(ctx).Force(force).ServerCreate(serverCreate).Execute()
+> Server ServersPost(ctx).ServerCreate(serverCreate).Force(force).Execute()
 
 Create new server.
 
@@ -188,12 +189,12 @@ import (
 )
 
 func main() {
+    serverCreate := *openapiclient.NewServerCreate("my-server-1", "ubuntu/bionic", "s1.c1.small", "PHX") // ServerCreate | 
     force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
-    serverCreate := *openapiclient.NewServerCreate("my-server-1", "ubuntu/bionic", "s1.c1.small", "PHX") // ServerCreate |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersPost(context.Background()).Force(force).ServerCreate(serverCreate).Execute()
+    resp, r, err := apiClient.ServersApi.ServersPost(context.Background()).ServerCreate(serverCreate).Force(force).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -214,8 +215,8 @@ Other parameters are passed through a pointer to a apiServersPostRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **force** | **bool** | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. | [default to false]
  **serverCreate** | [**ServerCreate**](ServerCreate.md) |  | 
+ **force** | **bool** | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. | [default to false]
 
 ### Return type
 
@@ -256,8 +257,8 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
-    relinquishIpBlock := *openapiclient.NewRelinquishIpBlock() // RelinquishIpBlock |  (optional)
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+    relinquishIpBlock := *openapiclient.NewRelinquishIpBlock() // RelinquishIpBlock | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -328,7 +329,7 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -398,7 +399,7 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -447,6 +448,80 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ServersServerIdActionsProvisionPost
+
+> Server ServersServerIdActionsProvisionPost(ctx, serverId).ServerProvision(serverProvision).Force(force).Execute()
+
+Provision server.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+    serverProvision := *openapiclient.NewServerProvision("my-server-1", "ubuntu/bionic") // ServerProvision | 
+    force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ServersApi.ServersServerIdActionsProvisionPost(context.Background(), serverId).ServerProvision(serverProvision).Force(force).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdActionsProvisionPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ServersServerIdActionsProvisionPost`: Server
+    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdActionsProvisionPost`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**serverId** | **string** | The server&#39;s ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiServersServerIdActionsProvisionPostRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **serverProvision** | [**ServerProvision**](ServerProvision.md) |  | 
+ **force** | **bool** | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. | [default to false]
+
+### Return type
+
+[**Server**](Server.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ServersServerIdActionsRebootPost
 
 > ActionResult ServersServerIdActionsRebootPost(ctx, serverId).Execute()
@@ -468,7 +543,7 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -538,8 +613,8 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
-    serverReserve := *openapiclient.NewServerReserve("ONE_MONTH_RESERVATION") // ServerReserve |  (optional)
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+    serverReserve := *openapiclient.NewServerReserve("ONE_MONTH_RESERVATION") // ServerReserve | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -610,8 +685,8 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
-    serverReset := *openapiclient.NewServerReset() // ServerReset |  (optional)
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+    serverReset := *openapiclient.NewServerReset() // ServerReset | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -682,7 +757,7 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -752,7 +827,7 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -822,7 +897,7 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -892,9 +967,9 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
     ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
-    relinquishIpBlock := *openapiclient.NewRelinquishIpBlock() // RelinquishIpBlock |  (optional)
+    relinquishIpBlock := *openapiclient.NewRelinquishIpBlock() // RelinquishIpBlock | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -967,8 +1042,8 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
-    serverIpBlock := *openapiclient.NewServerIpBlock("60473a6115e34466c9f8f083") // ServerIpBlock |  (optional)
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+    serverIpBlock := *openapiclient.NewServerIpBlock("60473a6115e34466c9f8f083") // ServerIpBlock | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -1039,8 +1114,8 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
-    serverPatch := *openapiclient.NewServerPatch() // ServerPatch |  (optional)
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+    serverPatch := *openapiclient.NewServerPatch() // ServerPatch | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -1092,7 +1167,7 @@ Name | Type | Description  | Notes
 
 ## ServersServerIdPrivateNetworksPatch
 
-> ServerPrivateNetwork ServersServerIdPrivateNetworksPatch(ctx, serverId, privateNetworkId).Force(force).ServerNetworkUpdate(serverNetworkUpdate).Execute()
+> ServerPrivateNetwork ServersServerIdPrivateNetworksPatch(ctx, serverId, privateNetworkId).ServerNetworkUpdate(serverNetworkUpdate).Force(force).Execute()
 
 Updates the server's private network's IP addresses
 
@@ -1111,14 +1186,14 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
     privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
+    serverNetworkUpdate := *openapiclient.NewServerNetworkUpdate() // ServerNetworkUpdate | 
     force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
-    serverNetworkUpdate := *openapiclient.NewServerNetworkUpdate() // ServerNetworkUpdate |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdPrivateNetworksPatch(context.Background(), serverId, privateNetworkId).Force(force).ServerNetworkUpdate(serverNetworkUpdate).Execute()
+    resp, r, err := apiClient.ServersApi.ServersServerIdPrivateNetworksPatch(context.Background(), serverId, privateNetworkId).ServerNetworkUpdate(serverNetworkUpdate).Force(force).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPrivateNetworksPatch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1146,8 +1221,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **force** | **bool** | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. | [default to false]
  **serverNetworkUpdate** | [**ServerNetworkUpdate**](ServerNetworkUpdate.md) |  | 
+ **force** | **bool** | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. | [default to false]
 
 ### Return type
 
@@ -1169,7 +1244,7 @@ Name | Type | Description  | Notes
 
 ## ServersServerIdPrivateNetworksPost
 
-> ServerPrivateNetwork ServersServerIdPrivateNetworksPost(ctx, serverId).Force(force).ServerPrivateNetwork(serverPrivateNetwork).Execute()
+> ServerPrivateNetwork ServersServerIdPrivateNetworksPost(ctx, serverId).ServerPrivateNetwork(serverPrivateNetwork).Force(force).Execute()
 
 Adds the server to a private network.
 
@@ -1188,13 +1263,13 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+    serverPrivateNetwork := *openapiclient.NewServerPrivateNetwork("603f3b2cfcaf050643b89a4b") // ServerPrivateNetwork | 
     force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
-    serverPrivateNetwork := *openapiclient.NewServerPrivateNetwork("603f3b2cfcaf050643b89a4b") // ServerPrivateNetwork |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdPrivateNetworksPost(context.Background(), serverId).Force(force).ServerPrivateNetwork(serverPrivateNetwork).Execute()
+    resp, r, err := apiClient.ServersApi.ServersServerIdPrivateNetworksPost(context.Background(), serverId).ServerPrivateNetwork(serverPrivateNetwork).Force(force).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPrivateNetworksPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1220,8 +1295,8 @@ Other parameters are passed through a pointer to a apiServersServerIdPrivateNetw
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **force** | **bool** | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. | [default to false]
  **serverPrivateNetwork** | [**ServerPrivateNetwork**](ServerPrivateNetwork.md) |  | 
+ **force** | **bool** | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. | [default to false]
 
 ### Return type
 
@@ -1262,7 +1337,7 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
     publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
 
     configuration := openapiclient.NewConfiguration()
@@ -1316,7 +1391,7 @@ Name | Type | Description  | Notes
 
 ## ServersServerIdPublicNetworksPatch
 
-> ServerPublicNetwork ServersServerIdPublicNetworksPatch(ctx, serverId, publicNetworkId).Force(force).ServerNetworkUpdate(serverNetworkUpdate).Execute()
+> ServerPublicNetwork ServersServerIdPublicNetworksPatch(ctx, serverId, publicNetworkId).ServerNetworkUpdate(serverNetworkUpdate).Force(force).Execute()
 
 Updates the server's public network's IP addresses.
 
@@ -1335,14 +1410,14 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
     publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
+    serverNetworkUpdate := *openapiclient.NewServerNetworkUpdate() // ServerNetworkUpdate | 
     force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
-    serverNetworkUpdate := *openapiclient.NewServerNetworkUpdate() // ServerNetworkUpdate |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdPublicNetworksPatch(context.Background(), serverId, publicNetworkId).Force(force).ServerNetworkUpdate(serverNetworkUpdate).Execute()
+    resp, r, err := apiClient.ServersApi.ServersServerIdPublicNetworksPatch(context.Background(), serverId, publicNetworkId).ServerNetworkUpdate(serverNetworkUpdate).Force(force).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPublicNetworksPatch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1370,8 +1445,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **force** | **bool** | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. | [default to false]
  **serverNetworkUpdate** | [**ServerNetworkUpdate**](ServerNetworkUpdate.md) |  | 
+ **force** | **bool** | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. | [default to false]
 
 ### Return type
 
@@ -1393,7 +1468,7 @@ Name | Type | Description  | Notes
 
 ## ServersServerIdPublicNetworksPost
 
-> ServerPublicNetwork ServersServerIdPublicNetworksPost(ctx, serverId).Force(force).ServerPublicNetwork(serverPublicNetwork).Execute()
+> ServerPublicNetwork ServersServerIdPublicNetworksPost(ctx, serverId).ServerPublicNetwork(serverPublicNetwork).Force(force).Execute()
 
 Adds the server to a Public Network.
 
@@ -1412,13 +1487,13 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+    serverPublicNetwork := *openapiclient.NewServerPublicNetwork("60473c2509268bc77fd06d29") // ServerPublicNetwork | 
     force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
-    serverPublicNetwork := *openapiclient.NewServerPublicNetwork("60473c2509268bc77fd06d29") // ServerPublicNetwork |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdPublicNetworksPost(context.Background(), serverId).Force(force).ServerPublicNetwork(serverPublicNetwork).Execute()
+    resp, r, err := apiClient.ServersApi.ServersServerIdPublicNetworksPost(context.Background(), serverId).ServerPublicNetwork(serverPublicNetwork).Force(force).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPublicNetworksPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1444,8 +1519,8 @@ Other parameters are passed through a pointer to a apiServersServerIdPublicNetwo
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **force** | **bool** | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. | [default to false]
  **serverPublicNetwork** | [**ServerPublicNetwork**](ServerPublicNetwork.md) |  | 
+ **force** | **bool** | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. | [default to false]
 
 ### Return type
 
@@ -1486,8 +1561,8 @@ import (
 )
 
 func main() {
-    serverId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The server's ID.
-    tagAssignmentRequest := []openapiclient.TagAssignmentRequest{*openapiclient.NewTagAssignmentRequest("Environment")} // []TagAssignmentRequest |  (optional)
+    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+    tagAssignmentRequest := []openapiclient.TagAssignmentRequest{*openapiclient.NewTagAssignmentRequest("Environment")} // []TagAssignmentRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

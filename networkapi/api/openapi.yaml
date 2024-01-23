@@ -170,6 +170,7 @@ paths:
                   cidr: 10.0.0.0/24
             schema:
               $ref: '#/components/schemas/PrivateNetworkCreate'
+        required: true
       responses:
         "201":
           content:
@@ -420,6 +421,7 @@ paths:
                   locationDefault: false
             schema:
               $ref: '#/components/schemas/PrivateNetworkModify'
+        required: true
       responses:
         "200":
           content:
@@ -647,6 +649,7 @@ paths:
                   - id: 613b51c01f4b04615ba1d3be
             schema:
               $ref: '#/components/schemas/PublicNetworkCreate'
+        required: true
       responses:
         "201":
           content:
@@ -946,6 +949,7 @@ paths:
                   description: The new description of my public network
             schema:
               $ref: '#/components/schemas/PublicNetworkModify'
+        required: true
       responses:
         "200":
           content:
@@ -1024,6 +1028,7 @@ paths:
               id: 60473a6115e34466c9f8f083
             schema:
               $ref: '#/components/schemas/PublicNetworkIpBlock'
+        required: true
       responses:
         "202":
           content:
@@ -1334,7 +1339,7 @@ components:
           type: array
         status:
           description: "The status of the private network. Can have one of the following\
-            \ values: `BUSY` or `READY`."
+            \ values: `BUSY`, `READY`, `DELETING` or `ERROR`."
           example: READY
           type: string
         createdOn:
@@ -1395,6 +1400,7 @@ components:
           example: Sample Network
           maxLength: 100
           minLength: 1
+          pattern: ^(?!\s*$).+
           type: string
         description:
           description: The description of this private network.
@@ -1441,6 +1447,7 @@ components:
           example: Sample network
           maxLength: 100
           minLength: 1
+          pattern: ^(?!\s*$).+
           type: string
         description:
           description: A description of this private network
@@ -1569,6 +1576,7 @@ components:
           example: Sample Network
           maxLength: 100
           minLength: 1
+          pattern: ^(?!\s*$).+
           type: string
         description:
           description: The description of this public network.
@@ -1608,6 +1616,7 @@ components:
           example: Sample Network
           maxLength: 100
           minLength: 1
+          pattern: ^(?!\s*$).+
           type: string
         description:
           description: The description of this public network

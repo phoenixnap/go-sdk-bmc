@@ -5,16 +5,16 @@ All URIs are relative to *https://api.phoenixnap.com/network-storage/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**StorageNetworksGet**](StorageNetworksApi.md#StorageNetworksGet) | **Get** /storage-networks | List all storage networks.
-[**StorageNetworksIdDelete**](StorageNetworksApi.md#StorageNetworksIdDelete) | **Delete** /storage-networks/{storageNetworkId} | Delete a storage network and its volume.
-[**StorageNetworksIdGet**](StorageNetworksApi.md#StorageNetworksIdGet) | **Get** /storage-networks/{storageNetworkId} | Get storage network details.
-[**StorageNetworksIdPatch**](StorageNetworksApi.md#StorageNetworksIdPatch) | **Patch** /storage-networks/{storageNetworkId} | Update storage network details.
+[**StorageNetworksIdDelete**](StorageNetworksApi.md#StorageNetworksIdDelete) | **Delete** /storage-networks/{storageId} | Delete a storage network and its volume.
+[**StorageNetworksIdGet**](StorageNetworksApi.md#StorageNetworksIdGet) | **Get** /storage-networks/{storageId} | Get storage network details.
+[**StorageNetworksIdPatch**](StorageNetworksApi.md#StorageNetworksIdPatch) | **Patch** /storage-networks/{storageId} | Update storage network details.
 [**StorageNetworksPost**](StorageNetworksApi.md#StorageNetworksPost) | **Post** /storage-networks | Create a storage network and volume.
-[**StorageNetworksStorageNetworkIdVolumesGet**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesGet) | **Get** /storage-networks/{storageNetworkId}/volumes | Display one or more volumes belonging to a storage network.
-[**StorageNetworksStorageNetworkIdVolumesPost**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesPost) | **Post** /storage-networks/{storageNetworkId}/volumes | Create a volume belonging to a storage network.
-[**StorageNetworksStorageNetworkIdVolumesVolumeIdDelete**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesVolumeIdDelete) | **Delete** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Delete a Storage Network&#39;s Volume
-[**StorageNetworksStorageNetworkIdVolumesVolumeIdGet**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesVolumeIdGet) | **Get** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Get a storage network&#39;s volume details.
-[**StorageNetworksStorageNetworkIdVolumesVolumeIdPatch**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesVolumeIdPatch) | **Patch** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Update a storage network&#39;s volume details.
-[**StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut) | **Put** /storage-networks/{storageNetworkId}/volumes/{volumeId}/tags | Overwrites tags assigned for the volume.
+[**StorageNetworksStorageNetworkIdVolumesGet**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesGet) | **Get** /storage-networks/{storageId}/volumes | Display one or more volumes belonging to a storage network.
+[**StorageNetworksStorageNetworkIdVolumesPost**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesPost) | **Post** /storage-networks/{storageId}/volumes | Create a volume belonging to a storage network.
+[**StorageNetworksStorageNetworkIdVolumesVolumeIdDelete**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesVolumeIdDelete) | **Delete** /storage-networks/{storageId}/volumes/{volumeId} | Delete a Storage Network&#39;s Volume
+[**StorageNetworksStorageNetworkIdVolumesVolumeIdGet**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesVolumeIdGet) | **Get** /storage-networks/{storageId}/volumes/{volumeId} | Get a storage network&#39;s volume details.
+[**StorageNetworksStorageNetworkIdVolumesVolumeIdPatch**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesVolumeIdPatch) | **Patch** /storage-networks/{storageId}/volumes/{volumeId} | Update a storage network&#39;s volume details.
+[**StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut**](StorageNetworksApi.md#StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut) | **Put** /storage-networks/{storageId}/volumes/{volumeId}/tags | Overwrites tags assigned for the volume.
 
 
 
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 ## StorageNetworksIdDelete
 
-> StorageNetworksIdDelete(ctx, storageNetworkId).Execute()
+> StorageNetworksIdDelete(ctx, storageId).Execute()
 
 Delete a storage network and its volume.
 
@@ -105,11 +105,11 @@ import (
 )
 
 func main() {
-    storageNetworkId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of storage network.
+    storageId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of the storage.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksIdDelete(context.Background(), storageNetworkId).Execute()
+    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksIdDelete(context.Background(), storageId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StorageNetworksApi.StorageNetworksIdDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -123,7 +123,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storageNetworkId** | **string** | ID of storage network. | 
+**storageId** | **string** | ID of the storage. | 
 
 ### Other Parameters
 
@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
 
 ## StorageNetworksIdGet
 
-> StorageNetwork StorageNetworksIdGet(ctx, storageNetworkId).Execute()
+> StorageNetwork StorageNetworksIdGet(ctx, storageId).Execute()
 
 Get storage network details.
 
@@ -173,11 +173,11 @@ import (
 )
 
 func main() {
-    storageNetworkId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of storage network.
+    storageId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of the storage.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksIdGet(context.Background(), storageNetworkId).Execute()
+    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksIdGet(context.Background(), storageId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StorageNetworksApi.StorageNetworksIdGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -193,7 +193,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storageNetworkId** | **string** | ID of storage network. | 
+**storageId** | **string** | ID of the storage. | 
 
 ### Other Parameters
 
@@ -224,7 +224,7 @@ Name | Type | Description  | Notes
 
 ## StorageNetworksIdPatch
 
-> StorageNetwork StorageNetworksIdPatch(ctx, storageNetworkId).StorageNetworkUpdate(storageNetworkUpdate).Execute()
+> StorageNetwork StorageNetworksIdPatch(ctx, storageId).StorageNetworkUpdate(storageNetworkUpdate).Execute()
 
 Update storage network details.
 
@@ -243,12 +243,12 @@ import (
 )
 
 func main() {
-    storageNetworkId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of storage network.
-    storageNetworkUpdate := *openapiclient.NewStorageNetworkUpdate() // StorageNetworkUpdate | Storage network to be updated. (optional)
+    storageId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of the storage.
+    storageNetworkUpdate := *openapiclient.NewStorageNetworkUpdate() // StorageNetworkUpdate | Storage network to be updated.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksIdPatch(context.Background(), storageNetworkId).StorageNetworkUpdate(storageNetworkUpdate).Execute()
+    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksIdPatch(context.Background(), storageId).StorageNetworkUpdate(storageNetworkUpdate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StorageNetworksApi.StorageNetworksIdPatch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -264,7 +264,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storageNetworkId** | **string** | ID of storage network. | 
+**storageId** | **string** | ID of the storage. | 
 
 ### Other Parameters
 
@@ -315,7 +315,7 @@ import (
 )
 
 func main() {
-    storageNetworkCreate := *openapiclient.NewStorageNetworkCreate("My storage network", "PHX", []openapiclient.StorageNetworkVolumeCreate{*openapiclient.NewStorageNetworkVolumeCreate("My volume name", int32(2000))}) // StorageNetworkCreate |  (optional)
+    storageNetworkCreate := *openapiclient.NewStorageNetworkCreate("My storage network", "PHX", []openapiclient.StorageNetworkVolumeCreate{*openapiclient.NewStorageNetworkVolumeCreate("My volume name", int32(2000))}) // StorageNetworkCreate | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -362,7 +362,7 @@ Name | Type | Description  | Notes
 
 ## StorageNetworksStorageNetworkIdVolumesGet
 
-> []Volume StorageNetworksStorageNetworkIdVolumesGet(ctx, storageNetworkId).Tag(tag).Execute()
+> []Volume StorageNetworksStorageNetworkIdVolumesGet(ctx, storageId).Tag(tag).Execute()
 
 Display one or more volumes belonging to a storage network.
 
@@ -381,12 +381,12 @@ import (
 )
 
 func main() {
-    storageNetworkId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of storage network.
+    storageId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of the storage.
     tag := []string{"Inner_example"} // []string | A list of query parameters related to tags in the form of tagName.tagValue (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesGet(context.Background(), storageNetworkId).Tag(tag).Execute()
+    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesGet(context.Background(), storageId).Tag(tag).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -402,7 +402,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storageNetworkId** | **string** | ID of storage network. | 
+**storageId** | **string** | ID of the storage. | 
 
 ### Other Parameters
 
@@ -434,7 +434,7 @@ Name | Type | Description  | Notes
 
 ## StorageNetworksStorageNetworkIdVolumesPost
 
-> Volume StorageNetworksStorageNetworkIdVolumesPost(ctx, storageNetworkId).VolumeCreate(volumeCreate).Execute()
+> Volume StorageNetworksStorageNetworkIdVolumesPost(ctx, storageId).VolumeCreate(volumeCreate).Execute()
 
 Create a volume belonging to a storage network.
 
@@ -453,12 +453,12 @@ import (
 )
 
 func main() {
-    storageNetworkId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of storage network.
-    volumeCreate := *openapiclient.NewVolumeCreate("My volume name", int32(2000)) // VolumeCreate |  (optional)
+    storageId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of the storage.
+    volumeCreate := *openapiclient.NewVolumeCreate("My volume name", int32(2000)) // VolumeCreate | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesPost(context.Background(), storageNetworkId).VolumeCreate(volumeCreate).Execute()
+    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesPost(context.Background(), storageId).VolumeCreate(volumeCreate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -474,7 +474,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storageNetworkId** | **string** | ID of storage network. | 
+**storageId** | **string** | ID of the storage. | 
 
 ### Other Parameters
 
@@ -506,7 +506,7 @@ Name | Type | Description  | Notes
 
 ## StorageNetworksStorageNetworkIdVolumesVolumeIdDelete
 
-> StorageNetworksStorageNetworkIdVolumesVolumeIdDelete(ctx, storageNetworkId, volumeId).Execute()
+> StorageNetworksStorageNetworkIdVolumesVolumeIdDelete(ctx, storageId, volumeId).Execute()
 
 Delete a Storage Network's Volume
 
@@ -525,12 +525,12 @@ import (
 )
 
 func main() {
-    storageNetworkId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of storage network.
+    storageId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of the storage.
     volumeId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of volume.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdDelete(context.Background(), storageNetworkId, volumeId).Execute()
+    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdDelete(context.Background(), storageId, volumeId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -544,7 +544,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storageNetworkId** | **string** | ID of storage network. | 
+**storageId** | **string** | ID of the storage. | 
 **volumeId** | **string** | ID of volume. | 
 
 ### Other Parameters
@@ -577,7 +577,7 @@ Name | Type | Description  | Notes
 
 ## StorageNetworksStorageNetworkIdVolumesVolumeIdGet
 
-> Volume StorageNetworksStorageNetworkIdVolumesVolumeIdGet(ctx, storageNetworkId, volumeId).Execute()
+> Volume StorageNetworksStorageNetworkIdVolumesVolumeIdGet(ctx, storageId, volumeId).Execute()
 
 Get a storage network's volume details.
 
@@ -596,12 +596,12 @@ import (
 )
 
 func main() {
-    storageNetworkId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of storage network.
+    storageId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of the storage.
     volumeId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of volume.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdGet(context.Background(), storageNetworkId, volumeId).Execute()
+    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdGet(context.Background(), storageId, volumeId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -617,7 +617,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storageNetworkId** | **string** | ID of storage network. | 
+**storageId** | **string** | ID of the storage. | 
 **volumeId** | **string** | ID of volume. | 
 
 ### Other Parameters
@@ -650,7 +650,7 @@ Name | Type | Description  | Notes
 
 ## StorageNetworksStorageNetworkIdVolumesVolumeIdPatch
 
-> Volume StorageNetworksStorageNetworkIdVolumesVolumeIdPatch(ctx, storageNetworkId, volumeId).VolumeUpdate(volumeUpdate).Execute()
+> Volume StorageNetworksStorageNetworkIdVolumesVolumeIdPatch(ctx, storageId, volumeId).VolumeUpdate(volumeUpdate).Execute()
 
 Update a storage network's volume details.
 
@@ -669,13 +669,13 @@ import (
 )
 
 func main() {
-    storageNetworkId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of storage network.
+    storageId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of the storage.
     volumeId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of volume.
-    volumeUpdate := *openapiclient.NewVolumeUpdate() // VolumeUpdate | Storage network volume to be updated. (optional)
+    volumeUpdate := *openapiclient.NewVolumeUpdate() // VolumeUpdate | Storage network volume to be updated.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdPatch(context.Background(), storageNetworkId, volumeId).VolumeUpdate(volumeUpdate).Execute()
+    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdPatch(context.Background(), storageId, volumeId).VolumeUpdate(volumeUpdate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdPatch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -691,7 +691,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storageNetworkId** | **string** | ID of storage network. | 
+**storageId** | **string** | ID of the storage. | 
 **volumeId** | **string** | ID of volume. | 
 
 ### Other Parameters
@@ -725,7 +725,7 @@ Name | Type | Description  | Notes
 
 ## StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut
 
-> Volume StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut(ctx, storageNetworkId, volumeId).TagAssignmentRequest(tagAssignmentRequest).Execute()
+> Volume StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut(ctx, storageId, volumeId).TagAssignmentRequest(tagAssignmentRequest).Execute()
 
 Overwrites tags assigned for the volume.
 
@@ -744,13 +744,13 @@ import (
 )
 
 func main() {
-    storageNetworkId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of storage network.
+    storageId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of the storage.
     volumeId := "50dc434c-9bba-427b-bcd6-0bdba45c4dd2" // string | ID of volume.
-    tagAssignmentRequest := []openapiclient.TagAssignmentRequest{*openapiclient.NewTagAssignmentRequest("Environment")} // []TagAssignmentRequest | Tags to assign to the volume. (optional)
+    tagAssignmentRequest := []openapiclient.TagAssignmentRequest{*openapiclient.NewTagAssignmentRequest("Environment")} // []TagAssignmentRequest | Tags to assign to the volume.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut(context.Background(), storageNetworkId, volumeId).TagAssignmentRequest(tagAssignmentRequest).Execute()
+    resp, r, err := apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut(context.Background(), storageId, volumeId).TagAssignmentRequest(tagAssignmentRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -766,7 +766,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storageNetworkId** | **string** | ID of storage network. | 
+**storageId** | **string** | ID of the storage. | 
 **volumeId** | **string** | ID of volume. | 
 
 ### Other Parameters

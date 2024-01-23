@@ -77,6 +77,7 @@ paths:
         - OAuth2:
             - bmc
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -108,7 +109,11 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '406':
-          $ref: '#/components/responses/NotAccepted'
+          description: No IP Blocks available of provided cidr block size.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '500':
           $ref: '#/components/responses/InternalServerError'
   /ip-blocks/{ipBlockId}:
@@ -168,6 +173,7 @@ paths:
         - OAuth2:
             - bmc
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -204,6 +210,7 @@ paths:
         - OAuth2:
             - bmc
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -309,7 +316,7 @@ components:
           type: string
           example: 1.1.1.0/31
         status:
-          description: The status of the IP Block.
+          description: 'The status of the IP Block. Can have one of the following values: `creating` , `assigning` , `error assigning` , `assigned` , `unassigning` , `error unassigning` or `unassigned`.'
           type: string
           example: unassigned
         assignedResourceId:
@@ -439,12 +446,6 @@ components:
             $ref: '#/components/schemas/Error'
     BadRequest:
       description: The request failed due to wrong data. Please check the provided parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotAccepted:
-      description: No server available of type server.type.
       content:
         application/json:
           schema:

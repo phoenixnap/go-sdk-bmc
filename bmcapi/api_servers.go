@@ -56,7 +56,7 @@ type ServersApi interface {
 	/*
 		ServersPost Create new server.
 
-		Create (request) new server for account. Server DNS will be configured to access Google's public DNS at 8.8.8.8 .
+		Create (request) a new server for the account. Server DNS will be configured to access Google's public DNS at 8.8.8.8 . Note that the product availability API can be used prior to doing the provision request. Refer to https://developers.phoenixnap.com/docs/bmc-billing/1/routes/product-availability/get.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return ApiServersPostRequest
@@ -111,6 +111,21 @@ type ServersApi interface {
 	// ServersServerIdActionsPowerOnPostExecute executes the request
 	//  @return ActionResult
 	ServersServerIdActionsPowerOnPostExecute(r ApiServersServerIdActionsPowerOnPostRequest) (*ActionResult, *http.Response, error)
+
+	/*
+		ServersServerIdActionsProvisionPost Provision server.
+
+		Provision reserved server. Server DNS will be configured to access Google's public DNS at 8.8.8.8.
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param serverId The server's ID.
+		@return ApiServersServerIdActionsProvisionPostRequest
+	*/
+	ServersServerIdActionsProvisionPost(ctx context.Context, serverId string) ApiServersServerIdActionsProvisionPostRequest
+
+	// ServersServerIdActionsProvisionPostExecute executes the request
+	//  @return Server
+	ServersServerIdActionsProvisionPostExecute(r ApiServersServerIdActionsProvisionPostRequest) (*Server, *http.Response, error)
 
 	/*
 		ServersServerIdActionsRebootPost Reboot server.
@@ -656,18 +671,18 @@ func (a *ServersApiService) ServersGetExecute(r ApiServersGetRequest) ([]Server,
 type ApiServersPostRequest struct {
 	ctx          context.Context
 	ApiService   ServersApi
-	force        *bool
 	serverCreate *ServerCreate
+	force        *bool
+}
+
+func (r ApiServersPostRequest) ServerCreate(serverCreate ServerCreate) ApiServersPostRequest {
+	r.serverCreate = &serverCreate
+	return r
 }
 
 // Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
 func (r ApiServersPostRequest) Force(force bool) ApiServersPostRequest {
 	r.force = &force
-	return r
-}
-
-func (r ApiServersPostRequest) ServerCreate(serverCreate ServerCreate) ApiServersPostRequest {
-	r.serverCreate = &serverCreate
 	return r
 }
 
@@ -678,7 +693,7 @@ func (r ApiServersPostRequest) Execute() (*Server, *http.Response, error) {
 /*
 ServersPost Create new server.
 
-Create (request) new server for account. Server DNS will be configured to access Google's public DNS at 8.8.8.8 .
+Create (request) a new server for the account. Server DNS will be configured to access Google's public DNS at 8.8.8.8 . Note that the product availability API can be used prior to doing the provision request. Refer to https://developers.phoenixnap.com/docs/bmc-billing/1/routes/product-availability/get.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiServersPostRequest
@@ -710,6 +725,9 @@ func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (*Server
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.serverCreate == nil {
+		return localVarReturnValue, nil, reportError("serverCreate is required and must be specified")
+	}
 
 	if r.force != nil {
 		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
@@ -883,6 +901,9 @@ func (a *ServersApiService) ServersServerIdActionsDeprovisionPostExecute(r ApiSe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.relinquishIpBlock == nil {
+		return localVarReturnValue, nil, reportError("relinquishIpBlock is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -1293,6 +1314,189 @@ func (a *ServersApiService) ServersServerIdActionsPowerOnPostExecute(r ApiServer
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiServersServerIdActionsProvisionPostRequest struct {
+	ctx             context.Context
+	ApiService      ServersApi
+	serverId        string
+	serverProvision *ServerProvision
+	force           *bool
+}
+
+func (r ApiServersServerIdActionsProvisionPostRequest) ServerProvision(serverProvision ServerProvision) ApiServersServerIdActionsProvisionPostRequest {
+	r.serverProvision = &serverProvision
+	return r
+}
+
+// Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
+func (r ApiServersServerIdActionsProvisionPostRequest) Force(force bool) ApiServersServerIdActionsProvisionPostRequest {
+	r.force = &force
+	return r
+}
+
+func (r ApiServersServerIdActionsProvisionPostRequest) Execute() (*Server, *http.Response, error) {
+	return r.ApiService.ServersServerIdActionsProvisionPostExecute(r)
+}
+
+/*
+ServersServerIdActionsProvisionPost Provision server.
+
+Provision reserved server. Server DNS will be configured to access Google's public DNS at 8.8.8.8.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param serverId The server's ID.
+ @return ApiServersServerIdActionsProvisionPostRequest
+*/
+func (a *ServersApiService) ServersServerIdActionsProvisionPost(ctx context.Context, serverId string) ApiServersServerIdActionsProvisionPostRequest {
+	return ApiServersServerIdActionsProvisionPostRequest{
+		ApiService: a,
+		ctx:        ctx,
+		serverId:   serverId,
+	}
+}
+
+// Execute executes the request
+//  @return Server
+func (a *ServersApiService) ServersServerIdActionsProvisionPostExecute(r ApiServersServerIdActionsProvisionPostRequest) (*Server, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Server
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdActionsProvisionPost")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/servers/{serverId}/actions/provision"
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.serverProvision == nil {
+		return localVarReturnValue, nil, reportError("serverProvision is required and must be specified")
+	}
+
+	if r.force != nil {
+		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.serverProvision
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 406 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiServersServerIdActionsRebootPostRequest struct {
 	ctx        context.Context
 	ApiService ServersApi
@@ -1499,6 +1703,9 @@ func (a *ServersApiService) ServersServerIdActionsReservePostExecute(r ApiServer
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.serverReserve == nil {
+		return localVarReturnValue, nil, reportError("serverReserve is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -1662,6 +1869,9 @@ func (a *ServersApiService) ServersServerIdActionsResetPostExecute(r ApiServersS
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.serverReset == nil {
+		return localVarReturnValue, nil, reportError("serverReset is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -2265,6 +2475,9 @@ func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiS
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.relinquishIpBlock == nil {
+		return localVarReturnValue, nil, reportError("relinquishIpBlock is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -2425,6 +2638,9 @@ func (a *ServersApiService) ServersServerIdIpBlocksPostExecute(r ApiServersServe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.serverIpBlock == nil {
+		return localVarReturnValue, nil, reportError("serverIpBlock is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -2585,6 +2801,9 @@ func (a *ServersApiService) ServersServerIdPatchExecute(r ApiServersServerIdPatc
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.serverPatch == nil {
+		return localVarReturnValue, nil, reportError("serverPatch is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -2696,18 +2915,18 @@ type ApiServersServerIdPrivateNetworksPatchRequest struct {
 	ApiService          ServersApi
 	serverId            string
 	privateNetworkId    string
-	force               *bool
 	serverNetworkUpdate *ServerNetworkUpdate
+	force               *bool
+}
+
+func (r ApiServersServerIdPrivateNetworksPatchRequest) ServerNetworkUpdate(serverNetworkUpdate ServerNetworkUpdate) ApiServersServerIdPrivateNetworksPatchRequest {
+	r.serverNetworkUpdate = &serverNetworkUpdate
+	return r
 }
 
 // Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
 func (r ApiServersServerIdPrivateNetworksPatchRequest) Force(force bool) ApiServersServerIdPrivateNetworksPatchRequest {
 	r.force = &force
-	return r
-}
-
-func (r ApiServersServerIdPrivateNetworksPatchRequest) ServerNetworkUpdate(serverNetworkUpdate ServerNetworkUpdate) ApiServersServerIdPrivateNetworksPatchRequest {
-	r.serverNetworkUpdate = &serverNetworkUpdate
 	return r
 }
 
@@ -2756,6 +2975,9 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPatchExecute(r ApiServ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.serverNetworkUpdate == nil {
+		return localVarReturnValue, nil, reportError("serverNetworkUpdate is required and must be specified")
+	}
 
 	if r.force != nil {
 		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
@@ -2869,18 +3091,18 @@ type ApiServersServerIdPrivateNetworksPostRequest struct {
 	ctx                  context.Context
 	ApiService           ServersApi
 	serverId             string
-	force                *bool
 	serverPrivateNetwork *ServerPrivateNetwork
+	force                *bool
+}
+
+func (r ApiServersServerIdPrivateNetworksPostRequest) ServerPrivateNetwork(serverPrivateNetwork ServerPrivateNetwork) ApiServersServerIdPrivateNetworksPostRequest {
+	r.serverPrivateNetwork = &serverPrivateNetwork
+	return r
 }
 
 // Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
 func (r ApiServersServerIdPrivateNetworksPostRequest) Force(force bool) ApiServersServerIdPrivateNetworksPostRequest {
 	r.force = &force
-	return r
-}
-
-func (r ApiServersServerIdPrivateNetworksPostRequest) ServerPrivateNetwork(serverPrivateNetwork ServerPrivateNetwork) ApiServersServerIdPrivateNetworksPostRequest {
-	r.serverPrivateNetwork = &serverPrivateNetwork
 	return r
 }
 
@@ -2926,6 +3148,9 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPostExecute(r ApiServe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.serverPrivateNetwork == nil {
+		return localVarReturnValue, nil, reportError("serverPrivateNetwork is required and must be specified")
+	}
 
 	if r.force != nil {
 		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
@@ -3186,18 +3411,18 @@ type ApiServersServerIdPublicNetworksPatchRequest struct {
 	ApiService          ServersApi
 	serverId            string
 	publicNetworkId     string
-	force               *bool
 	serverNetworkUpdate *ServerNetworkUpdate
+	force               *bool
+}
+
+func (r ApiServersServerIdPublicNetworksPatchRequest) ServerNetworkUpdate(serverNetworkUpdate ServerNetworkUpdate) ApiServersServerIdPublicNetworksPatchRequest {
+	r.serverNetworkUpdate = &serverNetworkUpdate
+	return r
 }
 
 // Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
 func (r ApiServersServerIdPublicNetworksPatchRequest) Force(force bool) ApiServersServerIdPublicNetworksPatchRequest {
 	r.force = &force
-	return r
-}
-
-func (r ApiServersServerIdPublicNetworksPatchRequest) ServerNetworkUpdate(serverNetworkUpdate ServerNetworkUpdate) ApiServersServerIdPublicNetworksPatchRequest {
-	r.serverNetworkUpdate = &serverNetworkUpdate
 	return r
 }
 
@@ -3246,6 +3471,9 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPatchExecute(r ApiServe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.serverNetworkUpdate == nil {
+		return localVarReturnValue, nil, reportError("serverNetworkUpdate is required and must be specified")
+	}
 
 	if r.force != nil {
 		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
@@ -3359,18 +3587,18 @@ type ApiServersServerIdPublicNetworksPostRequest struct {
 	ctx                 context.Context
 	ApiService          ServersApi
 	serverId            string
-	force               *bool
 	serverPublicNetwork *ServerPublicNetwork
+	force               *bool
+}
+
+func (r ApiServersServerIdPublicNetworksPostRequest) ServerPublicNetwork(serverPublicNetwork ServerPublicNetwork) ApiServersServerIdPublicNetworksPostRequest {
+	r.serverPublicNetwork = &serverPublicNetwork
+	return r
 }
 
 // Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
 func (r ApiServersServerIdPublicNetworksPostRequest) Force(force bool) ApiServersServerIdPublicNetworksPostRequest {
 	r.force = &force
-	return r
-}
-
-func (r ApiServersServerIdPublicNetworksPostRequest) ServerPublicNetwork(serverPublicNetwork ServerPublicNetwork) ApiServersServerIdPublicNetworksPostRequest {
-	r.serverPublicNetwork = &serverPublicNetwork
 	return r
 }
 
@@ -3416,6 +3644,9 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPostExecute(r ApiServer
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.serverPublicNetwork == nil {
+		return localVarReturnValue, nil, reportError("serverPublicNetwork is required and must be specified")
+	}
 
 	if r.force != nil {
 		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
@@ -3579,6 +3810,9 @@ func (a *ServersApiService) ServersServerIdTagsPutExecute(r ApiServersServerIdTa
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.tagAssignmentRequest == nil {
+		return localVarReturnValue, nil, reportError("tagAssignmentRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}

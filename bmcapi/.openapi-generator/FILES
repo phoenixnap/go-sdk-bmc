@@ -35,6 +35,7 @@ docs/ServerIpBlock.md
 docs/ServerNetworkUpdate.md
 docs/ServerPatch.md
 docs/ServerPrivateNetwork.md
+docs/ServerProvision.md
 docs/ServerPublicNetwork.md
 docs/ServerReserve.md
 docs/ServerReset.md
@@ -76,6 +77,7 @@ model_server_ip_block.go
 model_server_network_update.go
 model_server_patch.go
 model_server_private_network.go
+model_server_provision.go
 model_server_public_network.go
 model_server_reserve.go
 model_server_reset.go

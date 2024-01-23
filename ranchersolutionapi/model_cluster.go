@@ -32,7 +32,7 @@ type Cluster struct {
 	Configuration         *ClusterConfiguration         `json:"configuration,omitempty"`
 	Metadata              *ClusterMetadata              `json:"metadata,omitempty"`
 	WorkloadConfiguration *ClusterWorkloadConfiguration `json:"workloadConfiguration,omitempty"`
-	// The cluster status
+	// (Read-Only) The cluster status
 	StatusDescription *string `json:"statusDescription,omitempty"`
 }
 

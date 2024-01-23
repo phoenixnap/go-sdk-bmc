@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Configuration** | Pointer to [**ClusterConfiguration**](ClusterConfiguration.md) |  | [optional] 
 **Metadata** | Pointer to [**ClusterMetadata**](ClusterMetadata.md) |  | [optional] 
 **WorkloadConfiguration** | Pointer to [**ClusterWorkloadConfiguration**](ClusterWorkloadConfiguration.md) |  | [optional] 
-**StatusDescription** | Pointer to **string** | The cluster status | [optional] [readonly] 
+**StatusDescription** | Pointer to **string** | (Read-Only) The cluster status | [optional] [readonly] 
 
 ## Methods
 

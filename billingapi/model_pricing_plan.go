@@ -26,8 +26,9 @@ type PricingPlan struct {
 	// The pricing model.
 	PricingModel string `json:"pricingModel"`
 	// The price per unit.
-	Price     float32       `json:"price"`
-	PriceUnit PriceUnitEnum `json:"priceUnit"`
+	Price               float32              `json:"price"`
+	PriceUnit           PriceUnitEnum        `json:"priceUnit"`
+	ApplicableDiscounts *ApplicableDiscounts `json:"applicableDiscounts,omitempty"`
 	// Product code of the product this product is correlated with
 	CorrelatedProductCode *string `json:"correlatedProductCode,omitempty"`
 	// Package size per month.
@@ -210,6 +211,38 @@ func (o *PricingPlan) SetPriceUnit(v PriceUnitEnum) {
 	o.PriceUnit = v
 }
 
+// GetApplicableDiscounts returns the ApplicableDiscounts field value if set, zero value otherwise.
+func (o *PricingPlan) GetApplicableDiscounts() ApplicableDiscounts {
+	if o == nil || o.ApplicableDiscounts == nil {
+		var ret ApplicableDiscounts
+		return ret
+	}
+	return *o.ApplicableDiscounts
+}
+
+// GetApplicableDiscountsOk returns a tuple with the ApplicableDiscounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PricingPlan) GetApplicableDiscountsOk() (*ApplicableDiscounts, bool) {
+	if o == nil || o.ApplicableDiscounts == nil {
+		return nil, false
+	}
+	return o.ApplicableDiscounts, true
+}
+
+// HasApplicableDiscounts returns a boolean if a field has been set.
+func (o *PricingPlan) HasApplicableDiscounts() bool {
+	if o != nil && o.ApplicableDiscounts != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetApplicableDiscounts gets a reference to the given ApplicableDiscounts and assigns it to the ApplicableDiscounts field.
+func (o *PricingPlan) SetApplicableDiscounts(v ApplicableDiscounts) {
+	o.ApplicableDiscounts = &v
+}
+
 // GetCorrelatedProductCode returns the CorrelatedProductCode field value if set, zero value otherwise.
 func (o *PricingPlan) GetCorrelatedProductCode() string {
 	if o == nil || o.CorrelatedProductCode == nil {
@@ -325,6 +358,9 @@ func (o PricingPlan) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["priceUnit"] = o.PriceUnit
+	}
+	if o.ApplicableDiscounts != nil {
+		toSerialize["applicableDiscounts"] = o.ApplicableDiscounts
 	}
 	if o.CorrelatedProductCode != nil {
 		toSerialize["correlatedProductCode"] = o.CorrelatedProductCode

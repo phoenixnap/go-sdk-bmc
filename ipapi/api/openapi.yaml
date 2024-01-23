@@ -97,6 +97,7 @@ paths:
               description: "IP Block #1 used for publicly accessing server #1."
             schema:
               $ref: '#/components/schemas/IpBlockCreate'
+        required: true
       responses:
         "201":
           content:
@@ -139,7 +140,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: No server available of type server.type.
+          description: No IP Blocks available of provided cidr block size.
         "500":
           content:
             application/json:
@@ -269,6 +270,7 @@ paths:
               description: Ip Block description
             schema:
               $ref: '#/components/schemas/IpBlockPatch'
+        required: true
       responses:
         "200":
           content:
@@ -343,6 +345,7 @@ paths:
               items:
                 $ref: '#/components/schemas/TagAssignmentRequest'
               type: array
+        required: true
       responses:
         "200":
           content:
@@ -425,12 +428,6 @@ components:
             $ref: '#/components/schemas/Error'
       description: The request failed due to wrong data. Please check the provided
         parameters and try again.
-    NotAccepted:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: No server available of type server.type.
     NotFound:
       content:
         application/json:
@@ -531,7 +528,9 @@ components:
           example: 1.1.1.0/31
           type: string
         status:
-          description: The status of the IP Block.
+          description: "The status of the IP Block. Can have one of the following\
+            \ values: `creating` , `assigning` , `error assigning` , `assigned` ,\
+            \ `unassigning` , `error unassigning` or `unassigned`."
           example: unassigned
           type: string
         assignedResourceId:

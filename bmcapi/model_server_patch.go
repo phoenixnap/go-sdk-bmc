@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 )
 
-// ServerPatch Server patch.
+// ServerPatch Patch bare metal server.
 type ServerPatch struct {
 	// Description of server.
 	Description *string `json:"description,omitempty"`

@@ -33,10 +33,12 @@ type Volume struct {
 	// Used capacity in GB, updated periodically.
 	UsedCapacityInGb *int32 `json:"usedCapacityInGb,omitempty"`
 	// File system protocol. Currently this field should be set to `NFS`.
-	Protocol    *string      `json:"protocol,omitempty"`
-	Status      *Status      `json:"status,omitempty"`
-	CreatedOn   *time.Time   `json:"createdOn,omitempty"`
-	Permissions *Permissions `json:"permissions,omitempty"`
+	Protocol  *string    `json:"protocol,omitempty"`
+	Status    *Status    `json:"status,omitempty"`
+	CreatedOn *time.Time `json:"createdOn,omitempty"`
+	// Date and time of the initial request for volume deletion.
+	DeleteRequestedOn *time.Time   `json:"deleteRequestedOn,omitempty"`
+	Permissions       *Permissions `json:"permissions,omitempty"`
 	// The tags assigned if any.
 	Tags []TagAssignment `json:"tags,omitempty"`
 }
@@ -378,6 +380,38 @@ func (o *Volume) SetCreatedOn(v time.Time) {
 	o.CreatedOn = &v
 }
 
+// GetDeleteRequestedOn returns the DeleteRequestedOn field value if set, zero value otherwise.
+func (o *Volume) GetDeleteRequestedOn() time.Time {
+	if o == nil || o.DeleteRequestedOn == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.DeleteRequestedOn
+}
+
+// GetDeleteRequestedOnOk returns a tuple with the DeleteRequestedOn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Volume) GetDeleteRequestedOnOk() (*time.Time, bool) {
+	if o == nil || o.DeleteRequestedOn == nil {
+		return nil, false
+	}
+	return o.DeleteRequestedOn, true
+}
+
+// HasDeleteRequestedOn returns a boolean if a field has been set.
+func (o *Volume) HasDeleteRequestedOn() bool {
+	if o != nil && o.DeleteRequestedOn != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDeleteRequestedOn gets a reference to the given time.Time and assigns it to the DeleteRequestedOn field.
+func (o *Volume) SetDeleteRequestedOn(v time.Time) {
+	o.DeleteRequestedOn = &v
+}
+
 // GetPermissions returns the Permissions field value if set, zero value otherwise.
 func (o *Volume) GetPermissions() Permissions {
 	if o == nil || o.Permissions == nil {
@@ -473,6 +507,9 @@ func (o Volume) MarshalJSON() ([]byte, error) {
 	}
 	if o.CreatedOn != nil {
 		toSerialize["createdOn"] = o.CreatedOn
+	}
+	if o.DeleteRequestedOn != nil {
+		toSerialize["deleteRequestedOn"] = o.DeleteRequestedOn
 	}
 	if o.Permissions != nil {
 		toSerialize["permissions"] = o.Permissions

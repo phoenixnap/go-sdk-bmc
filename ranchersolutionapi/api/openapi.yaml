@@ -47,7 +47,7 @@ paths:
                     location: PHX
                     initialClusterVersion: v2.5.9
                     nodePools:
-                    - name: Rancher Server Node Pool
+                    - name: rancher-server-node-pool
                       nodeCount: 1
                       serverType: s0.d1.small
                       nodes:
@@ -58,7 +58,7 @@ paths:
                     location: ASH
                     initialClusterVersion: v2.5.9
                     nodePools:
-                    - name: Rancher Server Node Pool
+                    - name: rancher-server-node-pool
                       nodeCount: 1
                       serverType: s0.d1.small
                       nodes:
@@ -162,6 +162,7 @@ paths:
                     serverType: s0.d1.small
             schema:
               $ref: '#/components/schemas/Cluster'
+        required: true
       responses:
         "201":
           content:
@@ -177,7 +178,7 @@ paths:
                   username: admin
                   password: 1234567890abcd!
                 nodePools:
-                - name: Rancher Server Node Pool
+                - name: rancher-server-node-pool
                   nodeCount: 1
                   serverType: s0.d1.small
                   nodes:
@@ -360,7 +361,7 @@ components:
           - serverId: 60b08f04adab617be44068bb
           - serverId: 60b08f04adab617be44068bb
           serverType: s0.d1.small
-          name: Rancher Server node pool.
+          name: rancher-server-node-pool
           nodeCount: 0
           sshConfig: null
         initialClusterVersion: v2.5.9
@@ -405,7 +406,7 @@ components:
         workloadConfiguration:
           $ref: '#/components/schemas/Cluster_workloadConfiguration'
         statusDescription:
-          description: The cluster status
+          description: (Read-Only) The cluster status
           example: Creating
           readOnly: true
           type: string
@@ -421,13 +422,16 @@ components:
         - serverId: 60b08f04adab617be44068bb
         - serverId: 60b08f04adab617be44068bb
         serverType: s0.d1.small
-        name: Rancher Server node pool.
+        name: rancher-server-node-pool
         nodeCount: 0
         sshConfig: null
       properties:
         name:
           description: The name of the node pool.
-          example: Rancher Server node pool.
+          example: rancher-server-node-pool
+          maxLength: 100
+          minLength: 1
+          pattern: "^(?=.*[a-zA-Z])([a-zA-Z0-9().-])+$"
           type: string
         nodeCount:
           description: "Number of configured nodes, currently only node counts of\

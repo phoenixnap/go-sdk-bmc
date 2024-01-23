@@ -38,7 +38,7 @@ type PrivateNetwork struct {
 	Servers []PrivateNetworkServer `json:"servers"`
 	// A list of resources that are members of this private network.
 	Memberships []NetworkMembership `json:"memberships"`
-	// The status of the private network. Can have one of the following values: `BUSY` or `READY`.
+	// The status of the private network. Can have one of the following values: `BUSY`, `READY`, `DELETING` or `ERROR`.
 	Status string `json:"status"`
 	// Date and time when this private network was created.
 	CreatedOn time.Time `json:"createdOn"`

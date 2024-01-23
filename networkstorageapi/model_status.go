@@ -16,20 +16,22 @@ import (
 	"fmt"
 )
 
-// Status Status of the resource. Currently this field should be set to `READY`, `BUSY` or `ERROR`.
+// Status Status of the resource. Currently this field should be set to `READY`, `BUSY`, `DELETING` or `ERROR`.
 type Status string
 
 // List of Status
 const (
-	READY Status = "READY"
-	BUSY  Status = "BUSY"
-	ERROR Status = "ERROR"
+	READY    Status = "READY"
+	BUSY     Status = "BUSY"
+	DELETING Status = "DELETING"
+	ERROR    Status = "ERROR"
 )
 
 // All allowed values of Status enum
 var AllowedStatusEnumValues = []Status{
 	"READY",
 	"BUSY",
+	"DELETING",
 	"ERROR",
 }
 

@@ -573,6 +573,9 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPutExecute(r ApiPriv
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.privateNetworkModify == nil {
+		return localVarReturnValue, nil, reportError("privateNetworkModify is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -682,18 +685,18 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPutExecute(r ApiPriv
 type ApiPrivateNetworksPostRequest struct {
 	ctx                  context.Context
 	ApiService           PrivateNetworksApi
-	force                *bool
 	privateNetworkCreate *PrivateNetworkCreate
+	force                *bool
+}
+
+func (r ApiPrivateNetworksPostRequest) PrivateNetworkCreate(privateNetworkCreate PrivateNetworkCreate) ApiPrivateNetworksPostRequest {
+	r.privateNetworkCreate = &privateNetworkCreate
+	return r
 }
 
 // Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
 func (r ApiPrivateNetworksPostRequest) Force(force bool) ApiPrivateNetworksPostRequest {
 	r.force = &force
-	return r
-}
-
-func (r ApiPrivateNetworksPostRequest) PrivateNetworkCreate(privateNetworkCreate PrivateNetworkCreate) ApiPrivateNetworksPostRequest {
-	r.privateNetworkCreate = &privateNetworkCreate
 	return r
 }
 
@@ -736,6 +739,9 @@ func (a *PrivateNetworksApiService) PrivateNetworksPostExecute(r ApiPrivateNetwo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.privateNetworkCreate == nil {
+		return localVarReturnValue, nil, reportError("privateNetworkCreate is required and must be specified")
+	}
 
 	if r.force != nil {
 		localVarQueryParams.Add("force", parameterToString(*r.force, ""))

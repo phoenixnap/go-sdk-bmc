@@ -238,7 +238,7 @@ import (
 
 func main() {
     privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
-    privateNetworkModify := *openapiclient.NewPrivateNetworkModify("Sample network", true) // PrivateNetworkModify |  (optional)
+    privateNetworkModify := *openapiclient.NewPrivateNetworkModify("Sample network", true) // PrivateNetworkModify | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -290,7 +290,7 @@ Name | Type | Description  | Notes
 
 ## PrivateNetworksPost
 
-> PrivateNetwork PrivateNetworksPost(ctx).Force(force).PrivateNetworkCreate(privateNetworkCreate).Execute()
+> PrivateNetwork PrivateNetworksPost(ctx).PrivateNetworkCreate(privateNetworkCreate).Force(force).Execute()
 
 Create a Private Network.
 
@@ -309,12 +309,12 @@ import (
 )
 
 func main() {
+    privateNetworkCreate := *openapiclient.NewPrivateNetworkCreate("Sample Network", "PHX") // PrivateNetworkCreate | 
     force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
-    privateNetworkCreate := *openapiclient.NewPrivateNetworkCreate("Sample Network", "PHX") // PrivateNetworkCreate |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksPost(context.Background()).Force(force).PrivateNetworkCreate(privateNetworkCreate).Execute()
+    resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksPost(context.Background()).PrivateNetworkCreate(privateNetworkCreate).Force(force).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -335,8 +335,8 @@ Other parameters are passed through a pointer to a apiPrivateNetworksPostRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **force** | **bool** | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. | [default to false]
  **privateNetworkCreate** | [**PrivateNetworkCreate**](PrivateNetworkCreate.md) |  | 
+ **force** | **bool** | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. | [default to false]
 
 ### Return type
 

@@ -26,7 +26,7 @@ type IpBlock struct {
 	CidrBlockSize string `json:"cidrBlockSize"`
 	// The IP Block in CIDR notation.
 	Cidr string `json:"cidr"`
-	// The status of the IP Block.
+	// The status of the IP Block. Can have one of the following values: `creating` , `assigning` , `error assigning` , `assigned` , `unassigning` , `error unassigning` or `unassigned`.
 	Status string `json:"status"`
 	// ID of the resource assigned to the IP Block.
 	AssignedResourceId *string `json:"assignedResourceId,omitempty"`

@@ -7,6 +7,8 @@
 
 * `BUSY` (value: `"BUSY"`)
 
+* `DELETING` (value: `"DELETING"`)
+
 * `ERROR` (value: `"ERROR"`)
 
 

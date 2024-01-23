@@ -834,7 +834,7 @@ components:
           type: string
         quantity:
           description: The number of units being charged.
-          example: 24.0
+          example: 24
           type: number
         active:
           description: A flag indicating whether the rated usage record is still active.
@@ -875,26 +875,18 @@ components:
       - unitPriceDescription
       - usageSessionId
       type: object
-    DiscountDetails:
-      description: Discount details.
+    ApplicableDiscounts:
+      description: "Represents the applicable discount details for a product, including\
+        \ the discounted price and discount information."
       properties:
-        code:
-          description: Discount code.
-          example: new-year-2022-monthly
-          type: string
-        type:
-          enum:
-          - PRODUCT_CATEGORY_PERCENTAGE
-          example: PRODUCT_CATEGORY_PERCENTAGE
-          type: string
-        value:
-          description: A number representing the discount value.
-          example: 20.5
+        discountedPrice:
+          description: The price of the product after applying a discount.
+          example: 107.5
           type: number
-      required:
-      - code
-      - type
-      - value
+        discountDetails:
+          items:
+            $ref: '#/components/schemas/DiscountDetails'
+          type: array
       type: object
     ServerRecord:
       allOf:
@@ -1096,6 +1088,8 @@ components:
           type: number
         priceUnit:
           $ref: '#/components/schemas/PriceUnitEnum'
+        applicableDiscounts:
+          $ref: '#/components/schemas/ApplicableDiscounts'
         correlatedProductCode:
           description: Product code of the product this product is correlated with
           example: s1.c1.small
@@ -1172,7 +1166,7 @@ components:
         lastRenewalDateTime: 2020-03-19T16:39:00Z
         productCode: s1.c1.small
         startDateTime: 2020-03-19T16:39:00Z
-        price: 175.0
+        price: 175
         reservationModel: null
         autoRenew: true
         location: null
@@ -1238,7 +1232,7 @@ components:
           type: string
         price:
           description: Reservation price.
-          example: 175.0
+          example: 175
           type: number
         priceUnit:
           $ref: '#/components/schemas/PriceUnitEnum'
@@ -1267,7 +1261,7 @@ components:
       description: Billing configuration details.
       example:
         thresholdConfiguration:
-          thresholdAmount: 100.0
+          thresholdAmount: 100
       properties:
         thresholdConfiguration:
           $ref: '#/components/schemas/ThresholdConfigurationDetails'
@@ -1275,11 +1269,11 @@ components:
     ThresholdConfigurationDetails:
       description: Threshold billing configuration.
       example:
-        thresholdAmount: 100.0
+        thresholdAmount: 100
       properties:
         thresholdAmount:
           description: Threshold billing amount.
-          example: 100.0
+          example: 100
           type: number
       required:
       - thresholdAmount
@@ -1445,6 +1439,30 @@ components:
           type: array
       required:
       - message
+      type: object
+    DiscountDetails:
+      description: Represents the details of a discount applied to a product or charge.
+      properties:
+        code:
+          description: A unique code associated with the discount.
+          example: new-year-2022-monthly
+          type: string
+        type:
+          description: The type of discount applied.
+          enum:
+          - PRODUCT_CATEGORY_PERCENTAGE
+          - GLOBAL_PERCENTAGE
+          example: PRODUCT_CATEGORY_PERCENTAGE
+          type: string
+        value:
+          description: |
+            The value or amount of the discount. The interpretation of this value depends on the 'type' of discount.
+          example: 20.5
+          type: number
+      required:
+      - code
+      - type
+      - value
       type: object
     ratedUsageGet_200_response_inner:
       discriminator:

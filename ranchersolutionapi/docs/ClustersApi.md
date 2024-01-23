@@ -233,7 +233,7 @@ import (
 )
 
 func main() {
-    cluster := *openapiclient.NewCluster("PHX") // Cluster |  (optional)
+    cluster := *openapiclient.NewCluster("PHX") // Cluster | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

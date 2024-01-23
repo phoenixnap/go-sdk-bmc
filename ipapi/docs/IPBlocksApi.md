@@ -241,7 +241,7 @@ import (
 
 func main() {
     ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
-    ipBlockPatch := *openapiclient.NewIpBlockPatch() // IpBlockPatch |  (optional)
+    ipBlockPatch := *openapiclient.NewIpBlockPatch() // IpBlockPatch | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -313,7 +313,7 @@ import (
 
 func main() {
     ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
-    tagAssignmentRequest := []openapiclient.TagAssignmentRequest{*openapiclient.NewTagAssignmentRequest("Environment")} // []TagAssignmentRequest |  (optional)
+    tagAssignmentRequest := []openapiclient.TagAssignmentRequest{*openapiclient.NewTagAssignmentRequest("Environment")} // []TagAssignmentRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -384,7 +384,7 @@ import (
 )
 
 func main() {
-    ipBlockCreate := *openapiclient.NewIpBlockCreate("PHX", "/30") // IpBlockCreate |  (optional)
+    ipBlockCreate := *openapiclient.NewIpBlockCreate("PHX", "/30") // IpBlockCreate | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

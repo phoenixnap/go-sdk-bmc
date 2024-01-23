@@ -6,6 +6,7 @@ api_rated_usage.go
 api_reservations.go
 client.go
 configuration.go
+docs/ApplicableDiscounts.md
 docs/BandwidthDetails.md
 docs/BandwidthRecord.md
 docs/BandwidthRecordAllOf.md
@@ -49,6 +50,7 @@ docs/StorageRecordAllOf.md
 docs/ThresholdConfigurationDetails.md
 go.mod
 go.sum
+model_applicable_discounts.go
 model_bandwidth_details.go
 model_bandwidth_record.go
 model_bandwidth_record_all_of.go

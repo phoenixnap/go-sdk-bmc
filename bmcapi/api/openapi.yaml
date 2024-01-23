@@ -84,8 +84,10 @@ paths:
       tags:
       - Servers
     post:
-      description: Create (request) new server for account. Server DNS will be configured
-        to access Google's public DNS at 8.8.8.8 .
+      description: Create (request) a new server for the account. Server DNS will
+        be configured to access Google's public DNS at 8.8.8.8 . Note that the product
+        availability API can be used prior to doing the provision request. Refer to
+        https://developers.phoenixnap.com/docs/bmc-billing/1/routes/product-availability/get.
       operationId: serversPost
       parameters:
       - description: Query parameter controlling advanced features availability. Currently
@@ -123,7 +125,7 @@ paths:
                     user@my_ip
                   sshKeyIds:
                   - 5fa54d1e91867c03a0a7b4a4
-                  reservationId: x78sdkjds879sd7cx8
+                  reservationId: fc8bd49a-59cc-4538-a806-5e46228408ec
                   pricingModel: HOURLY
                   networkType: PUBLIC_AND_PRIVATE
                   networkConfiguration:
@@ -152,7 +154,7 @@ paths:
                     user@my_ip
                   sshKeyIds:
                   - 5fa54d1e91867c03a0a7b4a4
-                  reservationId: x78sdkjds879sd7cx8
+                  reservationId: fc8bd49a-59cc-4538-a806-5e46228408ec
                   pricingModel: HOURLY
                   networkType: PUBLIC_AND_PRIVATE
               UserDefinedIpBlockConfiguration:
@@ -169,7 +171,7 @@ paths:
                     user@my_ip
                   sshKeyIds:
                   - 5fa54d1e91867c03a0a7b4a4
-                  reservationId: x78sdkjds879sd7cx8
+                  reservationId: fc8bd49a-59cc-4538-a806-5e46228408ec
                   pricingModel: HOURLY
                   networkConfiguration:
                     ipBlocksConfiguration:
@@ -190,7 +192,7 @@ paths:
                     user@my_ip
                   sshKeyIds:
                   - 5fa54d1e91867c03a0a7b4a4
-                  reservationId: x78sdkjds879sd7cx8
+                  reservationId: fc8bd49a-59cc-4538-a806-5e46228408ec
                   pricingModel: HOURLY
                   networkConfiguration:
                     ipBlocksConfiguration:
@@ -247,7 +249,7 @@ paths:
                     user@my_ip
                   sshKeyIds:
                   - 5fa54d1e91867c03a0a7b4a4
-                  reservationId: x78sdkjds879sd7cx8
+                  reservationId: fc8bd49a-59cc-4538-a806-5e46228408ec
                   networkType: PUBLIC_AND_PRIVATE
                   networkConfiguration:
                     gatewayAddress: 182.16.0.145
@@ -267,6 +269,7 @@ paths:
                         - 182.16.0.147
             schema:
               $ref: '#/components/schemas/ServerCreate'
+        required: true
       responses:
         "200":
           content:
@@ -300,7 +303,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: No server available of type server.type.
+          description: There are currently no servers available for the selected instance
+            type. Check the availability of instance types at specific locations by
+            using the 'product availability API GET' call. Refer to https://developers.phoenixnap.com/docs/bmc-billing/1/routes/product-availability/get.
         "409":
           content:
             application/json:
@@ -328,7 +333,7 @@ paths:
       operationId: serversServerIdDelete
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -382,7 +387,7 @@ paths:
       operationId: serversServerIdGet
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -440,7 +445,7 @@ paths:
       operationId: serversServerIdPatch
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -456,6 +461,7 @@ paths:
               hostname: my-server
             schema:
               $ref: '#/components/schemas/ServerPatch'
+        required: true
       responses:
         "200":
           content:
@@ -514,7 +520,7 @@ paths:
       operationId: serversServerIdIpBlocksPost
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -529,6 +535,7 @@ paths:
               id: 60473a6115e34466c9f8f083
             schema:
               $ref: '#/components/schemas/ServerIpBlock'
+        required: true
       responses:
         "202":
           content:
@@ -591,7 +598,7 @@ paths:
       operationId: serversServerIdIpBlocksIpBlockIdDelete
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -615,6 +622,7 @@ paths:
               deleteIpBlocks: false
             schema:
               $ref: '#/components/schemas/RelinquishIpBlock'
+        required: true
       responses:
         "202":
           content:
@@ -688,7 +696,7 @@ paths:
           type: boolean
         style: form
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -730,6 +738,7 @@ paths:
                   dhcp: false
             schema:
               $ref: '#/components/schemas/ServerPrivateNetwork'
+        required: true
       responses:
         "202":
           content:
@@ -804,7 +813,7 @@ paths:
       operationId: deletePrivateNetwork
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -881,7 +890,7 @@ paths:
       operationId: serversServerIdPrivateNetworksPatch
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -924,6 +933,7 @@ paths:
                   ips: []
             schema:
               $ref: '#/components/schemas/ServerNetworkUpdate'
+        required: true
       responses:
         "200":
           content:
@@ -993,7 +1003,7 @@ paths:
       operationId: serversServerIdPublicNetworksPost
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -1029,6 +1039,7 @@ paths:
                   ips: []
             schema:
               $ref: '#/components/schemas/ServerPublicNetwork'
+        required: true
       responses:
         "202":
           content:
@@ -1088,7 +1099,7 @@ paths:
       operationId: serversServerIdPublicNetworksDelete
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -1165,7 +1176,7 @@ paths:
       operationId: serversServerIdPublicNetworksPatch
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -1208,6 +1219,7 @@ paths:
                   ips: []
             schema:
               $ref: '#/components/schemas/ServerNetworkUpdate'
+        required: true
       responses:
         "200":
           content:
@@ -1275,7 +1287,7 @@ paths:
       operationId: serversServerIdTagsPut
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -1290,6 +1302,7 @@ paths:
               items:
                 $ref: '#/components/schemas/TagAssignmentRequest'
               type: array
+        required: true
       responses:
         "200":
           content:
@@ -1331,13 +1344,136 @@ paths:
       summary: Overwrite tags assigned for Server.
       tags:
       - Servers
+  /servers/{serverId}/actions/provision:
+    post:
+      description: Provision reserved server. Server DNS will be configured to access
+        Google's public DNS at 8.8.8.8.
+      operationId: serversServerIdActionsProvisionPost
+      parameters:
+      - description: The server's ID.
+        example: 60473a6115e34466c9f8f083
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Query parameter controlling advanced features availability. Currently
+          applicable for networking. It is advised to use with caution since it might
+          lead to unhealthy setups.
+        example: true
+        explode: true
+        in: query
+        name: force
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            examples:
+              RequiredPropertiesProvidedOnly:
+                value:
+                  hostname: my-server-1
+                  os: ubuntu/bionic
+              UserDefinedNetworking:
+                value:
+                  hostname: my-server-1
+                  description: "My custom server #1"
+                  os: ubuntu/bionic
+                  installDefaultSshKeys: true
+                  sshKeys:
+                  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+                    user@my_ip
+                  sshKeyIds:
+                  - 5fa54d1e91867c03a0a7b4a4
+                  networkType: PUBLIC_AND_PRIVATE
+                  networkConfiguration:
+                    gatewayAddress: 182.16.0.145
+                    privateNetworkConfiguration:
+                      configurationType: USER_DEFINED
+                      privateNetworks:
+                      - id: 60f81608e2f4665962b214db
+                        ips:
+                        - 10.0.0.11
+                        - 10.0.0.12
+                        dhcp: false
+                    publicNetworkConfiguration:
+                      publicNetworks:
+                      - id: 60473c2509268bc77fd06d29
+                        ips:
+                        - 182.16.0.146
+                        - 182.16.0.147
+                    ipBlocksConfiguration:
+                      configurationType: USER_DEFINED
+                      ipBlocks:
+                      - id: 60473a6115e34466c9f8f083
+            schema:
+              $ref: '#/components/schemas/ServerProvision'
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+          description: Request to provision server is accepted.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: No server available of type server type.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Provision server.
+      tags:
+      - Servers
   /servers/{serverId}/actions/deprovision:
     post:
       description: Deprovision the server. Supports advanced deprovision configuration.
       operationId: serversServerIdActionsDeprovisionPost
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -1352,6 +1488,7 @@ paths:
               deleteIpBlocks: false
             schema:
               $ref: '#/components/schemas/RelinquishIpBlock'
+        required: true
       responses:
         "202":
           content:
@@ -1412,7 +1549,7 @@ paths:
       operationId: serversServerIdActionsPowerOnPost
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -1473,7 +1610,7 @@ paths:
       operationId: serversServerIdActionsPowerOffPost
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -1534,7 +1671,7 @@ paths:
       operationId: serversServerIdActionsRebootPost
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -1595,7 +1732,7 @@ paths:
       operationId: serversServerIdActionsShutdownPost
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -1660,7 +1797,7 @@ paths:
       operationId: serversServerIdActionsResetPost
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -1680,6 +1817,7 @@ paths:
               - 5fa54d1e91867c03a0a7b4a4
             schema:
               $ref: '#/components/schemas/ServerReset'
+        required: true
       responses:
         "200":
           content:
@@ -1733,7 +1871,7 @@ paths:
       operationId: serversServerIdActionsReservePost
       parameters:
       - description: The server's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+        example: 60473a6115e34466c9f8f083
         explode: false
         in: path
         name: serverId
@@ -1748,6 +1886,7 @@ paths:
               pricingModel: ONE_MONTH_RESERVATION
             schema:
               $ref: '#/components/schemas/ServerReserve'
+        required: true
       responses:
         "200":
           content:
@@ -1849,6 +1988,7 @@ paths:
                 user@my_ip
             schema:
               $ref: '#/components/schemas/SshKeyCreate'
+        required: true
       responses:
         "201":
           content:
@@ -2025,6 +2165,7 @@ paths:
               default: false
             schema:
               $ref: '#/components/schemas/SshKeyUpdate'
+        required: true
       responses:
         "200":
           content:
@@ -2197,6 +2338,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/QuotaEditLimitRequest'
+        required: true
       responses:
         "202":
           description: Accepted request for editing the limit.
@@ -2251,7 +2393,7 @@ components:
       style: form
     serverIdPathParam:
       description: The server's ID.
-      example: e6afba51-7de8-4080-83ab-0f915570659c
+      example: 60473a6115e34466c9f8f083
       explode: false
       in: path
       name: serverId
@@ -2318,12 +2460,6 @@ components:
             $ref: '#/components/schemas/Error'
       description: The request failed due to wrong data. Please check the provided
         parameters and try again.
-    NotAccepted:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: No server available of type server.type.
     Conflict:
       content:
         application/json:
@@ -2452,7 +2588,7 @@ components:
         id: 603f3b2cfcaf050643b89a4b
         ips:
         - 10.1.1.1
-        - 10.1.1.2
+        - 10.1.1.20 - 10.1.1.25
         dhcp: false
       properties:
         id:
@@ -2460,19 +2596,21 @@ components:
           example: 603f3b2cfcaf050643b89a4b
           type: string
         ips:
-          description: "IPs to configure/configured on the server.<br> Should be null\
-            \ or empty list if DHCP is true. IPs must be within the network's range.<br>\
-            \ If field is undefined and DHCP is false, next available IP in network\
-            \ will be automatically allocated.<br> If the network contains a membership\
-            \ of type 'storage', the first twelve IPs are already reserved by BMC\
-            \ and not usable.<br> Setting the `force` query parameter to `true` allows\
-            \ you to:<ul> <li> Assign no specific IP addresses by designating an empty\
-            \ array of IPs. Note that at least one IP is required for the gateway\
-            \ address to be selected from this network. <li> Assign one or more IP\
-            \ addresses which are already configured on other resource(s) in network.</ul>"
+          description: "IPs to configure/configured on the server.<br> Valid IP formats\
+            \ are single IPv4 addresses or IPv4 ranges. IPs must be within the network's\
+            \ range. Should be null or empty list if DHCP is true. <br> If field is\
+            \ undefined and DHCP is false, next available IP in network will be automatically\
+            \ allocated.<br> If the network contains a membership of type 'storage',\
+            \ the first twelve IPs are already reserved by BMC and not usable.<br>\
+            \ Setting the `force` query parameter to `true` allows you to:<ul> <li>\
+            \ Assign no specific IP addresses by designating an empty array of IPs.\
+            \ Note that at least one IP is required for the gateway address to be\
+            \ selected from this network. <li> Assign one or more IP addresses which\
+            \ are already configured on other resource(s) in network. <li> Assign\
+            \ IP addresses which are considered as reserved in network.</ul>"
           example:
           - 10.1.1.1
-          - 10.1.1.2
+          - 10.1.1.20 - 10.1.1.25
           items:
             example: 10.1.1.1
             type: string
@@ -2602,7 +2740,7 @@ components:
         id: 60473c2509268bc77fd06d29
         ips:
         - 182.16.0.146
-        - 182.16.0.147
+        - 182.16.0.148 - 182.16.0.150
       properties:
         id:
           description: The network identifier.
@@ -2610,15 +2748,16 @@ components:
           type: string
         ips:
           description: Configurable/configured IPs on the server.<br> At least 1 IP
-            address is required. All IPs must be within the network's range.<br> Setting
-            the `force` query parameter to `true` allows you to:<ul> <li> Assign no
-            specific IP addresses by designating an empty array of IPs. Note that
-            at least one IP is required for the gateway address to be selected from
-            this network. <li> Assign one or more IP addresses which are already configured
-            on other resource(s) in network.</ul>
+            address is required. Valid IP formats are single IPv4 addresses or IPv4
+            ranges. All IPs must be within the network's range.<br> Setting the `force`
+            query parameter to `true` allows you to:<ul> <li> Assign no specific IP
+            addresses by designating an empty array of IPs. Note that at least one
+            IP is required for the gateway address to be selected from this network.
+            <li> Assign one or more IP addresses which are already configured on other
+            resource(s) in network.</ul>
           example:
           - 182.16.0.146
-          - 182.16.0.147
+          - 182.16.0.148 - 182.16.0.150
           items:
             example: 182.16.0.146
             type: string
@@ -2723,18 +2862,18 @@ components:
         cpuFrequency: 3.6
         description: "Server #1 used for computing."
         storage: 1x 960GB NVMe
-        clusterId: x78sdkjds879sd7cx8
+        clusterId: 65030122f253707f7d196bed
         type: s1.c1.small
         supersedes: 76915b5c85121d411f26e92f
         hostname: my-server-1
         coresPerCpu: 28
         password: MyP@ssw0rd_01
-        reservationId: x78sdkjds879sd7cx8
+        reservationId: fc8bd49a-59cc-4538-a806-5e46228408ec
         storageConfiguration:
           rootPartition:
             size: 128
             raid: RAID_1
-        id: x78sdkjds879sd7cx8
+        id: 651bf71fbde0c93e102ab180
         networkType: PUBLIC_AND_PRIVATE
         cpuCount: 2
         ram: 64GB RAM
@@ -2817,10 +2956,12 @@ components:
       properties:
         id:
           description: The unique identifier of the server.
-          example: x78sdkjds879sd7cx8
+          example: 651bf71fbde0c93e102ab180
           type: string
         status:
-          description: The status of the server.
+          description: "The status of the server. Can have one of the following values:\
+            \ `creating` , `powered-on` , `powered-off` , `rebooting` , `resetting`\
+            \ , `deleting` , `reserved` , `error` or `reinstating`."
           example: creating
           type: string
         hostname:
@@ -2840,8 +2981,9 @@ components:
             \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
             \ `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`,\
             \ `windows/srv2019dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`,\
-            \ `rockylinux/rockylinux8`, `debian/bullseye`, `proxmox/bullseye`, `netris/controller`,\
-            \ `netris/softgate_1g` or `netris/softgate_10g`."
+            \ `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`,\
+            \ `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `netris/controller`,\
+            \ `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`."
           example: ubuntu/bionic
           type: string
         type:
@@ -2854,9 +2996,10 @@ components:
             \ `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`,\
             \ `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`,\
             \ `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`,\
-            \ `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`,\
-            \ `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge`, `d2.c4.db1.pliops1`,\
-            \ `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge` or `a1.c5.large`."
+            \ `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.xlarge`,\
+            \ `d2.m2.xxlarge`, `d2.m3.xlarge`, `d2.m4.xlarge`, `d2.m5.xlarge`, `d2.c4.db1.pliops1`,\
+            \ `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge`, `a1.c5.large`, `d3.s5.xlarge`,\
+            \ `d3.m4.xxlarge`, `d3.m5.xxlarge` or `d3.m6.xxlarge`."
           example: s1.c1.small
           type: string
         location:
@@ -2915,7 +3058,7 @@ components:
           type: array
         reservationId:
           description: The reservation reference id if any.
-          example: x78sdkjds879sd7cx8
+          example: fc8bd49a-59cc-4538-a806-5e46228408ec
           type: string
         pricingModel:
           default: HOURLY
@@ -2941,7 +3084,7 @@ components:
           type: string
         clusterId:
           description: The cluster reference id if any.
-          example: x78sdkjds879sd7cx8
+          example: 65030122f253707f7d196bed
           type: string
         tags:
           description: The tags assigned if any.
@@ -2969,6 +3112,7 @@ components:
             has been transferred.
           example: 76915b5c85121d411f26e92f
           type: string
+      readOnly: true
       required:
       - coresPerCpu
       - cpu
@@ -3094,7 +3238,7 @@ components:
           value: PROD
         hostname: my-server-1
         installDefaultSshKeys: false
-        reservationId: 5f622c8032b458306b40d824
+        reservationId: fc8bd49a-59cc-4538-a806-5e46228408ec
         storageConfiguration:
           rootPartition:
             size: 128
@@ -3122,8 +3266,10 @@ components:
             \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
             \ `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`,\
             \ `windows/srv2019dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`,\
-            \ `rockylinux/rockylinux8`, `virtuozzo/virtuozzo7`, `debian/bullseye`,\
-            \ `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g` or `netris/softgate_10g`."
+            \ `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`,\
+            \ `virtuozzo/virtuozzo7`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`,\
+            \ `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or\
+            \ `netris/softgate_25g`."
           example: ubuntu/bionic
           type: string
         type:
@@ -3136,9 +3282,10 @@ components:
             \ `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`,\
             \ `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`,\
             \ `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`,\
-            \ `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.medium`,\
-            \ `d2.m1.large`, `d2.m2.medium`, `d2.m2.large`, `d2.m2.xlarge`, `d2.c4.db1.pliops1`,\
-            \ `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge` or `a1.c5.large`."
+            \ `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.xlarge`,\
+            \ `d2.m2.xxlarge`, `d2.m3.xlarge`, `d2.m4.xlarge`, `d2.m5.xlarge`, `d2.c4.db1.pliops1`,\
+            \ `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge`, `a1.c5.large`, `d3.s5.xlarge`,\
+            \ `d3.m4.xxlarge`, `d3.m5.xxlarge` or `d3.m6.xxlarge`."
           example: s1.c1.small
           type: string
         location:
@@ -3176,7 +3323,7 @@ components:
           type: array
         reservationId:
           description: Server reservation ID.
-          example: 5f622c8032b458306b40d824
+          example: fc8bd49a-59cc-4538-a806-5e46228408ec
           type: string
         pricingModel:
           default: HOURLY
@@ -3215,7 +3362,7 @@ components:
       description: Result of a successful delete action.
       example:
         result: Server has been deleted.
-        serverId: x78sdkjds879sd7cx8
+        serverId: 651bf71fbde0c93e102ab180
       properties:
         result:
           description: Server has been deleted.
@@ -3223,14 +3370,14 @@ components:
           type: string
         serverId:
           description: The unique identifier of the server.
-          example: x78sdkjds879sd7cx8
+          example: 651bf71fbde0c93e102ab180
           type: string
       required:
       - result
       - serverId
       type: object
     ServerPatch:
-      description: Server patch.
+      description: Patch bare metal server.
       example:
         hostname: my-server
         description: "Server #1 used for computing."
@@ -3266,21 +3413,174 @@ components:
       example:
         ips:
         - 10.1.1.1
-        - 10.1.1.2
+        - 10.1.1.20 - 10.1.1.25
       properties:
         ips:
-          description: List of IPs to be associated to the server.<br> Setting the
-            `force` query parameter to `true` allows you to:<ul> <li> Assign no specific
-            IP addresses by designating an empty array of IPs. <li> Assign one or
-            more IP addresses which are already configured on other resource(s) in
-            network.</ul>
+          description: List of IPs to be associated to the server.<br> Valid IP formats
+            are single IPv4 addresses or IPv4 ranges. IPs must be within the network's
+            range.<br> Setting the `force` query parameter to `true` allows you to:<ul>
+            <li> Assign no specific IP addresses by designating an empty array of
+            IPs. <li> Assign one or more IP addresses which are already configured
+            on other resource(s) in network. <li> Assign IP addresses which are considered
+            as reserved in network.</ul>
           example:
           - 10.1.1.1
-          - 10.1.1.2
+          - 10.1.1.20 - 10.1.1.25
           items:
             example: 10.1.1.1
             type: string
           type: array
+      type: object
+    ServerProvision:
+      description: Provision bare metal server.
+      example:
+        hostname: my-server-1
+        installDefaultSshKeys: false
+        os: ubuntu/bionic
+        osConfiguration:
+          managementUiUrl: https://172.217.22.14
+          cloudInit:
+            userData: userData
+          netrisController:
+            netrisUserPassword: cNC1jPFXG2h7f
+            netrisWebConsoleUrl: https://172.217.22.14
+            hostOs: ubuntu/jammy
+          installOsToRam: true
+          netrisSoftgate:
+            hostOs: ubuntu/jammy
+            controllerAuthKey: w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw
+            controllerAddress: 120.153.203.227
+            controllerVersion: 3.4.0-003
+          windows:
+            rdpAllowedIps:
+            - 172.217.22.14
+            - 10.111.14.40/29
+            - 10.111.14.66 - 10.111.14.71
+          rootPassword: MyP@ssw0rd_01
+          managementAccessAllowedIps:
+          - 172.217.22.14
+          - 10.111.14.40/29
+          - 10.111.14.66 - 10.111.14.71
+        networkConfiguration:
+          publicNetworkConfiguration:
+            publicNetworks:
+            - id: 60473c2509268bc77fd06d29
+              ips:
+              - 182.16.0.146
+              - 182.16.0.147
+            - id: 60f93142c5c1d6082d31382a
+              ips:
+              - 183.16.0.1
+          ipBlocksConfiguration:
+            ipBlocks:
+            - vlanId: 10
+              id: 60473a6115e34466c9f8f083
+            configurationType: PURCHASE_NEW
+          gatewayAddress: 182.16.0.145
+          privateNetworkConfiguration:
+            gatewayAddress: 10.0.0.10
+            configurationType: USER_DEFINED
+            privateNetworks:
+            - id: 60f81608e2f4665962b214db
+              ips:
+              - 10.0.0.11 - 10.0.0.15
+              dhcp: false
+            - id: 60f93142c5c1d6082d31382a
+              ips:
+              - 10.0.0.16
+              - 10.0.0.17
+              dhcp: false
+        storageConfiguration:
+          rootPartition:
+            size: 128
+            raid: RAID_1
+        description: "Server #1 used for computing."
+        sshKeys:
+        - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+          user@my_ip
+        networkType: PUBLIC_AND_PRIVATE
+        sshKeyIds:
+        - 5fa942e71c16abcfbead275f
+        - 5fa94303cc6dc49346404fca
+        - 5fa943127bda760ad80c237e
+        tags:
+        - name: Environment
+          value: PROD
+        - name: Environment
+          value: PROD
+      properties:
+        hostname:
+          description: Hostname of server.
+          example: my-server-1
+          maxLength: 100
+          minLength: 1
+          pattern: "^(?=.*[a-zA-Z])([a-zA-Z0-9().-])+$"
+          type: string
+        description:
+          description: Description of server.
+          example: "Server #1 used for computing."
+          maxLength: 250
+          type: string
+        os:
+          description: "The server’s OS ID used when the server was created. Currently\
+            \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
+            \ `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`,\
+            \ `windows/srv2019dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`,\
+            \ `rockylinux/rockylinux8`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`,\
+            \ `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or\
+            \ `netris/softgate_25g`."
+          example: ubuntu/bionic
+          type: string
+        installDefaultSshKeys:
+          default: true
+          description: Whether or not to install SSH keys marked as default in addition
+            to any SSH keys specified in this request.
+          example: false
+          type: boolean
+        sshKeys:
+          description: A list of SSH keys that will be installed on the server.
+          example:
+          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+            user@my_ip
+          items:
+            example: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+              user@my_ip
+            type: string
+          type: array
+        sshKeyIds:
+          description: A list of SSH key IDs that will be installed on the server
+            in addition to any SSH keys specified in this request.
+          example:
+          - 5fa942e71c16abcfbead275f
+          - 5fa94303cc6dc49346404fca
+          - 5fa943127bda760ad80c237e
+          items:
+            example: 5fa942e71c16abcfbead275f
+            type: string
+          type: array
+        networkType:
+          default: PUBLIC_AND_PRIVATE
+          description: "The type of network configuration for this server.<br> Currently\
+            \ this field should be set to `PUBLIC_AND_PRIVATE`, `PRIVATE_ONLY`, `PUBLIC_ONLY`\
+            \ or `USER_DEFINED`.<br> Setting the `force` query parameter to `true`\
+            \ allows you to configure network configuration type as `NONE`."
+          example: PUBLIC_AND_PRIVATE
+          type: string
+        osConfiguration:
+          $ref: '#/components/schemas/OsConfiguration'
+        tags:
+          description: "Tags to set to the server. To create a new tag or list all\
+            \ the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview)."
+          items:
+            $ref: '#/components/schemas/TagAssignmentRequest'
+          type: array
+        networkConfiguration:
+          $ref: '#/components/schemas/NetworkConfiguration'
+        storageConfiguration:
+          $ref: '#/components/schemas/StorageConfiguration'
+      required:
+      - hostname
+      - os
       type: object
     ActionResult:
       description: Result of a successful action.
@@ -3511,11 +3811,13 @@ components:
           example: sshkey-name-01
           maxLength: 100
           minLength: 1
+          pattern: ^(?!\s*$).+
           type: string
         key:
           description: SSH key actual key value.
           example: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
             user@my_ip
+          pattern: ^(?!\s*$).+
           type: string
       required:
       - default
@@ -3539,6 +3841,7 @@ components:
           example: sshkey-name-01
           maxLength: 100
           minLength: 1
+          pattern: ^(?!\s*$).+
           type: string
       required:
       - default
@@ -3578,6 +3881,7 @@ components:
         reason:
           description: The reason for changing the limit.
           example: I need more servers for my cluster.
+          pattern: ^(?!\s*$).+
           type: string
       required:
       - limit
@@ -3747,7 +4051,7 @@ components:
         userData: userData
       properties:
         userData:
-          description: "User data for the <a href='https://cloudinit.readthedocs.io/en/latest/'\
+          description: "(Write-only) User data for the <a href='https://cloudinit.readthedocs.io/en/latest/'\
             \ target='_blank'>cloud-init</a> configuration in base64 encoding. NoCloud\
             \ format is supported. Follow the <a href='https://phoenixnap.com/kb/bmc-cloud-init'\
             \ target='_blank'>instructions</a> on how to provision a server using\
