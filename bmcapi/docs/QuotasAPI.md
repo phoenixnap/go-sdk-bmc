@@ -1,12 +1,12 @@
-# \QuotasApi
+# \QuotasAPI
 
 All URIs are relative to *https://api.phoenixnap.com/bmc/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**QuotasGet**](QuotasApi.md#QuotasGet) | **Get** /quotas | List quotas
-[**QuotasQuotaIdActionsRequestEditPost**](QuotasApi.md#QuotasQuotaIdActionsRequestEditPost) | **Post** /quotas/{quotaId}/actions/request-edit | Request quota limit change.
-[**QuotasQuotaIdGet**](QuotasApi.md#QuotasQuotaIdGet) | **Get** /quotas/{quotaId} | Get a quota.
+[**QuotasGet**](QuotasAPI.md#QuotasGet) | **Get** /quotas | List quotas
+[**QuotasQuotaIdActionsRequestEditPost**](QuotasAPI.md#QuotasQuotaIdActionsRequestEditPost) | **Post** /quotas/{quotaId}/actions/request-edit | Request quota limit change.
+[**QuotasQuotaIdGet**](QuotasAPI.md#QuotasQuotaIdGet) | **Get** /quotas/{quotaId} | Get a quota.
 
 
 
@@ -24,23 +24,23 @@ List quotas
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.QuotasApi.QuotasGet(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QuotasApi.QuotasGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `QuotasGet`: []Quota
-    fmt.Fprintf(os.Stdout, "Response from `QuotasApi.QuotasGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotasAPI.QuotasGet(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotasAPI.QuotasGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `QuotasGet`: []Quota
+	fmt.Fprintf(os.Stdout, "Response from `QuotasAPI.QuotasGet`: %v\n", resp)
 }
 ```
 
@@ -85,23 +85,23 @@ Request quota limit change.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    quotaId := "bmc.servers.max_count" // string | The ID of the Quota.
-    quotaEditLimitRequest := *openapiclient.NewQuotaEditLimitRequest(int32(10), "I need more servers for my cluster.") // QuotaEditLimitRequest | 
+	quotaId := "bmc.servers.max_count" // string | The ID of the Quota.
+	quotaEditLimitRequest := *openapiclient.NewQuotaEditLimitRequest(int32(10), "I need more servers for my cluster.") // QuotaEditLimitRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.QuotasApi.QuotasQuotaIdActionsRequestEditPost(context.Background(), quotaId).QuotaEditLimitRequest(quotaEditLimitRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QuotasApi.QuotasQuotaIdActionsRequestEditPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.QuotasAPI.QuotasQuotaIdActionsRequestEditPost(context.Background(), quotaId).QuotaEditLimitRequest(quotaEditLimitRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotasAPI.QuotasQuotaIdActionsRequestEditPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -155,24 +155,24 @@ Get a quota.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    quotaId := "bmc.servers.max_count" // string | The ID of the Quota.
+	quotaId := "bmc.servers.max_count" // string | The ID of the Quota.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.QuotasApi.QuotasQuotaIdGet(context.Background(), quotaId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QuotasApi.QuotasQuotaIdGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `QuotasQuotaIdGet`: Quota
-    fmt.Fprintf(os.Stdout, "Response from `QuotasApi.QuotasQuotaIdGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotasAPI.QuotasQuotaIdGet(context.Background(), quotaId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotasAPI.QuotasQuotaIdGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `QuotasQuotaIdGet`: Quota
+	fmt.Fprintf(os.Stdout, "Response from `QuotasAPI.QuotasQuotaIdGet`: %v\n", resp)
 }
 ```
 

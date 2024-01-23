@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the StorageNetworkUpdate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StorageNetworkUpdate{}
+
 // StorageNetworkUpdate Update storage network.
 type StorageNetworkUpdate struct {
 	// Storage network friendly name.
@@ -42,7 +45,7 @@ func NewStorageNetworkUpdateWithDefaults() *StorageNetworkUpdate {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *StorageNetworkUpdate) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *StorageNetworkUpdate) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageNetworkUpdate) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -60,7 +63,7 @@ func (o *StorageNetworkUpdate) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *StorageNetworkUpdate) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *StorageNetworkUpdate) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *StorageNetworkUpdate) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *StorageNetworkUpdate) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageNetworkUpdate) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -92,7 +95,7 @@ func (o *StorageNetworkUpdate) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *StorageNetworkUpdate) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -105,14 +108,22 @@ func (o *StorageNetworkUpdate) SetDescription(v string) {
 }
 
 func (o StorageNetworkUpdate) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StorageNetworkUpdate) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	return toSerialize, nil
 }
 
 type NullableStorageNetworkUpdate struct {

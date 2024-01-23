@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RelinquishIpBlock type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RelinquishIpBlock{}
+
 // RelinquishIpBlock Object used to determine whether to relinquish ownership of the IP block upon server deletion.
 type RelinquishIpBlock struct {
 	// Determines whether the IP blocks assigned to the server should be deleted or not.
@@ -44,7 +47,7 @@ func NewRelinquishIpBlockWithDefaults() *RelinquishIpBlock {
 
 // GetDeleteIpBlocks returns the DeleteIpBlocks field value if set, zero value otherwise.
 func (o *RelinquishIpBlock) GetDeleteIpBlocks() bool {
-	if o == nil || o.DeleteIpBlocks == nil {
+	if o == nil || IsNil(o.DeleteIpBlocks) {
 		var ret bool
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *RelinquishIpBlock) GetDeleteIpBlocks() bool {
 // GetDeleteIpBlocksOk returns a tuple with the DeleteIpBlocks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RelinquishIpBlock) GetDeleteIpBlocksOk() (*bool, bool) {
-	if o == nil || o.DeleteIpBlocks == nil {
+	if o == nil || IsNil(o.DeleteIpBlocks) {
 		return nil, false
 	}
 	return o.DeleteIpBlocks, true
@@ -62,7 +65,7 @@ func (o *RelinquishIpBlock) GetDeleteIpBlocksOk() (*bool, bool) {
 
 // HasDeleteIpBlocks returns a boolean if a field has been set.
 func (o *RelinquishIpBlock) HasDeleteIpBlocks() bool {
-	if o != nil && o.DeleteIpBlocks != nil {
+	if o != nil && !IsNil(o.DeleteIpBlocks) {
 		return true
 	}
 
@@ -75,11 +78,19 @@ func (o *RelinquishIpBlock) SetDeleteIpBlocks(v bool) {
 }
 
 func (o RelinquishIpBlock) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.DeleteIpBlocks != nil {
-		toSerialize["deleteIpBlocks"] = o.DeleteIpBlocks
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RelinquishIpBlock) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DeleteIpBlocks) {
+		toSerialize["deleteIpBlocks"] = o.DeleteIpBlocks
+	}
+	return toSerialize, nil
 }
 
 type NullableRelinquishIpBlock struct {

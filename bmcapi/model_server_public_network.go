@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ServerPublicNetwork type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServerPublicNetwork{}
 
 // ServerPublicNetwork Public network details of bare metal server.
 type ServerPublicNetwork struct {
@@ -24,6 +29,8 @@ type ServerPublicNetwork struct {
 	// (Read-only) The status of the assignment to the network.
 	StatusDescription *string `json:"statusDescription,omitempty"`
 }
+
+type _ServerPublicNetwork ServerPublicNetwork
 
 // NewServerPublicNetwork instantiates a new ServerPublicNetwork object
 // This constructor will assign default values to properties that have it defined,
@@ -69,7 +76,7 @@ func (o *ServerPublicNetwork) SetId(v string) {
 
 // GetIps returns the Ips field value if set, zero value otherwise.
 func (o *ServerPublicNetwork) GetIps() []string {
-	if o == nil || o.Ips == nil {
+	if o == nil || IsNil(o.Ips) {
 		var ret []string
 		return ret
 	}
@@ -79,7 +86,7 @@ func (o *ServerPublicNetwork) GetIps() []string {
 // GetIpsOk returns a tuple with the Ips field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerPublicNetwork) GetIpsOk() ([]string, bool) {
-	if o == nil || o.Ips == nil {
+	if o == nil || IsNil(o.Ips) {
 		return nil, false
 	}
 	return o.Ips, true
@@ -87,7 +94,7 @@ func (o *ServerPublicNetwork) GetIpsOk() ([]string, bool) {
 
 // HasIps returns a boolean if a field has been set.
 func (o *ServerPublicNetwork) HasIps() bool {
-	if o != nil && o.Ips != nil {
+	if o != nil && !IsNil(o.Ips) {
 		return true
 	}
 
@@ -101,7 +108,7 @@ func (o *ServerPublicNetwork) SetIps(v []string) {
 
 // GetStatusDescription returns the StatusDescription field value if set, zero value otherwise.
 func (o *ServerPublicNetwork) GetStatusDescription() string {
-	if o == nil || o.StatusDescription == nil {
+	if o == nil || IsNil(o.StatusDescription) {
 		var ret string
 		return ret
 	}
@@ -111,7 +118,7 @@ func (o *ServerPublicNetwork) GetStatusDescription() string {
 // GetStatusDescriptionOk returns a tuple with the StatusDescription field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerPublicNetwork) GetStatusDescriptionOk() (*string, bool) {
-	if o == nil || o.StatusDescription == nil {
+	if o == nil || IsNil(o.StatusDescription) {
 		return nil, false
 	}
 	return o.StatusDescription, true
@@ -119,7 +126,7 @@ func (o *ServerPublicNetwork) GetStatusDescriptionOk() (*string, bool) {
 
 // HasStatusDescription returns a boolean if a field has been set.
 func (o *ServerPublicNetwork) HasStatusDescription() bool {
-	if o != nil && o.StatusDescription != nil {
+	if o != nil && !IsNil(o.StatusDescription) {
 		return true
 	}
 
@@ -132,17 +139,60 @@ func (o *ServerPublicNetwork) SetStatusDescription(v string) {
 }
 
 func (o ServerPublicNetwork) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if o.Ips != nil {
-		toSerialize["ips"] = o.Ips
-	}
-	if o.StatusDescription != nil {
-		toSerialize["statusDescription"] = o.StatusDescription
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ServerPublicNetwork) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	if !IsNil(o.Ips) {
+		toSerialize["ips"] = o.Ips
+	}
+	if !IsNil(o.StatusDescription) {
+		toSerialize["statusDescription"] = o.StatusDescription
+	}
+	return toSerialize, nil
+}
+
+func (o *ServerPublicNetwork) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServerPublicNetwork := _ServerPublicNetwork{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varServerPublicNetwork)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServerPublicNetwork(varServerPublicNetwork)
+
+	return err
 }
 
 type NullableServerPublicNetwork struct {

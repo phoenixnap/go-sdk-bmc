@@ -9,7 +9,7 @@ docs/ResourceAssignment.md
 docs/Tag.md
 docs/TagCreate.md
 docs/TagUpdate.md
-docs/TagsApi.md
+docs/TagsAPI.md
 go.mod
 go.sum
 model_delete_result.go

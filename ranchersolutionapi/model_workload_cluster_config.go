@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package ranchersolutionapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the WorkloadClusterConfig type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WorkloadClusterConfig{}
 
 // WorkloadClusterConfig (Write-only) Workload cluster configuration parameters.
 type WorkloadClusterConfig struct {
@@ -26,6 +31,8 @@ type WorkloadClusterConfig struct {
 	// Workload cluster location. Cannot be changed once cluster is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
 	Location string `json:"location"`
 }
+
+type _WorkloadClusterConfig WorkloadClusterConfig
 
 // NewWorkloadClusterConfig instantiates a new WorkloadClusterConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -54,7 +61,7 @@ func NewWorkloadClusterConfigWithDefaults() *WorkloadClusterConfig {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *WorkloadClusterConfig) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -64,7 +71,7 @@ func (o *WorkloadClusterConfig) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WorkloadClusterConfig) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -72,7 +79,7 @@ func (o *WorkloadClusterConfig) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *WorkloadClusterConfig) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -86,7 +93,7 @@ func (o *WorkloadClusterConfig) SetName(v string) {
 
 // GetServerCount returns the ServerCount field value if set, zero value otherwise.
 func (o *WorkloadClusterConfig) GetServerCount() int32 {
-	if o == nil || o.ServerCount == nil {
+	if o == nil || IsNil(o.ServerCount) {
 		var ret int32
 		return ret
 	}
@@ -96,7 +103,7 @@ func (o *WorkloadClusterConfig) GetServerCount() int32 {
 // GetServerCountOk returns a tuple with the ServerCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WorkloadClusterConfig) GetServerCountOk() (*int32, bool) {
-	if o == nil || o.ServerCount == nil {
+	if o == nil || IsNil(o.ServerCount) {
 		return nil, false
 	}
 	return o.ServerCount, true
@@ -104,7 +111,7 @@ func (o *WorkloadClusterConfig) GetServerCountOk() (*int32, bool) {
 
 // HasServerCount returns a boolean if a field has been set.
 func (o *WorkloadClusterConfig) HasServerCount() bool {
-	if o != nil && o.ServerCount != nil {
+	if o != nil && !IsNil(o.ServerCount) {
 		return true
 	}
 
@@ -165,20 +172,62 @@ func (o *WorkloadClusterConfig) SetLocation(v string) {
 }
 
 func (o WorkloadClusterConfig) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.ServerCount != nil {
-		toSerialize["serverCount"] = o.ServerCount
-	}
-	if true {
-		toSerialize["serverType"] = o.ServerType
-	}
-	if true {
-		toSerialize["location"] = o.Location
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o WorkloadClusterConfig) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.ServerCount) {
+		toSerialize["serverCount"] = o.ServerCount
+	}
+	toSerialize["serverType"] = o.ServerType
+	toSerialize["location"] = o.Location
+	return toSerialize, nil
+}
+
+func (o *WorkloadClusterConfig) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"serverType",
+		"location",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varWorkloadClusterConfig := _WorkloadClusterConfig{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varWorkloadClusterConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = WorkloadClusterConfig(varWorkloadClusterConfig)
+
+	return err
 }
 
 type NullableWorkloadClusterConfig struct {

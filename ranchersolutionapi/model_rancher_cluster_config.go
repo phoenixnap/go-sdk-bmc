@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RancherClusterConfig type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RancherClusterConfig{}
+
 // RancherClusterConfig (Write-only) Rancher configuration parameters.
 type RancherClusterConfig struct {
 	// Shared secret used to join a server or agent to a cluster.
@@ -28,8 +31,8 @@ type RancherClusterConfig struct {
 	// This maps to ranchers `node-taint`. Registering kubelet with set of taints. By default, server nodes will be schedulable and thus your workloads can get launched on them. If you wish to have a dedicated control plane where no user workloads will run, you can use taints.
 	NodeTaint *string `json:"nodeTaint,omitempty"`
 	// This maps to ranchers `cluster-domain`. Cluster Domain.
-	ClusterDomain *string                           `json:"clusterDomain,omitempty"`
-	Certificates  *RancherClusterConfigCertificates `json:"certificates,omitempty"`
+	ClusterDomain *string                     `json:"clusterDomain,omitempty"`
+	Certificates  *RancherClusterCertificates `json:"certificates,omitempty"`
 }
 
 // NewRancherClusterConfig instantiates a new RancherClusterConfig object
@@ -59,7 +62,7 @@ func NewRancherClusterConfigWithDefaults() *RancherClusterConfig {
 
 // GetToken returns the Token field value if set, zero value otherwise.
 func (o *RancherClusterConfig) GetToken() string {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *RancherClusterConfig) GetToken() string {
 // GetTokenOk returns a tuple with the Token field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RancherClusterConfig) GetTokenOk() (*string, bool) {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		return nil, false
 	}
 	return o.Token, true
@@ -77,7 +80,7 @@ func (o *RancherClusterConfig) GetTokenOk() (*string, bool) {
 
 // HasToken returns a boolean if a field has been set.
 func (o *RancherClusterConfig) HasToken() bool {
-	if o != nil && o.Token != nil {
+	if o != nil && !IsNil(o.Token) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *RancherClusterConfig) SetToken(v string) {
 
 // GetTlsSan returns the TlsSan field value if set, zero value otherwise.
 func (o *RancherClusterConfig) GetTlsSan() string {
-	if o == nil || o.TlsSan == nil {
+	if o == nil || IsNil(o.TlsSan) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *RancherClusterConfig) GetTlsSan() string {
 // GetTlsSanOk returns a tuple with the TlsSan field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RancherClusterConfig) GetTlsSanOk() (*string, bool) {
-	if o == nil || o.TlsSan == nil {
+	if o == nil || IsNil(o.TlsSan) {
 		return nil, false
 	}
 	return o.TlsSan, true
@@ -109,7 +112,7 @@ func (o *RancherClusterConfig) GetTlsSanOk() (*string, bool) {
 
 // HasTlsSan returns a boolean if a field has been set.
 func (o *RancherClusterConfig) HasTlsSan() bool {
-	if o != nil && o.TlsSan != nil {
+	if o != nil && !IsNil(o.TlsSan) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *RancherClusterConfig) SetTlsSan(v string) {
 
 // GetEtcdSnapshotScheduleCron returns the EtcdSnapshotScheduleCron field value if set, zero value otherwise.
 func (o *RancherClusterConfig) GetEtcdSnapshotScheduleCron() string {
-	if o == nil || o.EtcdSnapshotScheduleCron == nil {
+	if o == nil || IsNil(o.EtcdSnapshotScheduleCron) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *RancherClusterConfig) GetEtcdSnapshotScheduleCron() string {
 // GetEtcdSnapshotScheduleCronOk returns a tuple with the EtcdSnapshotScheduleCron field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RancherClusterConfig) GetEtcdSnapshotScheduleCronOk() (*string, bool) {
-	if o == nil || o.EtcdSnapshotScheduleCron == nil {
+	if o == nil || IsNil(o.EtcdSnapshotScheduleCron) {
 		return nil, false
 	}
 	return o.EtcdSnapshotScheduleCron, true
@@ -141,7 +144,7 @@ func (o *RancherClusterConfig) GetEtcdSnapshotScheduleCronOk() (*string, bool) {
 
 // HasEtcdSnapshotScheduleCron returns a boolean if a field has been set.
 func (o *RancherClusterConfig) HasEtcdSnapshotScheduleCron() bool {
-	if o != nil && o.EtcdSnapshotScheduleCron != nil {
+	if o != nil && !IsNil(o.EtcdSnapshotScheduleCron) {
 		return true
 	}
 
@@ -155,7 +158,7 @@ func (o *RancherClusterConfig) SetEtcdSnapshotScheduleCron(v string) {
 
 // GetEtcdSnapshotRetention returns the EtcdSnapshotRetention field value if set, zero value otherwise.
 func (o *RancherClusterConfig) GetEtcdSnapshotRetention() int32 {
-	if o == nil || o.EtcdSnapshotRetention == nil {
+	if o == nil || IsNil(o.EtcdSnapshotRetention) {
 		var ret int32
 		return ret
 	}
@@ -165,7 +168,7 @@ func (o *RancherClusterConfig) GetEtcdSnapshotRetention() int32 {
 // GetEtcdSnapshotRetentionOk returns a tuple with the EtcdSnapshotRetention field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RancherClusterConfig) GetEtcdSnapshotRetentionOk() (*int32, bool) {
-	if o == nil || o.EtcdSnapshotRetention == nil {
+	if o == nil || IsNil(o.EtcdSnapshotRetention) {
 		return nil, false
 	}
 	return o.EtcdSnapshotRetention, true
@@ -173,7 +176,7 @@ func (o *RancherClusterConfig) GetEtcdSnapshotRetentionOk() (*int32, bool) {
 
 // HasEtcdSnapshotRetention returns a boolean if a field has been set.
 func (o *RancherClusterConfig) HasEtcdSnapshotRetention() bool {
-	if o != nil && o.EtcdSnapshotRetention != nil {
+	if o != nil && !IsNil(o.EtcdSnapshotRetention) {
 		return true
 	}
 
@@ -187,7 +190,7 @@ func (o *RancherClusterConfig) SetEtcdSnapshotRetention(v int32) {
 
 // GetNodeTaint returns the NodeTaint field value if set, zero value otherwise.
 func (o *RancherClusterConfig) GetNodeTaint() string {
-	if o == nil || o.NodeTaint == nil {
+	if o == nil || IsNil(o.NodeTaint) {
 		var ret string
 		return ret
 	}
@@ -197,7 +200,7 @@ func (o *RancherClusterConfig) GetNodeTaint() string {
 // GetNodeTaintOk returns a tuple with the NodeTaint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RancherClusterConfig) GetNodeTaintOk() (*string, bool) {
-	if o == nil || o.NodeTaint == nil {
+	if o == nil || IsNil(o.NodeTaint) {
 		return nil, false
 	}
 	return o.NodeTaint, true
@@ -205,7 +208,7 @@ func (o *RancherClusterConfig) GetNodeTaintOk() (*string, bool) {
 
 // HasNodeTaint returns a boolean if a field has been set.
 func (o *RancherClusterConfig) HasNodeTaint() bool {
-	if o != nil && o.NodeTaint != nil {
+	if o != nil && !IsNil(o.NodeTaint) {
 		return true
 	}
 
@@ -219,7 +222,7 @@ func (o *RancherClusterConfig) SetNodeTaint(v string) {
 
 // GetClusterDomain returns the ClusterDomain field value if set, zero value otherwise.
 func (o *RancherClusterConfig) GetClusterDomain() string {
-	if o == nil || o.ClusterDomain == nil {
+	if o == nil || IsNil(o.ClusterDomain) {
 		var ret string
 		return ret
 	}
@@ -229,7 +232,7 @@ func (o *RancherClusterConfig) GetClusterDomain() string {
 // GetClusterDomainOk returns a tuple with the ClusterDomain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RancherClusterConfig) GetClusterDomainOk() (*string, bool) {
-	if o == nil || o.ClusterDomain == nil {
+	if o == nil || IsNil(o.ClusterDomain) {
 		return nil, false
 	}
 	return o.ClusterDomain, true
@@ -237,7 +240,7 @@ func (o *RancherClusterConfig) GetClusterDomainOk() (*string, bool) {
 
 // HasClusterDomain returns a boolean if a field has been set.
 func (o *RancherClusterConfig) HasClusterDomain() bool {
-	if o != nil && o.ClusterDomain != nil {
+	if o != nil && !IsNil(o.ClusterDomain) {
 		return true
 	}
 
@@ -250,9 +253,9 @@ func (o *RancherClusterConfig) SetClusterDomain(v string) {
 }
 
 // GetCertificates returns the Certificates field value if set, zero value otherwise.
-func (o *RancherClusterConfig) GetCertificates() RancherClusterConfigCertificates {
-	if o == nil || o.Certificates == nil {
-		var ret RancherClusterConfigCertificates
+func (o *RancherClusterConfig) GetCertificates() RancherClusterCertificates {
+	if o == nil || IsNil(o.Certificates) {
+		var ret RancherClusterCertificates
 		return ret
 	}
 	return *o.Certificates
@@ -260,8 +263,8 @@ func (o *RancherClusterConfig) GetCertificates() RancherClusterConfigCertificate
 
 // GetCertificatesOk returns a tuple with the Certificates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RancherClusterConfig) GetCertificatesOk() (*RancherClusterConfigCertificates, bool) {
-	if o == nil || o.Certificates == nil {
+func (o *RancherClusterConfig) GetCertificatesOk() (*RancherClusterCertificates, bool) {
+	if o == nil || IsNil(o.Certificates) {
 		return nil, false
 	}
 	return o.Certificates, true
@@ -269,42 +272,50 @@ func (o *RancherClusterConfig) GetCertificatesOk() (*RancherClusterConfigCertifi
 
 // HasCertificates returns a boolean if a field has been set.
 func (o *RancherClusterConfig) HasCertificates() bool {
-	if o != nil && o.Certificates != nil {
+	if o != nil && !IsNil(o.Certificates) {
 		return true
 	}
 
 	return false
 }
 
-// SetCertificates gets a reference to the given RancherClusterConfigCertificates and assigns it to the Certificates field.
-func (o *RancherClusterConfig) SetCertificates(v RancherClusterConfigCertificates) {
+// SetCertificates gets a reference to the given RancherClusterCertificates and assigns it to the Certificates field.
+func (o *RancherClusterConfig) SetCertificates(v RancherClusterCertificates) {
 	o.Certificates = &v
 }
 
 func (o RancherClusterConfig) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Token != nil {
-		toSerialize["token"] = o.Token
-	}
-	if o.TlsSan != nil {
-		toSerialize["tlsSan"] = o.TlsSan
-	}
-	if o.EtcdSnapshotScheduleCron != nil {
-		toSerialize["etcdSnapshotScheduleCron"] = o.EtcdSnapshotScheduleCron
-	}
-	if o.EtcdSnapshotRetention != nil {
-		toSerialize["etcdSnapshotRetention"] = o.EtcdSnapshotRetention
-	}
-	if o.NodeTaint != nil {
-		toSerialize["nodeTaint"] = o.NodeTaint
-	}
-	if o.ClusterDomain != nil {
-		toSerialize["clusterDomain"] = o.ClusterDomain
-	}
-	if o.Certificates != nil {
-		toSerialize["certificates"] = o.Certificates
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RancherClusterConfig) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Token) {
+		toSerialize["token"] = o.Token
+	}
+	if !IsNil(o.TlsSan) {
+		toSerialize["tlsSan"] = o.TlsSan
+	}
+	if !IsNil(o.EtcdSnapshotScheduleCron) {
+		toSerialize["etcdSnapshotScheduleCron"] = o.EtcdSnapshotScheduleCron
+	}
+	if !IsNil(o.EtcdSnapshotRetention) {
+		toSerialize["etcdSnapshotRetention"] = o.EtcdSnapshotRetention
+	}
+	if !IsNil(o.NodeTaint) {
+		toSerialize["nodeTaint"] = o.NodeTaint
+	}
+	if !IsNil(o.ClusterDomain) {
+		toSerialize["clusterDomain"] = o.ClusterDomain
+	}
+	if !IsNil(o.Certificates) {
+		toSerialize["certificates"] = o.Certificates
+	}
+	return toSerialize, nil
 }
 
 type NullableRancherClusterConfig struct {

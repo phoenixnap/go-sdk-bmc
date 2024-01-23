@@ -14,12 +14,12 @@ package billingapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
-type BillingConfigurationsApi interface {
+type BillingConfigurationsAPI interface {
 
 	/*
 		AccountBillingConfigurationMeGet Retrieves billing configuration associated with the authenticated account.
@@ -36,12 +36,12 @@ type BillingConfigurationsApi interface {
 	AccountBillingConfigurationMeGetExecute(r ApiAccountBillingConfigurationMeGetRequest) (*ConfigurationDetails, *http.Response, error)
 }
 
-// BillingConfigurationsApiService BillingConfigurationsApi service
-type BillingConfigurationsApiService service
+// BillingConfigurationsAPIService BillingConfigurationsAPI service
+type BillingConfigurationsAPIService service
 
 type ApiAccountBillingConfigurationMeGetRequest struct {
 	ctx        context.Context
-	ApiService BillingConfigurationsApi
+	ApiService BillingConfigurationsAPI
 }
 
 func (r ApiAccountBillingConfigurationMeGetRequest) Execute() (*ConfigurationDetails, *http.Response, error) {
@@ -56,7 +56,7 @@ Retrieves billing configuration associated with the authenticated account.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAccountBillingConfigurationMeGetRequest
 */
-func (a *BillingConfigurationsApiService) AccountBillingConfigurationMeGet(ctx context.Context) ApiAccountBillingConfigurationMeGetRequest {
+func (a *BillingConfigurationsAPIService) AccountBillingConfigurationMeGet(ctx context.Context) ApiAccountBillingConfigurationMeGetRequest {
 	return ApiAccountBillingConfigurationMeGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -65,7 +65,7 @@ func (a *BillingConfigurationsApiService) AccountBillingConfigurationMeGet(ctx c
 
 // Execute executes the request
 //  @return ConfigurationDetails
-func (a *BillingConfigurationsApiService) AccountBillingConfigurationMeGetExecute(r ApiAccountBillingConfigurationMeGetRequest) (*ConfigurationDetails, *http.Response, error) {
+func (a *BillingConfigurationsAPIService) AccountBillingConfigurationMeGetExecute(r ApiAccountBillingConfigurationMeGetRequest) (*ConfigurationDetails, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -73,7 +73,7 @@ func (a *BillingConfigurationsApiService) AccountBillingConfigurationMeGetExecut
 		localVarReturnValue *ConfigurationDetails
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingConfigurationsApiService.AccountBillingConfigurationMeGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingConfigurationsAPIService.AccountBillingConfigurationMeGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -111,9 +111,9 @@ func (a *BillingConfigurationsApiService) AccountBillingConfigurationMeGetExecut
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -130,6 +130,7 @@ func (a *BillingConfigurationsApiService) AccountBillingConfigurationMeGetExecut
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -140,6 +141,7 @@ func (a *BillingConfigurationsApiService) AccountBillingConfigurationMeGetExecut
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -150,6 +152,7 @@ func (a *BillingConfigurationsApiService) AccountBillingConfigurationMeGetExecut
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr

@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the Quota type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Quota{}
 
 // Quota Quota.
 type Quota struct {
@@ -33,6 +38,8 @@ type Quota struct {
 	Used                         int32                          `json:"used"`
 	QuotaEditLimitRequestDetails []QuotaEditLimitRequestDetails `json:"quotaEditLimitRequestDetails"`
 }
+
+type _Quota Quota
 
 // NewQuota instantiates a new Quota object
 // This constructor will assign default values to properties that have it defined,
@@ -252,32 +259,68 @@ func (o *Quota) SetQuotaEditLimitRequestDetails(v []QuotaEditLimitRequestDetails
 }
 
 func (o Quota) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["limit"] = o.Limit
-	}
-	if true {
-		toSerialize["unit"] = o.Unit
-	}
-	if true {
-		toSerialize["used"] = o.Used
-	}
-	if true {
-		toSerialize["quotaEditLimitRequestDetails"] = o.QuotaEditLimitRequestDetails
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Quota) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["description"] = o.Description
+	toSerialize["status"] = o.Status
+	toSerialize["limit"] = o.Limit
+	toSerialize["unit"] = o.Unit
+	toSerialize["used"] = o.Used
+	toSerialize["quotaEditLimitRequestDetails"] = o.QuotaEditLimitRequestDetails
+	return toSerialize, nil
+}
+
+func (o *Quota) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"description",
+		"status",
+		"limit",
+		"unit",
+		"used",
+		"quotaEditLimitRequestDetails",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varQuota := _Quota{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varQuota)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Quota(varQuota)
+
+	return err
 }
 
 type NullableQuota struct {

@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ResetResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResetResult{}
 
 // ResetResult Result of a successful reset action.
 type ResetResult struct {
@@ -23,6 +28,8 @@ type ResetResult struct {
 	Password        *string             `json:"password,omitempty"`
 	OsConfiguration *OsConfigurationMap `json:"osConfiguration,omitempty"`
 }
+
+type _ResetResult ResetResult
 
 // NewResetResult instantiates a new ResetResult object
 // This constructor will assign default values to properties that have it defined,
@@ -68,7 +75,7 @@ func (o *ResetResult) SetResult(v string) {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *ResetResult) GetPassword() string {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret string
 		return ret
 	}
@@ -78,7 +85,7 @@ func (o *ResetResult) GetPassword() string {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResetResult) GetPasswordOk() (*string, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -86,7 +93,7 @@ func (o *ResetResult) GetPasswordOk() (*string, bool) {
 
 // HasPassword returns a boolean if a field has been set.
 func (o *ResetResult) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -100,7 +107,7 @@ func (o *ResetResult) SetPassword(v string) {
 
 // GetOsConfiguration returns the OsConfiguration field value if set, zero value otherwise.
 func (o *ResetResult) GetOsConfiguration() OsConfigurationMap {
-	if o == nil || o.OsConfiguration == nil {
+	if o == nil || IsNil(o.OsConfiguration) {
 		var ret OsConfigurationMap
 		return ret
 	}
@@ -110,7 +117,7 @@ func (o *ResetResult) GetOsConfiguration() OsConfigurationMap {
 // GetOsConfigurationOk returns a tuple with the OsConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResetResult) GetOsConfigurationOk() (*OsConfigurationMap, bool) {
-	if o == nil || o.OsConfiguration == nil {
+	if o == nil || IsNil(o.OsConfiguration) {
 		return nil, false
 	}
 	return o.OsConfiguration, true
@@ -118,7 +125,7 @@ func (o *ResetResult) GetOsConfigurationOk() (*OsConfigurationMap, bool) {
 
 // HasOsConfiguration returns a boolean if a field has been set.
 func (o *ResetResult) HasOsConfiguration() bool {
-	if o != nil && o.OsConfiguration != nil {
+	if o != nil && !IsNil(o.OsConfiguration) {
 		return true
 	}
 
@@ -131,17 +138,60 @@ func (o *ResetResult) SetOsConfiguration(v OsConfigurationMap) {
 }
 
 func (o ResetResult) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["result"] = o.Result
-	}
-	if o.Password != nil {
-		toSerialize["password"] = o.Password
-	}
-	if o.OsConfiguration != nil {
-		toSerialize["osConfiguration"] = o.OsConfiguration
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ResetResult) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["result"] = o.Result
+	if !IsNil(o.Password) {
+		toSerialize["password"] = o.Password
+	}
+	if !IsNil(o.OsConfiguration) {
+		toSerialize["osConfiguration"] = o.OsConfiguration
+	}
+	return toSerialize, nil
+}
+
+func (o *ResetResult) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"result",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varResetResult := _ResetResult{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varResetResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ResetResult(varResetResult)
+
+	return err
 }
 
 type NullableResetResult struct {

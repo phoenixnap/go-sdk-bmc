@@ -1,11 +1,11 @@
-# \RatedUsageApi
+# \RatedUsageAPI
 
 All URIs are relative to *https://api.phoenixnap.com/billing/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**RatedUsageGet**](RatedUsageApi.md#RatedUsageGet) | **Get** /rated-usage | List the rated usage.
-[**RatedUsageMonthToDateGet**](RatedUsageApi.md#RatedUsageMonthToDateGet) | **Get** /rated-usage/month-to-date | List the rated usage records for the current calendar month.
+[**RatedUsageGet**](RatedUsageAPI.md#RatedUsageGet) | **Get** /rated-usage | List the rated usage.
+[**RatedUsageMonthToDateGet**](RatedUsageAPI.md#RatedUsageMonthToDateGet) | **Get** /rated-usage/month-to-date | List the rated usage records for the current calendar month.
 
 
 
@@ -23,26 +23,26 @@ List the rated usage.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi"
 )
 
 func main() {
-    fromYearMonth := "2020-03" // string | From year month (inclusive) to filter rated usage records by.
-    toYearMonth := "2020-04" // string | To year month (inclusive) to filter rated usage records by.
-    productCategory := openapiclient.ProductCategoryEnum("SERVER") // ProductCategoryEnum | The product category (optional)
+	fromYearMonth := "2020-03" // string | From year month (inclusive) to filter rated usage records by.
+	toYearMonth := "2020-04" // string | To year month (inclusive) to filter rated usage records by.
+	productCategory := openapiclient.ProductCategoryEnum("SERVER") // ProductCategoryEnum | The product category (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RatedUsageApi.RatedUsageGet(context.Background()).FromYearMonth(fromYearMonth).ToYearMonth(toYearMonth).ProductCategory(productCategory).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RatedUsageApi.RatedUsageGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `RatedUsageGet`: []RatedUsageGet200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `RatedUsageApi.RatedUsageGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RatedUsageAPI.RatedUsageGet(context.Background()).FromYearMonth(fromYearMonth).ToYearMonth(toYearMonth).ProductCategory(productCategory).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RatedUsageAPI.RatedUsageGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RatedUsageGet`: []RatedUsageGet200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `RatedUsageAPI.RatedUsageGet`: %v\n", resp)
 }
 ```
 
@@ -93,24 +93,24 @@ List the rated usage records for the current calendar month.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi"
 )
 
 func main() {
-    productCategory := openapiclient.ProductCategoryEnum("SERVER") // ProductCategoryEnum | The product category (optional)
+	productCategory := openapiclient.ProductCategoryEnum("SERVER") // ProductCategoryEnum | The product category (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RatedUsageApi.RatedUsageMonthToDateGet(context.Background()).ProductCategory(productCategory).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RatedUsageApi.RatedUsageMonthToDateGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `RatedUsageMonthToDateGet`: []RatedUsageGet200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `RatedUsageApi.RatedUsageMonthToDateGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RatedUsageAPI.RatedUsageMonthToDateGet(context.Background()).ProductCategory(productCategory).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RatedUsageAPI.RatedUsageMonthToDateGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RatedUsageMonthToDateGet`: []RatedUsageGet200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `RatedUsageAPI.RatedUsageMonthToDateGet`: %v\n", resp)
 }
 ```
 

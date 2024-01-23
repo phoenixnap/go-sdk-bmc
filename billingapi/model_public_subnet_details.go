@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PublicSubnetDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicSubnetDetails{}
 
 // PublicSubnetDetails Details of public subnets.
 type PublicSubnetDetails struct {
@@ -24,6 +29,8 @@ type PublicSubnetDetails struct {
 	// CIDR size
 	Size string `json:"size"`
 }
+
+type _PublicSubnetDetails PublicSubnetDetails
 
 // NewPublicSubnetDetails instantiates a new PublicSubnetDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -46,7 +53,7 @@ func NewPublicSubnetDetailsWithDefaults() *PublicSubnetDetails {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *PublicSubnetDetails) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -56,7 +63,7 @@ func (o *PublicSubnetDetails) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicSubnetDetails) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -64,7 +71,7 @@ func (o *PublicSubnetDetails) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *PublicSubnetDetails) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -125,17 +132,59 @@ func (o *PublicSubnetDetails) SetSize(v string) {
 }
 
 func (o PublicSubnetDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["cidr"] = o.Cidr
-	}
-	if true {
-		toSerialize["size"] = o.Size
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicSubnetDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	toSerialize["cidr"] = o.Cidr
+	toSerialize["size"] = o.Size
+	return toSerialize, nil
+}
+
+func (o *PublicSubnetDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"cidr",
+		"size",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicSubnetDetails := _PublicSubnetDetails{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicSubnetDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicSubnetDetails(varPublicSubnetDetails)
+
+	return err
 }
 
 type NullablePublicSubnetDetails struct {

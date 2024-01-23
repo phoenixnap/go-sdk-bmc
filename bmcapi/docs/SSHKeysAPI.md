@@ -1,14 +1,14 @@
-# \SSHKeysApi
+# \SSHKeysAPI
 
 All URIs are relative to *https://api.phoenixnap.com/bmc/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**SshKeysGet**](SSHKeysApi.md#SshKeysGet) | **Get** /ssh-keys | List SSH Keys.
-[**SshKeysPost**](SSHKeysApi.md#SshKeysPost) | **Post** /ssh-keys | Create SSH Key.
-[**SshKeysSshKeyIdDelete**](SSHKeysApi.md#SshKeysSshKeyIdDelete) | **Delete** /ssh-keys/{sshKeyId} | Delete SSH Key.
-[**SshKeysSshKeyIdGet**](SSHKeysApi.md#SshKeysSshKeyIdGet) | **Get** /ssh-keys/{sshKeyId} | Get SSH Key.
-[**SshKeysSshKeyIdPut**](SSHKeysApi.md#SshKeysSshKeyIdPut) | **Put** /ssh-keys/{sshKeyId} | Edit SSH Key.
+[**SshKeysGet**](SSHKeysAPI.md#SshKeysGet) | **Get** /ssh-keys | List SSH Keys.
+[**SshKeysPost**](SSHKeysAPI.md#SshKeysPost) | **Post** /ssh-keys | Create SSH Key.
+[**SshKeysSshKeyIdDelete**](SSHKeysAPI.md#SshKeysSshKeyIdDelete) | **Delete** /ssh-keys/{sshKeyId} | Delete SSH Key.
+[**SshKeysSshKeyIdGet**](SSHKeysAPI.md#SshKeysSshKeyIdGet) | **Get** /ssh-keys/{sshKeyId} | Get SSH Key.
+[**SshKeysSshKeyIdPut**](SSHKeysAPI.md#SshKeysSshKeyIdPut) | **Put** /ssh-keys/{sshKeyId} | Edit SSH Key.
 
 
 
@@ -26,23 +26,23 @@ List SSH Keys.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSHKeysApi.SshKeysGet(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSHKeysApi.SshKeysGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SshKeysGet`: []SshKey
-    fmt.Fprintf(os.Stdout, "Response from `SSHKeysApi.SshKeysGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSHKeysAPI.SshKeysGet(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSHKeysAPI.SshKeysGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SshKeysGet`: []SshKey
+	fmt.Fprintf(os.Stdout, "Response from `SSHKeysAPI.SshKeysGet`: %v\n", resp)
 }
 ```
 
@@ -87,24 +87,24 @@ Create SSH Key.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    sshKeyCreate := *openapiclient.NewSshKeyCreate(true, "sshkey-name-01", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip") // SshKeyCreate | 
+	sshKeyCreate := *openapiclient.NewSshKeyCreate(true, "sshkey-name-01", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip") // SshKeyCreate | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSHKeysApi.SshKeysPost(context.Background()).SshKeyCreate(sshKeyCreate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSHKeysApi.SshKeysPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SshKeysPost`: SshKey
-    fmt.Fprintf(os.Stdout, "Response from `SSHKeysApi.SshKeysPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSHKeysAPI.SshKeysPost(context.Background()).SshKeyCreate(sshKeyCreate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSHKeysAPI.SshKeysPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SshKeysPost`: SshKey
+	fmt.Fprintf(os.Stdout, "Response from `SSHKeysAPI.SshKeysPost`: %v\n", resp)
 }
 ```
 
@@ -153,24 +153,24 @@ Delete SSH Key.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    sshKeyId := "5fa54d1e91867c03a0a7b4a4" // string | The SSH Key's ID.
+	sshKeyId := "5fa54d1e91867c03a0a7b4a4" // string | The SSH Key's ID.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSHKeysApi.SshKeysSshKeyIdDelete(context.Background(), sshKeyId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSHKeysApi.SshKeysSshKeyIdDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SshKeysSshKeyIdDelete`: DeleteSshKeyResult
-    fmt.Fprintf(os.Stdout, "Response from `SSHKeysApi.SshKeysSshKeyIdDelete`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSHKeysAPI.SshKeysSshKeyIdDelete(context.Background(), sshKeyId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSHKeysAPI.SshKeysSshKeyIdDelete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SshKeysSshKeyIdDelete`: DeleteSshKeyResult
+	fmt.Fprintf(os.Stdout, "Response from `SSHKeysAPI.SshKeysSshKeyIdDelete`: %v\n", resp)
 }
 ```
 
@@ -223,24 +223,24 @@ Get SSH Key.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    sshKeyId := "5fa54d1e91867c03a0a7b4a4" // string | The SSH Key's ID.
+	sshKeyId := "5fa54d1e91867c03a0a7b4a4" // string | The SSH Key's ID.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSHKeysApi.SshKeysSshKeyIdGet(context.Background(), sshKeyId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSHKeysApi.SshKeysSshKeyIdGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SshKeysSshKeyIdGet`: SshKey
-    fmt.Fprintf(os.Stdout, "Response from `SSHKeysApi.SshKeysSshKeyIdGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSHKeysAPI.SshKeysSshKeyIdGet(context.Background(), sshKeyId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSHKeysAPI.SshKeysSshKeyIdGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SshKeysSshKeyIdGet`: SshKey
+	fmt.Fprintf(os.Stdout, "Response from `SSHKeysAPI.SshKeysSshKeyIdGet`: %v\n", resp)
 }
 ```
 
@@ -293,25 +293,25 @@ Edit SSH Key.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    sshKeyId := "5fa54d1e91867c03a0a7b4a4" // string | The SSH Key's ID.
-    sshKeyUpdate := *openapiclient.NewSshKeyUpdate(true, "sshkey-name-01") // SshKeyUpdate | 
+	sshKeyId := "5fa54d1e91867c03a0a7b4a4" // string | The SSH Key's ID.
+	sshKeyUpdate := *openapiclient.NewSshKeyUpdate(true, "sshkey-name-01") // SshKeyUpdate | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSHKeysApi.SshKeysSshKeyIdPut(context.Background(), sshKeyId).SshKeyUpdate(sshKeyUpdate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSHKeysApi.SshKeysSshKeyIdPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SshKeysSshKeyIdPut`: SshKey
-    fmt.Fprintf(os.Stdout, "Response from `SSHKeysApi.SshKeysSshKeyIdPut`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSHKeysAPI.SshKeysSshKeyIdPut(context.Background(), sshKeyId).SshKeyUpdate(sshKeyUpdate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSHKeysAPI.SshKeysSshKeyIdPut``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SshKeysSshKeyIdPut`: SshKey
+	fmt.Fprintf(os.Stdout, "Response from `SSHKeysAPI.SshKeysSshKeyIdPut`: %v\n", resp)
 }
 ```
 

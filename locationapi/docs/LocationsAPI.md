@@ -1,10 +1,10 @@
-# \LocationsApi
+# \LocationsAPI
 
 All URIs are relative to *https://api.phoenixnap.com/location-api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetLocations**](LocationsApi.md#GetLocations) | **Get** /locations | Get All Locations
+[**GetLocations**](LocationsAPI.md#GetLocations) | **Get** /locations | Get All Locations
 
 
 
@@ -22,25 +22,25 @@ Get All Locations
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/locationapi"
 )
 
 func main() {
-    location := openapiclient.LocationEnum("PHX") // LocationEnum | Location of interest (optional)
-    productCategory := openapiclient.ProductCategoryEnum("SERVER") // ProductCategoryEnum | Product category of interest (optional)
+	location := openapiclient.LocationEnum("PHX") // LocationEnum | Location of interest (optional)
+	productCategory := openapiclient.ProductCategoryEnum("SERVER") // ProductCategoryEnum | Product category of interest (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LocationsApi.GetLocations(context.Background()).Location(location).ProductCategory(productCategory).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LocationsApi.GetLocations``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetLocations`: []Location
-    fmt.Fprintf(os.Stdout, "Response from `LocationsApi.GetLocations`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LocationsAPI.GetLocations(context.Background()).Location(location).ProductCategory(productCategory).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LocationsAPI.GetLocations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetLocations`: []Location
+	fmt.Fprintf(os.Stdout, "Response from `LocationsAPI.GetLocations`: %v\n", resp)
 }
 ```
 

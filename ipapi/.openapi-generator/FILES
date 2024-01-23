@@ -5,7 +5,7 @@ client.go
 configuration.go
 docs/DeleteIpBlockResult.md
 docs/Error.md
-docs/IPBlocksApi.md
+docs/IPBlocksAPI.md
 docs/IpBlock.md
 docs/IpBlockCreate.md
 docs/IpBlockPatch.md

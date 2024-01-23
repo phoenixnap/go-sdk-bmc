@@ -14,12 +14,12 @@ package locationapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
-type LocationsApi interface {
+type LocationsAPI interface {
 
 	/*
 		GetLocations Get All Locations
@@ -36,12 +36,12 @@ type LocationsApi interface {
 	GetLocationsExecute(r ApiGetLocationsRequest) ([]Location, *http.Response, error)
 }
 
-// LocationsApiService LocationsApi service
-type LocationsApiService service
+// LocationsAPIService LocationsAPI service
+type LocationsAPIService service
 
 type ApiGetLocationsRequest struct {
 	ctx             context.Context
-	ApiService      LocationsApi
+	ApiService      LocationsAPI
 	location        *LocationEnum
 	productCategory *ProductCategoryEnum
 }
@@ -70,7 +70,7 @@ Retrieve the locations info.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetLocationsRequest
 */
-func (a *LocationsApiService) GetLocations(ctx context.Context) ApiGetLocationsRequest {
+func (a *LocationsAPIService) GetLocations(ctx context.Context) ApiGetLocationsRequest {
 	return ApiGetLocationsRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -79,7 +79,7 @@ func (a *LocationsApiService) GetLocations(ctx context.Context) ApiGetLocationsR
 
 // Execute executes the request
 //  @return []Location
-func (a *LocationsApiService) GetLocationsExecute(r ApiGetLocationsRequest) ([]Location, *http.Response, error) {
+func (a *LocationsAPIService) GetLocationsExecute(r ApiGetLocationsRequest) ([]Location, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -87,7 +87,7 @@ func (a *LocationsApiService) GetLocationsExecute(r ApiGetLocationsRequest) ([]L
 		localVarReturnValue []Location
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LocationsApiService.GetLocations")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LocationsAPIService.GetLocations")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -99,10 +99,10 @@ func (a *LocationsApiService) GetLocationsExecute(r ApiGetLocationsRequest) ([]L
 	localVarFormParams := url.Values{}
 
 	if r.location != nil {
-		localVarQueryParams.Add("location", parameterToString(*r.location, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "")
 	}
 	if r.productCategory != nil {
-		localVarQueryParams.Add("productCategory", parameterToString(*r.productCategory, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -131,9 +131,9 @@ func (a *LocationsApiService) GetLocationsExecute(r ApiGetLocationsRequest) ([]L
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -150,6 +150,7 @@ func (a *LocationsApiService) GetLocationsExecute(r ApiGetLocationsRequest) ([]L
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -160,6 +161,7 @@ func (a *LocationsApiService) GetLocationsExecute(r ApiGetLocationsRequest) ([]L
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr

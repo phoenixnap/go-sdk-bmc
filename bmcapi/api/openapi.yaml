@@ -3872,8 +3872,10 @@ components:
         limit: 10
       properties:
         limit:
-          description: "The new limit that is requested. Minimum allowed limit values:\n\
-            - 0 (Server, IPs)\n- 1000 (Network Storage)"
+          description: |-
+            The new limit that is requested. Minimum allowed limit values:
+            - 0 (Server, IPs)
+            - 1000 (Network Storage)
           example: 10
           format: int32
           minimum: 0
@@ -3890,7 +3892,16 @@ components:
     QuotaEditLimitRequestDetails:
       allOf:
       - $ref: '#/components/schemas/QuotaEditLimitRequest'
-      - $ref: '#/components/schemas/QuotaEditLimitRequestDetails_allOf'
+      - description: Pending quota modification requests yet to be reviewed.
+        properties:
+          requestedOn:
+            description: The point in time the request was submitted.
+            example: 2021-09-01T10:10:10Z
+            format: date-time
+            type: string
+        required:
+        - requestedOn
+        type: object
     Quota:
       description: Quota.
       example:
@@ -4152,17 +4163,6 @@ components:
             type: string
           minItems: 1
           type: array
-      type: object
-    QuotaEditLimitRequestDetails_allOf:
-      description: Pending quota modification requests yet to be reviewed.
-      properties:
-        requestedOn:
-          description: The point in time the request was submitted.
-          example: 2021-09-01T10:10:10Z
-          format: date-time
-          type: string
-      required:
-      - requestedOn
       type: object
   securitySchemes:
     OAuth2:

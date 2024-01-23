@@ -14,14 +14,14 @@ package networkstorageapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"reflect"
 	"strings"
 )
 
-type StorageNetworksApi interface {
+type StorageNetworksAPI interface {
 
 	/*
 		StorageNetworksGet List all storage networks.
@@ -189,12 +189,12 @@ type StorageNetworksApi interface {
 	StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutExecute(r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest) (*Volume, *http.Response, error)
 }
 
-// StorageNetworksApiService StorageNetworksApi service
-type StorageNetworksApiService service
+// StorageNetworksAPIService StorageNetworksAPI service
+type StorageNetworksAPIService service
 
 type ApiStorageNetworksGetRequest struct {
 	ctx        context.Context
-	ApiService StorageNetworksApi
+	ApiService StorageNetworksAPI
 	location   *string
 }
 
@@ -216,7 +216,7 @@ List all storage networks.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiStorageNetworksGetRequest
 */
-func (a *StorageNetworksApiService) StorageNetworksGet(ctx context.Context) ApiStorageNetworksGetRequest {
+func (a *StorageNetworksAPIService) StorageNetworksGet(ctx context.Context) ApiStorageNetworksGetRequest {
 	return ApiStorageNetworksGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -225,7 +225,7 @@ func (a *StorageNetworksApiService) StorageNetworksGet(ctx context.Context) ApiS
 
 // Execute executes the request
 //  @return []StorageNetwork
-func (a *StorageNetworksApiService) StorageNetworksGetExecute(r ApiStorageNetworksGetRequest) ([]StorageNetwork, *http.Response, error) {
+func (a *StorageNetworksAPIService) StorageNetworksGetExecute(r ApiStorageNetworksGetRequest) ([]StorageNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -233,7 +233,7 @@ func (a *StorageNetworksApiService) StorageNetworksGetExecute(r ApiStorageNetwor
 		localVarReturnValue []StorageNetwork
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksApiService.StorageNetworksGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksAPIService.StorageNetworksGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -245,7 +245,7 @@ func (a *StorageNetworksApiService) StorageNetworksGetExecute(r ApiStorageNetwor
 	localVarFormParams := url.Values{}
 
 	if r.location != nil {
-		localVarQueryParams.Add("location", parameterToString(*r.location, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -274,9 +274,9 @@ func (a *StorageNetworksApiService) StorageNetworksGetExecute(r ApiStorageNetwor
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -293,6 +293,7 @@ func (a *StorageNetworksApiService) StorageNetworksGetExecute(r ApiStorageNetwor
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -303,6 +304,7 @@ func (a *StorageNetworksApiService) StorageNetworksGetExecute(r ApiStorageNetwor
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -313,6 +315,7 @@ func (a *StorageNetworksApiService) StorageNetworksGetExecute(r ApiStorageNetwor
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -323,6 +326,7 @@ func (a *StorageNetworksApiService) StorageNetworksGetExecute(r ApiStorageNetwor
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -342,7 +346,7 @@ func (a *StorageNetworksApiService) StorageNetworksGetExecute(r ApiStorageNetwor
 
 type ApiStorageNetworksIdDeleteRequest struct {
 	ctx        context.Context
-	ApiService StorageNetworksApi
+	ApiService StorageNetworksAPI
 	storageId  string
 }
 
@@ -359,7 +363,7 @@ Delete a storage network and its volume. A storage network can only be removed i
  @param storageId ID of the storage.
  @return ApiStorageNetworksIdDeleteRequest
 */
-func (a *StorageNetworksApiService) StorageNetworksIdDelete(ctx context.Context, storageId string) ApiStorageNetworksIdDeleteRequest {
+func (a *StorageNetworksAPIService) StorageNetworksIdDelete(ctx context.Context, storageId string) ApiStorageNetworksIdDeleteRequest {
 	return ApiStorageNetworksIdDeleteRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -368,20 +372,20 @@ func (a *StorageNetworksApiService) StorageNetworksIdDelete(ctx context.Context,
 }
 
 // Execute executes the request
-func (a *StorageNetworksApiService) StorageNetworksIdDeleteExecute(r ApiStorageNetworksIdDeleteRequest) (*http.Response, error) {
+func (a *StorageNetworksAPIService) StorageNetworksIdDeleteExecute(r ApiStorageNetworksIdDeleteRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksApiService.StorageNetworksIdDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksAPIService.StorageNetworksIdDelete")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/storage-networks/{storageId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterToString(r.storageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterValueToString(r.storageId, "storageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -414,9 +418,9 @@ func (a *StorageNetworksApiService) StorageNetworksIdDeleteExecute(r ApiStorageN
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -433,6 +437,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdDeleteExecute(r ApiStorageN
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -443,6 +448,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdDeleteExecute(r ApiStorageN
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -453,6 +459,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdDeleteExecute(r ApiStorageN
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -463,6 +470,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdDeleteExecute(r ApiStorageN
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -473,6 +481,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdDeleteExecute(r ApiStorageN
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -483,6 +492,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdDeleteExecute(r ApiStorageN
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
@@ -493,7 +503,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdDeleteExecute(r ApiStorageN
 
 type ApiStorageNetworksIdGetRequest struct {
 	ctx        context.Context
-	ApiService StorageNetworksApi
+	ApiService StorageNetworksAPI
 	storageId  string
 }
 
@@ -510,7 +520,7 @@ Get storage network details.
  @param storageId ID of the storage.
  @return ApiStorageNetworksIdGetRequest
 */
-func (a *StorageNetworksApiService) StorageNetworksIdGet(ctx context.Context, storageId string) ApiStorageNetworksIdGetRequest {
+func (a *StorageNetworksAPIService) StorageNetworksIdGet(ctx context.Context, storageId string) ApiStorageNetworksIdGetRequest {
 	return ApiStorageNetworksIdGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -520,7 +530,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdGet(ctx context.Context, st
 
 // Execute executes the request
 //  @return StorageNetwork
-func (a *StorageNetworksApiService) StorageNetworksIdGetExecute(r ApiStorageNetworksIdGetRequest) (*StorageNetwork, *http.Response, error) {
+func (a *StorageNetworksAPIService) StorageNetworksIdGetExecute(r ApiStorageNetworksIdGetRequest) (*StorageNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -528,13 +538,13 @@ func (a *StorageNetworksApiService) StorageNetworksIdGetExecute(r ApiStorageNetw
 		localVarReturnValue *StorageNetwork
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksApiService.StorageNetworksIdGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksAPIService.StorageNetworksIdGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/storage-networks/{storageId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterToString(r.storageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterValueToString(r.storageId, "storageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -567,9 +577,9 @@ func (a *StorageNetworksApiService) StorageNetworksIdGetExecute(r ApiStorageNetw
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -586,6 +596,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdGetExecute(r ApiStorageNetw
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -596,6 +607,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdGetExecute(r ApiStorageNetw
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -606,6 +618,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdGetExecute(r ApiStorageNetw
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -625,7 +638,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdGetExecute(r ApiStorageNetw
 
 type ApiStorageNetworksIdPatchRequest struct {
 	ctx                  context.Context
-	ApiService           StorageNetworksApi
+	ApiService           StorageNetworksAPI
 	storageId            string
 	storageNetworkUpdate *StorageNetworkUpdate
 }
@@ -649,7 +662,7 @@ Update storage network details.
  @param storageId ID of the storage.
  @return ApiStorageNetworksIdPatchRequest
 */
-func (a *StorageNetworksApiService) StorageNetworksIdPatch(ctx context.Context, storageId string) ApiStorageNetworksIdPatchRequest {
+func (a *StorageNetworksAPIService) StorageNetworksIdPatch(ctx context.Context, storageId string) ApiStorageNetworksIdPatchRequest {
 	return ApiStorageNetworksIdPatchRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -659,7 +672,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdPatch(ctx context.Context, 
 
 // Execute executes the request
 //  @return StorageNetwork
-func (a *StorageNetworksApiService) StorageNetworksIdPatchExecute(r ApiStorageNetworksIdPatchRequest) (*StorageNetwork, *http.Response, error) {
+func (a *StorageNetworksAPIService) StorageNetworksIdPatchExecute(r ApiStorageNetworksIdPatchRequest) (*StorageNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -667,13 +680,13 @@ func (a *StorageNetworksApiService) StorageNetworksIdPatchExecute(r ApiStorageNe
 		localVarReturnValue *StorageNetwork
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksApiService.StorageNetworksIdPatch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksAPIService.StorageNetworksIdPatch")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/storage-networks/{storageId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterToString(r.storageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterValueToString(r.storageId, "storageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -711,9 +724,9 @@ func (a *StorageNetworksApiService) StorageNetworksIdPatchExecute(r ApiStorageNe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -730,6 +743,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdPatchExecute(r ApiStorageNe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -740,6 +754,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdPatchExecute(r ApiStorageNe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -750,6 +765,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdPatchExecute(r ApiStorageNe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -760,6 +776,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdPatchExecute(r ApiStorageNe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -779,7 +796,7 @@ func (a *StorageNetworksApiService) StorageNetworksIdPatchExecute(r ApiStorageNe
 
 type ApiStorageNetworksPostRequest struct {
 	ctx                  context.Context
-	ApiService           StorageNetworksApi
+	ApiService           StorageNetworksAPI
 	storageNetworkCreate *StorageNetworkCreate
 }
 
@@ -800,7 +817,7 @@ Create a storage network and volume.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiStorageNetworksPostRequest
 */
-func (a *StorageNetworksApiService) StorageNetworksPost(ctx context.Context) ApiStorageNetworksPostRequest {
+func (a *StorageNetworksAPIService) StorageNetworksPost(ctx context.Context) ApiStorageNetworksPostRequest {
 	return ApiStorageNetworksPostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -809,7 +826,7 @@ func (a *StorageNetworksApiService) StorageNetworksPost(ctx context.Context) Api
 
 // Execute executes the request
 //  @return StorageNetwork
-func (a *StorageNetworksApiService) StorageNetworksPostExecute(r ApiStorageNetworksPostRequest) (*StorageNetwork, *http.Response, error) {
+func (a *StorageNetworksAPIService) StorageNetworksPostExecute(r ApiStorageNetworksPostRequest) (*StorageNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -817,7 +834,7 @@ func (a *StorageNetworksApiService) StorageNetworksPostExecute(r ApiStorageNetwo
 		localVarReturnValue *StorageNetwork
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksApiService.StorageNetworksPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksAPIService.StorageNetworksPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -860,9 +877,9 @@ func (a *StorageNetworksApiService) StorageNetworksPostExecute(r ApiStorageNetwo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -879,6 +896,7 @@ func (a *StorageNetworksApiService) StorageNetworksPostExecute(r ApiStorageNetwo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -889,6 +907,7 @@ func (a *StorageNetworksApiService) StorageNetworksPostExecute(r ApiStorageNetwo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -899,6 +918,7 @@ func (a *StorageNetworksApiService) StorageNetworksPostExecute(r ApiStorageNetwo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -909,6 +929,7 @@ func (a *StorageNetworksApiService) StorageNetworksPostExecute(r ApiStorageNetwo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -919,6 +940,7 @@ func (a *StorageNetworksApiService) StorageNetworksPostExecute(r ApiStorageNetwo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -938,7 +960,7 @@ func (a *StorageNetworksApiService) StorageNetworksPostExecute(r ApiStorageNetwo
 
 type ApiStorageNetworksStorageNetworkIdVolumesGetRequest struct {
 	ctx        context.Context
-	ApiService StorageNetworksApi
+	ApiService StorageNetworksAPI
 	storageId  string
 	tag        *[]string
 }
@@ -962,7 +984,7 @@ Display one or more volumes belonging to a storage network.
  @param storageId ID of the storage.
  @return ApiStorageNetworksStorageNetworkIdVolumesGetRequest
 */
-func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesGet(ctx context.Context, storageId string) ApiStorageNetworksStorageNetworkIdVolumesGetRequest {
+func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesGet(ctx context.Context, storageId string) ApiStorageNetworksStorageNetworkIdVolumesGetRequest {
 	return ApiStorageNetworksStorageNetworkIdVolumesGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -972,7 +994,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesGet(ct
 
 // Execute executes the request
 //  @return []Volume
-func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesGetExecute(r ApiStorageNetworksStorageNetworkIdVolumesGetRequest) ([]Volume, *http.Response, error) {
+func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesGetExecute(r ApiStorageNetworksStorageNetworkIdVolumesGetRequest) ([]Volume, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -980,13 +1002,13 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesGetExe
 		localVarReturnValue []Volume
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksApiService.StorageNetworksStorageNetworkIdVolumesGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksAPIService.StorageNetworksStorageNetworkIdVolumesGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/storage-networks/{storageId}/volumes"
-	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterToString(r.storageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterValueToString(r.storageId, "storageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -997,10 +1019,10 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesGetExe
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("tag", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "tag", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("tag", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "tag", t, "multi")
 		}
 	}
 	// to determine the Content-Type header
@@ -1030,9 +1052,9 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesGetExe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1049,6 +1071,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesGetExe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1059,6 +1082,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesGetExe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1069,6 +1093,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesGetExe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1088,7 +1113,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesGetExe
 
 type ApiStorageNetworksStorageNetworkIdVolumesPostRequest struct {
 	ctx          context.Context
-	ApiService   StorageNetworksApi
+	ApiService   StorageNetworksAPI
 	storageId    string
 	volumeCreate *VolumeCreate
 }
@@ -1111,7 +1136,7 @@ Create a volume belonging to a storage network.
  @param storageId ID of the storage.
  @return ApiStorageNetworksStorageNetworkIdVolumesPostRequest
 */
-func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesPost(ctx context.Context, storageId string) ApiStorageNetworksStorageNetworkIdVolumesPostRequest {
+func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesPost(ctx context.Context, storageId string) ApiStorageNetworksStorageNetworkIdVolumesPostRequest {
 	return ApiStorageNetworksStorageNetworkIdVolumesPostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1121,7 +1146,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesPost(c
 
 // Execute executes the request
 //  @return Volume
-func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesPostExecute(r ApiStorageNetworksStorageNetworkIdVolumesPostRequest) (*Volume, *http.Response, error) {
+func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesPostExecute(r ApiStorageNetworksStorageNetworkIdVolumesPostRequest) (*Volume, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1129,13 +1154,13 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesPostEx
 		localVarReturnValue *Volume
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksApiService.StorageNetworksStorageNetworkIdVolumesPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksAPIService.StorageNetworksStorageNetworkIdVolumesPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/storage-networks/{storageId}/volumes"
-	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterToString(r.storageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterValueToString(r.storageId, "storageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1173,9 +1198,9 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesPostEx
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1192,6 +1217,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesPostEx
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1202,6 +1228,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesPostEx
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1212,6 +1239,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesPostEx
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1222,6 +1250,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesPostEx
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1232,6 +1261,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesPostEx
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1242,6 +1272,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesPostEx
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1261,7 +1292,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesPostEx
 
 type ApiStorageNetworksStorageNetworkIdVolumesVolumeIdDeleteRequest struct {
 	ctx        context.Context
-	ApiService StorageNetworksApi
+	ApiService StorageNetworksAPI
 	storageId  string
 	volumeId   string
 }
@@ -1280,7 +1311,7 @@ Delete a Storage Network's Volume
  @param volumeId ID of volume.
  @return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdDeleteRequest
 */
-func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolumeIdDelete(ctx context.Context, storageId string, volumeId string) ApiStorageNetworksStorageNetworkIdVolumesVolumeIdDeleteRequest {
+func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolumeIdDelete(ctx context.Context, storageId string, volumeId string) ApiStorageNetworksStorageNetworkIdVolumesVolumeIdDeleteRequest {
 	return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdDeleteRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1290,21 +1321,21 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 }
 
 // Execute executes the request
-func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolumeIdDeleteExecute(r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdDeleteRequest) (*http.Response, error) {
+func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolumeIdDeleteExecute(r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdDeleteRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksApiService.StorageNetworksStorageNetworkIdVolumesVolumeIdDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksAPIService.StorageNetworksStorageNetworkIdVolumesVolumeIdDelete")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/storage-networks/{storageId}/volumes/{volumeId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterToString(r.storageId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"volumeId"+"}", url.PathEscape(parameterToString(r.volumeId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterValueToString(r.storageId, "storageId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"volumeId"+"}", url.PathEscape(parameterValueToString(r.volumeId, "volumeId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1337,9 +1368,9 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1356,6 +1387,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -1366,6 +1398,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -1376,6 +1409,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -1386,6 +1420,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -1396,6 +1431,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
@@ -1406,7 +1442,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 
 type ApiStorageNetworksStorageNetworkIdVolumesVolumeIdGetRequest struct {
 	ctx        context.Context
-	ApiService StorageNetworksApi
+	ApiService StorageNetworksAPI
 	storageId  string
 	volumeId   string
 }
@@ -1425,7 +1461,7 @@ Get a storage network's volume details.
  @param volumeId ID of volume.
  @return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdGetRequest
 */
-func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolumeIdGet(ctx context.Context, storageId string, volumeId string) ApiStorageNetworksStorageNetworkIdVolumesVolumeIdGetRequest {
+func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolumeIdGet(ctx context.Context, storageId string, volumeId string) ApiStorageNetworksStorageNetworkIdVolumesVolumeIdGetRequest {
 	return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1436,7 +1472,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 
 // Execute executes the request
 //  @return Volume
-func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolumeIdGetExecute(r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdGetRequest) (*Volume, *http.Response, error) {
+func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolumeIdGetExecute(r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdGetRequest) (*Volume, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1444,14 +1480,14 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 		localVarReturnValue *Volume
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksApiService.StorageNetworksStorageNetworkIdVolumesVolumeIdGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksAPIService.StorageNetworksStorageNetworkIdVolumesVolumeIdGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/storage-networks/{storageId}/volumes/{volumeId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterToString(r.storageId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"volumeId"+"}", url.PathEscape(parameterToString(r.volumeId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterValueToString(r.storageId, "storageId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"volumeId"+"}", url.PathEscape(parameterValueToString(r.volumeId, "volumeId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1484,9 +1520,9 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1503,6 +1539,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1513,6 +1550,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1523,6 +1561,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1542,7 +1581,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 
 type ApiStorageNetworksStorageNetworkIdVolumesVolumeIdPatchRequest struct {
 	ctx          context.Context
-	ApiService   StorageNetworksApi
+	ApiService   StorageNetworksAPI
 	storageId    string
 	volumeId     string
 	volumeUpdate *VolumeUpdate
@@ -1568,7 +1607,7 @@ Update a storage network's volume details.
  @param volumeId ID of volume.
  @return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdPatchRequest
 */
-func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolumeIdPatch(ctx context.Context, storageId string, volumeId string) ApiStorageNetworksStorageNetworkIdVolumesVolumeIdPatchRequest {
+func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolumeIdPatch(ctx context.Context, storageId string, volumeId string) ApiStorageNetworksStorageNetworkIdVolumesVolumeIdPatchRequest {
 	return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdPatchRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1579,7 +1618,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 
 // Execute executes the request
 //  @return Volume
-func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolumeIdPatchExecute(r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdPatchRequest) (*Volume, *http.Response, error) {
+func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolumeIdPatchExecute(r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdPatchRequest) (*Volume, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -1587,14 +1626,14 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 		localVarReturnValue *Volume
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksApiService.StorageNetworksStorageNetworkIdVolumesVolumeIdPatch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksAPIService.StorageNetworksStorageNetworkIdVolumesVolumeIdPatch")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/storage-networks/{storageId}/volumes/{volumeId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterToString(r.storageId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"volumeId"+"}", url.PathEscape(parameterToString(r.volumeId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterValueToString(r.storageId, "storageId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"volumeId"+"}", url.PathEscape(parameterValueToString(r.volumeId, "volumeId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1632,9 +1671,9 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1651,6 +1690,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1661,6 +1701,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1671,6 +1712,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1681,6 +1723,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1691,6 +1734,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1701,6 +1745,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1720,7 +1765,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 
 type ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest struct {
 	ctx                  context.Context
-	ApiService           StorageNetworksApi
+	ApiService           StorageNetworksAPI
 	storageId            string
 	volumeId             string
 	tagAssignmentRequest *[]TagAssignmentRequest
@@ -1746,7 +1791,7 @@ Overwrites tags assigned for the volume.
  @param volumeId ID of volume.
  @return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest
 */
-func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut(ctx context.Context, storageId string, volumeId string) ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest {
+func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut(ctx context.Context, storageId string, volumeId string) ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest {
 	return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1757,7 +1802,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 
 // Execute executes the request
 //  @return Volume
-func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutExecute(r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest) (*Volume, *http.Response, error) {
+func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutExecute(r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest) (*Volume, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -1765,14 +1810,14 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 		localVarReturnValue *Volume
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksApiService.StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StorageNetworksAPIService.StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/storage-networks/{storageId}/volumes/{volumeId}/tags"
-	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterToString(r.storageId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"volumeId"+"}", url.PathEscape(parameterToString(r.volumeId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"storageId"+"}", url.PathEscape(parameterValueToString(r.storageId, "storageId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"volumeId"+"}", url.PathEscape(parameterValueToString(r.volumeId, "volumeId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1810,9 +1855,9 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1829,6 +1874,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1839,6 +1885,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1849,6 +1896,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1859,6 +1907,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1869,6 +1918,7 @@ func (a *StorageNetworksApiService) StorageNetworksStorageNetworkIdVolumesVolume
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr

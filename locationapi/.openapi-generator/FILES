@@ -6,7 +6,7 @@ configuration.go
 docs/Error.md
 docs/Location.md
 docs/LocationEnum.md
-docs/LocationsApi.md
+docs/LocationsAPI.md
 docs/ProductCategory.md
 docs/ProductCategoryEnum.md
 go.mod

@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package networkstorageapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the VolumeCreate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &VolumeCreate{}
 
 // VolumeCreate Create Volume.
 type VolumeCreate struct {
@@ -29,6 +34,8 @@ type VolumeCreate struct {
 	// Tags to set to the resource. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).
 	Tags []TagAssignmentRequest `json:"tags,omitempty"`
 }
+
+type _VolumeCreate VolumeCreate
 
 // NewVolumeCreate instantiates a new VolumeCreate object
 // This constructor will assign default values to properties that have it defined,
@@ -75,7 +82,7 @@ func (o *VolumeCreate) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *VolumeCreate) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -85,7 +92,7 @@ func (o *VolumeCreate) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VolumeCreate) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -93,7 +100,7 @@ func (o *VolumeCreate) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *VolumeCreate) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -107,7 +114,7 @@ func (o *VolumeCreate) SetDescription(v string) {
 
 // GetPathSuffix returns the PathSuffix field value if set, zero value otherwise.
 func (o *VolumeCreate) GetPathSuffix() string {
-	if o == nil || o.PathSuffix == nil {
+	if o == nil || IsNil(o.PathSuffix) {
 		var ret string
 		return ret
 	}
@@ -117,7 +124,7 @@ func (o *VolumeCreate) GetPathSuffix() string {
 // GetPathSuffixOk returns a tuple with the PathSuffix field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VolumeCreate) GetPathSuffixOk() (*string, bool) {
-	if o == nil || o.PathSuffix == nil {
+	if o == nil || IsNil(o.PathSuffix) {
 		return nil, false
 	}
 	return o.PathSuffix, true
@@ -125,7 +132,7 @@ func (o *VolumeCreate) GetPathSuffixOk() (*string, bool) {
 
 // HasPathSuffix returns a boolean if a field has been set.
 func (o *VolumeCreate) HasPathSuffix() bool {
-	if o != nil && o.PathSuffix != nil {
+	if o != nil && !IsNil(o.PathSuffix) {
 		return true
 	}
 
@@ -163,7 +170,7 @@ func (o *VolumeCreate) SetCapacityInGb(v int32) {
 
 // GetPermissions returns the Permissions field value if set, zero value otherwise.
 func (o *VolumeCreate) GetPermissions() PermissionsCreate {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		var ret PermissionsCreate
 		return ret
 	}
@@ -173,7 +180,7 @@ func (o *VolumeCreate) GetPermissions() PermissionsCreate {
 // GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VolumeCreate) GetPermissionsOk() (*PermissionsCreate, bool) {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		return nil, false
 	}
 	return o.Permissions, true
@@ -181,7 +188,7 @@ func (o *VolumeCreate) GetPermissionsOk() (*PermissionsCreate, bool) {
 
 // HasPermissions returns a boolean if a field has been set.
 func (o *VolumeCreate) HasPermissions() bool {
-	if o != nil && o.Permissions != nil {
+	if o != nil && !IsNil(o.Permissions) {
 		return true
 	}
 
@@ -195,7 +202,7 @@ func (o *VolumeCreate) SetPermissions(v PermissionsCreate) {
 
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *VolumeCreate) GetTags() []TagAssignmentRequest {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		var ret []TagAssignmentRequest
 		return ret
 	}
@@ -205,7 +212,7 @@ func (o *VolumeCreate) GetTags() []TagAssignmentRequest {
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VolumeCreate) GetTagsOk() ([]TagAssignmentRequest, bool) {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
 	return o.Tags, true
@@ -213,7 +220,7 @@ func (o *VolumeCreate) GetTagsOk() ([]TagAssignmentRequest, bool) {
 
 // HasTags returns a boolean if a field has been set.
 func (o *VolumeCreate) HasTags() bool {
-	if o != nil && o.Tags != nil {
+	if o != nil && !IsNil(o.Tags) {
 		return true
 	}
 
@@ -226,26 +233,68 @@ func (o *VolumeCreate) SetTags(v []TagAssignmentRequest) {
 }
 
 func (o VolumeCreate) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.PathSuffix != nil {
-		toSerialize["pathSuffix"] = o.PathSuffix
-	}
-	if true {
-		toSerialize["capacityInGb"] = o.CapacityInGb
-	}
-	if o.Permissions != nil {
-		toSerialize["permissions"] = o.Permissions
-	}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o VolumeCreate) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.PathSuffix) {
+		toSerialize["pathSuffix"] = o.PathSuffix
+	}
+	toSerialize["capacityInGb"] = o.CapacityInGb
+	if !IsNil(o.Permissions) {
+		toSerialize["permissions"] = o.Permissions
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	return toSerialize, nil
+}
+
+func (o *VolumeCreate) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"capacityInGb",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varVolumeCreate := _VolumeCreate{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varVolumeCreate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = VolumeCreate(varVolumeCreate)
+
+	return err
 }
 
 type NullableVolumeCreate struct {

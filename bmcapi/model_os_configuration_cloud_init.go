@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OsConfigurationCloudInit type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OsConfigurationCloudInit{}
+
 // OsConfigurationCloudInit Cloud-init configuration details.
 type OsConfigurationCloudInit struct {
 	// (Write-only) User data for the <a href='https://cloudinit.readthedocs.io/en/latest/' target='_blank'>cloud-init</a> configuration in base64 encoding. NoCloud format is supported. Follow the <a href='https://phoenixnap.com/kb/bmc-cloud-init' target='_blank'>instructions</a> on how to provision a server using cloud-init. Only ubuntu/bionic, ubuntu/focal and ubuntu/jammy are supported. User data will not be stored and cannot be retrieved once you deploy the server. Copy and save it for future reference.
@@ -40,7 +43,7 @@ func NewOsConfigurationCloudInitWithDefaults() *OsConfigurationCloudInit {
 
 // GetUserData returns the UserData field value if set, zero value otherwise.
 func (o *OsConfigurationCloudInit) GetUserData() string {
-	if o == nil || o.UserData == nil {
+	if o == nil || IsNil(o.UserData) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *OsConfigurationCloudInit) GetUserData() string {
 // GetUserDataOk returns a tuple with the UserData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfigurationCloudInit) GetUserDataOk() (*string, bool) {
-	if o == nil || o.UserData == nil {
+	if o == nil || IsNil(o.UserData) {
 		return nil, false
 	}
 	return o.UserData, true
@@ -58,7 +61,7 @@ func (o *OsConfigurationCloudInit) GetUserDataOk() (*string, bool) {
 
 // HasUserData returns a boolean if a field has been set.
 func (o *OsConfigurationCloudInit) HasUserData() bool {
-	if o != nil && o.UserData != nil {
+	if o != nil && !IsNil(o.UserData) {
 		return true
 	}
 
@@ -71,11 +74,19 @@ func (o *OsConfigurationCloudInit) SetUserData(v string) {
 }
 
 func (o OsConfigurationCloudInit) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.UserData != nil {
-		toSerialize["userData"] = o.UserData
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OsConfigurationCloudInit) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.UserData) {
+		toSerialize["userData"] = o.UserData
+	}
+	return toSerialize, nil
 }
 
 type NullableOsConfigurationCloudInit struct {

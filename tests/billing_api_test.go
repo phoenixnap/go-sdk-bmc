@@ -56,7 +56,7 @@ func (suite *BillingApiTestSuite) TestGetAccountBillingConfigurationsMe() {
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
 	// Operation Execution
-	result, _, _ := suite.Client.BillingConfigurationsApi.AccountBillingConfigurationMeGet(context.Background()).Execute()
+	result, _, _ := suite.Client.BillingConfigurationsAPI.AccountBillingConfigurationMeGet(context.Background()).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -93,7 +93,7 @@ func (suite *BillingApiTestSuite) TestGetProductAvailability() {
 	minQuantity := float32(minQuantity64)
 
 	// Operation Execution
-	result, _, _ := suite.Client.ProductsApi.ProductAvailabilityGet(context.Background()).ProductCategory(productCategory).ProductCode(productCode).ShowOnlyMinQuantityAvailable(showOnlyMinQuantityAvailable).Location(location).Solution(solution).MinQuantity(minQuantity).Execute()
+	result, _, _ := suite.Client.ProductsAPI.ProductAvailabilityGet(context.Background()).ProductCategory(productCategory).ProductCode(productCode).ShowOnlyMinQuantityAvailable(showOnlyMinQuantityAvailable).Location(location).Solution(solution).MinQuantity(minQuantity).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -122,7 +122,7 @@ func (suite *BillingApiTestSuite) TestGetProducts() {
 	location := fmt.Sprintf("%v", qpMap["location"])
 
 	// Operation Execution
-	result, _, _ := suite.Client.ProductsApi.ProductsGet(context.Background()).ProductCode(productCode).ProductCategory(productCategory).SkuCode(skuCode).Location(location).Execute()
+	result, _, _ := suite.Client.ProductsAPI.ProductsGet(context.Background()).ProductCode(productCode).ProductCategory(productCategory).SkuCode(skuCode).Location(location).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -151,7 +151,7 @@ func (suite *BillingApiTestSuite) TestGetRatedUsage() {
 	productCategory := billingapi.ProductCategoryEnum(fmt.Sprintf("%v", qpMap["productCategory"]))
 
 	// Operation Execution
-	result, _, _ := suite.Client.RatedUsageApi.RatedUsageGet(context.Background()).FromYearMonth(fromYearMonth).ToYearMonth(toYearMonth).ProductCategory(productCategory).Execute()
+	result, _, _ := suite.Client.RatedUsageAPI.RatedUsageGet(context.Background()).FromYearMonth(fromYearMonth).ToYearMonth(toYearMonth).ProductCategory(productCategory).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -177,7 +177,7 @@ func (suite *BillingApiTestSuite) TestGetRatedUsageMonthToDate() {
 	productCategory := billingapi.ProductCategoryEnum(fmt.Sprintf("%v", qpMap["productCategory"]))
 
 	// Operation Execution
-	result, _, _ := suite.Client.RatedUsageApi.RatedUsageMonthToDateGet(context.Background()).ProductCategory(productCategory).Execute()
+	result, _, _ := suite.Client.RatedUsageAPI.RatedUsageMonthToDateGet(context.Background()).ProductCategory(productCategory).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -203,7 +203,7 @@ func (suite *BillingApiTestSuite) TestGetReservations() {
 	productCategory := billingapi.ProductCategoryEnum(fmt.Sprintf("%v", qpMap["productCategory"]))
 
 	// Operation Execution
-	result, _, _ := suite.Client.ReservationsApi.ReservationsGet(context.Background()).ProductCategory(productCategory).Execute()
+	result, _, _ := suite.Client.ReservationsAPI.ReservationsGet(context.Background()).ProductCategory(productCategory).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -227,7 +227,7 @@ func (suite *BillingApiTestSuite) TestGetReservationsById() {
 	reservationId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ReservationsApi.ReservationsReservationIdGet(context.Background(), reservationId).Execute()
+	result, _, _ := suite.Client.ReservationsAPI.ReservationsReservationIdGet(context.Background(), reservationId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -253,7 +253,7 @@ func (suite *BillingApiTestSuite) TestCreateReservation() {
 	json.Unmarshal(body, &reservationRequest)
 
 	// Operation Execution
-	result, _, _ := suite.Client.ReservationsApi.ReservationsPost(context.Background()).ReservationRequest(reservationRequest).Execute()
+	result, _, _ := suite.Client.ReservationsAPI.ReservationsPost(context.Background()).ReservationRequest(reservationRequest).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -282,7 +282,7 @@ func (suite *BillingApiTestSuite) TestConvertReservation() {
 	reservationId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ReservationsApi.ReservationsReservationIdActionsConvertPost(context.Background(), reservationId).ReservationRequest(reservationRequest).Execute()
+	result, _, _ := suite.Client.ReservationsAPI.ReservationsReservationIdActionsConvertPost(context.Background(), reservationId).ReservationRequest(reservationRequest).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -306,7 +306,7 @@ func (suite *BillingApiTestSuite) TestEnableAutoRenewOnReservation() {
 	reservationId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ReservationsApi.ReservationsReservationIdActionsAutoRenewEnablePost(context.Background(), reservationId).Execute()
+	result, _, _ := suite.Client.ReservationsAPI.ReservationsReservationIdActionsAutoRenewEnablePost(context.Background(), reservationId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -335,7 +335,7 @@ func (suite *BillingApiTestSuite) TestDisableAutoRenewOnReservation() {
 	reservationId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ReservationsApi.ReservationsReservationIdActionsAutoRenewDisablePost(context.Background(), reservationId).ReservationAutoRenewDisableRequest(reservationAutoRenewDisableRequest).Execute()
+	result, _, _ := suite.Client.ReservationsAPI.ReservationsReservationIdActionsAutoRenewDisablePost(context.Background(), reservationId).ReservationAutoRenewDisableRequest(reservationAutoRenewDisableRequest).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)

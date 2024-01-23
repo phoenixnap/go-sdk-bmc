@@ -12,9 +12,14 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the RatedUsageRecord type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RatedUsageRecord{}
 
 // RatedUsageRecord Rated usage record.
 type RatedUsageRecord struct {
@@ -55,6 +60,8 @@ type RatedUsageRecord struct {
 	ReservationId   *string          `json:"reservationId,omitempty"`
 	DiscountDetails *DiscountDetails `json:"discountDetails,omitempty"`
 }
+
+type _RatedUsageRecord RatedUsageRecord
 
 // NewRatedUsageRecord instantiates a new RatedUsageRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -185,7 +192,7 @@ func (o *RatedUsageRecord) SetLocation(v LocationEnum) {
 
 // GetYearMonth returns the YearMonth field value if set, zero value otherwise.
 func (o *RatedUsageRecord) GetYearMonth() string {
-	if o == nil || o.YearMonth == nil {
+	if o == nil || IsNil(o.YearMonth) {
 		var ret string
 		return ret
 	}
@@ -195,7 +202,7 @@ func (o *RatedUsageRecord) GetYearMonth() string {
 // GetYearMonthOk returns a tuple with the YearMonth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RatedUsageRecord) GetYearMonthOk() (*string, bool) {
-	if o == nil || o.YearMonth == nil {
+	if o == nil || IsNil(o.YearMonth) {
 		return nil, false
 	}
 	return o.YearMonth, true
@@ -203,7 +210,7 @@ func (o *RatedUsageRecord) GetYearMonthOk() (*string, bool) {
 
 // HasYearMonth returns a boolean if a field has been set.
 func (o *RatedUsageRecord) HasYearMonth() bool {
-	if o != nil && o.YearMonth != nil {
+	if o != nil && !IsNil(o.YearMonth) {
 		return true
 	}
 
@@ -289,7 +296,7 @@ func (o *RatedUsageRecord) SetCost(v int64) {
 
 // GetCostBeforeDiscount returns the CostBeforeDiscount field value if set, zero value otherwise.
 func (o *RatedUsageRecord) GetCostBeforeDiscount() int64 {
-	if o == nil || o.CostBeforeDiscount == nil {
+	if o == nil || IsNil(o.CostBeforeDiscount) {
 		var ret int64
 		return ret
 	}
@@ -299,7 +306,7 @@ func (o *RatedUsageRecord) GetCostBeforeDiscount() int64 {
 // GetCostBeforeDiscountOk returns a tuple with the CostBeforeDiscount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RatedUsageRecord) GetCostBeforeDiscountOk() (*int64, bool) {
-	if o == nil || o.CostBeforeDiscount == nil {
+	if o == nil || IsNil(o.CostBeforeDiscount) {
 		return nil, false
 	}
 	return o.CostBeforeDiscount, true
@@ -307,7 +314,7 @@ func (o *RatedUsageRecord) GetCostBeforeDiscountOk() (*int64, bool) {
 
 // HasCostBeforeDiscount returns a boolean if a field has been set.
 func (o *RatedUsageRecord) HasCostBeforeDiscount() bool {
-	if o != nil && o.CostBeforeDiscount != nil {
+	if o != nil && !IsNil(o.CostBeforeDiscount) {
 		return true
 	}
 
@@ -321,7 +328,7 @@ func (o *RatedUsageRecord) SetCostBeforeDiscount(v int64) {
 
 // GetCostDescription returns the CostDescription field value if set, zero value otherwise.
 func (o *RatedUsageRecord) GetCostDescription() string {
-	if o == nil || o.CostDescription == nil {
+	if o == nil || IsNil(o.CostDescription) {
 		var ret string
 		return ret
 	}
@@ -331,7 +338,7 @@ func (o *RatedUsageRecord) GetCostDescription() string {
 // GetCostDescriptionOk returns a tuple with the CostDescription field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RatedUsageRecord) GetCostDescriptionOk() (*string, bool) {
-	if o == nil || o.CostDescription == nil {
+	if o == nil || IsNil(o.CostDescription) {
 		return nil, false
 	}
 	return o.CostDescription, true
@@ -339,7 +346,7 @@ func (o *RatedUsageRecord) GetCostDescriptionOk() (*string, bool) {
 
 // HasCostDescription returns a boolean if a field has been set.
 func (o *RatedUsageRecord) HasCostDescription() bool {
-	if o != nil && o.CostDescription != nil {
+	if o != nil && !IsNil(o.CostDescription) {
 		return true
 	}
 
@@ -521,7 +528,7 @@ func (o *RatedUsageRecord) SetCorrelationId(v string) {
 
 // GetReservationId returns the ReservationId field value if set, zero value otherwise.
 func (o *RatedUsageRecord) GetReservationId() string {
-	if o == nil || o.ReservationId == nil {
+	if o == nil || IsNil(o.ReservationId) {
 		var ret string
 		return ret
 	}
@@ -531,7 +538,7 @@ func (o *RatedUsageRecord) GetReservationId() string {
 // GetReservationIdOk returns a tuple with the ReservationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RatedUsageRecord) GetReservationIdOk() (*string, bool) {
-	if o == nil || o.ReservationId == nil {
+	if o == nil || IsNil(o.ReservationId) {
 		return nil, false
 	}
 	return o.ReservationId, true
@@ -539,7 +546,7 @@ func (o *RatedUsageRecord) GetReservationIdOk() (*string, bool) {
 
 // HasReservationId returns a boolean if a field has been set.
 func (o *RatedUsageRecord) HasReservationId() bool {
-	if o != nil && o.ReservationId != nil {
+	if o != nil && !IsNil(o.ReservationId) {
 		return true
 	}
 
@@ -553,7 +560,7 @@ func (o *RatedUsageRecord) SetReservationId(v string) {
 
 // GetDiscountDetails returns the DiscountDetails field value if set, zero value otherwise.
 func (o *RatedUsageRecord) GetDiscountDetails() DiscountDetails {
-	if o == nil || o.DiscountDetails == nil {
+	if o == nil || IsNil(o.DiscountDetails) {
 		var ret DiscountDetails
 		return ret
 	}
@@ -563,7 +570,7 @@ func (o *RatedUsageRecord) GetDiscountDetails() DiscountDetails {
 // GetDiscountDetailsOk returns a tuple with the DiscountDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RatedUsageRecord) GetDiscountDetailsOk() (*DiscountDetails, bool) {
-	if o == nil || o.DiscountDetails == nil {
+	if o == nil || IsNil(o.DiscountDetails) {
 		return nil, false
 	}
 	return o.DiscountDetails, true
@@ -571,7 +578,7 @@ func (o *RatedUsageRecord) GetDiscountDetailsOk() (*DiscountDetails, bool) {
 
 // HasDiscountDetails returns a boolean if a field has been set.
 func (o *RatedUsageRecord) HasDiscountDetails() bool {
-	if o != nil && o.DiscountDetails != nil {
+	if o != nil && !IsNil(o.DiscountDetails) {
 		return true
 	}
 
@@ -584,65 +591,95 @@ func (o *RatedUsageRecord) SetDiscountDetails(v DiscountDetails) {
 }
 
 func (o RatedUsageRecord) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["productCategory"] = o.ProductCategory
-	}
-	if true {
-		toSerialize["productCode"] = o.ProductCode
-	}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if o.YearMonth != nil {
-		toSerialize["yearMonth"] = o.YearMonth
-	}
-	if true {
-		toSerialize["startDateTime"] = o.StartDateTime
-	}
-	if true {
-		toSerialize["endDateTime"] = o.EndDateTime
-	}
-	if true {
-		toSerialize["cost"] = o.Cost
-	}
-	if o.CostBeforeDiscount != nil {
-		toSerialize["costBeforeDiscount"] = o.CostBeforeDiscount
-	}
-	if o.CostDescription != nil {
-		toSerialize["costDescription"] = o.CostDescription
-	}
-	if true {
-		toSerialize["priceModel"] = o.PriceModel
-	}
-	if true {
-		toSerialize["unitPrice"] = o.UnitPrice
-	}
-	if true {
-		toSerialize["unitPriceDescription"] = o.UnitPriceDescription
-	}
-	if true {
-		toSerialize["quantity"] = o.Quantity
-	}
-	if true {
-		toSerialize["active"] = o.Active
-	}
-	if true {
-		toSerialize["usageSessionId"] = o.UsageSessionId
-	}
-	if true {
-		toSerialize["correlationId"] = o.CorrelationId
-	}
-	if o.ReservationId != nil {
-		toSerialize["reservationId"] = o.ReservationId
-	}
-	if o.DiscountDetails != nil {
-		toSerialize["discountDetails"] = o.DiscountDetails
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RatedUsageRecord) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["productCategory"] = o.ProductCategory
+	toSerialize["productCode"] = o.ProductCode
+	toSerialize["location"] = o.Location
+	if !IsNil(o.YearMonth) {
+		toSerialize["yearMonth"] = o.YearMonth
+	}
+	toSerialize["startDateTime"] = o.StartDateTime
+	toSerialize["endDateTime"] = o.EndDateTime
+	toSerialize["cost"] = o.Cost
+	if !IsNil(o.CostBeforeDiscount) {
+		toSerialize["costBeforeDiscount"] = o.CostBeforeDiscount
+	}
+	if !IsNil(o.CostDescription) {
+		toSerialize["costDescription"] = o.CostDescription
+	}
+	toSerialize["priceModel"] = o.PriceModel
+	toSerialize["unitPrice"] = o.UnitPrice
+	toSerialize["unitPriceDescription"] = o.UnitPriceDescription
+	toSerialize["quantity"] = o.Quantity
+	toSerialize["active"] = o.Active
+	toSerialize["usageSessionId"] = o.UsageSessionId
+	toSerialize["correlationId"] = o.CorrelationId
+	if !IsNil(o.ReservationId) {
+		toSerialize["reservationId"] = o.ReservationId
+	}
+	if !IsNil(o.DiscountDetails) {
+		toSerialize["discountDetails"] = o.DiscountDetails
+	}
+	return toSerialize, nil
+}
+
+func (o *RatedUsageRecord) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"productCategory",
+		"productCode",
+		"location",
+		"startDateTime",
+		"endDateTime",
+		"cost",
+		"priceModel",
+		"unitPrice",
+		"unitPriceDescription",
+		"quantity",
+		"active",
+		"usageSessionId",
+		"correlationId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRatedUsageRecord := _RatedUsageRecord{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varRatedUsageRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RatedUsageRecord(varRatedUsageRecord)
+
+	return err
 }
 
 type NullableRatedUsageRecord struct {

@@ -77,9 +77,9 @@ func (suite *AuditApiTestSuite) Test_get_events_all_query_params() {
 	uri := fmt.Sprintf("%v", qpMap["uri"])
 
 	// Operation Execution
-	result, r, err := suite.apiClient.EventsApi.EventsGet(suite.ctx).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
+	result, r, err := suite.apiClient.EventsAPI.EventsGet(suite.ctx).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.EventsGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `EventsAPI.EventsGet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 

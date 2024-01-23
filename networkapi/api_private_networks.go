@@ -14,13 +14,13 @@ package networkapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-type PrivateNetworksApi interface {
+type PrivateNetworksAPI interface {
 
 	/*
 		PrivateNetworksGet List Private Networks.
@@ -95,12 +95,12 @@ type PrivateNetworksApi interface {
 	PrivateNetworksPostExecute(r ApiPrivateNetworksPostRequest) (*PrivateNetwork, *http.Response, error)
 }
 
-// PrivateNetworksApiService PrivateNetworksApi service
-type PrivateNetworksApiService service
+// PrivateNetworksAPIService PrivateNetworksAPI service
+type PrivateNetworksAPIService service
 
 type ApiPrivateNetworksGetRequest struct {
 	ctx        context.Context
-	ApiService PrivateNetworksApi
+	ApiService PrivateNetworksAPI
 	location   *string
 }
 
@@ -122,7 +122,7 @@ List all Private Networks owned by account.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPrivateNetworksGetRequest
 */
-func (a *PrivateNetworksApiService) PrivateNetworksGet(ctx context.Context) ApiPrivateNetworksGetRequest {
+func (a *PrivateNetworksAPIService) PrivateNetworksGet(ctx context.Context) ApiPrivateNetworksGetRequest {
 	return ApiPrivateNetworksGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -131,7 +131,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksGet(ctx context.Context) ApiP
 
 // Execute executes the request
 //  @return []PrivateNetwork
-func (a *PrivateNetworksApiService) PrivateNetworksGetExecute(r ApiPrivateNetworksGetRequest) ([]PrivateNetwork, *http.Response, error) {
+func (a *PrivateNetworksAPIService) PrivateNetworksGetExecute(r ApiPrivateNetworksGetRequest) ([]PrivateNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -139,7 +139,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksGetExecute(r ApiPrivateNetwor
 		localVarReturnValue []PrivateNetwork
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateNetworksApiService.PrivateNetworksGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateNetworksAPIService.PrivateNetworksGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -151,7 +151,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksGetExecute(r ApiPrivateNetwor
 	localVarFormParams := url.Values{}
 
 	if r.location != nil {
-		localVarQueryParams.Add("location", parameterToString(*r.location, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -180,9 +180,9 @@ func (a *PrivateNetworksApiService) PrivateNetworksGetExecute(r ApiPrivateNetwor
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -199,6 +199,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksGetExecute(r ApiPrivateNetwor
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -209,6 +210,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksGetExecute(r ApiPrivateNetwor
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -219,6 +221,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksGetExecute(r ApiPrivateNetwor
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -229,6 +232,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksGetExecute(r ApiPrivateNetwor
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -248,7 +252,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksGetExecute(r ApiPrivateNetwor
 
 type ApiPrivateNetworksNetworkIdDeleteRequest struct {
 	ctx              context.Context
-	ApiService       PrivateNetworksApi
+	ApiService       PrivateNetworksAPI
 	privateNetworkId string
 }
 
@@ -265,7 +269,7 @@ Delete Private Network.
  @param privateNetworkId The private network identifier.
  @return ApiPrivateNetworksNetworkIdDeleteRequest
 */
-func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdDelete(ctx context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdDeleteRequest {
+func (a *PrivateNetworksAPIService) PrivateNetworksNetworkIdDelete(ctx context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdDeleteRequest {
 	return ApiPrivateNetworksNetworkIdDeleteRequest{
 		ApiService:       a,
 		ctx:              ctx,
@@ -274,20 +278,20 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdDelete(ctx context.C
 }
 
 // Execute executes the request
-func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdDeleteExecute(r ApiPrivateNetworksNetworkIdDeleteRequest) (*http.Response, error) {
+func (a *PrivateNetworksAPIService) PrivateNetworksNetworkIdDeleteExecute(r ApiPrivateNetworksNetworkIdDeleteRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateNetworksApiService.PrivateNetworksNetworkIdDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateNetworksAPIService.PrivateNetworksNetworkIdDelete")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/private-networks/{privateNetworkId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"privateNetworkId"+"}", url.PathEscape(parameterToString(r.privateNetworkId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"privateNetworkId"+"}", url.PathEscape(parameterValueToString(r.privateNetworkId, "privateNetworkId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -320,9 +324,9 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdDeleteExecute(r ApiP
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -339,6 +343,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdDeleteExecute(r ApiP
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -349,6 +354,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdDeleteExecute(r ApiP
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -359,6 +365,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdDeleteExecute(r ApiP
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -369,6 +376,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdDeleteExecute(r ApiP
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
@@ -379,7 +387,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdDeleteExecute(r ApiP
 
 type ApiPrivateNetworksNetworkIdGetRequest struct {
 	ctx              context.Context
-	ApiService       PrivateNetworksApi
+	ApiService       PrivateNetworksAPI
 	privateNetworkId string
 }
 
@@ -396,7 +404,7 @@ Retrieve Private Network Details.
  @param privateNetworkId The private network identifier.
  @return ApiPrivateNetworksNetworkIdGetRequest
 */
-func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGet(ctx context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdGetRequest {
+func (a *PrivateNetworksAPIService) PrivateNetworksNetworkIdGet(ctx context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdGetRequest {
 	return ApiPrivateNetworksNetworkIdGetRequest{
 		ApiService:       a,
 		ctx:              ctx,
@@ -406,7 +414,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGet(ctx context.Cont
 
 // Execute executes the request
 //  @return PrivateNetwork
-func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGetExecute(r ApiPrivateNetworksNetworkIdGetRequest) (*PrivateNetwork, *http.Response, error) {
+func (a *PrivateNetworksAPIService) PrivateNetworksNetworkIdGetExecute(r ApiPrivateNetworksNetworkIdGetRequest) (*PrivateNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -414,13 +422,13 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGetExecute(r ApiPriv
 		localVarReturnValue *PrivateNetwork
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateNetworksApiService.PrivateNetworksNetworkIdGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateNetworksAPIService.PrivateNetworksNetworkIdGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/private-networks/{privateNetworkId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"privateNetworkId"+"}", url.PathEscape(parameterToString(r.privateNetworkId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"privateNetworkId"+"}", url.PathEscape(parameterValueToString(r.privateNetworkId, "privateNetworkId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -453,9 +461,9 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGetExecute(r ApiPriv
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -472,6 +480,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGetExecute(r ApiPriv
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -482,6 +491,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGetExecute(r ApiPriv
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -492,6 +502,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGetExecute(r ApiPriv
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -502,6 +513,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGetExecute(r ApiPriv
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -521,7 +533,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdGetExecute(r ApiPriv
 
 type ApiPrivateNetworksNetworkIdPutRequest struct {
 	ctx                  context.Context
-	ApiService           PrivateNetworksApi
+	ApiService           PrivateNetworksAPI
 	privateNetworkId     string
 	privateNetworkModify *PrivateNetworkModify
 }
@@ -544,7 +556,7 @@ Update Private Network Details.
  @param privateNetworkId The private network identifier.
  @return ApiPrivateNetworksNetworkIdPutRequest
 */
-func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPut(ctx context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdPutRequest {
+func (a *PrivateNetworksAPIService) PrivateNetworksNetworkIdPut(ctx context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdPutRequest {
 	return ApiPrivateNetworksNetworkIdPutRequest{
 		ApiService:       a,
 		ctx:              ctx,
@@ -554,7 +566,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPut(ctx context.Cont
 
 // Execute executes the request
 //  @return PrivateNetwork
-func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPutExecute(r ApiPrivateNetworksNetworkIdPutRequest) (*PrivateNetwork, *http.Response, error) {
+func (a *PrivateNetworksAPIService) PrivateNetworksNetworkIdPutExecute(r ApiPrivateNetworksNetworkIdPutRequest) (*PrivateNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -562,13 +574,13 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPutExecute(r ApiPriv
 		localVarReturnValue *PrivateNetwork
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateNetworksApiService.PrivateNetworksNetworkIdPut")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateNetworksAPIService.PrivateNetworksNetworkIdPut")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/private-networks/{privateNetworkId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"privateNetworkId"+"}", url.PathEscape(parameterToString(r.privateNetworkId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"privateNetworkId"+"}", url.PathEscape(parameterValueToString(r.privateNetworkId, "privateNetworkId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -606,9 +618,9 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPutExecute(r ApiPriv
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -625,6 +637,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPutExecute(r ApiPriv
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -635,6 +648,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPutExecute(r ApiPriv
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -645,6 +659,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPutExecute(r ApiPriv
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -655,6 +670,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPutExecute(r ApiPriv
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -665,6 +681,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPutExecute(r ApiPriv
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -684,7 +701,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksNetworkIdPutExecute(r ApiPriv
 
 type ApiPrivateNetworksPostRequest struct {
 	ctx                  context.Context
-	ApiService           PrivateNetworksApi
+	ApiService           PrivateNetworksAPI
 	privateNetworkCreate *PrivateNetworkCreate
 	force                *bool
 }
@@ -712,7 +729,7 @@ Create a Private Network.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPrivateNetworksPostRequest
 */
-func (a *PrivateNetworksApiService) PrivateNetworksPost(ctx context.Context) ApiPrivateNetworksPostRequest {
+func (a *PrivateNetworksAPIService) PrivateNetworksPost(ctx context.Context) ApiPrivateNetworksPostRequest {
 	return ApiPrivateNetworksPostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -721,7 +738,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksPost(ctx context.Context) Api
 
 // Execute executes the request
 //  @return PrivateNetwork
-func (a *PrivateNetworksApiService) PrivateNetworksPostExecute(r ApiPrivateNetworksPostRequest) (*PrivateNetwork, *http.Response, error) {
+func (a *PrivateNetworksAPIService) PrivateNetworksPostExecute(r ApiPrivateNetworksPostRequest) (*PrivateNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -729,7 +746,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksPostExecute(r ApiPrivateNetwo
 		localVarReturnValue *PrivateNetwork
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateNetworksApiService.PrivateNetworksPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateNetworksAPIService.PrivateNetworksPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -744,7 +761,10 @@ func (a *PrivateNetworksApiService) PrivateNetworksPostExecute(r ApiPrivateNetwo
 	}
 
 	if r.force != nil {
-		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+	} else {
+		var defaultValue bool = false
+		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -775,9 +795,9 @@ func (a *PrivateNetworksApiService) PrivateNetworksPostExecute(r ApiPrivateNetwo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -794,6 +814,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksPostExecute(r ApiPrivateNetwo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -804,6 +825,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksPostExecute(r ApiPrivateNetwo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -814,6 +836,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksPostExecute(r ApiPrivateNetwo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -824,6 +847,7 @@ func (a *PrivateNetworksApiService) PrivateNetworksPostExecute(r ApiPrivateNetwo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr

@@ -4,12 +4,17 @@ info:
     email: support@phoenixnap.com
     name: PhoenixNAP Team
     url: https://phoenixnap.com/
-  description: "Automate your infrastructure billing with the Bare Metal Cloud Billing\
-    \ API. Reserve your server instances to\nensure guaranteed resource availability\
-    \ for 12, 24, and 36 months. Retrieve your server’s rated usage for a\ngiven period\
-    \ and enable or disable auto-renewals.<br>\n<br>\n<span class='pnap-api-knowledge-base-link'>\n\
-    Knowledge base articles to help you can be found\n<a href='https://phoenixnap.com/kb/phoenixnap-bare-metal-cloud-billing-models'\
-    \ target='_blank'>here</a>\n</span><br>\n<br>\n<b>All URLs are relative to (https://api.phoenixnap.com/billing/v1/)</b>\n"
+  description: |
+    Automate your infrastructure billing with the Bare Metal Cloud Billing API. Reserve your server instances to
+    ensure guaranteed resource availability for 12, 24, and 36 months. Retrieve your server’s rated usage for a
+    given period and enable or disable auto-renewals.<br>
+    <br>
+    <span class='pnap-api-knowledge-base-link'>
+    Knowledge base articles to help you can be found
+    <a href='https://phoenixnap.com/kb/phoenixnap-bare-metal-cloud-billing-models' target='_blank'>here</a>
+    </span><br>
+    <br>
+    <b>All URLs are relative to (https://api.phoenixnap.com/billing/v1/)</b>
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -891,7 +896,13 @@ components:
     ServerRecord:
       allOf:
       - $ref: '#/components/schemas/RatedUsageRecord'
-      - $ref: '#/components/schemas/ServerRecord_allOf'
+      - description: Server usage record.
+        properties:
+          metadata:
+            $ref: '#/components/schemas/ServerDetails'
+        required:
+        - metadata
+        type: object
     ServerDetails:
       description: Details of the server associated with this rated usage record.
       properties:
@@ -910,7 +921,13 @@ components:
     OperatingSystemRecord:
       allOf:
       - $ref: '#/components/schemas/RatedUsageRecord'
-      - $ref: '#/components/schemas/OperatingSystemRecord_allOf'
+      - description: Operating system usage record.
+        properties:
+          metadata:
+            $ref: '#/components/schemas/OperatingSystemDetails'
+        required:
+        - metadata
+        type: object
     OperatingSystemDetails:
       description: Details of the operating system associated with this rated usage
         record.
@@ -934,7 +951,13 @@ components:
     BandwidthRecord:
       allOf:
       - $ref: '#/components/schemas/RatedUsageRecord'
-      - $ref: '#/components/schemas/BandwidthRecord_allOf'
+      - description: Bandwidth usage record.
+        properties:
+          metadata:
+            $ref: '#/components/schemas/BandwidthDetails'
+        required:
+        - metadata
+        type: object
     BandwidthDetails:
       description: Details of the bandwidth associated with this rated usage record.
       properties:
@@ -963,7 +986,13 @@ components:
     PublicSubnetRecord:
       allOf:
       - $ref: '#/components/schemas/RatedUsageRecord'
-      - $ref: '#/components/schemas/PublicSubnetRecord_allOf'
+      - description: Public IP record.
+        properties:
+          metadata:
+            $ref: '#/components/schemas/PublicSubnetDetails'
+        required:
+        - metadata
+        type: object
     PublicSubnetDetails:
       description: Details of public subnets.
       properties:
@@ -986,7 +1015,13 @@ components:
     StorageRecord:
       allOf:
       - $ref: '#/components/schemas/RatedUsageRecord'
-      - $ref: '#/components/schemas/StorageRecord_allOf'
+      - description: Storage usage record.
+        properties:
+          metadata:
+            $ref: '#/components/schemas/StorageDetails'
+        required:
+        - metadata
+        type: object
     StorageDetails:
       description: Details of the storage associated with this rated usage record.
       properties:
@@ -1114,7 +1149,13 @@ components:
     ServerProduct:
       allOf:
       - $ref: '#/components/schemas/Product'
-      - $ref: '#/components/schemas/ServerProduct_allOf'
+      - description: Server product.
+        properties:
+          metadata:
+            $ref: '#/components/schemas/ServerProductMetadata'
+        required:
+        - metadata
+        type: object
     ServerProductMetadata:
       description: Details of the server product.
       properties:
@@ -1491,54 +1532,6 @@ components:
       oneOf:
       - $ref: '#/components/schemas/Product'
       - $ref: '#/components/schemas/ServerProduct'
-    ServerRecord_allOf:
-      description: Server usage record.
-      properties:
-        metadata:
-          $ref: '#/components/schemas/ServerDetails'
-      required:
-      - metadata
-      type: object
-    OperatingSystemRecord_allOf:
-      description: Operating system usage record.
-      properties:
-        metadata:
-          $ref: '#/components/schemas/OperatingSystemDetails'
-      required:
-      - metadata
-      type: object
-    BandwidthRecord_allOf:
-      description: Bandwidth usage record.
-      properties:
-        metadata:
-          $ref: '#/components/schemas/BandwidthDetails'
-      required:
-      - metadata
-      type: object
-    PublicSubnetRecord_allOf:
-      description: Public IP record.
-      properties:
-        metadata:
-          $ref: '#/components/schemas/PublicSubnetDetails'
-      required:
-      - metadata
-      type: object
-    StorageRecord_allOf:
-      description: Storage usage record.
-      properties:
-        metadata:
-          $ref: '#/components/schemas/StorageDetails'
-      required:
-      - metadata
-      type: object
-    ServerProduct_allOf:
-      description: Server product.
-      properties:
-        metadata:
-          $ref: '#/components/schemas/ServerProductMetadata'
-      required:
-      - metadata
-      type: object
   securitySchemes:
     OAuth2:
       flows:

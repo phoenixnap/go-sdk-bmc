@@ -10,12 +10,12 @@ docs/PrivateNetwork.md
 docs/PrivateNetworkCreate.md
 docs/PrivateNetworkModify.md
 docs/PrivateNetworkServer.md
-docs/PrivateNetworksApi.md
+docs/PrivateNetworksAPI.md
 docs/PublicNetwork.md
 docs/PublicNetworkCreate.md
 docs/PublicNetworkIpBlock.md
 docs/PublicNetworkModify.md
-docs/PublicNetworksApi.md
+docs/PublicNetworksAPI.md
 go.mod
 go.sum
 model_error.go

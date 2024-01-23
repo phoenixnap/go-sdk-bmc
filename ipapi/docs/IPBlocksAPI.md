@@ -1,15 +1,15 @@
-# \IPBlocksApi
+# \IPBlocksAPI
 
 All URIs are relative to *https://api.phoenixnap.com/ips/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**IpBlocksGet**](IPBlocksApi.md#IpBlocksGet) | **Get** /ip-blocks | List IP Blocks.
-[**IpBlocksIpBlockIdDelete**](IPBlocksApi.md#IpBlocksIpBlockIdDelete) | **Delete** /ip-blocks/{ipBlockId} | Delete IP Block.
-[**IpBlocksIpBlockIdGet**](IPBlocksApi.md#IpBlocksIpBlockIdGet) | **Get** /ip-blocks/{ipBlockId} | Get IP Block.
-[**IpBlocksIpBlockIdPatch**](IPBlocksApi.md#IpBlocksIpBlockIdPatch) | **Patch** /ip-blocks/{ipBlockId} | Update IP block.
-[**IpBlocksIpBlockIdTagsPut**](IPBlocksApi.md#IpBlocksIpBlockIdTagsPut) | **Put** /ip-blocks/{ipBlockId}/tags | Overwrite tags assigned for IP Block.
-[**IpBlocksPost**](IPBlocksApi.md#IpBlocksPost) | **Post** /ip-blocks | Create an IP Block.
+[**IpBlocksGet**](IPBlocksAPI.md#IpBlocksGet) | **Get** /ip-blocks | List IP Blocks.
+[**IpBlocksIpBlockIdDelete**](IPBlocksAPI.md#IpBlocksIpBlockIdDelete) | **Delete** /ip-blocks/{ipBlockId} | Delete IP Block.
+[**IpBlocksIpBlockIdGet**](IPBlocksAPI.md#IpBlocksIpBlockIdGet) | **Get** /ip-blocks/{ipBlockId} | Get IP Block.
+[**IpBlocksIpBlockIdPatch**](IPBlocksAPI.md#IpBlocksIpBlockIdPatch) | **Patch** /ip-blocks/{ipBlockId} | Update IP block.
+[**IpBlocksIpBlockIdTagsPut**](IPBlocksAPI.md#IpBlocksIpBlockIdTagsPut) | **Put** /ip-blocks/{ipBlockId}/tags | Overwrite tags assigned for IP Block.
+[**IpBlocksPost**](IPBlocksAPI.md#IpBlocksPost) | **Post** /ip-blocks | Create an IP Block.
 
 
 
@@ -27,24 +27,24 @@ List IP Blocks.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi"
 )
 
 func main() {
-    tag := []string{"Inner_example"} // []string | List of tags, in the form tagName.tagValue, to filter by. (optional)
+	tag := []string{"Inner_example"} // []string | List of tags, in the form tagName.tagValue, to filter by. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IPBlocksApi.IpBlocksGet(context.Background()).Tag(tag).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `IpBlocksGet`: []IpBlock
-    fmt.Fprintf(os.Stdout, "Response from `IPBlocksApi.IpBlocksGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IPBlocksAPI.IpBlocksGet(context.Background()).Tag(tag).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksAPI.IpBlocksGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `IpBlocksGet`: []IpBlock
+	fmt.Fprintf(os.Stdout, "Response from `IPBlocksAPI.IpBlocksGet`: %v\n", resp)
 }
 ```
 
@@ -93,24 +93,24 @@ Delete IP Block.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi"
 )
 
 func main() {
-    ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
+	ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IPBlocksApi.IpBlocksIpBlockIdDelete(context.Background(), ipBlockId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksIpBlockIdDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `IpBlocksIpBlockIdDelete`: DeleteIpBlockResult
-    fmt.Fprintf(os.Stdout, "Response from `IPBlocksApi.IpBlocksIpBlockIdDelete`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IPBlocksAPI.IpBlocksIpBlockIdDelete(context.Background(), ipBlockId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksAPI.IpBlocksIpBlockIdDelete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `IpBlocksIpBlockIdDelete`: DeleteIpBlockResult
+	fmt.Fprintf(os.Stdout, "Response from `IPBlocksAPI.IpBlocksIpBlockIdDelete`: %v\n", resp)
 }
 ```
 
@@ -163,24 +163,24 @@ Get IP Block.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi"
 )
 
 func main() {
-    ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
+	ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IPBlocksApi.IpBlocksIpBlockIdGet(context.Background(), ipBlockId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksIpBlockIdGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `IpBlocksIpBlockIdGet`: IpBlock
-    fmt.Fprintf(os.Stdout, "Response from `IPBlocksApi.IpBlocksIpBlockIdGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IPBlocksAPI.IpBlocksIpBlockIdGet(context.Background(), ipBlockId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksAPI.IpBlocksIpBlockIdGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `IpBlocksIpBlockIdGet`: IpBlock
+	fmt.Fprintf(os.Stdout, "Response from `IPBlocksAPI.IpBlocksIpBlockIdGet`: %v\n", resp)
 }
 ```
 
@@ -233,25 +233,25 @@ Update IP block.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi"
 )
 
 func main() {
-    ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
-    ipBlockPatch := *openapiclient.NewIpBlockPatch() // IpBlockPatch | 
+	ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
+	ipBlockPatch := *openapiclient.NewIpBlockPatch() // IpBlockPatch | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IPBlocksApi.IpBlocksIpBlockIdPatch(context.Background(), ipBlockId).IpBlockPatch(ipBlockPatch).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksIpBlockIdPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `IpBlocksIpBlockIdPatch`: IpBlock
-    fmt.Fprintf(os.Stdout, "Response from `IPBlocksApi.IpBlocksIpBlockIdPatch`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IPBlocksAPI.IpBlocksIpBlockIdPatch(context.Background(), ipBlockId).IpBlockPatch(ipBlockPatch).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksAPI.IpBlocksIpBlockIdPatch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `IpBlocksIpBlockIdPatch`: IpBlock
+	fmt.Fprintf(os.Stdout, "Response from `IPBlocksAPI.IpBlocksIpBlockIdPatch`: %v\n", resp)
 }
 ```
 
@@ -305,25 +305,25 @@ Overwrite tags assigned for IP Block.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi"
 )
 
 func main() {
-    ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
-    tagAssignmentRequest := []openapiclient.TagAssignmentRequest{*openapiclient.NewTagAssignmentRequest("Environment")} // []TagAssignmentRequest | 
+	ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
+	tagAssignmentRequest := []openapiclient.TagAssignmentRequest{*openapiclient.NewTagAssignmentRequest("Environment")} // []TagAssignmentRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IPBlocksApi.IpBlocksIpBlockIdTagsPut(context.Background(), ipBlockId).TagAssignmentRequest(tagAssignmentRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksIpBlockIdTagsPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `IpBlocksIpBlockIdTagsPut`: IpBlock
-    fmt.Fprintf(os.Stdout, "Response from `IPBlocksApi.IpBlocksIpBlockIdTagsPut`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IPBlocksAPI.IpBlocksIpBlockIdTagsPut(context.Background(), ipBlockId).TagAssignmentRequest(tagAssignmentRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksAPI.IpBlocksIpBlockIdTagsPut``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `IpBlocksIpBlockIdTagsPut`: IpBlock
+	fmt.Fprintf(os.Stdout, "Response from `IPBlocksAPI.IpBlocksIpBlockIdTagsPut`: %v\n", resp)
 }
 ```
 
@@ -377,24 +377,24 @@ Create an IP Block.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi"
 )
 
 func main() {
-    ipBlockCreate := *openapiclient.NewIpBlockCreate("PHX", "/30") // IpBlockCreate | 
+	ipBlockCreate := *openapiclient.NewIpBlockCreate("PHX", "/30") // IpBlockCreate | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IPBlocksApi.IpBlocksPost(context.Background()).IpBlockCreate(ipBlockCreate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpBlocksPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `IpBlocksPost`: IpBlock
-    fmt.Fprintf(os.Stdout, "Response from `IPBlocksApi.IpBlocksPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IPBlocksAPI.IpBlocksPost(context.Background()).IpBlockCreate(ipBlockCreate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksAPI.IpBlocksPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `IpBlocksPost`: IpBlock
+	fmt.Fprintf(os.Stdout, "Response from `IPBlocksAPI.IpBlocksPost`: %v\n", resp)
 }
 ```
 

@@ -1,14 +1,14 @@
-# \TagsApi
+# \TagsAPI
 
 All URIs are relative to *https://api.phoenixnap.com/tag-manager/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**TagsGet**](TagsApi.md#TagsGet) | **Get** /tags | List tags.
-[**TagsPost**](TagsApi.md#TagsPost) | **Post** /tags | Create a Tag.
-[**TagsTagIdDelete**](TagsApi.md#TagsTagIdDelete) | **Delete** /tags/{tagId} | Delete a Tag.
-[**TagsTagIdGet**](TagsApi.md#TagsTagIdGet) | **Get** /tags/{tagId} | Get a Tag.
-[**TagsTagIdPatch**](TagsApi.md#TagsTagIdPatch) | **Patch** /tags/{tagId} | Modify a Tag.
+[**TagsGet**](TagsAPI.md#TagsGet) | **Get** /tags | List tags.
+[**TagsPost**](TagsAPI.md#TagsPost) | **Post** /tags | Create a Tag.
+[**TagsTagIdDelete**](TagsAPI.md#TagsTagIdDelete) | **Delete** /tags/{tagId} | Delete a Tag.
+[**TagsTagIdGet**](TagsAPI.md#TagsTagIdGet) | **Get** /tags/{tagId} | Get a Tag.
+[**TagsTagIdPatch**](TagsAPI.md#TagsTagIdPatch) | **Patch** /tags/{tagId} | Modify a Tag.
 
 
 
@@ -26,24 +26,24 @@ List tags.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi"
 )
 
 func main() {
-    name := "env" // string | Query a tag by its name. (optional)
+	name := "env" // string | Query a tag by its name. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TagsApi.TagsGet(context.Background()).Name(name).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TagsGet`: []Tag
-    fmt.Fprintf(os.Stdout, "Response from `TagsApi.TagsGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TagsAPI.TagsGet(context.Background()).Name(name).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TagsAPI.TagsGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TagsGet`: []Tag
+	fmt.Fprintf(os.Stdout, "Response from `TagsAPI.TagsGet`: %v\n", resp)
 }
 ```
 
@@ -92,24 +92,24 @@ Create a Tag.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi"
 )
 
 func main() {
-    tagCreate := *openapiclient.NewTagCreate("Environment", true) // TagCreate | The body containing the tag details.
+	tagCreate := *openapiclient.NewTagCreate("Environment", true) // TagCreate | The body containing the tag details.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TagsApi.TagsPost(context.Background()).TagCreate(tagCreate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TagsPost`: Tag
-    fmt.Fprintf(os.Stdout, "Response from `TagsApi.TagsPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TagsAPI.TagsPost(context.Background()).TagCreate(tagCreate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TagsAPI.TagsPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TagsPost`: Tag
+	fmt.Fprintf(os.Stdout, "Response from `TagsAPI.TagsPost`: %v\n", resp)
 }
 ```
 
@@ -158,24 +158,24 @@ Delete a Tag.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi"
 )
 
 func main() {
-    tagId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The tag's ID.
+	tagId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The tag's ID.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TagsApi.TagsTagIdDelete(context.Background(), tagId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsTagIdDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TagsTagIdDelete`: DeleteResult
-    fmt.Fprintf(os.Stdout, "Response from `TagsApi.TagsTagIdDelete`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TagsAPI.TagsTagIdDelete(context.Background(), tagId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TagsAPI.TagsTagIdDelete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TagsTagIdDelete`: DeleteResult
+	fmt.Fprintf(os.Stdout, "Response from `TagsAPI.TagsTagIdDelete`: %v\n", resp)
 }
 ```
 
@@ -228,24 +228,24 @@ Get a Tag.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi"
 )
 
 func main() {
-    tagId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The tag's ID.
+	tagId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The tag's ID.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TagsApi.TagsTagIdGet(context.Background(), tagId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsTagIdGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TagsTagIdGet`: Tag
-    fmt.Fprintf(os.Stdout, "Response from `TagsApi.TagsTagIdGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TagsAPI.TagsTagIdGet(context.Background(), tagId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TagsAPI.TagsTagIdGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TagsTagIdGet`: Tag
+	fmt.Fprintf(os.Stdout, "Response from `TagsAPI.TagsTagIdGet`: %v\n", resp)
 }
 ```
 
@@ -298,25 +298,25 @@ Modify a Tag.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi"
 )
 
 func main() {
-    tagId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The tag's ID.
-    tagUpdate := *openapiclient.NewTagUpdate("Environment", true) // TagUpdate | The body containing the tag changes.
+	tagId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The tag's ID.
+	tagUpdate := *openapiclient.NewTagUpdate("Environment", true) // TagUpdate | The body containing the tag changes.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TagsApi.TagsTagIdPatch(context.Background(), tagId).TagUpdate(tagUpdate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.TagsTagIdPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TagsTagIdPatch`: Tag
-    fmt.Fprintf(os.Stdout, "Response from `TagsApi.TagsTagIdPatch`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TagsAPI.TagsTagIdPatch(context.Background(), tagId).TagUpdate(tagUpdate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TagsAPI.TagsTagIdPatch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TagsTagIdPatch`: Tag
+	fmt.Fprintf(os.Stdout, "Response from `TagsAPI.TagsTagIdPatch`: %v\n", resp)
 }
 ```
 

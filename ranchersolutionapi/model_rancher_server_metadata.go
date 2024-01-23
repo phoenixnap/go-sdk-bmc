@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RancherServerMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RancherServerMetadata{}
+
 // RancherServerMetadata (Read Only) Connection parameters to use to connect to the Rancher Server Administrative GUI.
 type RancherServerMetadata struct {
 	// The Rancher Server URL.
@@ -44,7 +47,7 @@ func NewRancherServerMetadataWithDefaults() *RancherServerMetadata {
 
 // GetUrl returns the Url field value if set, zero value otherwise.
 func (o *RancherServerMetadata) GetUrl() string {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		var ret string
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *RancherServerMetadata) GetUrl() string {
 // GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RancherServerMetadata) GetUrlOk() (*string, bool) {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
 	return o.Url, true
@@ -62,7 +65,7 @@ func (o *RancherServerMetadata) GetUrlOk() (*string, bool) {
 
 // HasUrl returns a boolean if a field has been set.
 func (o *RancherServerMetadata) HasUrl() bool {
-	if o != nil && o.Url != nil {
+	if o != nil && !IsNil(o.Url) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *RancherServerMetadata) SetUrl(v string) {
 
 // GetUsername returns the Username field value if set, zero value otherwise.
 func (o *RancherServerMetadata) GetUsername() string {
-	if o == nil || o.Username == nil {
+	if o == nil || IsNil(o.Username) {
 		var ret string
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *RancherServerMetadata) GetUsername() string {
 // GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RancherServerMetadata) GetUsernameOk() (*string, bool) {
-	if o == nil || o.Username == nil {
+	if o == nil || IsNil(o.Username) {
 		return nil, false
 	}
 	return o.Username, true
@@ -94,7 +97,7 @@ func (o *RancherServerMetadata) GetUsernameOk() (*string, bool) {
 
 // HasUsername returns a boolean if a field has been set.
 func (o *RancherServerMetadata) HasUsername() bool {
-	if o != nil && o.Username != nil {
+	if o != nil && !IsNil(o.Username) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *RancherServerMetadata) SetUsername(v string) {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *RancherServerMetadata) GetPassword() string {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret string
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *RancherServerMetadata) GetPassword() string {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RancherServerMetadata) GetPasswordOk() (*string, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -126,7 +129,7 @@ func (o *RancherServerMetadata) GetPasswordOk() (*string, bool) {
 
 // HasPassword returns a boolean if a field has been set.
 func (o *RancherServerMetadata) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -139,17 +142,25 @@ func (o *RancherServerMetadata) SetPassword(v string) {
 }
 
 func (o RancherServerMetadata) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Url != nil {
-		toSerialize["url"] = o.Url
-	}
-	if o.Username != nil {
-		toSerialize["username"] = o.Username
-	}
-	if o.Password != nil {
-		toSerialize["password"] = o.Password
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RancherServerMetadata) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Url) {
+		toSerialize["url"] = o.Url
+	}
+	if !IsNil(o.Username) {
+		toSerialize["username"] = o.Username
+	}
+	if !IsNil(o.Password) {
+		toSerialize["password"] = o.Password
+	}
+	return toSerialize, nil
 }
 
 type NullableRancherServerMetadata struct {

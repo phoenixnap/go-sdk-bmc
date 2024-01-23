@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the DeleteResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeleteResult{}
 
 // DeleteResult Result of a successful delete action.
 type DeleteResult struct {
@@ -22,6 +27,8 @@ type DeleteResult struct {
 	// The unique identifier of the server.
 	ServerId string `json:"serverId"`
 }
+
+type _DeleteResult DeleteResult
 
 // NewDeleteResult instantiates a new DeleteResult object
 // This constructor will assign default values to properties that have it defined,
@@ -91,14 +98,56 @@ func (o *DeleteResult) SetServerId(v string) {
 }
 
 func (o DeleteResult) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["result"] = o.Result
-	}
-	if true {
-		toSerialize["serverId"] = o.ServerId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o DeleteResult) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["result"] = o.Result
+	toSerialize["serverId"] = o.ServerId
+	return toSerialize, nil
+}
+
+func (o *DeleteResult) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"result",
+		"serverId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varDeleteResult := _DeleteResult{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varDeleteResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeleteResult(varDeleteResult)
+
+	return err
 }
 
 type NullableDeleteResult struct {

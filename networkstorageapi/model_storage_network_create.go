@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package networkstorageapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the StorageNetworkCreate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StorageNetworkCreate{}
 
 // StorageNetworkCreate Create Storage Network.
 type StorageNetworkCreate struct {
@@ -28,6 +33,8 @@ type StorageNetworkCreate struct {
 	// Custom Client VLAN that the Storage Network will be set to.
 	ClientVlan *int32 `json:"clientVlan,omitempty"`
 }
+
+type _StorageNetworkCreate StorageNetworkCreate
 
 // NewStorageNetworkCreate instantiates a new StorageNetworkCreate object
 // This constructor will assign default values to properties that have it defined,
@@ -75,7 +82,7 @@ func (o *StorageNetworkCreate) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *StorageNetworkCreate) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -85,7 +92,7 @@ func (o *StorageNetworkCreate) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageNetworkCreate) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -93,7 +100,7 @@ func (o *StorageNetworkCreate) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *StorageNetworkCreate) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -155,7 +162,7 @@ func (o *StorageNetworkCreate) SetVolumes(v []StorageNetworkVolumeCreate) {
 
 // GetClientVlan returns the ClientVlan field value if set, zero value otherwise.
 func (o *StorageNetworkCreate) GetClientVlan() int32 {
-	if o == nil || o.ClientVlan == nil {
+	if o == nil || IsNil(o.ClientVlan) {
 		var ret int32
 		return ret
 	}
@@ -165,7 +172,7 @@ func (o *StorageNetworkCreate) GetClientVlan() int32 {
 // GetClientVlanOk returns a tuple with the ClientVlan field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageNetworkCreate) GetClientVlanOk() (*int32, bool) {
-	if o == nil || o.ClientVlan == nil {
+	if o == nil || IsNil(o.ClientVlan) {
 		return nil, false
 	}
 	return o.ClientVlan, true
@@ -173,7 +180,7 @@ func (o *StorageNetworkCreate) GetClientVlanOk() (*int32, bool) {
 
 // HasClientVlan returns a boolean if a field has been set.
 func (o *StorageNetworkCreate) HasClientVlan() bool {
-	if o != nil && o.ClientVlan != nil {
+	if o != nil && !IsNil(o.ClientVlan) {
 		return true
 	}
 
@@ -186,23 +193,64 @@ func (o *StorageNetworkCreate) SetClientVlan(v int32) {
 }
 
 func (o StorageNetworkCreate) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if true {
-		toSerialize["volumes"] = o.Volumes
-	}
-	if o.ClientVlan != nil {
-		toSerialize["clientVlan"] = o.ClientVlan
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StorageNetworkCreate) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["location"] = o.Location
+	toSerialize["volumes"] = o.Volumes
+	if !IsNil(o.ClientVlan) {
+		toSerialize["clientVlan"] = o.ClientVlan
+	}
+	return toSerialize, nil
+}
+
+func (o *StorageNetworkCreate) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"location",
+		"volumes",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStorageNetworkCreate := _StorageNetworkCreate{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varStorageNetworkCreate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StorageNetworkCreate(varStorageNetworkCreate)
+
+	return err
 }
 
 type NullableStorageNetworkCreate struct {

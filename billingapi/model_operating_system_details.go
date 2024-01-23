@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the OperatingSystemDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OperatingSystemDetails{}
 
 // OperatingSystemDetails Details of the operating system associated with this rated usage record.
 type OperatingSystemDetails struct {
@@ -22,6 +27,8 @@ type OperatingSystemDetails struct {
 	// Correlation is used to associate Operating System License charges and the Server on which it was installed. In this scenario, the correlation ID will be equal to the rated usage record ID representing the charge for the Server.
 	CorrelationId string `json:"correlationId"`
 }
+
+type _OperatingSystemDetails OperatingSystemDetails
 
 // NewOperatingSystemDetails instantiates a new OperatingSystemDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -91,14 +98,56 @@ func (o *OperatingSystemDetails) SetCorrelationId(v string) {
 }
 
 func (o OperatingSystemDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["cores"] = o.Cores
-	}
-	if true {
-		toSerialize["correlationId"] = o.CorrelationId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OperatingSystemDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["cores"] = o.Cores
+	toSerialize["correlationId"] = o.CorrelationId
+	return toSerialize, nil
+}
+
+func (o *OperatingSystemDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"cores",
+		"correlationId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOperatingSystemDetails := _OperatingSystemDetails{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varOperatingSystemDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OperatingSystemDetails(varOperatingSystemDetails)
+
+	return err
 }
 
 type NullableOperatingSystemDetails struct {

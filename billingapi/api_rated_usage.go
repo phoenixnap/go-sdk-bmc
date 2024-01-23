@@ -14,12 +14,12 @@ package billingapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
-type RatedUsageApi interface {
+type RatedUsageAPI interface {
 
 	/*
 		RatedUsageGet List the rated usage.
@@ -50,12 +50,12 @@ type RatedUsageApi interface {
 	RatedUsageMonthToDateGetExecute(r ApiRatedUsageMonthToDateGetRequest) ([]RatedUsageGet200ResponseInner, *http.Response, error)
 }
 
-// RatedUsageApiService RatedUsageApi service
-type RatedUsageApiService service
+// RatedUsageAPIService RatedUsageAPI service
+type RatedUsageAPIService service
 
 type ApiRatedUsageGetRequest struct {
 	ctx             context.Context
-	ApiService      RatedUsageApi
+	ApiService      RatedUsageAPI
 	fromYearMonth   *string
 	toYearMonth     *string
 	productCategory *ProductCategoryEnum
@@ -91,7 +91,7 @@ Retrieves all rated usage for given time period. The information is presented as
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiRatedUsageGetRequest
 */
-func (a *RatedUsageApiService) RatedUsageGet(ctx context.Context) ApiRatedUsageGetRequest {
+func (a *RatedUsageAPIService) RatedUsageGet(ctx context.Context) ApiRatedUsageGetRequest {
 	return ApiRatedUsageGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -100,7 +100,7 @@ func (a *RatedUsageApiService) RatedUsageGet(ctx context.Context) ApiRatedUsageG
 
 // Execute executes the request
 //  @return []RatedUsageGet200ResponseInner
-func (a *RatedUsageApiService) RatedUsageGetExecute(r ApiRatedUsageGetRequest) ([]RatedUsageGet200ResponseInner, *http.Response, error) {
+func (a *RatedUsageAPIService) RatedUsageGetExecute(r ApiRatedUsageGetRequest) ([]RatedUsageGet200ResponseInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -108,7 +108,7 @@ func (a *RatedUsageApiService) RatedUsageGetExecute(r ApiRatedUsageGetRequest) (
 		localVarReturnValue []RatedUsageGet200ResponseInner
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RatedUsageApiService.RatedUsageGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RatedUsageAPIService.RatedUsageGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -125,10 +125,10 @@ func (a *RatedUsageApiService) RatedUsageGetExecute(r ApiRatedUsageGetRequest) (
 		return localVarReturnValue, nil, reportError("toYearMonth is required and must be specified")
 	}
 
-	localVarQueryParams.Add("fromYearMonth", parameterToString(*r.fromYearMonth, ""))
-	localVarQueryParams.Add("toYearMonth", parameterToString(*r.toYearMonth, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "fromYearMonth", r.fromYearMonth, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "toYearMonth", r.toYearMonth, "")
 	if r.productCategory != nil {
-		localVarQueryParams.Add("productCategory", parameterToString(*r.productCategory, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -157,9 +157,9 @@ func (a *RatedUsageApiService) RatedUsageGetExecute(r ApiRatedUsageGetRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -176,6 +176,7 @@ func (a *RatedUsageApiService) RatedUsageGetExecute(r ApiRatedUsageGetRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -186,6 +187,7 @@ func (a *RatedUsageApiService) RatedUsageGetExecute(r ApiRatedUsageGetRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -196,6 +198,7 @@ func (a *RatedUsageApiService) RatedUsageGetExecute(r ApiRatedUsageGetRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -215,7 +218,7 @@ func (a *RatedUsageApiService) RatedUsageGetExecute(r ApiRatedUsageGetRequest) (
 
 type ApiRatedUsageMonthToDateGetRequest struct {
 	ctx             context.Context
-	ApiService      RatedUsageApi
+	ApiService      RatedUsageAPI
 	productCategory *ProductCategoryEnum
 }
 
@@ -237,7 +240,7 @@ Retrieves all rated usage for the current calendar month. The information is pre
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiRatedUsageMonthToDateGetRequest
 */
-func (a *RatedUsageApiService) RatedUsageMonthToDateGet(ctx context.Context) ApiRatedUsageMonthToDateGetRequest {
+func (a *RatedUsageAPIService) RatedUsageMonthToDateGet(ctx context.Context) ApiRatedUsageMonthToDateGetRequest {
 	return ApiRatedUsageMonthToDateGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -246,7 +249,7 @@ func (a *RatedUsageApiService) RatedUsageMonthToDateGet(ctx context.Context) Api
 
 // Execute executes the request
 //  @return []RatedUsageGet200ResponseInner
-func (a *RatedUsageApiService) RatedUsageMonthToDateGetExecute(r ApiRatedUsageMonthToDateGetRequest) ([]RatedUsageGet200ResponseInner, *http.Response, error) {
+func (a *RatedUsageAPIService) RatedUsageMonthToDateGetExecute(r ApiRatedUsageMonthToDateGetRequest) ([]RatedUsageGet200ResponseInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -254,7 +257,7 @@ func (a *RatedUsageApiService) RatedUsageMonthToDateGetExecute(r ApiRatedUsageMo
 		localVarReturnValue []RatedUsageGet200ResponseInner
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RatedUsageApiService.RatedUsageMonthToDateGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RatedUsageAPIService.RatedUsageMonthToDateGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -266,7 +269,7 @@ func (a *RatedUsageApiService) RatedUsageMonthToDateGetExecute(r ApiRatedUsageMo
 	localVarFormParams := url.Values{}
 
 	if r.productCategory != nil {
-		localVarQueryParams.Add("productCategory", parameterToString(*r.productCategory, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -295,9 +298,9 @@ func (a *RatedUsageApiService) RatedUsageMonthToDateGetExecute(r ApiRatedUsageMo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -314,6 +317,7 @@ func (a *RatedUsageApiService) RatedUsageMonthToDateGetExecute(r ApiRatedUsageMo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -324,6 +328,7 @@ func (a *RatedUsageApiService) RatedUsageMonthToDateGetExecute(r ApiRatedUsageMo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -334,6 +339,7 @@ func (a *RatedUsageApiService) RatedUsageMonthToDateGetExecute(r ApiRatedUsageMo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr

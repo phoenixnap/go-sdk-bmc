@@ -22,7 +22,7 @@ For more information, please visit [https://phoenixnap.com/](https://phoenixnap.
 
 Install the following dependencies:
 
-```shell
+```sh
 go get github.com/stretchr/testify/assert
 go get golang.org/x/oauth2
 go get golang.org/x/net/context
@@ -30,13 +30,13 @@ go get golang.org/x/net/context
 
 Put the package under your project folder and add the following in import:
 
-```golang
+```go
 import tagapi "github.com/phoenixnap/go-sdk-bmc/tagapi"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
 
-```golang
+```go
 os.Setenv("HTTP_PROXY", "http://proxy_name:proxy_port")
 ```
 
@@ -46,17 +46,17 @@ Default configuration comes with `Servers` field that contains server objects as
 
 ### Select Server Configuration
 
-For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
+For using other server than the one defined on index 0 set context value `tagapi.ContextServerIndex` of type `int`.
 
-```golang
+```go
 ctx := context.WithValue(context.Background(), tagapi.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
 
-Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
+Templated server URL is formatted using default variables from configuration or from context value `tagapi.ContextServerVariables` of type `map[string]string`.
 
-```golang
+```go
 ctx := context.WithValue(context.Background(), tagapi.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
@@ -68,9 +68,9 @@ Note, enum values are always validated and all unused variables are silently ign
 
 Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
-Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+Similar rules for overriding default operation server index and variables applies by using `tagapi.ContextOperationServerIndices` and `tagapi.ContextOperationServerVariables` context maps.
 
-```
+```go
 ctx := context.WithValue(context.Background(), tagapi.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
@@ -87,11 +87,11 @@ All URIs are relative to *https://api.phoenixnap.com/tag-manager/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*TagsApi* | [**TagsGet**](docs/TagsApi.md#tagsget) | **Get** /tags | List tags.
-*TagsApi* | [**TagsPost**](docs/TagsApi.md#tagspost) | **Post** /tags | Create a Tag.
-*TagsApi* | [**TagsTagIdDelete**](docs/TagsApi.md#tagstagiddelete) | **Delete** /tags/{tagId} | Delete a Tag.
-*TagsApi* | [**TagsTagIdGet**](docs/TagsApi.md#tagstagidget) | **Get** /tags/{tagId} | Get a Tag.
-*TagsApi* | [**TagsTagIdPatch**](docs/TagsApi.md#tagstagidpatch) | **Patch** /tags/{tagId} | Modify a Tag.
+*TagsAPI* | [**TagsGet**](docs/TagsAPI.md#tagsget) | **Get** /tags | List tags.
+*TagsAPI* | [**TagsPost**](docs/TagsAPI.md#tagspost) | **Post** /tags | Create a Tag.
+*TagsAPI* | [**TagsTagIdDelete**](docs/TagsAPI.md#tagstagiddelete) | **Delete** /tags/{tagId} | Delete a Tag.
+*TagsAPI* | [**TagsTagIdGet**](docs/TagsAPI.md#tagstagidget) | **Get** /tags/{tagId} | Get a Tag.
+*TagsAPI* | [**TagsTagIdPatch**](docs/TagsAPI.md#tagstagidpatch) | **Patch** /tags/{tagId} | Modify a Tag.
 
 
 ## Documentation For Models
@@ -107,7 +107,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Authorization
 
 
-
+Authentication schemes defined for the API:
 ### OAuth2
 
 
@@ -120,20 +120,20 @@ Class | Method | HTTP request | Description
 
 Example
 
-```golang
-auth := context.WithValue(context.Background(), sw.ContextAccessToken, "ACCESSTOKENSTRING")
+```go
+auth := context.WithValue(context.Background(), tagapi.ContextAccessToken, "ACCESSTOKENSTRING")
 r, err := client.Service.Operation(auth, args)
 ```
 
 Or via OAuth2 module to automatically refresh tokens and perform user authentication.
 
-```golang
+```go
 import "golang.org/x/oauth2"
 
 /* Perform OAuth2 round trip request and obtain a token */
 
 tokenSource := oauth2cfg.TokenSource(createContext(httpClient), &token)
-auth := context.WithValue(oauth2.NoContext, sw.ContextOAuth2, tokenSource)
+auth := context.WithValue(oauth2.NoContext, tagapi.ContextOAuth2, tokenSource)
 r, err := client.Service.Operation(auth, args)
 ```
 
@@ -157,4 +157,3 @@ Each of these functions takes a value of the given basic type and returns a poin
 ## Author
 
 support@phoenixnap.com
-

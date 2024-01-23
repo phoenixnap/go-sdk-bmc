@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the BandwidthDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BandwidthDetails{}
 
 // BandwidthDetails Details of the bandwidth associated with this rated usage record.
 type BandwidthDetails struct {
@@ -26,6 +31,8 @@ type BandwidthDetails struct {
 	// Package size unit.
 	PackageUnit *string `json:"packageUnit,omitempty"`
 }
+
+type _BandwidthDetails BandwidthDetails
 
 // NewBandwidthDetails instantiates a new BandwidthDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -96,7 +103,7 @@ func (o *BandwidthDetails) SetEgressGb(v float32) {
 
 // GetPackageQuantity returns the PackageQuantity field value if set, zero value otherwise.
 func (o *BandwidthDetails) GetPackageQuantity() float32 {
-	if o == nil || o.PackageQuantity == nil {
+	if o == nil || IsNil(o.PackageQuantity) {
 		var ret float32
 		return ret
 	}
@@ -106,7 +113,7 @@ func (o *BandwidthDetails) GetPackageQuantity() float32 {
 // GetPackageQuantityOk returns a tuple with the PackageQuantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BandwidthDetails) GetPackageQuantityOk() (*float32, bool) {
-	if o == nil || o.PackageQuantity == nil {
+	if o == nil || IsNil(o.PackageQuantity) {
 		return nil, false
 	}
 	return o.PackageQuantity, true
@@ -114,7 +121,7 @@ func (o *BandwidthDetails) GetPackageQuantityOk() (*float32, bool) {
 
 // HasPackageQuantity returns a boolean if a field has been set.
 func (o *BandwidthDetails) HasPackageQuantity() bool {
-	if o != nil && o.PackageQuantity != nil {
+	if o != nil && !IsNil(o.PackageQuantity) {
 		return true
 	}
 
@@ -128,7 +135,7 @@ func (o *BandwidthDetails) SetPackageQuantity(v float32) {
 
 // GetPackageUnit returns the PackageUnit field value if set, zero value otherwise.
 func (o *BandwidthDetails) GetPackageUnit() string {
-	if o == nil || o.PackageUnit == nil {
+	if o == nil || IsNil(o.PackageUnit) {
 		var ret string
 		return ret
 	}
@@ -138,7 +145,7 @@ func (o *BandwidthDetails) GetPackageUnit() string {
 // GetPackageUnitOk returns a tuple with the PackageUnit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BandwidthDetails) GetPackageUnitOk() (*string, bool) {
-	if o == nil || o.PackageUnit == nil {
+	if o == nil || IsNil(o.PackageUnit) {
 		return nil, false
 	}
 	return o.PackageUnit, true
@@ -146,7 +153,7 @@ func (o *BandwidthDetails) GetPackageUnitOk() (*string, bool) {
 
 // HasPackageUnit returns a boolean if a field has been set.
 func (o *BandwidthDetails) HasPackageUnit() bool {
-	if o != nil && o.PackageUnit != nil {
+	if o != nil && !IsNil(o.PackageUnit) {
 		return true
 	}
 
@@ -159,20 +166,62 @@ func (o *BandwidthDetails) SetPackageUnit(v string) {
 }
 
 func (o BandwidthDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["ingressGb"] = o.IngressGb
-	}
-	if true {
-		toSerialize["egressGb"] = o.EgressGb
-	}
-	if o.PackageQuantity != nil {
-		toSerialize["packageQuantity"] = o.PackageQuantity
-	}
-	if o.PackageUnit != nil {
-		toSerialize["packageUnit"] = o.PackageUnit
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BandwidthDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["ingressGb"] = o.IngressGb
+	toSerialize["egressGb"] = o.EgressGb
+	if !IsNil(o.PackageQuantity) {
+		toSerialize["packageQuantity"] = o.PackageQuantity
+	}
+	if !IsNil(o.PackageUnit) {
+		toSerialize["packageUnit"] = o.PackageUnit
+	}
+	return toSerialize, nil
+}
+
+func (o *BandwidthDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"ingressGb",
+		"egressGb",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBandwidthDetails := _BandwidthDetails{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varBandwidthDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BandwidthDetails(varBandwidthDetails)
+
+	return err
 }
 
 type NullableBandwidthDetails struct {

@@ -12,9 +12,14 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the Server type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Server{}
 
 // Server Bare metal server.
 type Server struct {
@@ -70,6 +75,8 @@ type Server struct {
 	// Unique identifier of the server from which the reservation has been transferred.
 	Supersedes *string `json:"supersedes,omitempty"`
 }
+
+type _Server Server
 
 // NewServer instantiates a new Server object
 // This constructor will assign default values to properties that have it defined,
@@ -183,7 +190,7 @@ func (o *Server) SetHostname(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Server) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -193,7 +200,7 @@ func (o *Server) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Server) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -201,7 +208,7 @@ func (o *Server) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Server) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -215,7 +222,7 @@ func (o *Server) SetDescription(v string) {
 
 // GetOs returns the Os field value if set, zero value otherwise.
 func (o *Server) GetOs() string {
-	if o == nil || o.Os == nil {
+	if o == nil || IsNil(o.Os) {
 		var ret string
 		return ret
 	}
@@ -225,7 +232,7 @@ func (o *Server) GetOs() string {
 // GetOsOk returns a tuple with the Os field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Server) GetOsOk() (*string, bool) {
-	if o == nil || o.Os == nil {
+	if o == nil || IsNil(o.Os) {
 		return nil, false
 	}
 	return o.Os, true
@@ -233,7 +240,7 @@ func (o *Server) GetOsOk() (*string, bool) {
 
 // HasOs returns a boolean if a field has been set.
 func (o *Server) HasOs() bool {
-	if o != nil && o.Os != nil {
+	if o != nil && !IsNil(o.Os) {
 		return true
 	}
 
@@ -463,7 +470,7 @@ func (o *Server) SetPrivateIpAddresses(v []string) {
 
 // GetPublicIpAddresses returns the PublicIpAddresses field value if set, zero value otherwise.
 func (o *Server) GetPublicIpAddresses() []string {
-	if o == nil || o.PublicIpAddresses == nil {
+	if o == nil || IsNil(o.PublicIpAddresses) {
 		var ret []string
 		return ret
 	}
@@ -473,7 +480,7 @@ func (o *Server) GetPublicIpAddresses() []string {
 // GetPublicIpAddressesOk returns a tuple with the PublicIpAddresses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Server) GetPublicIpAddressesOk() ([]string, bool) {
-	if o == nil || o.PublicIpAddresses == nil {
+	if o == nil || IsNil(o.PublicIpAddresses) {
 		return nil, false
 	}
 	return o.PublicIpAddresses, true
@@ -481,7 +488,7 @@ func (o *Server) GetPublicIpAddressesOk() ([]string, bool) {
 
 // HasPublicIpAddresses returns a boolean if a field has been set.
 func (o *Server) HasPublicIpAddresses() bool {
-	if o != nil && o.PublicIpAddresses != nil {
+	if o != nil && !IsNil(o.PublicIpAddresses) {
 		return true
 	}
 
@@ -495,7 +502,7 @@ func (o *Server) SetPublicIpAddresses(v []string) {
 
 // GetReservationId returns the ReservationId field value if set, zero value otherwise.
 func (o *Server) GetReservationId() string {
-	if o == nil || o.ReservationId == nil {
+	if o == nil || IsNil(o.ReservationId) {
 		var ret string
 		return ret
 	}
@@ -505,7 +512,7 @@ func (o *Server) GetReservationId() string {
 // GetReservationIdOk returns a tuple with the ReservationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Server) GetReservationIdOk() (*string, bool) {
-	if o == nil || o.ReservationId == nil {
+	if o == nil || IsNil(o.ReservationId) {
 		return nil, false
 	}
 	return o.ReservationId, true
@@ -513,7 +520,7 @@ func (o *Server) GetReservationIdOk() (*string, bool) {
 
 // HasReservationId returns a boolean if a field has been set.
 func (o *Server) HasReservationId() bool {
-	if o != nil && o.ReservationId != nil {
+	if o != nil && !IsNil(o.ReservationId) {
 		return true
 	}
 
@@ -551,7 +558,7 @@ func (o *Server) SetPricingModel(v string) {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *Server) GetPassword() string {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret string
 		return ret
 	}
@@ -561,7 +568,7 @@ func (o *Server) GetPassword() string {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Server) GetPasswordOk() (*string, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -569,7 +576,7 @@ func (o *Server) GetPasswordOk() (*string, bool) {
 
 // HasPassword returns a boolean if a field has been set.
 func (o *Server) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -583,7 +590,7 @@ func (o *Server) SetPassword(v string) {
 
 // GetNetworkType returns the NetworkType field value if set, zero value otherwise.
 func (o *Server) GetNetworkType() string {
-	if o == nil || o.NetworkType == nil {
+	if o == nil || IsNil(o.NetworkType) {
 		var ret string
 		return ret
 	}
@@ -593,7 +600,7 @@ func (o *Server) GetNetworkType() string {
 // GetNetworkTypeOk returns a tuple with the NetworkType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Server) GetNetworkTypeOk() (*string, bool) {
-	if o == nil || o.NetworkType == nil {
+	if o == nil || IsNil(o.NetworkType) {
 		return nil, false
 	}
 	return o.NetworkType, true
@@ -601,7 +608,7 @@ func (o *Server) GetNetworkTypeOk() (*string, bool) {
 
 // HasNetworkType returns a boolean if a field has been set.
 func (o *Server) HasNetworkType() bool {
-	if o != nil && o.NetworkType != nil {
+	if o != nil && !IsNil(o.NetworkType) {
 		return true
 	}
 
@@ -615,7 +622,7 @@ func (o *Server) SetNetworkType(v string) {
 
 // GetClusterId returns the ClusterId field value if set, zero value otherwise.
 func (o *Server) GetClusterId() string {
-	if o == nil || o.ClusterId == nil {
+	if o == nil || IsNil(o.ClusterId) {
 		var ret string
 		return ret
 	}
@@ -625,7 +632,7 @@ func (o *Server) GetClusterId() string {
 // GetClusterIdOk returns a tuple with the ClusterId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Server) GetClusterIdOk() (*string, bool) {
-	if o == nil || o.ClusterId == nil {
+	if o == nil || IsNil(o.ClusterId) {
 		return nil, false
 	}
 	return o.ClusterId, true
@@ -633,7 +640,7 @@ func (o *Server) GetClusterIdOk() (*string, bool) {
 
 // HasClusterId returns a boolean if a field has been set.
 func (o *Server) HasClusterId() bool {
-	if o != nil && o.ClusterId != nil {
+	if o != nil && !IsNil(o.ClusterId) {
 		return true
 	}
 
@@ -647,7 +654,7 @@ func (o *Server) SetClusterId(v string) {
 
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *Server) GetTags() []TagAssignment {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		var ret []TagAssignment
 		return ret
 	}
@@ -657,7 +664,7 @@ func (o *Server) GetTags() []TagAssignment {
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Server) GetTagsOk() ([]TagAssignment, bool) {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
 	return o.Tags, true
@@ -665,7 +672,7 @@ func (o *Server) GetTagsOk() ([]TagAssignment, bool) {
 
 // HasTags returns a boolean if a field has been set.
 func (o *Server) HasTags() bool {
-	if o != nil && o.Tags != nil {
+	if o != nil && !IsNil(o.Tags) {
 		return true
 	}
 
@@ -679,7 +686,7 @@ func (o *Server) SetTags(v []TagAssignment) {
 
 // GetProvisionedOn returns the ProvisionedOn field value if set, zero value otherwise.
 func (o *Server) GetProvisionedOn() time.Time {
-	if o == nil || o.ProvisionedOn == nil {
+	if o == nil || IsNil(o.ProvisionedOn) {
 		var ret time.Time
 		return ret
 	}
@@ -689,7 +696,7 @@ func (o *Server) GetProvisionedOn() time.Time {
 // GetProvisionedOnOk returns a tuple with the ProvisionedOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Server) GetProvisionedOnOk() (*time.Time, bool) {
-	if o == nil || o.ProvisionedOn == nil {
+	if o == nil || IsNil(o.ProvisionedOn) {
 		return nil, false
 	}
 	return o.ProvisionedOn, true
@@ -697,7 +704,7 @@ func (o *Server) GetProvisionedOnOk() (*time.Time, bool) {
 
 // HasProvisionedOn returns a boolean if a field has been set.
 func (o *Server) HasProvisionedOn() bool {
-	if o != nil && o.ProvisionedOn != nil {
+	if o != nil && !IsNil(o.ProvisionedOn) {
 		return true
 	}
 
@@ -711,7 +718,7 @@ func (o *Server) SetProvisionedOn(v time.Time) {
 
 // GetOsConfiguration returns the OsConfiguration field value if set, zero value otherwise.
 func (o *Server) GetOsConfiguration() OsConfiguration {
-	if o == nil || o.OsConfiguration == nil {
+	if o == nil || IsNil(o.OsConfiguration) {
 		var ret OsConfiguration
 		return ret
 	}
@@ -721,7 +728,7 @@ func (o *Server) GetOsConfiguration() OsConfiguration {
 // GetOsConfigurationOk returns a tuple with the OsConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Server) GetOsConfigurationOk() (*OsConfiguration, bool) {
-	if o == nil || o.OsConfiguration == nil {
+	if o == nil || IsNil(o.OsConfiguration) {
 		return nil, false
 	}
 	return o.OsConfiguration, true
@@ -729,7 +736,7 @@ func (o *Server) GetOsConfigurationOk() (*OsConfiguration, bool) {
 
 // HasOsConfiguration returns a boolean if a field has been set.
 func (o *Server) HasOsConfiguration() bool {
-	if o != nil && o.OsConfiguration != nil {
+	if o != nil && !IsNil(o.OsConfiguration) {
 		return true
 	}
 
@@ -791,7 +798,7 @@ func (o *Server) SetStorageConfiguration(v StorageConfiguration) {
 
 // GetSupersededBy returns the SupersededBy field value if set, zero value otherwise.
 func (o *Server) GetSupersededBy() string {
-	if o == nil || o.SupersededBy == nil {
+	if o == nil || IsNil(o.SupersededBy) {
 		var ret string
 		return ret
 	}
@@ -801,7 +808,7 @@ func (o *Server) GetSupersededBy() string {
 // GetSupersededByOk returns a tuple with the SupersededBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Server) GetSupersededByOk() (*string, bool) {
-	if o == nil || o.SupersededBy == nil {
+	if o == nil || IsNil(o.SupersededBy) {
 		return nil, false
 	}
 	return o.SupersededBy, true
@@ -809,7 +816,7 @@ func (o *Server) GetSupersededByOk() (*string, bool) {
 
 // HasSupersededBy returns a boolean if a field has been set.
 func (o *Server) HasSupersededBy() bool {
-	if o != nil && o.SupersededBy != nil {
+	if o != nil && !IsNil(o.SupersededBy) {
 		return true
 	}
 
@@ -823,7 +830,7 @@ func (o *Server) SetSupersededBy(v string) {
 
 // GetSupersedes returns the Supersedes field value if set, zero value otherwise.
 func (o *Server) GetSupersedes() string {
-	if o == nil || o.Supersedes == nil {
+	if o == nil || IsNil(o.Supersedes) {
 		var ret string
 		return ret
 	}
@@ -833,7 +840,7 @@ func (o *Server) GetSupersedes() string {
 // GetSupersedesOk returns a tuple with the Supersedes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Server) GetSupersedesOk() (*string, bool) {
-	if o == nil || o.Supersedes == nil {
+	if o == nil || IsNil(o.Supersedes) {
 		return nil, false
 	}
 	return o.Supersedes, true
@@ -841,7 +848,7 @@ func (o *Server) GetSupersedesOk() (*string, bool) {
 
 // HasSupersedes returns a boolean if a field has been set.
 func (o *Server) HasSupersedes() bool {
-	if o != nil && o.Supersedes != nil {
+	if o != nil && !IsNil(o.Supersedes) {
 		return true
 	}
 
@@ -854,89 +861,118 @@ func (o *Server) SetSupersedes(v string) {
 }
 
 func (o Server) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["hostname"] = o.Hostname
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Os != nil {
-		toSerialize["os"] = o.Os
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if true {
-		toSerialize["cpu"] = o.Cpu
-	}
-	if true {
-		toSerialize["cpuCount"] = o.CpuCount
-	}
-	if true {
-		toSerialize["coresPerCpu"] = o.CoresPerCpu
-	}
-	if true {
-		toSerialize["cpuFrequency"] = o.CpuFrequency
-	}
-	if true {
-		toSerialize["ram"] = o.Ram
-	}
-	if true {
-		toSerialize["storage"] = o.Storage
-	}
-	if true {
-		toSerialize["privateIpAddresses"] = o.PrivateIpAddresses
-	}
-	if o.PublicIpAddresses != nil {
-		toSerialize["publicIpAddresses"] = o.PublicIpAddresses
-	}
-	if o.ReservationId != nil {
-		toSerialize["reservationId"] = o.ReservationId
-	}
-	if true {
-		toSerialize["pricingModel"] = o.PricingModel
-	}
-	if o.Password != nil {
-		toSerialize["password"] = o.Password
-	}
-	if o.NetworkType != nil {
-		toSerialize["networkType"] = o.NetworkType
-	}
-	if o.ClusterId != nil {
-		toSerialize["clusterId"] = o.ClusterId
-	}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
-	}
-	if o.ProvisionedOn != nil {
-		toSerialize["provisionedOn"] = o.ProvisionedOn
-	}
-	if o.OsConfiguration != nil {
-		toSerialize["osConfiguration"] = o.OsConfiguration
-	}
-	if true {
-		toSerialize["networkConfiguration"] = o.NetworkConfiguration
-	}
-	if true {
-		toSerialize["storageConfiguration"] = o.StorageConfiguration
-	}
-	if o.SupersededBy != nil {
-		toSerialize["supersededBy"] = o.SupersededBy
-	}
-	if o.Supersedes != nil {
-		toSerialize["supersedes"] = o.Supersedes
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Server) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["status"] = o.Status
+	toSerialize["hostname"] = o.Hostname
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Os) {
+		toSerialize["os"] = o.Os
+	}
+	toSerialize["type"] = o.Type
+	toSerialize["location"] = o.Location
+	toSerialize["cpu"] = o.Cpu
+	toSerialize["cpuCount"] = o.CpuCount
+	toSerialize["coresPerCpu"] = o.CoresPerCpu
+	toSerialize["cpuFrequency"] = o.CpuFrequency
+	toSerialize["ram"] = o.Ram
+	toSerialize["storage"] = o.Storage
+	toSerialize["privateIpAddresses"] = o.PrivateIpAddresses
+	if !IsNil(o.PublicIpAddresses) {
+		toSerialize["publicIpAddresses"] = o.PublicIpAddresses
+	}
+	if !IsNil(o.ReservationId) {
+		toSerialize["reservationId"] = o.ReservationId
+	}
+	toSerialize["pricingModel"] = o.PricingModel
+	if !IsNil(o.Password) {
+		toSerialize["password"] = o.Password
+	}
+	if !IsNil(o.NetworkType) {
+		toSerialize["networkType"] = o.NetworkType
+	}
+	if !IsNil(o.ClusterId) {
+		toSerialize["clusterId"] = o.ClusterId
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.ProvisionedOn) {
+		toSerialize["provisionedOn"] = o.ProvisionedOn
+	}
+	if !IsNil(o.OsConfiguration) {
+		toSerialize["osConfiguration"] = o.OsConfiguration
+	}
+	toSerialize["networkConfiguration"] = o.NetworkConfiguration
+	toSerialize["storageConfiguration"] = o.StorageConfiguration
+	if !IsNil(o.SupersededBy) {
+		toSerialize["supersededBy"] = o.SupersededBy
+	}
+	if !IsNil(o.Supersedes) {
+		toSerialize["supersedes"] = o.Supersedes
+	}
+	return toSerialize, nil
+}
+
+func (o *Server) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"status",
+		"hostname",
+		"type",
+		"location",
+		"cpu",
+		"cpuCount",
+		"coresPerCpu",
+		"cpuFrequency",
+		"ram",
+		"storage",
+		"privateIpAddresses",
+		"pricingModel",
+		"networkConfiguration",
+		"storageConfiguration",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServer := _Server{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varServer)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Server(varServer)
+
+	return err
 }
 
 type NullableServer struct {

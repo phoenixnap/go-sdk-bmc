@@ -12,14 +12,21 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ThresholdConfigurationDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ThresholdConfigurationDetails{}
 
 // ThresholdConfigurationDetails Threshold billing configuration.
 type ThresholdConfigurationDetails struct {
 	// Threshold billing amount.
 	ThresholdAmount float32 `json:"thresholdAmount"`
 }
+
+type _ThresholdConfigurationDetails ThresholdConfigurationDetails
 
 // NewThresholdConfigurationDetails instantiates a new ThresholdConfigurationDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -64,11 +71,54 @@ func (o *ThresholdConfigurationDetails) SetThresholdAmount(v float32) {
 }
 
 func (o ThresholdConfigurationDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["thresholdAmount"] = o.ThresholdAmount
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ThresholdConfigurationDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["thresholdAmount"] = o.ThresholdAmount
+	return toSerialize, nil
+}
+
+func (o *ThresholdConfigurationDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"thresholdAmount",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varThresholdConfigurationDetails := _ThresholdConfigurationDetails{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varThresholdConfigurationDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ThresholdConfigurationDetails(varThresholdConfigurationDetails)
+
+	return err
 }
 
 type NullableThresholdConfigurationDetails struct {

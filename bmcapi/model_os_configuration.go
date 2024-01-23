@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OsConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OsConfiguration{}
+
 // OsConfiguration OS specific configuration properties.
 type OsConfiguration struct {
 	NetrisController *OsConfigurationNetrisController `json:"netrisController,omitempty"`
@@ -54,7 +57,7 @@ func NewOsConfigurationWithDefaults() *OsConfiguration {
 
 // GetNetrisController returns the NetrisController field value if set, zero value otherwise.
 func (o *OsConfiguration) GetNetrisController() OsConfigurationNetrisController {
-	if o == nil || o.NetrisController == nil {
+	if o == nil || IsNil(o.NetrisController) {
 		var ret OsConfigurationNetrisController
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *OsConfiguration) GetNetrisController() OsConfigurationNetrisController 
 // GetNetrisControllerOk returns a tuple with the NetrisController field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfiguration) GetNetrisControllerOk() (*OsConfigurationNetrisController, bool) {
-	if o == nil || o.NetrisController == nil {
+	if o == nil || IsNil(o.NetrisController) {
 		return nil, false
 	}
 	return o.NetrisController, true
@@ -72,7 +75,7 @@ func (o *OsConfiguration) GetNetrisControllerOk() (*OsConfigurationNetrisControl
 
 // HasNetrisController returns a boolean if a field has been set.
 func (o *OsConfiguration) HasNetrisController() bool {
-	if o != nil && o.NetrisController != nil {
+	if o != nil && !IsNil(o.NetrisController) {
 		return true
 	}
 
@@ -86,7 +89,7 @@ func (o *OsConfiguration) SetNetrisController(v OsConfigurationNetrisController)
 
 // GetNetrisSoftgate returns the NetrisSoftgate field value if set, zero value otherwise.
 func (o *OsConfiguration) GetNetrisSoftgate() OsConfigurationNetrisSoftgate {
-	if o == nil || o.NetrisSoftgate == nil {
+	if o == nil || IsNil(o.NetrisSoftgate) {
 		var ret OsConfigurationNetrisSoftgate
 		return ret
 	}
@@ -96,7 +99,7 @@ func (o *OsConfiguration) GetNetrisSoftgate() OsConfigurationNetrisSoftgate {
 // GetNetrisSoftgateOk returns a tuple with the NetrisSoftgate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfiguration) GetNetrisSoftgateOk() (*OsConfigurationNetrisSoftgate, bool) {
-	if o == nil || o.NetrisSoftgate == nil {
+	if o == nil || IsNil(o.NetrisSoftgate) {
 		return nil, false
 	}
 	return o.NetrisSoftgate, true
@@ -104,7 +107,7 @@ func (o *OsConfiguration) GetNetrisSoftgateOk() (*OsConfigurationNetrisSoftgate,
 
 // HasNetrisSoftgate returns a boolean if a field has been set.
 func (o *OsConfiguration) HasNetrisSoftgate() bool {
-	if o != nil && o.NetrisSoftgate != nil {
+	if o != nil && !IsNil(o.NetrisSoftgate) {
 		return true
 	}
 
@@ -118,7 +121,7 @@ func (o *OsConfiguration) SetNetrisSoftgate(v OsConfigurationNetrisSoftgate) {
 
 // GetWindows returns the Windows field value if set, zero value otherwise.
 func (o *OsConfiguration) GetWindows() OsConfigurationWindows {
-	if o == nil || o.Windows == nil {
+	if o == nil || IsNil(o.Windows) {
 		var ret OsConfigurationWindows
 		return ret
 	}
@@ -128,7 +131,7 @@ func (o *OsConfiguration) GetWindows() OsConfigurationWindows {
 // GetWindowsOk returns a tuple with the Windows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfiguration) GetWindowsOk() (*OsConfigurationWindows, bool) {
-	if o == nil || o.Windows == nil {
+	if o == nil || IsNil(o.Windows) {
 		return nil, false
 	}
 	return o.Windows, true
@@ -136,7 +139,7 @@ func (o *OsConfiguration) GetWindowsOk() (*OsConfigurationWindows, bool) {
 
 // HasWindows returns a boolean if a field has been set.
 func (o *OsConfiguration) HasWindows() bool {
-	if o != nil && o.Windows != nil {
+	if o != nil && !IsNil(o.Windows) {
 		return true
 	}
 
@@ -150,7 +153,7 @@ func (o *OsConfiguration) SetWindows(v OsConfigurationWindows) {
 
 // GetRootPassword returns the RootPassword field value if set, zero value otherwise.
 func (o *OsConfiguration) GetRootPassword() string {
-	if o == nil || o.RootPassword == nil {
+	if o == nil || IsNil(o.RootPassword) {
 		var ret string
 		return ret
 	}
@@ -160,7 +163,7 @@ func (o *OsConfiguration) GetRootPassword() string {
 // GetRootPasswordOk returns a tuple with the RootPassword field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfiguration) GetRootPasswordOk() (*string, bool) {
-	if o == nil || o.RootPassword == nil {
+	if o == nil || IsNil(o.RootPassword) {
 		return nil, false
 	}
 	return o.RootPassword, true
@@ -168,7 +171,7 @@ func (o *OsConfiguration) GetRootPasswordOk() (*string, bool) {
 
 // HasRootPassword returns a boolean if a field has been set.
 func (o *OsConfiguration) HasRootPassword() bool {
-	if o != nil && o.RootPassword != nil {
+	if o != nil && !IsNil(o.RootPassword) {
 		return true
 	}
 
@@ -182,7 +185,7 @@ func (o *OsConfiguration) SetRootPassword(v string) {
 
 // GetManagementUiUrl returns the ManagementUiUrl field value if set, zero value otherwise.
 func (o *OsConfiguration) GetManagementUiUrl() string {
-	if o == nil || o.ManagementUiUrl == nil {
+	if o == nil || IsNil(o.ManagementUiUrl) {
 		var ret string
 		return ret
 	}
@@ -192,7 +195,7 @@ func (o *OsConfiguration) GetManagementUiUrl() string {
 // GetManagementUiUrlOk returns a tuple with the ManagementUiUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfiguration) GetManagementUiUrlOk() (*string, bool) {
-	if o == nil || o.ManagementUiUrl == nil {
+	if o == nil || IsNil(o.ManagementUiUrl) {
 		return nil, false
 	}
 	return o.ManagementUiUrl, true
@@ -200,7 +203,7 @@ func (o *OsConfiguration) GetManagementUiUrlOk() (*string, bool) {
 
 // HasManagementUiUrl returns a boolean if a field has been set.
 func (o *OsConfiguration) HasManagementUiUrl() bool {
-	if o != nil && o.ManagementUiUrl != nil {
+	if o != nil && !IsNil(o.ManagementUiUrl) {
 		return true
 	}
 
@@ -214,7 +217,7 @@ func (o *OsConfiguration) SetManagementUiUrl(v string) {
 
 // GetManagementAccessAllowedIps returns the ManagementAccessAllowedIps field value if set, zero value otherwise.
 func (o *OsConfiguration) GetManagementAccessAllowedIps() []string {
-	if o == nil || o.ManagementAccessAllowedIps == nil {
+	if o == nil || IsNil(o.ManagementAccessAllowedIps) {
 		var ret []string
 		return ret
 	}
@@ -224,7 +227,7 @@ func (o *OsConfiguration) GetManagementAccessAllowedIps() []string {
 // GetManagementAccessAllowedIpsOk returns a tuple with the ManagementAccessAllowedIps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfiguration) GetManagementAccessAllowedIpsOk() ([]string, bool) {
-	if o == nil || o.ManagementAccessAllowedIps == nil {
+	if o == nil || IsNil(o.ManagementAccessAllowedIps) {
 		return nil, false
 	}
 	return o.ManagementAccessAllowedIps, true
@@ -232,7 +235,7 @@ func (o *OsConfiguration) GetManagementAccessAllowedIpsOk() ([]string, bool) {
 
 // HasManagementAccessAllowedIps returns a boolean if a field has been set.
 func (o *OsConfiguration) HasManagementAccessAllowedIps() bool {
-	if o != nil && o.ManagementAccessAllowedIps != nil {
+	if o != nil && !IsNil(o.ManagementAccessAllowedIps) {
 		return true
 	}
 
@@ -246,7 +249,7 @@ func (o *OsConfiguration) SetManagementAccessAllowedIps(v []string) {
 
 // GetInstallOsToRam returns the InstallOsToRam field value if set, zero value otherwise.
 func (o *OsConfiguration) GetInstallOsToRam() bool {
-	if o == nil || o.InstallOsToRam == nil {
+	if o == nil || IsNil(o.InstallOsToRam) {
 		var ret bool
 		return ret
 	}
@@ -256,7 +259,7 @@ func (o *OsConfiguration) GetInstallOsToRam() bool {
 // GetInstallOsToRamOk returns a tuple with the InstallOsToRam field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfiguration) GetInstallOsToRamOk() (*bool, bool) {
-	if o == nil || o.InstallOsToRam == nil {
+	if o == nil || IsNil(o.InstallOsToRam) {
 		return nil, false
 	}
 	return o.InstallOsToRam, true
@@ -264,7 +267,7 @@ func (o *OsConfiguration) GetInstallOsToRamOk() (*bool, bool) {
 
 // HasInstallOsToRam returns a boolean if a field has been set.
 func (o *OsConfiguration) HasInstallOsToRam() bool {
-	if o != nil && o.InstallOsToRam != nil {
+	if o != nil && !IsNil(o.InstallOsToRam) {
 		return true
 	}
 
@@ -278,7 +281,7 @@ func (o *OsConfiguration) SetInstallOsToRam(v bool) {
 
 // GetCloudInit returns the CloudInit field value if set, zero value otherwise.
 func (o *OsConfiguration) GetCloudInit() OsConfigurationCloudInit {
-	if o == nil || o.CloudInit == nil {
+	if o == nil || IsNil(o.CloudInit) {
 		var ret OsConfigurationCloudInit
 		return ret
 	}
@@ -288,7 +291,7 @@ func (o *OsConfiguration) GetCloudInit() OsConfigurationCloudInit {
 // GetCloudInitOk returns a tuple with the CloudInit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfiguration) GetCloudInitOk() (*OsConfigurationCloudInit, bool) {
-	if o == nil || o.CloudInit == nil {
+	if o == nil || IsNil(o.CloudInit) {
 		return nil, false
 	}
 	return o.CloudInit, true
@@ -296,7 +299,7 @@ func (o *OsConfiguration) GetCloudInitOk() (*OsConfigurationCloudInit, bool) {
 
 // HasCloudInit returns a boolean if a field has been set.
 func (o *OsConfiguration) HasCloudInit() bool {
-	if o != nil && o.CloudInit != nil {
+	if o != nil && !IsNil(o.CloudInit) {
 		return true
 	}
 
@@ -309,32 +312,40 @@ func (o *OsConfiguration) SetCloudInit(v OsConfigurationCloudInit) {
 }
 
 func (o OsConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.NetrisController != nil {
-		toSerialize["netrisController"] = o.NetrisController
-	}
-	if o.NetrisSoftgate != nil {
-		toSerialize["netrisSoftgate"] = o.NetrisSoftgate
-	}
-	if o.Windows != nil {
-		toSerialize["windows"] = o.Windows
-	}
-	if o.RootPassword != nil {
-		toSerialize["rootPassword"] = o.RootPassword
-	}
-	if o.ManagementUiUrl != nil {
-		toSerialize["managementUiUrl"] = o.ManagementUiUrl
-	}
-	if o.ManagementAccessAllowedIps != nil {
-		toSerialize["managementAccessAllowedIps"] = o.ManagementAccessAllowedIps
-	}
-	if o.InstallOsToRam != nil {
-		toSerialize["installOsToRam"] = o.InstallOsToRam
-	}
-	if o.CloudInit != nil {
-		toSerialize["cloudInit"] = o.CloudInit
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OsConfiguration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.NetrisController) {
+		toSerialize["netrisController"] = o.NetrisController
+	}
+	if !IsNil(o.NetrisSoftgate) {
+		toSerialize["netrisSoftgate"] = o.NetrisSoftgate
+	}
+	if !IsNil(o.Windows) {
+		toSerialize["windows"] = o.Windows
+	}
+	if !IsNil(o.RootPassword) {
+		toSerialize["rootPassword"] = o.RootPassword
+	}
+	if !IsNil(o.ManagementUiUrl) {
+		toSerialize["managementUiUrl"] = o.ManagementUiUrl
+	}
+	if !IsNil(o.ManagementAccessAllowedIps) {
+		toSerialize["managementAccessAllowedIps"] = o.ManagementAccessAllowedIps
+	}
+	if !IsNil(o.InstallOsToRam) {
+		toSerialize["installOsToRam"] = o.InstallOsToRam
+	}
+	if !IsNil(o.CloudInit) {
+		toSerialize["cloudInit"] = o.CloudInit
+	}
+	return toSerialize, nil
 }
 
 type NullableOsConfiguration struct {

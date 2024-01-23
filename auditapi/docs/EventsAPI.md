@@ -1,10 +1,10 @@
-# \EventsApi
+# \EventsAPI
 
 All URIs are relative to *https://api.phoenixnap.com/audit/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**EventsGet**](EventsApi.md#EventsGet) | **Get** /events | List event logs.
+[**EventsGet**](EventsAPI.md#EventsGet) | **Get** /events | List event logs.
 
 
 
@@ -22,31 +22,31 @@ List event logs.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/auditapi"
 )
 
 func main() {
-    from := time.Now() // time.Time | From the date and time (inclusive) to filter event log records by. (optional)
-    to := time.Now() // time.Time | To the date and time (inclusive) to filter event log records by. (optional)
-    limit := int32(10) // int32 | Limit the number of records returned. (optional)
-    order := "order_example" // string | Ordering of the event's time. SortBy can be introduced later on. (optional) (default to "ASC")
-    username := "johnd@phoenixnap.com" // string | The username that did the actions. (optional)
-    verb := "verb_example" // string | The HTTP verb corresponding to the action. (optional)
-    uri := "/ams/v1/clients/12345" // string | The request uri. (optional)
+	from := time.Now() // time.Time | From the date and time (inclusive) to filter event log records by. (optional)
+	to := time.Now() // time.Time | To the date and time (inclusive) to filter event log records by. (optional)
+	limit := int32(10) // int32 | Limit the number of records returned. (optional)
+	order := "order_example" // string | Ordering of the event's time. SortBy can be introduced later on. (optional) (default to "ASC")
+	username := "johnd@phoenixnap.com" // string | The username that did the actions. (optional)
+	verb := "verb_example" // string | The HTTP verb corresponding to the action. (optional)
+	uri := "/ams/v1/clients/12345" // string | The request uri. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventsApi.EventsGet(context.Background()).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.EventsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `EventsGet`: []Event
-    fmt.Fprintf(os.Stdout, "Response from `EventsApi.EventsGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventsAPI.EventsGet(context.Background()).From(from).To(to).Limit(limit).Order(order).Username(username).Verb(verb).Uri(uri).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventsAPI.EventsGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `EventsGet`: []Event
+	fmt.Fprintf(os.Stdout, "Response from `EventsAPI.EventsGet`: %v\n", resp)
 }
 ```
 

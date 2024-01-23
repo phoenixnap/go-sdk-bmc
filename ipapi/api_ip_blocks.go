@@ -14,14 +14,14 @@ package ipapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"reflect"
 	"strings"
 )
 
-type IPBlocksApi interface {
+type IPBlocksAPI interface {
 
 	/*
 		IpBlocksGet List IP Blocks.
@@ -112,12 +112,12 @@ type IPBlocksApi interface {
 	IpBlocksPostExecute(r ApiIpBlocksPostRequest) (*IpBlock, *http.Response, error)
 }
 
-// IPBlocksApiService IPBlocksApi service
-type IPBlocksApiService service
+// IPBlocksAPIService IPBlocksAPI service
+type IPBlocksAPIService service
 
 type ApiIpBlocksGetRequest struct {
 	ctx        context.Context
-	ApiService IPBlocksApi
+	ApiService IPBlocksAPI
 	tag        *[]string
 }
 
@@ -139,7 +139,7 @@ List all IP Blocks.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiIpBlocksGetRequest
 */
-func (a *IPBlocksApiService) IpBlocksGet(ctx context.Context) ApiIpBlocksGetRequest {
+func (a *IPBlocksAPIService) IpBlocksGet(ctx context.Context) ApiIpBlocksGetRequest {
 	return ApiIpBlocksGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -148,7 +148,7 @@ func (a *IPBlocksApiService) IpBlocksGet(ctx context.Context) ApiIpBlocksGetRequ
 
 // Execute executes the request
 //  @return []IpBlock
-func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBlock, *http.Response, error) {
+func (a *IPBlocksAPIService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBlock, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -156,7 +156,7 @@ func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBl
 		localVarReturnValue []IpBlock
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpBlocksGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksAPIService.IpBlocksGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -172,10 +172,10 @@ func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBl
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("tag", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "tag", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("tag", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "tag", t, "multi")
 		}
 	}
 	// to determine the Content-Type header
@@ -205,9 +205,9 @@ func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -224,6 +224,7 @@ func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBl
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -234,6 +235,7 @@ func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBl
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -244,6 +246,7 @@ func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBl
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -263,7 +266,7 @@ func (a *IPBlocksApiService) IpBlocksGetExecute(r ApiIpBlocksGetRequest) ([]IpBl
 
 type ApiIpBlocksIpBlockIdDeleteRequest struct {
 	ctx        context.Context
-	ApiService IPBlocksApi
+	ApiService IPBlocksAPI
 	ipBlockId  string
 }
 
@@ -280,7 +283,7 @@ Delete an IP Block. An IP Block can only be deleted if not assigned to any resou
  @param ipBlockId The IP Block identifier.
  @return ApiIpBlocksIpBlockIdDeleteRequest
 */
-func (a *IPBlocksApiService) IpBlocksIpBlockIdDelete(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdDeleteRequest {
+func (a *IPBlocksAPIService) IpBlocksIpBlockIdDelete(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdDeleteRequest {
 	return ApiIpBlocksIpBlockIdDeleteRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -290,7 +293,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDelete(ctx context.Context, ipBloc
 
 // Execute executes the request
 //  @return DeleteIpBlockResult
-func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlockIdDeleteRequest) (*DeleteIpBlockResult, *http.Response, error) {
+func (a *IPBlocksAPIService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlockIdDeleteRequest) (*DeleteIpBlockResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
@@ -298,13 +301,13 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlock
 		localVarReturnValue *DeleteIpBlockResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpBlocksIpBlockIdDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksAPIService.IpBlocksIpBlockIdDelete")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/ip-blocks/{ipBlockId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", url.PathEscape(parameterToString(r.ipBlockId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", url.PathEscape(parameterValueToString(r.ipBlockId, "ipBlockId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -337,9 +340,9 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlock
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -356,6 +359,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlock
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -366,6 +370,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlock
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -376,6 +381,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlock
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -395,7 +401,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdDeleteExecute(r ApiIpBlocksIpBlock
 
 type ApiIpBlocksIpBlockIdGetRequest struct {
 	ctx        context.Context
-	ApiService IPBlocksApi
+	ApiService IPBlocksAPI
 	ipBlockId  string
 }
 
@@ -412,7 +418,7 @@ Get IP Block.
  @param ipBlockId The IP Block identifier.
  @return ApiIpBlocksIpBlockIdGetRequest
 */
-func (a *IPBlocksApiService) IpBlocksIpBlockIdGet(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdGetRequest {
+func (a *IPBlocksAPIService) IpBlocksIpBlockIdGet(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdGetRequest {
 	return ApiIpBlocksIpBlockIdGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -422,7 +428,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGet(ctx context.Context, ipBlockId
 
 // Execute executes the request
 //  @return IpBlock
-func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdGetRequest) (*IpBlock, *http.Response, error) {
+func (a *IPBlocksAPIService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdGetRequest) (*IpBlock, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -430,13 +436,13 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdG
 		localVarReturnValue *IpBlock
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpBlocksIpBlockIdGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksAPIService.IpBlocksIpBlockIdGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/ip-blocks/{ipBlockId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", url.PathEscape(parameterToString(r.ipBlockId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", url.PathEscape(parameterValueToString(r.ipBlockId, "ipBlockId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -469,9 +475,9 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdG
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -488,6 +494,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdG
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -498,6 +505,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdG
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -508,6 +516,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdG
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -527,7 +536,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdGetExecute(r ApiIpBlocksIpBlockIdG
 
 type ApiIpBlocksIpBlockIdPatchRequest struct {
 	ctx          context.Context
-	ApiService   IPBlocksApi
+	ApiService   IPBlocksAPI
 	ipBlockId    string
 	ipBlockPatch *IpBlockPatch
 }
@@ -550,7 +559,7 @@ Update IP Block's details.
  @param ipBlockId The IP Block identifier.
  @return ApiIpBlocksIpBlockIdPatchRequest
 */
-func (a *IPBlocksApiService) IpBlocksIpBlockIdPatch(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdPatchRequest {
+func (a *IPBlocksAPIService) IpBlocksIpBlockIdPatch(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdPatchRequest {
 	return ApiIpBlocksIpBlockIdPatchRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -560,7 +569,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatch(ctx context.Context, ipBlock
 
 // Execute executes the request
 //  @return IpBlock
-func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockIdPatchRequest) (*IpBlock, *http.Response, error) {
+func (a *IPBlocksAPIService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockIdPatchRequest) (*IpBlock, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -568,13 +577,13 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockI
 		localVarReturnValue *IpBlock
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpBlocksIpBlockIdPatch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksAPIService.IpBlocksIpBlockIdPatch")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/ip-blocks/{ipBlockId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", url.PathEscape(parameterToString(r.ipBlockId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", url.PathEscape(parameterValueToString(r.ipBlockId, "ipBlockId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -612,9 +621,9 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockI
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -631,6 +640,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockI
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -641,6 +651,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockI
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -651,6 +662,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockI
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -661,6 +673,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockI
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -671,6 +684,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockI
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -690,7 +704,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdPatchExecute(r ApiIpBlocksIpBlockI
 
 type ApiIpBlocksIpBlockIdTagsPutRequest struct {
 	ctx                  context.Context
-	ApiService           IPBlocksApi
+	ApiService           IPBlocksAPI
 	ipBlockId            string
 	tagAssignmentRequest *[]TagAssignmentRequest
 }
@@ -713,7 +727,7 @@ Overwrites tags assigned for IP Block and unassigns any tags not part of the req
  @param ipBlockId The IP Block identifier.
  @return ApiIpBlocksIpBlockIdTagsPutRequest
 */
-func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPut(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdTagsPutRequest {
+func (a *IPBlocksAPIService) IpBlocksIpBlockIdTagsPut(ctx context.Context, ipBlockId string) ApiIpBlocksIpBlockIdTagsPutRequest {
 	return ApiIpBlocksIpBlockIdTagsPutRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -723,7 +737,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPut(ctx context.Context, ipBlo
 
 // Execute executes the request
 //  @return IpBlock
-func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBlockIdTagsPutRequest) (*IpBlock, *http.Response, error) {
+func (a *IPBlocksAPIService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBlockIdTagsPutRequest) (*IpBlock, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -731,13 +745,13 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBloc
 		localVarReturnValue *IpBlock
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpBlocksIpBlockIdTagsPut")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksAPIService.IpBlocksIpBlockIdTagsPut")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/ip-blocks/{ipBlockId}/tags"
-	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", url.PathEscape(parameterToString(r.ipBlockId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", url.PathEscape(parameterValueToString(r.ipBlockId, "ipBlockId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -775,9 +789,9 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBloc
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -794,6 +808,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBloc
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -804,6 +819,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBloc
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -814,6 +830,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBloc
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -824,6 +841,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBloc
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -843,7 +861,7 @@ func (a *IPBlocksApiService) IpBlocksIpBlockIdTagsPutExecute(r ApiIpBlocksIpBloc
 
 type ApiIpBlocksPostRequest struct {
 	ctx           context.Context
-	ApiService    IPBlocksApi
+	ApiService    IPBlocksAPI
 	ipBlockCreate *IpBlockCreate
 }
 
@@ -864,7 +882,7 @@ Request an IP Block. An IP Block is a set of contiguous IPs that can be assigned
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiIpBlocksPostRequest
 */
-func (a *IPBlocksApiService) IpBlocksPost(ctx context.Context) ApiIpBlocksPostRequest {
+func (a *IPBlocksAPIService) IpBlocksPost(ctx context.Context) ApiIpBlocksPostRequest {
 	return ApiIpBlocksPostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -873,7 +891,7 @@ func (a *IPBlocksApiService) IpBlocksPost(ctx context.Context) ApiIpBlocksPostRe
 
 // Execute executes the request
 //  @return IpBlock
-func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (*IpBlock, *http.Response, error) {
+func (a *IPBlocksAPIService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (*IpBlock, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -881,7 +899,7 @@ func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (*IpB
 		localVarReturnValue *IpBlock
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpBlocksPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksAPIService.IpBlocksPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -924,9 +942,9 @@ func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (*IpB
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -943,6 +961,7 @@ func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (*IpB
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -953,6 +972,7 @@ func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (*IpB
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -963,6 +983,7 @@ func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (*IpB
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -973,6 +994,7 @@ func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (*IpB
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -983,6 +1005,7 @@ func (a *IPBlocksApiService) IpBlocksPostExecute(r ApiIpBlocksPostRequest) (*IpB
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr

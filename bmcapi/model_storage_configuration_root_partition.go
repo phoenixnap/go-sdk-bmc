@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the StorageConfigurationRootPartition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StorageConfigurationRootPartition{}
+
 // StorageConfigurationRootPartition Root partition configuration.
 type StorageConfigurationRootPartition struct {
 	// Software RAID configuration. The following RAID options are available: NO_RAID, RAID_0, RAID_1.
@@ -50,7 +53,7 @@ func NewStorageConfigurationRootPartitionWithDefaults() *StorageConfigurationRoo
 
 // GetRaid returns the Raid field value if set, zero value otherwise.
 func (o *StorageConfigurationRootPartition) GetRaid() string {
-	if o == nil || o.Raid == nil {
+	if o == nil || IsNil(o.Raid) {
 		var ret string
 		return ret
 	}
@@ -60,7 +63,7 @@ func (o *StorageConfigurationRootPartition) GetRaid() string {
 // GetRaidOk returns a tuple with the Raid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageConfigurationRootPartition) GetRaidOk() (*string, bool) {
-	if o == nil || o.Raid == nil {
+	if o == nil || IsNil(o.Raid) {
 		return nil, false
 	}
 	return o.Raid, true
@@ -68,7 +71,7 @@ func (o *StorageConfigurationRootPartition) GetRaidOk() (*string, bool) {
 
 // HasRaid returns a boolean if a field has been set.
 func (o *StorageConfigurationRootPartition) HasRaid() bool {
-	if o != nil && o.Raid != nil {
+	if o != nil && !IsNil(o.Raid) {
 		return true
 	}
 
@@ -82,7 +85,7 @@ func (o *StorageConfigurationRootPartition) SetRaid(v string) {
 
 // GetSize returns the Size field value if set, zero value otherwise.
 func (o *StorageConfigurationRootPartition) GetSize() int32 {
-	if o == nil || o.Size == nil {
+	if o == nil || IsNil(o.Size) {
 		var ret int32
 		return ret
 	}
@@ -92,7 +95,7 @@ func (o *StorageConfigurationRootPartition) GetSize() int32 {
 // GetSizeOk returns a tuple with the Size field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageConfigurationRootPartition) GetSizeOk() (*int32, bool) {
-	if o == nil || o.Size == nil {
+	if o == nil || IsNil(o.Size) {
 		return nil, false
 	}
 	return o.Size, true
@@ -100,7 +103,7 @@ func (o *StorageConfigurationRootPartition) GetSizeOk() (*int32, bool) {
 
 // HasSize returns a boolean if a field has been set.
 func (o *StorageConfigurationRootPartition) HasSize() bool {
-	if o != nil && o.Size != nil {
+	if o != nil && !IsNil(o.Size) {
 		return true
 	}
 
@@ -113,14 +116,22 @@ func (o *StorageConfigurationRootPartition) SetSize(v int32) {
 }
 
 func (o StorageConfigurationRootPartition) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Raid != nil {
-		toSerialize["raid"] = o.Raid
-	}
-	if o.Size != nil {
-		toSerialize["size"] = o.Size
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StorageConfigurationRootPartition) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Raid) {
+		toSerialize["raid"] = o.Raid
+	}
+	if !IsNil(o.Size) {
+		toSerialize["size"] = o.Size
+	}
+	return toSerialize, nil
 }
 
 type NullableStorageConfigurationRootPartition struct {

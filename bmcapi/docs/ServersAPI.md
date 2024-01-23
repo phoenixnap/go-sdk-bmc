@@ -1,31 +1,31 @@
-# \ServersApi
+# \ServersAPI
 
 All URIs are relative to *https://api.phoenixnap.com/bmc/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeletePrivateNetwork**](ServersApi.md#DeletePrivateNetwork) | **Delete** /servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId} | Removes the server from private network.
-[**ServersGet**](ServersApi.md#ServersGet) | **Get** /servers | List servers.
-[**ServersPost**](ServersApi.md#ServersPost) | **Post** /servers | Create new server.
-[**ServersServerIdActionsDeprovisionPost**](ServersApi.md#ServersServerIdActionsDeprovisionPost) | **Post** /servers/{serverId}/actions/deprovision | Deprovision a server.
-[**ServersServerIdActionsPowerOffPost**](ServersApi.md#ServersServerIdActionsPowerOffPost) | **Post** /servers/{serverId}/actions/power-off | Power off server.
-[**ServersServerIdActionsPowerOnPost**](ServersApi.md#ServersServerIdActionsPowerOnPost) | **Post** /servers/{serverId}/actions/power-on | Power on server.
-[**ServersServerIdActionsProvisionPost**](ServersApi.md#ServersServerIdActionsProvisionPost) | **Post** /servers/{serverId}/actions/provision | Provision server.
-[**ServersServerIdActionsRebootPost**](ServersApi.md#ServersServerIdActionsRebootPost) | **Post** /servers/{serverId}/actions/reboot | Reboot server.
-[**ServersServerIdActionsReservePost**](ServersApi.md#ServersServerIdActionsReservePost) | **Post** /servers/{serverId}/actions/reserve | Reserve server.
-[**ServersServerIdActionsResetPost**](ServersApi.md#ServersServerIdActionsResetPost) | **Post** /servers/{serverId}/actions/reset | Reset server.
-[**ServersServerIdActionsShutdownPost**](ServersApi.md#ServersServerIdActionsShutdownPost) | **Post** /servers/{serverId}/actions/shutdown | Shutdown server.
-[**ServersServerIdDelete**](ServersApi.md#ServersServerIdDelete) | **Delete** /servers/{serverId} | Delete server.
-[**ServersServerIdGet**](ServersApi.md#ServersServerIdGet) | **Get** /servers/{serverId} | Get server.
-[**ServersServerIdIpBlocksIpBlockIdDelete**](ServersApi.md#ServersServerIdIpBlocksIpBlockIdDelete) | **Delete** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks/{ipBlockId} | Unassign IP Block from Server.
-[**ServersServerIdIpBlocksPost**](ServersApi.md#ServersServerIdIpBlocksPost) | **Post** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks | Assign IP Block to Server.
-[**ServersServerIdPatch**](ServersApi.md#ServersServerIdPatch) | **Patch** /servers/{serverId} | Patch a Server.
-[**ServersServerIdPrivateNetworksPatch**](ServersApi.md#ServersServerIdPrivateNetworksPatch) | **Patch** /servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId} | Updates the server&#39;s private network&#39;s IP addresses
-[**ServersServerIdPrivateNetworksPost**](ServersApi.md#ServersServerIdPrivateNetworksPost) | **Post** /servers/{serverId}/network-configuration/private-network-configuration/private-networks | Adds the server to a private network.
-[**ServersServerIdPublicNetworksDelete**](ServersApi.md#ServersServerIdPublicNetworksDelete) | **Delete** /servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId} | Removes the server from the Public Network
-[**ServersServerIdPublicNetworksPatch**](ServersApi.md#ServersServerIdPublicNetworksPatch) | **Patch** /servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId} | Updates the server&#39;s public network&#39;s IP addresses.
-[**ServersServerIdPublicNetworksPost**](ServersApi.md#ServersServerIdPublicNetworksPost) | **Post** /servers/{serverId}/network-configuration/public-network-configuration/public-networks | Adds the server to a Public Network.
-[**ServersServerIdTagsPut**](ServersApi.md#ServersServerIdTagsPut) | **Put** /servers/{serverId}/tags | Overwrite tags assigned for Server.
+[**DeletePrivateNetwork**](ServersAPI.md#DeletePrivateNetwork) | **Delete** /servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId} | Removes the server from private network.
+[**ServersGet**](ServersAPI.md#ServersGet) | **Get** /servers | List servers.
+[**ServersPost**](ServersAPI.md#ServersPost) | **Post** /servers | Create new server.
+[**ServersServerIdActionsDeprovisionPost**](ServersAPI.md#ServersServerIdActionsDeprovisionPost) | **Post** /servers/{serverId}/actions/deprovision | Deprovision a server.
+[**ServersServerIdActionsPowerOffPost**](ServersAPI.md#ServersServerIdActionsPowerOffPost) | **Post** /servers/{serverId}/actions/power-off | Power off server.
+[**ServersServerIdActionsPowerOnPost**](ServersAPI.md#ServersServerIdActionsPowerOnPost) | **Post** /servers/{serverId}/actions/power-on | Power on server.
+[**ServersServerIdActionsProvisionPost**](ServersAPI.md#ServersServerIdActionsProvisionPost) | **Post** /servers/{serverId}/actions/provision | Provision server.
+[**ServersServerIdActionsRebootPost**](ServersAPI.md#ServersServerIdActionsRebootPost) | **Post** /servers/{serverId}/actions/reboot | Reboot server.
+[**ServersServerIdActionsReservePost**](ServersAPI.md#ServersServerIdActionsReservePost) | **Post** /servers/{serverId}/actions/reserve | Reserve server.
+[**ServersServerIdActionsResetPost**](ServersAPI.md#ServersServerIdActionsResetPost) | **Post** /servers/{serverId}/actions/reset | Reset server.
+[**ServersServerIdActionsShutdownPost**](ServersAPI.md#ServersServerIdActionsShutdownPost) | **Post** /servers/{serverId}/actions/shutdown | Shutdown server.
+[**ServersServerIdDelete**](ServersAPI.md#ServersServerIdDelete) | **Delete** /servers/{serverId} | Delete server.
+[**ServersServerIdGet**](ServersAPI.md#ServersServerIdGet) | **Get** /servers/{serverId} | Get server.
+[**ServersServerIdIpBlocksIpBlockIdDelete**](ServersAPI.md#ServersServerIdIpBlocksIpBlockIdDelete) | **Delete** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks/{ipBlockId} | Unassign IP Block from Server.
+[**ServersServerIdIpBlocksPost**](ServersAPI.md#ServersServerIdIpBlocksPost) | **Post** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks | Assign IP Block to Server.
+[**ServersServerIdPatch**](ServersAPI.md#ServersServerIdPatch) | **Patch** /servers/{serverId} | Patch a Server.
+[**ServersServerIdPrivateNetworksPatch**](ServersAPI.md#ServersServerIdPrivateNetworksPatch) | **Patch** /servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId} | Updates the server&#39;s private network&#39;s IP addresses
+[**ServersServerIdPrivateNetworksPost**](ServersAPI.md#ServersServerIdPrivateNetworksPost) | **Post** /servers/{serverId}/network-configuration/private-network-configuration/private-networks | Adds the server to a private network.
+[**ServersServerIdPublicNetworksDelete**](ServersAPI.md#ServersServerIdPublicNetworksDelete) | **Delete** /servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId} | Removes the server from the Public Network
+[**ServersServerIdPublicNetworksPatch**](ServersAPI.md#ServersServerIdPublicNetworksPatch) | **Patch** /servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId} | Updates the server&#39;s public network&#39;s IP addresses.
+[**ServersServerIdPublicNetworksPost**](ServersAPI.md#ServersServerIdPublicNetworksPost) | **Post** /servers/{serverId}/network-configuration/public-network-configuration/public-networks | Adds the server to a Public Network.
+[**ServersServerIdTagsPut**](ServersAPI.md#ServersServerIdTagsPut) | **Put** /servers/{serverId}/tags | Overwrite tags assigned for Server.
 
 
 
@@ -43,25 +43,25 @@ Removes the server from private network.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
-    privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DeletePrivateNetwork(context.Background(), serverId, privateNetworkId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DeletePrivateNetwork``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeletePrivateNetwork`: string
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DeletePrivateNetwork`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.DeletePrivateNetwork(context.Background(), serverId, privateNetworkId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.DeletePrivateNetwork``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeletePrivateNetwork`: string
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.DeletePrivateNetwork`: %v\n", resp)
 }
 ```
 
@@ -116,24 +116,24 @@ List servers.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    tag := []string{"Inner_example"} // []string | A list of query parameters related to tags in the form of tagName.tagValue (optional)
+	tag := []string{"Inner_example"} // []string | A list of query parameters related to tags in the form of tagName.tagValue (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersGet(context.Background()).Tag(tag).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersGet`: []Server
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersGet(context.Background()).Tag(tag).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersGet`: []Server
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersGet`: %v\n", resp)
 }
 ```
 
@@ -182,25 +182,25 @@ Create new server.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverCreate := *openapiclient.NewServerCreate("my-server-1", "ubuntu/bionic", "s1.c1.small", "PHX") // ServerCreate | 
-    force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
+	serverCreate := *openapiclient.NewServerCreate("my-server-1", "ubuntu/bionic", "s1.c1.small", "PHX") // ServerCreate | 
+	force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersPost(context.Background()).ServerCreate(serverCreate).Force(force).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersPost`: Server
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersPost(context.Background()).ServerCreate(serverCreate).Force(force).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersPost`: Server
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersPost`: %v\n", resp)
 }
 ```
 
@@ -250,25 +250,25 @@ Deprovision a server.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
-    relinquishIpBlock := *openapiclient.NewRelinquishIpBlock() // RelinquishIpBlock | 
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	relinquishIpBlock := *openapiclient.NewRelinquishIpBlock() // RelinquishIpBlock | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdActionsDeprovisionPost(context.Background(), serverId).RelinquishIpBlock(relinquishIpBlock).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdActionsDeprovisionPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdActionsDeprovisionPost`: string
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdActionsDeprovisionPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdActionsDeprovisionPost(context.Background(), serverId).RelinquishIpBlock(relinquishIpBlock).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdActionsDeprovisionPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdActionsDeprovisionPost`: string
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdActionsDeprovisionPost`: %v\n", resp)
 }
 ```
 
@@ -322,24 +322,24 @@ Power off server.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdActionsPowerOffPost(context.Background(), serverId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdActionsPowerOffPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdActionsPowerOffPost`: ActionResult
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdActionsPowerOffPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdActionsPowerOffPost(context.Background(), serverId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdActionsPowerOffPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdActionsPowerOffPost`: ActionResult
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdActionsPowerOffPost`: %v\n", resp)
 }
 ```
 
@@ -392,24 +392,24 @@ Power on server.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdActionsPowerOnPost(context.Background(), serverId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdActionsPowerOnPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdActionsPowerOnPost`: ActionResult
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdActionsPowerOnPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdActionsPowerOnPost(context.Background(), serverId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdActionsPowerOnPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdActionsPowerOnPost`: ActionResult
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdActionsPowerOnPost`: %v\n", resp)
 }
 ```
 
@@ -462,26 +462,26 @@ Provision server.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
-    serverProvision := *openapiclient.NewServerProvision("my-server-1", "ubuntu/bionic") // ServerProvision | 
-    force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	serverProvision := *openapiclient.NewServerProvision("my-server-1", "ubuntu/bionic") // ServerProvision | 
+	force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdActionsProvisionPost(context.Background(), serverId).ServerProvision(serverProvision).Force(force).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdActionsProvisionPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdActionsProvisionPost`: Server
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdActionsProvisionPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdActionsProvisionPost(context.Background(), serverId).ServerProvision(serverProvision).Force(force).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdActionsProvisionPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdActionsProvisionPost`: Server
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdActionsProvisionPost`: %v\n", resp)
 }
 ```
 
@@ -536,24 +536,24 @@ Reboot server.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdActionsRebootPost(context.Background(), serverId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdActionsRebootPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdActionsRebootPost`: ActionResult
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdActionsRebootPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdActionsRebootPost(context.Background(), serverId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdActionsRebootPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdActionsRebootPost`: ActionResult
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdActionsRebootPost`: %v\n", resp)
 }
 ```
 
@@ -606,25 +606,25 @@ Reserve server.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
-    serverReserve := *openapiclient.NewServerReserve("ONE_MONTH_RESERVATION") // ServerReserve | 
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	serverReserve := *openapiclient.NewServerReserve("ONE_MONTH_RESERVATION") // ServerReserve | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdActionsReservePost(context.Background(), serverId).ServerReserve(serverReserve).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdActionsReservePost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdActionsReservePost`: Server
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdActionsReservePost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdActionsReservePost(context.Background(), serverId).ServerReserve(serverReserve).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdActionsReservePost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdActionsReservePost`: Server
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdActionsReservePost`: %v\n", resp)
 }
 ```
 
@@ -678,25 +678,25 @@ Reset server.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
-    serverReset := *openapiclient.NewServerReset() // ServerReset | 
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	serverReset := *openapiclient.NewServerReset() // ServerReset | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdActionsResetPost(context.Background(), serverId).ServerReset(serverReset).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdActionsResetPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdActionsResetPost`: ResetResult
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdActionsResetPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdActionsResetPost(context.Background(), serverId).ServerReset(serverReset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdActionsResetPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdActionsResetPost`: ResetResult
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdActionsResetPost`: %v\n", resp)
 }
 ```
 
@@ -750,24 +750,24 @@ Shutdown server.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdActionsShutdownPost(context.Background(), serverId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdActionsShutdownPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdActionsShutdownPost`: ActionResult
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdActionsShutdownPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdActionsShutdownPost(context.Background(), serverId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdActionsShutdownPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdActionsShutdownPost`: ActionResult
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdActionsShutdownPost`: %v\n", resp)
 }
 ```
 
@@ -820,24 +820,24 @@ Delete server.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdDelete(context.Background(), serverId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdDelete`: DeleteResult
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdDelete`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdDelete(context.Background(), serverId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdDelete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdDelete`: DeleteResult
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdDelete`: %v\n", resp)
 }
 ```
 
@@ -890,24 +890,24 @@ Get server.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdGet(context.Background(), serverId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdGet`: Server
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdGet(context.Background(), serverId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdGet`: Server
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdGet`: %v\n", resp)
 }
 ```
 
@@ -960,26 +960,26 @@ Unassign IP Block from Server.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
-    ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
-    relinquishIpBlock := *openapiclient.NewRelinquishIpBlock() // RelinquishIpBlock | 
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
+	relinquishIpBlock := *openapiclient.NewRelinquishIpBlock() // RelinquishIpBlock | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdIpBlocksIpBlockIdDelete(context.Background(), serverId, ipBlockId).RelinquishIpBlock(relinquishIpBlock).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdIpBlocksIpBlockIdDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdIpBlocksIpBlockIdDelete`: string
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdIpBlocksIpBlockIdDelete`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdIpBlocksIpBlockIdDelete(context.Background(), serverId, ipBlockId).RelinquishIpBlock(relinquishIpBlock).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdIpBlocksIpBlockIdDelete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdIpBlocksIpBlockIdDelete`: string
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdIpBlocksIpBlockIdDelete`: %v\n", resp)
 }
 ```
 
@@ -1035,25 +1035,25 @@ Assign IP Block to Server.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
-    serverIpBlock := *openapiclient.NewServerIpBlock("60473a6115e34466c9f8f083") // ServerIpBlock | 
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	serverIpBlock := *openapiclient.NewServerIpBlock("60473a6115e34466c9f8f083") // ServerIpBlock | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdIpBlocksPost(context.Background(), serverId).ServerIpBlock(serverIpBlock).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdIpBlocksPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdIpBlocksPost`: ServerIpBlock
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdIpBlocksPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdIpBlocksPost(context.Background(), serverId).ServerIpBlock(serverIpBlock).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdIpBlocksPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdIpBlocksPost`: ServerIpBlock
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdIpBlocksPost`: %v\n", resp)
 }
 ```
 
@@ -1107,25 +1107,25 @@ Patch a Server.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
-    serverPatch := *openapiclient.NewServerPatch() // ServerPatch | 
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	serverPatch := *openapiclient.NewServerPatch() // ServerPatch | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdPatch(context.Background(), serverId).ServerPatch(serverPatch).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdPatch`: Server
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdPatch`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdPatch(context.Background(), serverId).ServerPatch(serverPatch).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdPatch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdPatch`: Server
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdPatch`: %v\n", resp)
 }
 ```
 
@@ -1179,27 +1179,27 @@ Updates the server's private network's IP addresses
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
-    privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
-    serverNetworkUpdate := *openapiclient.NewServerNetworkUpdate() // ServerNetworkUpdate | 
-    force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
+	serverNetworkUpdate := *openapiclient.NewServerNetworkUpdate() // ServerNetworkUpdate | 
+	force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdPrivateNetworksPatch(context.Background(), serverId, privateNetworkId).ServerNetworkUpdate(serverNetworkUpdate).Force(force).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPrivateNetworksPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdPrivateNetworksPatch`: ServerPrivateNetwork
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdPrivateNetworksPatch`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdPrivateNetworksPatch(context.Background(), serverId, privateNetworkId).ServerNetworkUpdate(serverNetworkUpdate).Force(force).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdPrivateNetworksPatch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdPrivateNetworksPatch`: ServerPrivateNetwork
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdPrivateNetworksPatch`: %v\n", resp)
 }
 ```
 
@@ -1256,26 +1256,26 @@ Adds the server to a private network.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
-    serverPrivateNetwork := *openapiclient.NewServerPrivateNetwork("603f3b2cfcaf050643b89a4b") // ServerPrivateNetwork | 
-    force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	serverPrivateNetwork := *openapiclient.NewServerPrivateNetwork("603f3b2cfcaf050643b89a4b") // ServerPrivateNetwork | 
+	force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdPrivateNetworksPost(context.Background(), serverId).ServerPrivateNetwork(serverPrivateNetwork).Force(force).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPrivateNetworksPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdPrivateNetworksPost`: ServerPrivateNetwork
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdPrivateNetworksPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdPrivateNetworksPost(context.Background(), serverId).ServerPrivateNetwork(serverPrivateNetwork).Force(force).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdPrivateNetworksPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdPrivateNetworksPost`: ServerPrivateNetwork
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdPrivateNetworksPost`: %v\n", resp)
 }
 ```
 
@@ -1330,25 +1330,25 @@ Removes the server from the Public Network
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
-    publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdPublicNetworksDelete(context.Background(), serverId, publicNetworkId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPublicNetworksDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdPublicNetworksDelete`: string
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdPublicNetworksDelete`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdPublicNetworksDelete(context.Background(), serverId, publicNetworkId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdPublicNetworksDelete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdPublicNetworksDelete`: string
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdPublicNetworksDelete`: %v\n", resp)
 }
 ```
 
@@ -1403,27 +1403,27 @@ Updates the server's public network's IP addresses.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
-    publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
-    serverNetworkUpdate := *openapiclient.NewServerNetworkUpdate() // ServerNetworkUpdate | 
-    force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
+	serverNetworkUpdate := *openapiclient.NewServerNetworkUpdate() // ServerNetworkUpdate | 
+	force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdPublicNetworksPatch(context.Background(), serverId, publicNetworkId).ServerNetworkUpdate(serverNetworkUpdate).Force(force).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPublicNetworksPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdPublicNetworksPatch`: ServerPublicNetwork
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdPublicNetworksPatch`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdPublicNetworksPatch(context.Background(), serverId, publicNetworkId).ServerNetworkUpdate(serverNetworkUpdate).Force(force).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdPublicNetworksPatch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdPublicNetworksPatch`: ServerPublicNetwork
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdPublicNetworksPatch`: %v\n", resp)
 }
 ```
 
@@ -1480,26 +1480,26 @@ Adds the server to a Public Network.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
-    serverPublicNetwork := *openapiclient.NewServerPublicNetwork("60473c2509268bc77fd06d29") // ServerPublicNetwork | 
-    force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	serverPublicNetwork := *openapiclient.NewServerPublicNetwork("60473c2509268bc77fd06d29") // ServerPublicNetwork | 
+	force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdPublicNetworksPost(context.Background(), serverId).ServerPublicNetwork(serverPublicNetwork).Force(force).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdPublicNetworksPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdPublicNetworksPost`: ServerPublicNetwork
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdPublicNetworksPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdPublicNetworksPost(context.Background(), serverId).ServerPublicNetwork(serverPublicNetwork).Force(force).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdPublicNetworksPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdPublicNetworksPost`: ServerPublicNetwork
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdPublicNetworksPost`: %v\n", resp)
 }
 ```
 
@@ -1554,25 +1554,25 @@ Overwrite tags assigned for Server.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
 func main() {
-    serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
-    tagAssignmentRequest := []openapiclient.TagAssignmentRequest{*openapiclient.NewTagAssignmentRequest("Environment")} // []TagAssignmentRequest | 
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	tagAssignmentRequest := []openapiclient.TagAssignmentRequest{*openapiclient.NewTagAssignmentRequest("Environment")} // []TagAssignmentRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.ServersServerIdTagsPut(context.Background(), serverId).TagAssignmentRequest(tagAssignmentRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.ServersServerIdTagsPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ServersServerIdTagsPut`: Server
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.ServersServerIdTagsPut`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdTagsPut(context.Background(), serverId).TagAssignmentRequest(tagAssignmentRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdTagsPut``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdTagsPut`: Server
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdTagsPut`: %v\n", resp)
 }
 ```
 

@@ -1,14 +1,14 @@
-# \PrivateNetworksApi
+# \PrivateNetworksAPI
 
 All URIs are relative to *https://api.phoenixnap.com/networks/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PrivateNetworksGet**](PrivateNetworksApi.md#PrivateNetworksGet) | **Get** /private-networks | List Private Networks.
-[**PrivateNetworksNetworkIdDelete**](PrivateNetworksApi.md#PrivateNetworksNetworkIdDelete) | **Delete** /private-networks/{privateNetworkId} | Delete a Private Network.
-[**PrivateNetworksNetworkIdGet**](PrivateNetworksApi.md#PrivateNetworksNetworkIdGet) | **Get** /private-networks/{privateNetworkId} | Get a Private Network.
-[**PrivateNetworksNetworkIdPut**](PrivateNetworksApi.md#PrivateNetworksNetworkIdPut) | **Put** /private-networks/{privateNetworkId} | Update a Private Network.
-[**PrivateNetworksPost**](PrivateNetworksApi.md#PrivateNetworksPost) | **Post** /private-networks | Create a Private Network.
+[**PrivateNetworksGet**](PrivateNetworksAPI.md#PrivateNetworksGet) | **Get** /private-networks | List Private Networks.
+[**PrivateNetworksNetworkIdDelete**](PrivateNetworksAPI.md#PrivateNetworksNetworkIdDelete) | **Delete** /private-networks/{privateNetworkId} | Delete a Private Network.
+[**PrivateNetworksNetworkIdGet**](PrivateNetworksAPI.md#PrivateNetworksNetworkIdGet) | **Get** /private-networks/{privateNetworkId} | Get a Private Network.
+[**PrivateNetworksNetworkIdPut**](PrivateNetworksAPI.md#PrivateNetworksNetworkIdPut) | **Put** /private-networks/{privateNetworkId} | Update a Private Network.
+[**PrivateNetworksPost**](PrivateNetworksAPI.md#PrivateNetworksPost) | **Post** /private-networks | Create a Private Network.
 
 
 
@@ -26,24 +26,24 @@ List Private Networks.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi"
 )
 
 func main() {
-    location := "PHX" // string | If present will filter the result by the given location of the Private Networks. (optional)
+	location := "PHX" // string | If present will filter the result by the given location of the Private Networks. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksGet(context.Background()).Location(location).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PrivateNetworksGet`: []PrivateNetwork
-    fmt.Fprintf(os.Stdout, "Response from `PrivateNetworksApi.PrivateNetworksGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PrivateNetworksAPI.PrivateNetworksGet(context.Background()).Location(location).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksAPI.PrivateNetworksGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PrivateNetworksGet`: []PrivateNetwork
+	fmt.Fprintf(os.Stdout, "Response from `PrivateNetworksAPI.PrivateNetworksGet`: %v\n", resp)
 }
 ```
 
@@ -92,22 +92,22 @@ Delete a Private Network.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi"
 )
 
 func main() {
-    privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
+	privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdDelete(context.Background(), privateNetworkId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksNetworkIdDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PrivateNetworksAPI.PrivateNetworksNetworkIdDelete(context.Background(), privateNetworkId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksAPI.PrivateNetworksNetworkIdDelete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -160,24 +160,24 @@ Get a Private Network.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi"
 )
 
 func main() {
-    privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
+	privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdGet(context.Background(), privateNetworkId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksNetworkIdGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PrivateNetworksNetworkIdGet`: PrivateNetwork
-    fmt.Fprintf(os.Stdout, "Response from `PrivateNetworksApi.PrivateNetworksNetworkIdGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PrivateNetworksAPI.PrivateNetworksNetworkIdGet(context.Background(), privateNetworkId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksAPI.PrivateNetworksNetworkIdGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PrivateNetworksNetworkIdGet`: PrivateNetwork
+	fmt.Fprintf(os.Stdout, "Response from `PrivateNetworksAPI.PrivateNetworksNetworkIdGet`: %v\n", resp)
 }
 ```
 
@@ -230,25 +230,25 @@ Update a Private Network.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi"
 )
 
 func main() {
-    privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
-    privateNetworkModify := *openapiclient.NewPrivateNetworkModify("Sample network", true) // PrivateNetworkModify | 
+	privateNetworkId := "603f3b2cfcaf050643b89a4b" // string | The private network identifier.
+	privateNetworkModify := *openapiclient.NewPrivateNetworkModify("Sample network", true) // PrivateNetworkModify | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksNetworkIdPut(context.Background(), privateNetworkId).PrivateNetworkModify(privateNetworkModify).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksNetworkIdPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PrivateNetworksNetworkIdPut`: PrivateNetwork
-    fmt.Fprintf(os.Stdout, "Response from `PrivateNetworksApi.PrivateNetworksNetworkIdPut`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PrivateNetworksAPI.PrivateNetworksNetworkIdPut(context.Background(), privateNetworkId).PrivateNetworkModify(privateNetworkModify).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksAPI.PrivateNetworksNetworkIdPut``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PrivateNetworksNetworkIdPut`: PrivateNetwork
+	fmt.Fprintf(os.Stdout, "Response from `PrivateNetworksAPI.PrivateNetworksNetworkIdPut`: %v\n", resp)
 }
 ```
 
@@ -302,25 +302,25 @@ Create a Private Network.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi"
 )
 
 func main() {
-    privateNetworkCreate := *openapiclient.NewPrivateNetworkCreate("Sample Network", "PHX") // PrivateNetworkCreate | 
-    force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
+	privateNetworkCreate := *openapiclient.NewPrivateNetworkCreate("Sample Network", "PHX") // PrivateNetworkCreate | 
+	force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrivateNetworksApi.PrivateNetworksPost(context.Background()).PrivateNetworkCreate(privateNetworkCreate).Force(force).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksApi.PrivateNetworksPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PrivateNetworksPost`: PrivateNetwork
-    fmt.Fprintf(os.Stdout, "Response from `PrivateNetworksApi.PrivateNetworksPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PrivateNetworksAPI.PrivateNetworksPost(context.Background()).PrivateNetworkCreate(privateNetworkCreate).Force(force).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PrivateNetworksAPI.PrivateNetworksPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PrivateNetworksPost`: PrivateNetwork
+	fmt.Fprintf(os.Stdout, "Response from `PrivateNetworksAPI.PrivateNetworksPost`: %v\n", resp)
 }
 ```
 
