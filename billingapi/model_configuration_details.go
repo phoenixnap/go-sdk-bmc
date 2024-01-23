@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ConfigurationDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ConfigurationDetails{}
+
 // ConfigurationDetails Billing configuration details.
 type ConfigurationDetails struct {
 	ThresholdConfiguration *ThresholdConfigurationDetails `json:"thresholdConfiguration,omitempty"`
@@ -39,7 +42,7 @@ func NewConfigurationDetailsWithDefaults() *ConfigurationDetails {
 
 // GetThresholdConfiguration returns the ThresholdConfiguration field value if set, zero value otherwise.
 func (o *ConfigurationDetails) GetThresholdConfiguration() ThresholdConfigurationDetails {
-	if o == nil || o.ThresholdConfiguration == nil {
+	if o == nil || IsNil(o.ThresholdConfiguration) {
 		var ret ThresholdConfigurationDetails
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *ConfigurationDetails) GetThresholdConfiguration() ThresholdConfiguratio
 // GetThresholdConfigurationOk returns a tuple with the ThresholdConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ConfigurationDetails) GetThresholdConfigurationOk() (*ThresholdConfigurationDetails, bool) {
-	if o == nil || o.ThresholdConfiguration == nil {
+	if o == nil || IsNil(o.ThresholdConfiguration) {
 		return nil, false
 	}
 	return o.ThresholdConfiguration, true
@@ -57,7 +60,7 @@ func (o *ConfigurationDetails) GetThresholdConfigurationOk() (*ThresholdConfigur
 
 // HasThresholdConfiguration returns a boolean if a field has been set.
 func (o *ConfigurationDetails) HasThresholdConfiguration() bool {
-	if o != nil && o.ThresholdConfiguration != nil {
+	if o != nil && !IsNil(o.ThresholdConfiguration) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *ConfigurationDetails) SetThresholdConfiguration(v ThresholdConfiguratio
 }
 
 func (o ConfigurationDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ThresholdConfiguration != nil {
-		toSerialize["thresholdConfiguration"] = o.ThresholdConfiguration
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ConfigurationDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ThresholdConfiguration) {
+		toSerialize["thresholdConfiguration"] = o.ThresholdConfiguration
+	}
+	return toSerialize, nil
 }
 
 type NullableConfigurationDetails struct {

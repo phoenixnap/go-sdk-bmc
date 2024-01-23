@@ -43,7 +43,7 @@ func (dst *ProductsGet200ResponseInner) UnmarshalJSON(data []byte) error {
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'BANDWIDTH'
@@ -54,7 +54,7 @@ func (dst *ProductsGet200ResponseInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.Product, return on the first match
 		} else {
 			dst.Product = nil
-			return fmt.Errorf("Failed to unmarshal ProductsGet200ResponseInner as Product: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ProductsGet200ResponseInner as Product: %s", err.Error())
 		}
 	}
 
@@ -66,7 +66,7 @@ func (dst *ProductsGet200ResponseInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.Product, return on the first match
 		} else {
 			dst.Product = nil
-			return fmt.Errorf("Failed to unmarshal ProductsGet200ResponseInner as Product: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ProductsGet200ResponseInner as Product: %s", err.Error())
 		}
 	}
 
@@ -78,19 +78,7 @@ func (dst *ProductsGet200ResponseInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.Product, return on the first match
 		} else {
 			dst.Product = nil
-			return fmt.Errorf("Failed to unmarshal ProductsGet200ResponseInner as Product: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'Product'
-	if jsonDict["productCategory"] == "Product" {
-		// try to unmarshal JSON data into Product
-		err = json.Unmarshal(data, &dst.Product)
-		if err == nil {
-			return nil // data stored in dst.Product, return on the first match
-		} else {
-			dst.Product = nil
-			return fmt.Errorf("Failed to unmarshal ProductsGet200ResponseInner as Product: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ProductsGet200ResponseInner as Product: %s", err.Error())
 		}
 	}
 
@@ -102,7 +90,7 @@ func (dst *ProductsGet200ResponseInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.ServerProduct, return on the first match
 		} else {
 			dst.ServerProduct = nil
-			return fmt.Errorf("Failed to unmarshal ProductsGet200ResponseInner as ServerProduct: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ProductsGet200ResponseInner as ServerProduct: %s", err.Error())
 		}
 	}
 
@@ -114,7 +102,19 @@ func (dst *ProductsGet200ResponseInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.Product, return on the first match
 		} else {
 			dst.Product = nil
-			return fmt.Errorf("Failed to unmarshal ProductsGet200ResponseInner as Product: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ProductsGet200ResponseInner as Product: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'Product'
+	if jsonDict["productCategory"] == "Product" {
+		// try to unmarshal JSON data into Product
+		err = json.Unmarshal(data, &dst.Product)
+		if err == nil {
+			return nil // data stored in dst.Product, return on the first match
+		} else {
+			dst.Product = nil
+			return fmt.Errorf("failed to unmarshal ProductsGet200ResponseInner as Product: %s", err.Error())
 		}
 	}
 
@@ -126,7 +126,7 @@ func (dst *ProductsGet200ResponseInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.ServerProduct, return on the first match
 		} else {
 			dst.ServerProduct = nil
-			return fmt.Errorf("Failed to unmarshal ProductsGet200ResponseInner as ServerProduct: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ProductsGet200ResponseInner as ServerProduct: %s", err.Error())
 		}
 	}
 

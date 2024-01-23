@@ -86,26 +86,21 @@ All URIs are relative to *https://api.phoenixnap.com/solutions/rancher/v1beta*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ClustersApi* | [**ClustersGet**](docs/ClustersApi.md#clustersget) | **Get** /clusters | Cluster list.
-*ClustersApi* | [**ClustersIdDelete**](docs/ClustersApi.md#clustersiddelete) | **Delete** /clusters/{id} | Delete a cluster.
-*ClustersApi* | [**ClustersIdGet**](docs/ClustersApi.md#clustersidget) | **Get** /clusters/{id} | Retrieve a Cluster
-*ClustersApi* | [**ClustersPost**](docs/ClustersApi.md#clusterspost) | **Post** /clusters | Create a Rancher Server Deployment.
+*ClustersAPI* | [**ClustersGet**](docs/ClustersAPI.md#clustersget) | **Get** /clusters | Cluster list.
+*ClustersAPI* | [**ClustersIdDelete**](docs/ClustersAPI.md#clustersiddelete) | **Delete** /clusters/{id} | Delete a cluster.
+*ClustersAPI* | [**ClustersIdGet**](docs/ClustersAPI.md#clustersidget) | **Get** /clusters/{id} | Retrieve a Cluster
+*ClustersAPI* | [**ClustersPost**](docs/ClustersAPI.md#clusterspost) | **Post** /clusters | Create a Rancher Server Deployment.
 
 
 ## Documentation For Models
 
  - [Cluster](docs/Cluster.md)
- - [ClusterConfiguration](docs/ClusterConfiguration.md)
- - [ClusterMetadata](docs/ClusterMetadata.md)
- - [ClusterWorkloadConfiguration](docs/ClusterWorkloadConfiguration.md)
  - [DeleteResult](docs/DeleteResult.md)
  - [Error](docs/Error.md)
  - [Node](docs/Node.md)
  - [NodePool](docs/NodePool.md)
- - [NodePoolSshConfig](docs/NodePoolSshConfig.md)
  - [RancherClusterCertificates](docs/RancherClusterCertificates.md)
  - [RancherClusterConfig](docs/RancherClusterConfig.md)
- - [RancherClusterConfigCertificates](docs/RancherClusterConfigCertificates.md)
  - [RancherServerMetadata](docs/RancherServerMetadata.md)
  - [SshConfig](docs/SshConfig.md)
  - [WorkloadClusterConfig](docs/WorkloadClusterConfig.md)

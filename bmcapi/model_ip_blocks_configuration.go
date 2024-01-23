@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the IpBlocksConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IpBlocksConfiguration{}
+
 // IpBlocksConfiguration The IP blocks to assign to this server. <b>This is an exclusive allocation</b>, i.e. the IP blocks cannot be shared with other servers. If IpBlocksConfiguration is not defined, the purchase of a new IP block is determined by the networkType field.
 type IpBlocksConfiguration struct {
 	// (Write-only) Determines the approach for configuring IP blocks for the server being provisioned. If PURCHASE_NEW is selected, the smallest supported range, depending on the operating system, is allocated to the server.
@@ -46,7 +49,7 @@ func NewIpBlocksConfigurationWithDefaults() *IpBlocksConfiguration {
 
 // GetConfigurationType returns the ConfigurationType field value if set, zero value otherwise.
 func (o *IpBlocksConfiguration) GetConfigurationType() string {
-	if o == nil || o.ConfigurationType == nil {
+	if o == nil || IsNil(o.ConfigurationType) {
 		var ret string
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *IpBlocksConfiguration) GetConfigurationType() string {
 // GetConfigurationTypeOk returns a tuple with the ConfigurationType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IpBlocksConfiguration) GetConfigurationTypeOk() (*string, bool) {
-	if o == nil || o.ConfigurationType == nil {
+	if o == nil || IsNil(o.ConfigurationType) {
 		return nil, false
 	}
 	return o.ConfigurationType, true
@@ -64,7 +67,7 @@ func (o *IpBlocksConfiguration) GetConfigurationTypeOk() (*string, bool) {
 
 // HasConfigurationType returns a boolean if a field has been set.
 func (o *IpBlocksConfiguration) HasConfigurationType() bool {
-	if o != nil && o.ConfigurationType != nil {
+	if o != nil && !IsNil(o.ConfigurationType) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *IpBlocksConfiguration) SetConfigurationType(v string) {
 
 // GetIpBlocks returns the IpBlocks field value if set, zero value otherwise.
 func (o *IpBlocksConfiguration) GetIpBlocks() []ServerIpBlock {
-	if o == nil || o.IpBlocks == nil {
+	if o == nil || IsNil(o.IpBlocks) {
 		var ret []ServerIpBlock
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *IpBlocksConfiguration) GetIpBlocks() []ServerIpBlock {
 // GetIpBlocksOk returns a tuple with the IpBlocks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IpBlocksConfiguration) GetIpBlocksOk() ([]ServerIpBlock, bool) {
-	if o == nil || o.IpBlocks == nil {
+	if o == nil || IsNil(o.IpBlocks) {
 		return nil, false
 	}
 	return o.IpBlocks, true
@@ -96,7 +99,7 @@ func (o *IpBlocksConfiguration) GetIpBlocksOk() ([]ServerIpBlock, bool) {
 
 // HasIpBlocks returns a boolean if a field has been set.
 func (o *IpBlocksConfiguration) HasIpBlocks() bool {
-	if o != nil && o.IpBlocks != nil {
+	if o != nil && !IsNil(o.IpBlocks) {
 		return true
 	}
 
@@ -109,14 +112,22 @@ func (o *IpBlocksConfiguration) SetIpBlocks(v []ServerIpBlock) {
 }
 
 func (o IpBlocksConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ConfigurationType != nil {
-		toSerialize["configurationType"] = o.ConfigurationType
-	}
-	if o.IpBlocks != nil {
-		toSerialize["ipBlocks"] = o.IpBlocks
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o IpBlocksConfiguration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ConfigurationType) {
+		toSerialize["configurationType"] = o.ConfigurationType
+	}
+	if !IsNil(o.IpBlocks) {
+		toSerialize["ipBlocks"] = o.IpBlocks
+	}
+	return toSerialize, nil
 }
 
 type NullableIpBlocksConfiguration struct {

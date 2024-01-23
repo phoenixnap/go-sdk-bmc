@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OsConfigurationMap type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OsConfigurationMap{}
+
 // OsConfigurationMap OS specific configuration properties.
 type OsConfigurationMap struct {
 	Windows *OsConfigurationWindows    `json:"windows,omitempty"`
@@ -41,7 +44,7 @@ func NewOsConfigurationMapWithDefaults() *OsConfigurationMap {
 
 // GetWindows returns the Windows field value if set, zero value otherwise.
 func (o *OsConfigurationMap) GetWindows() OsConfigurationWindows {
-	if o == nil || o.Windows == nil {
+	if o == nil || IsNil(o.Windows) {
 		var ret OsConfigurationWindows
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *OsConfigurationMap) GetWindows() OsConfigurationWindows {
 // GetWindowsOk returns a tuple with the Windows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfigurationMap) GetWindowsOk() (*OsConfigurationWindows, bool) {
-	if o == nil || o.Windows == nil {
+	if o == nil || IsNil(o.Windows) {
 		return nil, false
 	}
 	return o.Windows, true
@@ -59,7 +62,7 @@ func (o *OsConfigurationMap) GetWindowsOk() (*OsConfigurationWindows, bool) {
 
 // HasWindows returns a boolean if a field has been set.
 func (o *OsConfigurationMap) HasWindows() bool {
-	if o != nil && o.Windows != nil {
+	if o != nil && !IsNil(o.Windows) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *OsConfigurationMap) SetWindows(v OsConfigurationWindows) {
 
 // GetEsxi returns the Esxi field value if set, zero value otherwise.
 func (o *OsConfigurationMap) GetEsxi() OsConfigurationMapEsxi {
-	if o == nil || o.Esxi == nil {
+	if o == nil || IsNil(o.Esxi) {
 		var ret OsConfigurationMapEsxi
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *OsConfigurationMap) GetEsxi() OsConfigurationMapEsxi {
 // GetEsxiOk returns a tuple with the Esxi field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfigurationMap) GetEsxiOk() (*OsConfigurationMapEsxi, bool) {
-	if o == nil || o.Esxi == nil {
+	if o == nil || IsNil(o.Esxi) {
 		return nil, false
 	}
 	return o.Esxi, true
@@ -91,7 +94,7 @@ func (o *OsConfigurationMap) GetEsxiOk() (*OsConfigurationMapEsxi, bool) {
 
 // HasEsxi returns a boolean if a field has been set.
 func (o *OsConfigurationMap) HasEsxi() bool {
-	if o != nil && o.Esxi != nil {
+	if o != nil && !IsNil(o.Esxi) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *OsConfigurationMap) SetEsxi(v OsConfigurationMapEsxi) {
 
 // GetProxmox returns the Proxmox field value if set, zero value otherwise.
 func (o *OsConfigurationMap) GetProxmox() OsConfigurationMapProxmox {
-	if o == nil || o.Proxmox == nil {
+	if o == nil || IsNil(o.Proxmox) {
 		var ret OsConfigurationMapProxmox
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *OsConfigurationMap) GetProxmox() OsConfigurationMapProxmox {
 // GetProxmoxOk returns a tuple with the Proxmox field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfigurationMap) GetProxmoxOk() (*OsConfigurationMapProxmox, bool) {
-	if o == nil || o.Proxmox == nil {
+	if o == nil || IsNil(o.Proxmox) {
 		return nil, false
 	}
 	return o.Proxmox, true
@@ -123,7 +126,7 @@ func (o *OsConfigurationMap) GetProxmoxOk() (*OsConfigurationMapProxmox, bool) {
 
 // HasProxmox returns a boolean if a field has been set.
 func (o *OsConfigurationMap) HasProxmox() bool {
-	if o != nil && o.Proxmox != nil {
+	if o != nil && !IsNil(o.Proxmox) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *OsConfigurationMap) SetProxmox(v OsConfigurationMapProxmox) {
 }
 
 func (o OsConfigurationMap) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Windows != nil {
-		toSerialize["windows"] = o.Windows
-	}
-	if o.Esxi != nil {
-		toSerialize["esxi"] = o.Esxi
-	}
-	if o.Proxmox != nil {
-		toSerialize["proxmox"] = o.Proxmox
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OsConfigurationMap) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Windows) {
+		toSerialize["windows"] = o.Windows
+	}
+	if !IsNil(o.Esxi) {
+		toSerialize["esxi"] = o.Esxi
+	}
+	if !IsNil(o.Proxmox) {
+		toSerialize["proxmox"] = o.Proxmox
+	}
+	return toSerialize, nil
 }
 
 type NullableOsConfigurationMap struct {

@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the StorageNetwork type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StorageNetwork{}
+
 // StorageNetwork Storage network.
 type StorageNetwork struct {
 	// Storage network ID.
@@ -58,7 +61,7 @@ func NewStorageNetworkWithDefaults() *StorageNetwork {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *StorageNetwork) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *StorageNetwork) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageNetwork) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -76,7 +79,7 @@ func (o *StorageNetwork) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *StorageNetwork) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *StorageNetwork) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *StorageNetwork) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *StorageNetwork) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageNetwork) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -108,7 +111,7 @@ func (o *StorageNetwork) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *StorageNetwork) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *StorageNetwork) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *StorageNetwork) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *StorageNetwork) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageNetwork) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -140,7 +143,7 @@ func (o *StorageNetwork) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *StorageNetwork) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *StorageNetwork) SetDescription(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *StorageNetwork) GetStatus() Status {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret Status
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *StorageNetwork) GetStatus() Status {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageNetwork) GetStatusOk() (*Status, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -172,7 +175,7 @@ func (o *StorageNetwork) GetStatusOk() (*Status, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *StorageNetwork) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -186,7 +189,7 @@ func (o *StorageNetwork) SetStatus(v Status) {
 
 // GetLocation returns the Location field value if set, zero value otherwise.
 func (o *StorageNetwork) GetLocation() string {
-	if o == nil || o.Location == nil {
+	if o == nil || IsNil(o.Location) {
 		var ret string
 		return ret
 	}
@@ -196,7 +199,7 @@ func (o *StorageNetwork) GetLocation() string {
 // GetLocationOk returns a tuple with the Location field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageNetwork) GetLocationOk() (*string, bool) {
-	if o == nil || o.Location == nil {
+	if o == nil || IsNil(o.Location) {
 		return nil, false
 	}
 	return o.Location, true
@@ -204,7 +207,7 @@ func (o *StorageNetwork) GetLocationOk() (*string, bool) {
 
 // HasLocation returns a boolean if a field has been set.
 func (o *StorageNetwork) HasLocation() bool {
-	if o != nil && o.Location != nil {
+	if o != nil && !IsNil(o.Location) {
 		return true
 	}
 
@@ -218,7 +221,7 @@ func (o *StorageNetwork) SetLocation(v string) {
 
 // GetNetworkId returns the NetworkId field value if set, zero value otherwise.
 func (o *StorageNetwork) GetNetworkId() string {
-	if o == nil || o.NetworkId == nil {
+	if o == nil || IsNil(o.NetworkId) {
 		var ret string
 		return ret
 	}
@@ -228,7 +231,7 @@ func (o *StorageNetwork) GetNetworkId() string {
 // GetNetworkIdOk returns a tuple with the NetworkId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageNetwork) GetNetworkIdOk() (*string, bool) {
-	if o == nil || o.NetworkId == nil {
+	if o == nil || IsNil(o.NetworkId) {
 		return nil, false
 	}
 	return o.NetworkId, true
@@ -236,7 +239,7 @@ func (o *StorageNetwork) GetNetworkIdOk() (*string, bool) {
 
 // HasNetworkId returns a boolean if a field has been set.
 func (o *StorageNetwork) HasNetworkId() bool {
-	if o != nil && o.NetworkId != nil {
+	if o != nil && !IsNil(o.NetworkId) {
 		return true
 	}
 
@@ -250,7 +253,7 @@ func (o *StorageNetwork) SetNetworkId(v string) {
 
 // GetIps returns the Ips field value if set, zero value otherwise.
 func (o *StorageNetwork) GetIps() []string {
-	if o == nil || o.Ips == nil {
+	if o == nil || IsNil(o.Ips) {
 		var ret []string
 		return ret
 	}
@@ -260,7 +263,7 @@ func (o *StorageNetwork) GetIps() []string {
 // GetIpsOk returns a tuple with the Ips field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageNetwork) GetIpsOk() ([]string, bool) {
-	if o == nil || o.Ips == nil {
+	if o == nil || IsNil(o.Ips) {
 		return nil, false
 	}
 	return o.Ips, true
@@ -268,7 +271,7 @@ func (o *StorageNetwork) GetIpsOk() ([]string, bool) {
 
 // HasIps returns a boolean if a field has been set.
 func (o *StorageNetwork) HasIps() bool {
-	if o != nil && o.Ips != nil {
+	if o != nil && !IsNil(o.Ips) {
 		return true
 	}
 
@@ -282,7 +285,7 @@ func (o *StorageNetwork) SetIps(v []string) {
 
 // GetCreatedOn returns the CreatedOn field value if set, zero value otherwise.
 func (o *StorageNetwork) GetCreatedOn() time.Time {
-	if o == nil || o.CreatedOn == nil {
+	if o == nil || IsNil(o.CreatedOn) {
 		var ret time.Time
 		return ret
 	}
@@ -292,7 +295,7 @@ func (o *StorageNetwork) GetCreatedOn() time.Time {
 // GetCreatedOnOk returns a tuple with the CreatedOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageNetwork) GetCreatedOnOk() (*time.Time, bool) {
-	if o == nil || o.CreatedOn == nil {
+	if o == nil || IsNil(o.CreatedOn) {
 		return nil, false
 	}
 	return o.CreatedOn, true
@@ -300,7 +303,7 @@ func (o *StorageNetwork) GetCreatedOnOk() (*time.Time, bool) {
 
 // HasCreatedOn returns a boolean if a field has been set.
 func (o *StorageNetwork) HasCreatedOn() bool {
-	if o != nil && o.CreatedOn != nil {
+	if o != nil && !IsNil(o.CreatedOn) {
 		return true
 	}
 
@@ -314,7 +317,7 @@ func (o *StorageNetwork) SetCreatedOn(v time.Time) {
 
 // GetDeleteRequestedOn returns the DeleteRequestedOn field value if set, zero value otherwise.
 func (o *StorageNetwork) GetDeleteRequestedOn() time.Time {
-	if o == nil || o.DeleteRequestedOn == nil {
+	if o == nil || IsNil(o.DeleteRequestedOn) {
 		var ret time.Time
 		return ret
 	}
@@ -324,7 +327,7 @@ func (o *StorageNetwork) GetDeleteRequestedOn() time.Time {
 // GetDeleteRequestedOnOk returns a tuple with the DeleteRequestedOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageNetwork) GetDeleteRequestedOnOk() (*time.Time, bool) {
-	if o == nil || o.DeleteRequestedOn == nil {
+	if o == nil || IsNil(o.DeleteRequestedOn) {
 		return nil, false
 	}
 	return o.DeleteRequestedOn, true
@@ -332,7 +335,7 @@ func (o *StorageNetwork) GetDeleteRequestedOnOk() (*time.Time, bool) {
 
 // HasDeleteRequestedOn returns a boolean if a field has been set.
 func (o *StorageNetwork) HasDeleteRequestedOn() bool {
-	if o != nil && o.DeleteRequestedOn != nil {
+	if o != nil && !IsNil(o.DeleteRequestedOn) {
 		return true
 	}
 
@@ -346,7 +349,7 @@ func (o *StorageNetwork) SetDeleteRequestedOn(v time.Time) {
 
 // GetVolumes returns the Volumes field value if set, zero value otherwise.
 func (o *StorageNetwork) GetVolumes() []Volume {
-	if o == nil || o.Volumes == nil {
+	if o == nil || IsNil(o.Volumes) {
 		var ret []Volume
 		return ret
 	}
@@ -356,7 +359,7 @@ func (o *StorageNetwork) GetVolumes() []Volume {
 // GetVolumesOk returns a tuple with the Volumes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageNetwork) GetVolumesOk() ([]Volume, bool) {
-	if o == nil || o.Volumes == nil {
+	if o == nil || IsNil(o.Volumes) {
 		return nil, false
 	}
 	return o.Volumes, true
@@ -364,7 +367,7 @@ func (o *StorageNetwork) GetVolumesOk() ([]Volume, bool) {
 
 // HasVolumes returns a boolean if a field has been set.
 func (o *StorageNetwork) HasVolumes() bool {
-	if o != nil && o.Volumes != nil {
+	if o != nil && !IsNil(o.Volumes) {
 		return true
 	}
 
@@ -377,38 +380,46 @@ func (o *StorageNetwork) SetVolumes(v []Volume) {
 }
 
 func (o StorageNetwork) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.Location != nil {
-		toSerialize["location"] = o.Location
-	}
-	if o.NetworkId != nil {
-		toSerialize["networkId"] = o.NetworkId
-	}
-	if o.Ips != nil {
-		toSerialize["ips"] = o.Ips
-	}
-	if o.CreatedOn != nil {
-		toSerialize["createdOn"] = o.CreatedOn
-	}
-	if o.DeleteRequestedOn != nil {
-		toSerialize["deleteRequestedOn"] = o.DeleteRequestedOn
-	}
-	if o.Volumes != nil {
-		toSerialize["volumes"] = o.Volumes
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StorageNetwork) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Location) {
+		toSerialize["location"] = o.Location
+	}
+	if !IsNil(o.NetworkId) {
+		toSerialize["networkId"] = o.NetworkId
+	}
+	if !IsNil(o.Ips) {
+		toSerialize["ips"] = o.Ips
+	}
+	if !IsNil(o.CreatedOn) {
+		toSerialize["createdOn"] = o.CreatedOn
+	}
+	if !IsNil(o.DeleteRequestedOn) {
+		toSerialize["deleteRequestedOn"] = o.DeleteRequestedOn
+	}
+	if !IsNil(o.Volumes) {
+		toSerialize["volumes"] = o.Volumes
+	}
+	return toSerialize, nil
 }
 
 type NullableStorageNetwork struct {

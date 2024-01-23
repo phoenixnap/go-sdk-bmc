@@ -50,7 +50,7 @@ type APIClient struct {
 
 	// API Services
 
-	ClustersApi ClustersApi
+	ClustersAPI ClustersAPI
 }
 
 type service struct {
@@ -69,7 +69,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.ClustersApi = (*ClustersApiService)(&c.common)
+	c.ClustersAPI = (*ClustersAPIService)(&c.common)
 
 	return c
 }

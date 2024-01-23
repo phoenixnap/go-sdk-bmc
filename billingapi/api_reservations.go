@@ -14,13 +14,13 @@ package billingapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-type ReservationsApi interface {
+type ReservationsAPI interface {
 
 	/*
 		ReservationsGet List all Reservations.
@@ -111,12 +111,12 @@ type ReservationsApi interface {
 	ReservationsReservationIdGetExecute(r ApiReservationsReservationIdGetRequest) (*Reservation, *http.Response, error)
 }
 
-// ReservationsApiService ReservationsApi service
-type ReservationsApiService service
+// ReservationsAPIService ReservationsAPI service
+type ReservationsAPIService service
 
 type ApiReservationsGetRequest struct {
 	ctx             context.Context
-	ApiService      ReservationsApi
+	ApiService      ReservationsAPI
 	productCategory *ProductCategoryEnum
 }
 
@@ -138,7 +138,7 @@ Retrieves all reservations associated with the authenticated account. All date &
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiReservationsGetRequest
 */
-func (a *ReservationsApiService) ReservationsGet(ctx context.Context) ApiReservationsGetRequest {
+func (a *ReservationsAPIService) ReservationsGet(ctx context.Context) ApiReservationsGetRequest {
 	return ApiReservationsGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -147,7 +147,7 @@ func (a *ReservationsApiService) ReservationsGet(ctx context.Context) ApiReserva
 
 // Execute executes the request
 //  @return []Reservation
-func (a *ReservationsApiService) ReservationsGetExecute(r ApiReservationsGetRequest) ([]Reservation, *http.Response, error) {
+func (a *ReservationsAPIService) ReservationsGetExecute(r ApiReservationsGetRequest) ([]Reservation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -155,7 +155,7 @@ func (a *ReservationsApiService) ReservationsGetExecute(r ApiReservationsGetRequ
 		localVarReturnValue []Reservation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReservationsApiService.ReservationsGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReservationsAPIService.ReservationsGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -167,7 +167,7 @@ func (a *ReservationsApiService) ReservationsGetExecute(r ApiReservationsGetRequ
 	localVarFormParams := url.Values{}
 
 	if r.productCategory != nil {
-		localVarQueryParams.Add("productCategory", parameterToString(*r.productCategory, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -196,9 +196,9 @@ func (a *ReservationsApiService) ReservationsGetExecute(r ApiReservationsGetRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -215,6 +215,7 @@ func (a *ReservationsApiService) ReservationsGetExecute(r ApiReservationsGetRequ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -225,6 +226,7 @@ func (a *ReservationsApiService) ReservationsGetExecute(r ApiReservationsGetRequ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -235,6 +237,7 @@ func (a *ReservationsApiService) ReservationsGetExecute(r ApiReservationsGetRequ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -254,7 +257,7 @@ func (a *ReservationsApiService) ReservationsGetExecute(r ApiReservationsGetRequ
 
 type ApiReservationsPostRequest struct {
 	ctx                context.Context
-	ApiService         ReservationsApi
+	ApiService         ReservationsAPI
 	reservationRequest *ReservationRequest
 }
 
@@ -275,7 +278,7 @@ Creates new package reservation for authenticated account.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiReservationsPostRequest
 */
-func (a *ReservationsApiService) ReservationsPost(ctx context.Context) ApiReservationsPostRequest {
+func (a *ReservationsAPIService) ReservationsPost(ctx context.Context) ApiReservationsPostRequest {
 	return ApiReservationsPostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -284,7 +287,7 @@ func (a *ReservationsApiService) ReservationsPost(ctx context.Context) ApiReserv
 
 // Execute executes the request
 //  @return Reservation
-func (a *ReservationsApiService) ReservationsPostExecute(r ApiReservationsPostRequest) (*Reservation, *http.Response, error) {
+func (a *ReservationsAPIService) ReservationsPostExecute(r ApiReservationsPostRequest) (*Reservation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -292,7 +295,7 @@ func (a *ReservationsApiService) ReservationsPostExecute(r ApiReservationsPostRe
 		localVarReturnValue *Reservation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReservationsApiService.ReservationsPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReservationsAPIService.ReservationsPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -332,9 +335,9 @@ func (a *ReservationsApiService) ReservationsPostExecute(r ApiReservationsPostRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -351,6 +354,7 @@ func (a *ReservationsApiService) ReservationsPostExecute(r ApiReservationsPostRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -361,6 +365,7 @@ func (a *ReservationsApiService) ReservationsPostExecute(r ApiReservationsPostRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -371,6 +376,7 @@ func (a *ReservationsApiService) ReservationsPostExecute(r ApiReservationsPostRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -381,6 +387,7 @@ func (a *ReservationsApiService) ReservationsPostExecute(r ApiReservationsPostRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -400,7 +407,7 @@ func (a *ReservationsApiService) ReservationsPostExecute(r ApiReservationsPostRe
 
 type ApiReservationsReservationIdActionsAutoRenewDisablePostRequest struct {
 	ctx                                context.Context
-	ApiService                         ReservationsApi
+	ApiService                         ReservationsAPI
 	reservationId                      string
 	reservationAutoRenewDisableRequest *ReservationAutoRenewDisableRequest
 }
@@ -423,7 +430,7 @@ Disable auto-renewal for reservation by reservation id.
  @param reservationId The reservation's ID.
  @return ApiReservationsReservationIdActionsAutoRenewDisablePostRequest
 */
-func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewDisablePost(ctx context.Context, reservationId string) ApiReservationsReservationIdActionsAutoRenewDisablePostRequest {
+func (a *ReservationsAPIService) ReservationsReservationIdActionsAutoRenewDisablePost(ctx context.Context, reservationId string) ApiReservationsReservationIdActionsAutoRenewDisablePostRequest {
 	return ApiReservationsReservationIdActionsAutoRenewDisablePostRequest{
 		ApiService:    a,
 		ctx:           ctx,
@@ -433,7 +440,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewDisabl
 
 // Execute executes the request
 //  @return Reservation
-func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewDisablePostExecute(r ApiReservationsReservationIdActionsAutoRenewDisablePostRequest) (*Reservation, *http.Response, error) {
+func (a *ReservationsAPIService) ReservationsReservationIdActionsAutoRenewDisablePostExecute(r ApiReservationsReservationIdActionsAutoRenewDisablePostRequest) (*Reservation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -441,13 +448,13 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewDisabl
 		localVarReturnValue *Reservation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReservationsApiService.ReservationsReservationIdActionsAutoRenewDisablePost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReservationsAPIService.ReservationsReservationIdActionsAutoRenewDisablePost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/reservations/{reservationId}/actions/auto-renew/disable"
-	localVarPath = strings.Replace(localVarPath, "{"+"reservationId"+"}", url.PathEscape(parameterToString(r.reservationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"reservationId"+"}", url.PathEscape(parameterValueToString(r.reservationId, "reservationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -482,9 +489,9 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewDisabl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -501,6 +508,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewDisabl
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -511,6 +519,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewDisabl
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -521,6 +530,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewDisabl
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -531,6 +541,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewDisabl
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -541,6 +552,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewDisabl
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -560,7 +572,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewDisabl
 
 type ApiReservationsReservationIdActionsAutoRenewEnablePostRequest struct {
 	ctx           context.Context
-	ApiService    ReservationsApi
+	ApiService    ReservationsAPI
 	reservationId string
 }
 
@@ -577,7 +589,7 @@ Enable auto-renewal for unexpired reservation by reservation id.
  @param reservationId The reservation's ID.
  @return ApiReservationsReservationIdActionsAutoRenewEnablePostRequest
 */
-func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewEnablePost(ctx context.Context, reservationId string) ApiReservationsReservationIdActionsAutoRenewEnablePostRequest {
+func (a *ReservationsAPIService) ReservationsReservationIdActionsAutoRenewEnablePost(ctx context.Context, reservationId string) ApiReservationsReservationIdActionsAutoRenewEnablePostRequest {
 	return ApiReservationsReservationIdActionsAutoRenewEnablePostRequest{
 		ApiService:    a,
 		ctx:           ctx,
@@ -587,7 +599,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewEnable
 
 // Execute executes the request
 //  @return Reservation
-func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewEnablePostExecute(r ApiReservationsReservationIdActionsAutoRenewEnablePostRequest) (*Reservation, *http.Response, error) {
+func (a *ReservationsAPIService) ReservationsReservationIdActionsAutoRenewEnablePostExecute(r ApiReservationsReservationIdActionsAutoRenewEnablePostRequest) (*Reservation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -595,13 +607,13 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewEnable
 		localVarReturnValue *Reservation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReservationsApiService.ReservationsReservationIdActionsAutoRenewEnablePost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReservationsAPIService.ReservationsReservationIdActionsAutoRenewEnablePost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/reservations/{reservationId}/actions/auto-renew/enable"
-	localVarPath = strings.Replace(localVarPath, "{"+"reservationId"+"}", url.PathEscape(parameterToString(r.reservationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"reservationId"+"}", url.PathEscape(parameterValueToString(r.reservationId, "reservationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -634,9 +646,9 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewEnable
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -653,6 +665,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewEnable
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -663,6 +676,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewEnable
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -673,6 +687,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewEnable
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -683,6 +698,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewEnable
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -693,6 +709,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewEnable
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -712,7 +729,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsAutoRenewEnable
 
 type ApiReservationsReservationIdActionsConvertPostRequest struct {
 	ctx                context.Context
-	ApiService         ReservationsApi
+	ApiService         ReservationsAPI
 	reservationId      string
 	reservationRequest *ReservationRequest
 }
@@ -735,7 +752,7 @@ Convert reservation pricing model by reservation id.
  @param reservationId The reservation's ID.
  @return ApiReservationsReservationIdActionsConvertPostRequest
 */
-func (a *ReservationsApiService) ReservationsReservationIdActionsConvertPost(ctx context.Context, reservationId string) ApiReservationsReservationIdActionsConvertPostRequest {
+func (a *ReservationsAPIService) ReservationsReservationIdActionsConvertPost(ctx context.Context, reservationId string) ApiReservationsReservationIdActionsConvertPostRequest {
 	return ApiReservationsReservationIdActionsConvertPostRequest{
 		ApiService:    a,
 		ctx:           ctx,
@@ -745,7 +762,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsConvertPost(ctx
 
 // Execute executes the request
 //  @return Reservation
-func (a *ReservationsApiService) ReservationsReservationIdActionsConvertPostExecute(r ApiReservationsReservationIdActionsConvertPostRequest) (*Reservation, *http.Response, error) {
+func (a *ReservationsAPIService) ReservationsReservationIdActionsConvertPostExecute(r ApiReservationsReservationIdActionsConvertPostRequest) (*Reservation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -753,13 +770,13 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsConvertPostExec
 		localVarReturnValue *Reservation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReservationsApiService.ReservationsReservationIdActionsConvertPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReservationsAPIService.ReservationsReservationIdActionsConvertPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/reservations/{reservationId}/actions/convert"
-	localVarPath = strings.Replace(localVarPath, "{"+"reservationId"+"}", url.PathEscape(parameterToString(r.reservationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"reservationId"+"}", url.PathEscape(parameterValueToString(r.reservationId, "reservationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -794,9 +811,9 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsConvertPostExec
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -813,6 +830,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsConvertPostExec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -823,6 +841,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsConvertPostExec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -833,6 +852,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsConvertPostExec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -843,6 +863,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsConvertPostExec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -862,7 +883,7 @@ func (a *ReservationsApiService) ReservationsReservationIdActionsConvertPostExec
 
 type ApiReservationsReservationIdGetRequest struct {
 	ctx           context.Context
-	ApiService    ReservationsApi
+	ApiService    ReservationsAPI
 	reservationId string
 }
 
@@ -879,7 +900,7 @@ Retrieves the reservations with the specified identifier. All date & times are i
  @param reservationId The reservation's ID.
  @return ApiReservationsReservationIdGetRequest
 */
-func (a *ReservationsApiService) ReservationsReservationIdGet(ctx context.Context, reservationId string) ApiReservationsReservationIdGetRequest {
+func (a *ReservationsAPIService) ReservationsReservationIdGet(ctx context.Context, reservationId string) ApiReservationsReservationIdGetRequest {
 	return ApiReservationsReservationIdGetRequest{
 		ApiService:    a,
 		ctx:           ctx,
@@ -889,7 +910,7 @@ func (a *ReservationsApiService) ReservationsReservationIdGet(ctx context.Contex
 
 // Execute executes the request
 //  @return Reservation
-func (a *ReservationsApiService) ReservationsReservationIdGetExecute(r ApiReservationsReservationIdGetRequest) (*Reservation, *http.Response, error) {
+func (a *ReservationsAPIService) ReservationsReservationIdGetExecute(r ApiReservationsReservationIdGetRequest) (*Reservation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -897,13 +918,13 @@ func (a *ReservationsApiService) ReservationsReservationIdGetExecute(r ApiReserv
 		localVarReturnValue *Reservation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReservationsApiService.ReservationsReservationIdGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReservationsAPIService.ReservationsReservationIdGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/reservations/{reservationId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"reservationId"+"}", url.PathEscape(parameterToString(r.reservationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"reservationId"+"}", url.PathEscape(parameterValueToString(r.reservationId, "reservationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -936,9 +957,9 @@ func (a *ReservationsApiService) ReservationsReservationIdGetExecute(r ApiReserv
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -955,6 +976,7 @@ func (a *ReservationsApiService) ReservationsReservationIdGetExecute(r ApiReserv
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -965,6 +987,7 @@ func (a *ReservationsApiService) ReservationsReservationIdGetExecute(r ApiReserv
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -975,6 +998,7 @@ func (a *ReservationsApiService) ReservationsReservationIdGetExecute(r ApiReserv
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -985,6 +1009,7 @@ func (a *ReservationsApiService) ReservationsReservationIdGetExecute(r ApiReserv
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -995,6 +1020,7 @@ func (a *ReservationsApiService) ReservationsReservationIdGetExecute(r ApiReserv
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1005,6 +1031,7 @@ func (a *ReservationsApiService) ReservationsReservationIdGetExecute(r ApiReserv
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr

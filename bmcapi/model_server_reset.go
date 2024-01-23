@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ServerReset type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServerReset{}
+
 // ServerReset Reset bare metal server.
 type ServerReset struct {
 	// Whether or not to install SSH keys marked as default in addition to any SSH keys specified in this request.
@@ -49,7 +52,7 @@ func NewServerResetWithDefaults() *ServerReset {
 
 // GetInstallDefaultSshKeys returns the InstallDefaultSshKeys field value if set, zero value otherwise.
 func (o *ServerReset) GetInstallDefaultSshKeys() bool {
-	if o == nil || o.InstallDefaultSshKeys == nil {
+	if o == nil || IsNil(o.InstallDefaultSshKeys) {
 		var ret bool
 		return ret
 	}
@@ -59,7 +62,7 @@ func (o *ServerReset) GetInstallDefaultSshKeys() bool {
 // GetInstallDefaultSshKeysOk returns a tuple with the InstallDefaultSshKeys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerReset) GetInstallDefaultSshKeysOk() (*bool, bool) {
-	if o == nil || o.InstallDefaultSshKeys == nil {
+	if o == nil || IsNil(o.InstallDefaultSshKeys) {
 		return nil, false
 	}
 	return o.InstallDefaultSshKeys, true
@@ -67,7 +70,7 @@ func (o *ServerReset) GetInstallDefaultSshKeysOk() (*bool, bool) {
 
 // HasInstallDefaultSshKeys returns a boolean if a field has been set.
 func (o *ServerReset) HasInstallDefaultSshKeys() bool {
-	if o != nil && o.InstallDefaultSshKeys != nil {
+	if o != nil && !IsNil(o.InstallDefaultSshKeys) {
 		return true
 	}
 
@@ -81,7 +84,7 @@ func (o *ServerReset) SetInstallDefaultSshKeys(v bool) {
 
 // GetSshKeys returns the SshKeys field value if set, zero value otherwise.
 func (o *ServerReset) GetSshKeys() []string {
-	if o == nil || o.SshKeys == nil {
+	if o == nil || IsNil(o.SshKeys) {
 		var ret []string
 		return ret
 	}
@@ -91,7 +94,7 @@ func (o *ServerReset) GetSshKeys() []string {
 // GetSshKeysOk returns a tuple with the SshKeys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerReset) GetSshKeysOk() ([]string, bool) {
-	if o == nil || o.SshKeys == nil {
+	if o == nil || IsNil(o.SshKeys) {
 		return nil, false
 	}
 	return o.SshKeys, true
@@ -99,7 +102,7 @@ func (o *ServerReset) GetSshKeysOk() ([]string, bool) {
 
 // HasSshKeys returns a boolean if a field has been set.
 func (o *ServerReset) HasSshKeys() bool {
-	if o != nil && o.SshKeys != nil {
+	if o != nil && !IsNil(o.SshKeys) {
 		return true
 	}
 
@@ -113,7 +116,7 @@ func (o *ServerReset) SetSshKeys(v []string) {
 
 // GetSshKeyIds returns the SshKeyIds field value if set, zero value otherwise.
 func (o *ServerReset) GetSshKeyIds() []string {
-	if o == nil || o.SshKeyIds == nil {
+	if o == nil || IsNil(o.SshKeyIds) {
 		var ret []string
 		return ret
 	}
@@ -123,7 +126,7 @@ func (o *ServerReset) GetSshKeyIds() []string {
 // GetSshKeyIdsOk returns a tuple with the SshKeyIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerReset) GetSshKeyIdsOk() ([]string, bool) {
-	if o == nil || o.SshKeyIds == nil {
+	if o == nil || IsNil(o.SshKeyIds) {
 		return nil, false
 	}
 	return o.SshKeyIds, true
@@ -131,7 +134,7 @@ func (o *ServerReset) GetSshKeyIdsOk() ([]string, bool) {
 
 // HasSshKeyIds returns a boolean if a field has been set.
 func (o *ServerReset) HasSshKeyIds() bool {
-	if o != nil && o.SshKeyIds != nil {
+	if o != nil && !IsNil(o.SshKeyIds) {
 		return true
 	}
 
@@ -145,7 +148,7 @@ func (o *ServerReset) SetSshKeyIds(v []string) {
 
 // GetOsConfiguration returns the OsConfiguration field value if set, zero value otherwise.
 func (o *ServerReset) GetOsConfiguration() OsConfigurationMap {
-	if o == nil || o.OsConfiguration == nil {
+	if o == nil || IsNil(o.OsConfiguration) {
 		var ret OsConfigurationMap
 		return ret
 	}
@@ -155,7 +158,7 @@ func (o *ServerReset) GetOsConfiguration() OsConfigurationMap {
 // GetOsConfigurationOk returns a tuple with the OsConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerReset) GetOsConfigurationOk() (*OsConfigurationMap, bool) {
-	if o == nil || o.OsConfiguration == nil {
+	if o == nil || IsNil(o.OsConfiguration) {
 		return nil, false
 	}
 	return o.OsConfiguration, true
@@ -163,7 +166,7 @@ func (o *ServerReset) GetOsConfigurationOk() (*OsConfigurationMap, bool) {
 
 // HasOsConfiguration returns a boolean if a field has been set.
 func (o *ServerReset) HasOsConfiguration() bool {
-	if o != nil && o.OsConfiguration != nil {
+	if o != nil && !IsNil(o.OsConfiguration) {
 		return true
 	}
 
@@ -176,20 +179,28 @@ func (o *ServerReset) SetOsConfiguration(v OsConfigurationMap) {
 }
 
 func (o ServerReset) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.InstallDefaultSshKeys != nil {
-		toSerialize["installDefaultSshKeys"] = o.InstallDefaultSshKeys
-	}
-	if o.SshKeys != nil {
-		toSerialize["sshKeys"] = o.SshKeys
-	}
-	if o.SshKeyIds != nil {
-		toSerialize["sshKeyIds"] = o.SshKeyIds
-	}
-	if o.OsConfiguration != nil {
-		toSerialize["osConfiguration"] = o.OsConfiguration
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ServerReset) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.InstallDefaultSshKeys) {
+		toSerialize["installDefaultSshKeys"] = o.InstallDefaultSshKeys
+	}
+	if !IsNil(o.SshKeys) {
+		toSerialize["sshKeys"] = o.SshKeys
+	}
+	if !IsNil(o.SshKeyIds) {
+		toSerialize["sshKeyIds"] = o.SshKeyIds
+	}
+	if !IsNil(o.OsConfiguration) {
+		toSerialize["osConfiguration"] = o.OsConfiguration
+	}
+	return toSerialize, nil
 }
 
 type NullableServerReset struct {

@@ -14,14 +14,14 @@ package bmcapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"reflect"
 	"strings"
 )
 
-type ServersApi interface {
+type ServersAPI interface {
 
 	/*
 		DeletePrivateNetwork Removes the server from private network.
@@ -363,12 +363,12 @@ type ServersApi interface {
 	ServersServerIdTagsPutExecute(r ApiServersServerIdTagsPutRequest) (*Server, *http.Response, error)
 }
 
-// ServersApiService ServersApi service
-type ServersApiService service
+// ServersAPIService ServersAPI service
+type ServersAPIService service
 
 type ApiDeletePrivateNetworkRequest struct {
 	ctx              context.Context
-	ApiService       ServersApi
+	ApiService       ServersAPI
 	serverId         string
 	privateNetworkId string
 }
@@ -387,7 +387,7 @@ Removes the server from private network. <b>No actual configuration is performed
  @param privateNetworkId The private network identifier.
  @return ApiDeletePrivateNetworkRequest
 */
-func (a *ServersApiService) DeletePrivateNetwork(ctx context.Context, serverId string, privateNetworkId string) ApiDeletePrivateNetworkRequest {
+func (a *ServersAPIService) DeletePrivateNetwork(ctx context.Context, serverId string, privateNetworkId string) ApiDeletePrivateNetworkRequest {
 	return ApiDeletePrivateNetworkRequest{
 		ApiService:       a,
 		ctx:              ctx,
@@ -398,7 +398,7 @@ func (a *ServersApiService) DeletePrivateNetwork(ctx context.Context, serverId s
 
 // Execute executes the request
 //  @return string
-func (a *ServersApiService) DeletePrivateNetworkExecute(r ApiDeletePrivateNetworkRequest) (string, *http.Response, error) {
+func (a *ServersAPIService) DeletePrivateNetworkExecute(r ApiDeletePrivateNetworkRequest) (string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
@@ -406,14 +406,14 @@ func (a *ServersApiService) DeletePrivateNetworkExecute(r ApiDeletePrivateNetwor
 		localVarReturnValue string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DeletePrivateNetwork")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.DeletePrivateNetwork")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"privateNetworkId"+"}", url.PathEscape(parameterToString(r.privateNetworkId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"privateNetworkId"+"}", url.PathEscape(parameterValueToString(r.privateNetworkId, "privateNetworkId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -446,9 +446,9 @@ func (a *ServersApiService) DeletePrivateNetworkExecute(r ApiDeletePrivateNetwor
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -465,6 +465,7 @@ func (a *ServersApiService) DeletePrivateNetworkExecute(r ApiDeletePrivateNetwor
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -475,6 +476,7 @@ func (a *ServersApiService) DeletePrivateNetworkExecute(r ApiDeletePrivateNetwor
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -485,6 +487,7 @@ func (a *ServersApiService) DeletePrivateNetworkExecute(r ApiDeletePrivateNetwor
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -495,6 +498,7 @@ func (a *ServersApiService) DeletePrivateNetworkExecute(r ApiDeletePrivateNetwor
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -505,6 +509,7 @@ func (a *ServersApiService) DeletePrivateNetworkExecute(r ApiDeletePrivateNetwor
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -524,7 +529,7 @@ func (a *ServersApiService) DeletePrivateNetworkExecute(r ApiDeletePrivateNetwor
 
 type ApiServersGetRequest struct {
 	ctx        context.Context
-	ApiService ServersApi
+	ApiService ServersAPI
 	tag        *[]string
 }
 
@@ -546,7 +551,7 @@ List all servers owned by account.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiServersGetRequest
 */
-func (a *ServersApiService) ServersGet(ctx context.Context) ApiServersGetRequest {
+func (a *ServersAPIService) ServersGet(ctx context.Context) ApiServersGetRequest {
 	return ApiServersGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -555,7 +560,7 @@ func (a *ServersApiService) ServersGet(ctx context.Context) ApiServersGetRequest
 
 // Execute executes the request
 //  @return []Server
-func (a *ServersApiService) ServersGetExecute(r ApiServersGetRequest) ([]Server, *http.Response, error) {
+func (a *ServersAPIService) ServersGetExecute(r ApiServersGetRequest) ([]Server, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -563,7 +568,7 @@ func (a *ServersApiService) ServersGetExecute(r ApiServersGetRequest) ([]Server,
 		localVarReturnValue []Server
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -579,10 +584,10 @@ func (a *ServersApiService) ServersGetExecute(r ApiServersGetRequest) ([]Server,
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("tag", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "tag", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("tag", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "tag", t, "multi")
 		}
 	}
 	// to determine the Content-Type header
@@ -612,9 +617,9 @@ func (a *ServersApiService) ServersGetExecute(r ApiServersGetRequest) ([]Server,
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -631,6 +636,7 @@ func (a *ServersApiService) ServersGetExecute(r ApiServersGetRequest) ([]Server,
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -641,6 +647,7 @@ func (a *ServersApiService) ServersGetExecute(r ApiServersGetRequest) ([]Server,
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -651,6 +658,7 @@ func (a *ServersApiService) ServersGetExecute(r ApiServersGetRequest) ([]Server,
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -670,7 +678,7 @@ func (a *ServersApiService) ServersGetExecute(r ApiServersGetRequest) ([]Server,
 
 type ApiServersPostRequest struct {
 	ctx          context.Context
-	ApiService   ServersApi
+	ApiService   ServersAPI
 	serverCreate *ServerCreate
 	force        *bool
 }
@@ -698,7 +706,7 @@ Create (request) a new server for the account. Server DNS will be configured to 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiServersPostRequest
 */
-func (a *ServersApiService) ServersPost(ctx context.Context) ApiServersPostRequest {
+func (a *ServersAPIService) ServersPost(ctx context.Context) ApiServersPostRequest {
 	return ApiServersPostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -707,7 +715,7 @@ func (a *ServersApiService) ServersPost(ctx context.Context) ApiServersPostReque
 
 // Execute executes the request
 //  @return Server
-func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (*Server, *http.Response, error) {
+func (a *ServersAPIService) ServersPostExecute(r ApiServersPostRequest) (*Server, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -715,7 +723,7 @@ func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (*Server
 		localVarReturnValue *Server
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -730,7 +738,10 @@ func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (*Server
 	}
 
 	if r.force != nil {
-		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+	} else {
+		var defaultValue bool = false
+		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -761,9 +772,9 @@ func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (*Server
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -780,6 +791,7 @@ func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (*Server
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -790,6 +802,7 @@ func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (*Server
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -800,6 +813,7 @@ func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (*Server
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -810,6 +824,7 @@ func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (*Server
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -820,6 +835,7 @@ func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (*Server
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -830,6 +846,7 @@ func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (*Server
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -849,7 +866,7 @@ func (a *ServersApiService) ServersPostExecute(r ApiServersPostRequest) (*Server
 
 type ApiServersServerIdActionsDeprovisionPostRequest struct {
 	ctx               context.Context
-	ApiService        ServersApi
+	ApiService        ServersAPI
 	serverId          string
 	relinquishIpBlock *RelinquishIpBlock
 }
@@ -872,7 +889,7 @@ Deprovision the server. Supports advanced deprovision configuration.
  @param serverId The server's ID.
  @return ApiServersServerIdActionsDeprovisionPostRequest
 */
-func (a *ServersApiService) ServersServerIdActionsDeprovisionPost(ctx context.Context, serverId string) ApiServersServerIdActionsDeprovisionPostRequest {
+func (a *ServersAPIService) ServersServerIdActionsDeprovisionPost(ctx context.Context, serverId string) ApiServersServerIdActionsDeprovisionPostRequest {
 	return ApiServersServerIdActionsDeprovisionPostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -882,7 +899,7 @@ func (a *ServersApiService) ServersServerIdActionsDeprovisionPost(ctx context.Co
 
 // Execute executes the request
 //  @return string
-func (a *ServersApiService) ServersServerIdActionsDeprovisionPostExecute(r ApiServersServerIdActionsDeprovisionPostRequest) (string, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdActionsDeprovisionPostExecute(r ApiServersServerIdActionsDeprovisionPostRequest) (string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -890,13 +907,13 @@ func (a *ServersApiService) ServersServerIdActionsDeprovisionPostExecute(r ApiSe
 		localVarReturnValue string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdActionsDeprovisionPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdActionsDeprovisionPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}/actions/deprovision"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -934,9 +951,9 @@ func (a *ServersApiService) ServersServerIdActionsDeprovisionPostExecute(r ApiSe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -953,6 +970,7 @@ func (a *ServersApiService) ServersServerIdActionsDeprovisionPostExecute(r ApiSe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -963,6 +981,7 @@ func (a *ServersApiService) ServersServerIdActionsDeprovisionPostExecute(r ApiSe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -973,6 +992,7 @@ func (a *ServersApiService) ServersServerIdActionsDeprovisionPostExecute(r ApiSe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -983,6 +1003,7 @@ func (a *ServersApiService) ServersServerIdActionsDeprovisionPostExecute(r ApiSe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -993,6 +1014,7 @@ func (a *ServersApiService) ServersServerIdActionsDeprovisionPostExecute(r ApiSe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1012,7 +1034,7 @@ func (a *ServersApiService) ServersServerIdActionsDeprovisionPostExecute(r ApiSe
 
 type ApiServersServerIdActionsPowerOffPostRequest struct {
 	ctx        context.Context
-	ApiService ServersApi
+	ApiService ServersAPI
 	serverId   string
 }
 
@@ -1029,7 +1051,7 @@ Power off specific server.
  @param serverId The server's ID.
  @return ApiServersServerIdActionsPowerOffPostRequest
 */
-func (a *ServersApiService) ServersServerIdActionsPowerOffPost(ctx context.Context, serverId string) ApiServersServerIdActionsPowerOffPostRequest {
+func (a *ServersAPIService) ServersServerIdActionsPowerOffPost(ctx context.Context, serverId string) ApiServersServerIdActionsPowerOffPostRequest {
 	return ApiServersServerIdActionsPowerOffPostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1039,7 +1061,7 @@ func (a *ServersApiService) ServersServerIdActionsPowerOffPost(ctx context.Conte
 
 // Execute executes the request
 //  @return ActionResult
-func (a *ServersApiService) ServersServerIdActionsPowerOffPostExecute(r ApiServersServerIdActionsPowerOffPostRequest) (*ActionResult, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdActionsPowerOffPostExecute(r ApiServersServerIdActionsPowerOffPostRequest) (*ActionResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1047,13 +1069,13 @@ func (a *ServersApiService) ServersServerIdActionsPowerOffPostExecute(r ApiServe
 		localVarReturnValue *ActionResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdActionsPowerOffPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdActionsPowerOffPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}/actions/power-off"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1086,9 +1108,9 @@ func (a *ServersApiService) ServersServerIdActionsPowerOffPostExecute(r ApiServe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1105,6 +1127,7 @@ func (a *ServersApiService) ServersServerIdActionsPowerOffPostExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1115,6 +1138,7 @@ func (a *ServersApiService) ServersServerIdActionsPowerOffPostExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1125,6 +1149,7 @@ func (a *ServersApiService) ServersServerIdActionsPowerOffPostExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1135,6 +1160,7 @@ func (a *ServersApiService) ServersServerIdActionsPowerOffPostExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1145,6 +1171,7 @@ func (a *ServersApiService) ServersServerIdActionsPowerOffPostExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1164,7 +1191,7 @@ func (a *ServersApiService) ServersServerIdActionsPowerOffPostExecute(r ApiServe
 
 type ApiServersServerIdActionsPowerOnPostRequest struct {
 	ctx        context.Context
-	ApiService ServersApi
+	ApiService ServersAPI
 	serverId   string
 }
 
@@ -1181,7 +1208,7 @@ Power on specific server.
  @param serverId The server's ID.
  @return ApiServersServerIdActionsPowerOnPostRequest
 */
-func (a *ServersApiService) ServersServerIdActionsPowerOnPost(ctx context.Context, serverId string) ApiServersServerIdActionsPowerOnPostRequest {
+func (a *ServersAPIService) ServersServerIdActionsPowerOnPost(ctx context.Context, serverId string) ApiServersServerIdActionsPowerOnPostRequest {
 	return ApiServersServerIdActionsPowerOnPostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1191,7 +1218,7 @@ func (a *ServersApiService) ServersServerIdActionsPowerOnPost(ctx context.Contex
 
 // Execute executes the request
 //  @return ActionResult
-func (a *ServersApiService) ServersServerIdActionsPowerOnPostExecute(r ApiServersServerIdActionsPowerOnPostRequest) (*ActionResult, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdActionsPowerOnPostExecute(r ApiServersServerIdActionsPowerOnPostRequest) (*ActionResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1199,13 +1226,13 @@ func (a *ServersApiService) ServersServerIdActionsPowerOnPostExecute(r ApiServer
 		localVarReturnValue *ActionResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdActionsPowerOnPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdActionsPowerOnPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}/actions/power-on"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1238,9 +1265,9 @@ func (a *ServersApiService) ServersServerIdActionsPowerOnPostExecute(r ApiServer
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1257,6 +1284,7 @@ func (a *ServersApiService) ServersServerIdActionsPowerOnPostExecute(r ApiServer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1267,6 +1295,7 @@ func (a *ServersApiService) ServersServerIdActionsPowerOnPostExecute(r ApiServer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1277,6 +1306,7 @@ func (a *ServersApiService) ServersServerIdActionsPowerOnPostExecute(r ApiServer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1287,6 +1317,7 @@ func (a *ServersApiService) ServersServerIdActionsPowerOnPostExecute(r ApiServer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1297,6 +1328,7 @@ func (a *ServersApiService) ServersServerIdActionsPowerOnPostExecute(r ApiServer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1316,7 +1348,7 @@ func (a *ServersApiService) ServersServerIdActionsPowerOnPostExecute(r ApiServer
 
 type ApiServersServerIdActionsProvisionPostRequest struct {
 	ctx             context.Context
-	ApiService      ServersApi
+	ApiService      ServersAPI
 	serverId        string
 	serverProvision *ServerProvision
 	force           *bool
@@ -1346,7 +1378,7 @@ Provision reserved server. Server DNS will be configured to access Google's publ
  @param serverId The server's ID.
  @return ApiServersServerIdActionsProvisionPostRequest
 */
-func (a *ServersApiService) ServersServerIdActionsProvisionPost(ctx context.Context, serverId string) ApiServersServerIdActionsProvisionPostRequest {
+func (a *ServersAPIService) ServersServerIdActionsProvisionPost(ctx context.Context, serverId string) ApiServersServerIdActionsProvisionPostRequest {
 	return ApiServersServerIdActionsProvisionPostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1356,7 +1388,7 @@ func (a *ServersApiService) ServersServerIdActionsProvisionPost(ctx context.Cont
 
 // Execute executes the request
 //  @return Server
-func (a *ServersApiService) ServersServerIdActionsProvisionPostExecute(r ApiServersServerIdActionsProvisionPostRequest) (*Server, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdActionsProvisionPostExecute(r ApiServersServerIdActionsProvisionPostRequest) (*Server, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1364,13 +1396,13 @@ func (a *ServersApiService) ServersServerIdActionsProvisionPostExecute(r ApiServ
 		localVarReturnValue *Server
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdActionsProvisionPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdActionsProvisionPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}/actions/provision"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1380,7 +1412,10 @@ func (a *ServersApiService) ServersServerIdActionsProvisionPostExecute(r ApiServ
 	}
 
 	if r.force != nil {
-		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+	} else {
+		var defaultValue bool = false
+		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -1411,9 +1446,9 @@ func (a *ServersApiService) ServersServerIdActionsProvisionPostExecute(r ApiServ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1430,6 +1465,7 @@ func (a *ServersApiService) ServersServerIdActionsProvisionPostExecute(r ApiServ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1440,6 +1476,7 @@ func (a *ServersApiService) ServersServerIdActionsProvisionPostExecute(r ApiServ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1450,6 +1487,7 @@ func (a *ServersApiService) ServersServerIdActionsProvisionPostExecute(r ApiServ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1460,6 +1498,7 @@ func (a *ServersApiService) ServersServerIdActionsProvisionPostExecute(r ApiServ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1470,6 +1509,7 @@ func (a *ServersApiService) ServersServerIdActionsProvisionPostExecute(r ApiServ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1480,6 +1520,7 @@ func (a *ServersApiService) ServersServerIdActionsProvisionPostExecute(r ApiServ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1499,7 +1540,7 @@ func (a *ServersApiService) ServersServerIdActionsProvisionPostExecute(r ApiServ
 
 type ApiServersServerIdActionsRebootPostRequest struct {
 	ctx        context.Context
-	ApiService ServersApi
+	ApiService ServersAPI
 	serverId   string
 }
 
@@ -1516,7 +1557,7 @@ Reboot specific server.
  @param serverId The server's ID.
  @return ApiServersServerIdActionsRebootPostRequest
 */
-func (a *ServersApiService) ServersServerIdActionsRebootPost(ctx context.Context, serverId string) ApiServersServerIdActionsRebootPostRequest {
+func (a *ServersAPIService) ServersServerIdActionsRebootPost(ctx context.Context, serverId string) ApiServersServerIdActionsRebootPostRequest {
 	return ApiServersServerIdActionsRebootPostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1526,7 +1567,7 @@ func (a *ServersApiService) ServersServerIdActionsRebootPost(ctx context.Context
 
 // Execute executes the request
 //  @return ActionResult
-func (a *ServersApiService) ServersServerIdActionsRebootPostExecute(r ApiServersServerIdActionsRebootPostRequest) (*ActionResult, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdActionsRebootPostExecute(r ApiServersServerIdActionsRebootPostRequest) (*ActionResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1534,13 +1575,13 @@ func (a *ServersApiService) ServersServerIdActionsRebootPostExecute(r ApiServers
 		localVarReturnValue *ActionResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdActionsRebootPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdActionsRebootPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}/actions/reboot"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1573,9 +1614,9 @@ func (a *ServersApiService) ServersServerIdActionsRebootPostExecute(r ApiServers
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1592,6 +1633,7 @@ func (a *ServersApiService) ServersServerIdActionsRebootPostExecute(r ApiServers
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1602,6 +1644,7 @@ func (a *ServersApiService) ServersServerIdActionsRebootPostExecute(r ApiServers
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1612,6 +1655,7 @@ func (a *ServersApiService) ServersServerIdActionsRebootPostExecute(r ApiServers
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1622,6 +1666,7 @@ func (a *ServersApiService) ServersServerIdActionsRebootPostExecute(r ApiServers
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1632,6 +1677,7 @@ func (a *ServersApiService) ServersServerIdActionsRebootPostExecute(r ApiServers
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1651,7 +1697,7 @@ func (a *ServersApiService) ServersServerIdActionsRebootPostExecute(r ApiServers
 
 type ApiServersServerIdActionsReservePostRequest struct {
 	ctx           context.Context
-	ApiService    ServersApi
+	ApiService    ServersAPI
 	serverId      string
 	serverReserve *ServerReserve
 }
@@ -1674,7 +1720,7 @@ Reserve specific server.
  @param serverId The server's ID.
  @return ApiServersServerIdActionsReservePostRequest
 */
-func (a *ServersApiService) ServersServerIdActionsReservePost(ctx context.Context, serverId string) ApiServersServerIdActionsReservePostRequest {
+func (a *ServersAPIService) ServersServerIdActionsReservePost(ctx context.Context, serverId string) ApiServersServerIdActionsReservePostRequest {
 	return ApiServersServerIdActionsReservePostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1684,7 +1730,7 @@ func (a *ServersApiService) ServersServerIdActionsReservePost(ctx context.Contex
 
 // Execute executes the request
 //  @return Server
-func (a *ServersApiService) ServersServerIdActionsReservePostExecute(r ApiServersServerIdActionsReservePostRequest) (*Server, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdActionsReservePostExecute(r ApiServersServerIdActionsReservePostRequest) (*Server, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1692,13 +1738,13 @@ func (a *ServersApiService) ServersServerIdActionsReservePostExecute(r ApiServer
 		localVarReturnValue *Server
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdActionsReservePost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdActionsReservePost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}/actions/reserve"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1736,9 +1782,9 @@ func (a *ServersApiService) ServersServerIdActionsReservePostExecute(r ApiServer
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1755,6 +1801,7 @@ func (a *ServersApiService) ServersServerIdActionsReservePostExecute(r ApiServer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1765,6 +1812,7 @@ func (a *ServersApiService) ServersServerIdActionsReservePostExecute(r ApiServer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1775,6 +1823,7 @@ func (a *ServersApiService) ServersServerIdActionsReservePostExecute(r ApiServer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1785,6 +1834,7 @@ func (a *ServersApiService) ServersServerIdActionsReservePostExecute(r ApiServer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1795,6 +1845,7 @@ func (a *ServersApiService) ServersServerIdActionsReservePostExecute(r ApiServer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1814,7 +1865,7 @@ func (a *ServersApiService) ServersServerIdActionsReservePostExecute(r ApiServer
 
 type ApiServersServerIdActionsResetPostRequest struct {
 	ctx         context.Context
-	ApiService  ServersApi
+	ApiService  ServersAPI
 	serverId    string
 	serverReset *ServerReset
 }
@@ -1839,7 +1890,7 @@ Deprecated: Reset specific server. Reset only supports network configurations of
 
 Deprecated
 */
-func (a *ServersApiService) ServersServerIdActionsResetPost(ctx context.Context, serverId string) ApiServersServerIdActionsResetPostRequest {
+func (a *ServersAPIService) ServersServerIdActionsResetPost(ctx context.Context, serverId string) ApiServersServerIdActionsResetPostRequest {
 	return ApiServersServerIdActionsResetPostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1850,7 +1901,7 @@ func (a *ServersApiService) ServersServerIdActionsResetPost(ctx context.Context,
 // Execute executes the request
 //  @return ResetResult
 // Deprecated
-func (a *ServersApiService) ServersServerIdActionsResetPostExecute(r ApiServersServerIdActionsResetPostRequest) (*ResetResult, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdActionsResetPostExecute(r ApiServersServerIdActionsResetPostRequest) (*ResetResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1858,13 +1909,13 @@ func (a *ServersApiService) ServersServerIdActionsResetPostExecute(r ApiServersS
 		localVarReturnValue *ResetResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdActionsResetPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdActionsResetPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}/actions/reset"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1902,9 +1953,9 @@ func (a *ServersApiService) ServersServerIdActionsResetPostExecute(r ApiServersS
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1921,6 +1972,7 @@ func (a *ServersApiService) ServersServerIdActionsResetPostExecute(r ApiServersS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1931,6 +1983,7 @@ func (a *ServersApiService) ServersServerIdActionsResetPostExecute(r ApiServersS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1941,6 +1994,7 @@ func (a *ServersApiService) ServersServerIdActionsResetPostExecute(r ApiServersS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1951,6 +2005,7 @@ func (a *ServersApiService) ServersServerIdActionsResetPostExecute(r ApiServersS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1961,6 +2016,7 @@ func (a *ServersApiService) ServersServerIdActionsResetPostExecute(r ApiServersS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1980,7 +2036,7 @@ func (a *ServersApiService) ServersServerIdActionsResetPostExecute(r ApiServersS
 
 type ApiServersServerIdActionsShutdownPostRequest struct {
 	ctx        context.Context
-	ApiService ServersApi
+	ApiService ServersAPI
 	serverId   string
 }
 
@@ -1997,7 +2053,7 @@ Shut down specific server.
  @param serverId The server's ID.
  @return ApiServersServerIdActionsShutdownPostRequest
 */
-func (a *ServersApiService) ServersServerIdActionsShutdownPost(ctx context.Context, serverId string) ApiServersServerIdActionsShutdownPostRequest {
+func (a *ServersAPIService) ServersServerIdActionsShutdownPost(ctx context.Context, serverId string) ApiServersServerIdActionsShutdownPostRequest {
 	return ApiServersServerIdActionsShutdownPostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -2007,7 +2063,7 @@ func (a *ServersApiService) ServersServerIdActionsShutdownPost(ctx context.Conte
 
 // Execute executes the request
 //  @return ActionResult
-func (a *ServersApiService) ServersServerIdActionsShutdownPostExecute(r ApiServersServerIdActionsShutdownPostRequest) (*ActionResult, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdActionsShutdownPostExecute(r ApiServersServerIdActionsShutdownPostRequest) (*ActionResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2015,13 +2071,13 @@ func (a *ServersApiService) ServersServerIdActionsShutdownPostExecute(r ApiServe
 		localVarReturnValue *ActionResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdActionsShutdownPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdActionsShutdownPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}/actions/shutdown"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2054,9 +2110,9 @@ func (a *ServersApiService) ServersServerIdActionsShutdownPostExecute(r ApiServe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2073,6 +2129,7 @@ func (a *ServersApiService) ServersServerIdActionsShutdownPostExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2083,6 +2140,7 @@ func (a *ServersApiService) ServersServerIdActionsShutdownPostExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2093,6 +2151,7 @@ func (a *ServersApiService) ServersServerIdActionsShutdownPostExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2103,6 +2162,7 @@ func (a *ServersApiService) ServersServerIdActionsShutdownPostExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2113,6 +2173,7 @@ func (a *ServersApiService) ServersServerIdActionsShutdownPostExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2132,7 +2193,7 @@ func (a *ServersApiService) ServersServerIdActionsShutdownPostExecute(r ApiServe
 
 type ApiServersServerIdDeleteRequest struct {
 	ctx        context.Context
-	ApiService ServersApi
+	ApiService ServersAPI
 	serverId   string
 }
 
@@ -2151,7 +2212,7 @@ Deprovision specific server. Any IP blocks assigned to this server will also be 
 
 Deprecated
 */
-func (a *ServersApiService) ServersServerIdDelete(ctx context.Context, serverId string) ApiServersServerIdDeleteRequest {
+func (a *ServersAPIService) ServersServerIdDelete(ctx context.Context, serverId string) ApiServersServerIdDeleteRequest {
 	return ApiServersServerIdDeleteRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -2162,7 +2223,7 @@ func (a *ServersApiService) ServersServerIdDelete(ctx context.Context, serverId 
 // Execute executes the request
 //  @return DeleteResult
 // Deprecated
-func (a *ServersApiService) ServersServerIdDeleteExecute(r ApiServersServerIdDeleteRequest) (*DeleteResult, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdDeleteExecute(r ApiServersServerIdDeleteRequest) (*DeleteResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
@@ -2170,13 +2231,13 @@ func (a *ServersApiService) ServersServerIdDeleteExecute(r ApiServersServerIdDel
 		localVarReturnValue *DeleteResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdDelete")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2209,9 +2270,9 @@ func (a *ServersApiService) ServersServerIdDeleteExecute(r ApiServersServerIdDel
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2228,6 +2289,7 @@ func (a *ServersApiService) ServersServerIdDeleteExecute(r ApiServersServerIdDel
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2238,6 +2300,7 @@ func (a *ServersApiService) ServersServerIdDeleteExecute(r ApiServersServerIdDel
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2248,6 +2311,7 @@ func (a *ServersApiService) ServersServerIdDeleteExecute(r ApiServersServerIdDel
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2258,6 +2322,7 @@ func (a *ServersApiService) ServersServerIdDeleteExecute(r ApiServersServerIdDel
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2277,7 +2342,7 @@ func (a *ServersApiService) ServersServerIdDeleteExecute(r ApiServersServerIdDel
 
 type ApiServersServerIdGetRequest struct {
 	ctx        context.Context
-	ApiService ServersApi
+	ApiService ServersAPI
 	serverId   string
 }
 
@@ -2294,7 +2359,7 @@ Get server properties.
  @param serverId The server's ID.
  @return ApiServersServerIdGetRequest
 */
-func (a *ServersApiService) ServersServerIdGet(ctx context.Context, serverId string) ApiServersServerIdGetRequest {
+func (a *ServersAPIService) ServersServerIdGet(ctx context.Context, serverId string) ApiServersServerIdGetRequest {
 	return ApiServersServerIdGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -2304,7 +2369,7 @@ func (a *ServersApiService) ServersServerIdGet(ctx context.Context, serverId str
 
 // Execute executes the request
 //  @return Server
-func (a *ServersApiService) ServersServerIdGetExecute(r ApiServersServerIdGetRequest) (*Server, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdGetExecute(r ApiServersServerIdGetRequest) (*Server, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2312,13 +2377,13 @@ func (a *ServersApiService) ServersServerIdGetExecute(r ApiServersServerIdGetReq
 		localVarReturnValue *Server
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2351,9 +2416,9 @@ func (a *ServersApiService) ServersServerIdGetExecute(r ApiServersServerIdGetReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2370,6 +2435,7 @@ func (a *ServersApiService) ServersServerIdGetExecute(r ApiServersServerIdGetReq
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2380,6 +2446,7 @@ func (a *ServersApiService) ServersServerIdGetExecute(r ApiServersServerIdGetReq
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2390,6 +2457,7 @@ func (a *ServersApiService) ServersServerIdGetExecute(r ApiServersServerIdGetReq
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2400,6 +2468,7 @@ func (a *ServersApiService) ServersServerIdGetExecute(r ApiServersServerIdGetReq
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2419,7 +2488,7 @@ func (a *ServersApiService) ServersServerIdGetExecute(r ApiServersServerIdGetReq
 
 type ApiServersServerIdIpBlocksIpBlockIdDeleteRequest struct {
 	ctx               context.Context
-	ApiService        ServersApi
+	ApiService        ServersAPI
 	serverId          string
 	ipBlockId         string
 	relinquishIpBlock *RelinquishIpBlock
@@ -2444,7 +2513,7 @@ Removes the IP block from the server. <b>No actual configuration is performed on
  @param ipBlockId The IP Block identifier.
  @return ApiServersServerIdIpBlocksIpBlockIdDeleteRequest
 */
-func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDelete(ctx context.Context, serverId string, ipBlockId string) ApiServersServerIdIpBlocksIpBlockIdDeleteRequest {
+func (a *ServersAPIService) ServersServerIdIpBlocksIpBlockIdDelete(ctx context.Context, serverId string, ipBlockId string) ApiServersServerIdIpBlocksIpBlockIdDeleteRequest {
 	return ApiServersServerIdIpBlocksIpBlockIdDeleteRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -2455,7 +2524,7 @@ func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDelete(ctx context.C
 
 // Execute executes the request
 //  @return string
-func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiServersServerIdIpBlocksIpBlockIdDeleteRequest) (string, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiServersServerIdIpBlocksIpBlockIdDeleteRequest) (string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
@@ -2463,14 +2532,14 @@ func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiS
 		localVarReturnValue string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdIpBlocksIpBlockIdDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdIpBlocksIpBlockIdDelete")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks/{ipBlockId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", url.PathEscape(parameterToString(r.ipBlockId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"ipBlockId"+"}", url.PathEscape(parameterValueToString(r.ipBlockId, "ipBlockId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2508,9 +2577,9 @@ func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiS
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2527,6 +2596,7 @@ func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2537,6 +2607,7 @@ func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2547,6 +2618,7 @@ func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2557,6 +2629,7 @@ func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2567,6 +2640,7 @@ func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2586,7 +2660,7 @@ func (a *ServersApiService) ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiS
 
 type ApiServersServerIdIpBlocksPostRequest struct {
 	ctx           context.Context
-	ApiService    ServersApi
+	ApiService    ServersAPI
 	serverId      string
 	serverIpBlock *ServerIpBlock
 }
@@ -2609,7 +2683,7 @@ Adds an IP block to this server. <b>No actual configuration is performed on the 
  @param serverId The server's ID.
  @return ApiServersServerIdIpBlocksPostRequest
 */
-func (a *ServersApiService) ServersServerIdIpBlocksPost(ctx context.Context, serverId string) ApiServersServerIdIpBlocksPostRequest {
+func (a *ServersAPIService) ServersServerIdIpBlocksPost(ctx context.Context, serverId string) ApiServersServerIdIpBlocksPostRequest {
 	return ApiServersServerIdIpBlocksPostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -2619,7 +2693,7 @@ func (a *ServersApiService) ServersServerIdIpBlocksPost(ctx context.Context, ser
 
 // Execute executes the request
 //  @return ServerIpBlock
-func (a *ServersApiService) ServersServerIdIpBlocksPostExecute(r ApiServersServerIdIpBlocksPostRequest) (*ServerIpBlock, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdIpBlocksPostExecute(r ApiServersServerIdIpBlocksPostRequest) (*ServerIpBlock, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2627,13 +2701,13 @@ func (a *ServersApiService) ServersServerIdIpBlocksPostExecute(r ApiServersServe
 		localVarReturnValue *ServerIpBlock
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdIpBlocksPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdIpBlocksPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2671,9 +2745,9 @@ func (a *ServersApiService) ServersServerIdIpBlocksPostExecute(r ApiServersServe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2690,6 +2764,7 @@ func (a *ServersApiService) ServersServerIdIpBlocksPostExecute(r ApiServersServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2700,6 +2775,7 @@ func (a *ServersApiService) ServersServerIdIpBlocksPostExecute(r ApiServersServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2710,6 +2786,7 @@ func (a *ServersApiService) ServersServerIdIpBlocksPostExecute(r ApiServersServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2720,6 +2797,7 @@ func (a *ServersApiService) ServersServerIdIpBlocksPostExecute(r ApiServersServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2730,6 +2808,7 @@ func (a *ServersApiService) ServersServerIdIpBlocksPostExecute(r ApiServersServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2749,7 +2828,7 @@ func (a *ServersApiService) ServersServerIdIpBlocksPostExecute(r ApiServersServe
 
 type ApiServersServerIdPatchRequest struct {
 	ctx         context.Context
-	ApiService  ServersApi
+	ApiService  ServersAPI
 	serverId    string
 	serverPatch *ServerPatch
 }
@@ -2772,7 +2851,7 @@ Any changes to the hostname or description using the BMC API will reflect solely
  @param serverId The server's ID.
  @return ApiServersServerIdPatchRequest
 */
-func (a *ServersApiService) ServersServerIdPatch(ctx context.Context, serverId string) ApiServersServerIdPatchRequest {
+func (a *ServersAPIService) ServersServerIdPatch(ctx context.Context, serverId string) ApiServersServerIdPatchRequest {
 	return ApiServersServerIdPatchRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -2782,7 +2861,7 @@ func (a *ServersApiService) ServersServerIdPatch(ctx context.Context, serverId s
 
 // Execute executes the request
 //  @return Server
-func (a *ServersApiService) ServersServerIdPatchExecute(r ApiServersServerIdPatchRequest) (*Server, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdPatchExecute(r ApiServersServerIdPatchRequest) (*Server, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -2790,13 +2869,13 @@ func (a *ServersApiService) ServersServerIdPatchExecute(r ApiServersServerIdPatc
 		localVarReturnValue *Server
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdPatch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdPatch")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2834,9 +2913,9 @@ func (a *ServersApiService) ServersServerIdPatchExecute(r ApiServersServerIdPatc
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2853,6 +2932,7 @@ func (a *ServersApiService) ServersServerIdPatchExecute(r ApiServersServerIdPatc
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2863,6 +2943,7 @@ func (a *ServersApiService) ServersServerIdPatchExecute(r ApiServersServerIdPatc
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2873,6 +2954,7 @@ func (a *ServersApiService) ServersServerIdPatchExecute(r ApiServersServerIdPatc
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2883,6 +2965,7 @@ func (a *ServersApiService) ServersServerIdPatchExecute(r ApiServersServerIdPatc
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2893,6 +2976,7 @@ func (a *ServersApiService) ServersServerIdPatchExecute(r ApiServersServerIdPatc
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2912,7 +2996,7 @@ func (a *ServersApiService) ServersServerIdPatchExecute(r ApiServersServerIdPatc
 
 type ApiServersServerIdPrivateNetworksPatchRequest struct {
 	ctx                 context.Context
-	ApiService          ServersApi
+	ApiService          ServersAPI
 	serverId            string
 	privateNetworkId    string
 	serverNetworkUpdate *ServerNetworkUpdate
@@ -2944,7 +3028,7 @@ IP address changes intended to keep the BMC data up to date with server's operat
  @param privateNetworkId The private network identifier.
  @return ApiServersServerIdPrivateNetworksPatchRequest
 */
-func (a *ServersApiService) ServersServerIdPrivateNetworksPatch(ctx context.Context, serverId string, privateNetworkId string) ApiServersServerIdPrivateNetworksPatchRequest {
+func (a *ServersAPIService) ServersServerIdPrivateNetworksPatch(ctx context.Context, serverId string, privateNetworkId string) ApiServersServerIdPrivateNetworksPatchRequest {
 	return ApiServersServerIdPrivateNetworksPatchRequest{
 		ApiService:       a,
 		ctx:              ctx,
@@ -2955,7 +3039,7 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPatch(ctx context.Cont
 
 // Execute executes the request
 //  @return ServerPrivateNetwork
-func (a *ServersApiService) ServersServerIdPrivateNetworksPatchExecute(r ApiServersServerIdPrivateNetworksPatchRequest) (*ServerPrivateNetwork, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdPrivateNetworksPatchExecute(r ApiServersServerIdPrivateNetworksPatchRequest) (*ServerPrivateNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -2963,14 +3047,14 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPatchExecute(r ApiServ
 		localVarReturnValue *ServerPrivateNetwork
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdPrivateNetworksPatch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdPrivateNetworksPatch")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"privateNetworkId"+"}", url.PathEscape(parameterToString(r.privateNetworkId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"privateNetworkId"+"}", url.PathEscape(parameterValueToString(r.privateNetworkId, "privateNetworkId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2980,7 +3064,10 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPatchExecute(r ApiServ
 	}
 
 	if r.force != nil {
-		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+	} else {
+		var defaultValue bool = false
+		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -3011,9 +3098,9 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPatchExecute(r ApiServ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3030,6 +3117,7 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPatchExecute(r ApiServ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3040,6 +3128,7 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPatchExecute(r ApiServ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3050,6 +3139,7 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPatchExecute(r ApiServ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3060,6 +3150,7 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPatchExecute(r ApiServ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3070,6 +3161,7 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPatchExecute(r ApiServ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -3089,7 +3181,7 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPatchExecute(r ApiServ
 
 type ApiServersServerIdPrivateNetworksPostRequest struct {
 	ctx                  context.Context
-	ApiService           ServersApi
+	ApiService           ServersAPI
 	serverId             string
 	serverPrivateNetwork *ServerPrivateNetwork
 	force                *bool
@@ -3119,7 +3211,7 @@ Adds the server to a private network. <b>No actual configuration is performed on
  @param serverId The server's ID.
  @return ApiServersServerIdPrivateNetworksPostRequest
 */
-func (a *ServersApiService) ServersServerIdPrivateNetworksPost(ctx context.Context, serverId string) ApiServersServerIdPrivateNetworksPostRequest {
+func (a *ServersAPIService) ServersServerIdPrivateNetworksPost(ctx context.Context, serverId string) ApiServersServerIdPrivateNetworksPostRequest {
 	return ApiServersServerIdPrivateNetworksPostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -3129,7 +3221,7 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPost(ctx context.Conte
 
 // Execute executes the request
 //  @return ServerPrivateNetwork
-func (a *ServersApiService) ServersServerIdPrivateNetworksPostExecute(r ApiServersServerIdPrivateNetworksPostRequest) (*ServerPrivateNetwork, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdPrivateNetworksPostExecute(r ApiServersServerIdPrivateNetworksPostRequest) (*ServerPrivateNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3137,13 +3229,13 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPostExecute(r ApiServe
 		localVarReturnValue *ServerPrivateNetwork
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdPrivateNetworksPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdPrivateNetworksPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}/network-configuration/private-network-configuration/private-networks"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3153,7 +3245,10 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPostExecute(r ApiServe
 	}
 
 	if r.force != nil {
-		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+	} else {
+		var defaultValue bool = false
+		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -3184,9 +3279,9 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPostExecute(r ApiServe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3203,6 +3298,7 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPostExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3213,6 +3309,7 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPostExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3223,6 +3320,7 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPostExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3233,6 +3331,7 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPostExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -3252,7 +3351,7 @@ func (a *ServersApiService) ServersServerIdPrivateNetworksPostExecute(r ApiServe
 
 type ApiServersServerIdPublicNetworksDeleteRequest struct {
 	ctx             context.Context
-	ApiService      ServersApi
+	ApiService      ServersAPI
 	serverId        string
 	publicNetworkId string
 }
@@ -3271,7 +3370,7 @@ Removes the server from the Public Network. <b>No actual configuration is perfor
  @param publicNetworkId The Public Network identifier.
  @return ApiServersServerIdPublicNetworksDeleteRequest
 */
-func (a *ServersApiService) ServersServerIdPublicNetworksDelete(ctx context.Context, serverId string, publicNetworkId string) ApiServersServerIdPublicNetworksDeleteRequest {
+func (a *ServersAPIService) ServersServerIdPublicNetworksDelete(ctx context.Context, serverId string, publicNetworkId string) ApiServersServerIdPublicNetworksDeleteRequest {
 	return ApiServersServerIdPublicNetworksDeleteRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -3282,7 +3381,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksDelete(ctx context.Cont
 
 // Execute executes the request
 //  @return string
-func (a *ServersApiService) ServersServerIdPublicNetworksDeleteExecute(r ApiServersServerIdPublicNetworksDeleteRequest) (string, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdPublicNetworksDeleteExecute(r ApiServersServerIdPublicNetworksDeleteRequest) (string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
@@ -3290,14 +3389,14 @@ func (a *ServersApiService) ServersServerIdPublicNetworksDeleteExecute(r ApiServ
 		localVarReturnValue string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdPublicNetworksDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdPublicNetworksDelete")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"publicNetworkId"+"}", url.PathEscape(parameterToString(r.publicNetworkId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"publicNetworkId"+"}", url.PathEscape(parameterValueToString(r.publicNetworkId, "publicNetworkId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3330,9 +3429,9 @@ func (a *ServersApiService) ServersServerIdPublicNetworksDeleteExecute(r ApiServ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3349,6 +3448,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksDeleteExecute(r ApiServ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3359,6 +3459,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksDeleteExecute(r ApiServ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3369,6 +3470,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksDeleteExecute(r ApiServ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3379,6 +3481,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksDeleteExecute(r ApiServ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3389,6 +3492,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksDeleteExecute(r ApiServ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -3408,7 +3512,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksDeleteExecute(r ApiServ
 
 type ApiServersServerIdPublicNetworksPatchRequest struct {
 	ctx                 context.Context
-	ApiService          ServersApi
+	ApiService          ServersAPI
 	serverId            string
 	publicNetworkId     string
 	serverNetworkUpdate *ServerNetworkUpdate
@@ -3440,7 +3544,7 @@ IP address changes intended to keep the BMC data up to date with server's operat
  @param publicNetworkId The Public Network identifier.
  @return ApiServersServerIdPublicNetworksPatchRequest
 */
-func (a *ServersApiService) ServersServerIdPublicNetworksPatch(ctx context.Context, serverId string, publicNetworkId string) ApiServersServerIdPublicNetworksPatchRequest {
+func (a *ServersAPIService) ServersServerIdPublicNetworksPatch(ctx context.Context, serverId string, publicNetworkId string) ApiServersServerIdPublicNetworksPatchRequest {
 	return ApiServersServerIdPublicNetworksPatchRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -3451,7 +3555,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPatch(ctx context.Conte
 
 // Execute executes the request
 //  @return ServerPublicNetwork
-func (a *ServersApiService) ServersServerIdPublicNetworksPatchExecute(r ApiServersServerIdPublicNetworksPatchRequest) (*ServerPublicNetwork, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdPublicNetworksPatchExecute(r ApiServersServerIdPublicNetworksPatchRequest) (*ServerPublicNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -3459,14 +3563,14 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPatchExecute(r ApiServe
 		localVarReturnValue *ServerPublicNetwork
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdPublicNetworksPatch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdPublicNetworksPatch")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"publicNetworkId"+"}", url.PathEscape(parameterToString(r.publicNetworkId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"publicNetworkId"+"}", url.PathEscape(parameterValueToString(r.publicNetworkId, "publicNetworkId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3476,7 +3580,10 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPatchExecute(r ApiServe
 	}
 
 	if r.force != nil {
-		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+	} else {
+		var defaultValue bool = false
+		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -3507,9 +3614,9 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPatchExecute(r ApiServe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3526,6 +3633,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPatchExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3536,6 +3644,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPatchExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3546,6 +3655,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPatchExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3556,6 +3666,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPatchExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3566,6 +3677,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPatchExecute(r ApiServe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -3585,7 +3697,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPatchExecute(r ApiServe
 
 type ApiServersServerIdPublicNetworksPostRequest struct {
 	ctx                 context.Context
-	ApiService          ServersApi
+	ApiService          ServersAPI
 	serverId            string
 	serverPublicNetwork *ServerPublicNetwork
 	force               *bool
@@ -3615,7 +3727,7 @@ Adds the server to a Public Network. <b>No actual configuration is performed on 
  @param serverId The server's ID.
  @return ApiServersServerIdPublicNetworksPostRequest
 */
-func (a *ServersApiService) ServersServerIdPublicNetworksPost(ctx context.Context, serverId string) ApiServersServerIdPublicNetworksPostRequest {
+func (a *ServersAPIService) ServersServerIdPublicNetworksPost(ctx context.Context, serverId string) ApiServersServerIdPublicNetworksPostRequest {
 	return ApiServersServerIdPublicNetworksPostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -3625,7 +3737,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPost(ctx context.Contex
 
 // Execute executes the request
 //  @return ServerPublicNetwork
-func (a *ServersApiService) ServersServerIdPublicNetworksPostExecute(r ApiServersServerIdPublicNetworksPostRequest) (*ServerPublicNetwork, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdPublicNetworksPostExecute(r ApiServersServerIdPublicNetworksPostRequest) (*ServerPublicNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3633,13 +3745,13 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPostExecute(r ApiServer
 		localVarReturnValue *ServerPublicNetwork
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdPublicNetworksPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdPublicNetworksPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}/network-configuration/public-network-configuration/public-networks"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3649,7 +3761,10 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPostExecute(r ApiServer
 	}
 
 	if r.force != nil {
-		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+	} else {
+		var defaultValue bool = false
+		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -3680,9 +3795,9 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPostExecute(r ApiServer
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3699,6 +3814,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPostExecute(r ApiServer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3709,6 +3825,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPostExecute(r ApiServer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3719,6 +3836,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPostExecute(r ApiServer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3729,6 +3847,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPostExecute(r ApiServer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3739,6 +3858,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPostExecute(r ApiServer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -3758,7 +3878,7 @@ func (a *ServersApiService) ServersServerIdPublicNetworksPostExecute(r ApiServer
 
 type ApiServersServerIdTagsPutRequest struct {
 	ctx                  context.Context
-	ApiService           ServersApi
+	ApiService           ServersAPI
 	serverId             string
 	tagAssignmentRequest *[]TagAssignmentRequest
 }
@@ -3781,7 +3901,7 @@ Overwrites tags assigned for Server and unassigns any tags not part of the reque
  @param serverId The server's ID.
  @return ApiServersServerIdTagsPutRequest
 */
-func (a *ServersApiService) ServersServerIdTagsPut(ctx context.Context, serverId string) ApiServersServerIdTagsPutRequest {
+func (a *ServersAPIService) ServersServerIdTagsPut(ctx context.Context, serverId string) ApiServersServerIdTagsPutRequest {
 	return ApiServersServerIdTagsPutRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -3791,7 +3911,7 @@ func (a *ServersApiService) ServersServerIdTagsPut(ctx context.Context, serverId
 
 // Execute executes the request
 //  @return Server
-func (a *ServersApiService) ServersServerIdTagsPutExecute(r ApiServersServerIdTagsPutRequest) (*Server, *http.Response, error) {
+func (a *ServersAPIService) ServersServerIdTagsPutExecute(r ApiServersServerIdTagsPutRequest) (*Server, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -3799,13 +3919,13 @@ func (a *ServersApiService) ServersServerIdTagsPutExecute(r ApiServersServerIdTa
 		localVarReturnValue *Server
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.ServersServerIdTagsPut")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdTagsPut")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/servers/{serverId}/tags"
-	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterToString(r.serverId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3843,9 +3963,9 @@ func (a *ServersApiService) ServersServerIdTagsPutExecute(r ApiServersServerIdTa
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3862,6 +3982,7 @@ func (a *ServersApiService) ServersServerIdTagsPutExecute(r ApiServersServerIdTa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3872,6 +3993,7 @@ func (a *ServersApiService) ServersServerIdTagsPutExecute(r ApiServersServerIdTa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3882,6 +4004,7 @@ func (a *ServersApiService) ServersServerIdTagsPutExecute(r ApiServersServerIdTa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3892,6 +4015,7 @@ func (a *ServersApiService) ServersServerIdTagsPutExecute(r ApiServersServerIdTa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr

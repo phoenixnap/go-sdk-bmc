@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PublicNetworkConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicNetworkConfiguration{}
+
 // PublicNetworkConfiguration Public network details of bare metal server.
 type PublicNetworkConfiguration struct {
 	// The list of public networks this server is member of. When this field is part of request body, it'll be used to specify the public networks to assign to this server upon provisioning.
@@ -40,7 +43,7 @@ func NewPublicNetworkConfigurationWithDefaults() *PublicNetworkConfiguration {
 
 // GetPublicNetworks returns the PublicNetworks field value if set, zero value otherwise.
 func (o *PublicNetworkConfiguration) GetPublicNetworks() []ServerPublicNetwork {
-	if o == nil || o.PublicNetworks == nil {
+	if o == nil || IsNil(o.PublicNetworks) {
 		var ret []ServerPublicNetwork
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *PublicNetworkConfiguration) GetPublicNetworks() []ServerPublicNetwork {
 // GetPublicNetworksOk returns a tuple with the PublicNetworks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicNetworkConfiguration) GetPublicNetworksOk() ([]ServerPublicNetwork, bool) {
-	if o == nil || o.PublicNetworks == nil {
+	if o == nil || IsNil(o.PublicNetworks) {
 		return nil, false
 	}
 	return o.PublicNetworks, true
@@ -58,7 +61,7 @@ func (o *PublicNetworkConfiguration) GetPublicNetworksOk() ([]ServerPublicNetwor
 
 // HasPublicNetworks returns a boolean if a field has been set.
 func (o *PublicNetworkConfiguration) HasPublicNetworks() bool {
-	if o != nil && o.PublicNetworks != nil {
+	if o != nil && !IsNil(o.PublicNetworks) {
 		return true
 	}
 
@@ -71,11 +74,19 @@ func (o *PublicNetworkConfiguration) SetPublicNetworks(v []ServerPublicNetwork) 
 }
 
 func (o PublicNetworkConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.PublicNetworks != nil {
-		toSerialize["publicNetworks"] = o.PublicNetworks
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicNetworkConfiguration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.PublicNetworks) {
+		toSerialize["publicNetworks"] = o.PublicNetworks
+	}
+	return toSerialize, nil
 }
 
 type NullablePublicNetworkConfiguration struct {

@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ServerProvision type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServerProvision{}
 
 // ServerProvision Provision bare metal server.
 type ServerProvision struct {
@@ -37,6 +42,8 @@ type ServerProvision struct {
 	NetworkConfiguration *NetworkConfiguration  `json:"networkConfiguration,omitempty"`
 	StorageConfiguration *StorageConfiguration  `json:"storageConfiguration,omitempty"`
 }
+
+type _ServerProvision ServerProvision
 
 // NewServerProvision instantiates a new ServerProvision object
 // This constructor will assign default values to properties that have it defined,
@@ -91,7 +98,7 @@ func (o *ServerProvision) SetHostname(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *ServerProvision) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -101,7 +108,7 @@ func (o *ServerProvision) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerProvision) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -109,7 +116,7 @@ func (o *ServerProvision) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *ServerProvision) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -147,7 +154,7 @@ func (o *ServerProvision) SetOs(v string) {
 
 // GetInstallDefaultSshKeys returns the InstallDefaultSshKeys field value if set, zero value otherwise.
 func (o *ServerProvision) GetInstallDefaultSshKeys() bool {
-	if o == nil || o.InstallDefaultSshKeys == nil {
+	if o == nil || IsNil(o.InstallDefaultSshKeys) {
 		var ret bool
 		return ret
 	}
@@ -157,7 +164,7 @@ func (o *ServerProvision) GetInstallDefaultSshKeys() bool {
 // GetInstallDefaultSshKeysOk returns a tuple with the InstallDefaultSshKeys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerProvision) GetInstallDefaultSshKeysOk() (*bool, bool) {
-	if o == nil || o.InstallDefaultSshKeys == nil {
+	if o == nil || IsNil(o.InstallDefaultSshKeys) {
 		return nil, false
 	}
 	return o.InstallDefaultSshKeys, true
@@ -165,7 +172,7 @@ func (o *ServerProvision) GetInstallDefaultSshKeysOk() (*bool, bool) {
 
 // HasInstallDefaultSshKeys returns a boolean if a field has been set.
 func (o *ServerProvision) HasInstallDefaultSshKeys() bool {
-	if o != nil && o.InstallDefaultSshKeys != nil {
+	if o != nil && !IsNil(o.InstallDefaultSshKeys) {
 		return true
 	}
 
@@ -179,7 +186,7 @@ func (o *ServerProvision) SetInstallDefaultSshKeys(v bool) {
 
 // GetSshKeys returns the SshKeys field value if set, zero value otherwise.
 func (o *ServerProvision) GetSshKeys() []string {
-	if o == nil || o.SshKeys == nil {
+	if o == nil || IsNil(o.SshKeys) {
 		var ret []string
 		return ret
 	}
@@ -189,7 +196,7 @@ func (o *ServerProvision) GetSshKeys() []string {
 // GetSshKeysOk returns a tuple with the SshKeys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerProvision) GetSshKeysOk() ([]string, bool) {
-	if o == nil || o.SshKeys == nil {
+	if o == nil || IsNil(o.SshKeys) {
 		return nil, false
 	}
 	return o.SshKeys, true
@@ -197,7 +204,7 @@ func (o *ServerProvision) GetSshKeysOk() ([]string, bool) {
 
 // HasSshKeys returns a boolean if a field has been set.
 func (o *ServerProvision) HasSshKeys() bool {
-	if o != nil && o.SshKeys != nil {
+	if o != nil && !IsNil(o.SshKeys) {
 		return true
 	}
 
@@ -211,7 +218,7 @@ func (o *ServerProvision) SetSshKeys(v []string) {
 
 // GetSshKeyIds returns the SshKeyIds field value if set, zero value otherwise.
 func (o *ServerProvision) GetSshKeyIds() []string {
-	if o == nil || o.SshKeyIds == nil {
+	if o == nil || IsNil(o.SshKeyIds) {
 		var ret []string
 		return ret
 	}
@@ -221,7 +228,7 @@ func (o *ServerProvision) GetSshKeyIds() []string {
 // GetSshKeyIdsOk returns a tuple with the SshKeyIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerProvision) GetSshKeyIdsOk() ([]string, bool) {
-	if o == nil || o.SshKeyIds == nil {
+	if o == nil || IsNil(o.SshKeyIds) {
 		return nil, false
 	}
 	return o.SshKeyIds, true
@@ -229,7 +236,7 @@ func (o *ServerProvision) GetSshKeyIdsOk() ([]string, bool) {
 
 // HasSshKeyIds returns a boolean if a field has been set.
 func (o *ServerProvision) HasSshKeyIds() bool {
-	if o != nil && o.SshKeyIds != nil {
+	if o != nil && !IsNil(o.SshKeyIds) {
 		return true
 	}
 
@@ -243,7 +250,7 @@ func (o *ServerProvision) SetSshKeyIds(v []string) {
 
 // GetNetworkType returns the NetworkType field value if set, zero value otherwise.
 func (o *ServerProvision) GetNetworkType() string {
-	if o == nil || o.NetworkType == nil {
+	if o == nil || IsNil(o.NetworkType) {
 		var ret string
 		return ret
 	}
@@ -253,7 +260,7 @@ func (o *ServerProvision) GetNetworkType() string {
 // GetNetworkTypeOk returns a tuple with the NetworkType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerProvision) GetNetworkTypeOk() (*string, bool) {
-	if o == nil || o.NetworkType == nil {
+	if o == nil || IsNil(o.NetworkType) {
 		return nil, false
 	}
 	return o.NetworkType, true
@@ -261,7 +268,7 @@ func (o *ServerProvision) GetNetworkTypeOk() (*string, bool) {
 
 // HasNetworkType returns a boolean if a field has been set.
 func (o *ServerProvision) HasNetworkType() bool {
-	if o != nil && o.NetworkType != nil {
+	if o != nil && !IsNil(o.NetworkType) {
 		return true
 	}
 
@@ -275,7 +282,7 @@ func (o *ServerProvision) SetNetworkType(v string) {
 
 // GetOsConfiguration returns the OsConfiguration field value if set, zero value otherwise.
 func (o *ServerProvision) GetOsConfiguration() OsConfiguration {
-	if o == nil || o.OsConfiguration == nil {
+	if o == nil || IsNil(o.OsConfiguration) {
 		var ret OsConfiguration
 		return ret
 	}
@@ -285,7 +292,7 @@ func (o *ServerProvision) GetOsConfiguration() OsConfiguration {
 // GetOsConfigurationOk returns a tuple with the OsConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerProvision) GetOsConfigurationOk() (*OsConfiguration, bool) {
-	if o == nil || o.OsConfiguration == nil {
+	if o == nil || IsNil(o.OsConfiguration) {
 		return nil, false
 	}
 	return o.OsConfiguration, true
@@ -293,7 +300,7 @@ func (o *ServerProvision) GetOsConfigurationOk() (*OsConfiguration, bool) {
 
 // HasOsConfiguration returns a boolean if a field has been set.
 func (o *ServerProvision) HasOsConfiguration() bool {
-	if o != nil && o.OsConfiguration != nil {
+	if o != nil && !IsNil(o.OsConfiguration) {
 		return true
 	}
 
@@ -307,7 +314,7 @@ func (o *ServerProvision) SetOsConfiguration(v OsConfiguration) {
 
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *ServerProvision) GetTags() []TagAssignmentRequest {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		var ret []TagAssignmentRequest
 		return ret
 	}
@@ -317,7 +324,7 @@ func (o *ServerProvision) GetTags() []TagAssignmentRequest {
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerProvision) GetTagsOk() ([]TagAssignmentRequest, bool) {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
 	return o.Tags, true
@@ -325,7 +332,7 @@ func (o *ServerProvision) GetTagsOk() ([]TagAssignmentRequest, bool) {
 
 // HasTags returns a boolean if a field has been set.
 func (o *ServerProvision) HasTags() bool {
-	if o != nil && o.Tags != nil {
+	if o != nil && !IsNil(o.Tags) {
 		return true
 	}
 
@@ -339,7 +346,7 @@ func (o *ServerProvision) SetTags(v []TagAssignmentRequest) {
 
 // GetNetworkConfiguration returns the NetworkConfiguration field value if set, zero value otherwise.
 func (o *ServerProvision) GetNetworkConfiguration() NetworkConfiguration {
-	if o == nil || o.NetworkConfiguration == nil {
+	if o == nil || IsNil(o.NetworkConfiguration) {
 		var ret NetworkConfiguration
 		return ret
 	}
@@ -349,7 +356,7 @@ func (o *ServerProvision) GetNetworkConfiguration() NetworkConfiguration {
 // GetNetworkConfigurationOk returns a tuple with the NetworkConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerProvision) GetNetworkConfigurationOk() (*NetworkConfiguration, bool) {
-	if o == nil || o.NetworkConfiguration == nil {
+	if o == nil || IsNil(o.NetworkConfiguration) {
 		return nil, false
 	}
 	return o.NetworkConfiguration, true
@@ -357,7 +364,7 @@ func (o *ServerProvision) GetNetworkConfigurationOk() (*NetworkConfiguration, bo
 
 // HasNetworkConfiguration returns a boolean if a field has been set.
 func (o *ServerProvision) HasNetworkConfiguration() bool {
-	if o != nil && o.NetworkConfiguration != nil {
+	if o != nil && !IsNil(o.NetworkConfiguration) {
 		return true
 	}
 
@@ -371,7 +378,7 @@ func (o *ServerProvision) SetNetworkConfiguration(v NetworkConfiguration) {
 
 // GetStorageConfiguration returns the StorageConfiguration field value if set, zero value otherwise.
 func (o *ServerProvision) GetStorageConfiguration() StorageConfiguration {
-	if o == nil || o.StorageConfiguration == nil {
+	if o == nil || IsNil(o.StorageConfiguration) {
 		var ret StorageConfiguration
 		return ret
 	}
@@ -381,7 +388,7 @@ func (o *ServerProvision) GetStorageConfiguration() StorageConfiguration {
 // GetStorageConfigurationOk returns a tuple with the StorageConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerProvision) GetStorageConfigurationOk() (*StorageConfiguration, bool) {
-	if o == nil || o.StorageConfiguration == nil {
+	if o == nil || IsNil(o.StorageConfiguration) {
 		return nil, false
 	}
 	return o.StorageConfiguration, true
@@ -389,7 +396,7 @@ func (o *ServerProvision) GetStorageConfigurationOk() (*StorageConfiguration, bo
 
 // HasStorageConfiguration returns a boolean if a field has been set.
 func (o *ServerProvision) HasStorageConfiguration() bool {
-	if o != nil && o.StorageConfiguration != nil {
+	if o != nil && !IsNil(o.StorageConfiguration) {
 		return true
 	}
 
@@ -402,41 +409,83 @@ func (o *ServerProvision) SetStorageConfiguration(v StorageConfiguration) {
 }
 
 func (o ServerProvision) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["hostname"] = o.Hostname
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["os"] = o.Os
-	}
-	if o.InstallDefaultSshKeys != nil {
-		toSerialize["installDefaultSshKeys"] = o.InstallDefaultSshKeys
-	}
-	if o.SshKeys != nil {
-		toSerialize["sshKeys"] = o.SshKeys
-	}
-	if o.SshKeyIds != nil {
-		toSerialize["sshKeyIds"] = o.SshKeyIds
-	}
-	if o.NetworkType != nil {
-		toSerialize["networkType"] = o.NetworkType
-	}
-	if o.OsConfiguration != nil {
-		toSerialize["osConfiguration"] = o.OsConfiguration
-	}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
-	}
-	if o.NetworkConfiguration != nil {
-		toSerialize["networkConfiguration"] = o.NetworkConfiguration
-	}
-	if o.StorageConfiguration != nil {
-		toSerialize["storageConfiguration"] = o.StorageConfiguration
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ServerProvision) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["hostname"] = o.Hostname
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["os"] = o.Os
+	if !IsNil(o.InstallDefaultSshKeys) {
+		toSerialize["installDefaultSshKeys"] = o.InstallDefaultSshKeys
+	}
+	if !IsNil(o.SshKeys) {
+		toSerialize["sshKeys"] = o.SshKeys
+	}
+	if !IsNil(o.SshKeyIds) {
+		toSerialize["sshKeyIds"] = o.SshKeyIds
+	}
+	if !IsNil(o.NetworkType) {
+		toSerialize["networkType"] = o.NetworkType
+	}
+	if !IsNil(o.OsConfiguration) {
+		toSerialize["osConfiguration"] = o.OsConfiguration
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.NetworkConfiguration) {
+		toSerialize["networkConfiguration"] = o.NetworkConfiguration
+	}
+	if !IsNil(o.StorageConfiguration) {
+		toSerialize["storageConfiguration"] = o.StorageConfiguration
+	}
+	return toSerialize, nil
+}
+
+func (o *ServerProvision) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"hostname",
+		"os",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServerProvision := _ServerProvision{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varServerProvision)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServerProvision(varServerProvision)
+
+	return err
 }
 
 type NullableServerProvision struct {

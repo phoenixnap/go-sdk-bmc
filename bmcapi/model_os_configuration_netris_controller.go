@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OsConfigurationNetrisController type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OsConfigurationNetrisController{}
+
 // OsConfigurationNetrisController Netris Controller configuration properties. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/netris-bare-metal-cloud#deploy-netris-controller' target='_blank'>here</a>.
 type OsConfigurationNetrisController struct {
 	// (Read-only) Host OS on which the Netris Controller is installed.
@@ -44,7 +47,7 @@ func NewOsConfigurationNetrisControllerWithDefaults() *OsConfigurationNetrisCont
 
 // GetHostOs returns the HostOs field value if set, zero value otherwise.
 func (o *OsConfigurationNetrisController) GetHostOs() string {
-	if o == nil || o.HostOs == nil {
+	if o == nil || IsNil(o.HostOs) {
 		var ret string
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *OsConfigurationNetrisController) GetHostOs() string {
 // GetHostOsOk returns a tuple with the HostOs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfigurationNetrisController) GetHostOsOk() (*string, bool) {
-	if o == nil || o.HostOs == nil {
+	if o == nil || IsNil(o.HostOs) {
 		return nil, false
 	}
 	return o.HostOs, true
@@ -62,7 +65,7 @@ func (o *OsConfigurationNetrisController) GetHostOsOk() (*string, bool) {
 
 // HasHostOs returns a boolean if a field has been set.
 func (o *OsConfigurationNetrisController) HasHostOs() bool {
-	if o != nil && o.HostOs != nil {
+	if o != nil && !IsNil(o.HostOs) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *OsConfigurationNetrisController) SetHostOs(v string) {
 
 // GetNetrisWebConsoleUrl returns the NetrisWebConsoleUrl field value if set, zero value otherwise.
 func (o *OsConfigurationNetrisController) GetNetrisWebConsoleUrl() string {
-	if o == nil || o.NetrisWebConsoleUrl == nil {
+	if o == nil || IsNil(o.NetrisWebConsoleUrl) {
 		var ret string
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *OsConfigurationNetrisController) GetNetrisWebConsoleUrl() string {
 // GetNetrisWebConsoleUrlOk returns a tuple with the NetrisWebConsoleUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfigurationNetrisController) GetNetrisWebConsoleUrlOk() (*string, bool) {
-	if o == nil || o.NetrisWebConsoleUrl == nil {
+	if o == nil || IsNil(o.NetrisWebConsoleUrl) {
 		return nil, false
 	}
 	return o.NetrisWebConsoleUrl, true
@@ -94,7 +97,7 @@ func (o *OsConfigurationNetrisController) GetNetrisWebConsoleUrlOk() (*string, b
 
 // HasNetrisWebConsoleUrl returns a boolean if a field has been set.
 func (o *OsConfigurationNetrisController) HasNetrisWebConsoleUrl() bool {
-	if o != nil && o.NetrisWebConsoleUrl != nil {
+	if o != nil && !IsNil(o.NetrisWebConsoleUrl) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *OsConfigurationNetrisController) SetNetrisWebConsoleUrl(v string) {
 
 // GetNetrisUserPassword returns the NetrisUserPassword field value if set, zero value otherwise.
 func (o *OsConfigurationNetrisController) GetNetrisUserPassword() string {
-	if o == nil || o.NetrisUserPassword == nil {
+	if o == nil || IsNil(o.NetrisUserPassword) {
 		var ret string
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *OsConfigurationNetrisController) GetNetrisUserPassword() string {
 // GetNetrisUserPasswordOk returns a tuple with the NetrisUserPassword field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfigurationNetrisController) GetNetrisUserPasswordOk() (*string, bool) {
-	if o == nil || o.NetrisUserPassword == nil {
+	if o == nil || IsNil(o.NetrisUserPassword) {
 		return nil, false
 	}
 	return o.NetrisUserPassword, true
@@ -126,7 +129,7 @@ func (o *OsConfigurationNetrisController) GetNetrisUserPasswordOk() (*string, bo
 
 // HasNetrisUserPassword returns a boolean if a field has been set.
 func (o *OsConfigurationNetrisController) HasNetrisUserPassword() bool {
-	if o != nil && o.NetrisUserPassword != nil {
+	if o != nil && !IsNil(o.NetrisUserPassword) {
 		return true
 	}
 
@@ -139,17 +142,25 @@ func (o *OsConfigurationNetrisController) SetNetrisUserPassword(v string) {
 }
 
 func (o OsConfigurationNetrisController) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.HostOs != nil {
-		toSerialize["hostOs"] = o.HostOs
-	}
-	if o.NetrisWebConsoleUrl != nil {
-		toSerialize["netrisWebConsoleUrl"] = o.NetrisWebConsoleUrl
-	}
-	if o.NetrisUserPassword != nil {
-		toSerialize["netrisUserPassword"] = o.NetrisUserPassword
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OsConfigurationNetrisController) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.HostOs) {
+		toSerialize["hostOs"] = o.HostOs
+	}
+	if !IsNil(o.NetrisWebConsoleUrl) {
+		toSerialize["netrisWebConsoleUrl"] = o.NetrisWebConsoleUrl
+	}
+	if !IsNil(o.NetrisUserPassword) {
+		toSerialize["netrisUserPassword"] = o.NetrisUserPassword
+	}
+	return toSerialize, nil
 }
 
 type NullableOsConfigurationNetrisController struct {

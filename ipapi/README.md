@@ -86,12 +86,12 @@ All URIs are relative to *https://api.phoenixnap.com/ips/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*IPBlocksApi* | [**IpBlocksGet**](docs/IPBlocksApi.md#ipblocksget) | **Get** /ip-blocks | List IP Blocks.
-*IPBlocksApi* | [**IpBlocksIpBlockIdDelete**](docs/IPBlocksApi.md#ipblocksipblockiddelete) | **Delete** /ip-blocks/{ipBlockId} | Delete IP Block.
-*IPBlocksApi* | [**IpBlocksIpBlockIdGet**](docs/IPBlocksApi.md#ipblocksipblockidget) | **Get** /ip-blocks/{ipBlockId} | Get IP Block.
-*IPBlocksApi* | [**IpBlocksIpBlockIdPatch**](docs/IPBlocksApi.md#ipblocksipblockidpatch) | **Patch** /ip-blocks/{ipBlockId} | Update IP block.
-*IPBlocksApi* | [**IpBlocksIpBlockIdTagsPut**](docs/IPBlocksApi.md#ipblocksipblockidtagsput) | **Put** /ip-blocks/{ipBlockId}/tags | Overwrite tags assigned for IP Block.
-*IPBlocksApi* | [**IpBlocksPost**](docs/IPBlocksApi.md#ipblockspost) | **Post** /ip-blocks | Create an IP Block.
+*IPBlocksAPI* | [**IpBlocksGet**](docs/IPBlocksAPI.md#ipblocksget) | **Get** /ip-blocks | List IP Blocks.
+*IPBlocksAPI* | [**IpBlocksIpBlockIdDelete**](docs/IPBlocksAPI.md#ipblocksipblockiddelete) | **Delete** /ip-blocks/{ipBlockId} | Delete IP Block.
+*IPBlocksAPI* | [**IpBlocksIpBlockIdGet**](docs/IPBlocksAPI.md#ipblocksipblockidget) | **Get** /ip-blocks/{ipBlockId} | Get IP Block.
+*IPBlocksAPI* | [**IpBlocksIpBlockIdPatch**](docs/IPBlocksAPI.md#ipblocksipblockidpatch) | **Patch** /ip-blocks/{ipBlockId} | Update IP block.
+*IPBlocksAPI* | [**IpBlocksIpBlockIdTagsPut**](docs/IPBlocksAPI.md#ipblocksipblockidtagsput) | **Put** /ip-blocks/{ipBlockId}/tags | Overwrite tags assigned for IP Block.
+*IPBlocksAPI* | [**IpBlocksPost**](docs/IPBlocksAPI.md#ipblockspost) | **Post** /ip-blocks | Create an IP Block.
 
 
 ## Documentation For Models

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApplicableDiscounts type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicableDiscounts{}
+
 // ApplicableDiscounts Represents the applicable discount details for a product, including the discounted price and discount information.
 type ApplicableDiscounts struct {
 	// The price of the product after applying a discount.
@@ -41,7 +44,7 @@ func NewApplicableDiscountsWithDefaults() *ApplicableDiscounts {
 
 // GetDiscountedPrice returns the DiscountedPrice field value if set, zero value otherwise.
 func (o *ApplicableDiscounts) GetDiscountedPrice() float32 {
-	if o == nil || o.DiscountedPrice == nil {
+	if o == nil || IsNil(o.DiscountedPrice) {
 		var ret float32
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *ApplicableDiscounts) GetDiscountedPrice() float32 {
 // GetDiscountedPriceOk returns a tuple with the DiscountedPrice field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicableDiscounts) GetDiscountedPriceOk() (*float32, bool) {
-	if o == nil || o.DiscountedPrice == nil {
+	if o == nil || IsNil(o.DiscountedPrice) {
 		return nil, false
 	}
 	return o.DiscountedPrice, true
@@ -59,7 +62,7 @@ func (o *ApplicableDiscounts) GetDiscountedPriceOk() (*float32, bool) {
 
 // HasDiscountedPrice returns a boolean if a field has been set.
 func (o *ApplicableDiscounts) HasDiscountedPrice() bool {
-	if o != nil && o.DiscountedPrice != nil {
+	if o != nil && !IsNil(o.DiscountedPrice) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *ApplicableDiscounts) SetDiscountedPrice(v float32) {
 
 // GetDiscountDetails returns the DiscountDetails field value if set, zero value otherwise.
 func (o *ApplicableDiscounts) GetDiscountDetails() []DiscountDetails {
-	if o == nil || o.DiscountDetails == nil {
+	if o == nil || IsNil(o.DiscountDetails) {
 		var ret []DiscountDetails
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *ApplicableDiscounts) GetDiscountDetails() []DiscountDetails {
 // GetDiscountDetailsOk returns a tuple with the DiscountDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicableDiscounts) GetDiscountDetailsOk() ([]DiscountDetails, bool) {
-	if o == nil || o.DiscountDetails == nil {
+	if o == nil || IsNil(o.DiscountDetails) {
 		return nil, false
 	}
 	return o.DiscountDetails, true
@@ -91,7 +94,7 @@ func (o *ApplicableDiscounts) GetDiscountDetailsOk() ([]DiscountDetails, bool) {
 
 // HasDiscountDetails returns a boolean if a field has been set.
 func (o *ApplicableDiscounts) HasDiscountDetails() bool {
-	if o != nil && o.DiscountDetails != nil {
+	if o != nil && !IsNil(o.DiscountDetails) {
 		return true
 	}
 
@@ -104,14 +107,22 @@ func (o *ApplicableDiscounts) SetDiscountDetails(v []DiscountDetails) {
 }
 
 func (o ApplicableDiscounts) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.DiscountedPrice != nil {
-		toSerialize["discountedPrice"] = o.DiscountedPrice
-	}
-	if o.DiscountDetails != nil {
-		toSerialize["discountDetails"] = o.DiscountDetails
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ApplicableDiscounts) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DiscountedPrice) {
+		toSerialize["discountedPrice"] = o.DiscountedPrice
+	}
+	if !IsNil(o.DiscountDetails) {
+		toSerialize["discountDetails"] = o.DiscountDetails
+	}
+	return toSerialize, nil
 }
 
 type NullableApplicableDiscounts struct {

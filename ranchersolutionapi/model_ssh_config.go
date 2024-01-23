@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SshConfig type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SshConfig{}
+
 // SshConfig (Write-only) Configuration defining which public SSH keys are pre-installed as authorized on the server.
 type SshConfig struct {
 	// Define whether public keys marked as default should be installed on this node. These are public keys that were already recorded on this system. Use <a href='https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get' target='_blank'>GET /ssh-keys</a> to retrieve a list of possible values.
@@ -48,7 +51,7 @@ func NewSshConfigWithDefaults() *SshConfig {
 
 // GetInstallDefaultKeys returns the InstallDefaultKeys field value if set, zero value otherwise.
 func (o *SshConfig) GetInstallDefaultKeys() bool {
-	if o == nil || o.InstallDefaultKeys == nil {
+	if o == nil || IsNil(o.InstallDefaultKeys) {
 		var ret bool
 		return ret
 	}
@@ -58,7 +61,7 @@ func (o *SshConfig) GetInstallDefaultKeys() bool {
 // GetInstallDefaultKeysOk returns a tuple with the InstallDefaultKeys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SshConfig) GetInstallDefaultKeysOk() (*bool, bool) {
-	if o == nil || o.InstallDefaultKeys == nil {
+	if o == nil || IsNil(o.InstallDefaultKeys) {
 		return nil, false
 	}
 	return o.InstallDefaultKeys, true
@@ -66,7 +69,7 @@ func (o *SshConfig) GetInstallDefaultKeysOk() (*bool, bool) {
 
 // HasInstallDefaultKeys returns a boolean if a field has been set.
 func (o *SshConfig) HasInstallDefaultKeys() bool {
-	if o != nil && o.InstallDefaultKeys != nil {
+	if o != nil && !IsNil(o.InstallDefaultKeys) {
 		return true
 	}
 
@@ -80,7 +83,7 @@ func (o *SshConfig) SetInstallDefaultKeys(v bool) {
 
 // GetKeys returns the Keys field value if set, zero value otherwise.
 func (o *SshConfig) GetKeys() []string {
-	if o == nil || o.Keys == nil {
+	if o == nil || IsNil(o.Keys) {
 		var ret []string
 		return ret
 	}
@@ -90,7 +93,7 @@ func (o *SshConfig) GetKeys() []string {
 // GetKeysOk returns a tuple with the Keys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SshConfig) GetKeysOk() ([]string, bool) {
-	if o == nil || o.Keys == nil {
+	if o == nil || IsNil(o.Keys) {
 		return nil, false
 	}
 	return o.Keys, true
@@ -98,7 +101,7 @@ func (o *SshConfig) GetKeysOk() ([]string, bool) {
 
 // HasKeys returns a boolean if a field has been set.
 func (o *SshConfig) HasKeys() bool {
-	if o != nil && o.Keys != nil {
+	if o != nil && !IsNil(o.Keys) {
 		return true
 	}
 
@@ -112,7 +115,7 @@ func (o *SshConfig) SetKeys(v []string) {
 
 // GetKeyIds returns the KeyIds field value if set, zero value otherwise.
 func (o *SshConfig) GetKeyIds() []string {
-	if o == nil || o.KeyIds == nil {
+	if o == nil || IsNil(o.KeyIds) {
 		var ret []string
 		return ret
 	}
@@ -122,7 +125,7 @@ func (o *SshConfig) GetKeyIds() []string {
 // GetKeyIdsOk returns a tuple with the KeyIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SshConfig) GetKeyIdsOk() ([]string, bool) {
-	if o == nil || o.KeyIds == nil {
+	if o == nil || IsNil(o.KeyIds) {
 		return nil, false
 	}
 	return o.KeyIds, true
@@ -130,7 +133,7 @@ func (o *SshConfig) GetKeyIdsOk() ([]string, bool) {
 
 // HasKeyIds returns a boolean if a field has been set.
 func (o *SshConfig) HasKeyIds() bool {
-	if o != nil && o.KeyIds != nil {
+	if o != nil && !IsNil(o.KeyIds) {
 		return true
 	}
 
@@ -143,17 +146,25 @@ func (o *SshConfig) SetKeyIds(v []string) {
 }
 
 func (o SshConfig) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.InstallDefaultKeys != nil {
-		toSerialize["installDefaultKeys"] = o.InstallDefaultKeys
-	}
-	if o.Keys != nil {
-		toSerialize["keys"] = o.Keys
-	}
-	if o.KeyIds != nil {
-		toSerialize["keyIds"] = o.KeyIds
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SshConfig) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.InstallDefaultKeys) {
+		toSerialize["installDefaultKeys"] = o.InstallDefaultKeys
+	}
+	if !IsNil(o.Keys) {
+		toSerialize["keys"] = o.Keys
+	}
+	if !IsNil(o.KeyIds) {
+		toSerialize["keyIds"] = o.KeyIds
+	}
+	return toSerialize, nil
 }
 
 type NullableSshConfig struct {

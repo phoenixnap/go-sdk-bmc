@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Node type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Node{}
+
 // Node Node details.
 type Node struct {
 	// The server identifier.
@@ -40,7 +43,7 @@ func NewNodeWithDefaults() *Node {
 
 // GetServerId returns the ServerId field value if set, zero value otherwise.
 func (o *Node) GetServerId() string {
-	if o == nil || o.ServerId == nil {
+	if o == nil || IsNil(o.ServerId) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *Node) GetServerId() string {
 // GetServerIdOk returns a tuple with the ServerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Node) GetServerIdOk() (*string, bool) {
-	if o == nil || o.ServerId == nil {
+	if o == nil || IsNil(o.ServerId) {
 		return nil, false
 	}
 	return o.ServerId, true
@@ -58,7 +61,7 @@ func (o *Node) GetServerIdOk() (*string, bool) {
 
 // HasServerId returns a boolean if a field has been set.
 func (o *Node) HasServerId() bool {
-	if o != nil && o.ServerId != nil {
+	if o != nil && !IsNil(o.ServerId) {
 		return true
 	}
 
@@ -71,11 +74,19 @@ func (o *Node) SetServerId(v string) {
 }
 
 func (o Node) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ServerId != nil {
-		toSerialize["serverId"] = o.ServerId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Node) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ServerId) {
+		toSerialize["serverId"] = o.ServerId
+	}
+	return toSerialize, nil
 }
 
 type NullableNode struct {

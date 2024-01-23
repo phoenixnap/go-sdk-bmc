@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package networkstorageapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the StorageNetworkVolumeCreate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StorageNetworkVolumeCreate{}
 
 // StorageNetworkVolumeCreate Create Volume.
 type StorageNetworkVolumeCreate struct {
@@ -28,6 +33,8 @@ type StorageNetworkVolumeCreate struct {
 	// Tags to set to the resource. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).
 	Tags []TagAssignmentRequest `json:"tags,omitempty"`
 }
+
+type _StorageNetworkVolumeCreate StorageNetworkVolumeCreate
 
 // NewStorageNetworkVolumeCreate instantiates a new StorageNetworkVolumeCreate object
 // This constructor will assign default values to properties that have it defined,
@@ -74,7 +81,7 @@ func (o *StorageNetworkVolumeCreate) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *StorageNetworkVolumeCreate) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -84,7 +91,7 @@ func (o *StorageNetworkVolumeCreate) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageNetworkVolumeCreate) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -92,7 +99,7 @@ func (o *StorageNetworkVolumeCreate) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *StorageNetworkVolumeCreate) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -106,7 +113,7 @@ func (o *StorageNetworkVolumeCreate) SetDescription(v string) {
 
 // GetPathSuffix returns the PathSuffix field value if set, zero value otherwise.
 func (o *StorageNetworkVolumeCreate) GetPathSuffix() string {
-	if o == nil || o.PathSuffix == nil {
+	if o == nil || IsNil(o.PathSuffix) {
 		var ret string
 		return ret
 	}
@@ -116,7 +123,7 @@ func (o *StorageNetworkVolumeCreate) GetPathSuffix() string {
 // GetPathSuffixOk returns a tuple with the PathSuffix field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageNetworkVolumeCreate) GetPathSuffixOk() (*string, bool) {
-	if o == nil || o.PathSuffix == nil {
+	if o == nil || IsNil(o.PathSuffix) {
 		return nil, false
 	}
 	return o.PathSuffix, true
@@ -124,7 +131,7 @@ func (o *StorageNetworkVolumeCreate) GetPathSuffixOk() (*string, bool) {
 
 // HasPathSuffix returns a boolean if a field has been set.
 func (o *StorageNetworkVolumeCreate) HasPathSuffix() bool {
-	if o != nil && o.PathSuffix != nil {
+	if o != nil && !IsNil(o.PathSuffix) {
 		return true
 	}
 
@@ -162,7 +169,7 @@ func (o *StorageNetworkVolumeCreate) SetCapacityInGb(v int32) {
 
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *StorageNetworkVolumeCreate) GetTags() []TagAssignmentRequest {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		var ret []TagAssignmentRequest
 		return ret
 	}
@@ -172,7 +179,7 @@ func (o *StorageNetworkVolumeCreate) GetTags() []TagAssignmentRequest {
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageNetworkVolumeCreate) GetTagsOk() ([]TagAssignmentRequest, bool) {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
 	return o.Tags, true
@@ -180,7 +187,7 @@ func (o *StorageNetworkVolumeCreate) GetTagsOk() ([]TagAssignmentRequest, bool) 
 
 // HasTags returns a boolean if a field has been set.
 func (o *StorageNetworkVolumeCreate) HasTags() bool {
-	if o != nil && o.Tags != nil {
+	if o != nil && !IsNil(o.Tags) {
 		return true
 	}
 
@@ -193,23 +200,65 @@ func (o *StorageNetworkVolumeCreate) SetTags(v []TagAssignmentRequest) {
 }
 
 func (o StorageNetworkVolumeCreate) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.PathSuffix != nil {
-		toSerialize["pathSuffix"] = o.PathSuffix
-	}
-	if true {
-		toSerialize["capacityInGb"] = o.CapacityInGb
-	}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StorageNetworkVolumeCreate) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.PathSuffix) {
+		toSerialize["pathSuffix"] = o.PathSuffix
+	}
+	toSerialize["capacityInGb"] = o.CapacityInGb
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	return toSerialize, nil
+}
+
+func (o *StorageNetworkVolumeCreate) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"capacityInGb",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStorageNetworkVolumeCreate := _StorageNetworkVolumeCreate{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varStorageNetworkVolumeCreate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StorageNetworkVolumeCreate(varStorageNetworkVolumeCreate)
+
+	return err
 }
 
 type NullableStorageNetworkVolumeCreate struct {

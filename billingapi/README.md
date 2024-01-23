@@ -87,17 +87,17 @@ All URIs are relative to *https://api.phoenixnap.com/billing/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*BillingConfigurationsApi* | [**AccountBillingConfigurationMeGet**](docs/BillingConfigurationsApi.md#accountbillingconfigurationmeget) | **Get** /account-billing-configurations/me | Retrieves billing configuration associated with the authenticated account.
-*ProductsApi* | [**ProductAvailabilityGet**](docs/ProductsApi.md#productavailabilityget) | **Get** /product-availability | List all Product availabilities.
-*ProductsApi* | [**ProductsGet**](docs/ProductsApi.md#productsget) | **Get** /products | List all Products.
-*RatedUsageApi* | [**RatedUsageGet**](docs/RatedUsageApi.md#ratedusageget) | **Get** /rated-usage | List the rated usage.
-*RatedUsageApi* | [**RatedUsageMonthToDateGet**](docs/RatedUsageApi.md#ratedusagemonthtodateget) | **Get** /rated-usage/month-to-date | List the rated usage records for the current calendar month.
-*ReservationsApi* | [**ReservationsGet**](docs/ReservationsApi.md#reservationsget) | **Get** /reservations | List all Reservations.
-*ReservationsApi* | [**ReservationsPost**](docs/ReservationsApi.md#reservationspost) | **Post** /reservations | Create a reservation.
-*ReservationsApi* | [**ReservationsReservationIdActionsAutoRenewDisablePost**](docs/ReservationsApi.md#reservationsreservationidactionsautorenewdisablepost) | **Post** /reservations/{reservationId}/actions/auto-renew/disable | Disable auto-renewal for reservation by id.
-*ReservationsApi* | [**ReservationsReservationIdActionsAutoRenewEnablePost**](docs/ReservationsApi.md#reservationsreservationidactionsautorenewenablepost) | **Post** /reservations/{reservationId}/actions/auto-renew/enable | Enable auto-renewal for unexpired reservation by reservation id.
-*ReservationsApi* | [**ReservationsReservationIdActionsConvertPost**](docs/ReservationsApi.md#reservationsreservationidactionsconvertpost) | **Post** /reservations/{reservationId}/actions/convert | Convert reservation pricing model by reservation ID.
-*ReservationsApi* | [**ReservationsReservationIdGet**](docs/ReservationsApi.md#reservationsreservationidget) | **Get** /reservations/{reservationId} | Get a reservation.
+*BillingConfigurationsAPI* | [**AccountBillingConfigurationMeGet**](docs/BillingConfigurationsAPI.md#accountbillingconfigurationmeget) | **Get** /account-billing-configurations/me | Retrieves billing configuration associated with the authenticated account.
+*ProductsAPI* | [**ProductAvailabilityGet**](docs/ProductsAPI.md#productavailabilityget) | **Get** /product-availability | List all Product availabilities.
+*ProductsAPI* | [**ProductsGet**](docs/ProductsAPI.md#productsget) | **Get** /products | List all Products.
+*RatedUsageAPI* | [**RatedUsageGet**](docs/RatedUsageAPI.md#ratedusageget) | **Get** /rated-usage | List the rated usage.
+*RatedUsageAPI* | [**RatedUsageMonthToDateGet**](docs/RatedUsageAPI.md#ratedusagemonthtodateget) | **Get** /rated-usage/month-to-date | List the rated usage records for the current calendar month.
+*ReservationsAPI* | [**ReservationsGet**](docs/ReservationsAPI.md#reservationsget) | **Get** /reservations | List all Reservations.
+*ReservationsAPI* | [**ReservationsPost**](docs/ReservationsAPI.md#reservationspost) | **Post** /reservations | Create a reservation.
+*ReservationsAPI* | [**ReservationsReservationIdActionsAutoRenewDisablePost**](docs/ReservationsAPI.md#reservationsreservationidactionsautorenewdisablepost) | **Post** /reservations/{reservationId}/actions/auto-renew/disable | Disable auto-renewal for reservation by id.
+*ReservationsAPI* | [**ReservationsReservationIdActionsAutoRenewEnablePost**](docs/ReservationsAPI.md#reservationsreservationidactionsautorenewenablepost) | **Post** /reservations/{reservationId}/actions/auto-renew/enable | Enable auto-renewal for unexpired reservation by reservation id.
+*ReservationsAPI* | [**ReservationsReservationIdActionsConvertPost**](docs/ReservationsAPI.md#reservationsreservationidactionsconvertpost) | **Post** /reservations/{reservationId}/actions/convert | Convert reservation pricing model by reservation ID.
+*ReservationsAPI* | [**ReservationsReservationIdGet**](docs/ReservationsAPI.md#reservationsreservationidget) | **Get** /reservations/{reservationId} | Get a reservation.
 
 
 ## Documentation For Models
@@ -105,7 +105,6 @@ Class | Method | HTTP request | Description
  - [ApplicableDiscounts](docs/ApplicableDiscounts.md)
  - [BandwidthDetails](docs/BandwidthDetails.md)
  - [BandwidthRecord](docs/BandwidthRecord.md)
- - [BandwidthRecordAllOf](docs/BandwidthRecordAllOf.md)
  - [ConfigurationDetails](docs/ConfigurationDetails.md)
  - [DiscountDetails](docs/DiscountDetails.md)
  - [Error](docs/Error.md)
@@ -113,7 +112,6 @@ Class | Method | HTTP request | Description
  - [LocationEnum](docs/LocationEnum.md)
  - [OperatingSystemDetails](docs/OperatingSystemDetails.md)
  - [OperatingSystemRecord](docs/OperatingSystemRecord.md)
- - [OperatingSystemRecordAllOf](docs/OperatingSystemRecordAllOf.md)
  - [PriceUnitEnum](docs/PriceUnitEnum.md)
  - [PricingPlan](docs/PricingPlan.md)
  - [Product](docs/Product.md)
@@ -122,7 +120,6 @@ Class | Method | HTTP request | Description
  - [ProductsGet200ResponseInner](docs/ProductsGet200ResponseInner.md)
  - [PublicSubnetDetails](docs/PublicSubnetDetails.md)
  - [PublicSubnetRecord](docs/PublicSubnetRecord.md)
- - [PublicSubnetRecordAllOf](docs/PublicSubnetRecordAllOf.md)
  - [RatedUsageGet200ResponseInner](docs/RatedUsageGet200ResponseInner.md)
  - [RatedUsageRecord](docs/RatedUsageRecord.md)
  - [Reservation](docs/Reservation.md)
@@ -132,13 +129,10 @@ Class | Method | HTTP request | Description
  - [ReservationRequest](docs/ReservationRequest.md)
  - [ServerDetails](docs/ServerDetails.md)
  - [ServerProduct](docs/ServerProduct.md)
- - [ServerProductAllOf](docs/ServerProductAllOf.md)
  - [ServerProductMetadata](docs/ServerProductMetadata.md)
  - [ServerRecord](docs/ServerRecord.md)
- - [ServerRecordAllOf](docs/ServerRecordAllOf.md)
  - [StorageDetails](docs/StorageDetails.md)
  - [StorageRecord](docs/StorageRecord.md)
- - [StorageRecordAllOf](docs/StorageRecordAllOf.md)
  - [ThresholdConfigurationDetails](docs/ThresholdConfigurationDetails.md)
 
 

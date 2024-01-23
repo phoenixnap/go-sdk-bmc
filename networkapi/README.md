@@ -88,18 +88,18 @@ All URIs are relative to *https://api.phoenixnap.com/networks/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*PrivateNetworksApi* | [**PrivateNetworksGet**](docs/PrivateNetworksApi.md#privatenetworksget) | **Get** /private-networks | List Private Networks.
-*PrivateNetworksApi* | [**PrivateNetworksNetworkIdDelete**](docs/PrivateNetworksApi.md#privatenetworksnetworkiddelete) | **Delete** /private-networks/{privateNetworkId} | Delete a Private Network.
-*PrivateNetworksApi* | [**PrivateNetworksNetworkIdGet**](docs/PrivateNetworksApi.md#privatenetworksnetworkidget) | **Get** /private-networks/{privateNetworkId} | Get a Private Network.
-*PrivateNetworksApi* | [**PrivateNetworksNetworkIdPut**](docs/PrivateNetworksApi.md#privatenetworksnetworkidput) | **Put** /private-networks/{privateNetworkId} | Update a Private Network.
-*PrivateNetworksApi* | [**PrivateNetworksPost**](docs/PrivateNetworksApi.md#privatenetworkspost) | **Post** /private-networks | Create a Private Network.
-*PublicNetworksApi* | [**PublicNetworksGet**](docs/PublicNetworksApi.md#publicnetworksget) | **Get** /public-networks | List Public Networks.
-*PublicNetworksApi* | [**PublicNetworksNetworkIdDelete**](docs/PublicNetworksApi.md#publicnetworksnetworkiddelete) | **Delete** /public-networks/{publicNetworkId} | Delete a Public Network.
-*PublicNetworksApi* | [**PublicNetworksNetworkIdGet**](docs/PublicNetworksApi.md#publicnetworksnetworkidget) | **Get** /public-networks/{publicNetworkId} | Get a Public Network.
-*PublicNetworksApi* | [**PublicNetworksNetworkIdIpBlocksIpBlockIdDelete**](docs/PublicNetworksApi.md#publicnetworksnetworkidipblocksipblockiddelete) | **Delete** /public-networks/{publicNetworkId}/ip-blocks/{ipBlockId} | Removes the IP Block from the Public Network.
-*PublicNetworksApi* | [**PublicNetworksNetworkIdIpBlocksPost**](docs/PublicNetworksApi.md#publicnetworksnetworkidipblockspost) | **Post** /public-networks/{publicNetworkId}/ip-blocks | Adds an IP block to this public network.
-*PublicNetworksApi* | [**PublicNetworksNetworkIdPatch**](docs/PublicNetworksApi.md#publicnetworksnetworkidpatch) | **Patch** /public-networks/{publicNetworkId} | Update Public Network&#39;s Details.
-*PublicNetworksApi* | [**PublicNetworksPost**](docs/PublicNetworksApi.md#publicnetworkspost) | **Post** /public-networks | Create a public network.
+*PrivateNetworksAPI* | [**PrivateNetworksGet**](docs/PrivateNetworksAPI.md#privatenetworksget) | **Get** /private-networks | List Private Networks.
+*PrivateNetworksAPI* | [**PrivateNetworksNetworkIdDelete**](docs/PrivateNetworksAPI.md#privatenetworksnetworkiddelete) | **Delete** /private-networks/{privateNetworkId} | Delete a Private Network.
+*PrivateNetworksAPI* | [**PrivateNetworksNetworkIdGet**](docs/PrivateNetworksAPI.md#privatenetworksnetworkidget) | **Get** /private-networks/{privateNetworkId} | Get a Private Network.
+*PrivateNetworksAPI* | [**PrivateNetworksNetworkIdPut**](docs/PrivateNetworksAPI.md#privatenetworksnetworkidput) | **Put** /private-networks/{privateNetworkId} | Update a Private Network.
+*PrivateNetworksAPI* | [**PrivateNetworksPost**](docs/PrivateNetworksAPI.md#privatenetworkspost) | **Post** /private-networks | Create a Private Network.
+*PublicNetworksAPI* | [**PublicNetworksGet**](docs/PublicNetworksAPI.md#publicnetworksget) | **Get** /public-networks | List Public Networks.
+*PublicNetworksAPI* | [**PublicNetworksNetworkIdDelete**](docs/PublicNetworksAPI.md#publicnetworksnetworkiddelete) | **Delete** /public-networks/{publicNetworkId} | Delete a Public Network.
+*PublicNetworksAPI* | [**PublicNetworksNetworkIdGet**](docs/PublicNetworksAPI.md#publicnetworksnetworkidget) | **Get** /public-networks/{publicNetworkId} | Get a Public Network.
+*PublicNetworksAPI* | [**PublicNetworksNetworkIdIpBlocksIpBlockIdDelete**](docs/PublicNetworksAPI.md#publicnetworksnetworkidipblocksipblockiddelete) | **Delete** /public-networks/{publicNetworkId}/ip-blocks/{ipBlockId} | Removes the IP Block from the Public Network.
+*PublicNetworksAPI* | [**PublicNetworksNetworkIdIpBlocksPost**](docs/PublicNetworksAPI.md#publicnetworksnetworkidipblockspost) | **Post** /public-networks/{publicNetworkId}/ip-blocks | Adds an IP block to this public network.
+*PublicNetworksAPI* | [**PublicNetworksNetworkIdPatch**](docs/PublicNetworksAPI.md#publicnetworksnetworkidpatch) | **Patch** /public-networks/{publicNetworkId} | Update Public Network&#39;s Details.
+*PublicNetworksAPI* | [**PublicNetworksPost**](docs/PublicNetworksAPI.md#publicnetworkspost) | **Post** /public-networks | Create a public network.
 
 
 ## Documentation For Models

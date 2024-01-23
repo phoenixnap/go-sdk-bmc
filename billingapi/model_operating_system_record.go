@@ -12,9 +12,14 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the OperatingSystemRecord type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OperatingSystemRecord{}
 
 // OperatingSystemRecord struct for OperatingSystemRecord
 type OperatingSystemRecord struct {
@@ -56,6 +61,8 @@ type OperatingSystemRecord struct {
 	DiscountDetails *DiscountDetails       `json:"discountDetails,omitempty"`
 	Metadata        OperatingSystemDetails `json:"metadata"`
 }
+
+type _OperatingSystemRecord OperatingSystemRecord
 
 // NewOperatingSystemRecord instantiates a new OperatingSystemRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -187,7 +194,7 @@ func (o *OperatingSystemRecord) SetLocation(v LocationEnum) {
 
 // GetYearMonth returns the YearMonth field value if set, zero value otherwise.
 func (o *OperatingSystemRecord) GetYearMonth() string {
-	if o == nil || o.YearMonth == nil {
+	if o == nil || IsNil(o.YearMonth) {
 		var ret string
 		return ret
 	}
@@ -197,7 +204,7 @@ func (o *OperatingSystemRecord) GetYearMonth() string {
 // GetYearMonthOk returns a tuple with the YearMonth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperatingSystemRecord) GetYearMonthOk() (*string, bool) {
-	if o == nil || o.YearMonth == nil {
+	if o == nil || IsNil(o.YearMonth) {
 		return nil, false
 	}
 	return o.YearMonth, true
@@ -205,7 +212,7 @@ func (o *OperatingSystemRecord) GetYearMonthOk() (*string, bool) {
 
 // HasYearMonth returns a boolean if a field has been set.
 func (o *OperatingSystemRecord) HasYearMonth() bool {
-	if o != nil && o.YearMonth != nil {
+	if o != nil && !IsNil(o.YearMonth) {
 		return true
 	}
 
@@ -291,7 +298,7 @@ func (o *OperatingSystemRecord) SetCost(v int64) {
 
 // GetCostBeforeDiscount returns the CostBeforeDiscount field value if set, zero value otherwise.
 func (o *OperatingSystemRecord) GetCostBeforeDiscount() int64 {
-	if o == nil || o.CostBeforeDiscount == nil {
+	if o == nil || IsNil(o.CostBeforeDiscount) {
 		var ret int64
 		return ret
 	}
@@ -301,7 +308,7 @@ func (o *OperatingSystemRecord) GetCostBeforeDiscount() int64 {
 // GetCostBeforeDiscountOk returns a tuple with the CostBeforeDiscount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperatingSystemRecord) GetCostBeforeDiscountOk() (*int64, bool) {
-	if o == nil || o.CostBeforeDiscount == nil {
+	if o == nil || IsNil(o.CostBeforeDiscount) {
 		return nil, false
 	}
 	return o.CostBeforeDiscount, true
@@ -309,7 +316,7 @@ func (o *OperatingSystemRecord) GetCostBeforeDiscountOk() (*int64, bool) {
 
 // HasCostBeforeDiscount returns a boolean if a field has been set.
 func (o *OperatingSystemRecord) HasCostBeforeDiscount() bool {
-	if o != nil && o.CostBeforeDiscount != nil {
+	if o != nil && !IsNil(o.CostBeforeDiscount) {
 		return true
 	}
 
@@ -323,7 +330,7 @@ func (o *OperatingSystemRecord) SetCostBeforeDiscount(v int64) {
 
 // GetCostDescription returns the CostDescription field value if set, zero value otherwise.
 func (o *OperatingSystemRecord) GetCostDescription() string {
-	if o == nil || o.CostDescription == nil {
+	if o == nil || IsNil(o.CostDescription) {
 		var ret string
 		return ret
 	}
@@ -333,7 +340,7 @@ func (o *OperatingSystemRecord) GetCostDescription() string {
 // GetCostDescriptionOk returns a tuple with the CostDescription field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperatingSystemRecord) GetCostDescriptionOk() (*string, bool) {
-	if o == nil || o.CostDescription == nil {
+	if o == nil || IsNil(o.CostDescription) {
 		return nil, false
 	}
 	return o.CostDescription, true
@@ -341,7 +348,7 @@ func (o *OperatingSystemRecord) GetCostDescriptionOk() (*string, bool) {
 
 // HasCostDescription returns a boolean if a field has been set.
 func (o *OperatingSystemRecord) HasCostDescription() bool {
-	if o != nil && o.CostDescription != nil {
+	if o != nil && !IsNil(o.CostDescription) {
 		return true
 	}
 
@@ -523,7 +530,7 @@ func (o *OperatingSystemRecord) SetCorrelationId(v string) {
 
 // GetReservationId returns the ReservationId field value if set, zero value otherwise.
 func (o *OperatingSystemRecord) GetReservationId() string {
-	if o == nil || o.ReservationId == nil {
+	if o == nil || IsNil(o.ReservationId) {
 		var ret string
 		return ret
 	}
@@ -533,7 +540,7 @@ func (o *OperatingSystemRecord) GetReservationId() string {
 // GetReservationIdOk returns a tuple with the ReservationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperatingSystemRecord) GetReservationIdOk() (*string, bool) {
-	if o == nil || o.ReservationId == nil {
+	if o == nil || IsNil(o.ReservationId) {
 		return nil, false
 	}
 	return o.ReservationId, true
@@ -541,7 +548,7 @@ func (o *OperatingSystemRecord) GetReservationIdOk() (*string, bool) {
 
 // HasReservationId returns a boolean if a field has been set.
 func (o *OperatingSystemRecord) HasReservationId() bool {
-	if o != nil && o.ReservationId != nil {
+	if o != nil && !IsNil(o.ReservationId) {
 		return true
 	}
 
@@ -555,7 +562,7 @@ func (o *OperatingSystemRecord) SetReservationId(v string) {
 
 // GetDiscountDetails returns the DiscountDetails field value if set, zero value otherwise.
 func (o *OperatingSystemRecord) GetDiscountDetails() DiscountDetails {
-	if o == nil || o.DiscountDetails == nil {
+	if o == nil || IsNil(o.DiscountDetails) {
 		var ret DiscountDetails
 		return ret
 	}
@@ -565,7 +572,7 @@ func (o *OperatingSystemRecord) GetDiscountDetails() DiscountDetails {
 // GetDiscountDetailsOk returns a tuple with the DiscountDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperatingSystemRecord) GetDiscountDetailsOk() (*DiscountDetails, bool) {
-	if o == nil || o.DiscountDetails == nil {
+	if o == nil || IsNil(o.DiscountDetails) {
 		return nil, false
 	}
 	return o.DiscountDetails, true
@@ -573,7 +580,7 @@ func (o *OperatingSystemRecord) GetDiscountDetailsOk() (*DiscountDetails, bool) 
 
 // HasDiscountDetails returns a boolean if a field has been set.
 func (o *OperatingSystemRecord) HasDiscountDetails() bool {
-	if o != nil && o.DiscountDetails != nil {
+	if o != nil && !IsNil(o.DiscountDetails) {
 		return true
 	}
 
@@ -610,68 +617,97 @@ func (o *OperatingSystemRecord) SetMetadata(v OperatingSystemDetails) {
 }
 
 func (o OperatingSystemRecord) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["productCategory"] = o.ProductCategory
-	}
-	if true {
-		toSerialize["productCode"] = o.ProductCode
-	}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if o.YearMonth != nil {
-		toSerialize["yearMonth"] = o.YearMonth
-	}
-	if true {
-		toSerialize["startDateTime"] = o.StartDateTime
-	}
-	if true {
-		toSerialize["endDateTime"] = o.EndDateTime
-	}
-	if true {
-		toSerialize["cost"] = o.Cost
-	}
-	if o.CostBeforeDiscount != nil {
-		toSerialize["costBeforeDiscount"] = o.CostBeforeDiscount
-	}
-	if o.CostDescription != nil {
-		toSerialize["costDescription"] = o.CostDescription
-	}
-	if true {
-		toSerialize["priceModel"] = o.PriceModel
-	}
-	if true {
-		toSerialize["unitPrice"] = o.UnitPrice
-	}
-	if true {
-		toSerialize["unitPriceDescription"] = o.UnitPriceDescription
-	}
-	if true {
-		toSerialize["quantity"] = o.Quantity
-	}
-	if true {
-		toSerialize["active"] = o.Active
-	}
-	if true {
-		toSerialize["usageSessionId"] = o.UsageSessionId
-	}
-	if true {
-		toSerialize["correlationId"] = o.CorrelationId
-	}
-	if o.ReservationId != nil {
-		toSerialize["reservationId"] = o.ReservationId
-	}
-	if o.DiscountDetails != nil {
-		toSerialize["discountDetails"] = o.DiscountDetails
-	}
-	if true {
-		toSerialize["metadata"] = o.Metadata
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OperatingSystemRecord) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["productCategory"] = o.ProductCategory
+	toSerialize["productCode"] = o.ProductCode
+	toSerialize["location"] = o.Location
+	if !IsNil(o.YearMonth) {
+		toSerialize["yearMonth"] = o.YearMonth
+	}
+	toSerialize["startDateTime"] = o.StartDateTime
+	toSerialize["endDateTime"] = o.EndDateTime
+	toSerialize["cost"] = o.Cost
+	if !IsNil(o.CostBeforeDiscount) {
+		toSerialize["costBeforeDiscount"] = o.CostBeforeDiscount
+	}
+	if !IsNil(o.CostDescription) {
+		toSerialize["costDescription"] = o.CostDescription
+	}
+	toSerialize["priceModel"] = o.PriceModel
+	toSerialize["unitPrice"] = o.UnitPrice
+	toSerialize["unitPriceDescription"] = o.UnitPriceDescription
+	toSerialize["quantity"] = o.Quantity
+	toSerialize["active"] = o.Active
+	toSerialize["usageSessionId"] = o.UsageSessionId
+	toSerialize["correlationId"] = o.CorrelationId
+	if !IsNil(o.ReservationId) {
+		toSerialize["reservationId"] = o.ReservationId
+	}
+	if !IsNil(o.DiscountDetails) {
+		toSerialize["discountDetails"] = o.DiscountDetails
+	}
+	toSerialize["metadata"] = o.Metadata
+	return toSerialize, nil
+}
+
+func (o *OperatingSystemRecord) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"productCategory",
+		"productCode",
+		"location",
+		"startDateTime",
+		"endDateTime",
+		"cost",
+		"priceModel",
+		"unitPrice",
+		"unitPriceDescription",
+		"quantity",
+		"active",
+		"usageSessionId",
+		"correlationId",
+		"metadata",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOperatingSystemRecord := _OperatingSystemRecord{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varOperatingSystemRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OperatingSystemRecord(varOperatingSystemRecord)
+
+	return err
 }
 
 type NullableOperatingSystemRecord struct {

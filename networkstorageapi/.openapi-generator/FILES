@@ -15,7 +15,7 @@ docs/StorageNetwork.md
 docs/StorageNetworkCreate.md
 docs/StorageNetworkUpdate.md
 docs/StorageNetworkVolumeCreate.md
-docs/StorageNetworksApi.md
+docs/StorageNetworksAPI.md
 docs/TagAssignment.md
 docs/TagAssignmentRequest.md
 docs/Volume.md
@@ -41,4 +41,5 @@ model_volume.go
 model_volume_create.go
 model_volume_update.go
 response.go
+test/api_storage_networks_test.go
 utils.go

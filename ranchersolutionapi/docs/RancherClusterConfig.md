@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **EtcdSnapshotRetention** | Pointer to **int32** | This maps to ranchers &#x60;etcd-snapshot-retention&#x60;. Number of snapshots to retain. | [optional] [default to 5]
 **NodeTaint** | Pointer to **string** | This maps to ranchers &#x60;node-taint&#x60;. Registering kubelet with set of taints. By default, server nodes will be schedulable and thus your workloads can get launched on them. If you wish to have a dedicated control plane where no user workloads will run, you can use taints. | [optional] 
 **ClusterDomain** | Pointer to **string** | This maps to ranchers &#x60;cluster-domain&#x60;. Cluster Domain. | [optional] 
-**Certificates** | Pointer to [**RancherClusterConfigCertificates**](RancherClusterConfigCertificates.md) |  | [optional] 
+**Certificates** | Pointer to [**RancherClusterCertificates**](RancherClusterCertificates.md) |  | [optional] 
 
 ## Methods
 
@@ -183,20 +183,20 @@ HasClusterDomain returns a boolean if a field has been set.
 
 ### GetCertificates
 
-`func (o *RancherClusterConfig) GetCertificates() RancherClusterConfigCertificates`
+`func (o *RancherClusterConfig) GetCertificates() RancherClusterCertificates`
 
 GetCertificates returns the Certificates field if non-nil, zero value otherwise.
 
 ### GetCertificatesOk
 
-`func (o *RancherClusterConfig) GetCertificatesOk() (*RancherClusterConfigCertificates, bool)`
+`func (o *RancherClusterConfig) GetCertificatesOk() (*RancherClusterCertificates, bool)`
 
 GetCertificatesOk returns a tuple with the Certificates field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCertificates
 
-`func (o *RancherClusterConfig) SetCertificates(v RancherClusterConfigCertificates)`
+`func (o *RancherClusterConfig) SetCertificates(v RancherClusterCertificates)`
 
 SetCertificates sets Certificates field to given value.
 

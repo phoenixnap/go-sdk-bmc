@@ -5,7 +5,7 @@ client.go
 configuration.go
 docs/DeleteIpBlockResult.md
 docs/Error.md
-docs/IPBlocksApi.md
+docs/IPBlocksAPI.md
 docs/IpBlock.md
 docs/IpBlockCreate.md
 docs/IpBlockPatch.md
@@ -21,4 +21,5 @@ model_ip_block_patch.go
 model_tag_assignment.go
 model_tag_assignment_request.go
 response.go
+test/api_ip_blocks_test.go
 utils.go

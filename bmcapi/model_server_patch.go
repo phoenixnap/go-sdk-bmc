@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ServerPatch type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServerPatch{}
+
 // ServerPatch Patch bare metal server.
 type ServerPatch struct {
 	// Description of server.
@@ -42,7 +45,7 @@ func NewServerPatchWithDefaults() *ServerPatch {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *ServerPatch) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *ServerPatch) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerPatch) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -60,7 +63,7 @@ func (o *ServerPatch) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *ServerPatch) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *ServerPatch) SetDescription(v string) {
 
 // GetHostname returns the Hostname field value if set, zero value otherwise.
 func (o *ServerPatch) GetHostname() string {
-	if o == nil || o.Hostname == nil {
+	if o == nil || IsNil(o.Hostname) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *ServerPatch) GetHostname() string {
 // GetHostnameOk returns a tuple with the Hostname field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerPatch) GetHostnameOk() (*string, bool) {
-	if o == nil || o.Hostname == nil {
+	if o == nil || IsNil(o.Hostname) {
 		return nil, false
 	}
 	return o.Hostname, true
@@ -92,7 +95,7 @@ func (o *ServerPatch) GetHostnameOk() (*string, bool) {
 
 // HasHostname returns a boolean if a field has been set.
 func (o *ServerPatch) HasHostname() bool {
-	if o != nil && o.Hostname != nil {
+	if o != nil && !IsNil(o.Hostname) {
 		return true
 	}
 
@@ -105,14 +108,22 @@ func (o *ServerPatch) SetHostname(v string) {
 }
 
 func (o ServerPatch) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Hostname != nil {
-		toSerialize["hostname"] = o.Hostname
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ServerPatch) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Hostname) {
+		toSerialize["hostname"] = o.Hostname
+	}
+	return toSerialize, nil
 }
 
 type NullableServerPatch struct {

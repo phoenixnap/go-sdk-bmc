@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NetworkConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NetworkConfiguration{}
+
 // NetworkConfiguration Entire network details of bare metal server.
 type NetworkConfiguration struct {
 	// The address of the gateway assigned / to assign to the server.<br> When used as part of request body, IP address has to be part of a private/public network or an IP block assigned to this server.<br> Gateway address also has to be assigned on an already deployed resource unless the address matches the BMC gateway address in a public network/IP block or the `force` query parameter is true.
@@ -43,7 +46,7 @@ func NewNetworkConfigurationWithDefaults() *NetworkConfiguration {
 
 // GetGatewayAddress returns the GatewayAddress field value if set, zero value otherwise.
 func (o *NetworkConfiguration) GetGatewayAddress() string {
-	if o == nil || o.GatewayAddress == nil {
+	if o == nil || IsNil(o.GatewayAddress) {
 		var ret string
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *NetworkConfiguration) GetGatewayAddress() string {
 // GetGatewayAddressOk returns a tuple with the GatewayAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NetworkConfiguration) GetGatewayAddressOk() (*string, bool) {
-	if o == nil || o.GatewayAddress == nil {
+	if o == nil || IsNil(o.GatewayAddress) {
 		return nil, false
 	}
 	return o.GatewayAddress, true
@@ -61,7 +64,7 @@ func (o *NetworkConfiguration) GetGatewayAddressOk() (*string, bool) {
 
 // HasGatewayAddress returns a boolean if a field has been set.
 func (o *NetworkConfiguration) HasGatewayAddress() bool {
-	if o != nil && o.GatewayAddress != nil {
+	if o != nil && !IsNil(o.GatewayAddress) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *NetworkConfiguration) SetGatewayAddress(v string) {
 
 // GetPrivateNetworkConfiguration returns the PrivateNetworkConfiguration field value if set, zero value otherwise.
 func (o *NetworkConfiguration) GetPrivateNetworkConfiguration() PrivateNetworkConfiguration {
-	if o == nil || o.PrivateNetworkConfiguration == nil {
+	if o == nil || IsNil(o.PrivateNetworkConfiguration) {
 		var ret PrivateNetworkConfiguration
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *NetworkConfiguration) GetPrivateNetworkConfiguration() PrivateNetworkCo
 // GetPrivateNetworkConfigurationOk returns a tuple with the PrivateNetworkConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NetworkConfiguration) GetPrivateNetworkConfigurationOk() (*PrivateNetworkConfiguration, bool) {
-	if o == nil || o.PrivateNetworkConfiguration == nil {
+	if o == nil || IsNil(o.PrivateNetworkConfiguration) {
 		return nil, false
 	}
 	return o.PrivateNetworkConfiguration, true
@@ -93,7 +96,7 @@ func (o *NetworkConfiguration) GetPrivateNetworkConfigurationOk() (*PrivateNetwo
 
 // HasPrivateNetworkConfiguration returns a boolean if a field has been set.
 func (o *NetworkConfiguration) HasPrivateNetworkConfiguration() bool {
-	if o != nil && o.PrivateNetworkConfiguration != nil {
+	if o != nil && !IsNil(o.PrivateNetworkConfiguration) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *NetworkConfiguration) SetPrivateNetworkConfiguration(v PrivateNetworkCo
 
 // GetIpBlocksConfiguration returns the IpBlocksConfiguration field value if set, zero value otherwise.
 func (o *NetworkConfiguration) GetIpBlocksConfiguration() IpBlocksConfiguration {
-	if o == nil || o.IpBlocksConfiguration == nil {
+	if o == nil || IsNil(o.IpBlocksConfiguration) {
 		var ret IpBlocksConfiguration
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *NetworkConfiguration) GetIpBlocksConfiguration() IpBlocksConfiguration 
 // GetIpBlocksConfigurationOk returns a tuple with the IpBlocksConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NetworkConfiguration) GetIpBlocksConfigurationOk() (*IpBlocksConfiguration, bool) {
-	if o == nil || o.IpBlocksConfiguration == nil {
+	if o == nil || IsNil(o.IpBlocksConfiguration) {
 		return nil, false
 	}
 	return o.IpBlocksConfiguration, true
@@ -125,7 +128,7 @@ func (o *NetworkConfiguration) GetIpBlocksConfigurationOk() (*IpBlocksConfigurat
 
 // HasIpBlocksConfiguration returns a boolean if a field has been set.
 func (o *NetworkConfiguration) HasIpBlocksConfiguration() bool {
-	if o != nil && o.IpBlocksConfiguration != nil {
+	if o != nil && !IsNil(o.IpBlocksConfiguration) {
 		return true
 	}
 
@@ -139,7 +142,7 @@ func (o *NetworkConfiguration) SetIpBlocksConfiguration(v IpBlocksConfiguration)
 
 // GetPublicNetworkConfiguration returns the PublicNetworkConfiguration field value if set, zero value otherwise.
 func (o *NetworkConfiguration) GetPublicNetworkConfiguration() PublicNetworkConfiguration {
-	if o == nil || o.PublicNetworkConfiguration == nil {
+	if o == nil || IsNil(o.PublicNetworkConfiguration) {
 		var ret PublicNetworkConfiguration
 		return ret
 	}
@@ -149,7 +152,7 @@ func (o *NetworkConfiguration) GetPublicNetworkConfiguration() PublicNetworkConf
 // GetPublicNetworkConfigurationOk returns a tuple with the PublicNetworkConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NetworkConfiguration) GetPublicNetworkConfigurationOk() (*PublicNetworkConfiguration, bool) {
-	if o == nil || o.PublicNetworkConfiguration == nil {
+	if o == nil || IsNil(o.PublicNetworkConfiguration) {
 		return nil, false
 	}
 	return o.PublicNetworkConfiguration, true
@@ -157,7 +160,7 @@ func (o *NetworkConfiguration) GetPublicNetworkConfigurationOk() (*PublicNetwork
 
 // HasPublicNetworkConfiguration returns a boolean if a field has been set.
 func (o *NetworkConfiguration) HasPublicNetworkConfiguration() bool {
-	if o != nil && o.PublicNetworkConfiguration != nil {
+	if o != nil && !IsNil(o.PublicNetworkConfiguration) {
 		return true
 	}
 
@@ -170,20 +173,28 @@ func (o *NetworkConfiguration) SetPublicNetworkConfiguration(v PublicNetworkConf
 }
 
 func (o NetworkConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.GatewayAddress != nil {
-		toSerialize["gatewayAddress"] = o.GatewayAddress
-	}
-	if o.PrivateNetworkConfiguration != nil {
-		toSerialize["privateNetworkConfiguration"] = o.PrivateNetworkConfiguration
-	}
-	if o.IpBlocksConfiguration != nil {
-		toSerialize["ipBlocksConfiguration"] = o.IpBlocksConfiguration
-	}
-	if o.PublicNetworkConfiguration != nil {
-		toSerialize["publicNetworkConfiguration"] = o.PublicNetworkConfiguration
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NetworkConfiguration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.GatewayAddress) {
+		toSerialize["gatewayAddress"] = o.GatewayAddress
+	}
+	if !IsNil(o.PrivateNetworkConfiguration) {
+		toSerialize["privateNetworkConfiguration"] = o.PrivateNetworkConfiguration
+	}
+	if !IsNil(o.IpBlocksConfiguration) {
+		toSerialize["ipBlocksConfiguration"] = o.IpBlocksConfiguration
+	}
+	if !IsNil(o.PublicNetworkConfiguration) {
+		toSerialize["publicNetworkConfiguration"] = o.PublicNetworkConfiguration
+	}
+	return toSerialize, nil
 }
 
 type NullableNetworkConfiguration struct {

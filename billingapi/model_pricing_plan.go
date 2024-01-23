@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PricingPlan type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PricingPlan{}
 
 // PricingPlan Pricing plan details.
 type PricingPlan struct {
@@ -36,6 +41,8 @@ type PricingPlan struct {
 	// Package size unit.
 	PackageUnit *string `json:"packageUnit,omitempty"`
 }
+
+type _PricingPlan PricingPlan
 
 // NewPricingPlan instantiates a new PricingPlan object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +92,7 @@ func (o *PricingPlan) SetSku(v string) {
 
 // GetSkuDescription returns the SkuDescription field value if set, zero value otherwise.
 func (o *PricingPlan) GetSkuDescription() string {
-	if o == nil || o.SkuDescription == nil {
+	if o == nil || IsNil(o.SkuDescription) {
 		var ret string
 		return ret
 	}
@@ -95,7 +102,7 @@ func (o *PricingPlan) GetSkuDescription() string {
 // GetSkuDescriptionOk returns a tuple with the SkuDescription field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PricingPlan) GetSkuDescriptionOk() (*string, bool) {
-	if o == nil || o.SkuDescription == nil {
+	if o == nil || IsNil(o.SkuDescription) {
 		return nil, false
 	}
 	return o.SkuDescription, true
@@ -103,7 +110,7 @@ func (o *PricingPlan) GetSkuDescriptionOk() (*string, bool) {
 
 // HasSkuDescription returns a boolean if a field has been set.
 func (o *PricingPlan) HasSkuDescription() bool {
-	if o != nil && o.SkuDescription != nil {
+	if o != nil && !IsNil(o.SkuDescription) {
 		return true
 	}
 
@@ -213,7 +220,7 @@ func (o *PricingPlan) SetPriceUnit(v PriceUnitEnum) {
 
 // GetApplicableDiscounts returns the ApplicableDiscounts field value if set, zero value otherwise.
 func (o *PricingPlan) GetApplicableDiscounts() ApplicableDiscounts {
-	if o == nil || o.ApplicableDiscounts == nil {
+	if o == nil || IsNil(o.ApplicableDiscounts) {
 		var ret ApplicableDiscounts
 		return ret
 	}
@@ -223,7 +230,7 @@ func (o *PricingPlan) GetApplicableDiscounts() ApplicableDiscounts {
 // GetApplicableDiscountsOk returns a tuple with the ApplicableDiscounts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PricingPlan) GetApplicableDiscountsOk() (*ApplicableDiscounts, bool) {
-	if o == nil || o.ApplicableDiscounts == nil {
+	if o == nil || IsNil(o.ApplicableDiscounts) {
 		return nil, false
 	}
 	return o.ApplicableDiscounts, true
@@ -231,7 +238,7 @@ func (o *PricingPlan) GetApplicableDiscountsOk() (*ApplicableDiscounts, bool) {
 
 // HasApplicableDiscounts returns a boolean if a field has been set.
 func (o *PricingPlan) HasApplicableDiscounts() bool {
-	if o != nil && o.ApplicableDiscounts != nil {
+	if o != nil && !IsNil(o.ApplicableDiscounts) {
 		return true
 	}
 
@@ -245,7 +252,7 @@ func (o *PricingPlan) SetApplicableDiscounts(v ApplicableDiscounts) {
 
 // GetCorrelatedProductCode returns the CorrelatedProductCode field value if set, zero value otherwise.
 func (o *PricingPlan) GetCorrelatedProductCode() string {
-	if o == nil || o.CorrelatedProductCode == nil {
+	if o == nil || IsNil(o.CorrelatedProductCode) {
 		var ret string
 		return ret
 	}
@@ -255,7 +262,7 @@ func (o *PricingPlan) GetCorrelatedProductCode() string {
 // GetCorrelatedProductCodeOk returns a tuple with the CorrelatedProductCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PricingPlan) GetCorrelatedProductCodeOk() (*string, bool) {
-	if o == nil || o.CorrelatedProductCode == nil {
+	if o == nil || IsNil(o.CorrelatedProductCode) {
 		return nil, false
 	}
 	return o.CorrelatedProductCode, true
@@ -263,7 +270,7 @@ func (o *PricingPlan) GetCorrelatedProductCodeOk() (*string, bool) {
 
 // HasCorrelatedProductCode returns a boolean if a field has been set.
 func (o *PricingPlan) HasCorrelatedProductCode() bool {
-	if o != nil && o.CorrelatedProductCode != nil {
+	if o != nil && !IsNil(o.CorrelatedProductCode) {
 		return true
 	}
 
@@ -277,7 +284,7 @@ func (o *PricingPlan) SetCorrelatedProductCode(v string) {
 
 // GetPackageQuantity returns the PackageQuantity field value if set, zero value otherwise.
 func (o *PricingPlan) GetPackageQuantity() float32 {
-	if o == nil || o.PackageQuantity == nil {
+	if o == nil || IsNil(o.PackageQuantity) {
 		var ret float32
 		return ret
 	}
@@ -287,7 +294,7 @@ func (o *PricingPlan) GetPackageQuantity() float32 {
 // GetPackageQuantityOk returns a tuple with the PackageQuantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PricingPlan) GetPackageQuantityOk() (*float32, bool) {
-	if o == nil || o.PackageQuantity == nil {
+	if o == nil || IsNil(o.PackageQuantity) {
 		return nil, false
 	}
 	return o.PackageQuantity, true
@@ -295,7 +302,7 @@ func (o *PricingPlan) GetPackageQuantityOk() (*float32, bool) {
 
 // HasPackageQuantity returns a boolean if a field has been set.
 func (o *PricingPlan) HasPackageQuantity() bool {
-	if o != nil && o.PackageQuantity != nil {
+	if o != nil && !IsNil(o.PackageQuantity) {
 		return true
 	}
 
@@ -309,7 +316,7 @@ func (o *PricingPlan) SetPackageQuantity(v float32) {
 
 // GetPackageUnit returns the PackageUnit field value if set, zero value otherwise.
 func (o *PricingPlan) GetPackageUnit() string {
-	if o == nil || o.PackageUnit == nil {
+	if o == nil || IsNil(o.PackageUnit) {
 		var ret string
 		return ret
 	}
@@ -319,7 +326,7 @@ func (o *PricingPlan) GetPackageUnit() string {
 // GetPackageUnitOk returns a tuple with the PackageUnit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PricingPlan) GetPackageUnitOk() (*string, bool) {
-	if o == nil || o.PackageUnit == nil {
+	if o == nil || IsNil(o.PackageUnit) {
 		return nil, false
 	}
 	return o.PackageUnit, true
@@ -327,7 +334,7 @@ func (o *PricingPlan) GetPackageUnitOk() (*string, bool) {
 
 // HasPackageUnit returns a boolean if a field has been set.
 func (o *PricingPlan) HasPackageUnit() bool {
-	if o != nil && o.PackageUnit != nil {
+	if o != nil && !IsNil(o.PackageUnit) {
 		return true
 	}
 
@@ -340,38 +347,77 @@ func (o *PricingPlan) SetPackageUnit(v string) {
 }
 
 func (o PricingPlan) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["sku"] = o.Sku
-	}
-	if o.SkuDescription != nil {
-		toSerialize["skuDescription"] = o.SkuDescription
-	}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if true {
-		toSerialize["pricingModel"] = o.PricingModel
-	}
-	if true {
-		toSerialize["price"] = o.Price
-	}
-	if true {
-		toSerialize["priceUnit"] = o.PriceUnit
-	}
-	if o.ApplicableDiscounts != nil {
-		toSerialize["applicableDiscounts"] = o.ApplicableDiscounts
-	}
-	if o.CorrelatedProductCode != nil {
-		toSerialize["correlatedProductCode"] = o.CorrelatedProductCode
-	}
-	if o.PackageQuantity != nil {
-		toSerialize["packageQuantity"] = o.PackageQuantity
-	}
-	if o.PackageUnit != nil {
-		toSerialize["packageUnit"] = o.PackageUnit
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PricingPlan) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["sku"] = o.Sku
+	if !IsNil(o.SkuDescription) {
+		toSerialize["skuDescription"] = o.SkuDescription
+	}
+	toSerialize["location"] = o.Location
+	toSerialize["pricingModel"] = o.PricingModel
+	toSerialize["price"] = o.Price
+	toSerialize["priceUnit"] = o.PriceUnit
+	if !IsNil(o.ApplicableDiscounts) {
+		toSerialize["applicableDiscounts"] = o.ApplicableDiscounts
+	}
+	if !IsNil(o.CorrelatedProductCode) {
+		toSerialize["correlatedProductCode"] = o.CorrelatedProductCode
+	}
+	if !IsNil(o.PackageQuantity) {
+		toSerialize["packageQuantity"] = o.PackageQuantity
+	}
+	if !IsNil(o.PackageUnit) {
+		toSerialize["packageUnit"] = o.PackageUnit
+	}
+	return toSerialize, nil
+}
+
+func (o *PricingPlan) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"sku",
+		"location",
+		"pricingModel",
+		"price",
+		"priceUnit",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPricingPlan := _PricingPlan{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPricingPlan)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PricingPlan(varPricingPlan)
+
+	return err
 }
 
 type NullablePricingPlan struct {

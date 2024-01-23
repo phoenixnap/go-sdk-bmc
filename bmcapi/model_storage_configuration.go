@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the StorageConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StorageConfiguration{}
+
 // StorageConfiguration Storage configuration.
 type StorageConfiguration struct {
 	RootPartition *StorageConfigurationRootPartition `json:"rootPartition,omitempty"`
@@ -39,7 +42,7 @@ func NewStorageConfigurationWithDefaults() *StorageConfiguration {
 
 // GetRootPartition returns the RootPartition field value if set, zero value otherwise.
 func (o *StorageConfiguration) GetRootPartition() StorageConfigurationRootPartition {
-	if o == nil || o.RootPartition == nil {
+	if o == nil || IsNil(o.RootPartition) {
 		var ret StorageConfigurationRootPartition
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *StorageConfiguration) GetRootPartition() StorageConfigurationRootPartit
 // GetRootPartitionOk returns a tuple with the RootPartition field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageConfiguration) GetRootPartitionOk() (*StorageConfigurationRootPartition, bool) {
-	if o == nil || o.RootPartition == nil {
+	if o == nil || IsNil(o.RootPartition) {
 		return nil, false
 	}
 	return o.RootPartition, true
@@ -57,7 +60,7 @@ func (o *StorageConfiguration) GetRootPartitionOk() (*StorageConfigurationRootPa
 
 // HasRootPartition returns a boolean if a field has been set.
 func (o *StorageConfiguration) HasRootPartition() bool {
-	if o != nil && o.RootPartition != nil {
+	if o != nil && !IsNil(o.RootPartition) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *StorageConfiguration) SetRootPartition(v StorageConfigurationRootPartit
 }
 
 func (o StorageConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.RootPartition != nil {
-		toSerialize["rootPartition"] = o.RootPartition
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StorageConfiguration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.RootPartition) {
+		toSerialize["rootPartition"] = o.RootPartition
+	}
+	return toSerialize, nil
 }
 
 type NullableStorageConfiguration struct {

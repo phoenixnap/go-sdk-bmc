@@ -77,7 +77,7 @@ All URIs are relative to *https://api.phoenixnap.com/location-api/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*LocationsApi* | [**GetLocations**](docs/LocationsApi.md#getlocations) | **Get** /locations | Get All Locations
+*LocationsAPI* | [**GetLocations**](docs/LocationsAPI.md#getlocations) | **Get** /locations | Get All Locations
 
 
 ## Documentation For Models

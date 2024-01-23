@@ -87,11 +87,11 @@ All URIs are relative to *https://api.phoenixnap.com/tag-manager/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*TagsApi* | [**TagsGet**](docs/TagsApi.md#tagsget) | **Get** /tags | List tags.
-*TagsApi* | [**TagsPost**](docs/TagsApi.md#tagspost) | **Post** /tags | Create a Tag.
-*TagsApi* | [**TagsTagIdDelete**](docs/TagsApi.md#tagstagiddelete) | **Delete** /tags/{tagId} | Delete a Tag.
-*TagsApi* | [**TagsTagIdGet**](docs/TagsApi.md#tagstagidget) | **Get** /tags/{tagId} | Get a Tag.
-*TagsApi* | [**TagsTagIdPatch**](docs/TagsApi.md#tagstagidpatch) | **Patch** /tags/{tagId} | Modify a Tag.
+*TagsAPI* | [**TagsGet**](docs/TagsAPI.md#tagsget) | **Get** /tags | List tags.
+*TagsAPI* | [**TagsPost**](docs/TagsAPI.md#tagspost) | **Post** /tags | Create a Tag.
+*TagsAPI* | [**TagsTagIdDelete**](docs/TagsAPI.md#tagstagiddelete) | **Delete** /tags/{tagId} | Delete a Tag.
+*TagsAPI* | [**TagsTagIdGet**](docs/TagsAPI.md#tagstagidget) | **Get** /tags/{tagId} | Get a Tag.
+*TagsAPI* | [**TagsTagIdPatch**](docs/TagsAPI.md#tagstagidpatch) | **Patch** /tags/{tagId} | Modify a Tag.
 
 
 ## Documentation For Models

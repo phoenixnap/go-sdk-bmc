@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PermissionsUpdate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PermissionsUpdate{}
+
 // PermissionsUpdate Update permissions for a volume.
 type PermissionsUpdate struct {
 	Nfs *NfsPermissionsUpdate `json:"nfs,omitempty"`
@@ -39,7 +42,7 @@ func NewPermissionsUpdateWithDefaults() *PermissionsUpdate {
 
 // GetNfs returns the Nfs field value if set, zero value otherwise.
 func (o *PermissionsUpdate) GetNfs() NfsPermissionsUpdate {
-	if o == nil || o.Nfs == nil {
+	if o == nil || IsNil(o.Nfs) {
 		var ret NfsPermissionsUpdate
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *PermissionsUpdate) GetNfs() NfsPermissionsUpdate {
 // GetNfsOk returns a tuple with the Nfs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PermissionsUpdate) GetNfsOk() (*NfsPermissionsUpdate, bool) {
-	if o == nil || o.Nfs == nil {
+	if o == nil || IsNil(o.Nfs) {
 		return nil, false
 	}
 	return o.Nfs, true
@@ -57,7 +60,7 @@ func (o *PermissionsUpdate) GetNfsOk() (*NfsPermissionsUpdate, bool) {
 
 // HasNfs returns a boolean if a field has been set.
 func (o *PermissionsUpdate) HasNfs() bool {
-	if o != nil && o.Nfs != nil {
+	if o != nil && !IsNil(o.Nfs) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *PermissionsUpdate) SetNfs(v NfsPermissionsUpdate) {
 }
 
 func (o PermissionsUpdate) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Nfs != nil {
-		toSerialize["nfs"] = o.Nfs
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PermissionsUpdate) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Nfs) {
+		toSerialize["nfs"] = o.Nfs
+	}
+	return toSerialize, nil
 }
 
 type NullablePermissionsUpdate struct {

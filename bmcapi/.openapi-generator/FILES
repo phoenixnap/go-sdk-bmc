@@ -24,11 +24,10 @@ docs/PublicNetworkConfiguration.md
 docs/Quota.md
 docs/QuotaEditLimitRequest.md
 docs/QuotaEditLimitRequestDetails.md
-docs/QuotaEditLimitRequestDetailsAllOf.md
-docs/QuotasApi.md
+docs/QuotasAPI.md
 docs/RelinquishIpBlock.md
 docs/ResetResult.md
-docs/SSHKeysApi.md
+docs/SSHKeysAPI.md
 docs/Server.md
 docs/ServerCreate.md
 docs/ServerIpBlock.md
@@ -39,7 +38,7 @@ docs/ServerProvision.md
 docs/ServerPublicNetwork.md
 docs/ServerReserve.md
 docs/ServerReset.md
-docs/ServersApi.md
+docs/ServersAPI.md
 docs/SshKey.md
 docs/SshKeyCreate.md
 docs/SshKeyUpdate.md
@@ -68,7 +67,6 @@ model_public_network_configuration.go
 model_quota.go
 model_quota_edit_limit_request.go
 model_quota_edit_limit_request_details.go
-model_quota_edit_limit_request_details_all_of.go
 model_relinquish_ip_block.go
 model_reset_result.go
 model_server.go
@@ -89,4 +87,7 @@ model_storage_configuration_root_partition.go
 model_tag_assignment.go
 model_tag_assignment_request.go
 response.go
+test/api_quotas_test.go
+test/api_servers_test.go
+test/api_ssh_keys_test.go
 utils.go

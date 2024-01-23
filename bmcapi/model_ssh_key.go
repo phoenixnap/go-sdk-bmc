@@ -12,9 +12,14 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the SshKey type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SshKey{}
 
 // SshKey SSH Key.
 type SshKey struct {
@@ -33,6 +38,8 @@ type SshKey struct {
 	// Date and time of last update.
 	LastUpdatedOn time.Time `json:"lastUpdatedOn"`
 }
+
+type _SshKey SshKey
 
 // NewSshKey instantiates a new SshKey object
 // This constructor will assign default values to properties that have it defined,
@@ -227,29 +234,66 @@ func (o *SshKey) SetLastUpdatedOn(v time.Time) {
 }
 
 func (o SshKey) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["default"] = o.Default
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["key"] = o.Key
-	}
-	if true {
-		toSerialize["fingerprint"] = o.Fingerprint
-	}
-	if true {
-		toSerialize["createdOn"] = o.CreatedOn
-	}
-	if true {
-		toSerialize["lastUpdatedOn"] = o.LastUpdatedOn
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SshKey) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["default"] = o.Default
+	toSerialize["name"] = o.Name
+	toSerialize["key"] = o.Key
+	toSerialize["fingerprint"] = o.Fingerprint
+	toSerialize["createdOn"] = o.CreatedOn
+	toSerialize["lastUpdatedOn"] = o.LastUpdatedOn
+	return toSerialize, nil
+}
+
+func (o *SshKey) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"default",
+		"name",
+		"key",
+		"fingerprint",
+		"createdOn",
+		"lastUpdatedOn",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSshKey := _SshKey{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSshKey)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SshKey(varSshKey)
+
+	return err
 }
 
 type NullableSshKey struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PrivateNetworkConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PrivateNetworkConfiguration{}
+
 // PrivateNetworkConfiguration Private network details of bare metal server.
 type PrivateNetworkConfiguration struct {
 	// Deprecated in favour of a common gateway address across all networks available under NetworkConfiguration.<br> The address of the gateway assigned / to assign to the server.<br> When used as part of request body, IP address has to be part of private network assigned to this server.<br> Gateway address also has to be assigned on an already deployed resource unless the `force` query parameter is true.
@@ -50,7 +53,7 @@ func NewPrivateNetworkConfigurationWithDefaults() *PrivateNetworkConfiguration {
 // GetGatewayAddress returns the GatewayAddress field value if set, zero value otherwise.
 // Deprecated
 func (o *PrivateNetworkConfiguration) GetGatewayAddress() string {
-	if o == nil || o.GatewayAddress == nil {
+	if o == nil || IsNil(o.GatewayAddress) {
 		var ret string
 		return ret
 	}
@@ -61,7 +64,7 @@ func (o *PrivateNetworkConfiguration) GetGatewayAddress() string {
 // and a boolean to check if the value has been set.
 // Deprecated
 func (o *PrivateNetworkConfiguration) GetGatewayAddressOk() (*string, bool) {
-	if o == nil || o.GatewayAddress == nil {
+	if o == nil || IsNil(o.GatewayAddress) {
 		return nil, false
 	}
 	return o.GatewayAddress, true
@@ -69,7 +72,7 @@ func (o *PrivateNetworkConfiguration) GetGatewayAddressOk() (*string, bool) {
 
 // HasGatewayAddress returns a boolean if a field has been set.
 func (o *PrivateNetworkConfiguration) HasGatewayAddress() bool {
-	if o != nil && o.GatewayAddress != nil {
+	if o != nil && !IsNil(o.GatewayAddress) {
 		return true
 	}
 
@@ -84,7 +87,7 @@ func (o *PrivateNetworkConfiguration) SetGatewayAddress(v string) {
 
 // GetConfigurationType returns the ConfigurationType field value if set, zero value otherwise.
 func (o *PrivateNetworkConfiguration) GetConfigurationType() string {
-	if o == nil || o.ConfigurationType == nil {
+	if o == nil || IsNil(o.ConfigurationType) {
 		var ret string
 		return ret
 	}
@@ -94,7 +97,7 @@ func (o *PrivateNetworkConfiguration) GetConfigurationType() string {
 // GetConfigurationTypeOk returns a tuple with the ConfigurationType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivateNetworkConfiguration) GetConfigurationTypeOk() (*string, bool) {
-	if o == nil || o.ConfigurationType == nil {
+	if o == nil || IsNil(o.ConfigurationType) {
 		return nil, false
 	}
 	return o.ConfigurationType, true
@@ -102,7 +105,7 @@ func (o *PrivateNetworkConfiguration) GetConfigurationTypeOk() (*string, bool) {
 
 // HasConfigurationType returns a boolean if a field has been set.
 func (o *PrivateNetworkConfiguration) HasConfigurationType() bool {
-	if o != nil && o.ConfigurationType != nil {
+	if o != nil && !IsNil(o.ConfigurationType) {
 		return true
 	}
 
@@ -116,7 +119,7 @@ func (o *PrivateNetworkConfiguration) SetConfigurationType(v string) {
 
 // GetPrivateNetworks returns the PrivateNetworks field value if set, zero value otherwise.
 func (o *PrivateNetworkConfiguration) GetPrivateNetworks() []ServerPrivateNetwork {
-	if o == nil || o.PrivateNetworks == nil {
+	if o == nil || IsNil(o.PrivateNetworks) {
 		var ret []ServerPrivateNetwork
 		return ret
 	}
@@ -126,7 +129,7 @@ func (o *PrivateNetworkConfiguration) GetPrivateNetworks() []ServerPrivateNetwor
 // GetPrivateNetworksOk returns a tuple with the PrivateNetworks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivateNetworkConfiguration) GetPrivateNetworksOk() ([]ServerPrivateNetwork, bool) {
-	if o == nil || o.PrivateNetworks == nil {
+	if o == nil || IsNil(o.PrivateNetworks) {
 		return nil, false
 	}
 	return o.PrivateNetworks, true
@@ -134,7 +137,7 @@ func (o *PrivateNetworkConfiguration) GetPrivateNetworksOk() ([]ServerPrivateNet
 
 // HasPrivateNetworks returns a boolean if a field has been set.
 func (o *PrivateNetworkConfiguration) HasPrivateNetworks() bool {
-	if o != nil && o.PrivateNetworks != nil {
+	if o != nil && !IsNil(o.PrivateNetworks) {
 		return true
 	}
 
@@ -147,17 +150,25 @@ func (o *PrivateNetworkConfiguration) SetPrivateNetworks(v []ServerPrivateNetwor
 }
 
 func (o PrivateNetworkConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.GatewayAddress != nil {
-		toSerialize["gatewayAddress"] = o.GatewayAddress
-	}
-	if o.ConfigurationType != nil {
-		toSerialize["configurationType"] = o.ConfigurationType
-	}
-	if o.PrivateNetworks != nil {
-		toSerialize["privateNetworks"] = o.PrivateNetworks
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PrivateNetworkConfiguration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.GatewayAddress) {
+		toSerialize["gatewayAddress"] = o.GatewayAddress
+	}
+	if !IsNil(o.ConfigurationType) {
+		toSerialize["configurationType"] = o.ConfigurationType
+	}
+	if !IsNil(o.PrivateNetworks) {
+		toSerialize["privateNetworks"] = o.PrivateNetworks
+	}
+	return toSerialize, nil
 }
 
 type NullablePrivateNetworkConfiguration struct {

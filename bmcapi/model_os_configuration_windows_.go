@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OsConfigurationWindows type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OsConfigurationWindows{}
+
 // OsConfigurationWindows Windows OS configuration properties.
 type OsConfigurationWindows struct {
 	// List of IPs allowed for RDP access to Windows OS. Supported in single IP, CIDR and range format. When undefined, RDP is disabled. To allow RDP access from any IP use 0.0.0.0/0. This will only be returned in response to provisioning a server.
@@ -40,7 +43,7 @@ func NewOsConfigurationWindowsWithDefaults() *OsConfigurationWindows {
 
 // GetRdpAllowedIps returns the RdpAllowedIps field value if set, zero value otherwise.
 func (o *OsConfigurationWindows) GetRdpAllowedIps() []string {
-	if o == nil || o.RdpAllowedIps == nil {
+	if o == nil || IsNil(o.RdpAllowedIps) {
 		var ret []string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *OsConfigurationWindows) GetRdpAllowedIps() []string {
 // GetRdpAllowedIpsOk returns a tuple with the RdpAllowedIps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfigurationWindows) GetRdpAllowedIpsOk() ([]string, bool) {
-	if o == nil || o.RdpAllowedIps == nil {
+	if o == nil || IsNil(o.RdpAllowedIps) {
 		return nil, false
 	}
 	return o.RdpAllowedIps, true
@@ -58,7 +61,7 @@ func (o *OsConfigurationWindows) GetRdpAllowedIpsOk() ([]string, bool) {
 
 // HasRdpAllowedIps returns a boolean if a field has been set.
 func (o *OsConfigurationWindows) HasRdpAllowedIps() bool {
-	if o != nil && o.RdpAllowedIps != nil {
+	if o != nil && !IsNil(o.RdpAllowedIps) {
 		return true
 	}
 
@@ -71,11 +74,19 @@ func (o *OsConfigurationWindows) SetRdpAllowedIps(v []string) {
 }
 
 func (o OsConfigurationWindows) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.RdpAllowedIps != nil {
-		toSerialize["rdpAllowedIps"] = o.RdpAllowedIps
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OsConfigurationWindows) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.RdpAllowedIps) {
+		toSerialize["rdpAllowedIps"] = o.RdpAllowedIps
+	}
+	return toSerialize, nil
 }
 
 type NullableOsConfigurationWindows struct {

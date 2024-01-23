@@ -12,9 +12,14 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the StorageDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StorageDetails{}
 
 // StorageDetails Details of the storage associated with this rated usage record.
 type StorageDetails struct {
@@ -31,6 +36,8 @@ type StorageDetails struct {
 	// Timestamp when the record was created.
 	CreatedOn time.Time `json:"createdOn"`
 }
+
+type _StorageDetails StorageDetails
 
 // NewStorageDetails instantiates a new StorageDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -200,26 +207,64 @@ func (o *StorageDetails) SetCreatedOn(v time.Time) {
 }
 
 func (o StorageDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["networkStorageId"] = o.NetworkStorageId
-	}
-	if true {
-		toSerialize["networkStorageName"] = o.NetworkStorageName
-	}
-	if true {
-		toSerialize["volumeId"] = o.VolumeId
-	}
-	if true {
-		toSerialize["volumeName"] = o.VolumeName
-	}
-	if true {
-		toSerialize["capacityInGb"] = o.CapacityInGb
-	}
-	if true {
-		toSerialize["createdOn"] = o.CreatedOn
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StorageDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["networkStorageId"] = o.NetworkStorageId
+	toSerialize["networkStorageName"] = o.NetworkStorageName
+	toSerialize["volumeId"] = o.VolumeId
+	toSerialize["volumeName"] = o.VolumeName
+	toSerialize["capacityInGb"] = o.CapacityInGb
+	toSerialize["createdOn"] = o.CreatedOn
+	return toSerialize, nil
+}
+
+func (o *StorageDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"networkStorageId",
+		"networkStorageName",
+		"volumeId",
+		"volumeName",
+		"capacityInGb",
+		"createdOn",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStorageDetails := _StorageDetails{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varStorageDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StorageDetails(varStorageDetails)
+
+	return err
 }
 
 type NullableStorageDetails struct {

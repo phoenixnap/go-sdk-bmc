@@ -14,13 +14,13 @@ package auditapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
 )
 
-type EventsApi interface {
+type EventsAPI interface {
 
 	/*
 		EventsGet List event logs.
@@ -37,12 +37,12 @@ type EventsApi interface {
 	EventsGetExecute(r ApiEventsGetRequest) ([]Event, *http.Response, error)
 }
 
-// EventsApiService EventsApi service
-type EventsApiService service
+// EventsAPIService EventsAPI service
+type EventsAPIService service
 
 type ApiEventsGetRequest struct {
 	ctx        context.Context
-	ApiService EventsApi
+	ApiService EventsAPI
 	from       *time.Time
 	to         *time.Time
 	limit      *int32
@@ -106,7 +106,7 @@ Retrieves the event logs for given time period. All date & times are in UTC.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiEventsGetRequest
 */
-func (a *EventsApiService) EventsGet(ctx context.Context) ApiEventsGetRequest {
+func (a *EventsAPIService) EventsGet(ctx context.Context) ApiEventsGetRequest {
 	return ApiEventsGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -115,7 +115,7 @@ func (a *EventsApiService) EventsGet(ctx context.Context) ApiEventsGetRequest {
 
 // Execute executes the request
 //  @return []Event
-func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *http.Response, error) {
+func (a *EventsAPIService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -123,7 +123,7 @@ func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *ht
 		localVarReturnValue []Event
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.EventsGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsAPIService.EventsGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -135,25 +135,28 @@ func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *ht
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		localVarQueryParams.Add("from", parameterToString(*r.from, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
 	}
 	if r.to != nil {
-		localVarQueryParams.Add("to", parameterToString(*r.to, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.order != nil {
-		localVarQueryParams.Add("order", parameterToString(*r.order, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "")
+	} else {
+		var defaultValue string = "ASC"
+		r.order = &defaultValue
 	}
 	if r.username != nil {
-		localVarQueryParams.Add("username", parameterToString(*r.username, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "username", r.username, "")
 	}
 	if r.verb != nil {
-		localVarQueryParams.Add("verb", parameterToString(*r.verb, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "verb", r.verb, "")
 	}
 	if r.uri != nil {
-		localVarQueryParams.Add("uri", parameterToString(*r.uri, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "uri", r.uri, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -182,9 +185,9 @@ func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *ht
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -201,6 +204,7 @@ func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *ht
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -211,6 +215,7 @@ func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *ht
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -221,6 +226,7 @@ func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *ht
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -231,6 +237,7 @@ func (a *EventsApiService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *ht
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr

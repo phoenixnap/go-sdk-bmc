@@ -85,7 +85,7 @@ All URIs are relative to *https://api.phoenixnap.com/audit/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*EventsApi* | [**EventsGet**](docs/EventsApi.md#eventsget) | **Get** /events | List event logs.
+*EventsAPI* | [**EventsGet**](docs/EventsAPI.md#eventsget) | **Get** /events | List event logs.
 
 
 ## Documentation For Models

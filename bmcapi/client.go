@@ -50,11 +50,11 @@ type APIClient struct {
 
 	// API Services
 
-	QuotasApi QuotasApi
+	QuotasAPI QuotasAPI
 
-	SSHKeysApi SSHKeysApi
+	SSHKeysAPI SSHKeysAPI
 
-	ServersApi ServersApi
+	ServersAPI ServersAPI
 }
 
 type service struct {
@@ -73,9 +73,9 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.QuotasApi = (*QuotasApiService)(&c.common)
-	c.SSHKeysApi = (*SSHKeysApiService)(&c.common)
-	c.ServersApi = (*ServersApiService)(&c.common)
+	c.QuotasAPI = (*QuotasAPIService)(&c.common)
+	c.SSHKeysAPI = (*SSHKeysAPIService)(&c.common)
+	c.ServersAPI = (*ServersAPIService)(&c.common)
 
 	return c
 }

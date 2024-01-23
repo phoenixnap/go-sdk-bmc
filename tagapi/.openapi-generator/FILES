@@ -9,7 +9,7 @@ docs/ResourceAssignment.md
 docs/Tag.md
 docs/TagCreate.md
 docs/TagUpdate.md
-docs/TagsApi.md
+docs/TagsAPI.md
 go.mod
 go.sum
 model_delete_result.go
@@ -19,4 +19,5 @@ model_tag.go
 model_tag_create.go
 model_tag_update.go
 response.go
+test/api_tags_test.go
 utils.go

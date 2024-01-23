@@ -12,9 +12,14 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the Reservation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Reservation{}
 
 // Reservation Reservation details
 type Reservation struct {
@@ -47,6 +52,8 @@ type Reservation struct {
 	// Next billing date for Reservation.
 	NextBillingDate *string `json:"nextBillingDate,omitempty"`
 }
+
+type _Reservation Reservation
 
 // NewReservation instantiates a new Reservation object
 // This constructor will assign default values to properties that have it defined,
@@ -197,7 +204,7 @@ func (o *Reservation) SetReservationModel(v ReservationModelEnum) {
 
 // GetInitialInvoiceModel returns the InitialInvoiceModel field value if set, zero value otherwise.
 func (o *Reservation) GetInitialInvoiceModel() ReservationInvoicingModelEnum {
-	if o == nil || o.InitialInvoiceModel == nil {
+	if o == nil || IsNil(o.InitialInvoiceModel) {
 		var ret ReservationInvoicingModelEnum
 		return ret
 	}
@@ -207,7 +214,7 @@ func (o *Reservation) GetInitialInvoiceModel() ReservationInvoicingModelEnum {
 // GetInitialInvoiceModelOk returns a tuple with the InitialInvoiceModel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Reservation) GetInitialInvoiceModelOk() (*ReservationInvoicingModelEnum, bool) {
-	if o == nil || o.InitialInvoiceModel == nil {
+	if o == nil || IsNil(o.InitialInvoiceModel) {
 		return nil, false
 	}
 	return o.InitialInvoiceModel, true
@@ -215,7 +222,7 @@ func (o *Reservation) GetInitialInvoiceModelOk() (*ReservationInvoicingModelEnum
 
 // HasInitialInvoiceModel returns a boolean if a field has been set.
 func (o *Reservation) HasInitialInvoiceModel() bool {
-	if o != nil && o.InitialInvoiceModel != nil {
+	if o != nil && !IsNil(o.InitialInvoiceModel) {
 		return true
 	}
 
@@ -253,7 +260,7 @@ func (o *Reservation) SetStartDateTime(v time.Time) {
 
 // GetEndDateTime returns the EndDateTime field value if set, zero value otherwise.
 func (o *Reservation) GetEndDateTime() time.Time {
-	if o == nil || o.EndDateTime == nil {
+	if o == nil || IsNil(o.EndDateTime) {
 		var ret time.Time
 		return ret
 	}
@@ -263,7 +270,7 @@ func (o *Reservation) GetEndDateTime() time.Time {
 // GetEndDateTimeOk returns a tuple with the EndDateTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Reservation) GetEndDateTimeOk() (*time.Time, bool) {
-	if o == nil || o.EndDateTime == nil {
+	if o == nil || IsNil(o.EndDateTime) {
 		return nil, false
 	}
 	return o.EndDateTime, true
@@ -271,7 +278,7 @@ func (o *Reservation) GetEndDateTimeOk() (*time.Time, bool) {
 
 // HasEndDateTime returns a boolean if a field has been set.
 func (o *Reservation) HasEndDateTime() bool {
-	if o != nil && o.EndDateTime != nil {
+	if o != nil && !IsNil(o.EndDateTime) {
 		return true
 	}
 
@@ -285,7 +292,7 @@ func (o *Reservation) SetEndDateTime(v time.Time) {
 
 // GetLastRenewalDateTime returns the LastRenewalDateTime field value if set, zero value otherwise.
 func (o *Reservation) GetLastRenewalDateTime() time.Time {
-	if o == nil || o.LastRenewalDateTime == nil {
+	if o == nil || IsNil(o.LastRenewalDateTime) {
 		var ret time.Time
 		return ret
 	}
@@ -295,7 +302,7 @@ func (o *Reservation) GetLastRenewalDateTime() time.Time {
 // GetLastRenewalDateTimeOk returns a tuple with the LastRenewalDateTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Reservation) GetLastRenewalDateTimeOk() (*time.Time, bool) {
-	if o == nil || o.LastRenewalDateTime == nil {
+	if o == nil || IsNil(o.LastRenewalDateTime) {
 		return nil, false
 	}
 	return o.LastRenewalDateTime, true
@@ -303,7 +310,7 @@ func (o *Reservation) GetLastRenewalDateTimeOk() (*time.Time, bool) {
 
 // HasLastRenewalDateTime returns a boolean if a field has been set.
 func (o *Reservation) HasLastRenewalDateTime() bool {
-	if o != nil && o.LastRenewalDateTime != nil {
+	if o != nil && !IsNil(o.LastRenewalDateTime) {
 		return true
 	}
 
@@ -317,7 +324,7 @@ func (o *Reservation) SetLastRenewalDateTime(v time.Time) {
 
 // GetNextRenewalDateTime returns the NextRenewalDateTime field value if set, zero value otherwise.
 func (o *Reservation) GetNextRenewalDateTime() time.Time {
-	if o == nil || o.NextRenewalDateTime == nil {
+	if o == nil || IsNil(o.NextRenewalDateTime) {
 		var ret time.Time
 		return ret
 	}
@@ -327,7 +334,7 @@ func (o *Reservation) GetNextRenewalDateTime() time.Time {
 // GetNextRenewalDateTimeOk returns a tuple with the NextRenewalDateTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Reservation) GetNextRenewalDateTimeOk() (*time.Time, bool) {
-	if o == nil || o.NextRenewalDateTime == nil {
+	if o == nil || IsNil(o.NextRenewalDateTime) {
 		return nil, false
 	}
 	return o.NextRenewalDateTime, true
@@ -335,7 +342,7 @@ func (o *Reservation) GetNextRenewalDateTimeOk() (*time.Time, bool) {
 
 // HasNextRenewalDateTime returns a boolean if a field has been set.
 func (o *Reservation) HasNextRenewalDateTime() bool {
-	if o != nil && o.NextRenewalDateTime != nil {
+	if o != nil && !IsNil(o.NextRenewalDateTime) {
 		return true
 	}
 
@@ -445,7 +452,7 @@ func (o *Reservation) SetPriceUnit(v PriceUnitEnum) {
 
 // GetAssignedResourceId returns the AssignedResourceId field value if set, zero value otherwise.
 func (o *Reservation) GetAssignedResourceId() string {
-	if o == nil || o.AssignedResourceId == nil {
+	if o == nil || IsNil(o.AssignedResourceId) {
 		var ret string
 		return ret
 	}
@@ -455,7 +462,7 @@ func (o *Reservation) GetAssignedResourceId() string {
 // GetAssignedResourceIdOk returns a tuple with the AssignedResourceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Reservation) GetAssignedResourceIdOk() (*string, bool) {
-	if o == nil || o.AssignedResourceId == nil {
+	if o == nil || IsNil(o.AssignedResourceId) {
 		return nil, false
 	}
 	return o.AssignedResourceId, true
@@ -463,7 +470,7 @@ func (o *Reservation) GetAssignedResourceIdOk() (*string, bool) {
 
 // HasAssignedResourceId returns a boolean if a field has been set.
 func (o *Reservation) HasAssignedResourceId() bool {
-	if o != nil && o.AssignedResourceId != nil {
+	if o != nil && !IsNil(o.AssignedResourceId) {
 		return true
 	}
 
@@ -477,7 +484,7 @@ func (o *Reservation) SetAssignedResourceId(v string) {
 
 // GetNextBillingDate returns the NextBillingDate field value if set, zero value otherwise.
 func (o *Reservation) GetNextBillingDate() string {
-	if o == nil || o.NextBillingDate == nil {
+	if o == nil || IsNil(o.NextBillingDate) {
 		var ret string
 		return ret
 	}
@@ -487,7 +494,7 @@ func (o *Reservation) GetNextBillingDate() string {
 // GetNextBillingDateOk returns a tuple with the NextBillingDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Reservation) GetNextBillingDateOk() (*string, bool) {
-	if o == nil || o.NextBillingDate == nil {
+	if o == nil || IsNil(o.NextBillingDate) {
 		return nil, false
 	}
 	return o.NextBillingDate, true
@@ -495,7 +502,7 @@ func (o *Reservation) GetNextBillingDateOk() (*string, bool) {
 
 // HasNextBillingDate returns a boolean if a field has been set.
 func (o *Reservation) HasNextBillingDate() bool {
-	if o != nil && o.NextBillingDate != nil {
+	if o != nil && !IsNil(o.NextBillingDate) {
 		return true
 	}
 
@@ -508,56 +515,90 @@ func (o *Reservation) SetNextBillingDate(v string) {
 }
 
 func (o Reservation) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["productCode"] = o.ProductCode
-	}
-	if true {
-		toSerialize["productCategory"] = o.ProductCategory
-	}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if true {
-		toSerialize["reservationModel"] = o.ReservationModel
-	}
-	if o.InitialInvoiceModel != nil {
-		toSerialize["initialInvoiceModel"] = o.InitialInvoiceModel
-	}
-	if true {
-		toSerialize["startDateTime"] = o.StartDateTime
-	}
-	if o.EndDateTime != nil {
-		toSerialize["endDateTime"] = o.EndDateTime
-	}
-	if o.LastRenewalDateTime != nil {
-		toSerialize["lastRenewalDateTime"] = o.LastRenewalDateTime
-	}
-	if o.NextRenewalDateTime != nil {
-		toSerialize["nextRenewalDateTime"] = o.NextRenewalDateTime
-	}
-	if true {
-		toSerialize["autoRenew"] = o.AutoRenew
-	}
-	if true {
-		toSerialize["sku"] = o.Sku
-	}
-	if true {
-		toSerialize["price"] = o.Price
-	}
-	if true {
-		toSerialize["priceUnit"] = o.PriceUnit
-	}
-	if o.AssignedResourceId != nil {
-		toSerialize["assignedResourceId"] = o.AssignedResourceId
-	}
-	if o.NextBillingDate != nil {
-		toSerialize["nextBillingDate"] = o.NextBillingDate
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Reservation) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["productCode"] = o.ProductCode
+	toSerialize["productCategory"] = o.ProductCategory
+	toSerialize["location"] = o.Location
+	toSerialize["reservationModel"] = o.ReservationModel
+	if !IsNil(o.InitialInvoiceModel) {
+		toSerialize["initialInvoiceModel"] = o.InitialInvoiceModel
+	}
+	toSerialize["startDateTime"] = o.StartDateTime
+	if !IsNil(o.EndDateTime) {
+		toSerialize["endDateTime"] = o.EndDateTime
+	}
+	if !IsNil(o.LastRenewalDateTime) {
+		toSerialize["lastRenewalDateTime"] = o.LastRenewalDateTime
+	}
+	if !IsNil(o.NextRenewalDateTime) {
+		toSerialize["nextRenewalDateTime"] = o.NextRenewalDateTime
+	}
+	toSerialize["autoRenew"] = o.AutoRenew
+	toSerialize["sku"] = o.Sku
+	toSerialize["price"] = o.Price
+	toSerialize["priceUnit"] = o.PriceUnit
+	if !IsNil(o.AssignedResourceId) {
+		toSerialize["assignedResourceId"] = o.AssignedResourceId
+	}
+	if !IsNil(o.NextBillingDate) {
+		toSerialize["nextBillingDate"] = o.NextBillingDate
+	}
+	return toSerialize, nil
+}
+
+func (o *Reservation) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"productCode",
+		"productCategory",
+		"location",
+		"reservationModel",
+		"startDateTime",
+		"autoRenew",
+		"sku",
+		"price",
+		"priceUnit",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varReservation := _Reservation{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varReservation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Reservation(varReservation)
+
+	return err
 }
 
 type NullableReservation struct {

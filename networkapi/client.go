@@ -50,9 +50,9 @@ type APIClient struct {
 
 	// API Services
 
-	PrivateNetworksApi PrivateNetworksApi
+	PrivateNetworksAPI PrivateNetworksAPI
 
-	PublicNetworksApi PublicNetworksApi
+	PublicNetworksAPI PublicNetworksAPI
 }
 
 type service struct {
@@ -71,8 +71,8 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.PrivateNetworksApi = (*PrivateNetworksApiService)(&c.common)
-	c.PublicNetworksApi = (*PublicNetworksApiService)(&c.common)
+	c.PrivateNetworksAPI = (*PrivateNetworksAPIService)(&c.common)
+	c.PublicNetworksAPI = (*PublicNetworksAPIService)(&c.common)
 
 	return c
 }

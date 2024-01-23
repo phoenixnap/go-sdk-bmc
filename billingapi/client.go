@@ -50,13 +50,13 @@ type APIClient struct {
 
 	// API Services
 
-	BillingConfigurationsApi BillingConfigurationsApi
+	BillingConfigurationsAPI BillingConfigurationsAPI
 
-	ProductsApi ProductsApi
+	ProductsAPI ProductsAPI
 
-	RatedUsageApi RatedUsageApi
+	RatedUsageAPI RatedUsageAPI
 
-	ReservationsApi ReservationsApi
+	ReservationsAPI ReservationsAPI
 }
 
 type service struct {
@@ -75,10 +75,10 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.BillingConfigurationsApi = (*BillingConfigurationsApiService)(&c.common)
-	c.ProductsApi = (*ProductsApiService)(&c.common)
-	c.RatedUsageApi = (*RatedUsageApiService)(&c.common)
-	c.ReservationsApi = (*ReservationsApiService)(&c.common)
+	c.BillingConfigurationsAPI = (*BillingConfigurationsAPIService)(&c.common)
+	c.ProductsAPI = (*ProductsAPIService)(&c.common)
+	c.RatedUsageAPI = (*RatedUsageAPIService)(&c.common)
+	c.ReservationsAPI = (*ReservationsAPIService)(&c.common)
 
 	return c
 }

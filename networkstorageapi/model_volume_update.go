@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the VolumeUpdate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &VolumeUpdate{}
+
 // VolumeUpdate Update storage network volume.
 type VolumeUpdate struct {
 	// Volume friendly name.
@@ -47,7 +50,7 @@ func NewVolumeUpdateWithDefaults() *VolumeUpdate {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *VolumeUpdate) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -57,7 +60,7 @@ func (o *VolumeUpdate) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VolumeUpdate) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -65,7 +68,7 @@ func (o *VolumeUpdate) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *VolumeUpdate) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -79,7 +82,7 @@ func (o *VolumeUpdate) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *VolumeUpdate) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -89,7 +92,7 @@ func (o *VolumeUpdate) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VolumeUpdate) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -97,7 +100,7 @@ func (o *VolumeUpdate) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *VolumeUpdate) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -111,7 +114,7 @@ func (o *VolumeUpdate) SetDescription(v string) {
 
 // GetCapacityInGb returns the CapacityInGb field value if set, zero value otherwise.
 func (o *VolumeUpdate) GetCapacityInGb() int32 {
-	if o == nil || o.CapacityInGb == nil {
+	if o == nil || IsNil(o.CapacityInGb) {
 		var ret int32
 		return ret
 	}
@@ -121,7 +124,7 @@ func (o *VolumeUpdate) GetCapacityInGb() int32 {
 // GetCapacityInGbOk returns a tuple with the CapacityInGb field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VolumeUpdate) GetCapacityInGbOk() (*int32, bool) {
-	if o == nil || o.CapacityInGb == nil {
+	if o == nil || IsNil(o.CapacityInGb) {
 		return nil, false
 	}
 	return o.CapacityInGb, true
@@ -129,7 +132,7 @@ func (o *VolumeUpdate) GetCapacityInGbOk() (*int32, bool) {
 
 // HasCapacityInGb returns a boolean if a field has been set.
 func (o *VolumeUpdate) HasCapacityInGb() bool {
-	if o != nil && o.CapacityInGb != nil {
+	if o != nil && !IsNil(o.CapacityInGb) {
 		return true
 	}
 
@@ -143,7 +146,7 @@ func (o *VolumeUpdate) SetCapacityInGb(v int32) {
 
 // GetPathSuffix returns the PathSuffix field value if set, zero value otherwise.
 func (o *VolumeUpdate) GetPathSuffix() string {
-	if o == nil || o.PathSuffix == nil {
+	if o == nil || IsNil(o.PathSuffix) {
 		var ret string
 		return ret
 	}
@@ -153,7 +156,7 @@ func (o *VolumeUpdate) GetPathSuffix() string {
 // GetPathSuffixOk returns a tuple with the PathSuffix field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VolumeUpdate) GetPathSuffixOk() (*string, bool) {
-	if o == nil || o.PathSuffix == nil {
+	if o == nil || IsNil(o.PathSuffix) {
 		return nil, false
 	}
 	return o.PathSuffix, true
@@ -161,7 +164,7 @@ func (o *VolumeUpdate) GetPathSuffixOk() (*string, bool) {
 
 // HasPathSuffix returns a boolean if a field has been set.
 func (o *VolumeUpdate) HasPathSuffix() bool {
-	if o != nil && o.PathSuffix != nil {
+	if o != nil && !IsNil(o.PathSuffix) {
 		return true
 	}
 
@@ -175,7 +178,7 @@ func (o *VolumeUpdate) SetPathSuffix(v string) {
 
 // GetPermissions returns the Permissions field value if set, zero value otherwise.
 func (o *VolumeUpdate) GetPermissions() PermissionsUpdate {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		var ret PermissionsUpdate
 		return ret
 	}
@@ -185,7 +188,7 @@ func (o *VolumeUpdate) GetPermissions() PermissionsUpdate {
 // GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VolumeUpdate) GetPermissionsOk() (*PermissionsUpdate, bool) {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		return nil, false
 	}
 	return o.Permissions, true
@@ -193,7 +196,7 @@ func (o *VolumeUpdate) GetPermissionsOk() (*PermissionsUpdate, bool) {
 
 // HasPermissions returns a boolean if a field has been set.
 func (o *VolumeUpdate) HasPermissions() bool {
-	if o != nil && o.Permissions != nil {
+	if o != nil && !IsNil(o.Permissions) {
 		return true
 	}
 
@@ -206,23 +209,31 @@ func (o *VolumeUpdate) SetPermissions(v PermissionsUpdate) {
 }
 
 func (o VolumeUpdate) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.CapacityInGb != nil {
-		toSerialize["capacityInGb"] = o.CapacityInGb
-	}
-	if o.PathSuffix != nil {
-		toSerialize["pathSuffix"] = o.PathSuffix
-	}
-	if o.Permissions != nil {
-		toSerialize["permissions"] = o.Permissions
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o VolumeUpdate) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.CapacityInGb) {
+		toSerialize["capacityInGb"] = o.CapacityInGb
+	}
+	if !IsNil(o.PathSuffix) {
+		toSerialize["pathSuffix"] = o.PathSuffix
+	}
+	if !IsNil(o.Permissions) {
+		toSerialize["permissions"] = o.Permissions
+	}
+	return toSerialize, nil
 }
 
 type NullableVolumeUpdate struct {

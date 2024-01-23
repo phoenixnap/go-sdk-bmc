@@ -50,7 +50,7 @@ type APIClient struct {
 
 	// API Services
 
-	StorageNetworksApi StorageNetworksApi
+	StorageNetworksAPI StorageNetworksAPI
 }
 
 type service struct {
@@ -69,7 +69,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.StorageNetworksApi = (*StorageNetworksApiService)(&c.common)
+	c.StorageNetworksAPI = (*StorageNetworksAPIService)(&c.common)
 
 	return c
 }
