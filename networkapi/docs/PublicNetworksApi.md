@@ -1,16 +1,16 @@
-# \PublicNetworksApi
+# \PublicNetworksAPI
 
 All URIs are relative to *https://api.phoenixnap.com/networks/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PublicNetworksGet**](PublicNetworksApi.md#PublicNetworksGet) | **Get** /public-networks | List Public Networks.
-[**PublicNetworksNetworkIdDelete**](PublicNetworksApi.md#PublicNetworksNetworkIdDelete) | **Delete** /public-networks/{publicNetworkId} | Delete a Public Network.
-[**PublicNetworksNetworkIdGet**](PublicNetworksApi.md#PublicNetworksNetworkIdGet) | **Get** /public-networks/{publicNetworkId} | Get a Public Network.
-[**PublicNetworksNetworkIdIpBlocksIpBlockIdDelete**](PublicNetworksApi.md#PublicNetworksNetworkIdIpBlocksIpBlockIdDelete) | **Delete** /public-networks/{publicNetworkId}/ip-blocks/{ipBlockId} | Removes the IP Block from the Public Network.
-[**PublicNetworksNetworkIdIpBlocksPost**](PublicNetworksApi.md#PublicNetworksNetworkIdIpBlocksPost) | **Post** /public-networks/{publicNetworkId}/ip-blocks | Adds an IP block to this public network.
-[**PublicNetworksNetworkIdPatch**](PublicNetworksApi.md#PublicNetworksNetworkIdPatch) | **Patch** /public-networks/{publicNetworkId} | Update Public Network&#39;s Details.
-[**PublicNetworksPost**](PublicNetworksApi.md#PublicNetworksPost) | **Post** /public-networks | Create a public network.
+[**PublicNetworksGet**](PublicNetworksAPI.md#PublicNetworksGet) | **Get** /public-networks | List Public Networks.
+[**PublicNetworksNetworkIdDelete**](PublicNetworksAPI.md#PublicNetworksNetworkIdDelete) | **Delete** /public-networks/{publicNetworkId} | Delete a Public Network.
+[**PublicNetworksNetworkIdGet**](PublicNetworksAPI.md#PublicNetworksNetworkIdGet) | **Get** /public-networks/{publicNetworkId} | Get a Public Network.
+[**PublicNetworksNetworkIdIpBlocksIpBlockIdDelete**](PublicNetworksAPI.md#PublicNetworksNetworkIdIpBlocksIpBlockIdDelete) | **Delete** /public-networks/{publicNetworkId}/ip-blocks/{ipBlockId} | Removes the IP Block from the Public Network.
+[**PublicNetworksNetworkIdIpBlocksPost**](PublicNetworksAPI.md#PublicNetworksNetworkIdIpBlocksPost) | **Post** /public-networks/{publicNetworkId}/ip-blocks | Adds an IP block to this public network.
+[**PublicNetworksNetworkIdPatch**](PublicNetworksAPI.md#PublicNetworksNetworkIdPatch) | **Patch** /public-networks/{publicNetworkId} | Update Public Network&#39;s Details.
+[**PublicNetworksPost**](PublicNetworksAPI.md#PublicNetworksPost) | **Post** /public-networks | Create a public network.
 
 
 
@@ -28,24 +28,24 @@ List Public Networks.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi"
 )
 
 func main() {
-    location := "PHX" // string | If present will filter the result by the given location of the Public Networks. (optional)
+	location := "PHX" // string | If present will filter the result by the given location of the Public Networks. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicNetworksApi.PublicNetworksGet(context.Background()).Location(location).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksApi.PublicNetworksGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PublicNetworksGet`: []PublicNetwork
-    fmt.Fprintf(os.Stdout, "Response from `PublicNetworksApi.PublicNetworksGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicNetworksAPI.PublicNetworksGet(context.Background()).Location(location).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksAPI.PublicNetworksGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PublicNetworksGet`: []PublicNetwork
+	fmt.Fprintf(os.Stdout, "Response from `PublicNetworksAPI.PublicNetworksGet`: %v\n", resp)
 }
 ```
 
@@ -94,22 +94,22 @@ Delete a Public Network.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi"
 )
 
 func main() {
-    publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
+	publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicNetworksApi.PublicNetworksNetworkIdDelete(context.Background(), publicNetworkId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksApi.PublicNetworksNetworkIdDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PublicNetworksAPI.PublicNetworksNetworkIdDelete(context.Background(), publicNetworkId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksAPI.PublicNetworksNetworkIdDelete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -162,24 +162,24 @@ Get a Public Network.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi"
 )
 
 func main() {
-    publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
+	publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicNetworksApi.PublicNetworksNetworkIdGet(context.Background(), publicNetworkId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksApi.PublicNetworksNetworkIdGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PublicNetworksNetworkIdGet`: PublicNetwork
-    fmt.Fprintf(os.Stdout, "Response from `PublicNetworksApi.PublicNetworksNetworkIdGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicNetworksAPI.PublicNetworksNetworkIdGet(context.Background(), publicNetworkId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksAPI.PublicNetworksNetworkIdGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PublicNetworksNetworkIdGet`: PublicNetwork
+	fmt.Fprintf(os.Stdout, "Response from `PublicNetworksAPI.PublicNetworksNetworkIdGet`: %v\n", resp)
 }
 ```
 
@@ -232,26 +232,26 @@ Removes the IP Block from the Public Network.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi"
 )
 
 func main() {
-    publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
-    ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
-    force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
+	publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
+	ipBlockId := "6047127fed34ecc3ba8402d2" // string | The IP Block identifier.
+	force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicNetworksApi.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(context.Background(), publicNetworkId, ipBlockId).Force(force).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksApi.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PublicNetworksNetworkIdIpBlocksIpBlockIdDelete`: string
-    fmt.Fprintf(os.Stdout, "Response from `PublicNetworksApi.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicNetworksAPI.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(context.Background(), publicNetworkId, ipBlockId).Force(force).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksAPI.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PublicNetworksNetworkIdIpBlocksIpBlockIdDelete`: string
+	fmt.Fprintf(os.Stdout, "Response from `PublicNetworksAPI.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete`: %v\n", resp)
 }
 ```
 
@@ -307,25 +307,25 @@ Adds an IP block to this public network.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi"
 )
 
 func main() {
-    publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
-    publicNetworkIpBlock := *openapiclient.NewPublicNetworkIpBlock("60473a6115e34466c9f8f083") // PublicNetworkIpBlock | 
+	publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
+	publicNetworkIpBlock := *openapiclient.NewPublicNetworkIpBlock("60473a6115e34466c9f8f083") // PublicNetworkIpBlock | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicNetworksApi.PublicNetworksNetworkIdIpBlocksPost(context.Background(), publicNetworkId).PublicNetworkIpBlock(publicNetworkIpBlock).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksApi.PublicNetworksNetworkIdIpBlocksPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PublicNetworksNetworkIdIpBlocksPost`: PublicNetworkIpBlock
-    fmt.Fprintf(os.Stdout, "Response from `PublicNetworksApi.PublicNetworksNetworkIdIpBlocksPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicNetworksAPI.PublicNetworksNetworkIdIpBlocksPost(context.Background(), publicNetworkId).PublicNetworkIpBlock(publicNetworkIpBlock).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksAPI.PublicNetworksNetworkIdIpBlocksPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PublicNetworksNetworkIdIpBlocksPost`: PublicNetworkIpBlock
+	fmt.Fprintf(os.Stdout, "Response from `PublicNetworksAPI.PublicNetworksNetworkIdIpBlocksPost`: %v\n", resp)
 }
 ```
 
@@ -379,25 +379,25 @@ Update Public Network's Details.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi"
 )
 
 func main() {
-    publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
-    publicNetworkModify := *openapiclient.NewPublicNetworkModify() // PublicNetworkModify | 
+	publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
+	publicNetworkModify := *openapiclient.NewPublicNetworkModify() // PublicNetworkModify | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicNetworksApi.PublicNetworksNetworkIdPatch(context.Background(), publicNetworkId).PublicNetworkModify(publicNetworkModify).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksApi.PublicNetworksNetworkIdPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PublicNetworksNetworkIdPatch`: PublicNetwork
-    fmt.Fprintf(os.Stdout, "Response from `PublicNetworksApi.PublicNetworksNetworkIdPatch`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicNetworksAPI.PublicNetworksNetworkIdPatch(context.Background(), publicNetworkId).PublicNetworkModify(publicNetworkModify).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksAPI.PublicNetworksNetworkIdPatch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PublicNetworksNetworkIdPatch`: PublicNetwork
+	fmt.Fprintf(os.Stdout, "Response from `PublicNetworksAPI.PublicNetworksNetworkIdPatch`: %v\n", resp)
 }
 ```
 
@@ -451,24 +451,24 @@ Create a public network.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi"
 )
 
 func main() {
-    publicNetworkCreate := *openapiclient.NewPublicNetworkCreate("Sample Network", "PHX") // PublicNetworkCreate | 
+	publicNetworkCreate := *openapiclient.NewPublicNetworkCreate("Sample Network", "PHX") // PublicNetworkCreate | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicNetworksApi.PublicNetworksPost(context.Background()).PublicNetworkCreate(publicNetworkCreate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksApi.PublicNetworksPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PublicNetworksPost`: PublicNetwork
-    fmt.Fprintf(os.Stdout, "Response from `PublicNetworksApi.PublicNetworksPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicNetworksAPI.PublicNetworksPost(context.Background()).PublicNetworkCreate(publicNetworkCreate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksAPI.PublicNetworksPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PublicNetworksPost`: PublicNetwork
+	fmt.Fprintf(os.Stdout, "Response from `PublicNetworksAPI.PublicNetworksPost`: %v\n", resp)
 }
 ```
 
