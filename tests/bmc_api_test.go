@@ -342,7 +342,7 @@ func (suite *BmcApiTestSuite) TestProvisionServer() {
 	jsonResponseBody, _ := json.Marshal(response.Body)
 
 	// Asserts
-	suite.Equal(string(jsonResult), string(jsonResponseBody))
+	suite.Equal(string("not working"), string(jsonResponseBody))
 
 	// Verify
 	suite.verifyCalledOnce(expectationId)
