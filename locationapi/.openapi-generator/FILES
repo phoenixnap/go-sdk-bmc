@@ -17,5 +17,4 @@ model_location_enum.go
 model_product_category.go
 model_product_category_enum.go
 response.go
-test/api_locations_test.go
 utils.go

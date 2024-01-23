@@ -41,5 +41,4 @@ model_volume.go
 model_volume_create.go
 model_volume_update.go
 response.go
-test/api_storage_networks_test.go
 utils.go

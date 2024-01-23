@@ -87,7 +87,4 @@ model_storage_configuration_root_partition.go
 model_tag_assignment.go
 model_tag_assignment_request.go
 response.go
-test/api_quotas_test.go
-test/api_servers_test.go
-test/api_ssh_keys_test.go
 utils.go

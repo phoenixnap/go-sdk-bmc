@@ -27,5 +27,4 @@ model_rancher_server_metadata.go
 model_ssh_config.go
 model_workload_cluster_config.go
 response.go
-test/api_clusters_test.go
 utils.go

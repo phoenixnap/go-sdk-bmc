@@ -77,8 +77,4 @@ model_storage_details.go
 model_storage_record.go
 model_threshold_configuration_details.go
 response.go
-test/api_billing_configurations_test.go
-test/api_products_test.go
-test/api_rated_usage_test.go
-test/api_reservations_test.go
 utils.go

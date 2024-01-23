@@ -1,15 +1,15 @@
-# \ReservationsApi
+# \ReservationsAPI
 
 All URIs are relative to *https://api.phoenixnap.com/billing/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ReservationsGet**](ReservationsApi.md#ReservationsGet) | **Get** /reservations | List all Reservations.
-[**ReservationsPost**](ReservationsApi.md#ReservationsPost) | **Post** /reservations | Create a reservation.
-[**ReservationsReservationIdActionsAutoRenewDisablePost**](ReservationsApi.md#ReservationsReservationIdActionsAutoRenewDisablePost) | **Post** /reservations/{reservationId}/actions/auto-renew/disable | Disable auto-renewal for reservation by id.
-[**ReservationsReservationIdActionsAutoRenewEnablePost**](ReservationsApi.md#ReservationsReservationIdActionsAutoRenewEnablePost) | **Post** /reservations/{reservationId}/actions/auto-renew/enable | Enable auto-renewal for unexpired reservation by reservation id.
-[**ReservationsReservationIdActionsConvertPost**](ReservationsApi.md#ReservationsReservationIdActionsConvertPost) | **Post** /reservations/{reservationId}/actions/convert | Convert reservation pricing model by reservation ID.
-[**ReservationsReservationIdGet**](ReservationsApi.md#ReservationsReservationIdGet) | **Get** /reservations/{reservationId} | Get a reservation.
+[**ReservationsGet**](ReservationsAPI.md#ReservationsGet) | **Get** /reservations | List all Reservations.
+[**ReservationsPost**](ReservationsAPI.md#ReservationsPost) | **Post** /reservations | Create a reservation.
+[**ReservationsReservationIdActionsAutoRenewDisablePost**](ReservationsAPI.md#ReservationsReservationIdActionsAutoRenewDisablePost) | **Post** /reservations/{reservationId}/actions/auto-renew/disable | Disable auto-renewal for reservation by id.
+[**ReservationsReservationIdActionsAutoRenewEnablePost**](ReservationsAPI.md#ReservationsReservationIdActionsAutoRenewEnablePost) | **Post** /reservations/{reservationId}/actions/auto-renew/enable | Enable auto-renewal for unexpired reservation by reservation id.
+[**ReservationsReservationIdActionsConvertPost**](ReservationsAPI.md#ReservationsReservationIdActionsConvertPost) | **Post** /reservations/{reservationId}/actions/convert | Convert reservation pricing model by reservation ID.
+[**ReservationsReservationIdGet**](ReservationsAPI.md#ReservationsReservationIdGet) | **Get** /reservations/{reservationId} | Get a reservation.
 
 
 
@@ -27,24 +27,24 @@ List all Reservations.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi"
 )
 
 func main() {
-    productCategory := openapiclient.ProductCategoryEnum("SERVER") // ProductCategoryEnum | The product category (optional)
+	productCategory := openapiclient.ProductCategoryEnum("SERVER") // ProductCategoryEnum | The product category (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReservationsApi.ReservationsGet(context.Background()).ProductCategory(productCategory).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReservationsApi.ReservationsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReservationsGet`: []Reservation
-    fmt.Fprintf(os.Stdout, "Response from `ReservationsApi.ReservationsGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReservationsAPI.ReservationsGet(context.Background()).ProductCategory(productCategory).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReservationsAPI.ReservationsGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReservationsGet`: []Reservation
+	fmt.Fprintf(os.Stdout, "Response from `ReservationsAPI.ReservationsGet`: %v\n", resp)
 }
 ```
 
@@ -93,24 +93,24 @@ Create a reservation.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi"
 )
 
 func main() {
-    reservationRequest := *openapiclient.NewReservationRequest("XXX-XXX-XXX") // ReservationRequest |  (optional)
+	reservationRequest := *openapiclient.NewReservationRequest("XXX-XXX-XXX") // ReservationRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReservationsApi.ReservationsPost(context.Background()).ReservationRequest(reservationRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReservationsApi.ReservationsPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReservationsPost`: Reservation
-    fmt.Fprintf(os.Stdout, "Response from `ReservationsApi.ReservationsPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReservationsAPI.ReservationsPost(context.Background()).ReservationRequest(reservationRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReservationsAPI.ReservationsPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReservationsPost`: Reservation
+	fmt.Fprintf(os.Stdout, "Response from `ReservationsAPI.ReservationsPost`: %v\n", resp)
 }
 ```
 
@@ -159,25 +159,25 @@ Disable auto-renewal for reservation by id.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi"
 )
 
 func main() {
-    reservationId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The reservation's ID.
-    reservationAutoRenewDisableRequest := *openapiclient.NewReservationAutoRenewDisableRequest() // ReservationAutoRenewDisableRequest |  (optional)
+	reservationId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The reservation's ID.
+	reservationAutoRenewDisableRequest := *openapiclient.NewReservationAutoRenewDisableRequest() // ReservationAutoRenewDisableRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReservationsApi.ReservationsReservationIdActionsAutoRenewDisablePost(context.Background(), reservationId).ReservationAutoRenewDisableRequest(reservationAutoRenewDisableRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReservationsApi.ReservationsReservationIdActionsAutoRenewDisablePost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReservationsReservationIdActionsAutoRenewDisablePost`: Reservation
-    fmt.Fprintf(os.Stdout, "Response from `ReservationsApi.ReservationsReservationIdActionsAutoRenewDisablePost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReservationsAPI.ReservationsReservationIdActionsAutoRenewDisablePost(context.Background(), reservationId).ReservationAutoRenewDisableRequest(reservationAutoRenewDisableRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReservationsAPI.ReservationsReservationIdActionsAutoRenewDisablePost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReservationsReservationIdActionsAutoRenewDisablePost`: Reservation
+	fmt.Fprintf(os.Stdout, "Response from `ReservationsAPI.ReservationsReservationIdActionsAutoRenewDisablePost`: %v\n", resp)
 }
 ```
 
@@ -231,24 +231,24 @@ Enable auto-renewal for unexpired reservation by reservation id.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi"
 )
 
 func main() {
-    reservationId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The reservation's ID.
+	reservationId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The reservation's ID.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReservationsApi.ReservationsReservationIdActionsAutoRenewEnablePost(context.Background(), reservationId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReservationsApi.ReservationsReservationIdActionsAutoRenewEnablePost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReservationsReservationIdActionsAutoRenewEnablePost`: Reservation
-    fmt.Fprintf(os.Stdout, "Response from `ReservationsApi.ReservationsReservationIdActionsAutoRenewEnablePost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReservationsAPI.ReservationsReservationIdActionsAutoRenewEnablePost(context.Background(), reservationId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReservationsAPI.ReservationsReservationIdActionsAutoRenewEnablePost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReservationsReservationIdActionsAutoRenewEnablePost`: Reservation
+	fmt.Fprintf(os.Stdout, "Response from `ReservationsAPI.ReservationsReservationIdActionsAutoRenewEnablePost`: %v\n", resp)
 }
 ```
 
@@ -301,25 +301,25 @@ Convert reservation pricing model by reservation ID.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi"
 )
 
 func main() {
-    reservationId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The reservation's ID.
-    reservationRequest := *openapiclient.NewReservationRequest("XXX-XXX-XXX") // ReservationRequest |  (optional)
+	reservationId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The reservation's ID.
+	reservationRequest := *openapiclient.NewReservationRequest("XXX-XXX-XXX") // ReservationRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReservationsApi.ReservationsReservationIdActionsConvertPost(context.Background(), reservationId).ReservationRequest(reservationRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReservationsApi.ReservationsReservationIdActionsConvertPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReservationsReservationIdActionsConvertPost`: Reservation
-    fmt.Fprintf(os.Stdout, "Response from `ReservationsApi.ReservationsReservationIdActionsConvertPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReservationsAPI.ReservationsReservationIdActionsConvertPost(context.Background(), reservationId).ReservationRequest(reservationRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReservationsAPI.ReservationsReservationIdActionsConvertPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReservationsReservationIdActionsConvertPost`: Reservation
+	fmt.Fprintf(os.Stdout, "Response from `ReservationsAPI.ReservationsReservationIdActionsConvertPost`: %v\n", resp)
 }
 ```
 
@@ -373,24 +373,24 @@ Get a reservation.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi"
 )
 
 func main() {
-    reservationId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The reservation's ID.
+	reservationId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The reservation's ID.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReservationsApi.ReservationsReservationIdGet(context.Background(), reservationId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReservationsApi.ReservationsReservationIdGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReservationsReservationIdGet`: Reservation
-    fmt.Fprintf(os.Stdout, "Response from `ReservationsApi.ReservationsReservationIdGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReservationsAPI.ReservationsReservationIdGet(context.Background(), reservationId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReservationsAPI.ReservationsReservationIdGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReservationsReservationIdGet`: Reservation
+	fmt.Fprintf(os.Stdout, "Response from `ReservationsAPI.ReservationsReservationIdGet`: %v\n", resp)
 }
 ```
 

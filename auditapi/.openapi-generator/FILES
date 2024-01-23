@@ -13,5 +13,4 @@ model_error.go
 model_event.go
 model_user_info.go
 response.go
-test/api_events_test.go
 utils.go
