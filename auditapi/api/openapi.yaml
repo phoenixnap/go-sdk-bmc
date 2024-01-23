@@ -1,0 +1,263 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: support@phoenixnap.com
+    name: PhoenixNAP Team
+    url: https://phoenixnap.com/
+  description: |
+    The Audit Logs API lets you read audit log entries and track API calls or activities in the Bare Metal Cloud Portal.<br>
+    <br>
+    <span class='pnap-api-knowledge-base-link'>
+    Knowledge base articles to help you can be found
+    <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#audit-log-api' target='_blank'>here</a>
+    </span><br>
+    <br>
+    <b>All URLs are relative to (https://api.phoenixnap.com/audit/v1/)</b>
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
+  title: Audit Log API
+  version: "1.0"
+servers:
+- url: https://api.phoenixnap.com/audit/v1
+security:
+- OAuth2:
+  - audit.read
+tags:
+- description: Event operations
+  name: Events
+paths:
+  /events:
+    get:
+      description: Retrieves the event logs for given time period. All date & times
+        are in UTC.
+      operationId: eventsGet
+      parameters:
+      - description: From the date and time (inclusive) to filter event log records
+          by.
+        example: 2021-04-27T16:24:57.123Z
+        explode: true
+        in: query
+        name: from
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: To the date and time (inclusive) to filter event log records
+          by.
+        example: 2021-04-29T16:24:57.123Z
+        explode: true
+        in: query
+        name: to
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Limit the number of records returned.
+        example: 10
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Ordering of the event's time. SortBy can be introduced later
+          on.
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: ASC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      - description: The username that did the actions.
+        example: johnd@phoenixnap.com
+        explode: true
+        in: query
+        name: username
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The HTTP verb corresponding to the action.
+        explode: true
+        in: query
+        name: verb
+        required: false
+        schema:
+          enum:
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+          type: string
+        style: form
+      - description: The request uri.
+        example: /ams/v1/clients/12345
+        explode: true
+        in: query
+        name: uri
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Event'
+                type: array
+          description: The list of events recorded.
+        "206":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Event'
+                type: array
+          description: The truncated list of events recorded.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - audit.read
+      summary: List event logs.
+      tags:
+      - Events
+components:
+  responses:
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed due to wrong data. Please check the provided
+        parameters and try again.
+    Unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed due to invalid credentials. Please check the
+        provided credentials and try again.
+    Forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed since this resource cannot be accessed by the
+        provided credentials.
+    InternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server encountered an unexpected condition that prevented it
+        from fulfilling the request.
+  schemas:
+    UserInfo:
+      description: Details related to the user / application performing this request
+      example:
+        accountId: 1234dfgdsf
+        clientId: e9d335b1-3aa4-4760-9bad-2595c0449035
+        username: johnd@phoenixnap.com
+      properties:
+        accountId:
+          description: The BMC account ID
+          example: 1234dfgdsf
+          type: string
+        clientId:
+          description: The client ID of the application
+          example: e9d335b1-3aa4-4760-9bad-2595c0449035
+          type: string
+        username:
+          description: The logged in user or owner of the client application
+          example: johnd@phoenixnap.com
+          type: string
+      required:
+      - accountId
+      - username
+      type: object
+    Event:
+      description: The event log.
+      example:
+        userInfo:
+          accountId: 1234dfgdsf
+          clientId: e9d335b1-3aa4-4760-9bad-2595c0449035
+          username: johnd@phoenixnap.com
+        name: API.CreateServer
+        timestamp: 2000-01-23T04:56:07.000+00:00
+      properties:
+        name:
+          description: The name of the event.
+          example: API.CreateServer
+          type: string
+        timestamp:
+          description: The UTC time the event initiated.
+          format: date-time
+          type: string
+        userInfo:
+          $ref: '#/components/schemas/UserInfo'
+      required:
+      - timestamp
+      - userInfo
+      type: object
+    Error:
+      properties:
+        message:
+          description: The description detailing the cause of the error code.
+          readOnly: true
+          type: string
+        validationErrors:
+          description: "Validation errors, if any."
+          items:
+            type: string
+          readOnly: true
+          type: array
+      required:
+      - message
+      type: object
+  securitySchemes:
+    OAuth2:
+      flows:
+        clientCredentials:
+          scopes:
+            audit.read: Grants read only access to audit-log-api.
+          tokenUrl: https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
+      type: oauth2
