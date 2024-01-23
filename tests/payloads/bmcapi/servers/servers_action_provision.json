@@ -1,0 +1,177 @@
+{
+    "request": {
+        "method": "POST",
+        "path": "/bmc/v1/servers/{id}/actions/deprovision",
+        "pathParameters": {
+            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"]
+        },
+        "body": {
+            "type": "JSON",
+            "json": {
+                "hostname": "my-server-1",
+                "description": "My custom server #1",
+                "os": "ubuntu/bionic",
+                "installDefaultSshKeys": true,
+                "sshKeys": [
+                    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user@my_ip"
+                ],
+                "sshKeyIds": [
+                    "5fa54d1e91867c03a0a7b4a4"
+                ],
+                "networkType": "PUBLIC_AND_PRIVATE",
+                "networkConfiguration": {
+                    "gatewayAddress": "182.16.0.145",
+                    "privateNetworkConfiguration": {
+                    "configurationType": "USER_DEFINED",
+                    "privateNetworks": [
+                        {
+                        "id": "60f81608e2f4665962b214db",
+                        "ips": [
+                            "10.0.0.11",
+                            "10.0.0.12"
+                        ],
+                        "dhcp": false
+                        }
+                    ]
+                    },
+                    "publicNetworkConfiguration": {
+                    "publicNetworks": [
+                        {
+                        "id": "60473c2509268bc77fd06d29",
+                        "ips": [
+                            "182.16.0.146",
+                            "182.16.0.147"
+                        ]
+                        }
+                    ]
+                    },
+                    "ipBlocksConfiguration": {
+                    "configurationType": "USER_DEFINED",
+                    "ipBlocks": [
+                        {
+                        "id": "60473a6115e34466c9f8f083"
+                        }
+                    ]
+                    }
+                }
+            },
+            "matchType": "STRICT"
+        }
+    },
+    "response": {
+        "statusCode": 202,
+        "body": {
+            "id": "string",
+            "status": "CREATED",
+            "hostname": "hostname.com",
+            "description": "fakeDescription",
+            "os": "ubuntu/bionic",
+            "type": "s0.d1.small",
+            "location": "PHX",
+            "cpu": "CPU",
+            "cpuCount": 5,
+            "coresPerCpu": 3,
+            "cpuFrequency": 4.5,
+            "ram": "64GB RAM",
+            "storage": "1x 960GB NVMe",
+            "privateIpAddresses": [ "172.16.0.1" ],
+            "publicIpAddresses": [ "182.16.0.1" ],
+            "reservationId": "x78sdkjds879sd7cx8",
+            "pricingModel": "HOURLY",
+            "password": "MyP@ssw0rd_01",
+            "networkType": "PUBLIC_AND_PRIVATE",
+            "clusterId": "x78sdkjds879sd7cx8",
+            "tags": [{
+                "id": "60ffafcdffb8b074c7968dad",
+                "name": "Environment",
+                "value": "PROD",
+                "isBillingTag": true,
+                "createdBy": "USER"
+            }],
+            "provisionedOn": "2021-03-13T20:24:32.491Z",
+            "osConfiguration": {
+                "netrisController": {
+                  "hostOs": "ubuntu/jammy",
+                  "netrisWebConsoleUrl": "https://172.217.22.14",
+                  "netrisUserPassword": "cNC1jPFXG2h7f"
+                },
+                "netrisSoftgate": {
+                  "hostOs": "ubuntu/jammy",
+                  "controllerAddress": "120.153.203.227",
+                  "controllerVersion": "3.4.0-003",
+                  "controllerAuthKey": "w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw"
+                },
+                "windows": {
+                    "rdpAllowedIps": [
+                      "172.217.22.14",
+                      "10.111.14.40/29",
+                      "10.111.14.66 - 10.111.14.71"
+                    ]
+                },
+                "rootPassword": "MyP@ssw0rd_01",
+                "managementUiUrl": "https://172.217.22.14",
+                "managementAccessAllowedIps": [
+                  "172.217.22.14",
+                  "10.111.14.40/29",
+                  "10.111.14.66 - 10.111.14.71"
+                ],
+                "installOsToRam": false,
+                "cloudInit": {
+                  "userData": "data"
+                }
+            },
+            "networkConfiguration": {
+              "gatewayAddress": "gatewayAddress",
+                "privateNetworkConfiguration": {
+                    "gatewayAddress": "10.0.0.10",
+                    "configurationType": "USE_OR_CREATE_DEFAULT",
+                    "privateNetworks": [
+                      {
+                        "id": "60f81608e2f4665962b214db",
+                        "ips": [
+                          "10.0.0.11 - 10.0.0.15"
+                        ],
+                        "dhcp": false,
+                        "statusDescription": "statusDescription"
+                      },
+                      {
+                        "id": "60f93142c5c1d6082d31382a",
+                        "ips": [
+                          "10.0.0.16",
+                          "10.0.0.17"
+                        ],
+                        "dhcp": false,
+                        "statusDescription": "statusDescription"
+                      }
+                    ]
+                },
+                "ipBlocksConfiguration": {
+                    "configurationType": "PURCHASE_NEW",
+                    "ipBlocks": [{
+                        "id": "60473a6115e34466c9f8f083",
+                        "vlanId": 10
+                    }]
+                },
+                "publicNetworkConfiguration": {
+                    "publicNetworks": [
+                        {
+                          "id": "60f81608e2f4665962b214dd",
+                          "ips": [
+                            "10.0.0.11 - 10.0.0.15"
+                          ],
+                          "statusDescription": "statusDescription"
+                        },
+                        {
+                          "id": "60f93142c5c1d6082d31382c",
+                          "ips": [
+                            "10.0.0.16",
+                            "10.0.0.17"
+                          ],
+                          "statusDescription": "statusDescription"
+                        }
+                      ]
+                }
+            }
+        }
+    }
+}

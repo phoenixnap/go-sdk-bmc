@@ -319,6 +319,35 @@ func (suite *BmcApiTestSuite) TestCreateServer() {
 	suite.verifyCalledOnce(expectationId)
 }
 
+func (suite *BmcApiTestSuite) TestProvisionServer() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("bmcapi/servers/servers_action_provision", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	// Prepare request body
+	body, _ := json.Marshal(request.Body.Json)
+	var serverProvision bmcapi.ServerProvision
+	json.Unmarshal(body, &serverProvision)
+
+	// Extract the quotaId
+	serverId := request.PathParameters["id"][0]
+
+	// Operation Execution
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdActionsProvisionPost(suite.Ctx, serverId).ServerProvision(serverProvision).Execute()
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	// Asserts
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
+
+	// Verify
+	suite.verifyCalledOnce(expectationId)
+}
+
 func (suite *BmcApiTestSuite) TestDeprovisionServer() {
 	// Generate payload
 	request, response := TestUtilsImpl{}.generatePayloadsFrom("bmcapi/servers/servers_action_deprovision", "./payloads")
