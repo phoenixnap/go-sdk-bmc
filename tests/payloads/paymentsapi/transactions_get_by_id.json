@@ -1,0 +1,29 @@
+{
+    "request": {
+        "method": "GET",
+        "path": "/payments/v1/transactions/{id}",
+        "pathParameters": {
+            "id": [
+                "50dc434c-9bba-427b-bcd6-0bdba45c4dd2"
+            ]
+        }
+    },
+    "response": {
+        "statusCode": 200,
+        "body": {
+            "id": "id",
+            "status": "SUCCESS",
+            "amount": 0.0,
+            "currency": "EUR",
+            "date": "2021-04-27T16:24:57.123Z",
+            "metadata": {
+                "invoiceId": "id",
+                "isAutoCharge": true
+            },
+            "cardPaymentMethodDetails": {
+                "cardType": "MASTERCARD",
+                "lastFourDigits": "1337"
+            }
+        }
+    }
+}

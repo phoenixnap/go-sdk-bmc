@@ -1,7 +1,7 @@
 {
     "request": {
         "method": "POST",
-        "path": "/bmc/v1/servers/{id}/actions/deprovision",
+        "path": "/bmc/v1/servers/{id}/actions/provision",
         "pathParameters": {
             "id": ["e6afba51-7de8-4080-83ab-0f915570659c"]
         },

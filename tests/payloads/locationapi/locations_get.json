@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "path": "/locations",
+    "path": "/location-api/v1/locations",
     "queryStringParameters": [
       {
         "name": "location",
