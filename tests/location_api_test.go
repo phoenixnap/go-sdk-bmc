@@ -75,7 +75,7 @@ func (suite *LocationApiTestSuite) TestGetLocations() {
 	jsonResponseBody, _ := json.Marshal(response.Body)
 
 	// asserts
-	suite.Equal(jsonResult, jsonResponseBody)
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// verify
 	suite.verifyCalledOnce(expectationId)

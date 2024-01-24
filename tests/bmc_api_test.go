@@ -343,7 +343,6 @@ func (suite *BmcApiTestSuite) TestProvisionServer() {
 
 	// Asserts
 	suite.Equal(string(jsonResult), string(jsonResponseBody))
-	suite.Equal(string("bla"), string("not working"))
 
 	// Verify
 	suite.verifyCalledOnce(expectationId)
