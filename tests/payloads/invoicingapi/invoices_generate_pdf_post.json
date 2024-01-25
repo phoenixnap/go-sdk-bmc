@@ -1,32 +1,15 @@
 {
     "request": {
-        "method": "GET",
-        "path": "",
-        "queryStringParameters": [
-            {
-                "name": "",
-                "values": [
-                    
-                ]
-            }
-        ],
+        "method": "POST",
+        "path": "/invoicing/v1/invoices/{id}/actions/generate-pdf",
         "pathParameters": {
             "id": [
-                ""
+                "id"
             ]
-        },
-        "body": {
-            "type": "JSON",
-            "json": {
-
-            },
-            "matchType": "STRICT"
         }
     },
     "response": {
         "statusCode": 200,
-        "body": {
-
-        }
+        "body": "...binarystring..."
     }
 }

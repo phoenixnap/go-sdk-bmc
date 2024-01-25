@@ -1,18 +1,10 @@
 {
     "request": {
-        "method": "GET",
-        "path": "",
-        "queryStringParameters": [
-            {
-                "name": "",
-                "values": [
-                    
-                ]
-            }
-        ],
+        "method": "POST",
+        "path": "/invoicing/v1/invoices/{id}/actions/pay",
         "pathParameters": {
             "id": [
-                ""
+                "id"
             ]
         },
         "body": {

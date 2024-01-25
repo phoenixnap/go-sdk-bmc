@@ -1,32 +1,60 @@
 {
     "request": {
         "method": "GET",
-        "path": "",
+        "path": "/invoicing/v1/invoices",
         "queryStringParameters": [
             {
-                "name": "",
-                "values": [
-                    
-                ]
-            }
-        ],
-        "pathParameters": {
-            "id": [
-                ""
-            ]
-        },
-        "body": {
-            "type": "JSON",
-            "json": {
-
+                "name": "number",
+                "values": [ "13218-1180326" ]
             },
-            "matchType": "STRICT"
-        }
+            {
+                "name": "status",
+                "values": [ "PAID" ]
+            },
+            {
+                "name": "sentOnFrom",
+                "values": [ "2020-04-13T00:00:00Z" ]
+            },
+            {
+                "name": "sentOnTo",
+                "values": [ "2022-04-13T00:00:00Z" ]
+            },
+            {
+                "name": "limit",
+                "values": [ "100" ]
+            },
+            {
+                "name": "offset",
+                "values": [ "0" ]
+            },
+            {
+                "name": "sortField",
+                "values": [ "sentOn" ]
+            },
+            {
+                "name": "sortDirection",
+                "values": [ "DESC" ]
+            }
+        ]
     },
     "response": {
         "statusCode": 200,
         "body": {
-
+            "results": [
+                {
+                    "id": "id",
+                    "number": "13218-1180326",
+                    "currency": "EUR",
+                    "amount": 0.0,
+                    "outstandingAmount": 1.0,
+                    "status": "PAID",
+                    "sentOn": "2020-04-13T00:00:00Z",
+                    "dueDate": "2022-04-13T00:00:00Z"
+                }
+            ],
+            "limit": 100,
+            "offset": 0,
+            "total": 999
         }
     }
 }
