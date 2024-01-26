@@ -20,7 +20,7 @@ runs:
       run: go install github.com/jstemmer/go-junit-report@latest
     - name: Run tests
       shell: bash
-      run: cd tests && go test -v -run ${{ inputs.test-suite }} | tee go-junit-report -- -set-exit-code > ${{inputs.test-suite}}.xml
+      run: cd tests && go test -v -run ${{ inputs.test-suite }} | tee >(go-junit-report -set-exit-code) > ${{inputs.test-suite}}.xml
     - name: Upload Test Results
       if: always()
       uses: actions/upload-artifact@v3
