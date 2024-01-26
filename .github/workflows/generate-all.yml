@@ -127,3 +127,11 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
+
+  validate-all:
+    needs:
+      - push-changes
+    uses: ./.github/workflows/_common.yml
+    with:
+      module-name: bmcapi
+      test-suite: BmcApiTestSuite
