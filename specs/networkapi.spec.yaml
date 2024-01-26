@@ -910,7 +910,7 @@ components:
           minLength: 1
           maxLength: 100
           example: Sample Network
-          pattern: ^(?!\s*$).+
+          pattern: ^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$
         description:
           description: The description of this private network.
           type: string
@@ -948,7 +948,7 @@ components:
           minLength: 1
           maxLength: 100
           example: Sample network
-          pattern: ^(?!\s*$).+
+          pattern: ^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$
         description:
           description: A description of this private network
           type: string
@@ -1036,7 +1036,7 @@ components:
           minLength: 1
           maxLength: 100
           example: Sample Network
-          pattern: ^(?!\s*$).+
+          pattern: ^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$
         description:
           description: The description of this public network.
           type: string
@@ -1068,7 +1068,7 @@ components:
           minLength: 1
           maxLength: 100
           example: Sample Network
-          pattern: ^(?!\s*$).+
+          pattern: ^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$
         description:
           description: The description of this public network
           type: string
