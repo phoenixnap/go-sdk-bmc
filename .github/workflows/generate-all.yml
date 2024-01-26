@@ -131,4 +131,4 @@ jobs:
   validate-all:
     needs:
       - push-changes
-    uses: ./.github/workflows/_common.yml
+    uses: ./.github/workflows/validate-all.yml
