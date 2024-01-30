@@ -134,3 +134,9 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
+
+  validate-all:
+    if: ${{ needs.push-changes.outputs.CHANGES_FOUND }}
+    needs:
+      - push-changes
+    uses: ./.github/workflows/validate-all.yml
