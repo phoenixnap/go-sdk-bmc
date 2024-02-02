@@ -110,6 +110,19 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
+      - name: Clean up modules
+        run: |
+          rm -r ./bmcapi \
+           ./ranchersolutionapi \
+           ./networkapi \
+           ./ipapi \
+           ./auditapi \
+           ./tagapi \
+           ./billingapi \
+           ./networkstorageapi \
+           ./locationapi \
+           ./invoicingapi \
+           ./paymentsapi
       - name: Download Artifacts
         uses: actions/download-artifact@v3
       - name: Move spec files
