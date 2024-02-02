@@ -138,11 +138,11 @@ jobs:
 
           if test "$(git status --porcelain=v1 2>/dev/null | wc -l)" -gt "0" ;
           then 
-            git commit -m "Add changes"
-            echo "CHANGES_FOUND=true" >> "$GITHUB_OUTPUT"
+            git commit -m "Add changes";
+            echo "CHANGES_FOUND=true" >> "$GITHUB_OUTPUT";
           else 
-            echo No changes found
-            echo "CHANGES_FOUND=false" >> "$GITHUB_OUTPUT"
+            echo No changes found;
+            echo "CHANGES_FOUND=false" >> "$GITHUB_OUTPUT";
           fi
       - name: Push changes
         uses: ad-m/github-push-action@master
