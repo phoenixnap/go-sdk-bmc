@@ -20,6 +20,17 @@ runs:
     - name: Install openapi-generator-cli
       shell: bash
       run: npm install -g @openapitools/openapi-generator-cli
+    - name: Cleanup existing files
+      shell: bash
+      run: |
+        echo "Moving VERSION.go out..."
+        mv ./${{ inputs.package-name }}/VERSION.go ./VERSION.go
+
+        echo "Cleaning up ${{ inputs.package-name }}..."
+        rm -r ./${{ inputs.package-name }}/*
+
+        echo "Moving VERSION.go back in..."
+        mv ./VERSION.go ./${{ inputs.package-name }}/VERSION.go
     - name: Generate SDK
       shell: bash
       run: |

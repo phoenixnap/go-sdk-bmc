@@ -107,9 +107,24 @@ jobs:
       - generate-locationapi
       - generate-invoicingapi
       - generate-paymentsapi
+    outputs:
+      CHANGES_FOUND: ${{ steps.commit-step.outputs.CHANGES_FOUND }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
+      - name: Clean up modules
+        run: |
+          rm -r ./bmcapi \
+           ./ranchersolutionapi \
+           ./networkapi \
+           ./ipapi \
+           ./auditapi \
+           ./tagapi \
+           ./billingapi \
+           ./networkstorageapi \
+           ./locationapi \
+           ./invoicingapi \
+           ./paymentsapi
       - name: Download Artifacts
         uses: actions/download-artifact@v3
       - name: Move spec files
@@ -121,9 +136,21 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add -A
 
-          if test "$(git status --porcelain=v1 2>/dev/null | wc -l)" -gt "0" ; then git commit -m "Add changes"; else echo No changes found; fi
+          if test "$(git status --porcelain=v1 2>/dev/null | wc -l)" -gt "0" ;
+          then 
+            git commit -m "Add changes";
+            echo "CHANGES_FOUND=true" >> "$GITHUB_OUTPUT";
+          else 
+            echo No changes found;
+          fi
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
+
+  validate-all:
+    if: ${{ needs.push-changes.outputs.CHANGES_FOUND }}
+    needs:
+      - push-changes
+    uses: ./.github/workflows/validate-all.yml
