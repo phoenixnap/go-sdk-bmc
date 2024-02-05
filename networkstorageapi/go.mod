@@ -1,4 +1,4 @@
-module github.com/phoenixnap/go-sdk-bmc/networkstorageapi
+module github.com/phoenixnap/go-sdk-bmc/networkstorageapi/v2
 
 go 1.18
 
