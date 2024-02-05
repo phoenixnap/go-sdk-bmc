@@ -12,9 +12,14 @@ Contact: support@phoenixnap.com
 package ipapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the IpBlock type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IpBlock{}
 
 // IpBlock IP Block Details.
 type IpBlock struct {
@@ -26,7 +31,7 @@ type IpBlock struct {
 	CidrBlockSize string `json:"cidrBlockSize"`
 	// The IP Block in CIDR notation.
 	Cidr string `json:"cidr"`
-	// The status of the IP Block.
+	// The status of the IP Block. Can have one of the following values: `creating` , `assigning` , `error assigning` , `assigned` , `unassigning` , `error unassigning` or `unassigned`.
 	Status string `json:"status"`
 	// ID of the resource assigned to the IP Block.
 	AssignedResourceId *string `json:"assignedResourceId,omitempty"`
@@ -41,6 +46,8 @@ type IpBlock struct {
 	// Date and time when the IP block was created.
 	CreatedOn time.Time `json:"createdOn"`
 }
+
+type _IpBlock IpBlock
 
 // NewIpBlock instantiates a new IpBlock object
 // This constructor will assign default values to properties that have it defined,
@@ -188,7 +195,7 @@ func (o *IpBlock) SetStatus(v string) {
 
 // GetAssignedResourceId returns the AssignedResourceId field value if set, zero value otherwise.
 func (o *IpBlock) GetAssignedResourceId() string {
-	if o == nil || o.AssignedResourceId == nil {
+	if o == nil || IsNil(o.AssignedResourceId) {
 		var ret string
 		return ret
 	}
@@ -198,7 +205,7 @@ func (o *IpBlock) GetAssignedResourceId() string {
 // GetAssignedResourceIdOk returns a tuple with the AssignedResourceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IpBlock) GetAssignedResourceIdOk() (*string, bool) {
-	if o == nil || o.AssignedResourceId == nil {
+	if o == nil || IsNil(o.AssignedResourceId) {
 		return nil, false
 	}
 	return o.AssignedResourceId, true
@@ -206,7 +213,7 @@ func (o *IpBlock) GetAssignedResourceIdOk() (*string, bool) {
 
 // HasAssignedResourceId returns a boolean if a field has been set.
 func (o *IpBlock) HasAssignedResourceId() bool {
-	if o != nil && o.AssignedResourceId != nil {
+	if o != nil && !IsNil(o.AssignedResourceId) {
 		return true
 	}
 
@@ -220,7 +227,7 @@ func (o *IpBlock) SetAssignedResourceId(v string) {
 
 // GetAssignedResourceType returns the AssignedResourceType field value if set, zero value otherwise.
 func (o *IpBlock) GetAssignedResourceType() string {
-	if o == nil || o.AssignedResourceType == nil {
+	if o == nil || IsNil(o.AssignedResourceType) {
 		var ret string
 		return ret
 	}
@@ -230,7 +237,7 @@ func (o *IpBlock) GetAssignedResourceType() string {
 // GetAssignedResourceTypeOk returns a tuple with the AssignedResourceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IpBlock) GetAssignedResourceTypeOk() (*string, bool) {
-	if o == nil || o.AssignedResourceType == nil {
+	if o == nil || IsNil(o.AssignedResourceType) {
 		return nil, false
 	}
 	return o.AssignedResourceType, true
@@ -238,7 +245,7 @@ func (o *IpBlock) GetAssignedResourceTypeOk() (*string, bool) {
 
 // HasAssignedResourceType returns a boolean if a field has been set.
 func (o *IpBlock) HasAssignedResourceType() bool {
-	if o != nil && o.AssignedResourceType != nil {
+	if o != nil && !IsNil(o.AssignedResourceType) {
 		return true
 	}
 
@@ -252,7 +259,7 @@ func (o *IpBlock) SetAssignedResourceType(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *IpBlock) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -262,7 +269,7 @@ func (o *IpBlock) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IpBlock) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -270,7 +277,7 @@ func (o *IpBlock) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *IpBlock) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -284,7 +291,7 @@ func (o *IpBlock) SetDescription(v string) {
 
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *IpBlock) GetTags() []TagAssignment {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		var ret []TagAssignment
 		return ret
 	}
@@ -294,7 +301,7 @@ func (o *IpBlock) GetTags() []TagAssignment {
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IpBlock) GetTagsOk() ([]TagAssignment, bool) {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
 	return o.Tags, true
@@ -302,7 +309,7 @@ func (o *IpBlock) GetTagsOk() ([]TagAssignment, bool) {
 
 // HasTags returns a boolean if a field has been set.
 func (o *IpBlock) HasTags() bool {
-	if o != nil && o.Tags != nil {
+	if o != nil && !IsNil(o.Tags) {
 		return true
 	}
 
@@ -363,41 +370,78 @@ func (o *IpBlock) SetCreatedOn(v time.Time) {
 }
 
 func (o IpBlock) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if true {
-		toSerialize["cidrBlockSize"] = o.CidrBlockSize
-	}
-	if true {
-		toSerialize["cidr"] = o.Cidr
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if o.AssignedResourceId != nil {
-		toSerialize["assignedResourceId"] = o.AssignedResourceId
-	}
-	if o.AssignedResourceType != nil {
-		toSerialize["assignedResourceType"] = o.AssignedResourceType
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
-	}
-	if true {
-		toSerialize["isBringYourOwn"] = o.IsBringYourOwn
-	}
-	if true {
-		toSerialize["createdOn"] = o.CreatedOn
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o IpBlock) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["location"] = o.Location
+	toSerialize["cidrBlockSize"] = o.CidrBlockSize
+	toSerialize["cidr"] = o.Cidr
+	toSerialize["status"] = o.Status
+	if !IsNil(o.AssignedResourceId) {
+		toSerialize["assignedResourceId"] = o.AssignedResourceId
+	}
+	if !IsNil(o.AssignedResourceType) {
+		toSerialize["assignedResourceType"] = o.AssignedResourceType
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	toSerialize["isBringYourOwn"] = o.IsBringYourOwn
+	toSerialize["createdOn"] = o.CreatedOn
+	return toSerialize, nil
+}
+
+func (o *IpBlock) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"location",
+		"cidrBlockSize",
+		"cidr",
+		"status",
+		"isBringYourOwn",
+		"createdOn",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varIpBlock := _IpBlock{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varIpBlock)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IpBlock(varIpBlock)
+
+	return err
 }
 
 type NullableIpBlock struct {

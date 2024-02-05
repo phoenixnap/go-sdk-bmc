@@ -62,7 +62,7 @@ func (suite *TagApiTestSuite) TestGetTags() {
 	name := fmt.Sprintf("%v", qpMap["name"])
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.TagsApi.TagsGet(suite.ctx).Name(name).Execute()
+	result, _, _ := suite.apiClient.TagsAPI.TagsGet(suite.ctx).Name(name).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -88,7 +88,7 @@ func (suite *TagApiTestSuite) TestCreateTags() {
 	json.Unmarshal(body, &tagCreate)
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.TagsApi.TagsPost(suite.ctx).TagCreate(tagCreate).Execute()
+	result, _, _ := suite.apiClient.TagsAPI.TagsPost(suite.ctx).TagCreate(tagCreate).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -110,7 +110,7 @@ func (suite *TagApiTestSuite) TestGetTagById() {
 	tagId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.TagsApi.TagsTagIdGet(suite.ctx, tagId).Execute()
+	result, _, _ := suite.apiClient.TagsAPI.TagsTagIdGet(suite.ctx, tagId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -136,7 +136,7 @@ func (suite *TagApiTestSuite) TestPatchTagById() {
 	tagId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.TagsApi.TagsTagIdPatch(suite.ctx, tagId).TagUpdate(tagUpdate).Execute()
+	result, _, _ := suite.apiClient.TagsAPI.TagsTagIdPatch(suite.ctx, tagId).TagUpdate(tagUpdate).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -158,7 +158,7 @@ func (suite *TagApiTestSuite) TestDeleteTagById() {
 	tagId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.TagsApi.TagsTagIdDelete(suite.ctx, tagId).Execute()
+	result, _, _ := suite.apiClient.TagsAPI.TagsTagIdDelete(suite.ctx, tagId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)

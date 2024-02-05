@@ -64,7 +64,7 @@ func (suite *NetworkStorageApiTestSuite) TestGetStorageNetworks() {
 	location := fmt.Sprintf("%v", qpMap["location"])
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.StorageNetworksApi.StorageNetworksGet(suite.ctx).Location(location).Execute()
+	result, _, _ := suite.apiClient.StorageNetworksAPI.StorageNetworksGet(suite.ctx).Location(location).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -88,7 +88,7 @@ func (suite *NetworkStorageApiTestSuite) TestGetStorageNetworkById() {
 	storageNetworkId := request.PathParameters["storageNetworkId"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.StorageNetworksApi.StorageNetworksIdGet(suite.ctx, storageNetworkId).Execute()
+	result, _, _ := suite.apiClient.StorageNetworksAPI.StorageNetworksIdGet(suite.ctx, storageNetworkId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -114,7 +114,7 @@ func (suite *NetworkStorageApiTestSuite) TestPostStorageNetworks() {
 	json.Unmarshal(body, &storageNetworkCreate)
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.StorageNetworksApi.StorageNetworksPost(suite.ctx).StorageNetworkCreate(storageNetworkCreate).Execute()
+	result, _, _ := suite.apiClient.StorageNetworksAPI.StorageNetworksPost(suite.ctx).StorageNetworkCreate(storageNetworkCreate).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -142,7 +142,7 @@ func (suite *NetworkStorageApiTestSuite) TestPatchStorageNetworkById() {
 	storageNetworkId := request.PathParameters["storageNetworkId"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.StorageNetworksApi.StorageNetworksIdPatch(suite.ctx, storageNetworkId).StorageNetworkUpdate(storageNetworkUpdate).Execute()
+	result, _, _ := suite.apiClient.StorageNetworksAPI.StorageNetworksIdPatch(suite.ctx, storageNetworkId).StorageNetworkUpdate(storageNetworkUpdate).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -166,7 +166,7 @@ func (suite *NetworkStorageApiTestSuite) TestDeleteStorageNetworkById() {
 	storageNetworkId := request.PathParameters["storageNetworkId"][0]
 
 	// Operation Execution
-	result, _ := suite.apiClient.StorageNetworksApi.StorageNetworksIdDelete(suite.ctx, storageNetworkId).Execute()
+	result, _ := suite.apiClient.StorageNetworksAPI.StorageNetworksIdDelete(suite.ctx, storageNetworkId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -189,7 +189,7 @@ func (suite *NetworkStorageApiTestSuite) TestGetVolumesByStorageNetworkId() {
 	storageNetworkId := request.PathParameters["storageNetworkId"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesGet(suite.ctx, storageNetworkId).Execute()
+	result, _, _ := suite.apiClient.StorageNetworksAPI.StorageNetworksStorageNetworkIdVolumesGet(suite.ctx, storageNetworkId).Execute()
 
 	// fmt.Print(resp.StatusCode)
 	// panic(error)
@@ -217,7 +217,7 @@ func (suite *NetworkStorageApiTestSuite) TestGetVolumeByStorageNetworkIdAndVolum
 	volumeId := request.PathParameters["volumeId"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdGet(suite.ctx, storageNetworkId, volumeId).Execute()
+	result, _, _ := suite.apiClient.StorageNetworksAPI.StorageNetworksStorageNetworkIdVolumesVolumeIdGet(suite.ctx, storageNetworkId, volumeId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -246,7 +246,7 @@ func (suite *NetworkStorageApiTestSuite) TestPatchVolumeByStorageNetworkIdAndVol
 	json.Unmarshal(body, &volumeUpdate)
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdPatch(suite.ctx, storageNetworkId, volumeId).VolumeUpdate(volumeUpdate).Execute()
+	result, _, _ := suite.apiClient.StorageNetworksAPI.StorageNetworksStorageNetworkIdVolumesVolumeIdPatch(suite.ctx, storageNetworkId, volumeId).VolumeUpdate(volumeUpdate).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -274,7 +274,7 @@ func (suite *NetworkStorageApiTestSuite) TestPostVolumeByStorageNetworkId() {
 	json.Unmarshal(body, &volumeCreate)
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesPost(suite.ctx, storageNetworkId).VolumeCreate(volumeCreate).Execute()
+	result, _, _ := suite.apiClient.StorageNetworksAPI.StorageNetworksStorageNetworkIdVolumesPost(suite.ctx, storageNetworkId).VolumeCreate(volumeCreate).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -288,7 +288,6 @@ func (suite *NetworkStorageApiTestSuite) TestPostVolumeByStorageNetworkId() {
 	suite.verifyCalledOnce(expectationId)
 }
 
-
 func (suite *NetworkStorageApiTestSuite) TestDeleteVolumeByStorageNetworkIdAndVolumeId() {
 
 	// Generate payload
@@ -301,7 +300,7 @@ func (suite *NetworkStorageApiTestSuite) TestDeleteVolumeByStorageNetworkIdAndVo
 	volumeId := request.PathParameters["volumeId"][0]
 
 	// Operation Execution
-	result, _ := suite.apiClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesVolumeIdDelete(suite.ctx, storageNetworkId, volumeId).Execute()
+	result, _ := suite.apiClient.StorageNetworksAPI.StorageNetworksStorageNetworkIdVolumesVolumeIdDelete(suite.ctx, storageNetworkId, volumeId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)

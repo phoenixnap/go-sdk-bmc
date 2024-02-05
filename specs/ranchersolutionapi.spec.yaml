@@ -43,6 +43,7 @@ paths:
             - bmc
       operationId: clustersPost
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -112,7 +113,7 @@ paths:
                   username: admin
                   password: 1234567890abcd!
                 nodePools:
-                  - name: Rancher Server Node Pool
+                  - name: rancher-server-node-pool
                     nodeCount: 1
                     serverType: s0.d1.small
                     nodes:
@@ -152,7 +153,7 @@ paths:
                       location: PHX
                       initialClusterVersion: v2.5.9
                       nodePools:
-                        - name: Rancher Server Node Pool
+                        - name: rancher-server-node-pool
                           nodeCount: 1
                           serverType: s0.d1.small
                           nodes:
@@ -163,7 +164,7 @@ paths:
                       location: ASH
                       initialClusterVersion: v2.5.9
                       nodePools:
-                        - name: Rancher Server Node Pool
+                        - name: rancher-server-node-pool
                           nodeCount: 1
                           serverType: s0.d1.small
                           nodes:
@@ -284,9 +285,9 @@ components:
           allOf:
             - $ref: '#/components/schemas/WorkloadClusterConfig'
         statusDescription:
-          readOnly: true
-          description: The cluster status
+          description: (Read-Only) The cluster status
           type: string
+          readOnly: true
           example: Creating
       required:
         - location
@@ -297,7 +298,10 @@ components:
         name:
           description: The name of the node pool.
           type: string
-          example: Rancher Server node pool.
+          example: rancher-server-node-pool
+          minLength: 1
+          maxLength: 100
+          pattern: ^(?=.*[a-zA-Z])([a-zA-Z0-9().-])+$
         nodeCount:
           description: Number of configured nodes, currently only node counts of 1 and 3 are possible.
           type: integer

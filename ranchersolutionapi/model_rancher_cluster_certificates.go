@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RancherClusterCertificates type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RancherClusterCertificates{}
+
 // RancherClusterCertificates (Write-only) Define the custom SSL certificates to be used instead of defaults.
 type RancherClusterCertificates struct {
 	// The SSL CA certificate to be used for rancher admin.
@@ -44,7 +47,7 @@ func NewRancherClusterCertificatesWithDefaults() *RancherClusterCertificates {
 
 // GetCaCertificate returns the CaCertificate field value if set, zero value otherwise.
 func (o *RancherClusterCertificates) GetCaCertificate() string {
-	if o == nil || o.CaCertificate == nil {
+	if o == nil || IsNil(o.CaCertificate) {
 		var ret string
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *RancherClusterCertificates) GetCaCertificate() string {
 // GetCaCertificateOk returns a tuple with the CaCertificate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RancherClusterCertificates) GetCaCertificateOk() (*string, bool) {
-	if o == nil || o.CaCertificate == nil {
+	if o == nil || IsNil(o.CaCertificate) {
 		return nil, false
 	}
 	return o.CaCertificate, true
@@ -62,7 +65,7 @@ func (o *RancherClusterCertificates) GetCaCertificateOk() (*string, bool) {
 
 // HasCaCertificate returns a boolean if a field has been set.
 func (o *RancherClusterCertificates) HasCaCertificate() bool {
-	if o != nil && o.CaCertificate != nil {
+	if o != nil && !IsNil(o.CaCertificate) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *RancherClusterCertificates) SetCaCertificate(v string) {
 
 // GetCertificate returns the Certificate field value if set, zero value otherwise.
 func (o *RancherClusterCertificates) GetCertificate() string {
-	if o == nil || o.Certificate == nil {
+	if o == nil || IsNil(o.Certificate) {
 		var ret string
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *RancherClusterCertificates) GetCertificate() string {
 // GetCertificateOk returns a tuple with the Certificate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RancherClusterCertificates) GetCertificateOk() (*string, bool) {
-	if o == nil || o.Certificate == nil {
+	if o == nil || IsNil(o.Certificate) {
 		return nil, false
 	}
 	return o.Certificate, true
@@ -94,7 +97,7 @@ func (o *RancherClusterCertificates) GetCertificateOk() (*string, bool) {
 
 // HasCertificate returns a boolean if a field has been set.
 func (o *RancherClusterCertificates) HasCertificate() bool {
-	if o != nil && o.Certificate != nil {
+	if o != nil && !IsNil(o.Certificate) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *RancherClusterCertificates) SetCertificate(v string) {
 
 // GetCertificateKey returns the CertificateKey field value if set, zero value otherwise.
 func (o *RancherClusterCertificates) GetCertificateKey() string {
-	if o == nil || o.CertificateKey == nil {
+	if o == nil || IsNil(o.CertificateKey) {
 		var ret string
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *RancherClusterCertificates) GetCertificateKey() string {
 // GetCertificateKeyOk returns a tuple with the CertificateKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RancherClusterCertificates) GetCertificateKeyOk() (*string, bool) {
-	if o == nil || o.CertificateKey == nil {
+	if o == nil || IsNil(o.CertificateKey) {
 		return nil, false
 	}
 	return o.CertificateKey, true
@@ -126,7 +129,7 @@ func (o *RancherClusterCertificates) GetCertificateKeyOk() (*string, bool) {
 
 // HasCertificateKey returns a boolean if a field has been set.
 func (o *RancherClusterCertificates) HasCertificateKey() bool {
-	if o != nil && o.CertificateKey != nil {
+	if o != nil && !IsNil(o.CertificateKey) {
 		return true
 	}
 
@@ -139,17 +142,25 @@ func (o *RancherClusterCertificates) SetCertificateKey(v string) {
 }
 
 func (o RancherClusterCertificates) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CaCertificate != nil {
-		toSerialize["caCertificate"] = o.CaCertificate
-	}
-	if o.Certificate != nil {
-		toSerialize["certificate"] = o.Certificate
-	}
-	if o.CertificateKey != nil {
-		toSerialize["certificateKey"] = o.CertificateKey
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RancherClusterCertificates) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CaCertificate) {
+		toSerialize["caCertificate"] = o.CaCertificate
+	}
+	if !IsNil(o.Certificate) {
+		toSerialize["certificate"] = o.Certificate
+	}
+	if !IsNil(o.CertificateKey) {
+		toSerialize["certificateKey"] = o.CertificateKey
+	}
+	return toSerialize, nil
 }
 
 type NullableRancherClusterCertificates struct {

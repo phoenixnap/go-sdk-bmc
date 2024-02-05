@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **PricingModel** | **string** | The pricing model. | 
 **Price** | **float32** | The price per unit. | 
 **PriceUnit** | [**PriceUnitEnum**](PriceUnitEnum.md) |  | 
+**ApplicableDiscounts** | Pointer to [**ApplicableDiscounts**](ApplicableDiscounts.md) |  | [optional] 
 **CorrelatedProductCode** | Pointer to **string** | Product code of the product this product is correlated with | [optional] 
 **PackageQuantity** | Pointer to **float32** | Package size per month. | [optional] 
 **PackageUnit** | Pointer to **string** | Package size unit. | [optional] 
@@ -157,6 +158,31 @@ and a boolean to check if the value has been set.
 
 SetPriceUnit sets PriceUnit field to given value.
 
+
+### GetApplicableDiscounts
+
+`func (o *PricingPlan) GetApplicableDiscounts() ApplicableDiscounts`
+
+GetApplicableDiscounts returns the ApplicableDiscounts field if non-nil, zero value otherwise.
+
+### GetApplicableDiscountsOk
+
+`func (o *PricingPlan) GetApplicableDiscountsOk() (*ApplicableDiscounts, bool)`
+
+GetApplicableDiscountsOk returns a tuple with the ApplicableDiscounts field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetApplicableDiscounts
+
+`func (o *PricingPlan) SetApplicableDiscounts(v ApplicableDiscounts)`
+
+SetApplicableDiscounts sets ApplicableDiscounts field to given value.
+
+### HasApplicableDiscounts
+
+`func (o *PricingPlan) HasApplicableDiscounts() bool`
+
+HasApplicableDiscounts returns a boolean if a field has been set.
 
 ### GetCorrelatedProductCode
 

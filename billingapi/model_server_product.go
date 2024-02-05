@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ServerProduct type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServerProduct{}
 
 // ServerProduct struct for ServerProduct
 type ServerProduct struct {
@@ -25,6 +30,8 @@ type ServerProduct struct {
 	Plans    []PricingPlan         `json:"plans,omitempty"`
 	Metadata ServerProductMetadata `json:"metadata"`
 }
+
+type _ServerProduct ServerProduct
 
 // NewServerProduct instantiates a new ServerProduct object
 // This constructor will assign default values to properties that have it defined,
@@ -96,7 +103,7 @@ func (o *ServerProduct) SetProductCategory(v string) {
 
 // GetPlans returns the Plans field value if set, zero value otherwise.
 func (o *ServerProduct) GetPlans() []PricingPlan {
-	if o == nil || o.Plans == nil {
+	if o == nil || IsNil(o.Plans) {
 		var ret []PricingPlan
 		return ret
 	}
@@ -106,7 +113,7 @@ func (o *ServerProduct) GetPlans() []PricingPlan {
 // GetPlansOk returns a tuple with the Plans field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerProduct) GetPlansOk() ([]PricingPlan, bool) {
-	if o == nil || o.Plans == nil {
+	if o == nil || IsNil(o.Plans) {
 		return nil, false
 	}
 	return o.Plans, true
@@ -114,7 +121,7 @@ func (o *ServerProduct) GetPlansOk() ([]PricingPlan, bool) {
 
 // HasPlans returns a boolean if a field has been set.
 func (o *ServerProduct) HasPlans() bool {
-	if o != nil && o.Plans != nil {
+	if o != nil && !IsNil(o.Plans) {
 		return true
 	}
 
@@ -151,20 +158,61 @@ func (o *ServerProduct) SetMetadata(v ServerProductMetadata) {
 }
 
 func (o ServerProduct) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["productCode"] = o.ProductCode
-	}
-	if true {
-		toSerialize["productCategory"] = o.ProductCategory
-	}
-	if o.Plans != nil {
-		toSerialize["plans"] = o.Plans
-	}
-	if true {
-		toSerialize["metadata"] = o.Metadata
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ServerProduct) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["productCode"] = o.ProductCode
+	toSerialize["productCategory"] = o.ProductCategory
+	if !IsNil(o.Plans) {
+		toSerialize["plans"] = o.Plans
+	}
+	toSerialize["metadata"] = o.Metadata
+	return toSerialize, nil
+}
+
+func (o *ServerProduct) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"productCode",
+		"productCategory",
+		"metadata",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServerProduct := _ServerProduct{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varServerProduct)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServerProduct(varServerProduct)
+
+	return err
 }
 
 type NullableServerProduct struct {

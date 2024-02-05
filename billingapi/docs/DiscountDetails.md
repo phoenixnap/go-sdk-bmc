@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Code** | **string** | Discount code. | 
-**Type** | **string** |  | 
-**Value** | **float32** | A number representing the discount value. | 
+**Code** | **string** | A unique code associated with the discount. | 
+**Type** | **string** | The type of discount applied. | 
+**Value** | **float32** | The value or amount of the discount. The interpretation of this value depends on the &#39;type&#39; of discount.  | 
 
 ## Methods
 

@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package tagapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the Tag type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Tag{}
 
 // Tag Tag model.
 type Tag struct {
@@ -32,6 +37,8 @@ type Tag struct {
 	// The tag's creator.
 	CreatedBy *string `json:"createdBy,omitempty"`
 }
+
+type _Tag Tag
 
 // NewTag instantiates a new Tag object
 // This constructor will assign default values to properties that have it defined,
@@ -107,7 +114,7 @@ func (o *Tag) SetName(v string) {
 
 // GetValues returns the Values field value if set, zero value otherwise.
 func (o *Tag) GetValues() []string {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		var ret []string
 		return ret
 	}
@@ -117,7 +124,7 @@ func (o *Tag) GetValues() []string {
 // GetValuesOk returns a tuple with the Values field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Tag) GetValuesOk() ([]string, bool) {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		return nil, false
 	}
 	return o.Values, true
@@ -125,7 +132,7 @@ func (o *Tag) GetValuesOk() ([]string, bool) {
 
 // HasValues returns a boolean if a field has been set.
 func (o *Tag) HasValues() bool {
-	if o != nil && o.Values != nil {
+	if o != nil && !IsNil(o.Values) {
 		return true
 	}
 
@@ -139,7 +146,7 @@ func (o *Tag) SetValues(v []string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Tag) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -149,7 +156,7 @@ func (o *Tag) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Tag) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -157,7 +164,7 @@ func (o *Tag) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Tag) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -195,7 +202,7 @@ func (o *Tag) SetIsBillingTag(v bool) {
 
 // GetResourceAssignments returns the ResourceAssignments field value if set, zero value otherwise.
 func (o *Tag) GetResourceAssignments() []ResourceAssignment {
-	if o == nil || o.ResourceAssignments == nil {
+	if o == nil || IsNil(o.ResourceAssignments) {
 		var ret []ResourceAssignment
 		return ret
 	}
@@ -205,7 +212,7 @@ func (o *Tag) GetResourceAssignments() []ResourceAssignment {
 // GetResourceAssignmentsOk returns a tuple with the ResourceAssignments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Tag) GetResourceAssignmentsOk() ([]ResourceAssignment, bool) {
-	if o == nil || o.ResourceAssignments == nil {
+	if o == nil || IsNil(o.ResourceAssignments) {
 		return nil, false
 	}
 	return o.ResourceAssignments, true
@@ -213,7 +220,7 @@ func (o *Tag) GetResourceAssignmentsOk() ([]ResourceAssignment, bool) {
 
 // HasResourceAssignments returns a boolean if a field has been set.
 func (o *Tag) HasResourceAssignments() bool {
-	if o != nil && o.ResourceAssignments != nil {
+	if o != nil && !IsNil(o.ResourceAssignments) {
 		return true
 	}
 
@@ -227,7 +234,7 @@ func (o *Tag) SetResourceAssignments(v []ResourceAssignment) {
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
 func (o *Tag) GetCreatedBy() string {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		var ret string
 		return ret
 	}
@@ -237,7 +244,7 @@ func (o *Tag) GetCreatedBy() string {
 // GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Tag) GetCreatedByOk() (*string, bool) {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
 	return o.CreatedBy, true
@@ -245,7 +252,7 @@ func (o *Tag) GetCreatedByOk() (*string, bool) {
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *Tag) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
@@ -258,29 +265,70 @@ func (o *Tag) SetCreatedBy(v string) {
 }
 
 func (o Tag) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Values != nil {
-		toSerialize["values"] = o.Values
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["isBillingTag"] = o.IsBillingTag
-	}
-	if o.ResourceAssignments != nil {
-		toSerialize["resourceAssignments"] = o.ResourceAssignments
-	}
-	if o.CreatedBy != nil {
-		toSerialize["createdBy"] = o.CreatedBy
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Tag) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Values) {
+		toSerialize["values"] = o.Values
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["isBillingTag"] = o.IsBillingTag
+	if !IsNil(o.ResourceAssignments) {
+		toSerialize["resourceAssignments"] = o.ResourceAssignments
+	}
+	if !IsNil(o.CreatedBy) {
+		toSerialize["createdBy"] = o.CreatedBy
+	}
+	return toSerialize, nil
+}
+
+func (o *Tag) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"isBillingTag",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTag := _Tag{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varTag)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Tag(varTag)
+
+	return err
 }
 
 type NullableTag struct {

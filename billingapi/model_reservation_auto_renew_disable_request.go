@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ReservationAutoRenewDisableRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReservationAutoRenewDisableRequest{}
+
 // ReservationAutoRenewDisableRequest Disabling auto-renewal for reservation request.
 type ReservationAutoRenewDisableRequest struct {
 	AutoRenewDisableReason *string `json:"autoRenewDisableReason,omitempty"`
@@ -39,7 +42,7 @@ func NewReservationAutoRenewDisableRequestWithDefaults() *ReservationAutoRenewDi
 
 // GetAutoRenewDisableReason returns the AutoRenewDisableReason field value if set, zero value otherwise.
 func (o *ReservationAutoRenewDisableRequest) GetAutoRenewDisableReason() string {
-	if o == nil || o.AutoRenewDisableReason == nil {
+	if o == nil || IsNil(o.AutoRenewDisableReason) {
 		var ret string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *ReservationAutoRenewDisableRequest) GetAutoRenewDisableReason() string 
 // GetAutoRenewDisableReasonOk returns a tuple with the AutoRenewDisableReason field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReservationAutoRenewDisableRequest) GetAutoRenewDisableReasonOk() (*string, bool) {
-	if o == nil || o.AutoRenewDisableReason == nil {
+	if o == nil || IsNil(o.AutoRenewDisableReason) {
 		return nil, false
 	}
 	return o.AutoRenewDisableReason, true
@@ -57,7 +60,7 @@ func (o *ReservationAutoRenewDisableRequest) GetAutoRenewDisableReasonOk() (*str
 
 // HasAutoRenewDisableReason returns a boolean if a field has been set.
 func (o *ReservationAutoRenewDisableRequest) HasAutoRenewDisableReason() bool {
-	if o != nil && o.AutoRenewDisableReason != nil {
+	if o != nil && !IsNil(o.AutoRenewDisableReason) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *ReservationAutoRenewDisableRequest) SetAutoRenewDisableReason(v string)
 }
 
 func (o ReservationAutoRenewDisableRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AutoRenewDisableReason != nil {
-		toSerialize["autoRenewDisableReason"] = o.AutoRenewDisableReason
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ReservationAutoRenewDisableRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AutoRenewDisableReason) {
+		toSerialize["autoRenewDisableReason"] = o.AutoRenewDisableReason
+	}
+	return toSerialize, nil
 }
 
 type NullableReservationAutoRenewDisableRequest struct {

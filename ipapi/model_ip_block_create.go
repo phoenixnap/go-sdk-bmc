@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package ipapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the IpBlockCreate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IpBlockCreate{}
 
 // IpBlockCreate IP Block Request.
 type IpBlockCreate struct {
@@ -26,6 +31,8 @@ type IpBlockCreate struct {
 	// Tags to set to the ip-block. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).
 	Tags []TagAssignmentRequest `json:"tags,omitempty"`
 }
+
+type _IpBlockCreate IpBlockCreate
 
 // NewIpBlockCreate instantiates a new IpBlockCreate object
 // This constructor will assign default values to properties that have it defined,
@@ -96,7 +103,7 @@ func (o *IpBlockCreate) SetCidrBlockSize(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *IpBlockCreate) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -106,7 +113,7 @@ func (o *IpBlockCreate) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IpBlockCreate) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -114,7 +121,7 @@ func (o *IpBlockCreate) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *IpBlockCreate) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -128,7 +135,7 @@ func (o *IpBlockCreate) SetDescription(v string) {
 
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *IpBlockCreate) GetTags() []TagAssignmentRequest {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		var ret []TagAssignmentRequest
 		return ret
 	}
@@ -138,7 +145,7 @@ func (o *IpBlockCreate) GetTags() []TagAssignmentRequest {
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IpBlockCreate) GetTagsOk() ([]TagAssignmentRequest, bool) {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
 	return o.Tags, true
@@ -146,7 +153,7 @@ func (o *IpBlockCreate) GetTagsOk() ([]TagAssignmentRequest, bool) {
 
 // HasTags returns a boolean if a field has been set.
 func (o *IpBlockCreate) HasTags() bool {
-	if o != nil && o.Tags != nil {
+	if o != nil && !IsNil(o.Tags) {
 		return true
 	}
 
@@ -159,20 +166,62 @@ func (o *IpBlockCreate) SetTags(v []TagAssignmentRequest) {
 }
 
 func (o IpBlockCreate) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if true {
-		toSerialize["cidrBlockSize"] = o.CidrBlockSize
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o IpBlockCreate) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["location"] = o.Location
+	toSerialize["cidrBlockSize"] = o.CidrBlockSize
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	return toSerialize, nil
+}
+
+func (o *IpBlockCreate) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"location",
+		"cidrBlockSize",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varIpBlockCreate := _IpBlockCreate{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varIpBlockCreate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IpBlockCreate(varIpBlockCreate)
+
+	return err
 }
 
 type NullableIpBlockCreate struct {

@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package auditapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the UserInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserInfo{}
 
 // UserInfo Details related to the user / application performing this request
 type UserInfo struct {
@@ -24,6 +29,8 @@ type UserInfo struct {
 	// The logged in user or owner of the client application
 	Username string `json:"username"`
 }
+
+type _UserInfo UserInfo
 
 // NewUserInfo instantiates a new UserInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -70,7 +77,7 @@ func (o *UserInfo) SetAccountId(v string) {
 
 // GetClientId returns the ClientId field value if set, zero value otherwise.
 func (o *UserInfo) GetClientId() string {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		var ret string
 		return ret
 	}
@@ -80,7 +87,7 @@ func (o *UserInfo) GetClientId() string {
 // GetClientIdOk returns a tuple with the ClientId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInfo) GetClientIdOk() (*string, bool) {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		return nil, false
 	}
 	return o.ClientId, true
@@ -88,7 +95,7 @@ func (o *UserInfo) GetClientIdOk() (*string, bool) {
 
 // HasClientId returns a boolean if a field has been set.
 func (o *UserInfo) HasClientId() bool {
-	if o != nil && o.ClientId != nil {
+	if o != nil && !IsNil(o.ClientId) {
 		return true
 	}
 
@@ -125,17 +132,59 @@ func (o *UserInfo) SetUsername(v string) {
 }
 
 func (o UserInfo) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["accountId"] = o.AccountId
-	}
-	if o.ClientId != nil {
-		toSerialize["clientId"] = o.ClientId
-	}
-	if true {
-		toSerialize["username"] = o.Username
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserInfo) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["accountId"] = o.AccountId
+	if !IsNil(o.ClientId) {
+		toSerialize["clientId"] = o.ClientId
+	}
+	toSerialize["username"] = o.Username
+	return toSerialize, nil
+}
+
+func (o *UserInfo) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"accountId",
+		"username",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUserInfo := _UserInfo{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUserInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserInfo(varUserInfo)
+
+	return err
 }
 
 type NullableUserInfo struct {

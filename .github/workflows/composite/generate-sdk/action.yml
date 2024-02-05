@@ -20,6 +20,17 @@ runs:
     - name: Install openapi-generator-cli
       shell: bash
       run: npm install -g @openapitools/openapi-generator-cli
+    - name: Cleanup existing files
+      shell: bash
+      run: |
+        echo "Moving VERSION.go out..."
+        mv ./${{ inputs.package-name }}/VERSION.go ./VERSION.go
+
+        echo "Cleaning up ${{ inputs.package-name }}..."
+        rm -r ./${{ inputs.package-name }}/*
+
+        echo "Moving VERSION.go back in..."
+        mv ./VERSION.go ./${{ inputs.package-name }}/VERSION.go
     - name: Generate SDK
       shell: bash
       run: |
@@ -30,11 +41,12 @@ runs:
           -c openapi-generator-config.yaml \
           -o ${{ inputs.package-name }} \
           --additional-properties packageName=${{ inputs.package-name }} \
-          --additional-properties majorVersion=$suffix
+          --additional-properties majorVersion=$suffix \
+          --global-property modelTests=false,apiTests=false
     - uses: ./.github/workflows/composite/setup-go
     - name: Fix goimports
       shell: bash
-      run: go install golang.org/x/tools/cmd/goimports@latest && goimports -w .
+      run: go install golang.org/x/tools/cmd/goimports@v0.17.0 && goimports -w .
     - name: Download spec files
       shell: bash
       run: wget ${{ inputs.spec-link }} -O ./${{ inputs.package-name }}/${{ inputs.package-name }}.spec.yaml

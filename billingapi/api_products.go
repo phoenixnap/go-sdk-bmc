@@ -14,13 +14,13 @@ package billingapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"reflect"
 )
 
-type ProductsApi interface {
+type ProductsAPI interface {
 
 	/*
 		ProductAvailabilityGet List all Product availabilities.
@@ -51,12 +51,12 @@ type ProductsApi interface {
 	ProductsGetExecute(r ApiProductsGetRequest) ([]ProductsGet200ResponseInner, *http.Response, error)
 }
 
-// ProductsApiService ProductsApi service
-type ProductsApiService service
+// ProductsAPIService ProductsAPI service
+type ProductsAPIService service
 
 type ApiProductAvailabilityGetRequest struct {
 	ctx                          context.Context
-	ApiService                   ProductsApi
+	ApiService                   ProductsAPI
 	productCategory              *[]string
 	productCode                  *[]string
 	showOnlyMinQuantityAvailable *bool
@@ -110,7 +110,7 @@ Retrieves the list of product availability details.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiProductAvailabilityGetRequest
 */
-func (a *ProductsApiService) ProductAvailabilityGet(ctx context.Context) ApiProductAvailabilityGetRequest {
+func (a *ProductsAPIService) ProductAvailabilityGet(ctx context.Context) ApiProductAvailabilityGetRequest {
 	return ApiProductAvailabilityGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -119,7 +119,7 @@ func (a *ProductsApiService) ProductAvailabilityGet(ctx context.Context) ApiProd
 
 // Execute executes the request
 //  @return []ProductAvailability
-func (a *ProductsApiService) ProductAvailabilityGetExecute(r ApiProductAvailabilityGetRequest) ([]ProductAvailability, *http.Response, error) {
+func (a *ProductsAPIService) ProductAvailabilityGetExecute(r ApiProductAvailabilityGetRequest) ([]ProductAvailability, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -127,7 +127,7 @@ func (a *ProductsApiService) ProductAvailabilityGetExecute(r ApiProductAvailabil
 		localVarReturnValue []ProductAvailability
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProductsApiService.ProductAvailabilityGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProductsAPIService.ProductAvailabilityGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -143,10 +143,10 @@ func (a *ProductsApiService) ProductAvailabilityGetExecute(r ApiProductAvailabil
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("productCategory", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("productCategory", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", t, "multi")
 		}
 	}
 	if r.productCode != nil {
@@ -154,24 +154,27 @@ func (a *ProductsApiService) ProductAvailabilityGetExecute(r ApiProductAvailabil
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("productCode", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "productCode", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("productCode", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "productCode", t, "multi")
 		}
 	}
 	if r.showOnlyMinQuantityAvailable != nil {
-		localVarQueryParams.Add("showOnlyMinQuantityAvailable", parameterToString(*r.showOnlyMinQuantityAvailable, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "showOnlyMinQuantityAvailable", r.showOnlyMinQuantityAvailable, "")
+	} else {
+		var defaultValue bool = true
+		r.showOnlyMinQuantityAvailable = &defaultValue
 	}
 	if r.location != nil {
 		t := *r.location
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("location", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "location", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("location", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "location", t, "multi")
 		}
 	}
 	if r.solution != nil {
@@ -179,14 +182,14 @@ func (a *ProductsApiService) ProductAvailabilityGetExecute(r ApiProductAvailabil
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("solution", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "solution", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("solution", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "solution", t, "multi")
 		}
 	}
 	if r.minQuantity != nil {
-		localVarQueryParams.Add("minQuantity", parameterToString(*r.minQuantity, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "minQuantity", r.minQuantity, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -215,9 +218,9 @@ func (a *ProductsApiService) ProductAvailabilityGetExecute(r ApiProductAvailabil
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -234,6 +237,7 @@ func (a *ProductsApiService) ProductAvailabilityGetExecute(r ApiProductAvailabil
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -244,6 +248,7 @@ func (a *ProductsApiService) ProductAvailabilityGetExecute(r ApiProductAvailabil
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -263,7 +268,7 @@ func (a *ProductsApiService) ProductAvailabilityGetExecute(r ApiProductAvailabil
 
 type ApiProductsGetRequest struct {
 	ctx             context.Context
-	ApiService      ProductsApi
+	ApiService      ProductsAPI
 	productCode     *string
 	productCategory *string
 	skuCode         *string
@@ -302,7 +307,7 @@ Retrieves all Products.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiProductsGetRequest
 */
-func (a *ProductsApiService) ProductsGet(ctx context.Context) ApiProductsGetRequest {
+func (a *ProductsAPIService) ProductsGet(ctx context.Context) ApiProductsGetRequest {
 	return ApiProductsGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -311,7 +316,7 @@ func (a *ProductsApiService) ProductsGet(ctx context.Context) ApiProductsGetRequ
 
 // Execute executes the request
 //  @return []ProductsGet200ResponseInner
-func (a *ProductsApiService) ProductsGetExecute(r ApiProductsGetRequest) ([]ProductsGet200ResponseInner, *http.Response, error) {
+func (a *ProductsAPIService) ProductsGetExecute(r ApiProductsGetRequest) ([]ProductsGet200ResponseInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -319,7 +324,7 @@ func (a *ProductsApiService) ProductsGetExecute(r ApiProductsGetRequest) ([]Prod
 		localVarReturnValue []ProductsGet200ResponseInner
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProductsApiService.ProductsGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProductsAPIService.ProductsGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -331,16 +336,16 @@ func (a *ProductsApiService) ProductsGetExecute(r ApiProductsGetRequest) ([]Prod
 	localVarFormParams := url.Values{}
 
 	if r.productCode != nil {
-		localVarQueryParams.Add("productCode", parameterToString(*r.productCode, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "productCode", r.productCode, "")
 	}
 	if r.productCategory != nil {
-		localVarQueryParams.Add("productCategory", parameterToString(*r.productCategory, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "")
 	}
 	if r.skuCode != nil {
-		localVarQueryParams.Add("skuCode", parameterToString(*r.skuCode, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "skuCode", r.skuCode, "")
 	}
 	if r.location != nil {
-		localVarQueryParams.Add("location", parameterToString(*r.location, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -369,9 +374,9 @@ func (a *ProductsApiService) ProductsGetExecute(r ApiProductsGetRequest) ([]Prod
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -388,6 +393,7 @@ func (a *ProductsApiService) ProductsGetExecute(r ApiProductsGetRequest) ([]Prod
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -398,6 +404,7 @@ func (a *ProductsApiService) ProductsGetExecute(r ApiProductsGetRequest) ([]Prod
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr

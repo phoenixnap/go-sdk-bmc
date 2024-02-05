@@ -64,7 +64,7 @@ func (suite *LocationApiTestSuite) TestGetLocations() {
 	productCategory := fmt.Sprintf("%v", qpMap["productCategory"])
 
 	// execution
-	result, _, _ := suite.apiClient.LocationsApi.
+	result, _, _ := suite.apiClient.LocationsAPI.
 		GetLocations(suite.ctx).
 		Location(locationapi.LocationEnum(location)).
 		ProductCategory(locationapi.ProductCategoryEnum(productCategory)).
@@ -75,7 +75,7 @@ func (suite *LocationApiTestSuite) TestGetLocations() {
 	jsonResponseBody, _ := json.Marshal(response.Body)
 
 	// asserts
-	suite.Equal(jsonResult, jsonResponseBody)
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
 
 	// verify
 	suite.verifyCalledOnce(expectationId)

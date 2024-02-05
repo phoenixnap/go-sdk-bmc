@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package networkapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PublicNetworkCreate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicNetworkCreate{}
 
 // PublicNetworkCreate Details of Public Network to be created.
 type PublicNetworkCreate struct {
@@ -28,6 +33,8 @@ type PublicNetworkCreate struct {
 	// A list of IP Blocks that will be associated with this public network.
 	IpBlocks []PublicNetworkIpBlock `json:"ipBlocks,omitempty"`
 }
+
+type _PublicNetworkCreate PublicNetworkCreate
 
 // NewPublicNetworkCreate instantiates a new PublicNetworkCreate object
 // This constructor will assign default values to properties that have it defined,
@@ -74,7 +81,7 @@ func (o *PublicNetworkCreate) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *PublicNetworkCreate) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -84,7 +91,7 @@ func (o *PublicNetworkCreate) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicNetworkCreate) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -92,7 +99,7 @@ func (o *PublicNetworkCreate) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *PublicNetworkCreate) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -130,7 +137,7 @@ func (o *PublicNetworkCreate) SetLocation(v string) {
 
 // GetVlanId returns the VlanId field value if set, zero value otherwise.
 func (o *PublicNetworkCreate) GetVlanId() int32 {
-	if o == nil || o.VlanId == nil {
+	if o == nil || IsNil(o.VlanId) {
 		var ret int32
 		return ret
 	}
@@ -140,7 +147,7 @@ func (o *PublicNetworkCreate) GetVlanId() int32 {
 // GetVlanIdOk returns a tuple with the VlanId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicNetworkCreate) GetVlanIdOk() (*int32, bool) {
-	if o == nil || o.VlanId == nil {
+	if o == nil || IsNil(o.VlanId) {
 		return nil, false
 	}
 	return o.VlanId, true
@@ -148,7 +155,7 @@ func (o *PublicNetworkCreate) GetVlanIdOk() (*int32, bool) {
 
 // HasVlanId returns a boolean if a field has been set.
 func (o *PublicNetworkCreate) HasVlanId() bool {
-	if o != nil && o.VlanId != nil {
+	if o != nil && !IsNil(o.VlanId) {
 		return true
 	}
 
@@ -162,7 +169,7 @@ func (o *PublicNetworkCreate) SetVlanId(v int32) {
 
 // GetIpBlocks returns the IpBlocks field value if set, zero value otherwise.
 func (o *PublicNetworkCreate) GetIpBlocks() []PublicNetworkIpBlock {
-	if o == nil || o.IpBlocks == nil {
+	if o == nil || IsNil(o.IpBlocks) {
 		var ret []PublicNetworkIpBlock
 		return ret
 	}
@@ -172,7 +179,7 @@ func (o *PublicNetworkCreate) GetIpBlocks() []PublicNetworkIpBlock {
 // GetIpBlocksOk returns a tuple with the IpBlocks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicNetworkCreate) GetIpBlocksOk() ([]PublicNetworkIpBlock, bool) {
-	if o == nil || o.IpBlocks == nil {
+	if o == nil || IsNil(o.IpBlocks) {
 		return nil, false
 	}
 	return o.IpBlocks, true
@@ -180,7 +187,7 @@ func (o *PublicNetworkCreate) GetIpBlocksOk() ([]PublicNetworkIpBlock, bool) {
 
 // HasIpBlocks returns a boolean if a field has been set.
 func (o *PublicNetworkCreate) HasIpBlocks() bool {
-	if o != nil && o.IpBlocks != nil {
+	if o != nil && !IsNil(o.IpBlocks) {
 		return true
 	}
 
@@ -193,23 +200,65 @@ func (o *PublicNetworkCreate) SetIpBlocks(v []PublicNetworkIpBlock) {
 }
 
 func (o PublicNetworkCreate) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if o.VlanId != nil {
-		toSerialize["vlanId"] = o.VlanId
-	}
-	if o.IpBlocks != nil {
-		toSerialize["ipBlocks"] = o.IpBlocks
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicNetworkCreate) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["location"] = o.Location
+	if !IsNil(o.VlanId) {
+		toSerialize["vlanId"] = o.VlanId
+	}
+	if !IsNil(o.IpBlocks) {
+		toSerialize["ipBlocks"] = o.IpBlocks
+	}
+	return toSerialize, nil
+}
+
+func (o *PublicNetworkCreate) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"location",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicNetworkCreate := _PublicNetworkCreate{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicNetworkCreate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicNetworkCreate(varPublicNetworkCreate)
+
+	return err
 }
 
 type NullablePublicNetworkCreate struct {

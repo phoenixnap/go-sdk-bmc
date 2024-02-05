@@ -12,20 +12,27 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ServerPrivateNetwork type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServerPrivateNetwork{}
 
 // ServerPrivateNetwork Private network details of bare metal server.
 type ServerPrivateNetwork struct {
 	// The network identifier.
 	Id string `json:"id"`
-	// IPs to configure/configured on the server.<br> Should be null or empty list if DHCP is true. IPs must be within the network's range.<br> If field is undefined and DHCP is false, next available IP in network will be automatically allocated.<br> If the network contains a membership of type 'storage', the first twelve IPs are already reserved by BMC and not usable.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
+	// IPs to configure/configured on the server.<br> Valid IP formats are single IPv4 addresses or IPv4 ranges. IPs must be within the network's range. Should be null or empty list if DHCP is true. <br> If field is undefined and DHCP is false, next available IP in network will be automatically allocated.<br> If the network contains a membership of type 'storage', the first twelve IPs are already reserved by BMC and not usable.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network. <li> Assign IP addresses which are considered as reserved in network.</ul>
 	Ips []string `json:"ips,omitempty"`
-	// Determines whether DHCP is enabled for this server. Should be false if any IPs are provided. Not supported for Proxmox OS and ESXi OS.
+	// Determines whether DHCP is enabled for this server. Should be false if any IPs are provided. Not supported for Proxmox OS.
 	Dhcp *bool `json:"dhcp,omitempty"`
 	// (Read-only) The status of the network.
 	StatusDescription *string `json:"statusDescription,omitempty"`
 }
+
+type _ServerPrivateNetwork ServerPrivateNetwork
 
 // NewServerPrivateNetwork instantiates a new ServerPrivateNetwork object
 // This constructor will assign default values to properties that have it defined,
@@ -75,7 +82,7 @@ func (o *ServerPrivateNetwork) SetId(v string) {
 
 // GetIps returns the Ips field value if set, zero value otherwise.
 func (o *ServerPrivateNetwork) GetIps() []string {
-	if o == nil || o.Ips == nil {
+	if o == nil || IsNil(o.Ips) {
 		var ret []string
 		return ret
 	}
@@ -85,7 +92,7 @@ func (o *ServerPrivateNetwork) GetIps() []string {
 // GetIpsOk returns a tuple with the Ips field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerPrivateNetwork) GetIpsOk() ([]string, bool) {
-	if o == nil || o.Ips == nil {
+	if o == nil || IsNil(o.Ips) {
 		return nil, false
 	}
 	return o.Ips, true
@@ -93,7 +100,7 @@ func (o *ServerPrivateNetwork) GetIpsOk() ([]string, bool) {
 
 // HasIps returns a boolean if a field has been set.
 func (o *ServerPrivateNetwork) HasIps() bool {
-	if o != nil && o.Ips != nil {
+	if o != nil && !IsNil(o.Ips) {
 		return true
 	}
 
@@ -107,7 +114,7 @@ func (o *ServerPrivateNetwork) SetIps(v []string) {
 
 // GetDhcp returns the Dhcp field value if set, zero value otherwise.
 func (o *ServerPrivateNetwork) GetDhcp() bool {
-	if o == nil || o.Dhcp == nil {
+	if o == nil || IsNil(o.Dhcp) {
 		var ret bool
 		return ret
 	}
@@ -117,7 +124,7 @@ func (o *ServerPrivateNetwork) GetDhcp() bool {
 // GetDhcpOk returns a tuple with the Dhcp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerPrivateNetwork) GetDhcpOk() (*bool, bool) {
-	if o == nil || o.Dhcp == nil {
+	if o == nil || IsNil(o.Dhcp) {
 		return nil, false
 	}
 	return o.Dhcp, true
@@ -125,7 +132,7 @@ func (o *ServerPrivateNetwork) GetDhcpOk() (*bool, bool) {
 
 // HasDhcp returns a boolean if a field has been set.
 func (o *ServerPrivateNetwork) HasDhcp() bool {
-	if o != nil && o.Dhcp != nil {
+	if o != nil && !IsNil(o.Dhcp) {
 		return true
 	}
 
@@ -139,7 +146,7 @@ func (o *ServerPrivateNetwork) SetDhcp(v bool) {
 
 // GetStatusDescription returns the StatusDescription field value if set, zero value otherwise.
 func (o *ServerPrivateNetwork) GetStatusDescription() string {
-	if o == nil || o.StatusDescription == nil {
+	if o == nil || IsNil(o.StatusDescription) {
 		var ret string
 		return ret
 	}
@@ -149,7 +156,7 @@ func (o *ServerPrivateNetwork) GetStatusDescription() string {
 // GetStatusDescriptionOk returns a tuple with the StatusDescription field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerPrivateNetwork) GetStatusDescriptionOk() (*string, bool) {
-	if o == nil || o.StatusDescription == nil {
+	if o == nil || IsNil(o.StatusDescription) {
 		return nil, false
 	}
 	return o.StatusDescription, true
@@ -157,7 +164,7 @@ func (o *ServerPrivateNetwork) GetStatusDescriptionOk() (*string, bool) {
 
 // HasStatusDescription returns a boolean if a field has been set.
 func (o *ServerPrivateNetwork) HasStatusDescription() bool {
-	if o != nil && o.StatusDescription != nil {
+	if o != nil && !IsNil(o.StatusDescription) {
 		return true
 	}
 
@@ -170,20 +177,63 @@ func (o *ServerPrivateNetwork) SetStatusDescription(v string) {
 }
 
 func (o ServerPrivateNetwork) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if o.Ips != nil {
-		toSerialize["ips"] = o.Ips
-	}
-	if o.Dhcp != nil {
-		toSerialize["dhcp"] = o.Dhcp
-	}
-	if o.StatusDescription != nil {
-		toSerialize["statusDescription"] = o.StatusDescription
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ServerPrivateNetwork) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	if !IsNil(o.Ips) {
+		toSerialize["ips"] = o.Ips
+	}
+	if !IsNil(o.Dhcp) {
+		toSerialize["dhcp"] = o.Dhcp
+	}
+	if !IsNil(o.StatusDescription) {
+		toSerialize["statusDescription"] = o.StatusDescription
+	}
+	return toSerialize, nil
+}
+
+func (o *ServerPrivateNetwork) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServerPrivateNetwork := _ServerPrivateNetwork{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varServerPrivateNetwork)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServerPrivateNetwork(varServerPrivateNetwork)
+
+	return err
 }
 
 type NullableServerPrivateNetwork struct {

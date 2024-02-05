@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ServerDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServerDetails{}
 
 // ServerDetails Details of the server associated with this rated usage record.
 type ServerDetails struct {
@@ -22,6 +27,8 @@ type ServerDetails struct {
 	// The server hostname.
 	Hostname string `json:"hostname"`
 }
+
+type _ServerDetails ServerDetails
 
 // NewServerDetails instantiates a new ServerDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -91,14 +98,56 @@ func (o *ServerDetails) SetHostname(v string) {
 }
 
 func (o ServerDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["hostname"] = o.Hostname
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ServerDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["hostname"] = o.Hostname
+	return toSerialize, nil
+}
+
+func (o *ServerDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"hostname",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServerDetails := _ServerDetails{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varServerDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServerDetails(varServerDetails)
+
+	return err
 }
 
 type NullableServerDetails struct {

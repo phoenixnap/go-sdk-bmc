@@ -1,0 +1,374 @@
+openapi: 3.0.3
+info:
+  title: Invoicing API
+  description: |
+    List, fetch and pay invoices with the Invoicing API.
+  termsOfService: https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy
+  version: '1.0'
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: PhoenixNAP Team
+    email: support@phoenixnap.com
+    url: https://phoenixnap.com/
+servers:
+  - url: https://api.phoenixnap.com/invoicing/v1
+security:
+  - OAuth2:
+      - invoices
+      - invoices.read
+tags:
+  - name: Invoices
+    description: Invoices operations.
+paths:
+  /invoices:
+    parameters:
+      - $ref: '#/components/parameters/invoiceNumberQueryParam'
+      - $ref: '#/components/parameters/invoiceStatusQueryParam'
+      - $ref: '#/components/parameters/sentOnFromQueryParam'
+      - $ref: '#/components/parameters/sentOnToQueryParam'
+      - $ref: '#/components/parameters/pagingLimitParameter'
+      - $ref: '#/components/parameters/pagingOffsetParameter'
+      - $ref: '#/components/parameters/pagingSortFieldParameter'
+      - $ref: '#/components/parameters/pagingSortDirectionParameter'
+    get:
+      tags:
+        - Invoices
+      description: List invoices.
+      summary: List invoices.
+      operationId: invoicesGet
+      security:
+        - OAuth2:
+            - invoices.read
+      responses:
+        '200':
+          description: List all invoices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedInvoices'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /invoices/{invoiceId}:
+    parameters:
+      - $ref: '#/components/parameters/invoiceIdParam'
+    get:
+      tags:
+        - Invoices
+      description: Get invoice details.
+      summary: Get invoice details.
+      operationId: invoicesInvoiceIdGet
+      security:
+        - OAuth2:
+            - invoices.read
+      responses:
+        '200':
+          description: Get invoice details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /invoices/{invoiceId}/actions/generate-pdf:
+    parameters:
+      - $ref: '#/components/parameters/invoiceIdParam'
+    post:
+      tags:
+        - Invoices
+      description: Generate invoice details as PDF.
+      summary: Generate invoice details as PDF.
+      operationId: invoicesInvoiceIdGeneratePdfPost
+      security:
+        - OAuth2:
+            - invoices.read
+      responses:
+        '200':
+          description: Generated invoice details as pdf.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /invoices/{invoiceId}/actions/pay:
+    parameters:
+      - $ref: '#/components/parameters/invoiceIdParam'
+    post:
+      tags:
+        - Invoices
+      summary: Pay an invoice.
+      description: Manually pay an invoice.
+      operationId: invoicesInvoiceIdPayPost
+      security:
+        - OAuth2:
+            - invoices
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoicePaymentRequest'
+      responses:
+        '202':
+          description: Invoice payment is being processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoicePaymentResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.phoenixnap.com/auth/realms/BMC/protocol/openid-connect/token
+          scopes:
+            invoices: Grants full access to Invoicing API.
+            invoices.read: Grants read only access to Invoicing API.
+  schemas:
+    PaginatedInvoices:
+      type: object
+      required:
+        - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invoice'
+      allOf:
+        - $ref: '#/components/schemas/PaginatedResponse'
+    Invoice:
+      title: Invoice
+      required:
+        - id
+        - number
+        - currency
+        - amount
+        - outstandingAmount
+        - status
+        - sentOn
+        - dueDate
+      type: object
+      properties:
+        id:
+          description: The unique resource identifier of the Invoice.
+          type: string
+          example: 5fa54d1e91867c03a0a7b4a4
+        number:
+          description: A user-friendly reference number assigned to the invoice.
+          type: string
+          example: 34440-2488782
+        currency:
+          description: The currency of the invoice. Currently, this field should be set to `EUR` or `USD`.
+          type: string
+          example: EUR
+        amount:
+          description: The invoice amount.
+          type: number
+          example: 100.99
+        outstandingAmount:
+          description: The invoice outstanding amount.
+          type: number
+          example: 100.99
+        status:
+          description: The status of the invoice. Currently, this field should be set to `PAID`, `OVERDUE`, `PROCESSING_PAYMENT`, or `UNPAID`.
+          type: string
+          example: UNPAID
+        sentOn:
+          description: Date and time when the invoice was sent.
+          type: string
+          format: date-time
+          example: '2021-03-13T20:24:32.491Z'
+        dueDate:
+          description: Date and time when the invoice payment is due.
+          type: string
+          format: date-time
+          example: '2021-04-13T20:24:32.491Z'
+    InvoicePaymentRequest:
+      title: InvoicePaymentRequest
+      type: object
+    InvoicePaymentResponse:
+      title: InvoicePaymentResponse
+      type: object
+    PaginatedResponse:
+      type: object
+      required:
+        - limit
+        - offset
+        - total
+      properties:
+        limit:
+          type: integer
+          description: Maximum number of items in the page (actual returned length can be less).
+          example: 5
+        offset:
+          type: integer
+          description: The number of returned items skipped.
+          example: 25
+        total:
+          type: integer
+          description: The total number of records available for retrieval.
+          example: 400
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          readOnly: true
+          description: The description detailing the cause of the error code.
+        validationErrors:
+          type: array
+          items:
+            type: string
+          readOnly: true
+          description: Validation errors, if any.
+  parameters:
+    invoiceNumberQueryParam:
+      in: query
+      name: number
+      required: false
+      schema:
+        type: string
+      description: A user-friendly reference number assigned to the invoice.
+      example: 13218-1180326
+    invoiceStatusQueryParam:
+      in: query
+      name: status
+      required: false
+      schema:
+        type: string
+        enum:
+          - PAID
+          - UNPAID
+          - OVERDUE
+          - PAYMENT_PROCESSING
+      description: Payment status of the invoice.
+    sentOnFromQueryParam:
+      in: query
+      name: sentOnFrom
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: Minimum value to filter invoices by sent on date.
+      example: '2020-04-13T00:00:00.000Z'
+    sentOnToQueryParam:
+      in: query
+      name: sentOnTo
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: Maximum value to filter invoices by sent on date.
+      example: '2022-04-13T00:00:00.000Z'
+    pagingLimitParameter:
+      in: query
+      name: limit
+      schema:
+        type: integer
+        default: 100
+        minimum: 1
+        maximum: 1000
+      required: false
+      description: The limit of the number of results returned. The number of records returned may be smaller than the limit.
+      example: 25
+    pagingOffsetParameter:
+      in: query
+      name: offset
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+      required: false
+      description: The number of items to skip in the results.
+      example: 5
+    pagingSortFieldParameter:
+      in: query
+      name: sortField
+      schema:
+        type: string
+        enum:
+          - number
+          - sentOn
+          - dueDate
+          - amount
+          - outstandingAmount
+        default: sentOn
+      required: false
+      description: If a sortField is requested, pagination will be done after sorting. Default sorting is by number.
+    pagingSortDirectionParameter:
+      in: query
+      name: sortDirection
+      schema:
+        type: string
+        enum:
+          - ASC
+          - DESC
+        default: DESC
+      required: false
+      description: Sort Given Field depending on the desired direction. Default sorting is descending.
+    invoiceIdParam:
+      in: path
+      name: invoiceId
+      required: true
+      schema:
+        type: string
+      description: The unique resource identifier of the Invoice.
+      example: 5fa54d1e91867c03a0a7b4a4
+  responses:
+    BadRequest:
+      description: The request failed due to wrong data. Please check the provided parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The request failed due to invalid credentials. Please check the provided credentials and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The request failed since this resource cannot be accessed by the provided credentials.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: The server encountered an unexpected condition that prevented it from fulfilling the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: The resource is in an incompatible state.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package networkapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PrivateNetworkCreate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PrivateNetworkCreate{}
 
 // PrivateNetworkCreate Details of Private Network to be created.
 type PrivateNetworkCreate struct {
@@ -30,6 +35,8 @@ type PrivateNetworkCreate struct {
 	// IP range associated with this private network in CIDR notation.<br> Setting the `force` query parameter to `true` allows you to skip assigning a specific IP range to network.
 	Cidr *string `json:"cidr,omitempty"`
 }
+
+type _PrivateNetworkCreate PrivateNetworkCreate
 
 // NewPrivateNetworkCreate instantiates a new PrivateNetworkCreate object
 // This constructor will assign default values to properties that have it defined,
@@ -80,7 +87,7 @@ func (o *PrivateNetworkCreate) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *PrivateNetworkCreate) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -90,7 +97,7 @@ func (o *PrivateNetworkCreate) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivateNetworkCreate) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -98,7 +105,7 @@ func (o *PrivateNetworkCreate) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *PrivateNetworkCreate) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -136,7 +143,7 @@ func (o *PrivateNetworkCreate) SetLocation(v string) {
 
 // GetLocationDefault returns the LocationDefault field value if set, zero value otherwise.
 func (o *PrivateNetworkCreate) GetLocationDefault() bool {
-	if o == nil || o.LocationDefault == nil {
+	if o == nil || IsNil(o.LocationDefault) {
 		var ret bool
 		return ret
 	}
@@ -146,7 +153,7 @@ func (o *PrivateNetworkCreate) GetLocationDefault() bool {
 // GetLocationDefaultOk returns a tuple with the LocationDefault field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivateNetworkCreate) GetLocationDefaultOk() (*bool, bool) {
-	if o == nil || o.LocationDefault == nil {
+	if o == nil || IsNil(o.LocationDefault) {
 		return nil, false
 	}
 	return o.LocationDefault, true
@@ -154,7 +161,7 @@ func (o *PrivateNetworkCreate) GetLocationDefaultOk() (*bool, bool) {
 
 // HasLocationDefault returns a boolean if a field has been set.
 func (o *PrivateNetworkCreate) HasLocationDefault() bool {
-	if o != nil && o.LocationDefault != nil {
+	if o != nil && !IsNil(o.LocationDefault) {
 		return true
 	}
 
@@ -168,7 +175,7 @@ func (o *PrivateNetworkCreate) SetLocationDefault(v bool) {
 
 // GetVlanId returns the VlanId field value if set, zero value otherwise.
 func (o *PrivateNetworkCreate) GetVlanId() int32 {
-	if o == nil || o.VlanId == nil {
+	if o == nil || IsNil(o.VlanId) {
 		var ret int32
 		return ret
 	}
@@ -178,7 +185,7 @@ func (o *PrivateNetworkCreate) GetVlanId() int32 {
 // GetVlanIdOk returns a tuple with the VlanId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivateNetworkCreate) GetVlanIdOk() (*int32, bool) {
-	if o == nil || o.VlanId == nil {
+	if o == nil || IsNil(o.VlanId) {
 		return nil, false
 	}
 	return o.VlanId, true
@@ -186,7 +193,7 @@ func (o *PrivateNetworkCreate) GetVlanIdOk() (*int32, bool) {
 
 // HasVlanId returns a boolean if a field has been set.
 func (o *PrivateNetworkCreate) HasVlanId() bool {
-	if o != nil && o.VlanId != nil {
+	if o != nil && !IsNil(o.VlanId) {
 		return true
 	}
 
@@ -200,7 +207,7 @@ func (o *PrivateNetworkCreate) SetVlanId(v int32) {
 
 // GetCidr returns the Cidr field value if set, zero value otherwise.
 func (o *PrivateNetworkCreate) GetCidr() string {
-	if o == nil || o.Cidr == nil {
+	if o == nil || IsNil(o.Cidr) {
 		var ret string
 		return ret
 	}
@@ -210,7 +217,7 @@ func (o *PrivateNetworkCreate) GetCidr() string {
 // GetCidrOk returns a tuple with the Cidr field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivateNetworkCreate) GetCidrOk() (*string, bool) {
-	if o == nil || o.Cidr == nil {
+	if o == nil || IsNil(o.Cidr) {
 		return nil, false
 	}
 	return o.Cidr, true
@@ -218,7 +225,7 @@ func (o *PrivateNetworkCreate) GetCidrOk() (*string, bool) {
 
 // HasCidr returns a boolean if a field has been set.
 func (o *PrivateNetworkCreate) HasCidr() bool {
-	if o != nil && o.Cidr != nil {
+	if o != nil && !IsNil(o.Cidr) {
 		return true
 	}
 
@@ -231,26 +238,68 @@ func (o *PrivateNetworkCreate) SetCidr(v string) {
 }
 
 func (o PrivateNetworkCreate) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if o.LocationDefault != nil {
-		toSerialize["locationDefault"] = o.LocationDefault
-	}
-	if o.VlanId != nil {
-		toSerialize["vlanId"] = o.VlanId
-	}
-	if o.Cidr != nil {
-		toSerialize["cidr"] = o.Cidr
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PrivateNetworkCreate) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["location"] = o.Location
+	if !IsNil(o.LocationDefault) {
+		toSerialize["locationDefault"] = o.LocationDefault
+	}
+	if !IsNil(o.VlanId) {
+		toSerialize["vlanId"] = o.VlanId
+	}
+	if !IsNil(o.Cidr) {
+		toSerialize["cidr"] = o.Cidr
+	}
+	return toSerialize, nil
+}
+
+func (o *PrivateNetworkCreate) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"location",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPrivateNetworkCreate := _PrivateNetworkCreate{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPrivateNetworkCreate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PrivateNetworkCreate(varPrivateNetworkCreate)
+
+	return err
 }
 
 type NullablePrivateNetworkCreate struct {

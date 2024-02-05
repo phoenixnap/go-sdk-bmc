@@ -5,7 +5,7 @@ client.go
 configuration.go
 docs/Error.md
 docs/Event.md
-docs/EventsApi.md
+docs/EventsAPI.md
 docs/UserInfo.md
 go.mod
 go.sum

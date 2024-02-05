@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OsConfigurationMapProxmox type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OsConfigurationMapProxmox{}
+
 // OsConfigurationMapProxmox Proxmox VE configuration properties.
 type OsConfigurationMapProxmox struct {
 	// (Read-only) Password set for user root on a Proxmox server which will only be returned in response to provisioning a server.
@@ -44,7 +47,7 @@ func NewOsConfigurationMapProxmoxWithDefaults() *OsConfigurationMapProxmox {
 
 // GetRootPassword returns the RootPassword field value if set, zero value otherwise.
 func (o *OsConfigurationMapProxmox) GetRootPassword() string {
-	if o == nil || o.RootPassword == nil {
+	if o == nil || IsNil(o.RootPassword) {
 		var ret string
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *OsConfigurationMapProxmox) GetRootPassword() string {
 // GetRootPasswordOk returns a tuple with the RootPassword field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfigurationMapProxmox) GetRootPasswordOk() (*string, bool) {
-	if o == nil || o.RootPassword == nil {
+	if o == nil || IsNil(o.RootPassword) {
 		return nil, false
 	}
 	return o.RootPassword, true
@@ -62,7 +65,7 @@ func (o *OsConfigurationMapProxmox) GetRootPasswordOk() (*string, bool) {
 
 // HasRootPassword returns a boolean if a field has been set.
 func (o *OsConfigurationMapProxmox) HasRootPassword() bool {
-	if o != nil && o.RootPassword != nil {
+	if o != nil && !IsNil(o.RootPassword) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *OsConfigurationMapProxmox) SetRootPassword(v string) {
 
 // GetManagementUiUrl returns the ManagementUiUrl field value if set, zero value otherwise.
 func (o *OsConfigurationMapProxmox) GetManagementUiUrl() string {
-	if o == nil || o.ManagementUiUrl == nil {
+	if o == nil || IsNil(o.ManagementUiUrl) {
 		var ret string
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *OsConfigurationMapProxmox) GetManagementUiUrl() string {
 // GetManagementUiUrlOk returns a tuple with the ManagementUiUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfigurationMapProxmox) GetManagementUiUrlOk() (*string, bool) {
-	if o == nil || o.ManagementUiUrl == nil {
+	if o == nil || IsNil(o.ManagementUiUrl) {
 		return nil, false
 	}
 	return o.ManagementUiUrl, true
@@ -94,7 +97,7 @@ func (o *OsConfigurationMapProxmox) GetManagementUiUrlOk() (*string, bool) {
 
 // HasManagementUiUrl returns a boolean if a field has been set.
 func (o *OsConfigurationMapProxmox) HasManagementUiUrl() bool {
-	if o != nil && o.ManagementUiUrl != nil {
+	if o != nil && !IsNil(o.ManagementUiUrl) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *OsConfigurationMapProxmox) SetManagementUiUrl(v string) {
 
 // GetManagementAccessAllowedIps returns the ManagementAccessAllowedIps field value if set, zero value otherwise.
 func (o *OsConfigurationMapProxmox) GetManagementAccessAllowedIps() []string {
-	if o == nil || o.ManagementAccessAllowedIps == nil {
+	if o == nil || IsNil(o.ManagementAccessAllowedIps) {
 		var ret []string
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *OsConfigurationMapProxmox) GetManagementAccessAllowedIps() []string {
 // GetManagementAccessAllowedIpsOk returns a tuple with the ManagementAccessAllowedIps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfigurationMapProxmox) GetManagementAccessAllowedIpsOk() ([]string, bool) {
-	if o == nil || o.ManagementAccessAllowedIps == nil {
+	if o == nil || IsNil(o.ManagementAccessAllowedIps) {
 		return nil, false
 	}
 	return o.ManagementAccessAllowedIps, true
@@ -126,7 +129,7 @@ func (o *OsConfigurationMapProxmox) GetManagementAccessAllowedIpsOk() ([]string,
 
 // HasManagementAccessAllowedIps returns a boolean if a field has been set.
 func (o *OsConfigurationMapProxmox) HasManagementAccessAllowedIps() bool {
-	if o != nil && o.ManagementAccessAllowedIps != nil {
+	if o != nil && !IsNil(o.ManagementAccessAllowedIps) {
 		return true
 	}
 
@@ -139,17 +142,25 @@ func (o *OsConfigurationMapProxmox) SetManagementAccessAllowedIps(v []string) {
 }
 
 func (o OsConfigurationMapProxmox) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.RootPassword != nil {
-		toSerialize["rootPassword"] = o.RootPassword
-	}
-	if o.ManagementUiUrl != nil {
-		toSerialize["managementUiUrl"] = o.ManagementUiUrl
-	}
-	if o.ManagementAccessAllowedIps != nil {
-		toSerialize["managementAccessAllowedIps"] = o.ManagementAccessAllowedIps
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OsConfigurationMapProxmox) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.RootPassword) {
+		toSerialize["rootPassword"] = o.RootPassword
+	}
+	if !IsNil(o.ManagementUiUrl) {
+		toSerialize["managementUiUrl"] = o.ManagementUiUrl
+	}
+	if !IsNil(o.ManagementAccessAllowedIps) {
+		toSerialize["managementAccessAllowedIps"] = o.ManagementAccessAllowedIps
+	}
+	return toSerialize, nil
 }
 
 type NullableOsConfigurationMapProxmox struct {

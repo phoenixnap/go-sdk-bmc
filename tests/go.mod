@@ -1,17 +1,19 @@
 module tests
 
-go 1.17
+go 1.18
 
 require (
 	github.com/phoenixnap/go-sdk-bmc/auditapi v0.0.0
 	github.com/phoenixnap/go-sdk-bmc/billingapi v0.0.0
 	github.com/phoenixnap/go-sdk-bmc/bmcapi v0.0.0
 	github.com/phoenixnap/go-sdk-bmc/ipapi v0.0.0
+	github.com/phoenixnap/go-sdk-bmc/locationapi v0.0.0
 	github.com/phoenixnap/go-sdk-bmc/networkapi v0.0.0
 	github.com/phoenixnap/go-sdk-bmc/networkstorageapi v0.0.0
 	github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi v0.0.0
 	github.com/phoenixnap/go-sdk-bmc/tagapi v0.0.0
-	github.com/phoenixnap/go-sdk-bmc/locationapi v0.0.0
+	github.com/phoenixnap/go-sdk-bmc/invoicingapi v0.0.0
+	github.com/phoenixnap/go-sdk-bmc/paymentsapi v0.0.0
 	github.com/stretchr/testify v1.4.0
 )
 
@@ -43,3 +45,7 @@ replace github.com/phoenixnap/go-sdk-bmc/billingapi => ../billingapi/
 replace github.com/phoenixnap/go-sdk-bmc/networkstorageapi => ../networkstorageapi/
 
 replace github.com/phoenixnap/go-sdk-bmc/locationapi => ../locationapi/
+
+replace github.com/phoenixnap/go-sdk-bmc/invoicingapi => ../invoicingapi/
+
+replace github.com/phoenixnap/go-sdk-bmc/paymentsapi => ../paymentsapi/

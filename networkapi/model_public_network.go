@@ -12,9 +12,14 @@ Contact: support@phoenixnap.com
 package networkapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the PublicNetwork type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicNetwork{}
 
 // PublicNetwork Public Network details.
 type PublicNetwork struct {
@@ -30,13 +35,15 @@ type PublicNetwork struct {
 	Location string `json:"location"`
 	// The description of this public network.
 	Description *string `json:"description,omitempty"`
-	// The status of the public network. Can have one of the following values: `BUSY` or `READY`.
+	// The status of the public network. Can have one of the following values: `BUSY`, `READY`, `DELETING` or `ERROR`.
 	Status string `json:"status"`
 	// Date and time when this public network was created.
 	CreatedOn time.Time `json:"createdOn"`
 	// A list of IP Blocks that are associated with this public network.
 	IpBlocks []PublicNetworkIpBlock `json:"ipBlocks"`
 }
+
+type _PublicNetwork PublicNetwork
 
 // NewPublicNetwork instantiates a new PublicNetwork object
 // This constructor will assign default values to properties that have it defined,
@@ -185,7 +192,7 @@ func (o *PublicNetwork) SetLocation(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *PublicNetwork) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -195,7 +202,7 @@ func (o *PublicNetwork) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicNetwork) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -203,7 +210,7 @@ func (o *PublicNetwork) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *PublicNetwork) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -288,35 +295,71 @@ func (o *PublicNetwork) SetIpBlocks(v []PublicNetworkIpBlock) {
 }
 
 func (o PublicNetwork) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["vlanId"] = o.VlanId
-	}
-	if true {
-		toSerialize["memberships"] = o.Memberships
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["createdOn"] = o.CreatedOn
-	}
-	if true {
-		toSerialize["ipBlocks"] = o.IpBlocks
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicNetwork) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["vlanId"] = o.VlanId
+	toSerialize["memberships"] = o.Memberships
+	toSerialize["name"] = o.Name
+	toSerialize["location"] = o.Location
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["status"] = o.Status
+	toSerialize["createdOn"] = o.CreatedOn
+	toSerialize["ipBlocks"] = o.IpBlocks
+	return toSerialize, nil
+}
+
+func (o *PublicNetwork) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"vlanId",
+		"memberships",
+		"name",
+		"location",
+		"status",
+		"createdOn",
+		"ipBlocks",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicNetwork := _PublicNetwork{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicNetwork)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicNetwork(varPublicNetwork)
+
+	return err
 }
 
 type NullablePublicNetwork struct {

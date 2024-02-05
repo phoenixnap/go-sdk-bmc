@@ -47,7 +47,7 @@ paths:
                     location: PHX
                     initialClusterVersion: v2.5.9
                     nodePools:
-                    - name: Rancher Server Node Pool
+                    - name: rancher-server-node-pool
                       nodeCount: 1
                       serverType: s0.d1.small
                       nodes:
@@ -58,7 +58,7 @@ paths:
                     location: ASH
                     initialClusterVersion: v2.5.9
                     nodePools:
-                    - name: Rancher Server Node Pool
+                    - name: rancher-server-node-pool
                       nodeCount: 1
                       serverType: s0.d1.small
                       nodes:
@@ -96,12 +96,9 @@ paths:
       tags:
       - Clusters
     post:
-      description: "Create a Rancher Server Deployment as described in <a href='https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture'\
-        \ target='_blank'>Rancher Docs Architecture</a>. Rancher Server allows the\
-        \ creation, import and management of multiple Downstream User Kubernetes Clusters.\n\
-        <b>This is not a Downstream User Cluster</b>. Knowledge base article to help\
-        \ you can be found <a href='https://phoenixnap.com/kb/bmc-rancher-workload-cluster#ftoc-heading-5'\
-        \ target='_blank'>here</a>.\n"
+      description: |
+        Create a Rancher Server Deployment as described in <a href='https://rancher.com/docs/rancher/v2.5/en/overview/architecture/#rancher-server-architecture' target='_blank'>Rancher Docs Architecture</a>. Rancher Server allows the creation, import and management of multiple Downstream User Kubernetes Clusters.
+        <b>This is not a Downstream User Cluster</b>. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/bmc-rancher-workload-cluster#ftoc-heading-5' target='_blank'>here</a>.
       operationId: clustersPost
       requestBody:
         content:
@@ -162,6 +159,7 @@ paths:
                     serverType: s0.d1.small
             schema:
               $ref: '#/components/schemas/Cluster'
+        required: true
       responses:
         "201":
           content:
@@ -177,7 +175,7 @@ paths:
                   username: admin
                   password: 1234567890abcd!
                 nodePools:
-                - name: Rancher Server Node Pool
+                - name: rancher-server-node-pool
                   nodeCount: 1
                   serverType: s0.d1.small
                   nodes:
@@ -348,9 +346,9 @@ components:
     Cluster:
       description: Cluster details.
       example:
-        metadata: null
+        metadata: ""
         statusDescription: Creating
-        configuration: null
+        configuration: ""
         name: Rancher Management Cluster
         description: My first Rancher Server Cluster.
         location: PHX
@@ -360,11 +358,11 @@ components:
           - serverId: 60b08f04adab617be44068bb
           - serverId: 60b08f04adab617be44068bb
           serverType: s0.d1.small
-          name: Rancher Server node pool.
+          name: rancher-server-node-pool
           nodeCount: 0
-          sshConfig: null
+          sshConfig: ""
         initialClusterVersion: v2.5.9
-        workloadConfiguration: null
+        workloadConfiguration: ""
       properties:
         id:
           description: (Read-only) The Cluster identifier.
@@ -399,13 +397,19 @@ components:
           minItems: 1
           type: array
         configuration:
-          $ref: '#/components/schemas/Cluster_configuration'
+          allOf:
+          - $ref: '#/components/schemas/RancherClusterConfig'
+          writeOnly: true
         metadata:
-          $ref: '#/components/schemas/Cluster_metadata'
+          allOf:
+          - $ref: '#/components/schemas/RancherServerMetadata'
+          readOnly: true
         workloadConfiguration:
-          $ref: '#/components/schemas/Cluster_workloadConfiguration'
+          allOf:
+          - $ref: '#/components/schemas/WorkloadClusterConfig'
+          writeOnly: true
         statusDescription:
-          description: The cluster status
+          description: (Read-Only) The cluster status
           example: Creating
           readOnly: true
           type: string
@@ -421,13 +425,16 @@ components:
         - serverId: 60b08f04adab617be44068bb
         - serverId: 60b08f04adab617be44068bb
         serverType: s0.d1.small
-        name: Rancher Server node pool.
+        name: rancher-server-node-pool
         nodeCount: 0
-        sshConfig: null
+        sshConfig: ""
       properties:
         name:
           description: The name of the node pool.
-          example: Rancher Server node pool.
+          example: rancher-server-node-pool
+          maxLength: 100
+          minLength: 1
+          pattern: "^(?=.*[a-zA-Z])([a-zA-Z0-9().-])+$"
           type: string
         nodeCount:
           description: "Number of configured nodes, currently only node counts of\
@@ -443,7 +450,9 @@ components:
           example: s0.d1.small
           type: string
         sshConfig:
-          $ref: '#/components/schemas/NodePool_sshConfig'
+          allOf:
+          - $ref: '#/components/schemas/SshConfig'
+          writeOnly: true
         nodes:
           description: (Read-only) The nodes associated with this node pool.
           items:
@@ -498,7 +507,9 @@ components:
           example: cluster.local
           type: string
         certificates:
-          $ref: '#/components/schemas/RancherClusterConfig_certificates'
+          allOf:
+          - $ref: '#/components/schemas/RancherClusterCertificates'
+          writeOnly: true
       type: object
     WorkloadClusterConfig:
       description: (Write-only) Workload cluster configuration parameters.
@@ -636,26 +647,6 @@ components:
       required:
       - message
       type: object
-    Cluster_configuration:
-      allOf:
-      - $ref: '#/components/schemas/RancherClusterConfig'
-      writeOnly: true
-    Cluster_metadata:
-      allOf:
-      - $ref: '#/components/schemas/RancherServerMetadata'
-      readOnly: true
-    Cluster_workloadConfiguration:
-      allOf:
-      - $ref: '#/components/schemas/WorkloadClusterConfig'
-      writeOnly: true
-    NodePool_sshConfig:
-      allOf:
-      - $ref: '#/components/schemas/SshConfig'
-      writeOnly: true
-    RancherClusterConfig_certificates:
-      allOf:
-      - $ref: '#/components/schemas/RancherClusterCertificates'
-      writeOnly: true
   securitySchemes:
     OAuth2:
       flows:

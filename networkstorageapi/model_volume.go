@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the Volume type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Volume{}
+
 // Volume Volume for a storage network.
 type Volume struct {
 	// Volume ID.
@@ -33,10 +36,12 @@ type Volume struct {
 	// Used capacity in GB, updated periodically.
 	UsedCapacityInGb *int32 `json:"usedCapacityInGb,omitempty"`
 	// File system protocol. Currently this field should be set to `NFS`.
-	Protocol    *string      `json:"protocol,omitempty"`
-	Status      *Status      `json:"status,omitempty"`
-	CreatedOn   *time.Time   `json:"createdOn,omitempty"`
-	Permissions *Permissions `json:"permissions,omitempty"`
+	Protocol  *string    `json:"protocol,omitempty"`
+	Status    *Status    `json:"status,omitempty"`
+	CreatedOn *time.Time `json:"createdOn,omitempty"`
+	// Date and time of the initial request for volume deletion.
+	DeleteRequestedOn *time.Time   `json:"deleteRequestedOn,omitempty"`
+	Permissions       *Permissions `json:"permissions,omitempty"`
 	// The tags assigned if any.
 	Tags []TagAssignment `json:"tags,omitempty"`
 }
@@ -60,7 +65,7 @@ func NewVolumeWithDefaults() *Volume {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *Volume) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -70,7 +75,7 @@ func (o *Volume) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Volume) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -78,7 +83,7 @@ func (o *Volume) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *Volume) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -92,7 +97,7 @@ func (o *Volume) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *Volume) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -102,7 +107,7 @@ func (o *Volume) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Volume) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -110,7 +115,7 @@ func (o *Volume) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *Volume) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -124,7 +129,7 @@ func (o *Volume) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Volume) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -134,7 +139,7 @@ func (o *Volume) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Volume) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -142,7 +147,7 @@ func (o *Volume) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Volume) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -156,7 +161,7 @@ func (o *Volume) SetDescription(v string) {
 
 // GetPath returns the Path field value if set, zero value otherwise.
 func (o *Volume) GetPath() string {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		var ret string
 		return ret
 	}
@@ -166,7 +171,7 @@ func (o *Volume) GetPath() string {
 // GetPathOk returns a tuple with the Path field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Volume) GetPathOk() (*string, bool) {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		return nil, false
 	}
 	return o.Path, true
@@ -174,7 +179,7 @@ func (o *Volume) GetPathOk() (*string, bool) {
 
 // HasPath returns a boolean if a field has been set.
 func (o *Volume) HasPath() bool {
-	if o != nil && o.Path != nil {
+	if o != nil && !IsNil(o.Path) {
 		return true
 	}
 
@@ -188,7 +193,7 @@ func (o *Volume) SetPath(v string) {
 
 // GetPathSuffix returns the PathSuffix field value if set, zero value otherwise.
 func (o *Volume) GetPathSuffix() string {
-	if o == nil || o.PathSuffix == nil {
+	if o == nil || IsNil(o.PathSuffix) {
 		var ret string
 		return ret
 	}
@@ -198,7 +203,7 @@ func (o *Volume) GetPathSuffix() string {
 // GetPathSuffixOk returns a tuple with the PathSuffix field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Volume) GetPathSuffixOk() (*string, bool) {
-	if o == nil || o.PathSuffix == nil {
+	if o == nil || IsNil(o.PathSuffix) {
 		return nil, false
 	}
 	return o.PathSuffix, true
@@ -206,7 +211,7 @@ func (o *Volume) GetPathSuffixOk() (*string, bool) {
 
 // HasPathSuffix returns a boolean if a field has been set.
 func (o *Volume) HasPathSuffix() bool {
-	if o != nil && o.PathSuffix != nil {
+	if o != nil && !IsNil(o.PathSuffix) {
 		return true
 	}
 
@@ -220,7 +225,7 @@ func (o *Volume) SetPathSuffix(v string) {
 
 // GetCapacityInGb returns the CapacityInGb field value if set, zero value otherwise.
 func (o *Volume) GetCapacityInGb() int32 {
-	if o == nil || o.CapacityInGb == nil {
+	if o == nil || IsNil(o.CapacityInGb) {
 		var ret int32
 		return ret
 	}
@@ -230,7 +235,7 @@ func (o *Volume) GetCapacityInGb() int32 {
 // GetCapacityInGbOk returns a tuple with the CapacityInGb field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Volume) GetCapacityInGbOk() (*int32, bool) {
-	if o == nil || o.CapacityInGb == nil {
+	if o == nil || IsNil(o.CapacityInGb) {
 		return nil, false
 	}
 	return o.CapacityInGb, true
@@ -238,7 +243,7 @@ func (o *Volume) GetCapacityInGbOk() (*int32, bool) {
 
 // HasCapacityInGb returns a boolean if a field has been set.
 func (o *Volume) HasCapacityInGb() bool {
-	if o != nil && o.CapacityInGb != nil {
+	if o != nil && !IsNil(o.CapacityInGb) {
 		return true
 	}
 
@@ -252,7 +257,7 @@ func (o *Volume) SetCapacityInGb(v int32) {
 
 // GetUsedCapacityInGb returns the UsedCapacityInGb field value if set, zero value otherwise.
 func (o *Volume) GetUsedCapacityInGb() int32 {
-	if o == nil || o.UsedCapacityInGb == nil {
+	if o == nil || IsNil(o.UsedCapacityInGb) {
 		var ret int32
 		return ret
 	}
@@ -262,7 +267,7 @@ func (o *Volume) GetUsedCapacityInGb() int32 {
 // GetUsedCapacityInGbOk returns a tuple with the UsedCapacityInGb field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Volume) GetUsedCapacityInGbOk() (*int32, bool) {
-	if o == nil || o.UsedCapacityInGb == nil {
+	if o == nil || IsNil(o.UsedCapacityInGb) {
 		return nil, false
 	}
 	return o.UsedCapacityInGb, true
@@ -270,7 +275,7 @@ func (o *Volume) GetUsedCapacityInGbOk() (*int32, bool) {
 
 // HasUsedCapacityInGb returns a boolean if a field has been set.
 func (o *Volume) HasUsedCapacityInGb() bool {
-	if o != nil && o.UsedCapacityInGb != nil {
+	if o != nil && !IsNil(o.UsedCapacityInGb) {
 		return true
 	}
 
@@ -284,7 +289,7 @@ func (o *Volume) SetUsedCapacityInGb(v int32) {
 
 // GetProtocol returns the Protocol field value if set, zero value otherwise.
 func (o *Volume) GetProtocol() string {
-	if o == nil || o.Protocol == nil {
+	if o == nil || IsNil(o.Protocol) {
 		var ret string
 		return ret
 	}
@@ -294,7 +299,7 @@ func (o *Volume) GetProtocol() string {
 // GetProtocolOk returns a tuple with the Protocol field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Volume) GetProtocolOk() (*string, bool) {
-	if o == nil || o.Protocol == nil {
+	if o == nil || IsNil(o.Protocol) {
 		return nil, false
 	}
 	return o.Protocol, true
@@ -302,7 +307,7 @@ func (o *Volume) GetProtocolOk() (*string, bool) {
 
 // HasProtocol returns a boolean if a field has been set.
 func (o *Volume) HasProtocol() bool {
-	if o != nil && o.Protocol != nil {
+	if o != nil && !IsNil(o.Protocol) {
 		return true
 	}
 
@@ -316,7 +321,7 @@ func (o *Volume) SetProtocol(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *Volume) GetStatus() Status {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret Status
 		return ret
 	}
@@ -326,7 +331,7 @@ func (o *Volume) GetStatus() Status {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Volume) GetStatusOk() (*Status, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -334,7 +339,7 @@ func (o *Volume) GetStatusOk() (*Status, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *Volume) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -348,7 +353,7 @@ func (o *Volume) SetStatus(v Status) {
 
 // GetCreatedOn returns the CreatedOn field value if set, zero value otherwise.
 func (o *Volume) GetCreatedOn() time.Time {
-	if o == nil || o.CreatedOn == nil {
+	if o == nil || IsNil(o.CreatedOn) {
 		var ret time.Time
 		return ret
 	}
@@ -358,7 +363,7 @@ func (o *Volume) GetCreatedOn() time.Time {
 // GetCreatedOnOk returns a tuple with the CreatedOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Volume) GetCreatedOnOk() (*time.Time, bool) {
-	if o == nil || o.CreatedOn == nil {
+	if o == nil || IsNil(o.CreatedOn) {
 		return nil, false
 	}
 	return o.CreatedOn, true
@@ -366,7 +371,7 @@ func (o *Volume) GetCreatedOnOk() (*time.Time, bool) {
 
 // HasCreatedOn returns a boolean if a field has been set.
 func (o *Volume) HasCreatedOn() bool {
-	if o != nil && o.CreatedOn != nil {
+	if o != nil && !IsNil(o.CreatedOn) {
 		return true
 	}
 
@@ -378,9 +383,41 @@ func (o *Volume) SetCreatedOn(v time.Time) {
 	o.CreatedOn = &v
 }
 
+// GetDeleteRequestedOn returns the DeleteRequestedOn field value if set, zero value otherwise.
+func (o *Volume) GetDeleteRequestedOn() time.Time {
+	if o == nil || IsNil(o.DeleteRequestedOn) {
+		var ret time.Time
+		return ret
+	}
+	return *o.DeleteRequestedOn
+}
+
+// GetDeleteRequestedOnOk returns a tuple with the DeleteRequestedOn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Volume) GetDeleteRequestedOnOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.DeleteRequestedOn) {
+		return nil, false
+	}
+	return o.DeleteRequestedOn, true
+}
+
+// HasDeleteRequestedOn returns a boolean if a field has been set.
+func (o *Volume) HasDeleteRequestedOn() bool {
+	if o != nil && !IsNil(o.DeleteRequestedOn) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeleteRequestedOn gets a reference to the given time.Time and assigns it to the DeleteRequestedOn field.
+func (o *Volume) SetDeleteRequestedOn(v time.Time) {
+	o.DeleteRequestedOn = &v
+}
+
 // GetPermissions returns the Permissions field value if set, zero value otherwise.
 func (o *Volume) GetPermissions() Permissions {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		var ret Permissions
 		return ret
 	}
@@ -390,7 +427,7 @@ func (o *Volume) GetPermissions() Permissions {
 // GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Volume) GetPermissionsOk() (*Permissions, bool) {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		return nil, false
 	}
 	return o.Permissions, true
@@ -398,7 +435,7 @@ func (o *Volume) GetPermissionsOk() (*Permissions, bool) {
 
 // HasPermissions returns a boolean if a field has been set.
 func (o *Volume) HasPermissions() bool {
-	if o != nil && o.Permissions != nil {
+	if o != nil && !IsNil(o.Permissions) {
 		return true
 	}
 
@@ -412,7 +449,7 @@ func (o *Volume) SetPermissions(v Permissions) {
 
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *Volume) GetTags() []TagAssignment {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		var ret []TagAssignment
 		return ret
 	}
@@ -422,7 +459,7 @@ func (o *Volume) GetTags() []TagAssignment {
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Volume) GetTagsOk() ([]TagAssignment, bool) {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
 	return o.Tags, true
@@ -430,7 +467,7 @@ func (o *Volume) GetTagsOk() ([]TagAssignment, bool) {
 
 // HasTags returns a boolean if a field has been set.
 func (o *Volume) HasTags() bool {
-	if o != nil && o.Tags != nil {
+	if o != nil && !IsNil(o.Tags) {
 		return true
 	}
 
@@ -443,44 +480,55 @@ func (o *Volume) SetTags(v []TagAssignment) {
 }
 
 func (o Volume) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Path != nil {
-		toSerialize["path"] = o.Path
-	}
-	if o.PathSuffix != nil {
-		toSerialize["pathSuffix"] = o.PathSuffix
-	}
-	if o.CapacityInGb != nil {
-		toSerialize["capacityInGb"] = o.CapacityInGb
-	}
-	if o.UsedCapacityInGb != nil {
-		toSerialize["usedCapacityInGb"] = o.UsedCapacityInGb
-	}
-	if o.Protocol != nil {
-		toSerialize["protocol"] = o.Protocol
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.CreatedOn != nil {
-		toSerialize["createdOn"] = o.CreatedOn
-	}
-	if o.Permissions != nil {
-		toSerialize["permissions"] = o.Permissions
-	}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Volume) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Path) {
+		toSerialize["path"] = o.Path
+	}
+	if !IsNil(o.PathSuffix) {
+		toSerialize["pathSuffix"] = o.PathSuffix
+	}
+	if !IsNil(o.CapacityInGb) {
+		toSerialize["capacityInGb"] = o.CapacityInGb
+	}
+	if !IsNil(o.UsedCapacityInGb) {
+		toSerialize["usedCapacityInGb"] = o.UsedCapacityInGb
+	}
+	if !IsNil(o.Protocol) {
+		toSerialize["protocol"] = o.Protocol
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.CreatedOn) {
+		toSerialize["createdOn"] = o.CreatedOn
+	}
+	if !IsNil(o.DeleteRequestedOn) {
+		toSerialize["deleteRequestedOn"] = o.DeleteRequestedOn
+	}
+	if !IsNil(o.Permissions) {
+		toSerialize["permissions"] = o.Permissions
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	return toSerialize, nil
 }
 
 type NullableVolume struct {

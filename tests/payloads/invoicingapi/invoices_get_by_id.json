@@ -1,0 +1,24 @@
+{
+    "request": {
+        "method": "GET",
+        "path": "/invoicing/v1/invoices/{id}",
+        "pathParameters": {
+            "id": [
+                "id"
+            ]
+        }
+    },
+    "response": {
+        "statusCode": 200,
+        "body": {
+            "id": "id",
+            "number": "13218-1180326",
+            "currency": "EUR",
+            "amount": 0.0,
+            "outstandingAmount": 1.0,
+            "status": "PAID",
+            "sentOn": "2020-04-13T00:00:00Z",
+            "dueDate": "2022-04-13T00:00:00Z"
+        }
+    }
+}

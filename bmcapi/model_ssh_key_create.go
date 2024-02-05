@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the SshKeyCreate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SshKeyCreate{}
 
 // SshKeyCreate SSH key creation model.
 type SshKeyCreate struct {
@@ -24,6 +29,8 @@ type SshKeyCreate struct {
 	// SSH key actual key value.
 	Key string `json:"key"`
 }
+
+type _SshKeyCreate SshKeyCreate
 
 // NewSshKeyCreate instantiates a new SshKeyCreate object
 // This constructor will assign default values to properties that have it defined,
@@ -118,17 +125,58 @@ func (o *SshKeyCreate) SetKey(v string) {
 }
 
 func (o SshKeyCreate) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["default"] = o.Default
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["key"] = o.Key
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SshKeyCreate) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["default"] = o.Default
+	toSerialize["name"] = o.Name
+	toSerialize["key"] = o.Key
+	return toSerialize, nil
+}
+
+func (o *SshKeyCreate) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"default",
+		"name",
+		"key",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSshKeyCreate := _SshKeyCreate{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSshKeyCreate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SshKeyCreate(varSshKeyCreate)
+
+	return err
 }
 
 type NullableSshKeyCreate struct {

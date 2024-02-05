@@ -22,7 +22,7 @@ For more information, please visit [https://phoenixnap.com/](https://phoenixnap.
 
 Install the following dependencies:
 
-```shell
+```sh
 go get github.com/stretchr/testify/assert
 go get golang.org/x/oauth2
 go get golang.org/x/net/context
@@ -30,13 +30,13 @@ go get golang.org/x/net/context
 
 Put the package under your project folder and add the following in import:
 
-```golang
+```go
 import bmcapi "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
 
-```golang
+```go
 os.Setenv("HTTP_PROXY", "http://proxy_name:proxy_port")
 ```
 
@@ -46,17 +46,17 @@ Default configuration comes with `Servers` field that contains server objects as
 
 ### Select Server Configuration
 
-For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
+For using other server than the one defined on index 0 set context value `bmcapi.ContextServerIndex` of type `int`.
 
-```golang
+```go
 ctx := context.WithValue(context.Background(), bmcapi.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
 
-Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
+Templated server URL is formatted using default variables from configuration or from context value `bmcapi.ContextServerVariables` of type `map[string]string`.
 
-```golang
+```go
 ctx := context.WithValue(context.Background(), bmcapi.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
@@ -68,9 +68,9 @@ Note, enum values are always validated and all unused variables are silently ign
 
 Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
-Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+Similar rules for overriding default operation server index and variables applies by using `bmcapi.ContextOperationServerIndices` and `bmcapi.ContextOperationServerVariables` context maps.
 
-```
+```go
 ctx := context.WithValue(context.Background(), bmcapi.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
@@ -87,35 +87,36 @@ All URIs are relative to *https://api.phoenixnap.com/bmc/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*QuotasApi* | [**QuotasGet**](docs/QuotasApi.md#quotasget) | **Get** /quotas | List quotas
-*QuotasApi* | [**QuotasQuotaIdActionsRequestEditPost**](docs/QuotasApi.md#quotasquotaidactionsrequesteditpost) | **Post** /quotas/{quotaId}/actions/request-edit | Request quota limit change.
-*QuotasApi* | [**QuotasQuotaIdGet**](docs/QuotasApi.md#quotasquotaidget) | **Get** /quotas/{quotaId} | Get a quota.
-*SSHKeysApi* | [**SshKeysGet**](docs/SSHKeysApi.md#sshkeysget) | **Get** /ssh-keys | List SSH Keys.
-*SSHKeysApi* | [**SshKeysPost**](docs/SSHKeysApi.md#sshkeyspost) | **Post** /ssh-keys | Create SSH Key.
-*SSHKeysApi* | [**SshKeysSshKeyIdDelete**](docs/SSHKeysApi.md#sshkeyssshkeyiddelete) | **Delete** /ssh-keys/{sshKeyId} | Delete SSH Key.
-*SSHKeysApi* | [**SshKeysSshKeyIdGet**](docs/SSHKeysApi.md#sshkeyssshkeyidget) | **Get** /ssh-keys/{sshKeyId} | Get SSH Key.
-*SSHKeysApi* | [**SshKeysSshKeyIdPut**](docs/SSHKeysApi.md#sshkeyssshkeyidput) | **Put** /ssh-keys/{sshKeyId} | Edit SSH Key.
-*ServersApi* | [**DeletePrivateNetwork**](docs/ServersApi.md#deleteprivatenetwork) | **Delete** /servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId} | Removes the server from private network.
-*ServersApi* | [**ServersGet**](docs/ServersApi.md#serversget) | **Get** /servers | List servers.
-*ServersApi* | [**ServersPost**](docs/ServersApi.md#serverspost) | **Post** /servers | Create new server.
-*ServersApi* | [**ServersServerIdActionsDeprovisionPost**](docs/ServersApi.md#serversserveridactionsdeprovisionpost) | **Post** /servers/{serverId}/actions/deprovision | Deprovision a server.
-*ServersApi* | [**ServersServerIdActionsPowerOffPost**](docs/ServersApi.md#serversserveridactionspoweroffpost) | **Post** /servers/{serverId}/actions/power-off | Power off server.
-*ServersApi* | [**ServersServerIdActionsPowerOnPost**](docs/ServersApi.md#serversserveridactionspoweronpost) | **Post** /servers/{serverId}/actions/power-on | Power on server.
-*ServersApi* | [**ServersServerIdActionsRebootPost**](docs/ServersApi.md#serversserveridactionsrebootpost) | **Post** /servers/{serverId}/actions/reboot | Reboot server.
-*ServersApi* | [**ServersServerIdActionsReservePost**](docs/ServersApi.md#serversserveridactionsreservepost) | **Post** /servers/{serverId}/actions/reserve | Reserve server.
-*ServersApi* | [**ServersServerIdActionsResetPost**](docs/ServersApi.md#serversserveridactionsresetpost) | **Post** /servers/{serverId}/actions/reset | Reset server.
-*ServersApi* | [**ServersServerIdActionsShutdownPost**](docs/ServersApi.md#serversserveridactionsshutdownpost) | **Post** /servers/{serverId}/actions/shutdown | Shutdown server.
-*ServersApi* | [**ServersServerIdDelete**](docs/ServersApi.md#serversserveriddelete) | **Delete** /servers/{serverId} | Delete server.
-*ServersApi* | [**ServersServerIdGet**](docs/ServersApi.md#serversserveridget) | **Get** /servers/{serverId} | Get server.
-*ServersApi* | [**ServersServerIdIpBlocksIpBlockIdDelete**](docs/ServersApi.md#serversserveridipblocksipblockiddelete) | **Delete** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks/{ipBlockId} | Unassign IP Block from Server.
-*ServersApi* | [**ServersServerIdIpBlocksPost**](docs/ServersApi.md#serversserveridipblockspost) | **Post** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks | Assign IP Block to Server.
-*ServersApi* | [**ServersServerIdPatch**](docs/ServersApi.md#serversserveridpatch) | **Patch** /servers/{serverId} | Patch a Server.
-*ServersApi* | [**ServersServerIdPrivateNetworksPatch**](docs/ServersApi.md#serversserveridprivatenetworkspatch) | **Patch** /servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId} | Updates the server&#39;s private network&#39;s IP addresses
-*ServersApi* | [**ServersServerIdPrivateNetworksPost**](docs/ServersApi.md#serversserveridprivatenetworkspost) | **Post** /servers/{serverId}/network-configuration/private-network-configuration/private-networks | Adds the server to a private network.
-*ServersApi* | [**ServersServerIdPublicNetworksDelete**](docs/ServersApi.md#serversserveridpublicnetworksdelete) | **Delete** /servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId} | Removes the server from the Public Network
-*ServersApi* | [**ServersServerIdPublicNetworksPatch**](docs/ServersApi.md#serversserveridpublicnetworkspatch) | **Patch** /servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId} | Updates the server&#39;s public network&#39;s IP addresses.
-*ServersApi* | [**ServersServerIdPublicNetworksPost**](docs/ServersApi.md#serversserveridpublicnetworkspost) | **Post** /servers/{serverId}/network-configuration/public-network-configuration/public-networks | Adds the server to a Public Network.
-*ServersApi* | [**ServersServerIdTagsPut**](docs/ServersApi.md#serversserveridtagsput) | **Put** /servers/{serverId}/tags | Overwrite tags assigned for Server.
+*QuotasAPI* | [**QuotasGet**](docs/QuotasAPI.md#quotasget) | **Get** /quotas | List quotas
+*QuotasAPI* | [**QuotasQuotaIdActionsRequestEditPost**](docs/QuotasAPI.md#quotasquotaidactionsrequesteditpost) | **Post** /quotas/{quotaId}/actions/request-edit | Request quota limit change.
+*QuotasAPI* | [**QuotasQuotaIdGet**](docs/QuotasAPI.md#quotasquotaidget) | **Get** /quotas/{quotaId} | Get a quota.
+*SSHKeysAPI* | [**SshKeysGet**](docs/SSHKeysAPI.md#sshkeysget) | **Get** /ssh-keys | List SSH Keys.
+*SSHKeysAPI* | [**SshKeysPost**](docs/SSHKeysAPI.md#sshkeyspost) | **Post** /ssh-keys | Create SSH Key.
+*SSHKeysAPI* | [**SshKeysSshKeyIdDelete**](docs/SSHKeysAPI.md#sshkeyssshkeyiddelete) | **Delete** /ssh-keys/{sshKeyId} | Delete SSH Key.
+*SSHKeysAPI* | [**SshKeysSshKeyIdGet**](docs/SSHKeysAPI.md#sshkeyssshkeyidget) | **Get** /ssh-keys/{sshKeyId} | Get SSH Key.
+*SSHKeysAPI* | [**SshKeysSshKeyIdPut**](docs/SSHKeysAPI.md#sshkeyssshkeyidput) | **Put** /ssh-keys/{sshKeyId} | Edit SSH Key.
+*ServersAPI* | [**DeletePrivateNetwork**](docs/ServersAPI.md#deleteprivatenetwork) | **Delete** /servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId} | Removes the server from private network.
+*ServersAPI* | [**ServersGet**](docs/ServersAPI.md#serversget) | **Get** /servers | List servers.
+*ServersAPI* | [**ServersPost**](docs/ServersAPI.md#serverspost) | **Post** /servers | Create new server.
+*ServersAPI* | [**ServersServerIdActionsDeprovisionPost**](docs/ServersAPI.md#serversserveridactionsdeprovisionpost) | **Post** /servers/{serverId}/actions/deprovision | Deprovision a server.
+*ServersAPI* | [**ServersServerIdActionsPowerOffPost**](docs/ServersAPI.md#serversserveridactionspoweroffpost) | **Post** /servers/{serverId}/actions/power-off | Power off server.
+*ServersAPI* | [**ServersServerIdActionsPowerOnPost**](docs/ServersAPI.md#serversserveridactionspoweronpost) | **Post** /servers/{serverId}/actions/power-on | Power on server.
+*ServersAPI* | [**ServersServerIdActionsProvisionPost**](docs/ServersAPI.md#serversserveridactionsprovisionpost) | **Post** /servers/{serverId}/actions/provision | Provision server.
+*ServersAPI* | [**ServersServerIdActionsRebootPost**](docs/ServersAPI.md#serversserveridactionsrebootpost) | **Post** /servers/{serverId}/actions/reboot | Reboot server.
+*ServersAPI* | [**ServersServerIdActionsReservePost**](docs/ServersAPI.md#serversserveridactionsreservepost) | **Post** /servers/{serverId}/actions/reserve | Reserve server.
+*ServersAPI* | [**ServersServerIdActionsResetPost**](docs/ServersAPI.md#serversserveridactionsresetpost) | **Post** /servers/{serverId}/actions/reset | Reset server.
+*ServersAPI* | [**ServersServerIdActionsShutdownPost**](docs/ServersAPI.md#serversserveridactionsshutdownpost) | **Post** /servers/{serverId}/actions/shutdown | Shutdown server.
+*ServersAPI* | [**ServersServerIdDelete**](docs/ServersAPI.md#serversserveriddelete) | **Delete** /servers/{serverId} | Delete server.
+*ServersAPI* | [**ServersServerIdGet**](docs/ServersAPI.md#serversserveridget) | **Get** /servers/{serverId} | Get server.
+*ServersAPI* | [**ServersServerIdIpBlocksIpBlockIdDelete**](docs/ServersAPI.md#serversserveridipblocksipblockiddelete) | **Delete** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks/{ipBlockId} | Unassign IP Block from Server.
+*ServersAPI* | [**ServersServerIdIpBlocksPost**](docs/ServersAPI.md#serversserveridipblockspost) | **Post** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks | Assign IP Block to Server.
+*ServersAPI* | [**ServersServerIdPatch**](docs/ServersAPI.md#serversserveridpatch) | **Patch** /servers/{serverId} | Patch a Server.
+*ServersAPI* | [**ServersServerIdPrivateNetworksPatch**](docs/ServersAPI.md#serversserveridprivatenetworkspatch) | **Patch** /servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId} | Updates the server&#39;s private network&#39;s IP addresses
+*ServersAPI* | [**ServersServerIdPrivateNetworksPost**](docs/ServersAPI.md#serversserveridprivatenetworkspost) | **Post** /servers/{serverId}/network-configuration/private-network-configuration/private-networks | Adds the server to a private network.
+*ServersAPI* | [**ServersServerIdPublicNetworksDelete**](docs/ServersAPI.md#serversserveridpublicnetworksdelete) | **Delete** /servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId} | Removes the server from the Public Network
+*ServersAPI* | [**ServersServerIdPublicNetworksPatch**](docs/ServersAPI.md#serversserveridpublicnetworkspatch) | **Patch** /servers/{serverId}/network-configuration/public-network-configuration/public-networks/{publicNetworkId} | Updates the server&#39;s public network&#39;s IP addresses.
+*ServersAPI* | [**ServersServerIdPublicNetworksPost**](docs/ServersAPI.md#serversserveridpublicnetworkspost) | **Post** /servers/{serverId}/network-configuration/public-network-configuration/public-networks | Adds the server to a Public Network.
+*ServersAPI* | [**ServersServerIdTagsPut**](docs/ServersAPI.md#serversserveridtagsput) | **Put** /servers/{serverId}/tags | Overwrite tags assigned for Server.
 
 
 ## Documentation For Models
@@ -139,7 +140,6 @@ Class | Method | HTTP request | Description
  - [Quota](docs/Quota.md)
  - [QuotaEditLimitRequest](docs/QuotaEditLimitRequest.md)
  - [QuotaEditLimitRequestDetails](docs/QuotaEditLimitRequestDetails.md)
- - [QuotaEditLimitRequestDetailsAllOf](docs/QuotaEditLimitRequestDetailsAllOf.md)
  - [RelinquishIpBlock](docs/RelinquishIpBlock.md)
  - [ResetResult](docs/ResetResult.md)
  - [Server](docs/Server.md)
@@ -148,6 +148,7 @@ Class | Method | HTTP request | Description
  - [ServerNetworkUpdate](docs/ServerNetworkUpdate.md)
  - [ServerPatch](docs/ServerPatch.md)
  - [ServerPrivateNetwork](docs/ServerPrivateNetwork.md)
+ - [ServerProvision](docs/ServerProvision.md)
  - [ServerPublicNetwork](docs/ServerPublicNetwork.md)
  - [ServerReserve](docs/ServerReserve.md)
  - [ServerReset](docs/ServerReset.md)
@@ -163,7 +164,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Authorization
 
 
-
+Authentication schemes defined for the API:
 ### OAuth2
 
 
@@ -176,20 +177,20 @@ Class | Method | HTTP request | Description
 
 Example
 
-```golang
-auth := context.WithValue(context.Background(), sw.ContextAccessToken, "ACCESSTOKENSTRING")
+```go
+auth := context.WithValue(context.Background(), bmcapi.ContextAccessToken, "ACCESSTOKENSTRING")
 r, err := client.Service.Operation(auth, args)
 ```
 
 Or via OAuth2 module to automatically refresh tokens and perform user authentication.
 
-```golang
+```go
 import "golang.org/x/oauth2"
 
 /* Perform OAuth2 round trip request and obtain a token */
 
 tokenSource := oauth2cfg.TokenSource(createContext(httpClient), &token)
-auth := context.WithValue(oauth2.NoContext, sw.ContextOAuth2, tokenSource)
+auth := context.WithValue(oauth2.NoContext, bmcapi.ContextOAuth2, tokenSource)
 r, err := client.Service.Operation(auth, args)
 ```
 
@@ -213,4 +214,3 @@ Each of these functions takes a value of the given basic type and returns a poin
 ## Author
 
 support@phoenixnap.com
-

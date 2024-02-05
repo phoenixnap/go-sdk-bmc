@@ -15,7 +15,7 @@ docs/StorageNetwork.md
 docs/StorageNetworkCreate.md
 docs/StorageNetworkUpdate.md
 docs/StorageNetworkVolumeCreate.md
-docs/StorageNetworksApi.md
+docs/StorageNetworksAPI.md
 docs/TagAssignment.md
 docs/TagAssignmentRequest.md
 docs/Volume.md

@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package tagapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ResourceAssignment type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceAssignment{}
 
 // ResourceAssignment Resource assigned to a tag.
 type ResourceAssignment struct {
@@ -22,6 +27,8 @@ type ResourceAssignment struct {
 	// The value of the tag assigned to the resource.
 	Value *string `json:"value,omitempty"`
 }
+
+type _ResourceAssignment ResourceAssignment
 
 // NewResourceAssignment instantiates a new ResourceAssignment object
 // This constructor will assign default values to properties that have it defined,
@@ -67,7 +74,7 @@ func (o *ResourceAssignment) SetResourceName(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *ResourceAssignment) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -77,7 +84,7 @@ func (o *ResourceAssignment) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceAssignment) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -85,7 +92,7 @@ func (o *ResourceAssignment) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *ResourceAssignment) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -98,14 +105,57 @@ func (o *ResourceAssignment) SetValue(v string) {
 }
 
 func (o ResourceAssignment) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["resourceName"] = o.ResourceName
-	}
-	if o.Value != nil {
-		toSerialize["value"] = o.Value
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ResourceAssignment) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["resourceName"] = o.ResourceName
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
+	return toSerialize, nil
+}
+
+func (o *ResourceAssignment) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"resourceName",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varResourceAssignment := _ResourceAssignment{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varResourceAssignment)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ResourceAssignment(varResourceAssignment)
+
+	return err
 }
 
 type NullableResourceAssignment struct {

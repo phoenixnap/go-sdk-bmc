@@ -10,47 +10,57 @@ jobs:
     uses: ./.github/workflows/_common.yml
     with:
       module-name: bmcapi
-      test-suite: TestBmcApiSuite
+      test-suite: BmcApiTestSuite
   build-and-test-rancherapi:
     uses: ./.github/workflows/_common.yml
     with:
       module-name: ranchersolutionapi
-      test-suite: TestRancherApiSuite
+      test-suite: RancherApiTestSuite
   build-and-test-networkapi:
     uses: ./.github/workflows/_common.yml
     with:
       module-name: networkapi
-      test-suite: TestNetworkApiSuite
+      test-suite: NetworkApiTestSuite
   build-and-test-ipapi:
     uses: ./.github/workflows/_common.yml
     with:
       module-name: ipapi
-      test-suite: TestIpApiSuite
+      test-suite: IpApiTestSuite
   build-and-test-auditapi:
     uses: ./.github/workflows/_common.yml
     with:
       module-name: auditapi
-      test-suite: TestAuditApiSuite
+      test-suite: AuditApiTestSuite
   build-and-test-tagapi:
     uses: ./.github/workflows/_common.yml
     with:
       module-name: tagapi
-      test-suite: TestTagApiSuite
+      test-suite: TagApiTestSuite
   build-and-test-billingapi:
     uses: ./.github/workflows/_common.yml
     with:
       module-name: billingapi
-      test-suite: TestBillingApiSuite
+      test-suite: BillingApiTestSuite
   build-and-test-networkstorageapi:
     uses: ./.github/workflows/_common.yml
     with:
       module-name: networkstorageapi
-      test-suite: TestNetworkStorageApiSuite
+      test-suite: NetworkStorageApiTestSuite
   build-and-test-locationapi:
     uses: ./.github/workflows/_common.yml
     with:
       module-name: locationapi
-      test-suite: TestLocationApiSuite
+      test-suite: LocationApiTestSuite
+  build-and-test-invoicingapi:
+    uses: ./.github/workflows/_common.yml
+    with:
+      module-name: invoicingapi
+      test-suite: InvoicingApiTestSuite
+  build-and-test-paymentsapi:
+    uses: ./.github/workflows/_common.yml
+    with:
+      module-name: paymentsapi
+      test-suite: PaymentsApiTestSuite
 
   publish-test-results:
     name: Publish Test Results
@@ -64,6 +74,8 @@ jobs:
       - build-and-test-billingapi
       - build-and-test-networkstorageapi
       - build-and-test-locationapi
+      - build-and-test-invoicingapi
+      - build-and-test-paymentsapi
     runs-on: ubuntu-latest
     if: always()
     steps:

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **Protocol** | Pointer to **string** | File system protocol. Currently this field should be set to &#x60;NFS&#x60;. | [optional] 
 **Status** | Pointer to [**Status**](Status.md) |  | [optional] 
 **CreatedOn** | Pointer to **time.Time** |  | [optional] 
+**DeleteRequestedOn** | Pointer to **time.Time** | Date and time of the initial request for volume deletion. | [optional] 
 **Permissions** | Pointer to [**Permissions**](Permissions.md) |  | [optional] 
 **Tags** | Pointer to [**[]TagAssignment**](TagAssignment.md) | The tags assigned if any. | [optional] 
 
@@ -285,6 +286,31 @@ SetCreatedOn sets CreatedOn field to given value.
 `func (o *Volume) HasCreatedOn() bool`
 
 HasCreatedOn returns a boolean if a field has been set.
+
+### GetDeleteRequestedOn
+
+`func (o *Volume) GetDeleteRequestedOn() time.Time`
+
+GetDeleteRequestedOn returns the DeleteRequestedOn field if non-nil, zero value otherwise.
+
+### GetDeleteRequestedOnOk
+
+`func (o *Volume) GetDeleteRequestedOnOk() (*time.Time, bool)`
+
+GetDeleteRequestedOnOk returns a tuple with the DeleteRequestedOn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeleteRequestedOn
+
+`func (o *Volume) SetDeleteRequestedOn(v time.Time)`
+
+SetDeleteRequestedOn sets DeleteRequestedOn field to given value.
+
+### HasDeleteRequestedOn
+
+`func (o *Volume) HasDeleteRequestedOn() bool`
+
+HasDeleteRequestedOn returns a boolean if a field has been set.
 
 ### GetPermissions
 

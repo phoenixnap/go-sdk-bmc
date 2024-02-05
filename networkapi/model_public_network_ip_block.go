@@ -12,14 +12,21 @@ Contact: support@phoenixnap.com
 package networkapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PublicNetworkIpBlock type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicNetworkIpBlock{}
 
 // PublicNetworkIpBlock The assigned IP block to the Public Network.
 type PublicNetworkIpBlock struct {
 	// The IP Block identifier.
 	Id string `json:"id"`
 }
+
+type _PublicNetworkIpBlock PublicNetworkIpBlock
 
 // NewPublicNetworkIpBlock instantiates a new PublicNetworkIpBlock object
 // This constructor will assign default values to properties that have it defined,
@@ -64,11 +71,54 @@ func (o *PublicNetworkIpBlock) SetId(v string) {
 }
 
 func (o PublicNetworkIpBlock) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicNetworkIpBlock) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	return toSerialize, nil
+}
+
+func (o *PublicNetworkIpBlock) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicNetworkIpBlock := _PublicNetworkIpBlock{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicNetworkIpBlock)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicNetworkIpBlock(varPublicNetworkIpBlock)
+
+	return err
 }
 
 type NullablePublicNetworkIpBlock struct {

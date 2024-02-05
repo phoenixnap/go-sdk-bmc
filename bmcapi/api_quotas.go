@@ -14,13 +14,13 @@ package bmcapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-type QuotasApi interface {
+type QuotasAPI interface {
 
 	/*
 		QuotasGet List quotas
@@ -66,12 +66,12 @@ type QuotasApi interface {
 	QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest) (*Quota, *http.Response, error)
 }
 
-// QuotasApiService QuotasApi service
-type QuotasApiService service
+// QuotasAPIService QuotasAPI service
+type QuotasAPIService service
 
 type ApiQuotasGetRequest struct {
 	ctx        context.Context
-	ApiService QuotasApi
+	ApiService QuotasAPI
 }
 
 func (r ApiQuotasGetRequest) Execute() ([]Quota, *http.Response, error) {
@@ -86,7 +86,7 @@ Get account quota details.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiQuotasGetRequest
 */
-func (a *QuotasApiService) QuotasGet(ctx context.Context) ApiQuotasGetRequest {
+func (a *QuotasAPIService) QuotasGet(ctx context.Context) ApiQuotasGetRequest {
 	return ApiQuotasGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -95,7 +95,7 @@ func (a *QuotasApiService) QuotasGet(ctx context.Context) ApiQuotasGetRequest {
 
 // Execute executes the request
 //  @return []Quota
-func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *http.Response, error) {
+func (a *QuotasAPIService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -103,7 +103,7 @@ func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *ht
 		localVarReturnValue []Quota
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QuotasApiService.QuotasGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QuotasAPIService.QuotasGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -141,9 +141,9 @@ func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *ht
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -160,6 +160,7 @@ func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *ht
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -170,6 +171,7 @@ func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *ht
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -180,6 +182,7 @@ func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *ht
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -190,6 +193,7 @@ func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *ht
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -209,7 +213,7 @@ func (a *QuotasApiService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *ht
 
 type ApiQuotasQuotaIdActionsRequestEditPostRequest struct {
 	ctx                   context.Context
-	ApiService            QuotasApi
+	ApiService            QuotasAPI
 	quotaId               string
 	quotaEditLimitRequest *QuotaEditLimitRequest
 }
@@ -232,7 +236,7 @@ Sends a request to edit the limit of a quota.
  @param quotaId The ID of the Quota.
  @return ApiQuotasQuotaIdActionsRequestEditPostRequest
 */
-func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPost(ctx context.Context, quotaId string) ApiQuotasQuotaIdActionsRequestEditPostRequest {
+func (a *QuotasAPIService) QuotasQuotaIdActionsRequestEditPost(ctx context.Context, quotaId string) ApiQuotasQuotaIdActionsRequestEditPostRequest {
 	return ApiQuotasQuotaIdActionsRequestEditPostRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -241,24 +245,27 @@ func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPost(ctx context.Conte
 }
 
 // Execute executes the request
-func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuotasQuotaIdActionsRequestEditPostRequest) (*http.Response, error) {
+func (a *QuotasAPIService) QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuotasQuotaIdActionsRequestEditPostRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QuotasApiService.QuotasQuotaIdActionsRequestEditPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QuotasAPIService.QuotasQuotaIdActionsRequestEditPost")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/quotas/{quotaId}/actions/request-edit"
-	localVarPath = strings.Replace(localVarPath, "{"+"quotaId"+"}", url.PathEscape(parameterToString(r.quotaId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"quotaId"+"}", url.PathEscape(parameterValueToString(r.quotaId, "quotaId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.quotaEditLimitRequest == nil {
+		return nil, reportError("quotaEditLimitRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -289,9 +296,9 @@ func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuota
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -308,6 +315,7 @@ func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuota
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -318,6 +326,7 @@ func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuota
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -328,6 +337,7 @@ func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuota
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -338,6 +348,7 @@ func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuota
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
@@ -348,7 +359,7 @@ func (a *QuotasApiService) QuotasQuotaIdActionsRequestEditPostExecute(r ApiQuota
 
 type ApiQuotasQuotaIdGetRequest struct {
 	ctx        context.Context
-	ApiService QuotasApi
+	ApiService QuotasAPI
 	quotaId    string
 }
 
@@ -365,7 +376,7 @@ Get account quota details.
  @param quotaId The ID of the Quota.
  @return ApiQuotasQuotaIdGetRequest
 */
-func (a *QuotasApiService) QuotasQuotaIdGet(ctx context.Context, quotaId string) ApiQuotasQuotaIdGetRequest {
+func (a *QuotasAPIService) QuotasQuotaIdGet(ctx context.Context, quotaId string) ApiQuotasQuotaIdGetRequest {
 	return ApiQuotasQuotaIdGetRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -375,7 +386,7 @@ func (a *QuotasApiService) QuotasQuotaIdGet(ctx context.Context, quotaId string)
 
 // Execute executes the request
 //  @return Quota
-func (a *QuotasApiService) QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest) (*Quota, *http.Response, error) {
+func (a *QuotasAPIService) QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest) (*Quota, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -383,13 +394,13 @@ func (a *QuotasApiService) QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest)
 		localVarReturnValue *Quota
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QuotasApiService.QuotasQuotaIdGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QuotasAPIService.QuotasQuotaIdGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/quotas/{quotaId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"quotaId"+"}", url.PathEscape(parameterToString(r.quotaId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"quotaId"+"}", url.PathEscape(parameterValueToString(r.quotaId, "quotaId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -422,9 +433,9 @@ func (a *QuotasApiService) QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -441,6 +452,7 @@ func (a *QuotasApiService) QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -451,6 +463,7 @@ func (a *QuotasApiService) QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -461,6 +474,7 @@ func (a *QuotasApiService) QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -471,6 +485,7 @@ func (a *QuotasApiService) QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr

@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package ipapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the Error type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Error{}
 
 // Error struct for Error
 type Error struct {
@@ -22,6 +27,8 @@ type Error struct {
 	// Validation errors, if any.
 	ValidationErrors []string `json:"validationErrors,omitempty"`
 }
+
+type _Error Error
 
 // NewError instantiates a new Error object
 // This constructor will assign default values to properties that have it defined,
@@ -67,7 +74,7 @@ func (o *Error) SetMessage(v string) {
 
 // GetValidationErrors returns the ValidationErrors field value if set, zero value otherwise.
 func (o *Error) GetValidationErrors() []string {
-	if o == nil || o.ValidationErrors == nil {
+	if o == nil || IsNil(o.ValidationErrors) {
 		var ret []string
 		return ret
 	}
@@ -77,7 +84,7 @@ func (o *Error) GetValidationErrors() []string {
 // GetValidationErrorsOk returns a tuple with the ValidationErrors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Error) GetValidationErrorsOk() ([]string, bool) {
-	if o == nil || o.ValidationErrors == nil {
+	if o == nil || IsNil(o.ValidationErrors) {
 		return nil, false
 	}
 	return o.ValidationErrors, true
@@ -85,7 +92,7 @@ func (o *Error) GetValidationErrorsOk() ([]string, bool) {
 
 // HasValidationErrors returns a boolean if a field has been set.
 func (o *Error) HasValidationErrors() bool {
-	if o != nil && o.ValidationErrors != nil {
+	if o != nil && !IsNil(o.ValidationErrors) {
 		return true
 	}
 
@@ -98,14 +105,57 @@ func (o *Error) SetValidationErrors(v []string) {
 }
 
 func (o Error) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["message"] = o.Message
-	}
-	if o.ValidationErrors != nil {
-		toSerialize["validationErrors"] = o.ValidationErrors
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Error) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["message"] = o.Message
+	if !IsNil(o.ValidationErrors) {
+		toSerialize["validationErrors"] = o.ValidationErrors
+	}
+	return toSerialize, nil
+}
+
+func (o *Error) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"message",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varError := _Error{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varError)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Error(varError)
+
+	return err
 }
 
 type NullableError struct {

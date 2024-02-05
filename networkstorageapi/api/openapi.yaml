@@ -4,11 +4,15 @@ info:
     email: support@phoenixnap.com
     name: PhoenixNAP Team
     url: https://phoenixnap.com/
-  description: "Create, list, edit, and delete storage networks with the Network Storage\
-    \ API. Use storage networks to expand storage capacity on a private network.\n\
-    <br>\n<span class='pnap-api-knowledge-base-link'>\nKnowledge base articles to\
-    \ help you can be found\n<a href='https://phoenixnap.com/kb/bare-metal-cloud-storage'\
-    \ target='_blank'>here</a>\n</span>\n<br>\n<b>All URLs are relative to (https://api.phoenixnap.com/network-storage/v1/)</b>\n"
+  description: |
+    Create, list, edit, and delete storage networks with the Network Storage API. Use storage networks to expand storage capacity on a private network.
+    <br>
+    <span class='pnap-api-knowledge-base-link'>
+    Knowledge base articles to help you can be found
+    <a href='https://phoenixnap.com/kb/bare-metal-cloud-storage' target='_blank'>here</a>
+    </span>
+    <br>
+    <b>All URLs are relative to (https://api.phoenixnap.com/network-storage/v1/)</b>
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -91,6 +95,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/StorageNetworkCreate'
+        required: true
       responses:
         "202":
           content:
@@ -138,25 +143,25 @@ paths:
       summary: Create a storage network and volume.
       tags:
       - Storage Networks
-  /storage-networks/{storageNetworkId}:
+  /storage-networks/{storageId}:
     delete:
       description: Delete a storage network and its volume. A storage network can
         only be removed if it's not in 'BUSY' state. Billing stops on storage network
         deletion.
       operationId: storageNetworksIdDelete
       parameters:
-      - description: ID of storage network.
+      - description: ID of the storage.
         example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
         explode: false
         in: path
-        name: storageNetworkId
+        name: storageId
         required: true
         schema:
           type: string
         style: simple
       responses:
         "204":
-          description: Storage Network is deleted.
+          description: Initiate the deletion process for the specified Storage Network.
         "400":
           content:
             application/json:
@@ -191,6 +196,13 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed because service is currently unavailable.
+            Please try again later.
       security:
       - OAuth2:
         - networkstorage
@@ -201,11 +213,11 @@ paths:
       description: Get storage network details.
       operationId: storageNetworksIdGet
       parameters:
-      - description: ID of storage network.
+      - description: ID of the storage.
         example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
         explode: false
         in: path
-        name: storageNetworkId
+        name: storageId
         required: true
         schema:
           type: string
@@ -248,11 +260,11 @@ paths:
       description: Update storage network details.
       operationId: storageNetworksIdPatch
       parameters:
-      - description: ID of storage network.
+      - description: ID of the storage.
         example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
         explode: false
         in: path
-        name: storageNetworkId
+        name: storageId
         required: true
         schema:
           type: string
@@ -266,6 +278,7 @@ paths:
             schema:
               $ref: '#/components/schemas/StorageNetworkUpdate'
         description: Storage network to be updated.
+        required: true
       responses:
         "200":
           content:
@@ -307,16 +320,16 @@ paths:
       summary: Update storage network details.
       tags:
       - Storage Networks
-  /storage-networks/{storageNetworkId}/volumes:
+  /storage-networks/{storageId}/volumes:
     get:
       description: Display one or more volumes belonging to a storage network.
       operationId: storageNetworksStorageNetworkIdVolumesGet
       parameters:
-      - description: ID of storage network.
+      - description: ID of the storage.
         example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
         explode: false
         in: path
-        name: storageNetworkId
+        name: storageId
         required: true
         schema:
           type: string
@@ -372,11 +385,11 @@ paths:
       description: Create a volume belonging to a storage network.
       operationId: storageNetworksStorageNetworkIdVolumesPost
       parameters:
-      - description: ID of storage network.
+      - description: ID of the storage.
         example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
         explode: false
         in: path
-        name: storageNetworkId
+        name: storageId
         required: true
         schema:
           type: string
@@ -386,6 +399,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/VolumeCreate'
+        required: true
       responses:
         "202":
           content:
@@ -427,22 +441,29 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed because service is currently unavailable.
+            Please try again later.
       security:
       - OAuth2:
         - networkstorage
       summary: Create a volume belonging to a storage network.
       tags:
       - Storage Networks
-  /storage-networks/{storageNetworkId}/volumes/{volumeId}:
+  /storage-networks/{storageId}/volumes/{volumeId}:
     delete:
       description: Delete a Storage Network's Volume
       operationId: storageNetworksStorageNetworkIdVolumesVolumeIdDelete
       parameters:
-      - description: ID of storage network.
+      - description: ID of the storage.
         example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
         explode: false
         in: path
-        name: storageNetworkId
+        name: storageId
         required: true
         schema:
           type: string
@@ -458,7 +479,7 @@ paths:
         style: simple
       responses:
         "204":
-          description: Volume is deleted.
+          description: Initiate the deletion process for the specified Volume.
         "400":
           content:
             application/json:
@@ -503,11 +524,11 @@ paths:
       description: Get a storage network's volume details.
       operationId: storageNetworksStorageNetworkIdVolumesVolumeIdGet
       parameters:
-      - description: ID of storage network.
+      - description: ID of the storage.
         example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
         explode: false
         in: path
-        name: storageNetworkId
+        name: storageId
         required: true
         schema:
           type: string
@@ -559,11 +580,11 @@ paths:
       description: Update a storage network's volume details.
       operationId: storageNetworksStorageNetworkIdVolumesVolumeIdPatch
       parameters:
-      - description: ID of storage network.
+      - description: ID of the storage.
         example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
         explode: false
         in: path
-        name: storageNetworkId
+        name: storageId
         required: true
         schema:
           type: string
@@ -583,6 +604,7 @@ paths:
             schema:
               $ref: '#/components/schemas/VolumeUpdate'
         description: Storage network volume to be updated.
+        required: true
       responses:
         "200":
           content:
@@ -630,22 +652,29 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed because service is currently unavailable.
+            Please try again later.
       security:
       - OAuth2:
         - networkstorage
       summary: Update a storage network's volume details.
       tags:
       - Storage Networks
-  /storage-networks/{storageNetworkId}/volumes/{volumeId}/tags:
+  /storage-networks/{storageId}/volumes/{volumeId}/tags:
     put:
       description: Overwrites tags assigned for the volume.
       operationId: storageNetworksStorageNetworkIdVolumesVolumeIdTagsPut
       parameters:
-      - description: ID of storage network.
+      - description: ID of the storage.
         example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
         explode: false
         in: path
-        name: storageNetworkId
+        name: storageId
         required: true
         schema:
           type: string
@@ -667,6 +696,7 @@ paths:
                 $ref: '#/components/schemas/TagAssignmentRequest'
               type: array
         description: Tags to assign to the volume.
+        required: true
       responses:
         "200":
           content:
@@ -716,12 +746,12 @@ paths:
       - Storage Networks
 components:
   parameters:
-    storageNetworkIdParam:
-      description: ID of storage network.
+    storageIdParam:
+      description: ID of the storage.
       example: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
       explode: false
       in: path
-      name: storageNetworkId
+      name: storageId
       required: true
       schema:
         type: string
@@ -771,13 +801,28 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The resource is in an incompatible state.
+    ServiceUnavailable:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed because service is currently unavailable. Please
+        try again later.
   schemas:
     StorageNetwork:
       description: Storage network.
       example:
         name: My storage network
         volumes:
-        - capacityInGb: 2000
+        - description: My volume description
+          deleteRequestedOn: 2022-04-07T08:50:20.359Z
+          createdOn: 2021-03-13T20:24:32.491Z
+          tags:
+          - name: stage
+            value: beta
+          - name: group
+            value: discounted
+          capacityInGb: 2000
           path: /qjul77ahf5fplr2ba484/shared-docs
           protocol: NFS
           pathSuffix: /shared-docs
@@ -799,16 +844,17 @@ components:
               - 100.80.0.6
           usedCapacityInGb: 1000
           name: My volume name
-          description: My volume description
           id: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
-          createdOn: 2021-03-13T20:24:32.491Z
           status: READY
+        - description: My volume description
+          deleteRequestedOn: 2022-04-07T08:50:20.359Z
+          createdOn: 2021-03-13T20:24:32.491Z
           tags:
           - name: stage
             value: beta
           - name: group
             value: discounted
-        - capacityInGb: 2000
+          capacityInGb: 2000
           path: /qjul77ahf5fplr2ba484/shared-docs
           protocol: NFS
           pathSuffix: /shared-docs
@@ -830,16 +876,10 @@ components:
               - 100.80.0.6
           usedCapacityInGb: 1000
           name: My volume name
-          description: My volume description
           id: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
-          createdOn: 2021-03-13T20:24:32.491Z
           status: READY
-          tags:
-          - name: stage
-            value: beta
-          - name: group
-            value: discounted
         description: My storage network description
+        deleteRequestedOn: 2022-04-07T08:50:20.359Z
         location: PHX
         networkId: 603f3b2cfcaf050643b89a4b
         id: 603f3b2cfcaf050643b89a4b
@@ -885,6 +925,11 @@ components:
           example: 2021-03-13T20:24:32.491Z
           format: date-time
           type: string
+        deleteRequestedOn:
+          description: Date and time of the initial request for storage network deletion.
+          example: 2022-04-07T08:50:20.359Z
+          format: date-time
+          type: string
         volumes:
           description: Volume for a storage network.
           items:
@@ -914,6 +959,7 @@ components:
           example: My storage network
           maxLength: 100
           minLength: 1
+          pattern: "^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"
           type: string
         description:
           description: Storage network description.
@@ -961,6 +1007,7 @@ components:
           example: My volume name
           maxLength: 100
           minLength: 1
+          pattern: "^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"
           type: string
         description:
           description: Volume description.
@@ -1007,6 +1054,7 @@ components:
           example: My storage network
           maxLength: 100
           minLength: 1
+          pattern: "^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"
           type: string
         description:
           description: Storage network description.
@@ -1017,6 +1065,14 @@ components:
     Volume:
       description: Volume for a storage network.
       example:
+        description: My volume description
+        deleteRequestedOn: 2022-04-07T08:50:20.359Z
+        createdOn: 2021-03-13T20:24:32.491Z
+        tags:
+        - name: stage
+          value: beta
+        - name: group
+          value: discounted
         capacityInGb: 2000
         path: /qjul77ahf5fplr2ba484/shared-docs
         protocol: NFS
@@ -1039,15 +1095,8 @@ components:
             - 100.80.0.6
         usedCapacityInGb: 1000
         name: My volume name
-        description: My volume description
         id: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
-        createdOn: 2021-03-13T20:24:32.491Z
         status: READY
-        tags:
-        - name: stage
-          value: beta
-        - name: group
-          value: discounted
       properties:
         id:
           description: Volume ID.
@@ -1086,6 +1135,11 @@ components:
           $ref: '#/components/schemas/Status'
         createdOn:
           example: 2021-03-13T20:24:32.491Z
+          format: date-time
+          type: string
+        deleteRequestedOn:
+          description: Date and time of the initial request for volume deletion.
+          example: 2022-04-07T08:50:20.359Z
           format: date-time
           type: string
         permissions:
@@ -1135,6 +1189,7 @@ components:
           example: My volume name
           maxLength: 100
           minLength: 1
+          pattern: "^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"
           type: string
         description:
           description: Volume description.
@@ -1201,6 +1256,7 @@ components:
           example: New Volume name
           maxLength: 100
           minLength: 1
+          pattern: "^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"
           type: string
         description:
           description: Volume description.
@@ -1499,10 +1555,11 @@ components:
       type: object
     Status:
       description: "Status of the resource. Currently this field should be set to\
-        \ `READY`, `BUSY` or `ERROR`."
+        \ `READY`, `BUSY`, `DELETING` or `ERROR`."
       enum:
       - READY
       - BUSY
+      - DELETING
       - ERROR
       example: READY
       type: string

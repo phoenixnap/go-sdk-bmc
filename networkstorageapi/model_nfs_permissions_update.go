@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NfsPermissionsUpdate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NfsPermissionsUpdate{}
+
 // NfsPermissionsUpdate Update NFS specific permissions on a volume.
 type NfsPermissionsUpdate struct {
 	// Read/Write access.
@@ -48,7 +51,7 @@ func NewNfsPermissionsUpdateWithDefaults() *NfsPermissionsUpdate {
 
 // GetReadWrite returns the ReadWrite field value if set, zero value otherwise.
 func (o *NfsPermissionsUpdate) GetReadWrite() []string {
-	if o == nil || o.ReadWrite == nil {
+	if o == nil || IsNil(o.ReadWrite) {
 		var ret []string
 		return ret
 	}
@@ -58,7 +61,7 @@ func (o *NfsPermissionsUpdate) GetReadWrite() []string {
 // GetReadWriteOk returns a tuple with the ReadWrite field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NfsPermissionsUpdate) GetReadWriteOk() ([]string, bool) {
-	if o == nil || o.ReadWrite == nil {
+	if o == nil || IsNil(o.ReadWrite) {
 		return nil, false
 	}
 	return o.ReadWrite, true
@@ -66,7 +69,7 @@ func (o *NfsPermissionsUpdate) GetReadWriteOk() ([]string, bool) {
 
 // HasReadWrite returns a boolean if a field has been set.
 func (o *NfsPermissionsUpdate) HasReadWrite() bool {
-	if o != nil && o.ReadWrite != nil {
+	if o != nil && !IsNil(o.ReadWrite) {
 		return true
 	}
 
@@ -80,7 +83,7 @@ func (o *NfsPermissionsUpdate) SetReadWrite(v []string) {
 
 // GetReadOnly returns the ReadOnly field value if set, zero value otherwise.
 func (o *NfsPermissionsUpdate) GetReadOnly() []string {
-	if o == nil || o.ReadOnly == nil {
+	if o == nil || IsNil(o.ReadOnly) {
 		var ret []string
 		return ret
 	}
@@ -90,7 +93,7 @@ func (o *NfsPermissionsUpdate) GetReadOnly() []string {
 // GetReadOnlyOk returns a tuple with the ReadOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NfsPermissionsUpdate) GetReadOnlyOk() ([]string, bool) {
-	if o == nil || o.ReadOnly == nil {
+	if o == nil || IsNil(o.ReadOnly) {
 		return nil, false
 	}
 	return o.ReadOnly, true
@@ -98,7 +101,7 @@ func (o *NfsPermissionsUpdate) GetReadOnlyOk() ([]string, bool) {
 
 // HasReadOnly returns a boolean if a field has been set.
 func (o *NfsPermissionsUpdate) HasReadOnly() bool {
-	if o != nil && o.ReadOnly != nil {
+	if o != nil && !IsNil(o.ReadOnly) {
 		return true
 	}
 
@@ -112,7 +115,7 @@ func (o *NfsPermissionsUpdate) SetReadOnly(v []string) {
 
 // GetRootSquash returns the RootSquash field value if set, zero value otherwise.
 func (o *NfsPermissionsUpdate) GetRootSquash() []string {
-	if o == nil || o.RootSquash == nil {
+	if o == nil || IsNil(o.RootSquash) {
 		var ret []string
 		return ret
 	}
@@ -122,7 +125,7 @@ func (o *NfsPermissionsUpdate) GetRootSquash() []string {
 // GetRootSquashOk returns a tuple with the RootSquash field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NfsPermissionsUpdate) GetRootSquashOk() ([]string, bool) {
-	if o == nil || o.RootSquash == nil {
+	if o == nil || IsNil(o.RootSquash) {
 		return nil, false
 	}
 	return o.RootSquash, true
@@ -130,7 +133,7 @@ func (o *NfsPermissionsUpdate) GetRootSquashOk() ([]string, bool) {
 
 // HasRootSquash returns a boolean if a field has been set.
 func (o *NfsPermissionsUpdate) HasRootSquash() bool {
-	if o != nil && o.RootSquash != nil {
+	if o != nil && !IsNil(o.RootSquash) {
 		return true
 	}
 
@@ -144,7 +147,7 @@ func (o *NfsPermissionsUpdate) SetRootSquash(v []string) {
 
 // GetNoSquash returns the NoSquash field value if set, zero value otherwise.
 func (o *NfsPermissionsUpdate) GetNoSquash() []string {
-	if o == nil || o.NoSquash == nil {
+	if o == nil || IsNil(o.NoSquash) {
 		var ret []string
 		return ret
 	}
@@ -154,7 +157,7 @@ func (o *NfsPermissionsUpdate) GetNoSquash() []string {
 // GetNoSquashOk returns a tuple with the NoSquash field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NfsPermissionsUpdate) GetNoSquashOk() ([]string, bool) {
-	if o == nil || o.NoSquash == nil {
+	if o == nil || IsNil(o.NoSquash) {
 		return nil, false
 	}
 	return o.NoSquash, true
@@ -162,7 +165,7 @@ func (o *NfsPermissionsUpdate) GetNoSquashOk() ([]string, bool) {
 
 // HasNoSquash returns a boolean if a field has been set.
 func (o *NfsPermissionsUpdate) HasNoSquash() bool {
-	if o != nil && o.NoSquash != nil {
+	if o != nil && !IsNil(o.NoSquash) {
 		return true
 	}
 
@@ -176,7 +179,7 @@ func (o *NfsPermissionsUpdate) SetNoSquash(v []string) {
 
 // GetAllSquash returns the AllSquash field value if set, zero value otherwise.
 func (o *NfsPermissionsUpdate) GetAllSquash() []string {
-	if o == nil || o.AllSquash == nil {
+	if o == nil || IsNil(o.AllSquash) {
 		var ret []string
 		return ret
 	}
@@ -186,7 +189,7 @@ func (o *NfsPermissionsUpdate) GetAllSquash() []string {
 // GetAllSquashOk returns a tuple with the AllSquash field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NfsPermissionsUpdate) GetAllSquashOk() ([]string, bool) {
-	if o == nil || o.AllSquash == nil {
+	if o == nil || IsNil(o.AllSquash) {
 		return nil, false
 	}
 	return o.AllSquash, true
@@ -194,7 +197,7 @@ func (o *NfsPermissionsUpdate) GetAllSquashOk() ([]string, bool) {
 
 // HasAllSquash returns a boolean if a field has been set.
 func (o *NfsPermissionsUpdate) HasAllSquash() bool {
-	if o != nil && o.AllSquash != nil {
+	if o != nil && !IsNil(o.AllSquash) {
 		return true
 	}
 
@@ -207,23 +210,31 @@ func (o *NfsPermissionsUpdate) SetAllSquash(v []string) {
 }
 
 func (o NfsPermissionsUpdate) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ReadWrite != nil {
-		toSerialize["readWrite"] = o.ReadWrite
-	}
-	if o.ReadOnly != nil {
-		toSerialize["readOnly"] = o.ReadOnly
-	}
-	if o.RootSquash != nil {
-		toSerialize["rootSquash"] = o.RootSquash
-	}
-	if o.NoSquash != nil {
-		toSerialize["noSquash"] = o.NoSquash
-	}
-	if o.AllSquash != nil {
-		toSerialize["allSquash"] = o.AllSquash
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NfsPermissionsUpdate) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ReadWrite) {
+		toSerialize["readWrite"] = o.ReadWrite
+	}
+	if !IsNil(o.ReadOnly) {
+		toSerialize["readOnly"] = o.ReadOnly
+	}
+	if !IsNil(o.RootSquash) {
+		toSerialize["rootSquash"] = o.RootSquash
+	}
+	if !IsNil(o.NoSquash) {
+		toSerialize["noSquash"] = o.NoSquash
+	}
+	if !IsNil(o.AllSquash) {
+		toSerialize["allSquash"] = o.AllSquash
+	}
+	return toSerialize, nil
 }
 
 type NullableNfsPermissionsUpdate struct {

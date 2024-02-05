@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package ranchersolutionapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the Cluster type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Cluster{}
 
 // Cluster Cluster details.
 type Cluster struct {
@@ -28,13 +33,15 @@ type Cluster struct {
 	// (Read-only) The Rancher version that was installed on the cluster during the first creation process.
 	InitialClusterVersion *string `json:"initialClusterVersion,omitempty"`
 	// The node pools associated with the cluster.
-	NodePools             []NodePool                    `json:"nodePools,omitempty"`
-	Configuration         *ClusterConfiguration         `json:"configuration,omitempty"`
-	Metadata              *ClusterMetadata              `json:"metadata,omitempty"`
-	WorkloadConfiguration *ClusterWorkloadConfiguration `json:"workloadConfiguration,omitempty"`
-	// The cluster status
+	NodePools             []NodePool             `json:"nodePools,omitempty"`
+	Configuration         *RancherClusterConfig  `json:"configuration,omitempty"`
+	Metadata              *RancherServerMetadata `json:"metadata,omitempty"`
+	WorkloadConfiguration *WorkloadClusterConfig `json:"workloadConfiguration,omitempty"`
+	// (Read-Only) The cluster status
 	StatusDescription *string `json:"statusDescription,omitempty"`
 }
+
+type _Cluster Cluster
 
 // NewCluster instantiates a new Cluster object
 // This constructor will assign default values to properties that have it defined,
@@ -56,7 +63,7 @@ func NewClusterWithDefaults() *Cluster {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *Cluster) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -66,7 +73,7 @@ func (o *Cluster) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Cluster) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -74,7 +81,7 @@ func (o *Cluster) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *Cluster) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -88,7 +95,7 @@ func (o *Cluster) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *Cluster) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -98,7 +105,7 @@ func (o *Cluster) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Cluster) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -106,7 +113,7 @@ func (o *Cluster) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *Cluster) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -120,7 +127,7 @@ func (o *Cluster) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Cluster) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -130,7 +137,7 @@ func (o *Cluster) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Cluster) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -138,7 +145,7 @@ func (o *Cluster) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Cluster) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -176,7 +183,7 @@ func (o *Cluster) SetLocation(v string) {
 
 // GetInitialClusterVersion returns the InitialClusterVersion field value if set, zero value otherwise.
 func (o *Cluster) GetInitialClusterVersion() string {
-	if o == nil || o.InitialClusterVersion == nil {
+	if o == nil || IsNil(o.InitialClusterVersion) {
 		var ret string
 		return ret
 	}
@@ -186,7 +193,7 @@ func (o *Cluster) GetInitialClusterVersion() string {
 // GetInitialClusterVersionOk returns a tuple with the InitialClusterVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Cluster) GetInitialClusterVersionOk() (*string, bool) {
-	if o == nil || o.InitialClusterVersion == nil {
+	if o == nil || IsNil(o.InitialClusterVersion) {
 		return nil, false
 	}
 	return o.InitialClusterVersion, true
@@ -194,7 +201,7 @@ func (o *Cluster) GetInitialClusterVersionOk() (*string, bool) {
 
 // HasInitialClusterVersion returns a boolean if a field has been set.
 func (o *Cluster) HasInitialClusterVersion() bool {
-	if o != nil && o.InitialClusterVersion != nil {
+	if o != nil && !IsNil(o.InitialClusterVersion) {
 		return true
 	}
 
@@ -208,7 +215,7 @@ func (o *Cluster) SetInitialClusterVersion(v string) {
 
 // GetNodePools returns the NodePools field value if set, zero value otherwise.
 func (o *Cluster) GetNodePools() []NodePool {
-	if o == nil || o.NodePools == nil {
+	if o == nil || IsNil(o.NodePools) {
 		var ret []NodePool
 		return ret
 	}
@@ -218,7 +225,7 @@ func (o *Cluster) GetNodePools() []NodePool {
 // GetNodePoolsOk returns a tuple with the NodePools field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Cluster) GetNodePoolsOk() ([]NodePool, bool) {
-	if o == nil || o.NodePools == nil {
+	if o == nil || IsNil(o.NodePools) {
 		return nil, false
 	}
 	return o.NodePools, true
@@ -226,7 +233,7 @@ func (o *Cluster) GetNodePoolsOk() ([]NodePool, bool) {
 
 // HasNodePools returns a boolean if a field has been set.
 func (o *Cluster) HasNodePools() bool {
-	if o != nil && o.NodePools != nil {
+	if o != nil && !IsNil(o.NodePools) {
 		return true
 	}
 
@@ -239,9 +246,9 @@ func (o *Cluster) SetNodePools(v []NodePool) {
 }
 
 // GetConfiguration returns the Configuration field value if set, zero value otherwise.
-func (o *Cluster) GetConfiguration() ClusterConfiguration {
-	if o == nil || o.Configuration == nil {
-		var ret ClusterConfiguration
+func (o *Cluster) GetConfiguration() RancherClusterConfig {
+	if o == nil || IsNil(o.Configuration) {
+		var ret RancherClusterConfig
 		return ret
 	}
 	return *o.Configuration
@@ -249,8 +256,8 @@ func (o *Cluster) GetConfiguration() ClusterConfiguration {
 
 // GetConfigurationOk returns a tuple with the Configuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Cluster) GetConfigurationOk() (*ClusterConfiguration, bool) {
-	if o == nil || o.Configuration == nil {
+func (o *Cluster) GetConfigurationOk() (*RancherClusterConfig, bool) {
+	if o == nil || IsNil(o.Configuration) {
 		return nil, false
 	}
 	return o.Configuration, true
@@ -258,22 +265,22 @@ func (o *Cluster) GetConfigurationOk() (*ClusterConfiguration, bool) {
 
 // HasConfiguration returns a boolean if a field has been set.
 func (o *Cluster) HasConfiguration() bool {
-	if o != nil && o.Configuration != nil {
+	if o != nil && !IsNil(o.Configuration) {
 		return true
 	}
 
 	return false
 }
 
-// SetConfiguration gets a reference to the given ClusterConfiguration and assigns it to the Configuration field.
-func (o *Cluster) SetConfiguration(v ClusterConfiguration) {
+// SetConfiguration gets a reference to the given RancherClusterConfig and assigns it to the Configuration field.
+func (o *Cluster) SetConfiguration(v RancherClusterConfig) {
 	o.Configuration = &v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *Cluster) GetMetadata() ClusterMetadata {
-	if o == nil || o.Metadata == nil {
-		var ret ClusterMetadata
+func (o *Cluster) GetMetadata() RancherServerMetadata {
+	if o == nil || IsNil(o.Metadata) {
+		var ret RancherServerMetadata
 		return ret
 	}
 	return *o.Metadata
@@ -281,8 +288,8 @@ func (o *Cluster) GetMetadata() ClusterMetadata {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Cluster) GetMetadataOk() (*ClusterMetadata, bool) {
-	if o == nil || o.Metadata == nil {
+func (o *Cluster) GetMetadataOk() (*RancherServerMetadata, bool) {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -290,22 +297,22 @@ func (o *Cluster) GetMetadataOk() (*ClusterMetadata, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *Cluster) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
 	return false
 }
 
-// SetMetadata gets a reference to the given ClusterMetadata and assigns it to the Metadata field.
-func (o *Cluster) SetMetadata(v ClusterMetadata) {
+// SetMetadata gets a reference to the given RancherServerMetadata and assigns it to the Metadata field.
+func (o *Cluster) SetMetadata(v RancherServerMetadata) {
 	o.Metadata = &v
 }
 
 // GetWorkloadConfiguration returns the WorkloadConfiguration field value if set, zero value otherwise.
-func (o *Cluster) GetWorkloadConfiguration() ClusterWorkloadConfiguration {
-	if o == nil || o.WorkloadConfiguration == nil {
-		var ret ClusterWorkloadConfiguration
+func (o *Cluster) GetWorkloadConfiguration() WorkloadClusterConfig {
+	if o == nil || IsNil(o.WorkloadConfiguration) {
+		var ret WorkloadClusterConfig
 		return ret
 	}
 	return *o.WorkloadConfiguration
@@ -313,8 +320,8 @@ func (o *Cluster) GetWorkloadConfiguration() ClusterWorkloadConfiguration {
 
 // GetWorkloadConfigurationOk returns a tuple with the WorkloadConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Cluster) GetWorkloadConfigurationOk() (*ClusterWorkloadConfiguration, bool) {
-	if o == nil || o.WorkloadConfiguration == nil {
+func (o *Cluster) GetWorkloadConfigurationOk() (*WorkloadClusterConfig, bool) {
+	if o == nil || IsNil(o.WorkloadConfiguration) {
 		return nil, false
 	}
 	return o.WorkloadConfiguration, true
@@ -322,21 +329,21 @@ func (o *Cluster) GetWorkloadConfigurationOk() (*ClusterWorkloadConfiguration, b
 
 // HasWorkloadConfiguration returns a boolean if a field has been set.
 func (o *Cluster) HasWorkloadConfiguration() bool {
-	if o != nil && o.WorkloadConfiguration != nil {
+	if o != nil && !IsNil(o.WorkloadConfiguration) {
 		return true
 	}
 
 	return false
 }
 
-// SetWorkloadConfiguration gets a reference to the given ClusterWorkloadConfiguration and assigns it to the WorkloadConfiguration field.
-func (o *Cluster) SetWorkloadConfiguration(v ClusterWorkloadConfiguration) {
+// SetWorkloadConfiguration gets a reference to the given WorkloadClusterConfig and assigns it to the WorkloadConfiguration field.
+func (o *Cluster) SetWorkloadConfiguration(v WorkloadClusterConfig) {
 	o.WorkloadConfiguration = &v
 }
 
 // GetStatusDescription returns the StatusDescription field value if set, zero value otherwise.
 func (o *Cluster) GetStatusDescription() string {
-	if o == nil || o.StatusDescription == nil {
+	if o == nil || IsNil(o.StatusDescription) {
 		var ret string
 		return ret
 	}
@@ -346,7 +353,7 @@ func (o *Cluster) GetStatusDescription() string {
 // GetStatusDescriptionOk returns a tuple with the StatusDescription field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Cluster) GetStatusDescriptionOk() (*string, bool) {
-	if o == nil || o.StatusDescription == nil {
+	if o == nil || IsNil(o.StatusDescription) {
 		return nil, false
 	}
 	return o.StatusDescription, true
@@ -354,7 +361,7 @@ func (o *Cluster) GetStatusDescriptionOk() (*string, bool) {
 
 // HasStatusDescription returns a boolean if a field has been set.
 func (o *Cluster) HasStatusDescription() bool {
-	if o != nil && o.StatusDescription != nil {
+	if o != nil && !IsNil(o.StatusDescription) {
 		return true
 	}
 
@@ -367,38 +374,81 @@ func (o *Cluster) SetStatusDescription(v string) {
 }
 
 func (o Cluster) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if o.InitialClusterVersion != nil {
-		toSerialize["initialClusterVersion"] = o.InitialClusterVersion
-	}
-	if o.NodePools != nil {
-		toSerialize["nodePools"] = o.NodePools
-	}
-	if o.Configuration != nil {
-		toSerialize["configuration"] = o.Configuration
-	}
-	if o.Metadata != nil {
-		toSerialize["metadata"] = o.Metadata
-	}
-	if o.WorkloadConfiguration != nil {
-		toSerialize["workloadConfiguration"] = o.WorkloadConfiguration
-	}
-	if o.StatusDescription != nil {
-		toSerialize["statusDescription"] = o.StatusDescription
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Cluster) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["location"] = o.Location
+	if !IsNil(o.InitialClusterVersion) {
+		toSerialize["initialClusterVersion"] = o.InitialClusterVersion
+	}
+	if !IsNil(o.NodePools) {
+		toSerialize["nodePools"] = o.NodePools
+	}
+	if !IsNil(o.Configuration) {
+		toSerialize["configuration"] = o.Configuration
+	}
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.WorkloadConfiguration) {
+		toSerialize["workloadConfiguration"] = o.WorkloadConfiguration
+	}
+	if !IsNil(o.StatusDescription) {
+		toSerialize["statusDescription"] = o.StatusDescription
+	}
+	return toSerialize, nil
+}
+
+func (o *Cluster) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"location",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCluster := _Cluster{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCluster)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Cluster(varCluster)
+
+	return err
 }
 
 type NullableCluster struct {

@@ -1,0 +1,24 @@
+{
+    "request": {
+        "method": "POST",
+        "path": "/invoicing/v1/invoices/{id}/actions/pay",
+        "pathParameters": {
+            "id": [
+                "id"
+            ]
+        },
+        "body": {
+            "type": "JSON",
+            "json": {
+
+            },
+            "matchType": "STRICT"
+        }
+    },
+    "response": {
+        "statusCode": 200,
+        "body": {
+
+        }
+    }
+}

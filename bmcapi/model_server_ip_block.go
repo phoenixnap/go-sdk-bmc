@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ServerIpBlock type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServerIpBlock{}
 
 // ServerIpBlock IP block assigned to server
 type ServerIpBlock struct {
@@ -22,6 +27,8 @@ type ServerIpBlock struct {
 	// (Read-only) The VLAN on which this IP block has been configured within the network switch.
 	VlanId *int32 `json:"vlanId,omitempty"`
 }
+
+type _ServerIpBlock ServerIpBlock
 
 // NewServerIpBlock instantiates a new ServerIpBlock object
 // This constructor will assign default values to properties that have it defined,
@@ -67,7 +74,7 @@ func (o *ServerIpBlock) SetId(v string) {
 
 // GetVlanId returns the VlanId field value if set, zero value otherwise.
 func (o *ServerIpBlock) GetVlanId() int32 {
-	if o == nil || o.VlanId == nil {
+	if o == nil || IsNil(o.VlanId) {
 		var ret int32
 		return ret
 	}
@@ -77,7 +84,7 @@ func (o *ServerIpBlock) GetVlanId() int32 {
 // GetVlanIdOk returns a tuple with the VlanId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerIpBlock) GetVlanIdOk() (*int32, bool) {
-	if o == nil || o.VlanId == nil {
+	if o == nil || IsNil(o.VlanId) {
 		return nil, false
 	}
 	return o.VlanId, true
@@ -85,7 +92,7 @@ func (o *ServerIpBlock) GetVlanIdOk() (*int32, bool) {
 
 // HasVlanId returns a boolean if a field has been set.
 func (o *ServerIpBlock) HasVlanId() bool {
-	if o != nil && o.VlanId != nil {
+	if o != nil && !IsNil(o.VlanId) {
 		return true
 	}
 
@@ -98,14 +105,57 @@ func (o *ServerIpBlock) SetVlanId(v int32) {
 }
 
 func (o ServerIpBlock) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if o.VlanId != nil {
-		toSerialize["vlanId"] = o.VlanId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ServerIpBlock) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	if !IsNil(o.VlanId) {
+		toSerialize["vlanId"] = o.VlanId
+	}
+	return toSerialize, nil
+}
+
+func (o *ServerIpBlock) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServerIpBlock := _ServerIpBlock{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varServerIpBlock)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServerIpBlock(varServerIpBlock)
+
+	return err
 }
 
 type NullableServerIpBlock struct {

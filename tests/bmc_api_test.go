@@ -56,7 +56,7 @@ func (suite *BmcApiTestSuite) TestGetQuotas() {
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
 	// Operation Execution
-	result, _, _ := suite.Client.QuotasApi.QuotasGet(suite.Ctx).Execute()
+	result, _, _ := suite.Client.QuotasAPI.QuotasGet(suite.Ctx).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -85,7 +85,7 @@ func (suite *BmcApiTestSuite) TestQuotasCreateEditRequest() {
 	json.Unmarshal(body, &quotaEditLimitRequest)
 
 	// Operation Execution
-	suite.Client.QuotasApi.QuotasQuotaIdActionsRequestEditPost(suite.Ctx, quotaId).QuotaEditLimitRequest(quotaEditLimitRequest).Execute()
+	suite.Client.QuotasAPI.QuotasQuotaIdActionsRequestEditPost(suite.Ctx, quotaId).QuotaEditLimitRequest(quotaEditLimitRequest).Execute()
 
 	// Verify
 	suite.verifyCalledOnce(expectationId)
@@ -102,7 +102,7 @@ func (suite *BmcApiTestSuite) TestGetQuotaById() {
 	quotaId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.QuotasApi.QuotasQuotaIdGet(suite.Ctx, quotaId).Execute()
+	result, _, _ := suite.Client.QuotasAPI.QuotasQuotaIdGet(suite.Ctx, quotaId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -123,7 +123,7 @@ func (suite *BmcApiTestSuite) TestGetSshKeys() {
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
 	// Operation Execution
-	result, _, _ := suite.Client.SSHKeysApi.SshKeysGet(suite.Ctx).Execute()
+	result, _, _ := suite.Client.SSHKeysAPI.SshKeysGet(suite.Ctx).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -149,7 +149,7 @@ func (suite *BmcApiTestSuite) TestCreateSshKey() {
 	json.Unmarshal(body, &sshKeyCreate)
 
 	// Operation Execution
-	result, _, _ := suite.Client.SSHKeysApi.SshKeysPost(suite.Ctx).SshKeyCreate(sshKeyCreate).Execute()
+	result, _, _ := suite.Client.SSHKeysAPI.SshKeysPost(suite.Ctx).SshKeyCreate(sshKeyCreate).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -173,7 +173,7 @@ func (suite *BmcApiTestSuite) TestGetSshKeyById() {
 	sshKeyId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.SSHKeysApi.SshKeysSshKeyIdGet(suite.Ctx, sshKeyId).Execute()
+	result, _, _ := suite.Client.SSHKeysAPI.SshKeysSshKeyIdGet(suite.Ctx, sshKeyId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -197,7 +197,7 @@ func (suite *BmcApiTestSuite) TestDeleteSshKeyById() {
 	sshKeyId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.SSHKeysApi.SshKeysSshKeyIdDelete(suite.Ctx, sshKeyId).Execute()
+	result, _, _ := suite.Client.SSHKeysAPI.SshKeysSshKeyIdDelete(suite.Ctx, sshKeyId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -226,7 +226,7 @@ func (suite *BmcApiTestSuite) TestPutSshKeyById() {
 	sshKeyId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.SSHKeysApi.SshKeysSshKeyIdPut(suite.Ctx, sshKeyId).SshKeyUpdate(sshKeyUpdate).Execute()
+	result, _, _ := suite.Client.SSHKeysAPI.SshKeysSshKeyIdPut(suite.Ctx, sshKeyId).SshKeyUpdate(sshKeyUpdate).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -251,7 +251,7 @@ func (suite *BmcApiTestSuite) TestDeletePrivateNetworkById() {
 	networkId := request.PathParameters["networkId"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.DeletePrivateNetwork(suite.Ctx, serverId, networkId).Execute()
+	result, _, _ := suite.Client.ServersAPI.DeletePrivateNetwork(suite.Ctx, serverId, networkId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -276,7 +276,7 @@ func (suite *BmcApiTestSuite) TestGetServers() {
 	tag := fmt.Sprintf("%v", qpMap["tag"])
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersGet(suite.Ctx).Tag([]string{tag}).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersGet(suite.Ctx).Tag([]string{tag}).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -306,7 +306,36 @@ func (suite *BmcApiTestSuite) TestCreateServer() {
 	force, _ := strconv.ParseBool(qpMap["force"].(string))
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersPost(suite.Ctx).ServerCreate(serverCreate).Force(force).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersPost(suite.Ctx).ServerCreate(serverCreate).Force(force).Execute()
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	// Asserts
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
+
+	// Verify
+	suite.verifyCalledOnce(expectationId)
+}
+
+func (suite *BmcApiTestSuite) TestProvisionServer() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("bmcapi/servers/servers_action_provision", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	// Prepare request body
+	body, _ := json.Marshal(request.Body.Json)
+	var serverProvision bmcapi.ServerProvision
+	json.Unmarshal(body, &serverProvision)
+
+	// Extract the quotaId
+	serverId := request.PathParameters["id"][0]
+
+	// Operation Execution
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdActionsProvisionPost(suite.Ctx, serverId).ServerProvision(serverProvision).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -335,7 +364,7 @@ func (suite *BmcApiTestSuite) TestDeprovisionServer() {
 	serverId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdActionsDeprovisionPost(suite.Ctx, serverId).RelinquishIpBlock(relinquishIpBlock).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdActionsDeprovisionPost(suite.Ctx, serverId).RelinquishIpBlock(relinquishIpBlock).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -359,7 +388,7 @@ func (suite *BmcApiTestSuite) TestPowerOffServer() {
 	serverId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdActionsPowerOffPost(suite.Ctx, serverId).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdActionsPowerOffPost(suite.Ctx, serverId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -383,7 +412,7 @@ func (suite *BmcApiTestSuite) TestPowerOnServer() {
 	serverId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdActionsPowerOnPost(suite.Ctx, serverId).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdActionsPowerOnPost(suite.Ctx, serverId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -407,7 +436,7 @@ func (suite *BmcApiTestSuite) TestRebootServer() {
 	serverId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdActionsRebootPost(suite.Ctx, serverId).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdActionsRebootPost(suite.Ctx, serverId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -436,7 +465,7 @@ func (suite *BmcApiTestSuite) TestReserveServer() {
 	serverId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdActionsReservePost(suite.Ctx, serverId).ServerReserve(serverReserve).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdActionsReservePost(suite.Ctx, serverId).ServerReserve(serverReserve).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -465,7 +494,7 @@ func (suite *BmcApiTestSuite) TestResetServer() {
 	serverId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdActionsResetPost(suite.Ctx, serverId).ServerReset(serverReset).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdActionsResetPost(suite.Ctx, serverId).ServerReset(serverReset).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -489,7 +518,7 @@ func (suite *BmcApiTestSuite) TestShutdownServer() {
 	serverId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdActionsShutdownPost(suite.Ctx, serverId).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdActionsShutdownPost(suite.Ctx, serverId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -513,7 +542,7 @@ func (suite *BmcApiTestSuite) TestDeleteServerById() {
 	serverId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdDelete(suite.Ctx, serverId).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdDelete(suite.Ctx, serverId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -537,7 +566,7 @@ func (suite *BmcApiTestSuite) TestGetServerById() {
 	serverId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdGet(suite.Ctx, serverId).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdGet(suite.Ctx, serverId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -567,7 +596,7 @@ func (suite *BmcApiTestSuite) TestDeleteIpBlockOnServerById() {
 	ipBlockId := request.PathParameters["ipId"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdIpBlocksIpBlockIdDelete(suite.Ctx, serverId, ipBlockId).RelinquishIpBlock(relinquishIpBlock).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdIpBlocksIpBlockIdDelete(suite.Ctx, serverId, ipBlockId).RelinquishIpBlock(relinquishIpBlock).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -596,7 +625,7 @@ func (suite *BmcApiTestSuite) TestCreateIpBlockOnServerById() {
 	serverId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdIpBlocksPost(suite.Ctx, serverId).ServerIpBlock(serverIpBlock).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdIpBlocksPost(suite.Ctx, serverId).ServerIpBlock(serverIpBlock).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -625,7 +654,7 @@ func (suite *BmcApiTestSuite) TestPatchServerById() {
 	serverId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdPatch(suite.Ctx, serverId).ServerPatch(serverPatch).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdPatch(suite.Ctx, serverId).ServerPatch(serverPatch).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -658,7 +687,7 @@ func (suite *BmcApiTestSuite) TestCreatePrivateNetworkOnServerById() {
 	force, _ := strconv.ParseBool(qpMap["force"].(string))
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdPrivateNetworksPost(suite.Ctx, serverId).ServerPrivateNetwork(serverPrivateNetwork).Force(force).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdPrivateNetworksPost(suite.Ctx, serverId).ServerPrivateNetwork(serverPrivateNetwork).Force(force).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -683,7 +712,7 @@ func (suite *BmcApiTestSuite) TestDeletePublicNetworkOnServerById() {
 	publicNetworkId := request.PathParameters["networkId"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdPublicNetworksDelete(suite.Ctx, serverId, publicNetworkId).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdPublicNetworksDelete(suite.Ctx, serverId, publicNetworkId).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -716,7 +745,7 @@ func (suite *BmcApiTestSuite) TestCreatePublicNetworkOnServerById() {
 	force, _ := strconv.ParseBool(qpMap["force"].(string))
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdPublicNetworksPost(suite.Ctx, serverId).ServerPublicNetwork(serverPublicNetwork).Force(force).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdPublicNetworksPost(suite.Ctx, serverId).ServerPublicNetwork(serverPublicNetwork).Force(force).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -745,7 +774,7 @@ func (suite *BmcApiTestSuite) TestUpdateTagsOnServerById() {
 	serverId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersApi.ServersServerIdTagsPut(suite.Ctx, serverId).TagAssignmentRequest(tagAssignmentRequest).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdTagsPut(suite.Ctx, serverId).TagAssignmentRequest(tagAssignmentRequest).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)

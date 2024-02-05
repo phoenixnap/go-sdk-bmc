@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package networkapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the NetworkMembership type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NetworkMembership{}
 
 // NetworkMembership Resource details linked to the Network.
 type NetworkMembership struct {
@@ -24,6 +29,8 @@ type NetworkMembership struct {
 	// List of IPs associated to the resource.
 	Ips []string `json:"ips"`
 }
+
+type _NetworkMembership NetworkMembership
 
 // NewNetworkMembership instantiates a new NetworkMembership object
 // This constructor will assign default values to properties that have it defined,
@@ -118,17 +125,58 @@ func (o *NetworkMembership) SetIps(v []string) {
 }
 
 func (o NetworkMembership) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["resourceId"] = o.ResourceId
-	}
-	if true {
-		toSerialize["resourceType"] = o.ResourceType
-	}
-	if true {
-		toSerialize["ips"] = o.Ips
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NetworkMembership) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["resourceId"] = o.ResourceId
+	toSerialize["resourceType"] = o.ResourceType
+	toSerialize["ips"] = o.Ips
+	return toSerialize, nil
+}
+
+func (o *NetworkMembership) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"resourceId",
+		"resourceType",
+		"ips",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varNetworkMembership := _NetworkMembership{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varNetworkMembership)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NetworkMembership(varNetworkMembership)
+
+	return err
 }
 
 type NullableNetworkMembership struct {

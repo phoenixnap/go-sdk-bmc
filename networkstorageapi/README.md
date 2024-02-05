@@ -20,7 +20,7 @@ For more information, please visit [https://phoenixnap.com/](https://phoenixnap.
 
 Install the following dependencies:
 
-```shell
+```sh
 go get github.com/stretchr/testify/assert
 go get golang.org/x/oauth2
 go get golang.org/x/net/context
@@ -28,13 +28,13 @@ go get golang.org/x/net/context
 
 Put the package under your project folder and add the following in import:
 
-```golang
+```go
 import networkstorageapi "github.com/phoenixnap/go-sdk-bmc/networkstorageapi"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
 
-```golang
+```go
 os.Setenv("HTTP_PROXY", "http://proxy_name:proxy_port")
 ```
 
@@ -44,17 +44,17 @@ Default configuration comes with `Servers` field that contains server objects as
 
 ### Select Server Configuration
 
-For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
+For using other server than the one defined on index 0 set context value `networkstorageapi.ContextServerIndex` of type `int`.
 
-```golang
+```go
 ctx := context.WithValue(context.Background(), networkstorageapi.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
 
-Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
+Templated server URL is formatted using default variables from configuration or from context value `networkstorageapi.ContextServerVariables` of type `map[string]string`.
 
-```golang
+```go
 ctx := context.WithValue(context.Background(), networkstorageapi.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
@@ -66,9 +66,9 @@ Note, enum values are always validated and all unused variables are silently ign
 
 Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
-Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+Similar rules for overriding default operation server index and variables applies by using `networkstorageapi.ContextOperationServerIndices` and `networkstorageapi.ContextOperationServerVariables` context maps.
 
-```
+```go
 ctx := context.WithValue(context.Background(), networkstorageapi.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
@@ -85,17 +85,17 @@ All URIs are relative to *https://api.phoenixnap.com/network-storage/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*StorageNetworksApi* | [**StorageNetworksGet**](docs/StorageNetworksApi.md#storagenetworksget) | **Get** /storage-networks | List all storage networks.
-*StorageNetworksApi* | [**StorageNetworksIdDelete**](docs/StorageNetworksApi.md#storagenetworksiddelete) | **Delete** /storage-networks/{storageNetworkId} | Delete a storage network and its volume.
-*StorageNetworksApi* | [**StorageNetworksIdGet**](docs/StorageNetworksApi.md#storagenetworksidget) | **Get** /storage-networks/{storageNetworkId} | Get storage network details.
-*StorageNetworksApi* | [**StorageNetworksIdPatch**](docs/StorageNetworksApi.md#storagenetworksidpatch) | **Patch** /storage-networks/{storageNetworkId} | Update storage network details.
-*StorageNetworksApi* | [**StorageNetworksPost**](docs/StorageNetworksApi.md#storagenetworkspost) | **Post** /storage-networks | Create a storage network and volume.
-*StorageNetworksApi* | [**StorageNetworksStorageNetworkIdVolumesGet**](docs/StorageNetworksApi.md#storagenetworksstoragenetworkidvolumesget) | **Get** /storage-networks/{storageNetworkId}/volumes | Display one or more volumes belonging to a storage network.
-*StorageNetworksApi* | [**StorageNetworksStorageNetworkIdVolumesPost**](docs/StorageNetworksApi.md#storagenetworksstoragenetworkidvolumespost) | **Post** /storage-networks/{storageNetworkId}/volumes | Create a volume belonging to a storage network.
-*StorageNetworksApi* | [**StorageNetworksStorageNetworkIdVolumesVolumeIdDelete**](docs/StorageNetworksApi.md#storagenetworksstoragenetworkidvolumesvolumeiddelete) | **Delete** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Delete a Storage Network&#39;s Volume
-*StorageNetworksApi* | [**StorageNetworksStorageNetworkIdVolumesVolumeIdGet**](docs/StorageNetworksApi.md#storagenetworksstoragenetworkidvolumesvolumeidget) | **Get** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Get a storage network&#39;s volume details.
-*StorageNetworksApi* | [**StorageNetworksStorageNetworkIdVolumesVolumeIdPatch**](docs/StorageNetworksApi.md#storagenetworksstoragenetworkidvolumesvolumeidpatch) | **Patch** /storage-networks/{storageNetworkId}/volumes/{volumeId} | Update a storage network&#39;s volume details.
-*StorageNetworksApi* | [**StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut**](docs/StorageNetworksApi.md#storagenetworksstoragenetworkidvolumesvolumeidtagsput) | **Put** /storage-networks/{storageNetworkId}/volumes/{volumeId}/tags | Overwrites tags assigned for the volume.
+*StorageNetworksAPI* | [**StorageNetworksGet**](docs/StorageNetworksAPI.md#storagenetworksget) | **Get** /storage-networks | List all storage networks.
+*StorageNetworksAPI* | [**StorageNetworksIdDelete**](docs/StorageNetworksAPI.md#storagenetworksiddelete) | **Delete** /storage-networks/{storageId} | Delete a storage network and its volume.
+*StorageNetworksAPI* | [**StorageNetworksIdGet**](docs/StorageNetworksAPI.md#storagenetworksidget) | **Get** /storage-networks/{storageId} | Get storage network details.
+*StorageNetworksAPI* | [**StorageNetworksIdPatch**](docs/StorageNetworksAPI.md#storagenetworksidpatch) | **Patch** /storage-networks/{storageId} | Update storage network details.
+*StorageNetworksAPI* | [**StorageNetworksPost**](docs/StorageNetworksAPI.md#storagenetworkspost) | **Post** /storage-networks | Create a storage network and volume.
+*StorageNetworksAPI* | [**StorageNetworksStorageNetworkIdVolumesGet**](docs/StorageNetworksAPI.md#storagenetworksstoragenetworkidvolumesget) | **Get** /storage-networks/{storageId}/volumes | Display one or more volumes belonging to a storage network.
+*StorageNetworksAPI* | [**StorageNetworksStorageNetworkIdVolumesPost**](docs/StorageNetworksAPI.md#storagenetworksstoragenetworkidvolumespost) | **Post** /storage-networks/{storageId}/volumes | Create a volume belonging to a storage network.
+*StorageNetworksAPI* | [**StorageNetworksStorageNetworkIdVolumesVolumeIdDelete**](docs/StorageNetworksAPI.md#storagenetworksstoragenetworkidvolumesvolumeiddelete) | **Delete** /storage-networks/{storageId}/volumes/{volumeId} | Delete a Storage Network&#39;s Volume
+*StorageNetworksAPI* | [**StorageNetworksStorageNetworkIdVolumesVolumeIdGet**](docs/StorageNetworksAPI.md#storagenetworksstoragenetworkidvolumesvolumeidget) | **Get** /storage-networks/{storageId}/volumes/{volumeId} | Get a storage network&#39;s volume details.
+*StorageNetworksAPI* | [**StorageNetworksStorageNetworkIdVolumesVolumeIdPatch**](docs/StorageNetworksAPI.md#storagenetworksstoragenetworkidvolumesvolumeidpatch) | **Patch** /storage-networks/{storageId}/volumes/{volumeId} | Update a storage network&#39;s volume details.
+*StorageNetworksAPI* | [**StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut**](docs/StorageNetworksAPI.md#storagenetworksstoragenetworkidvolumesvolumeidtagsput) | **Put** /storage-networks/{storageId}/volumes/{volumeId}/tags | Overwrites tags assigned for the volume.
 
 
 ## Documentation For Models
@@ -122,7 +122,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Authorization
 
 
-
+Authentication schemes defined for the API:
 ### OAuth2
 
 
@@ -135,20 +135,20 @@ Class | Method | HTTP request | Description
 
 Example
 
-```golang
-auth := context.WithValue(context.Background(), sw.ContextAccessToken, "ACCESSTOKENSTRING")
+```go
+auth := context.WithValue(context.Background(), networkstorageapi.ContextAccessToken, "ACCESSTOKENSTRING")
 r, err := client.Service.Operation(auth, args)
 ```
 
 Or via OAuth2 module to automatically refresh tokens and perform user authentication.
 
-```golang
+```go
 import "golang.org/x/oauth2"
 
 /* Perform OAuth2 round trip request and obtain a token */
 
 tokenSource := oauth2cfg.TokenSource(createContext(httpClient), &token)
-auth := context.WithValue(oauth2.NoContext, sw.ContextOAuth2, tokenSource)
+auth := context.WithValue(oauth2.NoContext, networkstorageapi.ContextOAuth2, tokenSource)
 r, err := client.Service.Operation(auth, args)
 ```
 
@@ -172,4 +172,3 @@ Each of these functions takes a value of the given basic type and returns a poin
 ## Author
 
 support@phoenixnap.com
-

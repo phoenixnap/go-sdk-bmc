@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ServerProductMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServerProductMetadata{}
 
 // ServerProductMetadata Details of the server product.
 type ServerProductMetadata struct {
@@ -32,6 +37,8 @@ type ServerProductMetadata struct {
 	// Server storage.
 	Storage string `json:"storage"`
 }
+
+type _ServerProductMetadata ServerProductMetadata
 
 // NewServerProductMetadata instantiates a new ServerProductMetadata object
 // This constructor will assign default values to properties that have it defined,
@@ -226,29 +233,66 @@ func (o *ServerProductMetadata) SetStorage(v string) {
 }
 
 func (o ServerProductMetadata) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["ramInGb"] = o.RamInGb
-	}
-	if true {
-		toSerialize["cpu"] = o.Cpu
-	}
-	if true {
-		toSerialize["cpuCount"] = o.CpuCount
-	}
-	if true {
-		toSerialize["coresPerCpu"] = o.CoresPerCpu
-	}
-	if true {
-		toSerialize["cpuFrequency"] = o.CpuFrequency
-	}
-	if true {
-		toSerialize["network"] = o.Network
-	}
-	if true {
-		toSerialize["storage"] = o.Storage
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ServerProductMetadata) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["ramInGb"] = o.RamInGb
+	toSerialize["cpu"] = o.Cpu
+	toSerialize["cpuCount"] = o.CpuCount
+	toSerialize["coresPerCpu"] = o.CoresPerCpu
+	toSerialize["cpuFrequency"] = o.CpuFrequency
+	toSerialize["network"] = o.Network
+	toSerialize["storage"] = o.Storage
+	return toSerialize, nil
+}
+
+func (o *ServerProductMetadata) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"ramInGb",
+		"cpu",
+		"cpuCount",
+		"coresPerCpu",
+		"cpuFrequency",
+		"network",
+		"storage",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServerProductMetadata := _ServerProductMetadata{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varServerProductMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServerProductMetadata(varServerProductMetadata)
+
+	return err
 }
 
 type NullableServerProductMetadata struct {

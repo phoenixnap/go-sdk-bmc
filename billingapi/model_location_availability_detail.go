@@ -12,8 +12,13 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the LocationAvailabilityDetail type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LocationAvailabilityDetail{}
 
 // LocationAvailabilityDetail Info about location, solutions and availability for a product.
 type LocationAvailabilityDetail struct {
@@ -27,6 +32,8 @@ type LocationAvailabilityDetail struct {
 	// Solutions supported in specific location for a product.
 	Solutions []string `json:"solutions"`
 }
+
+type _LocationAvailabilityDetail LocationAvailabilityDetail
 
 // NewLocationAvailabilityDetail instantiates a new LocationAvailabilityDetail object
 // This constructor will assign default values to properties that have it defined,
@@ -171,23 +178,62 @@ func (o *LocationAvailabilityDetail) SetSolutions(v []string) {
 }
 
 func (o LocationAvailabilityDetail) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if true {
-		toSerialize["minQuantityRequested"] = o.MinQuantityRequested
-	}
-	if true {
-		toSerialize["minQuantityAvailable"] = o.MinQuantityAvailable
-	}
-	if true {
-		toSerialize["availableQuantity"] = o.AvailableQuantity
-	}
-	if true {
-		toSerialize["solutions"] = o.Solutions
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LocationAvailabilityDetail) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["location"] = o.Location
+	toSerialize["minQuantityRequested"] = o.MinQuantityRequested
+	toSerialize["minQuantityAvailable"] = o.MinQuantityAvailable
+	toSerialize["availableQuantity"] = o.AvailableQuantity
+	toSerialize["solutions"] = o.Solutions
+	return toSerialize, nil
+}
+
+func (o *LocationAvailabilityDetail) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"location",
+		"minQuantityRequested",
+		"minQuantityAvailable",
+		"availableQuantity",
+		"solutions",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varLocationAvailabilityDetail := _LocationAvailabilityDetail{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varLocationAvailabilityDetail)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LocationAvailabilityDetail(varLocationAvailabilityDetail)
+
+	return err
 }
 
 type NullableLocationAvailabilityDetail struct {

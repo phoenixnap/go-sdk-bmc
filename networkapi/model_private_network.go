@@ -12,9 +12,14 @@ Contact: support@phoenixnap.com
 package networkapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the PrivateNetwork type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PrivateNetwork{}
 
 // PrivateNetwork Private Network details.
 type PrivateNetwork struct {
@@ -38,11 +43,13 @@ type PrivateNetwork struct {
 	Servers []PrivateNetworkServer `json:"servers"`
 	// A list of resources that are members of this private network.
 	Memberships []NetworkMembership `json:"memberships"`
-	// The status of the private network. Can have one of the following values: `BUSY` or `READY`.
+	// The status of the private network. Can have one of the following values: `BUSY`, `READY`, `DELETING` or `ERROR`.
 	Status string `json:"status"`
 	// Date and time when this private network was created.
 	CreatedOn time.Time `json:"createdOn"`
 }
+
+type _PrivateNetwork PrivateNetwork
 
 // NewPrivateNetwork instantiates a new PrivateNetwork object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +128,7 @@ func (o *PrivateNetwork) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *PrivateNetwork) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -131,7 +138,7 @@ func (o *PrivateNetwork) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -139,7 +146,7 @@ func (o *PrivateNetwork) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *PrivateNetwork) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -249,7 +256,7 @@ func (o *PrivateNetwork) SetLocationDefault(v bool) {
 
 // GetCidr returns the Cidr field value if set, zero value otherwise.
 func (o *PrivateNetwork) GetCidr() string {
-	if o == nil || o.Cidr == nil {
+	if o == nil || IsNil(o.Cidr) {
 		var ret string
 		return ret
 	}
@@ -259,7 +266,7 @@ func (o *PrivateNetwork) GetCidr() string {
 // GetCidrOk returns a tuple with the Cidr field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivateNetwork) GetCidrOk() (*string, bool) {
-	if o == nil || o.Cidr == nil {
+	if o == nil || IsNil(o.Cidr) {
 		return nil, false
 	}
 	return o.Cidr, true
@@ -267,7 +274,7 @@ func (o *PrivateNetwork) GetCidrOk() (*string, bool) {
 
 // HasCidr returns a boolean if a field has been set.
 func (o *PrivateNetwork) HasCidr() bool {
-	if o != nil && o.Cidr != nil {
+	if o != nil && !IsNil(o.Cidr) {
 		return true
 	}
 
@@ -379,44 +386,78 @@ func (o *PrivateNetwork) SetCreatedOn(v time.Time) {
 }
 
 func (o PrivateNetwork) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["vlanId"] = o.VlanId
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if true {
-		toSerialize["locationDefault"] = o.LocationDefault
-	}
-	if o.Cidr != nil {
-		toSerialize["cidr"] = o.Cidr
-	}
-	if true {
-		toSerialize["servers"] = o.Servers
-	}
-	if true {
-		toSerialize["memberships"] = o.Memberships
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["createdOn"] = o.CreatedOn
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PrivateNetwork) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["vlanId"] = o.VlanId
+	toSerialize["type"] = o.Type
+	toSerialize["location"] = o.Location
+	toSerialize["locationDefault"] = o.LocationDefault
+	if !IsNil(o.Cidr) {
+		toSerialize["cidr"] = o.Cidr
+	}
+	toSerialize["servers"] = o.Servers
+	toSerialize["memberships"] = o.Memberships
+	toSerialize["status"] = o.Status
+	toSerialize["createdOn"] = o.CreatedOn
+	return toSerialize, nil
+}
+
+func (o *PrivateNetwork) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"vlanId",
+		"type",
+		"location",
+		"locationDefault",
+		"servers",
+		"memberships",
+		"status",
+		"createdOn",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPrivateNetwork := _PrivateNetwork{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPrivateNetwork)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PrivateNetwork(varPrivateNetwork)
+
+	return err
 }
 
 type NullablePrivateNetwork struct {

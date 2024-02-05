@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NodePool type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NodePool{}
+
 // NodePool Node Pool Configuration. A node pool contains the name and configuration for a cluster's node pool. Node pools are set of nodes with a common configuration and specification.
 type NodePool struct {
 	// The name of the node pool.
@@ -22,8 +25,8 @@ type NodePool struct {
 	// Number of configured nodes, currently only node counts of 1 and 3 are possible.
 	NodeCount *int32 `json:"nodeCount,omitempty"`
 	// Node server type. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`.
-	ServerType *string            `json:"serverType,omitempty"`
-	SshConfig  *NodePoolSshConfig `json:"sshConfig,omitempty"`
+	ServerType *string    `json:"serverType,omitempty"`
+	SshConfig  *SshConfig `json:"sshConfig,omitempty"`
 	// (Read-only) The nodes associated with this node pool.
 	Nodes []Node `json:"nodes,omitempty"`
 }
@@ -51,7 +54,7 @@ func NewNodePoolWithDefaults() *NodePool {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *NodePool) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -61,7 +64,7 @@ func (o *NodePool) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NodePool) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -69,7 +72,7 @@ func (o *NodePool) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *NodePool) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -83,7 +86,7 @@ func (o *NodePool) SetName(v string) {
 
 // GetNodeCount returns the NodeCount field value if set, zero value otherwise.
 func (o *NodePool) GetNodeCount() int32 {
-	if o == nil || o.NodeCount == nil {
+	if o == nil || IsNil(o.NodeCount) {
 		var ret int32
 		return ret
 	}
@@ -93,7 +96,7 @@ func (o *NodePool) GetNodeCount() int32 {
 // GetNodeCountOk returns a tuple with the NodeCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NodePool) GetNodeCountOk() (*int32, bool) {
-	if o == nil || o.NodeCount == nil {
+	if o == nil || IsNil(o.NodeCount) {
 		return nil, false
 	}
 	return o.NodeCount, true
@@ -101,7 +104,7 @@ func (o *NodePool) GetNodeCountOk() (*int32, bool) {
 
 // HasNodeCount returns a boolean if a field has been set.
 func (o *NodePool) HasNodeCount() bool {
-	if o != nil && o.NodeCount != nil {
+	if o != nil && !IsNil(o.NodeCount) {
 		return true
 	}
 
@@ -115,7 +118,7 @@ func (o *NodePool) SetNodeCount(v int32) {
 
 // GetServerType returns the ServerType field value if set, zero value otherwise.
 func (o *NodePool) GetServerType() string {
-	if o == nil || o.ServerType == nil {
+	if o == nil || IsNil(o.ServerType) {
 		var ret string
 		return ret
 	}
@@ -125,7 +128,7 @@ func (o *NodePool) GetServerType() string {
 // GetServerTypeOk returns a tuple with the ServerType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NodePool) GetServerTypeOk() (*string, bool) {
-	if o == nil || o.ServerType == nil {
+	if o == nil || IsNil(o.ServerType) {
 		return nil, false
 	}
 	return o.ServerType, true
@@ -133,7 +136,7 @@ func (o *NodePool) GetServerTypeOk() (*string, bool) {
 
 // HasServerType returns a boolean if a field has been set.
 func (o *NodePool) HasServerType() bool {
-	if o != nil && o.ServerType != nil {
+	if o != nil && !IsNil(o.ServerType) {
 		return true
 	}
 
@@ -146,9 +149,9 @@ func (o *NodePool) SetServerType(v string) {
 }
 
 // GetSshConfig returns the SshConfig field value if set, zero value otherwise.
-func (o *NodePool) GetSshConfig() NodePoolSshConfig {
-	if o == nil || o.SshConfig == nil {
-		var ret NodePoolSshConfig
+func (o *NodePool) GetSshConfig() SshConfig {
+	if o == nil || IsNil(o.SshConfig) {
+		var ret SshConfig
 		return ret
 	}
 	return *o.SshConfig
@@ -156,8 +159,8 @@ func (o *NodePool) GetSshConfig() NodePoolSshConfig {
 
 // GetSshConfigOk returns a tuple with the SshConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NodePool) GetSshConfigOk() (*NodePoolSshConfig, bool) {
-	if o == nil || o.SshConfig == nil {
+func (o *NodePool) GetSshConfigOk() (*SshConfig, bool) {
+	if o == nil || IsNil(o.SshConfig) {
 		return nil, false
 	}
 	return o.SshConfig, true
@@ -165,21 +168,21 @@ func (o *NodePool) GetSshConfigOk() (*NodePoolSshConfig, bool) {
 
 // HasSshConfig returns a boolean if a field has been set.
 func (o *NodePool) HasSshConfig() bool {
-	if o != nil && o.SshConfig != nil {
+	if o != nil && !IsNil(o.SshConfig) {
 		return true
 	}
 
 	return false
 }
 
-// SetSshConfig gets a reference to the given NodePoolSshConfig and assigns it to the SshConfig field.
-func (o *NodePool) SetSshConfig(v NodePoolSshConfig) {
+// SetSshConfig gets a reference to the given SshConfig and assigns it to the SshConfig field.
+func (o *NodePool) SetSshConfig(v SshConfig) {
 	o.SshConfig = &v
 }
 
 // GetNodes returns the Nodes field value if set, zero value otherwise.
 func (o *NodePool) GetNodes() []Node {
-	if o == nil || o.Nodes == nil {
+	if o == nil || IsNil(o.Nodes) {
 		var ret []Node
 		return ret
 	}
@@ -189,7 +192,7 @@ func (o *NodePool) GetNodes() []Node {
 // GetNodesOk returns a tuple with the Nodes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NodePool) GetNodesOk() ([]Node, bool) {
-	if o == nil || o.Nodes == nil {
+	if o == nil || IsNil(o.Nodes) {
 		return nil, false
 	}
 	return o.Nodes, true
@@ -197,7 +200,7 @@ func (o *NodePool) GetNodesOk() ([]Node, bool) {
 
 // HasNodes returns a boolean if a field has been set.
 func (o *NodePool) HasNodes() bool {
-	if o != nil && o.Nodes != nil {
+	if o != nil && !IsNil(o.Nodes) {
 		return true
 	}
 
@@ -210,23 +213,31 @@ func (o *NodePool) SetNodes(v []Node) {
 }
 
 func (o NodePool) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.NodeCount != nil {
-		toSerialize["nodeCount"] = o.NodeCount
-	}
-	if o.ServerType != nil {
-		toSerialize["serverType"] = o.ServerType
-	}
-	if o.SshConfig != nil {
-		toSerialize["sshConfig"] = o.SshConfig
-	}
-	if o.Nodes != nil {
-		toSerialize["nodes"] = o.Nodes
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NodePool) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.NodeCount) {
+		toSerialize["nodeCount"] = o.NodeCount
+	}
+	if !IsNil(o.ServerType) {
+		toSerialize["serverType"] = o.ServerType
+	}
+	if !IsNil(o.SshConfig) {
+		toSerialize["sshConfig"] = o.SshConfig
+	}
+	if !IsNil(o.Nodes) {
+		toSerialize["nodes"] = o.Nodes
+	}
+	return toSerialize, nil
 }
 
 type NullableNodePool struct {

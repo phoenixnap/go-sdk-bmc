@@ -23,7 +23,7 @@ For more information, please visit [https://phoenixnap.com/](https://phoenixnap.
 
 Install the following dependencies:
 
-```shell
+```sh
 go get github.com/stretchr/testify/assert
 go get golang.org/x/oauth2
 go get golang.org/x/net/context
@@ -31,13 +31,13 @@ go get golang.org/x/net/context
 
 Put the package under your project folder and add the following in import:
 
-```golang
+```go
 import networkapi "github.com/phoenixnap/go-sdk-bmc/networkapi"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
 
-```golang
+```go
 os.Setenv("HTTP_PROXY", "http://proxy_name:proxy_port")
 ```
 
@@ -47,17 +47,17 @@ Default configuration comes with `Servers` field that contains server objects as
 
 ### Select Server Configuration
 
-For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
+For using other server than the one defined on index 0 set context value `networkapi.ContextServerIndex` of type `int`.
 
-```golang
+```go
 ctx := context.WithValue(context.Background(), networkapi.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
 
-Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
+Templated server URL is formatted using default variables from configuration or from context value `networkapi.ContextServerVariables` of type `map[string]string`.
 
-```golang
+```go
 ctx := context.WithValue(context.Background(), networkapi.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
@@ -69,9 +69,9 @@ Note, enum values are always validated and all unused variables are silently ign
 
 Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
-Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+Similar rules for overriding default operation server index and variables applies by using `networkapi.ContextOperationServerIndices` and `networkapi.ContextOperationServerVariables` context maps.
 
-```
+```go
 ctx := context.WithValue(context.Background(), networkapi.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
@@ -88,18 +88,18 @@ All URIs are relative to *https://api.phoenixnap.com/networks/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*PrivateNetworksApi* | [**PrivateNetworksGet**](docs/PrivateNetworksApi.md#privatenetworksget) | **Get** /private-networks | List Private Networks.
-*PrivateNetworksApi* | [**PrivateNetworksNetworkIdDelete**](docs/PrivateNetworksApi.md#privatenetworksnetworkiddelete) | **Delete** /private-networks/{privateNetworkId} | Delete a Private Network.
-*PrivateNetworksApi* | [**PrivateNetworksNetworkIdGet**](docs/PrivateNetworksApi.md#privatenetworksnetworkidget) | **Get** /private-networks/{privateNetworkId} | Get a Private Network.
-*PrivateNetworksApi* | [**PrivateNetworksNetworkIdPut**](docs/PrivateNetworksApi.md#privatenetworksnetworkidput) | **Put** /private-networks/{privateNetworkId} | Update a Private Network.
-*PrivateNetworksApi* | [**PrivateNetworksPost**](docs/PrivateNetworksApi.md#privatenetworkspost) | **Post** /private-networks | Create a Private Network.
-*PublicNetworksApi* | [**PublicNetworksGet**](docs/PublicNetworksApi.md#publicnetworksget) | **Get** /public-networks | List Public Networks.
-*PublicNetworksApi* | [**PublicNetworksNetworkIdDelete**](docs/PublicNetworksApi.md#publicnetworksnetworkiddelete) | **Delete** /public-networks/{publicNetworkId} | Delete a Public Network.
-*PublicNetworksApi* | [**PublicNetworksNetworkIdGet**](docs/PublicNetworksApi.md#publicnetworksnetworkidget) | **Get** /public-networks/{publicNetworkId} | Get a Public Network.
-*PublicNetworksApi* | [**PublicNetworksNetworkIdIpBlocksIpBlockIdDelete**](docs/PublicNetworksApi.md#publicnetworksnetworkidipblocksipblockiddelete) | **Delete** /public-networks/{publicNetworkId}/ip-blocks/{ipBlockId} | Removes the IP Block from the Public Network.
-*PublicNetworksApi* | [**PublicNetworksNetworkIdIpBlocksPost**](docs/PublicNetworksApi.md#publicnetworksnetworkidipblockspost) | **Post** /public-networks/{publicNetworkId}/ip-blocks | Adds an IP block to this public network.
-*PublicNetworksApi* | [**PublicNetworksNetworkIdPatch**](docs/PublicNetworksApi.md#publicnetworksnetworkidpatch) | **Patch** /public-networks/{publicNetworkId} | Update Public Network&#39;s Details.
-*PublicNetworksApi* | [**PublicNetworksPost**](docs/PublicNetworksApi.md#publicnetworkspost) | **Post** /public-networks | Create a public network.
+*PrivateNetworksAPI* | [**PrivateNetworksGet**](docs/PrivateNetworksAPI.md#privatenetworksget) | **Get** /private-networks | List Private Networks.
+*PrivateNetworksAPI* | [**PrivateNetworksNetworkIdDelete**](docs/PrivateNetworksAPI.md#privatenetworksnetworkiddelete) | **Delete** /private-networks/{privateNetworkId} | Delete a Private Network.
+*PrivateNetworksAPI* | [**PrivateNetworksNetworkIdGet**](docs/PrivateNetworksAPI.md#privatenetworksnetworkidget) | **Get** /private-networks/{privateNetworkId} | Get a Private Network.
+*PrivateNetworksAPI* | [**PrivateNetworksNetworkIdPut**](docs/PrivateNetworksAPI.md#privatenetworksnetworkidput) | **Put** /private-networks/{privateNetworkId} | Update a Private Network.
+*PrivateNetworksAPI* | [**PrivateNetworksPost**](docs/PrivateNetworksAPI.md#privatenetworkspost) | **Post** /private-networks | Create a Private Network.
+*PublicNetworksAPI* | [**PublicNetworksGet**](docs/PublicNetworksAPI.md#publicnetworksget) | **Get** /public-networks | List Public Networks.
+*PublicNetworksAPI* | [**PublicNetworksNetworkIdDelete**](docs/PublicNetworksAPI.md#publicnetworksnetworkiddelete) | **Delete** /public-networks/{publicNetworkId} | Delete a Public Network.
+*PublicNetworksAPI* | [**PublicNetworksNetworkIdGet**](docs/PublicNetworksAPI.md#publicnetworksnetworkidget) | **Get** /public-networks/{publicNetworkId} | Get a Public Network.
+*PublicNetworksAPI* | [**PublicNetworksNetworkIdIpBlocksIpBlockIdDelete**](docs/PublicNetworksAPI.md#publicnetworksnetworkidipblocksipblockiddelete) | **Delete** /public-networks/{publicNetworkId}/ip-blocks/{ipBlockId} | Removes the IP Block from the Public Network.
+*PublicNetworksAPI* | [**PublicNetworksNetworkIdIpBlocksPost**](docs/PublicNetworksAPI.md#publicnetworksnetworkidipblockspost) | **Post** /public-networks/{publicNetworkId}/ip-blocks | Adds an IP block to this public network.
+*PublicNetworksAPI* | [**PublicNetworksNetworkIdPatch**](docs/PublicNetworksAPI.md#publicnetworksnetworkidpatch) | **Patch** /public-networks/{publicNetworkId} | Update Public Network&#39;s Details.
+*PublicNetworksAPI* | [**PublicNetworksPost**](docs/PublicNetworksAPI.md#publicnetworkspost) | **Post** /public-networks | Create a public network.
 
 
 ## Documentation For Models
@@ -119,7 +119,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Authorization
 
 
-
+Authentication schemes defined for the API:
 ### OAuth2
 
 
@@ -132,20 +132,20 @@ Class | Method | HTTP request | Description
 
 Example
 
-```golang
-auth := context.WithValue(context.Background(), sw.ContextAccessToken, "ACCESSTOKENSTRING")
+```go
+auth := context.WithValue(context.Background(), networkapi.ContextAccessToken, "ACCESSTOKENSTRING")
 r, err := client.Service.Operation(auth, args)
 ```
 
 Or via OAuth2 module to automatically refresh tokens and perform user authentication.
 
-```golang
+```go
 import "golang.org/x/oauth2"
 
 /* Perform OAuth2 round trip request and obtain a token */
 
 tokenSource := oauth2cfg.TokenSource(createContext(httpClient), &token)
-auth := context.WithValue(oauth2.NoContext, sw.ContextOAuth2, tokenSource)
+auth := context.WithValue(oauth2.NoContext, networkapi.ContextOAuth2, tokenSource)
 r, err := client.Service.Operation(auth, args)
 ```
 
@@ -169,4 +169,3 @@ Each of these functions takes a value of the given basic type and returns a poin
 ## Author
 
 support@phoenixnap.com
-

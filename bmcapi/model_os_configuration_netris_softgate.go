@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OsConfigurationNetrisSoftgate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OsConfigurationNetrisSoftgate{}
+
 // OsConfigurationNetrisSoftgate Netris Softgate configuration properties. Follow <a href='https://phoenixnap.com/kb/netris-bare-metal-cloud#deploy-netris-softgate' target='_blank'>instructions</a> for retrieving the required details.
 type OsConfigurationNetrisSoftgate struct {
 	// (Read-only) Host OS on which the Netris Softgate is installed.
@@ -46,7 +49,7 @@ func NewOsConfigurationNetrisSoftgateWithDefaults() *OsConfigurationNetrisSoftga
 
 // GetHostOs returns the HostOs field value if set, zero value otherwise.
 func (o *OsConfigurationNetrisSoftgate) GetHostOs() string {
-	if o == nil || o.HostOs == nil {
+	if o == nil || IsNil(o.HostOs) {
 		var ret string
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *OsConfigurationNetrisSoftgate) GetHostOs() string {
 // GetHostOsOk returns a tuple with the HostOs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfigurationNetrisSoftgate) GetHostOsOk() (*string, bool) {
-	if o == nil || o.HostOs == nil {
+	if o == nil || IsNil(o.HostOs) {
 		return nil, false
 	}
 	return o.HostOs, true
@@ -64,7 +67,7 @@ func (o *OsConfigurationNetrisSoftgate) GetHostOsOk() (*string, bool) {
 
 // HasHostOs returns a boolean if a field has been set.
 func (o *OsConfigurationNetrisSoftgate) HasHostOs() bool {
-	if o != nil && o.HostOs != nil {
+	if o != nil && !IsNil(o.HostOs) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *OsConfigurationNetrisSoftgate) SetHostOs(v string) {
 
 // GetControllerAddress returns the ControllerAddress field value if set, zero value otherwise.
 func (o *OsConfigurationNetrisSoftgate) GetControllerAddress() string {
-	if o == nil || o.ControllerAddress == nil {
+	if o == nil || IsNil(o.ControllerAddress) {
 		var ret string
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *OsConfigurationNetrisSoftgate) GetControllerAddress() string {
 // GetControllerAddressOk returns a tuple with the ControllerAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfigurationNetrisSoftgate) GetControllerAddressOk() (*string, bool) {
-	if o == nil || o.ControllerAddress == nil {
+	if o == nil || IsNil(o.ControllerAddress) {
 		return nil, false
 	}
 	return o.ControllerAddress, true
@@ -96,7 +99,7 @@ func (o *OsConfigurationNetrisSoftgate) GetControllerAddressOk() (*string, bool)
 
 // HasControllerAddress returns a boolean if a field has been set.
 func (o *OsConfigurationNetrisSoftgate) HasControllerAddress() bool {
-	if o != nil && o.ControllerAddress != nil {
+	if o != nil && !IsNil(o.ControllerAddress) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *OsConfigurationNetrisSoftgate) SetControllerAddress(v string) {
 
 // GetControllerVersion returns the ControllerVersion field value if set, zero value otherwise.
 func (o *OsConfigurationNetrisSoftgate) GetControllerVersion() string {
-	if o == nil || o.ControllerVersion == nil {
+	if o == nil || IsNil(o.ControllerVersion) {
 		var ret string
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *OsConfigurationNetrisSoftgate) GetControllerVersion() string {
 // GetControllerVersionOk returns a tuple with the ControllerVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfigurationNetrisSoftgate) GetControllerVersionOk() (*string, bool) {
-	if o == nil || o.ControllerVersion == nil {
+	if o == nil || IsNil(o.ControllerVersion) {
 		return nil, false
 	}
 	return o.ControllerVersion, true
@@ -128,7 +131,7 @@ func (o *OsConfigurationNetrisSoftgate) GetControllerVersionOk() (*string, bool)
 
 // HasControllerVersion returns a boolean if a field has been set.
 func (o *OsConfigurationNetrisSoftgate) HasControllerVersion() bool {
-	if o != nil && o.ControllerVersion != nil {
+	if o != nil && !IsNil(o.ControllerVersion) {
 		return true
 	}
 
@@ -142,7 +145,7 @@ func (o *OsConfigurationNetrisSoftgate) SetControllerVersion(v string) {
 
 // GetControllerAuthKey returns the ControllerAuthKey field value if set, zero value otherwise.
 func (o *OsConfigurationNetrisSoftgate) GetControllerAuthKey() string {
-	if o == nil || o.ControllerAuthKey == nil {
+	if o == nil || IsNil(o.ControllerAuthKey) {
 		var ret string
 		return ret
 	}
@@ -152,7 +155,7 @@ func (o *OsConfigurationNetrisSoftgate) GetControllerAuthKey() string {
 // GetControllerAuthKeyOk returns a tuple with the ControllerAuthKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OsConfigurationNetrisSoftgate) GetControllerAuthKeyOk() (*string, bool) {
-	if o == nil || o.ControllerAuthKey == nil {
+	if o == nil || IsNil(o.ControllerAuthKey) {
 		return nil, false
 	}
 	return o.ControllerAuthKey, true
@@ -160,7 +163,7 @@ func (o *OsConfigurationNetrisSoftgate) GetControllerAuthKeyOk() (*string, bool)
 
 // HasControllerAuthKey returns a boolean if a field has been set.
 func (o *OsConfigurationNetrisSoftgate) HasControllerAuthKey() bool {
-	if o != nil && o.ControllerAuthKey != nil {
+	if o != nil && !IsNil(o.ControllerAuthKey) {
 		return true
 	}
 
@@ -173,20 +176,28 @@ func (o *OsConfigurationNetrisSoftgate) SetControllerAuthKey(v string) {
 }
 
 func (o OsConfigurationNetrisSoftgate) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.HostOs != nil {
-		toSerialize["hostOs"] = o.HostOs
-	}
-	if o.ControllerAddress != nil {
-		toSerialize["controllerAddress"] = o.ControllerAddress
-	}
-	if o.ControllerVersion != nil {
-		toSerialize["controllerVersion"] = o.ControllerVersion
-	}
-	if o.ControllerAuthKey != nil {
-		toSerialize["controllerAuthKey"] = o.ControllerAuthKey
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OsConfigurationNetrisSoftgate) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.HostOs) {
+		toSerialize["hostOs"] = o.HostOs
+	}
+	if !IsNil(o.ControllerAddress) {
+		toSerialize["controllerAddress"] = o.ControllerAddress
+	}
+	if !IsNil(o.ControllerVersion) {
+		toSerialize["controllerVersion"] = o.ControllerVersion
+	}
+	if !IsNil(o.ControllerAuthKey) {
+		toSerialize["controllerAuthKey"] = o.ControllerAuthKey
+	}
+	return toSerialize, nil
 }
 
 type NullableOsConfigurationNetrisSoftgate struct {
