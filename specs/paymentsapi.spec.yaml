@@ -110,16 +110,47 @@ components:
             transactions.read: Grants read only access to transactions.
   schemas:
     PaginatedTransactions:
-      type: object
-      required:
-        - results
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Transaction'
       allOf:
         - $ref: '#/components/schemas/PaginatedResponse'
+        - type: object
+          required:
+            - results
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/Transaction'
+      example:
+        results:
+          - id: 60ffafcdffb8b074c7968faf
+            status: FAILED
+            details: Transaction failed due to credit card expiration.
+            amount: 10.99
+            currency: USD
+            date: '2023-04-27T16:24:57.123Z'
+            metadata:
+              invoiceId: '3088561'
+              invoiceNumber: 1234-4321
+              isAutoCharge: true
+            cardPaymentMethodDetails:
+              cardType: VISA
+              lastFourDigits: '5666'
+          - id: 60ed34cdffb8b074c7968faf
+            status: SUCCESS
+            details: ''
+            amount: 50
+            currency: USD
+            date: '2024-01-27T12:32:18.123Z'
+            metadata:
+              invoiceId: '3088562'
+              invoiceNumber: 1234-4322
+              isAutoCharge: true
+            cardPaymentMethodDetails:
+              cardType: VISA
+              lastFourDigits: '5666'
+        limit: 2
+        offset: 10
+        total: 342
     Transaction:
       type: object
       description: Transaction response model.

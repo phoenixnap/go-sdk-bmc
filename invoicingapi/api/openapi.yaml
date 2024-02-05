@@ -473,32 +473,35 @@ components:
     PaginatedInvoices:
       allOf:
       - $ref: '#/components/schemas/PaginatedResponse'
+      - properties:
+          results:
+            items:
+              $ref: '#/components/schemas/Invoice'
+            type: array
+        required:
+        - results
+        type: object
       example:
         results:
-        - number: 34440-2488782
+        - id: 5fa54d1e91867c03a0a7b4a4
+          number: 34440-2488782
+          currency: EUR
           amount: 100.99
           outstandingAmount: 100.99
+          status: UNPAID
           sentOn: 2021-03-13T20:24:32.491Z
           dueDate: 2021-04-13T20:24:32.491Z
+        - id: 5fa89e1e91867c03a0a7b4a4
+          number: 34440-2488783
           currency: EUR
-          id: 5fa54d1e91867c03a0a7b4a4
-          status: UNPAID
-        - number: 34440-2488782
-          amount: 100.99
-          outstandingAmount: 100.99
-          sentOn: 2021-03-13T20:24:32.491Z
-          dueDate: 2021-04-13T20:24:32.491Z
-          currency: EUR
-          id: 5fa54d1e91867c03a0a7b4a4
-          status: UNPAID
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/Invoice'
-          type: array
-      required:
-      - results
-      type: object
+          amount: 50
+          outstandingAmount: 0
+          status: PAID
+          sentOn: 2021-04-13T20:24:32.491Z
+          dueDate: 2021-05-13T20:24:32.491Z
+        limit: 2
+        offset: 10
+        total: 342
     Invoice:
       example:
         number: 34440-2488782

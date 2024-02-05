@@ -284,42 +284,45 @@ components:
     PaginatedTransactions:
       allOf:
       - $ref: '#/components/schemas/PaginatedResponse'
+      - properties:
+          results:
+            items:
+              $ref: '#/components/schemas/Transaction'
+            type: array
+        required:
+        - results
+        type: object
       example:
         results:
-        - date: 2023-04-27T16:24:57.123Z
-          amount: 10.99
-          metadata:
-            isAutoCharge: true
-            invoiceNumber: 1234-4321
-            invoiceId: "3088561"
-          cardPaymentMethodDetails:
-            lastFourDigits: "5666"
-            cardType: VISA
-          details: Transaction failed due to credit card expiration.
-          currency: USD
-          id: 60ffafcdffb8b074c7968faf
+        - id: 60ffafcdffb8b074c7968faf
           status: FAILED
-        - date: 2023-04-27T16:24:57.123Z
-          amount: 10.99
-          metadata:
-            isAutoCharge: true
-            invoiceNumber: 1234-4321
-            invoiceId: "3088561"
-          cardPaymentMethodDetails:
-            lastFourDigits: "5666"
-            cardType: VISA
           details: Transaction failed due to credit card expiration.
+          amount: 10.99
           currency: USD
-          id: 60ffafcdffb8b074c7968faf
-          status: FAILED
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/Transaction'
-          type: array
-      required:
-      - results
-      type: object
+          date: 2023-04-27T16:24:57.123Z
+          metadata:
+            invoiceId: "3088561"
+            invoiceNumber: 1234-4321
+            isAutoCharge: true
+          cardPaymentMethodDetails:
+            cardType: VISA
+            lastFourDigits: "5666"
+        - id: 60ed34cdffb8b074c7968faf
+          status: SUCCESS
+          details: ""
+          amount: 50
+          currency: USD
+          date: 2024-01-27T12:32:18.123Z
+          metadata:
+            invoiceId: "3088562"
+            invoiceNumber: 1234-4322
+            isAutoCharge: true
+          cardPaymentMethodDetails:
+            cardType: VISA
+            lastFourDigits: "5666"
+        limit: 2
+        offset: 10
+        total: 342
     Transaction:
       description: Transaction response model.
       example:

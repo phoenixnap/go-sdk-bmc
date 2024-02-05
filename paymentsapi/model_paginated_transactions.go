@@ -22,13 +22,13 @@ var _ MappedNullable = &PaginatedTransactions{}
 
 // PaginatedTransactions struct for PaginatedTransactions
 type PaginatedTransactions struct {
-	Results []Transaction `json:"results"`
 	// Maximum number of items in the page (actual returned length can be less).
 	Limit int32 `json:"limit"`
 	// The number of returned items skipped.
 	Offset int32 `json:"offset"`
 	// The total number of records available for retrieval.
-	Total int64 `json:"total"`
+	Total   int64         `json:"total"`
+	Results []Transaction `json:"results"`
 }
 
 type _PaginatedTransactions PaginatedTransactions
@@ -37,11 +37,12 @@ type _PaginatedTransactions PaginatedTransactions
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaginatedTransactions(results []Transaction, limit int32, offset int32, total int64) *PaginatedTransactions {
+func NewPaginatedTransactions(limit int32, offset int32, total int64, results []Transaction) *PaginatedTransactions {
 	this := PaginatedTransactions{}
 	this.Limit = limit
 	this.Offset = offset
 	this.Total = total
+	this.Results = results
 	return &this
 }
 
@@ -51,30 +52,6 @@ func NewPaginatedTransactions(results []Transaction, limit int32, offset int32, 
 func NewPaginatedTransactionsWithDefaults() *PaginatedTransactions {
 	this := PaginatedTransactions{}
 	return &this
-}
-
-// GetResults returns the Results field value
-func (o *PaginatedTransactions) GetResults() []Transaction {
-	if o == nil {
-		var ret []Transaction
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *PaginatedTransactions) GetResultsOk() ([]Transaction, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *PaginatedTransactions) SetResults(v []Transaction) {
-	o.Results = v
 }
 
 // GetLimit returns the Limit field value
@@ -149,6 +126,30 @@ func (o *PaginatedTransactions) SetTotal(v int64) {
 	o.Total = v
 }
 
+// GetResults returns the Results field value
+func (o *PaginatedTransactions) GetResults() []Transaction {
+	if o == nil {
+		var ret []Transaction
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *PaginatedTransactions) GetResultsOk() ([]Transaction, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *PaginatedTransactions) SetResults(v []Transaction) {
+	o.Results = v
+}
+
 func (o PaginatedTransactions) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -159,10 +160,10 @@ func (o PaginatedTransactions) MarshalJSON() ([]byte, error) {
 
 func (o PaginatedTransactions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["results"] = o.Results
 	toSerialize["limit"] = o.Limit
 	toSerialize["offset"] = o.Offset
 	toSerialize["total"] = o.Total
+	toSerialize["results"] = o.Results
 	return toSerialize, nil
 }
 
@@ -171,10 +172,10 @@ func (o *PaginatedTransactions) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"results",
 		"limit",
 		"offset",
 		"total",
+		"results",
 	}
 
 	allProperties := make(map[string]interface{})
