@@ -142,7 +142,6 @@ jobs:
             echo "CHANGES_FOUND=true" >> "$GITHUB_OUTPUT";
           else 
             echo No changes found;
-            echo "CHANGES_FOUND=false" >> "$GITHUB_OUTPUT";
           fi
       - name: Push changes
         uses: ad-m/github-push-action@master
