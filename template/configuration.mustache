@@ -120,6 +120,7 @@ type Configuration struct {
 	Scheme           string            `json:"scheme,omitempty"`
 	DefaultHeader    map[string]string `json:"defaultHeader,omitempty"`
 	UserAgent        string            `json:"userAgent,omitempty"`
+	{{! Custom: Adding XPoweredBy for headers }}
 	XPoweredBy       string            `json:"xPoweredBy,omitempty"`
 	Debug            bool              `json:"debug,omitempty"`
 	Servers          ServerConfigurations
@@ -136,6 +137,7 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader:    make(map[string]string),
+		{{! Custom: Setting user agents and x powered by. }}
 		UserAgent:        "PNAP-go-sdk-bmc/" + SdkVersion,
         XPoweredBy:       "PNAP-go-sdk-bmc/" + SdkVersion,
 		Debug:            false,
