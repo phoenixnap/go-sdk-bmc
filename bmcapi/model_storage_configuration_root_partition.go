@@ -23,8 +23,11 @@ type StorageConfigurationRootPartition struct {
 	// Software RAID configuration. The following RAID options are available: NO_RAID, RAID_0, RAID_1.
 	Raid *string `json:"raid,omitempty"`
 	// The size of the root partition in GB. -1 to use all available space.
-	Size *int32 `json:"size,omitempty"`
+	Size                 *int32 `json:"size,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _StorageConfigurationRootPartition StorageConfigurationRootPartition
 
 // NewStorageConfigurationRootPartition instantiates a new StorageConfigurationRootPartition object
 // This constructor will assign default values to properties that have it defined,
@@ -131,7 +134,34 @@ func (o StorageConfigurationRootPartition) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.Size) {
 		toSerialize["size"] = o.Size
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *StorageConfigurationRootPartition) UnmarshalJSON(data []byte) (err error) {
+	varStorageConfigurationRootPartition := _StorageConfigurationRootPartition{}
+
+	err = json.Unmarshal(data, &varStorageConfigurationRootPartition)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StorageConfigurationRootPartition(varStorageConfigurationRootPartition)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "raid")
+		delete(additionalProperties, "size")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableStorageConfigurationRootPartition struct {

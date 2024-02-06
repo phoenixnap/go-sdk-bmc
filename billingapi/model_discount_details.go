@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type DiscountDetails struct {
 	// The type of discount applied.
 	Type string `json:"type"`
 	// The value or amount of the discount. The interpretation of this value depends on the 'type' of discount.
-	Value float32 `json:"value"`
+	Value                float32 `json:"value"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _DiscountDetails DiscountDetails
@@ -137,6 +137,11 @@ func (o DiscountDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize["code"] = o.Code
 	toSerialize["type"] = o.Type
 	toSerialize["value"] = o.Value
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -166,15 +171,22 @@ func (o *DiscountDetails) UnmarshalJSON(data []byte) (err error) {
 
 	varDiscountDetails := _DiscountDetails{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDiscountDetails)
+	err = json.Unmarshal(data, &varDiscountDetails)
 
 	if err != nil {
 		return err
 	}
 
 	*o = DiscountDetails(varDiscountDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

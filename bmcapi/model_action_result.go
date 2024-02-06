@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,7 +22,8 @@ var _ MappedNullable = &ActionResult{}
 // ActionResult Result of a successful action.
 type ActionResult struct {
 	// Message describing the action's result.
-	Result string `json:"result"`
+	Result               string `json:"result"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ActionResult ActionResult
@@ -81,6 +81,11 @@ func (o ActionResult) MarshalJSON() ([]byte, error) {
 func (o ActionResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["result"] = o.Result
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -108,15 +113,20 @@ func (o *ActionResult) UnmarshalJSON(data []byte) (err error) {
 
 	varActionResult := _ActionResult{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varActionResult)
+	err = json.Unmarshal(data, &varActionResult)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ActionResult(varActionResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "result")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

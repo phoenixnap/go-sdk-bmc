@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -36,7 +35,8 @@ type SshKey struct {
 	// Date and time of creation.
 	CreatedOn time.Time `json:"createdOn"`
 	// Date and time of last update.
-	LastUpdatedOn time.Time `json:"lastUpdatedOn"`
+	LastUpdatedOn        time.Time `json:"lastUpdatedOn"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SshKey SshKey
@@ -250,6 +250,11 @@ func (o SshKey) ToMap() (map[string]interface{}, error) {
 	toSerialize["fingerprint"] = o.Fingerprint
 	toSerialize["createdOn"] = o.CreatedOn
 	toSerialize["lastUpdatedOn"] = o.LastUpdatedOn
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -283,15 +288,26 @@ func (o *SshKey) UnmarshalJSON(data []byte) (err error) {
 
 	varSshKey := _SshKey{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSshKey)
+	err = json.Unmarshal(data, &varSshKey)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SshKey(varSshKey)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "default")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "fingerprint")
+		delete(additionalProperties, "createdOn")
+		delete(additionalProperties, "lastUpdatedOn")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

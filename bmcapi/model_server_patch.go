@@ -23,8 +23,11 @@ type ServerPatch struct {
 	// Description of server.
 	Description *string `json:"description,omitempty"`
 	// Hostname of server
-	Hostname *string `json:"hostname,omitempty"`
+	Hostname             *string `json:"hostname,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ServerPatch ServerPatch
 
 // NewServerPatch instantiates a new ServerPatch object
 // This constructor will assign default values to properties that have it defined,
@@ -123,7 +126,34 @@ func (o ServerPatch) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Hostname) {
 		toSerialize["hostname"] = o.Hostname
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ServerPatch) UnmarshalJSON(data []byte) (err error) {
+	varServerPatch := _ServerPatch{}
+
+	err = json.Unmarshal(data, &varServerPatch)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServerPatch(varServerPatch)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "hostname")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableServerPatch struct {

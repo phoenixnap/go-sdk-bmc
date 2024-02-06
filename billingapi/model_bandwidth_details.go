@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -29,7 +28,8 @@ type BandwidthDetails struct {
 	// Package size per month.
 	PackageQuantity *float32 `json:"packageQuantity,omitempty"`
 	// Package size unit.
-	PackageUnit *string `json:"packageUnit,omitempty"`
+	PackageUnit          *string `json:"packageUnit,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _BandwidthDetails BandwidthDetails
@@ -183,6 +183,11 @@ func (o BandwidthDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PackageUnit) {
 		toSerialize["packageUnit"] = o.PackageUnit
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -211,15 +216,23 @@ func (o *BandwidthDetails) UnmarshalJSON(data []byte) (err error) {
 
 	varBandwidthDetails := _BandwidthDetails{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varBandwidthDetails)
+	err = json.Unmarshal(data, &varBandwidthDetails)
 
 	if err != nil {
 		return err
 	}
 
 	*o = BandwidthDetails(varBandwidthDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "ingressGb")
+		delete(additionalProperties, "egressGb")
+		delete(additionalProperties, "packageQuantity")
+		delete(additionalProperties, "packageUnit")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

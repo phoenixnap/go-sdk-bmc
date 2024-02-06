@@ -25,8 +25,11 @@ type RancherServerMetadata struct {
 	// The username to use to login to the Rancher Server. This field is returned only as a response to the create cluster request. Make sure to take note or you will not be able to access the server.
 	Username *string `json:"username,omitempty"`
 	// This is the password to be used to login to the Rancher Server. This field is returned only as a response to the create cluster request. Make sure to take note or you will not be able to access the server.
-	Password *string `json:"password,omitempty"`
+	Password             *string `json:"password,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RancherServerMetadata RancherServerMetadata
 
 // NewRancherServerMetadata instantiates a new RancherServerMetadata object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o RancherServerMetadata) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RancherServerMetadata) UnmarshalJSON(data []byte) (err error) {
+	varRancherServerMetadata := _RancherServerMetadata{}
+
+	err = json.Unmarshal(data, &varRancherServerMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RancherServerMetadata(varRancherServerMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "password")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRancherServerMetadata struct {

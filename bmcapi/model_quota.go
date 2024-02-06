@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -37,6 +36,7 @@ type Quota struct {
 	// The quota used expressed as a number.
 	Used                         int32                          `json:"used"`
 	QuotaEditLimitRequestDetails []QuotaEditLimitRequestDetails `json:"quotaEditLimitRequestDetails"`
+	AdditionalProperties         map[string]interface{}
 }
 
 type _Quota Quota
@@ -276,6 +276,11 @@ func (o Quota) ToMap() (map[string]interface{}, error) {
 	toSerialize["unit"] = o.Unit
 	toSerialize["used"] = o.Used
 	toSerialize["quotaEditLimitRequestDetails"] = o.QuotaEditLimitRequestDetails
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -310,15 +315,27 @@ func (o *Quota) UnmarshalJSON(data []byte) (err error) {
 
 	varQuota := _Quota{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varQuota)
+	err = json.Unmarshal(data, &varQuota)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Quota(varQuota)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "unit")
+		delete(additionalProperties, "used")
+		delete(additionalProperties, "quotaEditLimitRequestDetails")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package auditapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -26,8 +25,9 @@ type Event struct {
 	// The name of the event.
 	Name *string `json:"name,omitempty"`
 	// The UTC time the event initiated.
-	Timestamp time.Time `json:"timestamp"`
-	UserInfo  UserInfo  `json:"userInfo"`
+	Timestamp            time.Time `json:"timestamp"`
+	UserInfo             UserInfo  `json:"userInfo"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Event Event
@@ -146,6 +146,11 @@ func (o Event) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["timestamp"] = o.Timestamp
 	toSerialize["userInfo"] = o.UserInfo
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -174,15 +179,22 @@ func (o *Event) UnmarshalJSON(data []byte) (err error) {
 
 	varEvent := _Event{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varEvent)
+	err = json.Unmarshal(data, &varEvent)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Event(varEvent)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "userInfo")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

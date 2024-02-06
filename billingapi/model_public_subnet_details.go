@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type PublicSubnetDetails struct {
 	// Classless Inter-Domain Routing
 	Cidr string `json:"cidr"`
 	// CIDR size
-	Size string `json:"size"`
+	Size                 string `json:"size"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PublicSubnetDetails PublicSubnetDetails
@@ -146,6 +146,11 @@ func (o PublicSubnetDetails) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["cidr"] = o.Cidr
 	toSerialize["size"] = o.Size
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -174,15 +179,22 @@ func (o *PublicSubnetDetails) UnmarshalJSON(data []byte) (err error) {
 
 	varPublicSubnetDetails := _PublicSubnetDetails{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPublicSubnetDetails)
+	err = json.Unmarshal(data, &varPublicSubnetDetails)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PublicSubnetDetails(varPublicSubnetDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "cidr")
+		delete(additionalProperties, "size")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

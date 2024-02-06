@@ -21,8 +21,11 @@ var _ MappedNullable = &Node{}
 // Node Node details.
 type Node struct {
 	// The server identifier.
-	ServerId *string `json:"serverId,omitempty"`
+	ServerId             *string `json:"serverId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Node Node
 
 // NewNode instantiates a new Node object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o Node) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ServerId) {
 		toSerialize["serverId"] = o.ServerId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Node) UnmarshalJSON(data []byte) (err error) {
+	varNode := _Node{}
+
+	err = json.Unmarshal(data, &varNode)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Node(varNode)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "serverId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNode struct {

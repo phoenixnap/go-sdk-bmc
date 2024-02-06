@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type DeleteResult struct {
 	// Server has been deleted.
 	Result string `json:"result"`
 	// The unique identifier of the server.
-	ServerId string `json:"serverId"`
+	ServerId             string `json:"serverId"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _DeleteResult DeleteResult
@@ -109,6 +109,11 @@ func (o DeleteResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["result"] = o.Result
 	toSerialize["serverId"] = o.ServerId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *DeleteResult) UnmarshalJSON(data []byte) (err error) {
 
 	varDeleteResult := _DeleteResult{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDeleteResult)
+	err = json.Unmarshal(data, &varDeleteResult)
 
 	if err != nil {
 		return err
 	}
 
 	*o = DeleteResult(varDeleteResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "result")
+		delete(additionalProperties, "serverId")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

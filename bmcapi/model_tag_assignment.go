@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -31,7 +30,8 @@ type TagAssignment struct {
 	// Whether or not to show the tag as part of billing and invoices
 	IsBillingTag bool `json:"isBillingTag"`
 	// Who the tag was created by.
-	CreatedBy *string `json:"createdBy,omitempty"`
+	CreatedBy            *string `json:"createdBy,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TagAssignment TagAssignment
@@ -211,6 +211,11 @@ func (o TagAssignment) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -240,15 +245,24 @@ func (o *TagAssignment) UnmarshalJSON(data []byte) (err error) {
 
 	varTagAssignment := _TagAssignment{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTagAssignment)
+	err = json.Unmarshal(data, &varTagAssignment)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TagAssignment(varTagAssignment)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "isBillingTag")
+		delete(additionalProperties, "createdBy")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

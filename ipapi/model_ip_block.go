@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package ipapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -44,7 +43,8 @@ type IpBlock struct {
 	// True if the IP block is a `bring your own` block.
 	IsBringYourOwn bool `json:"isBringYourOwn"`
 	// Date and time when the IP block was created.
-	CreatedOn time.Time `json:"createdOn"`
+	CreatedOn            time.Time `json:"createdOn"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _IpBlock IpBlock
@@ -398,6 +398,11 @@ func (o IpBlock) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["isBringYourOwn"] = o.IsBringYourOwn
 	toSerialize["createdOn"] = o.CreatedOn
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -431,15 +436,30 @@ func (o *IpBlock) UnmarshalJSON(data []byte) (err error) {
 
 	varIpBlock := _IpBlock{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varIpBlock)
+	err = json.Unmarshal(data, &varIpBlock)
 
 	if err != nil {
 		return err
 	}
 
 	*o = IpBlock(varIpBlock)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "cidrBlockSize")
+		delete(additionalProperties, "cidr")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "assignedResourceId")
+		delete(additionalProperties, "assignedResourceType")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "isBringYourOwn")
+		delete(additionalProperties, "createdOn")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

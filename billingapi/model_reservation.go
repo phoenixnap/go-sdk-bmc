@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -50,7 +49,8 @@ type Reservation struct {
 	// The resource ID currently being assigned to Reservation.
 	AssignedResourceId *string `json:"assignedResourceId,omitempty"`
 	// Next billing date for Reservation.
-	NextBillingDate *string `json:"nextBillingDate,omitempty"`
+	NextBillingDate      *string `json:"nextBillingDate,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Reservation Reservation
@@ -552,6 +552,11 @@ func (o Reservation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.NextBillingDate) {
 		toSerialize["nextBillingDate"] = o.NextBillingDate
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -588,15 +593,35 @@ func (o *Reservation) UnmarshalJSON(data []byte) (err error) {
 
 	varReservation := _Reservation{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varReservation)
+	err = json.Unmarshal(data, &varReservation)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Reservation(varReservation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "productCode")
+		delete(additionalProperties, "productCategory")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "reservationModel")
+		delete(additionalProperties, "initialInvoiceModel")
+		delete(additionalProperties, "startDateTime")
+		delete(additionalProperties, "endDateTime")
+		delete(additionalProperties, "lastRenewalDateTime")
+		delete(additionalProperties, "nextRenewalDateTime")
+		delete(additionalProperties, "autoRenew")
+		delete(additionalProperties, "sku")
+		delete(additionalProperties, "price")
+		delete(additionalProperties, "priceUnit")
+		delete(additionalProperties, "assignedResourceId")
+		delete(additionalProperties, "nextBillingDate")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

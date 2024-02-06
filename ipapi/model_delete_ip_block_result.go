@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package ipapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type DeleteIpBlockResult struct {
 	// IP Block has been deleted.
 	Result string `json:"result"`
 	// The unique identifier of the IP Block.
-	IpBlockId string `json:"ipBlockId"`
+	IpBlockId            string `json:"ipBlockId"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _DeleteIpBlockResult DeleteIpBlockResult
@@ -109,6 +109,11 @@ func (o DeleteIpBlockResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["result"] = o.Result
 	toSerialize["ipBlockId"] = o.IpBlockId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *DeleteIpBlockResult) UnmarshalJSON(data []byte) (err error) {
 
 	varDeleteIpBlockResult := _DeleteIpBlockResult{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDeleteIpBlockResult)
+	err = json.Unmarshal(data, &varDeleteIpBlockResult)
 
 	if err != nil {
 		return err
 	}
 
 	*o = DeleteIpBlockResult(varDeleteIpBlockResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "result")
+		delete(additionalProperties, "ipBlockId")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

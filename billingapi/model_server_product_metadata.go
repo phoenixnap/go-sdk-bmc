@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -35,7 +34,8 @@ type ServerProductMetadata struct {
 	// Server network.
 	Network string `json:"network"`
 	// Server storage.
-	Storage string `json:"storage"`
+	Storage              string `json:"storage"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ServerProductMetadata ServerProductMetadata
@@ -249,6 +249,11 @@ func (o ServerProductMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize["cpuFrequency"] = o.CpuFrequency
 	toSerialize["network"] = o.Network
 	toSerialize["storage"] = o.Storage
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -282,15 +287,26 @@ func (o *ServerProductMetadata) UnmarshalJSON(data []byte) (err error) {
 
 	varServerProductMetadata := _ServerProductMetadata{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varServerProductMetadata)
+	err = json.Unmarshal(data, &varServerProductMetadata)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ServerProductMetadata(varServerProductMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "ramInGb")
+		delete(additionalProperties, "cpu")
+		delete(additionalProperties, "cpuCount")
+		delete(additionalProperties, "coresPerCpu")
+		delete(additionalProperties, "cpuFrequency")
+		delete(additionalProperties, "network")
+		delete(additionalProperties, "storage")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

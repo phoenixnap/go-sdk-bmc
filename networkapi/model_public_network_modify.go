@@ -23,8 +23,11 @@ type PublicNetworkModify struct {
 	// A friendly name given to the network. This name should be unique.
 	Name *string `json:"name,omitempty"`
 	// The description of this public network
-	Description *string `json:"description,omitempty"`
+	Description          *string `json:"description,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PublicNetworkModify PublicNetworkModify
 
 // NewPublicNetworkModify instantiates a new PublicNetworkModify object
 // This constructor will assign default values to properties that have it defined,
@@ -123,7 +126,34 @@ func (o PublicNetworkModify) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PublicNetworkModify) UnmarshalJSON(data []byte) (err error) {
+	varPublicNetworkModify := _PublicNetworkModify{}
+
+	err = json.Unmarshal(data, &varPublicNetworkModify)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicNetworkModify(varPublicNetworkModify)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePublicNetworkModify struct {

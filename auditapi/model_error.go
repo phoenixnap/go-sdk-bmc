@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package auditapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type Error struct {
 	// The description detailing the cause of the error code.
 	Message string `json:"message"`
 	// Validation errors, if any.
-	ValidationErrors []string `json:"validationErrors,omitempty"`
+	ValidationErrors     []string `json:"validationErrors,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Error Error
@@ -118,6 +118,11 @@ func (o Error) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ValidationErrors) {
 		toSerialize["validationErrors"] = o.ValidationErrors
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -145,15 +150,21 @@ func (o *Error) UnmarshalJSON(data []byte) (err error) {
 
 	varError := _Error{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varError)
+	err = json.Unmarshal(data, &varError)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Error(varError)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "validationErrors")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

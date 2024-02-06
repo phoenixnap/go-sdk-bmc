@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package paymentsapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type TransactionMetadata struct {
 	// A user-friendly reference number assigned to the invoice that this transaction pertains to.
 	InvoiceNumber *string `json:"invoiceNumber,omitempty"`
 	// Whether this transaction was triggered by an auto charge or not.
-	IsAutoCharge bool `json:"isAutoCharge"`
+	IsAutoCharge         bool `json:"isAutoCharge"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TransactionMetadata TransactionMetadata
@@ -146,6 +146,11 @@ func (o TransactionMetadata) ToMap() (map[string]interface{}, error) {
 		toSerialize["invoiceNumber"] = o.InvoiceNumber
 	}
 	toSerialize["isAutoCharge"] = o.IsAutoCharge
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -174,15 +179,22 @@ func (o *TransactionMetadata) UnmarshalJSON(data []byte) (err error) {
 
 	varTransactionMetadata := _TransactionMetadata{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTransactionMetadata)
+	err = json.Unmarshal(data, &varTransactionMetadata)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TransactionMetadata(varTransactionMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "invoiceId")
+		delete(additionalProperties, "invoiceNumber")
+		delete(additionalProperties, "isAutoCharge")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

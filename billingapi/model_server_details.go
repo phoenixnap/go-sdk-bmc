@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type ServerDetails struct {
 	// The server identifier as returned by the BMC API.
 	Id string `json:"id"`
 	// The server hostname.
-	Hostname string `json:"hostname"`
+	Hostname             string `json:"hostname"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ServerDetails ServerDetails
@@ -109,6 +109,11 @@ func (o ServerDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["hostname"] = o.Hostname
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *ServerDetails) UnmarshalJSON(data []byte) (err error) {
 
 	varServerDetails := _ServerDetails{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varServerDetails)
+	err = json.Unmarshal(data, &varServerDetails)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ServerDetails(varServerDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "hostname")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

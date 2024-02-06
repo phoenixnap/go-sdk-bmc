@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,6 +26,7 @@ type ProductAvailability struct {
 	// Product category.
 	ProductCategory             string                       `json:"productCategory"`
 	LocationAvailabilityDetails []LocationAvailabilityDetail `json:"locationAvailabilityDetails"`
+	AdditionalProperties        map[string]interface{}
 }
 
 type _ProductAvailability ProductAvailability
@@ -136,6 +136,11 @@ func (o ProductAvailability) ToMap() (map[string]interface{}, error) {
 	toSerialize["productCode"] = o.ProductCode
 	toSerialize["productCategory"] = o.ProductCategory
 	toSerialize["locationAvailabilityDetails"] = o.LocationAvailabilityDetails
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -165,15 +170,22 @@ func (o *ProductAvailability) UnmarshalJSON(data []byte) (err error) {
 
 	varProductAvailability := _ProductAvailability{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProductAvailability)
+	err = json.Unmarshal(data, &varProductAvailability)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ProductAvailability(varProductAvailability)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "productCode")
+		delete(additionalProperties, "productCategory")
+		delete(additionalProperties, "locationAvailabilityDetails")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

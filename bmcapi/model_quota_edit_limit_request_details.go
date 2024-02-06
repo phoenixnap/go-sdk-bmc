@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -28,7 +27,8 @@ type QuotaEditLimitRequestDetails struct {
 	// The reason for changing the limit.
 	Reason string `json:"reason"`
 	// The point in time the request was submitted.
-	RequestedOn time.Time `json:"requestedOn"`
+	RequestedOn          time.Time `json:"requestedOn"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _QuotaEditLimitRequestDetails QuotaEditLimitRequestDetails
@@ -138,6 +138,11 @@ func (o QuotaEditLimitRequestDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize["limit"] = o.Limit
 	toSerialize["reason"] = o.Reason
 	toSerialize["requestedOn"] = o.RequestedOn
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -167,15 +172,22 @@ func (o *QuotaEditLimitRequestDetails) UnmarshalJSON(data []byte) (err error) {
 
 	varQuotaEditLimitRequestDetails := _QuotaEditLimitRequestDetails{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varQuotaEditLimitRequestDetails)
+	err = json.Unmarshal(data, &varQuotaEditLimitRequestDetails)
 
 	if err != nil {
 		return err
 	}
 
 	*o = QuotaEditLimitRequestDetails(varQuotaEditLimitRequestDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "reason")
+		delete(additionalProperties, "requestedOn")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

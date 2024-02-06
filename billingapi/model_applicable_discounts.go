@@ -21,9 +21,12 @@ var _ MappedNullable = &ApplicableDiscounts{}
 // ApplicableDiscounts Represents the applicable discount details for a product, including the discounted price and discount information.
 type ApplicableDiscounts struct {
 	// The price of the product after applying a discount.
-	DiscountedPrice *float32          `json:"discountedPrice,omitempty"`
-	DiscountDetails []DiscountDetails `json:"discountDetails,omitempty"`
+	DiscountedPrice      *float32          `json:"discountedPrice,omitempty"`
+	DiscountDetails      []DiscountDetails `json:"discountDetails,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ApplicableDiscounts ApplicableDiscounts
 
 // NewApplicableDiscounts instantiates a new ApplicableDiscounts object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o ApplicableDiscounts) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DiscountDetails) {
 		toSerialize["discountDetails"] = o.DiscountDetails
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ApplicableDiscounts) UnmarshalJSON(data []byte) (err error) {
+	varApplicableDiscounts := _ApplicableDiscounts{}
+
+	err = json.Unmarshal(data, &varApplicableDiscounts)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApplicableDiscounts(varApplicableDiscounts)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "discountedPrice")
+		delete(additionalProperties, "discountDetails")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableApplicableDiscounts struct {
