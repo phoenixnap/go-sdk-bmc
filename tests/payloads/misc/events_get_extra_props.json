@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/audit/v1/events"
+  },
+  "response": {
+    "statusCode": 200,
+    "body": [
+      {
+        "name": "API.CreateServer",
+        "timestamp": "2021-04-29T16:24:57.123Z",
+        "userInfo": {
+          "accountId": "12345",
+          "clientId": "12345",
+          "username": "fakeusername@ccbill.com"
+        },
+        "extraProps": [
+          {
+            "name": "value"
+          }
+        ]
+      }
+    ]
+  }
+}
