@@ -63,6 +63,24 @@ jobs:
       module-name: paymentsapi
       test-suite: PaymentsApiTestSuite
 
+  run-generic-tests:
+    runs-on: ubuntu-latest
+    services:
+      mockserver:
+        image: mockserver/mockserver:5.15.0
+        ports:
+          - 1080:1080
+    strategy:
+      fail-fast: false
+      matrix:
+        go-version: [ '1.18', '1.21' ]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/composite/test-sdk
+        with:
+          test-suite: MiscTestSuite
+          go-version: ${{ matrix.go-version }}
+
   publish-test-results:
     name: Publish Test Results
     needs:
@@ -77,6 +95,7 @@ jobs:
       - build-and-test-locationapi
       - build-and-test-invoicingapi
       - build-and-test-paymentsapi
+      - run-generic-tests
     runs-on: ubuntu-latest
     if: always()
     steps:
