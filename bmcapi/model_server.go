@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -73,7 +72,8 @@ type Server struct {
 	// Unique identifier of the server to which the reservation has been transferred.
 	SupersededBy *string `json:"supersededBy,omitempty"`
 	// Unique identifier of the server from which the reservation has been transferred.
-	Supersedes *string `json:"supersedes,omitempty"`
+	Supersedes           *string `json:"supersedes,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Server Server
@@ -921,6 +921,11 @@ func (o Server) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Supersedes) {
 		toSerialize["supersedes"] = o.Supersedes
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -962,15 +967,46 @@ func (o *Server) UnmarshalJSON(data []byte) (err error) {
 
 	varServer := _Server{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varServer)
+	err = json.Unmarshal(data, &varServer)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Server(varServer)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "hostname")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "os")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "cpu")
+		delete(additionalProperties, "cpuCount")
+		delete(additionalProperties, "coresPerCpu")
+		delete(additionalProperties, "cpuFrequency")
+		delete(additionalProperties, "ram")
+		delete(additionalProperties, "storage")
+		delete(additionalProperties, "privateIpAddresses")
+		delete(additionalProperties, "publicIpAddresses")
+		delete(additionalProperties, "reservationId")
+		delete(additionalProperties, "pricingModel")
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "networkType")
+		delete(additionalProperties, "clusterId")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "provisionedOn")
+		delete(additionalProperties, "osConfiguration")
+		delete(additionalProperties, "networkConfiguration")
+		delete(additionalProperties, "storageConfiguration")
+		delete(additionalProperties, "supersededBy")
+		delete(additionalProperties, "supersedes")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

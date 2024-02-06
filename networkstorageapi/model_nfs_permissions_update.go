@@ -29,8 +29,11 @@ type NfsPermissionsUpdate struct {
 	// No squash permission.
 	NoSquash []string `json:"noSquash,omitempty"`
 	// All squash permission.
-	AllSquash []string `json:"allSquash,omitempty"`
+	AllSquash            []string `json:"allSquash,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NfsPermissionsUpdate NfsPermissionsUpdate
 
 // NewNfsPermissionsUpdate instantiates a new NfsPermissionsUpdate object
 // This constructor will assign default values to properties that have it defined,
@@ -234,7 +237,37 @@ func (o NfsPermissionsUpdate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AllSquash) {
 		toSerialize["allSquash"] = o.AllSquash
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NfsPermissionsUpdate) UnmarshalJSON(data []byte) (err error) {
+	varNfsPermissionsUpdate := _NfsPermissionsUpdate{}
+
+	err = json.Unmarshal(data, &varNfsPermissionsUpdate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NfsPermissionsUpdate(varNfsPermissionsUpdate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "readWrite")
+		delete(additionalProperties, "readOnly")
+		delete(additionalProperties, "rootSquash")
+		delete(additionalProperties, "noSquash")
+		delete(additionalProperties, "allSquash")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNfsPermissionsUpdate struct {

@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package paymentsapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type CardPaymentMethodDetails struct {
 	// The Card Type. Supported Card Types include: VISA, MASTERCARD, DISCOVER, JCB & AMEX.
 	CardType string `json:"cardType"`
 	// The last four digits of the card number.
-	LastFourDigits string `json:"lastFourDigits"`
+	LastFourDigits       string `json:"lastFourDigits"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CardPaymentMethodDetails CardPaymentMethodDetails
@@ -109,6 +109,11 @@ func (o CardPaymentMethodDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["cardType"] = o.CardType
 	toSerialize["lastFourDigits"] = o.LastFourDigits
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *CardPaymentMethodDetails) UnmarshalJSON(data []byte) (err error) {
 
 	varCardPaymentMethodDetails := _CardPaymentMethodDetails{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCardPaymentMethodDetails)
+	err = json.Unmarshal(data, &varCardPaymentMethodDetails)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CardPaymentMethodDetails(varCardPaymentMethodDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cardType")
+		delete(additionalProperties, "lastFourDigits")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

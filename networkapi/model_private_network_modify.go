@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package networkapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type PrivateNetworkModify struct {
 	// A description of this private network
 	Description *string `json:"description,omitempty"`
 	// Identifies network as the default private network for the specified location.
-	LocationDefault bool `json:"locationDefault"`
+	LocationDefault      bool `json:"locationDefault"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PrivateNetworkModify PrivateNetworkModify
@@ -146,6 +146,11 @@ func (o PrivateNetworkModify) ToMap() (map[string]interface{}, error) {
 		toSerialize["description"] = o.Description
 	}
 	toSerialize["locationDefault"] = o.LocationDefault
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -174,15 +179,22 @@ func (o *PrivateNetworkModify) UnmarshalJSON(data []byte) (err error) {
 
 	varPrivateNetworkModify := _PrivateNetworkModify{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPrivateNetworkModify)
+	err = json.Unmarshal(data, &varPrivateNetworkModify)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PrivateNetworkModify(varPrivateNetworkModify)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "locationDefault")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

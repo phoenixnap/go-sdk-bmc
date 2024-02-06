@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,7 +22,8 @@ var _ MappedNullable = &ThresholdConfigurationDetails{}
 // ThresholdConfigurationDetails Threshold billing configuration.
 type ThresholdConfigurationDetails struct {
 	// Threshold billing amount.
-	ThresholdAmount float32 `json:"thresholdAmount"`
+	ThresholdAmount      float32 `json:"thresholdAmount"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ThresholdConfigurationDetails ThresholdConfigurationDetails
@@ -81,6 +81,11 @@ func (o ThresholdConfigurationDetails) MarshalJSON() ([]byte, error) {
 func (o ThresholdConfigurationDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["thresholdAmount"] = o.ThresholdAmount
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -108,15 +113,20 @@ func (o *ThresholdConfigurationDetails) UnmarshalJSON(data []byte) (err error) {
 
 	varThresholdConfigurationDetails := _ThresholdConfigurationDetails{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varThresholdConfigurationDetails)
+	err = json.Unmarshal(data, &varThresholdConfigurationDetails)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ThresholdConfigurationDetails(varThresholdConfigurationDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "thresholdAmount")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

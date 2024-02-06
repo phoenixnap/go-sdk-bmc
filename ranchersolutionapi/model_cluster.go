@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package ranchersolutionapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -38,7 +37,8 @@ type Cluster struct {
 	Metadata              *RancherServerMetadata `json:"metadata,omitempty"`
 	WorkloadConfiguration *WorkloadClusterConfig `json:"workloadConfiguration,omitempty"`
 	// (Read-Only) The cluster status
-	StatusDescription *string `json:"statusDescription,omitempty"`
+	StatusDescription    *string `json:"statusDescription,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Cluster Cluster
@@ -411,6 +411,11 @@ func (o Cluster) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StatusDescription) {
 		toSerialize["statusDescription"] = o.StatusDescription
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -438,15 +443,29 @@ func (o *Cluster) UnmarshalJSON(data []byte) (err error) {
 
 	varCluster := _Cluster{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCluster)
+	err = json.Unmarshal(data, &varCluster)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Cluster(varCluster)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "initialClusterVersion")
+		delete(additionalProperties, "nodePools")
+		delete(additionalProperties, "configuration")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "workloadConfiguration")
+		delete(additionalProperties, "statusDescription")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

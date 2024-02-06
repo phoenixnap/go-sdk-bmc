@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -41,6 +40,7 @@ type ServerProvision struct {
 	Tags                 []TagAssignmentRequest `json:"tags,omitempty"`
 	NetworkConfiguration *NetworkConfiguration  `json:"networkConfiguration,omitempty"`
 	StorageConfiguration *StorageConfiguration  `json:"storageConfiguration,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ServerProvision ServerProvision
@@ -447,6 +447,11 @@ func (o ServerProvision) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StorageConfiguration) {
 		toSerialize["storageConfiguration"] = o.StorageConfiguration
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -475,15 +480,30 @@ func (o *ServerProvision) UnmarshalJSON(data []byte) (err error) {
 
 	varServerProvision := _ServerProvision{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varServerProvision)
+	err = json.Unmarshal(data, &varServerProvision)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ServerProvision(varServerProvision)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "hostname")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "os")
+		delete(additionalProperties, "installDefaultSshKeys")
+		delete(additionalProperties, "sshKeys")
+		delete(additionalProperties, "sshKeyIds")
+		delete(additionalProperties, "networkType")
+		delete(additionalProperties, "osConfiguration")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "networkConfiguration")
+		delete(additionalProperties, "storageConfiguration")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

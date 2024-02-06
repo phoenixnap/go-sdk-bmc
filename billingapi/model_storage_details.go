@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -34,7 +33,8 @@ type StorageDetails struct {
 	// Capacity in GB.
 	CapacityInGb int64 `json:"capacityInGb"`
 	// Timestamp when the record was created.
-	CreatedOn time.Time `json:"createdOn"`
+	CreatedOn            time.Time `json:"createdOn"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _StorageDetails StorageDetails
@@ -222,6 +222,11 @@ func (o StorageDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize["volumeName"] = o.VolumeName
 	toSerialize["capacityInGb"] = o.CapacityInGb
 	toSerialize["createdOn"] = o.CreatedOn
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -254,15 +259,25 @@ func (o *StorageDetails) UnmarshalJSON(data []byte) (err error) {
 
 	varStorageDetails := _StorageDetails{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varStorageDetails)
+	err = json.Unmarshal(data, &varStorageDetails)
 
 	if err != nil {
 		return err
 	}
 
 	*o = StorageDetails(varStorageDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "networkStorageId")
+		delete(additionalProperties, "networkStorageName")
+		delete(additionalProperties, "volumeId")
+		delete(additionalProperties, "volumeName")
+		delete(additionalProperties, "capacityInGb")
+		delete(additionalProperties, "createdOn")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

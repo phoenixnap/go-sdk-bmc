@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package networkapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -46,7 +45,8 @@ type PrivateNetwork struct {
 	// The status of the private network. Can have one of the following values: `BUSY`, `READY`, `DELETING` or `ERROR`.
 	Status string `json:"status"`
 	// Date and time when this private network was created.
-	CreatedOn time.Time `json:"createdOn"`
+	CreatedOn            time.Time `json:"createdOn"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PrivateNetwork PrivateNetwork
@@ -411,6 +411,11 @@ func (o PrivateNetwork) ToMap() (map[string]interface{}, error) {
 	toSerialize["memberships"] = o.Memberships
 	toSerialize["status"] = o.Status
 	toSerialize["createdOn"] = o.CreatedOn
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -447,15 +452,31 @@ func (o *PrivateNetwork) UnmarshalJSON(data []byte) (err error) {
 
 	varPrivateNetwork := _PrivateNetwork{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPrivateNetwork)
+	err = json.Unmarshal(data, &varPrivateNetwork)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PrivateNetwork(varPrivateNetwork)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "vlanId")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "locationDefault")
+		delete(additionalProperties, "cidr")
+		delete(additionalProperties, "servers")
+		delete(additionalProperties, "memberships")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "createdOn")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

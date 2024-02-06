@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package networkstorageapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -31,7 +30,8 @@ type StorageNetworkVolumeCreate struct {
 	// Capacity of Volume in GB. Currently only whole numbers and multiples of 1000GB are supported.
 	CapacityInGb int32 `json:"capacityInGb"`
 	// Tags to set to the resource. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).
-	Tags []TagAssignmentRequest `json:"tags,omitempty"`
+	Tags                 []TagAssignmentRequest `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _StorageNetworkVolumeCreate StorageNetworkVolumeCreate
@@ -220,6 +220,11 @@ func (o StorageNetworkVolumeCreate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -248,15 +253,24 @@ func (o *StorageNetworkVolumeCreate) UnmarshalJSON(data []byte) (err error) {
 
 	varStorageNetworkVolumeCreate := _StorageNetworkVolumeCreate{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varStorageNetworkVolumeCreate)
+	err = json.Unmarshal(data, &varStorageNetworkVolumeCreate)
 
 	if err != nil {
 		return err
 	}
 
 	*o = StorageNetworkVolumeCreate(varStorageNetworkVolumeCreate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "pathSuffix")
+		delete(additionalProperties, "capacityInGb")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

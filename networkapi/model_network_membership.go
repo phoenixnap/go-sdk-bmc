@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package networkapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type NetworkMembership struct {
 	// The resource's type.
 	ResourceType string `json:"resourceType"`
 	// List of IPs associated to the resource.
-	Ips []string `json:"ips"`
+	Ips                  []string `json:"ips"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _NetworkMembership NetworkMembership
@@ -137,6 +137,11 @@ func (o NetworkMembership) ToMap() (map[string]interface{}, error) {
 	toSerialize["resourceId"] = o.ResourceId
 	toSerialize["resourceType"] = o.ResourceType
 	toSerialize["ips"] = o.Ips
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -166,15 +171,22 @@ func (o *NetworkMembership) UnmarshalJSON(data []byte) (err error) {
 
 	varNetworkMembership := _NetworkMembership{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varNetworkMembership)
+	err = json.Unmarshal(data, &varNetworkMembership)
 
 	if err != nil {
 		return err
 	}
 
 	*o = NetworkMembership(varNetworkMembership)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "resourceId")
+		delete(additionalProperties, "resourceType")
+		delete(additionalProperties, "ips")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

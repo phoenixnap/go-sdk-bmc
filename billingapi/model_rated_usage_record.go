@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -57,8 +56,9 @@ type RatedUsageRecord struct {
 	// Holds usage record id
 	CorrelationId string `json:"correlationId"`
 	// Reservation id associated with this rated usage record.
-	ReservationId   *string          `json:"reservationId,omitempty"`
-	DiscountDetails *DiscountDetails `json:"discountDetails,omitempty"`
+	ReservationId        *string          `json:"reservationId,omitempty"`
+	DiscountDetails      *DiscountDetails `json:"discountDetails,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RatedUsageRecord RatedUsageRecord
@@ -629,6 +629,11 @@ func (o RatedUsageRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DiscountDetails) {
 		toSerialize["discountDetails"] = o.DiscountDetails
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -669,15 +674,38 @@ func (o *RatedUsageRecord) UnmarshalJSON(data []byte) (err error) {
 
 	varRatedUsageRecord := _RatedUsageRecord{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRatedUsageRecord)
+	err = json.Unmarshal(data, &varRatedUsageRecord)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RatedUsageRecord(varRatedUsageRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "productCategory")
+		delete(additionalProperties, "productCode")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "yearMonth")
+		delete(additionalProperties, "startDateTime")
+		delete(additionalProperties, "endDateTime")
+		delete(additionalProperties, "cost")
+		delete(additionalProperties, "costBeforeDiscount")
+		delete(additionalProperties, "costDescription")
+		delete(additionalProperties, "priceModel")
+		delete(additionalProperties, "unitPrice")
+		delete(additionalProperties, "unitPriceDescription")
+		delete(additionalProperties, "quantity")
+		delete(additionalProperties, "active")
+		delete(additionalProperties, "usageSessionId")
+		delete(additionalProperties, "correlationId")
+		delete(additionalProperties, "reservationId")
+		delete(additionalProperties, "discountDetails")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -21,8 +21,11 @@ var _ MappedNullable = &PublicNetworkConfiguration{}
 // PublicNetworkConfiguration Public network details of bare metal server.
 type PublicNetworkConfiguration struct {
 	// The list of public networks this server is member of. When this field is part of request body, it'll be used to specify the public networks to assign to this server upon provisioning.
-	PublicNetworks []ServerPublicNetwork `json:"publicNetworks,omitempty"`
+	PublicNetworks       []ServerPublicNetwork `json:"publicNetworks,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PublicNetworkConfiguration PublicNetworkConfiguration
 
 // NewPublicNetworkConfiguration instantiates a new PublicNetworkConfiguration object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o PublicNetworkConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PublicNetworks) {
 		toSerialize["publicNetworks"] = o.PublicNetworks
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PublicNetworkConfiguration) UnmarshalJSON(data []byte) (err error) {
+	varPublicNetworkConfiguration := _PublicNetworkConfiguration{}
+
+	err = json.Unmarshal(data, &varPublicNetworkConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicNetworkConfiguration(varPublicNetworkConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "publicNetworks")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePublicNetworkConfiguration struct {

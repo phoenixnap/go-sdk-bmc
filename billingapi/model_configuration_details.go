@@ -21,7 +21,10 @@ var _ MappedNullable = &ConfigurationDetails{}
 // ConfigurationDetails Billing configuration details.
 type ConfigurationDetails struct {
 	ThresholdConfiguration *ThresholdConfigurationDetails `json:"thresholdConfiguration,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
+
+type _ConfigurationDetails ConfigurationDetails
 
 // NewConfigurationDetails instantiates a new ConfigurationDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o ConfigurationDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ThresholdConfiguration) {
 		toSerialize["thresholdConfiguration"] = o.ThresholdConfiguration
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ConfigurationDetails) UnmarshalJSON(data []byte) (err error) {
+	varConfigurationDetails := _ConfigurationDetails{}
+
+	err = json.Unmarshal(data, &varConfigurationDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ConfigurationDetails(varConfigurationDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "thresholdConfiguration")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableConfigurationDetails struct {
