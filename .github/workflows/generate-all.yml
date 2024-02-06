@@ -134,7 +134,8 @@ jobs:
       - name: Move spec files
         run: |
           find . -type f -name "*.spec.yaml" -not -path "./specs/*" -print0 | xargs -0 mv -ft ./specs/
-      - name: Add and Commit files
+      - id: commit-step
+        name: Add and Commit files
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
