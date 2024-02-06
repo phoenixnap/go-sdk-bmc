@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package invoicingapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,13 +21,14 @@ var _ MappedNullable = &PaginatedInvoices{}
 
 // PaginatedInvoices struct for PaginatedInvoices
 type PaginatedInvoices struct {
-	Results []Invoice `json:"results"`
 	// Maximum number of items in the page (actual returned length can be less).
 	Limit int32 `json:"limit"`
 	// The number of returned items skipped.
 	Offset int32 `json:"offset"`
 	// The total number of records available for retrieval.
-	Total int32 `json:"total"`
+	Total                int32     `json:"total"`
+	Results              []Invoice `json:"results"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PaginatedInvoices PaginatedInvoices
@@ -37,11 +37,12 @@ type _PaginatedInvoices PaginatedInvoices
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaginatedInvoices(results []Invoice, limit int32, offset int32, total int32) *PaginatedInvoices {
+func NewPaginatedInvoices(limit int32, offset int32, total int32, results []Invoice) *PaginatedInvoices {
 	this := PaginatedInvoices{}
 	this.Limit = limit
 	this.Offset = offset
 	this.Total = total
+	this.Results = results
 	return &this
 }
 
@@ -51,30 +52,6 @@ func NewPaginatedInvoices(results []Invoice, limit int32, offset int32, total in
 func NewPaginatedInvoicesWithDefaults() *PaginatedInvoices {
 	this := PaginatedInvoices{}
 	return &this
-}
-
-// GetResults returns the Results field value
-func (o *PaginatedInvoices) GetResults() []Invoice {
-	if o == nil {
-		var ret []Invoice
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *PaginatedInvoices) GetResultsOk() ([]Invoice, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *PaginatedInvoices) SetResults(v []Invoice) {
-	o.Results = v
 }
 
 // GetLimit returns the Limit field value
@@ -149,6 +126,30 @@ func (o *PaginatedInvoices) SetTotal(v int32) {
 	o.Total = v
 }
 
+// GetResults returns the Results field value
+func (o *PaginatedInvoices) GetResults() []Invoice {
+	if o == nil {
+		var ret []Invoice
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *PaginatedInvoices) GetResultsOk() ([]Invoice, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *PaginatedInvoices) SetResults(v []Invoice) {
+	o.Results = v
+}
+
 func (o PaginatedInvoices) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -159,10 +160,15 @@ func (o PaginatedInvoices) MarshalJSON() ([]byte, error) {
 
 func (o PaginatedInvoices) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["results"] = o.Results
 	toSerialize["limit"] = o.Limit
 	toSerialize["offset"] = o.Offset
 	toSerialize["total"] = o.Total
+	toSerialize["results"] = o.Results
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -171,10 +177,10 @@ func (o *PaginatedInvoices) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"results",
 		"limit",
 		"offset",
 		"total",
+		"results",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -193,15 +199,23 @@ func (o *PaginatedInvoices) UnmarshalJSON(data []byte) (err error) {
 
 	varPaginatedInvoices := _PaginatedInvoices{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPaginatedInvoices)
+	err = json.Unmarshal(data, &varPaginatedInvoices)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PaginatedInvoices(varPaginatedInvoices)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "offset")
+		delete(additionalProperties, "total")
+		delete(additionalProperties, "results")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

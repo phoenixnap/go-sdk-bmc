@@ -151,16 +151,37 @@ components:
             invoices.read: Grants read only access to Invoicing API.
   schemas:
     PaginatedInvoices:
-      type: object
-      required:
-        - results
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Invoice'
       allOf:
         - $ref: '#/components/schemas/PaginatedResponse'
+        - type: object
+          required:
+            - results
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/Invoice'
+      example:
+        results:
+          - id: 5fa54d1e91867c03a0a7b4a4
+            number: 34440-2488782
+            currency: EUR
+            amount: 100.99
+            outstandingAmount: 100.99
+            status: UNPAID
+            sentOn: '2021-03-13T20:24:32.491Z'
+            dueDate: '2021-04-13T20:24:32.491Z'
+          - id: 5fa89e1e91867c03a0a7b4a4
+            number: 34440-2488783
+            currency: EUR
+            amount: 50
+            outstandingAmount: 0
+            status: PAID
+            sentOn: '2021-04-13T20:24:32.491Z'
+            dueDate: '2021-05-13T20:24:32.491Z'
+        limit: 2
+        offset: 10
+        total: 342
     Invoice:
       title: Invoice
       required:

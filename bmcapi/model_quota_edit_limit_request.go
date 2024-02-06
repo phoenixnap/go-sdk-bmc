@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type QuotaEditLimitRequest struct {
 	// The new limit that is requested. Minimum allowed limit values: - 0 (Server, IPs) - 1000 (Network Storage)
 	Limit int32 `json:"limit"`
 	// The reason for changing the limit.
-	Reason string `json:"reason"`
+	Reason               string `json:"reason"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _QuotaEditLimitRequest QuotaEditLimitRequest
@@ -109,6 +109,11 @@ func (o QuotaEditLimitRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["limit"] = o.Limit
 	toSerialize["reason"] = o.Reason
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *QuotaEditLimitRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varQuotaEditLimitRequest := _QuotaEditLimitRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varQuotaEditLimitRequest)
+	err = json.Unmarshal(data, &varQuotaEditLimitRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = QuotaEditLimitRequest(varQuotaEditLimitRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "reason")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

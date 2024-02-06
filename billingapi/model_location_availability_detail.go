@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -30,7 +29,8 @@ type LocationAvailabilityDetail struct {
 	// Total available quantity of product in specific location. Max value is 10.
 	AvailableQuantity float32 `json:"availableQuantity"`
 	// Solutions supported in specific location for a product.
-	Solutions []string `json:"solutions"`
+	Solutions            []string `json:"solutions"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _LocationAvailabilityDetail LocationAvailabilityDetail
@@ -192,6 +192,11 @@ func (o LocationAvailabilityDetail) ToMap() (map[string]interface{}, error) {
 	toSerialize["minQuantityAvailable"] = o.MinQuantityAvailable
 	toSerialize["availableQuantity"] = o.AvailableQuantity
 	toSerialize["solutions"] = o.Solutions
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -223,15 +228,24 @@ func (o *LocationAvailabilityDetail) UnmarshalJSON(data []byte) (err error) {
 
 	varLocationAvailabilityDetail := _LocationAvailabilityDetail{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varLocationAvailabilityDetail)
+	err = json.Unmarshal(data, &varLocationAvailabilityDetail)
 
 	if err != nil {
 		return err
 	}
 
 	*o = LocationAvailabilityDetail(varLocationAvailabilityDetail)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "minQuantityRequested")
+		delete(additionalProperties, "minQuantityAvailable")
+		delete(additionalProperties, "availableQuantity")
+		delete(additionalProperties, "solutions")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type SshKeyCreate struct {
 	// Friendly SSH key name to represent an SSH key.
 	Name string `json:"name"`
 	// SSH key actual key value.
-	Key string `json:"key"`
+	Key                  string `json:"key"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SshKeyCreate SshKeyCreate
@@ -137,6 +137,11 @@ func (o SshKeyCreate) ToMap() (map[string]interface{}, error) {
 	toSerialize["default"] = o.Default
 	toSerialize["name"] = o.Name
 	toSerialize["key"] = o.Key
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -166,15 +171,22 @@ func (o *SshKeyCreate) UnmarshalJSON(data []byte) (err error) {
 
 	varSshKeyCreate := _SshKeyCreate{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSshKeyCreate)
+	err = json.Unmarshal(data, &varSshKeyCreate)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SshKeyCreate(varSshKeyCreate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "default")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "key")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

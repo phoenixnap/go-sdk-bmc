@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type OperatingSystemDetails struct {
 	// Number of cores.
 	Cores int32 `json:"cores"`
 	// Correlation is used to associate Operating System License charges and the Server on which it was installed. In this scenario, the correlation ID will be equal to the rated usage record ID representing the charge for the Server.
-	CorrelationId string `json:"correlationId"`
+	CorrelationId        string `json:"correlationId"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _OperatingSystemDetails OperatingSystemDetails
@@ -109,6 +109,11 @@ func (o OperatingSystemDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["cores"] = o.Cores
 	toSerialize["correlationId"] = o.CorrelationId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *OperatingSystemDetails) UnmarshalJSON(data []byte) (err error) {
 
 	varOperatingSystemDetails := _OperatingSystemDetails{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varOperatingSystemDetails)
+	err = json.Unmarshal(data, &varOperatingSystemDetails)
 
 	if err != nil {
 		return err
 	}
 
 	*o = OperatingSystemDetails(varOperatingSystemDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cores")
+		delete(additionalProperties, "correlationId")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

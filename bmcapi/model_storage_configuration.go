@@ -20,8 +20,11 @@ var _ MappedNullable = &StorageConfiguration{}
 
 // StorageConfiguration Storage configuration.
 type StorageConfiguration struct {
-	RootPartition *StorageConfigurationRootPartition `json:"rootPartition,omitempty"`
+	RootPartition        *StorageConfigurationRootPartition `json:"rootPartition,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _StorageConfiguration StorageConfiguration
 
 // NewStorageConfiguration instantiates a new StorageConfiguration object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o StorageConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RootPartition) {
 		toSerialize["rootPartition"] = o.RootPartition
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *StorageConfiguration) UnmarshalJSON(data []byte) (err error) {
+	varStorageConfiguration := _StorageConfiguration{}
+
+	err = json.Unmarshal(data, &varStorageConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StorageConfiguration(varStorageConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "rootPartition")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableStorageConfiguration struct {

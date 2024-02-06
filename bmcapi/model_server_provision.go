@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -26,7 +25,7 @@ type ServerProvision struct {
 	Hostname string `json:"hostname"`
 	// Description of server.
 	Description *string `json:"description,omitempty"`
-	// The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
+	// The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
 	Os string `json:"os"`
 	// Whether or not to install SSH keys marked as default in addition to any SSH keys specified in this request.
 	InstallDefaultSshKeys *bool `json:"installDefaultSshKeys,omitempty"`
@@ -41,6 +40,7 @@ type ServerProvision struct {
 	Tags                 []TagAssignmentRequest `json:"tags,omitempty"`
 	NetworkConfiguration *NetworkConfiguration  `json:"networkConfiguration,omitempty"`
 	StorageConfiguration *StorageConfiguration  `json:"storageConfiguration,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ServerProvision ServerProvision
@@ -447,6 +447,11 @@ func (o ServerProvision) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StorageConfiguration) {
 		toSerialize["storageConfiguration"] = o.StorageConfiguration
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -475,15 +480,30 @@ func (o *ServerProvision) UnmarshalJSON(data []byte) (err error) {
 
 	varServerProvision := _ServerProvision{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varServerProvision)
+	err = json.Unmarshal(data, &varServerProvision)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ServerProvision(varServerProvision)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "hostname")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "os")
+		delete(additionalProperties, "installDefaultSshKeys")
+		delete(additionalProperties, "sshKeys")
+		delete(additionalProperties, "sshKeyIds")
+		delete(additionalProperties, "networkType")
+		delete(additionalProperties, "osConfiguration")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "networkConfiguration")
+		delete(additionalProperties, "storageConfiguration")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

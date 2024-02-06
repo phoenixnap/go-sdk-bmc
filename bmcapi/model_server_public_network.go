@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type ServerPublicNetwork struct {
 	// Configurable/configured IPs on the server.<br> At least 1 IP address is required. Valid IP formats are single IPv4 addresses or IPv4 ranges. All IPs must be within the network's range.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
 	Ips []string `json:"ips,omitempty"`
 	// (Read-only) The status of the assignment to the network.
-	StatusDescription *string `json:"statusDescription,omitempty"`
+	StatusDescription    *string `json:"statusDescription,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ServerPublicNetwork ServerPublicNetwork
@@ -155,6 +155,11 @@ func (o ServerPublicNetwork) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StatusDescription) {
 		toSerialize["statusDescription"] = o.StatusDescription
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -182,15 +187,22 @@ func (o *ServerPublicNetwork) UnmarshalJSON(data []byte) (err error) {
 
 	varServerPublicNetwork := _ServerPublicNetwork{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varServerPublicNetwork)
+	err = json.Unmarshal(data, &varServerPublicNetwork)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ServerPublicNetwork(varServerPublicNetwork)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "ips")
+		delete(additionalProperties, "statusDescription")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

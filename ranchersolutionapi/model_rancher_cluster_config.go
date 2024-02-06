@@ -31,9 +31,12 @@ type RancherClusterConfig struct {
 	// This maps to ranchers `node-taint`. Registering kubelet with set of taints. By default, server nodes will be schedulable and thus your workloads can get launched on them. If you wish to have a dedicated control plane where no user workloads will run, you can use taints.
 	NodeTaint *string `json:"nodeTaint,omitempty"`
 	// This maps to ranchers `cluster-domain`. Cluster Domain.
-	ClusterDomain *string                     `json:"clusterDomain,omitempty"`
-	Certificates  *RancherClusterCertificates `json:"certificates,omitempty"`
+	ClusterDomain        *string                     `json:"clusterDomain,omitempty"`
+	Certificates         *RancherClusterCertificates `json:"certificates,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RancherClusterConfig RancherClusterConfig
 
 // NewRancherClusterConfig instantiates a new RancherClusterConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -315,7 +318,39 @@ func (o RancherClusterConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Certificates) {
 		toSerialize["certificates"] = o.Certificates
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RancherClusterConfig) UnmarshalJSON(data []byte) (err error) {
+	varRancherClusterConfig := _RancherClusterConfig{}
+
+	err = json.Unmarshal(data, &varRancherClusterConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RancherClusterConfig(varRancherClusterConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "token")
+		delete(additionalProperties, "tlsSan")
+		delete(additionalProperties, "etcdSnapshotScheduleCron")
+		delete(additionalProperties, "etcdSnapshotRetention")
+		delete(additionalProperties, "nodeTaint")
+		delete(additionalProperties, "clusterDomain")
+		delete(additionalProperties, "certificates")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRancherClusterConfig struct {

@@ -27,9 +27,12 @@ type VolumeUpdate struct {
 	// Capacity of Volume in GB. Currently only whole numbers and multiples of 1000GB are supported.
 	CapacityInGb *int32 `json:"capacityInGb,omitempty"`
 	// Last part of volume's path.
-	PathSuffix  *string            `json:"pathSuffix,omitempty"`
-	Permissions *PermissionsUpdate `json:"permissions,omitempty"`
+	PathSuffix           *string            `json:"pathSuffix,omitempty"`
+	Permissions          *PermissionsUpdate `json:"permissions,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _VolumeUpdate VolumeUpdate
 
 // NewVolumeUpdate instantiates a new VolumeUpdate object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o VolumeUpdate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Permissions) {
 		toSerialize["permissions"] = o.Permissions
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *VolumeUpdate) UnmarshalJSON(data []byte) (err error) {
+	varVolumeUpdate := _VolumeUpdate{}
+
+	err = json.Unmarshal(data, &varVolumeUpdate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = VolumeUpdate(varVolumeUpdate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "capacityInGb")
+		delete(additionalProperties, "pathSuffix")
+		delete(additionalProperties, "permissions")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableVolumeUpdate struct {

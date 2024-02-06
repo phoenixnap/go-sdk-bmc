@@ -2,6 +2,7 @@ name: validate-all
 
 on:
   workflow_dispatch:
+  workflow_call:
   push:
 
 jobs:  
@@ -62,6 +63,12 @@ jobs:
       module-name: paymentsapi
       test-suite: PaymentsApiTestSuite
 
+  run-generic-tests:
+    uses: ./.github/workflows/_test.yml
+    with:
+      module-name: "none (generic tests)"
+      test-suite: MiscTestSuite
+
   publish-test-results:
     name: Publish Test Results
     needs:
@@ -76,6 +83,7 @@ jobs:
       - build-and-test-locationapi
       - build-and-test-invoicingapi
       - build-and-test-paymentsapi
+      - run-generic-tests
     runs-on: ubuntu-latest
     if: always()
     steps:

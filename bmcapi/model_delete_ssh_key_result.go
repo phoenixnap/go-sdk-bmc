@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type DeleteSshKeyResult struct {
 	// Resource has been deleted.
 	Result string `json:"result"`
 	// The unique identifier of the deleted resource.
-	SshKeyId string `json:"sshKeyId"`
+	SshKeyId             string `json:"sshKeyId"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _DeleteSshKeyResult DeleteSshKeyResult
@@ -109,6 +109,11 @@ func (o DeleteSshKeyResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["result"] = o.Result
 	toSerialize["sshKeyId"] = o.SshKeyId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *DeleteSshKeyResult) UnmarshalJSON(data []byte) (err error) {
 
 	varDeleteSshKeyResult := _DeleteSshKeyResult{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDeleteSshKeyResult)
+	err = json.Unmarshal(data, &varDeleteSshKeyResult)
 
 	if err != nil {
 		return err
 	}
 
 	*o = DeleteSshKeyResult(varDeleteSshKeyResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "result")
+		delete(additionalProperties, "sshKeyId")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

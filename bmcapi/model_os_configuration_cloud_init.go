@@ -21,8 +21,11 @@ var _ MappedNullable = &OsConfigurationCloudInit{}
 // OsConfigurationCloudInit Cloud-init configuration details.
 type OsConfigurationCloudInit struct {
 	// (Write-only) User data for the <a href='https://cloudinit.readthedocs.io/en/latest/' target='_blank'>cloud-init</a> configuration in base64 encoding. NoCloud format is supported. Follow the <a href='https://phoenixnap.com/kb/bmc-cloud-init' target='_blank'>instructions</a> on how to provision a server using cloud-init. Only ubuntu/bionic, ubuntu/focal and ubuntu/jammy are supported. User data will not be stored and cannot be retrieved once you deploy the server. Copy and save it for future reference.
-	UserData *string `json:"userData,omitempty"`
+	UserData             *string `json:"userData,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OsConfigurationCloudInit OsConfigurationCloudInit
 
 // NewOsConfigurationCloudInit instantiates a new OsConfigurationCloudInit object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o OsConfigurationCloudInit) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserData) {
 		toSerialize["userData"] = o.UserData
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OsConfigurationCloudInit) UnmarshalJSON(data []byte) (err error) {
+	varOsConfigurationCloudInit := _OsConfigurationCloudInit{}
+
+	err = json.Unmarshal(data, &varOsConfigurationCloudInit)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OsConfigurationCloudInit(varOsConfigurationCloudInit)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "userData")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOsConfigurationCloudInit struct {

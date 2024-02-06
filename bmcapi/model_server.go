@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -31,7 +30,7 @@ type Server struct {
 	Hostname string `json:"hostname"`
 	// Description of server.
 	Description *string `json:"description,omitempty"`
-	// The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
+	// The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
 	Os *string `json:"os,omitempty"`
 	// Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.xlarge`, `d2.m2.xxlarge`, `d2.m3.xlarge`, `d2.m4.xlarge`, `d2.m5.xlarge`, `d2.c4.db1.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge`, `a1.c5.large`, `d3.s5.xlarge`, `d3.m4.xxlarge`, `d3.m5.xxlarge` or `d3.m6.xxlarge`.
 	Type string `json:"type"`
@@ -73,7 +72,8 @@ type Server struct {
 	// Unique identifier of the server to which the reservation has been transferred.
 	SupersededBy *string `json:"supersededBy,omitempty"`
 	// Unique identifier of the server from which the reservation has been transferred.
-	Supersedes *string `json:"supersedes,omitempty"`
+	Supersedes           *string `json:"supersedes,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Server Server
@@ -921,6 +921,11 @@ func (o Server) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Supersedes) {
 		toSerialize["supersedes"] = o.Supersedes
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -962,15 +967,46 @@ func (o *Server) UnmarshalJSON(data []byte) (err error) {
 
 	varServer := _Server{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varServer)
+	err = json.Unmarshal(data, &varServer)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Server(varServer)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "hostname")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "os")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "cpu")
+		delete(additionalProperties, "cpuCount")
+		delete(additionalProperties, "coresPerCpu")
+		delete(additionalProperties, "cpuFrequency")
+		delete(additionalProperties, "ram")
+		delete(additionalProperties, "storage")
+		delete(additionalProperties, "privateIpAddresses")
+		delete(additionalProperties, "publicIpAddresses")
+		delete(additionalProperties, "reservationId")
+		delete(additionalProperties, "pricingModel")
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "networkType")
+		delete(additionalProperties, "clusterId")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "provisionedOn")
+		delete(additionalProperties, "osConfiguration")
+		delete(additionalProperties, "networkConfiguration")
+		delete(additionalProperties, "storageConfiguration")
+		delete(additionalProperties, "supersededBy")
+		delete(additionalProperties, "supersedes")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

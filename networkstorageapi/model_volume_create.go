@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package networkstorageapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -32,7 +31,8 @@ type VolumeCreate struct {
 	CapacityInGb int32              `json:"capacityInGb"`
 	Permissions  *PermissionsCreate `json:"permissions,omitempty"`
 	// Tags to set to the resource. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).
-	Tags []TagAssignmentRequest `json:"tags,omitempty"`
+	Tags                 []TagAssignmentRequest `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _VolumeCreate VolumeCreate
@@ -256,6 +256,11 @@ func (o VolumeCreate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -284,15 +289,25 @@ func (o *VolumeCreate) UnmarshalJSON(data []byte) (err error) {
 
 	varVolumeCreate := _VolumeCreate{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varVolumeCreate)
+	err = json.Unmarshal(data, &varVolumeCreate)
 
 	if err != nil {
 		return err
 	}
 
 	*o = VolumeCreate(varVolumeCreate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "pathSuffix")
+		delete(additionalProperties, "capacityInGb")
+		delete(additionalProperties, "permissions")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

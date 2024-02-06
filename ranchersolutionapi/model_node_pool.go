@@ -28,8 +28,11 @@ type NodePool struct {
 	ServerType *string    `json:"serverType,omitempty"`
 	SshConfig  *SshConfig `json:"sshConfig,omitempty"`
 	// (Read-only) The nodes associated with this node pool.
-	Nodes []Node `json:"nodes,omitempty"`
+	Nodes                []Node `json:"nodes,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NodePool NodePool
 
 // NewNodePool instantiates a new NodePool object
 // This constructor will assign default values to properties that have it defined,
@@ -237,7 +240,37 @@ func (o NodePool) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Nodes) {
 		toSerialize["nodes"] = o.Nodes
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NodePool) UnmarshalJSON(data []byte) (err error) {
+	varNodePool := _NodePool{}
+
+	err = json.Unmarshal(data, &varNodePool)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NodePool(varNodePool)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "nodeCount")
+		delete(additionalProperties, "serverType")
+		delete(additionalProperties, "sshConfig")
+		delete(additionalProperties, "nodes")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNodePool struct {

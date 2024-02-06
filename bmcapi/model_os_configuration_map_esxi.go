@@ -26,7 +26,10 @@ type OsConfigurationMapEsxi struct {
 	ManagementUiUrl *string `json:"managementUiUrl,omitempty"`
 	// List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
 	ManagementAccessAllowedIps []string `json:"managementAccessAllowedIps,omitempty"`
+	AdditionalProperties       map[string]interface{}
 }
+
+type _OsConfigurationMapEsxi OsConfigurationMapEsxi
 
 // NewOsConfigurationMapEsxi instantiates a new OsConfigurationMapEsxi object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o OsConfigurationMapEsxi) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ManagementAccessAllowedIps) {
 		toSerialize["managementAccessAllowedIps"] = o.ManagementAccessAllowedIps
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OsConfigurationMapEsxi) UnmarshalJSON(data []byte) (err error) {
+	varOsConfigurationMapEsxi := _OsConfigurationMapEsxi{}
+
+	err = json.Unmarshal(data, &varOsConfigurationMapEsxi)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OsConfigurationMapEsxi(varOsConfigurationMapEsxi)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "rootPassword")
+		delete(additionalProperties, "managementUiUrl")
+		delete(additionalProperties, "managementAccessAllowedIps")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOsConfigurationMapEsxi struct {

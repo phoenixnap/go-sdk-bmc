@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -57,9 +56,10 @@ type PublicSubnetRecord struct {
 	// Holds usage record id
 	CorrelationId string `json:"correlationId"`
 	// Reservation id associated with this rated usage record.
-	ReservationId   *string             `json:"reservationId,omitempty"`
-	DiscountDetails *DiscountDetails    `json:"discountDetails,omitempty"`
-	Metadata        PublicSubnetDetails `json:"metadata"`
+	ReservationId        *string             `json:"reservationId,omitempty"`
+	DiscountDetails      *DiscountDetails    `json:"discountDetails,omitempty"`
+	Metadata             PublicSubnetDetails `json:"metadata"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PublicSubnetRecord PublicSubnetRecord
@@ -656,6 +656,11 @@ func (o PublicSubnetRecord) ToMap() (map[string]interface{}, error) {
 		toSerialize["discountDetails"] = o.DiscountDetails
 	}
 	toSerialize["metadata"] = o.Metadata
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -697,15 +702,39 @@ func (o *PublicSubnetRecord) UnmarshalJSON(data []byte) (err error) {
 
 	varPublicSubnetRecord := _PublicSubnetRecord{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPublicSubnetRecord)
+	err = json.Unmarshal(data, &varPublicSubnetRecord)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PublicSubnetRecord(varPublicSubnetRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "productCategory")
+		delete(additionalProperties, "productCode")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "yearMonth")
+		delete(additionalProperties, "startDateTime")
+		delete(additionalProperties, "endDateTime")
+		delete(additionalProperties, "cost")
+		delete(additionalProperties, "costBeforeDiscount")
+		delete(additionalProperties, "costDescription")
+		delete(additionalProperties, "priceModel")
+		delete(additionalProperties, "unitPrice")
+		delete(additionalProperties, "unitPriceDescription")
+		delete(additionalProperties, "quantity")
+		delete(additionalProperties, "active")
+		delete(additionalProperties, "usageSessionId")
+		delete(additionalProperties, "correlationId")
+		delete(additionalProperties, "reservationId")
+		delete(additionalProperties, "discountDetails")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

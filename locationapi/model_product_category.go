@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package locationapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -24,6 +23,7 @@ var _ MappedNullable = &ProductCategory{}
 type ProductCategory struct {
 	ProductCategory            ProductCategoryEnum `json:"productCategory"`
 	ProductCategoryDescription *string             `json:"productCategoryDescription,omitempty"`
+	AdditionalProperties       map[string]interface{}
 }
 
 type _ProductCategory ProductCategory
@@ -116,6 +116,11 @@ func (o ProductCategory) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ProductCategoryDescription) {
 		toSerialize["productCategoryDescription"] = o.ProductCategoryDescription
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -143,15 +148,21 @@ func (o *ProductCategory) UnmarshalJSON(data []byte) (err error) {
 
 	varProductCategory := _ProductCategory{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProductCategory)
+	err = json.Unmarshal(data, &varProductCategory)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ProductCategory(varProductCategory)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "productCategory")
+		delete(additionalProperties, "productCategoryDescription")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

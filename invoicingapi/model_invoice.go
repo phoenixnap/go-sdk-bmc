@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package invoicingapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -38,7 +37,8 @@ type Invoice struct {
 	// Date and time when the invoice was sent.
 	SentOn time.Time `json:"sentOn"`
 	// Date and time when the invoice payment is due.
-	DueDate time.Time `json:"dueDate"`
+	DueDate              time.Time `json:"dueDate"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Invoice Invoice
@@ -278,6 +278,11 @@ func (o Invoice) ToMap() (map[string]interface{}, error) {
 	toSerialize["status"] = o.Status
 	toSerialize["sentOn"] = o.SentOn
 	toSerialize["dueDate"] = o.DueDate
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -312,15 +317,27 @@ func (o *Invoice) UnmarshalJSON(data []byte) (err error) {
 
 	varInvoice := _Invoice{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varInvoice)
+	err = json.Unmarshal(data, &varInvoice)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Invoice(varInvoice)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "number")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "outstandingAmount")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "sentOn")
+		delete(additionalProperties, "dueDate")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

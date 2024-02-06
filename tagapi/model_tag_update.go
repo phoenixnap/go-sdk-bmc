@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package tagapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type TagUpdate struct {
 	// The description of the tag.
 	Description *string `json:"description,omitempty"`
 	// Whether or not to show the tag as part of billing and invoices.
-	IsBillingTag bool `json:"isBillingTag"`
+	IsBillingTag         bool `json:"isBillingTag"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TagUpdate TagUpdate
@@ -146,6 +146,11 @@ func (o TagUpdate) ToMap() (map[string]interface{}, error) {
 		toSerialize["description"] = o.Description
 	}
 	toSerialize["isBillingTag"] = o.IsBillingTag
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -174,15 +179,22 @@ func (o *TagUpdate) UnmarshalJSON(data []byte) (err error) {
 
 	varTagUpdate := _TagUpdate{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTagUpdate)
+	err = json.Unmarshal(data, &varTagUpdate)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TagUpdate(varTagUpdate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "isBillingTag")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

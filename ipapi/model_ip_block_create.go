@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package ipapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -29,7 +28,8 @@ type IpBlockCreate struct {
 	// The description of the IP Block.
 	Description *string `json:"description,omitempty"`
 	// Tags to set to the ip-block. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).
-	Tags []TagAssignmentRequest `json:"tags,omitempty"`
+	Tags                 []TagAssignmentRequest `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _IpBlockCreate IpBlockCreate
@@ -183,6 +183,11 @@ func (o IpBlockCreate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -211,15 +216,23 @@ func (o *IpBlockCreate) UnmarshalJSON(data []byte) (err error) {
 
 	varIpBlockCreate := _IpBlockCreate{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varIpBlockCreate)
+	err = json.Unmarshal(data, &varIpBlockCreate)
 
 	if err != nil {
 		return err
 	}
 
 	*o = IpBlockCreate(varIpBlockCreate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "cidrBlockSize")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

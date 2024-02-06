@@ -25,8 +25,11 @@ type RancherClusterCertificates struct {
 	// The SSL certificate to be used for rancher admin.
 	Certificate *string `json:"certificate,omitempty"`
 	// The SSL certificate key to be used for rancher admin.
-	CertificateKey *string `json:"certificateKey,omitempty"`
+	CertificateKey       *string `json:"certificateKey,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RancherClusterCertificates RancherClusterCertificates
 
 // NewRancherClusterCertificates instantiates a new RancherClusterCertificates object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o RancherClusterCertificates) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CertificateKey) {
 		toSerialize["certificateKey"] = o.CertificateKey
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RancherClusterCertificates) UnmarshalJSON(data []byte) (err error) {
+	varRancherClusterCertificates := _RancherClusterCertificates{}
+
+	err = json.Unmarshal(data, &varRancherClusterCertificates)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RancherClusterCertificates(varRancherClusterCertificates)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "caCertificate")
+		delete(additionalProperties, "certificate")
+		delete(additionalProperties, "certificateKey")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRancherClusterCertificates struct {

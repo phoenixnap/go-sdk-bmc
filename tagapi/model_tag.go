@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package tagapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -35,7 +34,8 @@ type Tag struct {
 	// The tag's assigned resources.
 	ResourceAssignments []ResourceAssignment `json:"resourceAssignments,omitempty"`
 	// The tag's creator.
-	CreatedBy *string `json:"createdBy,omitempty"`
+	CreatedBy            *string `json:"createdBy,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Tag Tag
@@ -289,6 +289,11 @@ func (o Tag) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -318,15 +323,26 @@ func (o *Tag) UnmarshalJSON(data []byte) (err error) {
 
 	varTag := _Tag{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTag)
+	err = json.Unmarshal(data, &varTag)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Tag(varTag)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "values")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "isBillingTag")
+		delete(additionalProperties, "resourceAssignments")
+		delete(additionalProperties, "createdBy")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

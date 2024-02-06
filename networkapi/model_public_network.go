@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package networkapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -40,7 +39,8 @@ type PublicNetwork struct {
 	// Date and time when this public network was created.
 	CreatedOn time.Time `json:"createdOn"`
 	// A list of IP Blocks that are associated with this public network.
-	IpBlocks []PublicNetworkIpBlock `json:"ipBlocks"`
+	IpBlocks             []PublicNetworkIpBlock `json:"ipBlocks"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PublicNetwork PublicNetwork
@@ -315,6 +315,11 @@ func (o PublicNetwork) ToMap() (map[string]interface{}, error) {
 	toSerialize["status"] = o.Status
 	toSerialize["createdOn"] = o.CreatedOn
 	toSerialize["ipBlocks"] = o.IpBlocks
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -349,15 +354,28 @@ func (o *PublicNetwork) UnmarshalJSON(data []byte) (err error) {
 
 	varPublicNetwork := _PublicNetwork{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPublicNetwork)
+	err = json.Unmarshal(data, &varPublicNetwork)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PublicNetwork(varPublicNetwork)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "vlanId")
+		delete(additionalProperties, "memberships")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "createdOn")
+		delete(additionalProperties, "ipBlocks")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

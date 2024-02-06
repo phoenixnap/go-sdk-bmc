@@ -43,8 +43,11 @@ type Volume struct {
 	DeleteRequestedOn *time.Time   `json:"deleteRequestedOn,omitempty"`
 	Permissions       *Permissions `json:"permissions,omitempty"`
 	// The tags assigned if any.
-	Tags []TagAssignment `json:"tags,omitempty"`
+	Tags                 []TagAssignment `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Volume Volume
 
 // NewVolume instantiates a new Volume object
 // This constructor will assign default values to properties that have it defined,
@@ -528,7 +531,45 @@ func (o Volume) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Volume) UnmarshalJSON(data []byte) (err error) {
+	varVolume := _Volume{}
+
+	err = json.Unmarshal(data, &varVolume)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Volume(varVolume)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "path")
+		delete(additionalProperties, "pathSuffix")
+		delete(additionalProperties, "capacityInGb")
+		delete(additionalProperties, "usedCapacityInGb")
+		delete(additionalProperties, "protocol")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "createdOn")
+		delete(additionalProperties, "deleteRequestedOn")
+		delete(additionalProperties, "permissions")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableVolume struct {
