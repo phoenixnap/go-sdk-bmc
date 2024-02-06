@@ -112,6 +112,10 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
+        # 2nd part of cleanup.
+        # Checking out the repository will include all the dirty files as well,
+        # so here we need to delete the existing modules and keep only the artifacts
+        # that were generated.
       - name: Clean up modules
         run: |
           rm -r ./bmcapi \
@@ -136,6 +140,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add -A
 
+          # Uses git status to check whether changes are present.
           if test "$(git status --porcelain=v1 2>/dev/null | wc -l)" -gt "0" ;
           then 
             git commit -m "Add changes";

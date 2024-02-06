@@ -20,6 +20,8 @@ runs:
     - name: Install openapi-generator-cli
       shell: bash
       run: npm install -g @openapitools/openapi-generator-cli
+      # First part of the cleanup - makes sure obsolete files get deleted.
+      # Everything else will be re-generated.
     - name: Cleanup existing files
       shell: bash
       run: |
