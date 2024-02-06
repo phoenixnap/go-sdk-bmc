@@ -64,22 +64,10 @@ jobs:
       test-suite: PaymentsApiTestSuite
 
   run-generic-tests:
-    runs-on: ubuntu-latest
-    services:
-      mockserver:
-        image: mockserver/mockserver:5.15.0
-        ports:
-          - 1080:1080
-    strategy:
-      fail-fast: false
-      matrix:
-        go-version: [ '1.18', '1.21' ]
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/workflows/composite/test-sdk
-        with:
-          test-suite: MiscTestSuite
-          go-version: ${{ matrix.go-version }}
+    uses: ./.github/workflows/_test.yml
+    with:
+      module-name: "none (generic tests)"
+      test-suite: MiscTestSuite
 
   publish-test-results:
     name: Publish Test Results
