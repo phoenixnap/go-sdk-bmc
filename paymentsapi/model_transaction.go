@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package paymentsapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -37,6 +36,7 @@ type Transaction struct {
 	Date                     time.Time                `json:"date"`
 	Metadata                 TransactionMetadata      `json:"metadata"`
 	CardPaymentMethodDetails CardPaymentMethodDetails `json:"cardPaymentMethodDetails"`
+	AdditionalProperties     map[string]interface{}
 }
 
 type _Transaction Transaction
@@ -285,6 +285,11 @@ func (o Transaction) ToMap() (map[string]interface{}, error) {
 	toSerialize["date"] = o.Date
 	toSerialize["metadata"] = o.Metadata
 	toSerialize["cardPaymentMethodDetails"] = o.CardPaymentMethodDetails
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -318,15 +323,27 @@ func (o *Transaction) UnmarshalJSON(data []byte) (err error) {
 
 	varTransaction := _Transaction{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTransaction)
+	err = json.Unmarshal(data, &varTransaction)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Transaction(varTransaction)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "details")
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "date")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "cardPaymentMethodDetails")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

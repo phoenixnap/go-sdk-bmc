@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package locationapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,9 +21,10 @@ var _ MappedNullable = &Location{}
 
 // Location Location resource
 type Location struct {
-	Location            LocationEnum      `json:"location"`
-	LocationDescription *string           `json:"locationDescription,omitempty"`
-	ProductCategories   []ProductCategory `json:"productCategories,omitempty"`
+	Location             LocationEnum      `json:"location"`
+	LocationDescription  *string           `json:"locationDescription,omitempty"`
+	ProductCategories    []ProductCategory `json:"productCategories,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Location Location
@@ -152,6 +152,11 @@ func (o Location) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ProductCategories) {
 		toSerialize["productCategories"] = o.ProductCategories
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -179,15 +184,22 @@ func (o *Location) UnmarshalJSON(data []byte) (err error) {
 
 	varLocation := _Location{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varLocation)
+	err = json.Unmarshal(data, &varLocation)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Location(varLocation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "locationDescription")
+		delete(additionalProperties, "productCategories")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

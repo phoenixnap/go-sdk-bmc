@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type Product struct {
 	// The product category.
 	ProductCategory string `json:"productCategory"`
 	// The pricing plans available for this product.
-	Plans []PricingPlan `json:"plans,omitempty"`
+	Plans                []PricingPlan `json:"plans,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Product Product
@@ -146,6 +146,11 @@ func (o Product) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Plans) {
 		toSerialize["plans"] = o.Plans
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -174,15 +179,22 @@ func (o *Product) UnmarshalJSON(data []byte) (err error) {
 
 	varProduct := _Product{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProduct)
+	err = json.Unmarshal(data, &varProduct)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Product(varProduct)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "productCode")
+		delete(additionalProperties, "productCategory")
+		delete(additionalProperties, "plans")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -21,7 +21,10 @@ var _ MappedNullable = &ReservationAutoRenewDisableRequest{}
 // ReservationAutoRenewDisableRequest Disabling auto-renewal for reservation request.
 type ReservationAutoRenewDisableRequest struct {
 	AutoRenewDisableReason *string `json:"autoRenewDisableReason,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
+
+type _ReservationAutoRenewDisableRequest ReservationAutoRenewDisableRequest
 
 // NewReservationAutoRenewDisableRequest instantiates a new ReservationAutoRenewDisableRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o ReservationAutoRenewDisableRequest) ToMap() (map[string]interface{}, err
 	if !IsNil(o.AutoRenewDisableReason) {
 		toSerialize["autoRenewDisableReason"] = o.AutoRenewDisableReason
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ReservationAutoRenewDisableRequest) UnmarshalJSON(data []byte) (err error) {
+	varReservationAutoRenewDisableRequest := _ReservationAutoRenewDisableRequest{}
+
+	err = json.Unmarshal(data, &varReservationAutoRenewDisableRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ReservationAutoRenewDisableRequest(varReservationAutoRenewDisableRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "autoRenewDisableReason")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableReservationAutoRenewDisableRequest struct {

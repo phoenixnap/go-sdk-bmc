@@ -27,8 +27,11 @@ type OsConfigurationNetrisSoftgate struct {
 	// (Write-only) The version of the Netris Controller to connect to.
 	ControllerVersion *string `json:"controllerVersion,omitempty"`
 	// (Write-only) The authentication key of the Netris Controller to connect to. Required for the softgate agent to be able to interact with the Netris Controller.
-	ControllerAuthKey *string `json:"controllerAuthKey,omitempty"`
+	ControllerAuthKey    *string `json:"controllerAuthKey,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OsConfigurationNetrisSoftgate OsConfigurationNetrisSoftgate
 
 // NewOsConfigurationNetrisSoftgate instantiates a new OsConfigurationNetrisSoftgate object
 // This constructor will assign default values to properties that have it defined,
@@ -197,7 +200,36 @@ func (o OsConfigurationNetrisSoftgate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ControllerAuthKey) {
 		toSerialize["controllerAuthKey"] = o.ControllerAuthKey
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OsConfigurationNetrisSoftgate) UnmarshalJSON(data []byte) (err error) {
+	varOsConfigurationNetrisSoftgate := _OsConfigurationNetrisSoftgate{}
+
+	err = json.Unmarshal(data, &varOsConfigurationNetrisSoftgate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OsConfigurationNetrisSoftgate(varOsConfigurationNetrisSoftgate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "hostOs")
+		delete(additionalProperties, "controllerAddress")
+		delete(additionalProperties, "controllerVersion")
+		delete(additionalProperties, "controllerAuthKey")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOsConfigurationNetrisSoftgate struct {

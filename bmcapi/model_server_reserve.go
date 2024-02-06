@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,7 +22,8 @@ var _ MappedNullable = &ServerReserve{}
 // ServerReserve Bare metal server reservation.
 type ServerReserve struct {
 	// Server pricing model. Currently this field should be set to `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`.
-	PricingModel string `json:"pricingModel"`
+	PricingModel         string `json:"pricingModel"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ServerReserve ServerReserve
@@ -81,6 +81,11 @@ func (o ServerReserve) MarshalJSON() ([]byte, error) {
 func (o ServerReserve) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["pricingModel"] = o.PricingModel
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -108,15 +113,20 @@ func (o *ServerReserve) UnmarshalJSON(data []byte) (err error) {
 
 	varServerReserve := _ServerReserve{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varServerReserve)
+	err = json.Unmarshal(data, &varServerReserve)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ServerReserve(varServerReserve)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "pricingModel")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

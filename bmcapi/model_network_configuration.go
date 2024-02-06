@@ -25,7 +25,10 @@ type NetworkConfiguration struct {
 	PrivateNetworkConfiguration *PrivateNetworkConfiguration `json:"privateNetworkConfiguration,omitempty"`
 	IpBlocksConfiguration       *IpBlocksConfiguration       `json:"ipBlocksConfiguration,omitempty"`
 	PublicNetworkConfiguration  *PublicNetworkConfiguration  `json:"publicNetworkConfiguration,omitempty"`
+	AdditionalProperties        map[string]interface{}
 }
+
+type _NetworkConfiguration NetworkConfiguration
 
 // NewNetworkConfiguration instantiates a new NetworkConfiguration object
 // This constructor will assign default values to properties that have it defined,
@@ -194,7 +197,36 @@ func (o NetworkConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PublicNetworkConfiguration) {
 		toSerialize["publicNetworkConfiguration"] = o.PublicNetworkConfiguration
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NetworkConfiguration) UnmarshalJSON(data []byte) (err error) {
+	varNetworkConfiguration := _NetworkConfiguration{}
+
+	err = json.Unmarshal(data, &varNetworkConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NetworkConfiguration(varNetworkConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "gatewayAddress")
+		delete(additionalProperties, "privateNetworkConfiguration")
+		delete(additionalProperties, "ipBlocksConfiguration")
+		delete(additionalProperties, "publicNetworkConfiguration")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNetworkConfiguration struct {

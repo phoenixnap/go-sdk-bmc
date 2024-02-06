@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package networkstorageapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -31,7 +30,8 @@ type StorageNetworkCreate struct {
 	// Volume to be created alongside storage. Currently only 1 volume is supported.
 	Volumes []StorageNetworkVolumeCreate `json:"volumes"`
 	// Custom Client VLAN that the Storage Network will be set to.
-	ClientVlan *int32 `json:"clientVlan,omitempty"`
+	ClientVlan           *int32 `json:"clientVlan,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _StorageNetworkCreate StorageNetworkCreate
@@ -211,6 +211,11 @@ func (o StorageNetworkCreate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ClientVlan) {
 		toSerialize["clientVlan"] = o.ClientVlan
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -240,15 +245,24 @@ func (o *StorageNetworkCreate) UnmarshalJSON(data []byte) (err error) {
 
 	varStorageNetworkCreate := _StorageNetworkCreate{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varStorageNetworkCreate)
+	err = json.Unmarshal(data, &varStorageNetworkCreate)
 
 	if err != nil {
 		return err
 	}
 
 	*o = StorageNetworkCreate(varStorageNetworkCreate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "volumes")
+		delete(additionalProperties, "clientVlan")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

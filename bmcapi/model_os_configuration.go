@@ -30,9 +30,12 @@ type OsConfiguration struct {
 	// List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
 	ManagementAccessAllowedIps []string `json:"managementAccessAllowedIps,omitempty"`
 	// If true, OS will be installed to and booted from the server's RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Follow the <a href='https://phoenixnap.com/kb/bmc-custom-os' target='_blank'>instructions</a> on how to install custom OS on BMC. Only supported for ubuntu/focal and ubuntu/jammy.
-	InstallOsToRam *bool                     `json:"installOsToRam,omitempty"`
-	CloudInit      *OsConfigurationCloudInit `json:"cloudInit,omitempty"`
+	InstallOsToRam       *bool                     `json:"installOsToRam,omitempty"`
+	CloudInit            *OsConfigurationCloudInit `json:"cloudInit,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OsConfiguration OsConfiguration
 
 // NewOsConfiguration instantiates a new OsConfiguration object
 // This constructor will assign default values to properties that have it defined,
@@ -345,7 +348,40 @@ func (o OsConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CloudInit) {
 		toSerialize["cloudInit"] = o.CloudInit
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OsConfiguration) UnmarshalJSON(data []byte) (err error) {
+	varOsConfiguration := _OsConfiguration{}
+
+	err = json.Unmarshal(data, &varOsConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OsConfiguration(varOsConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "netrisController")
+		delete(additionalProperties, "netrisSoftgate")
+		delete(additionalProperties, "windows")
+		delete(additionalProperties, "rootPassword")
+		delete(additionalProperties, "managementUiUrl")
+		delete(additionalProperties, "managementAccessAllowedIps")
+		delete(additionalProperties, "installOsToRam")
+		delete(additionalProperties, "cloudInit")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOsConfiguration struct {

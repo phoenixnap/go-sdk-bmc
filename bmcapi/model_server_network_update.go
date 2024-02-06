@@ -21,8 +21,11 @@ var _ MappedNullable = &ServerNetworkUpdate{}
 // ServerNetworkUpdate Update network details of bare metal server.
 type ServerNetworkUpdate struct {
 	// List of IPs to be associated to the server.<br> Valid IP formats are single IPv4 addresses or IPv4 ranges. IPs must be within the network's range.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. <li> Assign one or more IP addresses which are already configured on other resource(s) in network. <li> Assign IP addresses which are considered as reserved in network.</ul>
-	Ips []string `json:"ips,omitempty"`
+	Ips                  []string `json:"ips,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ServerNetworkUpdate ServerNetworkUpdate
 
 // NewServerNetworkUpdate instantiates a new ServerNetworkUpdate object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o ServerNetworkUpdate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Ips) {
 		toSerialize["ips"] = o.Ips
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ServerNetworkUpdate) UnmarshalJSON(data []byte) (err error) {
+	varServerNetworkUpdate := _ServerNetworkUpdate{}
+
+	err = json.Unmarshal(data, &varServerNetworkUpdate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServerNetworkUpdate(varServerNetworkUpdate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "ips")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableServerNetworkUpdate struct {

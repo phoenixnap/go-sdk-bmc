@@ -21,8 +21,11 @@ var _ MappedNullable = &OsConfigurationWindows{}
 // OsConfigurationWindows Windows OS configuration properties.
 type OsConfigurationWindows struct {
 	// List of IPs allowed for RDP access to Windows OS. Supported in single IP, CIDR and range format. When undefined, RDP is disabled. To allow RDP access from any IP use 0.0.0.0/0. This will only be returned in response to provisioning a server.
-	RdpAllowedIps []string `json:"rdpAllowedIps,omitempty"`
+	RdpAllowedIps        []string `json:"rdpAllowedIps,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OsConfigurationWindows OsConfigurationWindows
 
 // NewOsConfigurationWindows instantiates a new OsConfigurationWindows object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o OsConfigurationWindows) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RdpAllowedIps) {
 		toSerialize["rdpAllowedIps"] = o.RdpAllowedIps
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OsConfigurationWindows) UnmarshalJSON(data []byte) (err error) {
+	varOsConfigurationWindows := _OsConfigurationWindows{}
+
+	err = json.Unmarshal(data, &varOsConfigurationWindows)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OsConfigurationWindows(varOsConfigurationWindows)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "rdpAllowedIps")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOsConfigurationWindows struct {

@@ -21,8 +21,11 @@ var _ MappedNullable = &RelinquishIpBlock{}
 // RelinquishIpBlock Object used to determine whether to relinquish ownership of the IP block upon server deletion.
 type RelinquishIpBlock struct {
 	// Determines whether the IP blocks assigned to the server should be deleted or not.
-	DeleteIpBlocks *bool `json:"deleteIpBlocks,omitempty"`
+	DeleteIpBlocks       *bool `json:"deleteIpBlocks,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RelinquishIpBlock RelinquishIpBlock
 
 // NewRelinquishIpBlock instantiates a new RelinquishIpBlock object
 // This constructor will assign default values to properties that have it defined,
@@ -90,7 +93,33 @@ func (o RelinquishIpBlock) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DeleteIpBlocks) {
 		toSerialize["deleteIpBlocks"] = o.DeleteIpBlocks
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RelinquishIpBlock) UnmarshalJSON(data []byte) (err error) {
+	varRelinquishIpBlock := _RelinquishIpBlock{}
+
+	err = json.Unmarshal(data, &varRelinquishIpBlock)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RelinquishIpBlock(varRelinquishIpBlock)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "deleteIpBlocks")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRelinquishIpBlock struct {

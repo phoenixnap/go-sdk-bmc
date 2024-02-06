@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package auditapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type UserInfo struct {
 	// The client ID of the application
 	ClientId *string `json:"clientId,omitempty"`
 	// The logged in user or owner of the client application
-	Username string `json:"username"`
+	Username             string `json:"username"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UserInfo UserInfo
@@ -146,6 +146,11 @@ func (o UserInfo) ToMap() (map[string]interface{}, error) {
 		toSerialize["clientId"] = o.ClientId
 	}
 	toSerialize["username"] = o.Username
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -174,15 +179,22 @@ func (o *UserInfo) UnmarshalJSON(data []byte) (err error) {
 
 	varUserInfo := _UserInfo{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUserInfo)
+	err = json.Unmarshal(data, &varUserInfo)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UserInfo(varUserInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "accountId")
+		delete(additionalProperties, "clientId")
+		delete(additionalProperties, "username")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

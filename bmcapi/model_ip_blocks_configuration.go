@@ -23,8 +23,11 @@ type IpBlocksConfiguration struct {
 	// (Write-only) Determines the approach for configuring IP blocks for the server being provisioned. If PURCHASE_NEW is selected, the smallest supported range, depending on the operating system, is allocated to the server.
 	ConfigurationType *string `json:"configurationType,omitempty"`
 	// Used to specify the previously purchased IP blocks to assign to this server upon provisioning. Used alongside the USER_DEFINED configurationType.
-	IpBlocks []ServerIpBlock `json:"ipBlocks,omitempty"`
+	IpBlocks             []ServerIpBlock `json:"ipBlocks,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IpBlocksConfiguration IpBlocksConfiguration
 
 // NewIpBlocksConfiguration instantiates a new IpBlocksConfiguration object
 // This constructor will assign default values to properties that have it defined,
@@ -127,7 +130,34 @@ func (o IpBlocksConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IpBlocks) {
 		toSerialize["ipBlocks"] = o.IpBlocks
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IpBlocksConfiguration) UnmarshalJSON(data []byte) (err error) {
+	varIpBlocksConfiguration := _IpBlocksConfiguration{}
+
+	err = json.Unmarshal(data, &varIpBlocksConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IpBlocksConfiguration(varIpBlocksConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "configurationType")
+		delete(additionalProperties, "ipBlocks")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIpBlocksConfiguration struct {

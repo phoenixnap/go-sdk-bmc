@@ -25,8 +25,11 @@ type SshConfig struct {
 	// List of public SSH keys.
 	Keys []string `json:"keys,omitempty"`
 	// List of public SSH key identifiers. These are public keys that were already recorded on this system. Use <a href='https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get' target='_blank'>GET /ssh-keys</a> to retrieve a list of possible values.
-	KeyIds []string `json:"keyIds,omitempty"`
+	KeyIds               []string `json:"keyIds,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SshConfig SshConfig
 
 // NewSshConfig instantiates a new SshConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -164,7 +167,35 @@ func (o SshConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.KeyIds) {
 		toSerialize["keyIds"] = o.KeyIds
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SshConfig) UnmarshalJSON(data []byte) (err error) {
+	varSshConfig := _SshConfig{}
+
+	err = json.Unmarshal(data, &varSshConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SshConfig(varSshConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "installDefaultKeys")
+		delete(additionalProperties, "keys")
+		delete(additionalProperties, "keyIds")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSshConfig struct {

@@ -25,8 +25,11 @@ type OsConfigurationNetrisController struct {
 	// (Read-only) The URL for the Netris Controller web console. It will only be returned in response to provisioning a server.
 	NetrisWebConsoleUrl *string `json:"netrisWebConsoleUrl,omitempty"`
 	// (Read-only) Auto-generated password set for user 'netris' in the web console.<br>  The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
-	NetrisUserPassword *string `json:"netrisUserPassword,omitempty"`
+	NetrisUserPassword   *string `json:"netrisUserPassword,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OsConfigurationNetrisController OsConfigurationNetrisController
 
 // NewOsConfigurationNetrisController instantiates a new OsConfigurationNetrisController object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o OsConfigurationNetrisController) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.NetrisUserPassword) {
 		toSerialize["netrisUserPassword"] = o.NetrisUserPassword
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OsConfigurationNetrisController) UnmarshalJSON(data []byte) (err error) {
+	varOsConfigurationNetrisController := _OsConfigurationNetrisController{}
+
+	err = json.Unmarshal(data, &varOsConfigurationNetrisController)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OsConfigurationNetrisController(varOsConfigurationNetrisController)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "hostOs")
+		delete(additionalProperties, "netrisWebConsoleUrl")
+		delete(additionalProperties, "netrisUserPassword")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOsConfigurationNetrisController struct {

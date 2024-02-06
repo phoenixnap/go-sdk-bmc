@@ -20,10 +20,13 @@ var _ MappedNullable = &OsConfigurationMap{}
 
 // OsConfigurationMap OS specific configuration properties.
 type OsConfigurationMap struct {
-	Windows *OsConfigurationWindows    `json:"windows,omitempty"`
-	Esxi    *OsConfigurationMapEsxi    `json:"esxi,omitempty"`
-	Proxmox *OsConfigurationMapProxmox `json:"proxmox,omitempty"`
+	Windows              *OsConfigurationWindows    `json:"windows,omitempty"`
+	Esxi                 *OsConfigurationMapEsxi    `json:"esxi,omitempty"`
+	Proxmox              *OsConfigurationMapProxmox `json:"proxmox,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OsConfigurationMap OsConfigurationMap
 
 // NewOsConfigurationMap instantiates a new OsConfigurationMap object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o OsConfigurationMap) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Proxmox) {
 		toSerialize["proxmox"] = o.Proxmox
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OsConfigurationMap) UnmarshalJSON(data []byte) (err error) {
+	varOsConfigurationMap := _OsConfigurationMap{}
+
+	err = json.Unmarshal(data, &varOsConfigurationMap)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OsConfigurationMap(varOsConfigurationMap)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "windows")
+		delete(additionalProperties, "esxi")
+		delete(additionalProperties, "proxmox")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOsConfigurationMap struct {

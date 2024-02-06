@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package networkstorageapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type TagAssignmentRequest struct {
 	// The name of the tag. Tag names are case-sensitive, and should be composed of a maximum of 100 characters including UTF-8 Unicode letters, numbers, and the following symbols: '-', '_'. Regex: [A-zÀ-ú0-9_-]{1,100}.
 	Name string `json:"name"`
 	// The value of the tag assigned to the resource. Tag values are case-sensitive, and should be composed of a maximum of 100 characters including UTF-8 Unicode letters, numbers, and the following symbols: '-', '_'. Regex: [A-zÀ-ú0-9_-]{1,100}.
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TagAssignmentRequest TagAssignmentRequest
@@ -118,6 +118,11 @@ func (o TagAssignmentRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -145,15 +150,21 @@ func (o *TagAssignmentRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varTagAssignmentRequest := _TagAssignmentRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTagAssignmentRequest)
+	err = json.Unmarshal(data, &varTagAssignmentRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TagAssignmentRequest(varTagAssignmentRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,8 +24,9 @@ type ResetResult struct {
 	// Message describing the reset result.
 	Result string `json:"result"`
 	// Password set for user Admin on Windows server or user root on ESXi server.
-	Password        *string             `json:"password,omitempty"`
-	OsConfiguration *OsConfigurationMap `json:"osConfiguration,omitempty"`
+	Password             *string             `json:"password,omitempty"`
+	OsConfiguration      *OsConfigurationMap `json:"osConfiguration,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ResetResult ResetResult
@@ -154,6 +154,11 @@ func (o ResetResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OsConfiguration) {
 		toSerialize["osConfiguration"] = o.OsConfiguration
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -181,15 +186,22 @@ func (o *ResetResult) UnmarshalJSON(data []byte) (err error) {
 
 	varResetResult := _ResetResult{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varResetResult)
+	err = json.Unmarshal(data, &varResetResult)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ResetResult(varResetResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "result")
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "osConfiguration")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

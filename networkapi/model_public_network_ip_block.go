@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package networkapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,7 +22,8 @@ var _ MappedNullable = &PublicNetworkIpBlock{}
 // PublicNetworkIpBlock The assigned IP block to the Public Network.
 type PublicNetworkIpBlock struct {
 	// The IP Block identifier.
-	Id string `json:"id"`
+	Id                   string `json:"id"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PublicNetworkIpBlock PublicNetworkIpBlock
@@ -81,6 +81,11 @@ func (o PublicNetworkIpBlock) MarshalJSON() ([]byte, error) {
 func (o PublicNetworkIpBlock) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -108,15 +113,20 @@ func (o *PublicNetworkIpBlock) UnmarshalJSON(data []byte) (err error) {
 
 	varPublicNetworkIpBlock := _PublicNetworkIpBlock{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPublicNetworkIpBlock)
+	err = json.Unmarshal(data, &varPublicNetworkIpBlock)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PublicNetworkIpBlock(varPublicNetworkIpBlock)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

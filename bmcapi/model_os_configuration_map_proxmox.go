@@ -26,7 +26,10 @@ type OsConfigurationMapProxmox struct {
 	ManagementUiUrl *string `json:"managementUiUrl,omitempty"`
 	// List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
 	ManagementAccessAllowedIps []string `json:"managementAccessAllowedIps,omitempty"`
+	AdditionalProperties       map[string]interface{}
 }
+
+type _OsConfigurationMapProxmox OsConfigurationMapProxmox
 
 // NewOsConfigurationMapProxmox instantiates a new OsConfigurationMapProxmox object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o OsConfigurationMapProxmox) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ManagementAccessAllowedIps) {
 		toSerialize["managementAccessAllowedIps"] = o.ManagementAccessAllowedIps
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OsConfigurationMapProxmox) UnmarshalJSON(data []byte) (err error) {
+	varOsConfigurationMapProxmox := _OsConfigurationMapProxmox{}
+
+	err = json.Unmarshal(data, &varOsConfigurationMapProxmox)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OsConfigurationMapProxmox(varOsConfigurationMapProxmox)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "rootPassword")
+		delete(additionalProperties, "managementUiUrl")
+		delete(additionalProperties, "managementAccessAllowedIps")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOsConfigurationMapProxmox struct {

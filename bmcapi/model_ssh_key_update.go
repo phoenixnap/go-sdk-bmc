@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type SshKeyUpdate struct {
 	// Keys marked as default are always included on server creation and reset unless toggled off in creation/reset request.
 	Default bool `json:"default"`
 	// SSH key name that can represent the key as an alternative to its ID.
-	Name string `json:"name"`
+	Name                 string `json:"name"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SshKeyUpdate SshKeyUpdate
@@ -109,6 +109,11 @@ func (o SshKeyUpdate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["default"] = o.Default
 	toSerialize["name"] = o.Name
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *SshKeyUpdate) UnmarshalJSON(data []byte) (err error) {
 
 	varSshKeyUpdate := _SshKeyUpdate{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSshKeyUpdate)
+	err = json.Unmarshal(data, &varSshKeyUpdate)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SshKeyUpdate(varSshKeyUpdate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "default")
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

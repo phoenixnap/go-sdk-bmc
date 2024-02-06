@@ -20,8 +20,11 @@ var _ MappedNullable = &PermissionsCreate{}
 
 // PermissionsCreate Update permissions for a volume.
 type PermissionsCreate struct {
-	Nfs *NfsPermissionsCreate `json:"nfs,omitempty"`
+	Nfs                  *NfsPermissionsCreate `json:"nfs,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PermissionsCreate PermissionsCreate
 
 // NewPermissionsCreate instantiates a new PermissionsCreate object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o PermissionsCreate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Nfs) {
 		toSerialize["nfs"] = o.Nfs
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PermissionsCreate) UnmarshalJSON(data []byte) (err error) {
+	varPermissionsCreate := _PermissionsCreate{}
+
+	err = json.Unmarshal(data, &varPermissionsCreate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PermissionsCreate(varPermissionsCreate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "nfs")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePermissionsCreate struct {

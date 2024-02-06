@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -29,7 +28,8 @@ type ServerPrivateNetwork struct {
 	// Determines whether DHCP is enabled for this server. Should be false if any IPs are provided. Not supported for Proxmox OS.
 	Dhcp *bool `json:"dhcp,omitempty"`
 	// (Read-only) The status of the network.
-	StatusDescription *string `json:"statusDescription,omitempty"`
+	StatusDescription    *string `json:"statusDescription,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ServerPrivateNetwork ServerPrivateNetwork
@@ -196,6 +196,11 @@ func (o ServerPrivateNetwork) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StatusDescription) {
 		toSerialize["statusDescription"] = o.StatusDescription
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -223,15 +228,23 @@ func (o *ServerPrivateNetwork) UnmarshalJSON(data []byte) (err error) {
 
 	varServerPrivateNetwork := _ServerPrivateNetwork{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varServerPrivateNetwork)
+	err = json.Unmarshal(data, &varServerPrivateNetwork)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ServerPrivateNetwork(varServerPrivateNetwork)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "ips")
+		delete(additionalProperties, "dhcp")
+		delete(additionalProperties, "statusDescription")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

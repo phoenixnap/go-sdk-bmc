@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package paymentsapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,8 +26,9 @@ type PaginatedTransactions struct {
 	// The number of returned items skipped.
 	Offset int32 `json:"offset"`
 	// The total number of records available for retrieval.
-	Total   int64         `json:"total"`
-	Results []Transaction `json:"results"`
+	Total                int64         `json:"total"`
+	Results              []Transaction `json:"results"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PaginatedTransactions PaginatedTransactions
@@ -164,6 +164,11 @@ func (o PaginatedTransactions) ToMap() (map[string]interface{}, error) {
 	toSerialize["offset"] = o.Offset
 	toSerialize["total"] = o.Total
 	toSerialize["results"] = o.Results
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -194,15 +199,23 @@ func (o *PaginatedTransactions) UnmarshalJSON(data []byte) (err error) {
 
 	varPaginatedTransactions := _PaginatedTransactions{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPaginatedTransactions)
+	err = json.Unmarshal(data, &varPaginatedTransactions)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PaginatedTransactions(varPaginatedTransactions)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "offset")
+		delete(additionalProperties, "total")
+		delete(additionalProperties, "results")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

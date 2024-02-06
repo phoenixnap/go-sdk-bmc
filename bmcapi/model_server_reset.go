@@ -25,9 +25,12 @@ type ServerReset struct {
 	// A list of SSH keys that will be installed on the server.
 	SshKeys []string `json:"sshKeys,omitempty"`
 	// A list of SSH key IDs that will be installed on the server in addition to any SSH keys specified in this request.
-	SshKeyIds       []string            `json:"sshKeyIds,omitempty"`
-	OsConfiguration *OsConfigurationMap `json:"osConfiguration,omitempty"`
+	SshKeyIds            []string            `json:"sshKeyIds,omitempty"`
+	OsConfiguration      *OsConfigurationMap `json:"osConfiguration,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ServerReset ServerReset
 
 // NewServerReset instantiates a new ServerReset object
 // This constructor will assign default values to properties that have it defined,
@@ -200,7 +203,36 @@ func (o ServerReset) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OsConfiguration) {
 		toSerialize["osConfiguration"] = o.OsConfiguration
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ServerReset) UnmarshalJSON(data []byte) (err error) {
+	varServerReset := _ServerReset{}
+
+	err = json.Unmarshal(data, &varServerReset)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServerReset(varServerReset)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "installDefaultSshKeys")
+		delete(additionalProperties, "sshKeys")
+		delete(additionalProperties, "sshKeyIds")
+		delete(additionalProperties, "osConfiguration")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableServerReset struct {

@@ -21,8 +21,11 @@ var _ MappedNullable = &IpBlockPatch{}
 // IpBlockPatch IP Block patch.
 type IpBlockPatch struct {
 	// The description of the Ip Block.
-	Description *string `json:"description,omitempty"`
+	Description          *string `json:"description,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IpBlockPatch IpBlockPatch
 
 // NewIpBlockPatch instantiates a new IpBlockPatch object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o IpBlockPatch) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IpBlockPatch) UnmarshalJSON(data []byte) (err error) {
+	varIpBlockPatch := _IpBlockPatch{}
+
+	err = json.Unmarshal(data, &varIpBlockPatch)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IpBlockPatch(varIpBlockPatch)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIpBlockPatch struct {

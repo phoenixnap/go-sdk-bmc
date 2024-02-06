@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package networkapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -33,7 +32,8 @@ type PrivateNetworkCreate struct {
 	// The VLAN that will be assigned to this network.
 	VlanId *int32 `json:"vlanId,omitempty"`
 	// IP range associated with this private network in CIDR notation.<br> Setting the `force` query parameter to `true` allows you to skip assigning a specific IP range to network.
-	Cidr *string `json:"cidr,omitempty"`
+	Cidr                 *string `json:"cidr,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PrivateNetworkCreate PrivateNetworkCreate
@@ -261,6 +261,11 @@ func (o PrivateNetworkCreate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Cidr) {
 		toSerialize["cidr"] = o.Cidr
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -289,15 +294,25 @@ func (o *PrivateNetworkCreate) UnmarshalJSON(data []byte) (err error) {
 
 	varPrivateNetworkCreate := _PrivateNetworkCreate{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPrivateNetworkCreate)
+	err = json.Unmarshal(data, &varPrivateNetworkCreate)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PrivateNetworkCreate(varPrivateNetworkCreate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "locationDefault")
+		delete(additionalProperties, "vlanId")
+		delete(additionalProperties, "cidr")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

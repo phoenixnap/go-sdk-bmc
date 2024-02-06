@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package networkapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type PrivateNetworkServer struct {
 	// The server identifier.
 	Id string `json:"id"`
 	// List of private IPs associated to the server.
-	Ips []string `json:"ips"`
+	Ips                  []string `json:"ips"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PrivateNetworkServer PrivateNetworkServer
@@ -109,6 +109,11 @@ func (o PrivateNetworkServer) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["ips"] = o.Ips
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *PrivateNetworkServer) UnmarshalJSON(data []byte) (err error) {
 
 	varPrivateNetworkServer := _PrivateNetworkServer{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPrivateNetworkServer)
+	err = json.Unmarshal(data, &varPrivateNetworkServer)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PrivateNetworkServer(varPrivateNetworkServer)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "ips")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

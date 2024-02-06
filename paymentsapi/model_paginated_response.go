@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package paymentsapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type PaginatedResponse struct {
 	// The number of returned items skipped.
 	Offset int32 `json:"offset"`
 	// The total number of records available for retrieval.
-	Total int64 `json:"total"`
+	Total                int64 `json:"total"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PaginatedResponse PaginatedResponse
@@ -137,6 +137,11 @@ func (o PaginatedResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["limit"] = o.Limit
 	toSerialize["offset"] = o.Offset
 	toSerialize["total"] = o.Total
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -166,15 +171,22 @@ func (o *PaginatedResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varPaginatedResponse := _PaginatedResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPaginatedResponse)
+	err = json.Unmarshal(data, &varPaginatedResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PaginatedResponse(varPaginatedResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "offset")
+		delete(additionalProperties, "total")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

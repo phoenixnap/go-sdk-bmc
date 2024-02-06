@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package ranchersolutionapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -29,7 +28,8 @@ type WorkloadClusterConfig struct {
 	// Node server type. Cannot be changed once the cluster is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m2.medium`, `d2.m2.large` or `d2.m2.xlarge`.
 	ServerType string `json:"serverType"`
 	// Workload cluster location. Cannot be changed once cluster is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
-	Location string `json:"location"`
+	Location             string `json:"location"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _WorkloadClusterConfig WorkloadClusterConfig
@@ -189,6 +189,11 @@ func (o WorkloadClusterConfig) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["serverType"] = o.ServerType
 	toSerialize["location"] = o.Location
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -217,15 +222,23 @@ func (o *WorkloadClusterConfig) UnmarshalJSON(data []byte) (err error) {
 
 	varWorkloadClusterConfig := _WorkloadClusterConfig{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varWorkloadClusterConfig)
+	err = json.Unmarshal(data, &varWorkloadClusterConfig)
 
 	if err != nil {
 		return err
 	}
 
 	*o = WorkloadClusterConfig(varWorkloadClusterConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "serverCount")
+		delete(additionalProperties, "serverType")
+		delete(additionalProperties, "location")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

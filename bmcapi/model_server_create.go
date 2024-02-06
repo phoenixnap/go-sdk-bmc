@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -49,6 +48,7 @@ type ServerCreate struct {
 	Tags                 []TagAssignmentRequest `json:"tags,omitempty"`
 	NetworkConfiguration *NetworkConfiguration  `json:"networkConfiguration,omitempty"`
 	StorageConfiguration *StorageConfiguration  `json:"storageConfiguration,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ServerCreate ServerCreate
@@ -581,6 +581,11 @@ func (o ServerCreate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StorageConfiguration) {
 		toSerialize["storageConfiguration"] = o.StorageConfiguration
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -611,15 +616,34 @@ func (o *ServerCreate) UnmarshalJSON(data []byte) (err error) {
 
 	varServerCreate := _ServerCreate{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varServerCreate)
+	err = json.Unmarshal(data, &varServerCreate)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ServerCreate(varServerCreate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "hostname")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "os")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "installDefaultSshKeys")
+		delete(additionalProperties, "sshKeys")
+		delete(additionalProperties, "sshKeyIds")
+		delete(additionalProperties, "reservationId")
+		delete(additionalProperties, "pricingModel")
+		delete(additionalProperties, "networkType")
+		delete(additionalProperties, "osConfiguration")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "networkConfiguration")
+		delete(additionalProperties, "storageConfiguration")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

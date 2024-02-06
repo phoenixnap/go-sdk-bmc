@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package bmcapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type ServerIpBlock struct {
 	// The IP block's ID.
 	Id string `json:"id"`
 	// (Read-only) The VLAN on which this IP block has been configured within the network switch.
-	VlanId *int32 `json:"vlanId,omitempty"`
+	VlanId               *int32 `json:"vlanId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ServerIpBlock ServerIpBlock
@@ -118,6 +118,11 @@ func (o ServerIpBlock) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.VlanId) {
 		toSerialize["vlanId"] = o.VlanId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -145,15 +150,21 @@ func (o *ServerIpBlock) UnmarshalJSON(data []byte) (err error) {
 
 	varServerIpBlock := _ServerIpBlock{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varServerIpBlock)
+	err = json.Unmarshal(data, &varServerIpBlock)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ServerIpBlock(varServerIpBlock)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "vlanId")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

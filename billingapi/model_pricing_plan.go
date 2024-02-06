@@ -12,7 +12,6 @@ Contact: support@phoenixnap.com
 package billingapi
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -39,7 +38,8 @@ type PricingPlan struct {
 	// Package size per month.
 	PackageQuantity *float32 `json:"packageQuantity,omitempty"`
 	// Package size unit.
-	PackageUnit *string `json:"packageUnit,omitempty"`
+	PackageUnit          *string `json:"packageUnit,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PricingPlan PricingPlan
@@ -376,6 +376,11 @@ func (o PricingPlan) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PackageUnit) {
 		toSerialize["packageUnit"] = o.PackageUnit
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -407,15 +412,29 @@ func (o *PricingPlan) UnmarshalJSON(data []byte) (err error) {
 
 	varPricingPlan := _PricingPlan{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPricingPlan)
+	err = json.Unmarshal(data, &varPricingPlan)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PricingPlan(varPricingPlan)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "sku")
+		delete(additionalProperties, "skuDescription")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "pricingModel")
+		delete(additionalProperties, "price")
+		delete(additionalProperties, "priceUnit")
+		delete(additionalProperties, "applicableDiscounts")
+		delete(additionalProperties, "correlatedProductCode")
+		delete(additionalProperties, "packageQuantity")
+		delete(additionalProperties, "packageUnit")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

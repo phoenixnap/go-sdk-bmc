@@ -39,8 +39,11 @@ type StorageNetwork struct {
 	// Date and time of the initial request for storage network deletion.
 	DeleteRequestedOn *time.Time `json:"deleteRequestedOn,omitempty"`
 	// Volume for a storage network.
-	Volumes []Volume `json:"volumes,omitempty"`
+	Volumes              []Volume `json:"volumes,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _StorageNetwork StorageNetwork
 
 // NewStorageNetwork instantiates a new StorageNetwork object
 // This constructor will assign default values to properties that have it defined,
@@ -419,7 +422,42 @@ func (o StorageNetwork) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Volumes) {
 		toSerialize["volumes"] = o.Volumes
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *StorageNetwork) UnmarshalJSON(data []byte) (err error) {
+	varStorageNetwork := _StorageNetwork{}
+
+	err = json.Unmarshal(data, &varStorageNetwork)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StorageNetwork(varStorageNetwork)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "networkId")
+		delete(additionalProperties, "ips")
+		delete(additionalProperties, "createdOn")
+		delete(additionalProperties, "deleteRequestedOn")
+		delete(additionalProperties, "volumes")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableStorageNetwork struct {

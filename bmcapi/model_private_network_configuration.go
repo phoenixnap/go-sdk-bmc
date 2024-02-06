@@ -26,8 +26,11 @@ type PrivateNetworkConfiguration struct {
 	// (Write-only) Determines the approach for configuring private network(s) for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT`, `USER_DEFINED` or `NONE`.
 	ConfigurationType *string `json:"configurationType,omitempty"`
 	// The list of private networks this server is member of. When this field is part of request body, it'll be used to specify the private networks to assign to this server upon provisioning. Used alongside the `USER_DEFINED` configurationType.
-	PrivateNetworks []ServerPrivateNetwork `json:"privateNetworks,omitempty"`
+	PrivateNetworks      []ServerPrivateNetwork `json:"privateNetworks,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PrivateNetworkConfiguration PrivateNetworkConfiguration
 
 // NewPrivateNetworkConfiguration instantiates a new PrivateNetworkConfiguration object
 // This constructor will assign default values to properties that have it defined,
@@ -168,7 +171,35 @@ func (o PrivateNetworkConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PrivateNetworks) {
 		toSerialize["privateNetworks"] = o.PrivateNetworks
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PrivateNetworkConfiguration) UnmarshalJSON(data []byte) (err error) {
+	varPrivateNetworkConfiguration := _PrivateNetworkConfiguration{}
+
+	err = json.Unmarshal(data, &varPrivateNetworkConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PrivateNetworkConfiguration(varPrivateNetworkConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "gatewayAddress")
+		delete(additionalProperties, "configurationType")
+		delete(additionalProperties, "privateNetworks")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePrivateNetworkConfiguration struct {
