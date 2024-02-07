@@ -293,6 +293,9 @@ components:
         - results
         type: object
       example:
+        limit: 2
+        offset: 10
+        total: 342
         results:
         - id: 60ffafcdffb8b074c7968faf
           status: FAILED
@@ -320,9 +323,6 @@ components:
           cardPaymentMethodDetails:
             cardType: VISA
             lastFourDigits: "5666"
-        limit: 2
-        offset: 10
-        total: 342
     Transaction:
       description: Transaction response model.
       example:
