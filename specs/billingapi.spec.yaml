@@ -36,6 +36,8 @@ tags:
     description: Reservation operations
   - name: Billing Configurations
     description: Account Billing Configuration operations
+  - name: Product Availability
+    description: Product availability operations
 paths:
   /rated-usage:
     get:
@@ -444,7 +446,7 @@ paths:
     description: Retrieves all product availabilities.
     get:
       tags:
-        - Products
+        - Product Availability
       summary: List all Product availabilities.
       description: Retrieves the list of product availability details.
       security:
@@ -532,107 +534,6 @@ components:
             bmc: Grants full access to bmc-api.
             bmc.read: Grants read only access to bmc-api.
   schemas:
-    RatedUsageRecord:
-      type: object
-      description: Rated usage record.
-      properties:
-        id:
-          description: The unique identifier of the rated usage record.
-          type: string
-          example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
-        productCategory:
-          description: The category of the product associated with this usage record.
-          type: string
-          enum:
-            - bmc-server
-            - bandwidth
-            - operating-system
-            - public-ip
-            - storage
-          example: bmc-server
-        productCode:
-          description: The code identifying the product associated to this usage record.
-          type: string
-          example: s1.c1.small
-        location:
-          $ref: '#/components/schemas/LocationEnum'
-        yearMonth:
-          description: Year and month of the usage record.
-          type: string
-          example: 2020-03
-        startDateTime:
-          description: The point in time (in UTC) when usage has started.
-          type: string
-          format: date-time
-          example: '2020-03-19T16:39:00Z'
-        endDateTime:
-          description: The point in time (in UTC) until usage has been rated.
-          type: string
-          format: date-time
-          example: '2020-03-20T17:00:00Z'
-        cost:
-          description: The rated usage in cents.
-          type: integer
-          format: int64
-          example: 384
-        costBeforeDiscount:
-          description: The cost in cents before discount.
-          type: integer
-          format: int64
-          example: 15456
-        costDescription:
-          description: The rated usage cost description.
-          type: string
-          example: 24 Hour(s) @ $0.16 /Hour
-        priceModel:
-          description: The price model applied to this usage record.
-          type: string
-          example: hourly
-        unitPrice:
-          description: The unit price.
-          type: number
-          example: 0.16
-        unitPriceDescription:
-          description: User friendly description of the unit price.
-          type: string
-          example: per hour
-        quantity:
-          description: The number of units being charged.
-          type: number
-          example: 24
-        active:
-          description: A flag indicating whether the rated usage record is still active.
-          type: boolean
-          example: true
-        usageSessionId:
-          description: The usage session ID is used to correlate rated usage records across periods of time. For example, a server used for over a month will generate multiple rated usage records. The entire usage session cost can be computed by aggregating the records having the same usage session ID. It is usual to have one rated usage record per month or invoice.
-          type: string
-          example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
-        correlationId:
-          description: Holds usage record id
-          type: string
-          example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
-        reservationId:
-          description: Reservation id associated with this rated usage record.
-          type: string
-          example: c32a24a1-5949-4b60-99c0-c8aaa3a92b04
-        discountDetails:
-          $ref: '#/components/schemas/DiscountDetails'
-      required:
-        - id
-        - productCategory
-        - productCode
-        - location
-        - startDateTime
-        - endDateTime
-        - cost
-        - priceModel
-        - unitPrice
-        - unitPriceDescription
-        - quantity
-        - active
-        - usageSessionId
-        - correlationId
     ApplicableDiscounts:
       type: object
       description: Represents the applicable discount details for a product, including the discounted price and discount information.
@@ -645,168 +546,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DiscountDetails'
-    ServerRecord:
-      allOf:
-        - $ref: '#/components/schemas/RatedUsageRecord'
-        - type: object
-          description: Server usage record.
-          properties:
-            metadata:
-              $ref: '#/components/schemas/ServerDetails'
-          required:
-            - metadata
-    ServerDetails:
-      type: object
-      description: Details of the server associated with this rated usage record.
-      properties:
-        id:
-          description: The server identifier as returned by the BMC API.
-          type: string
-          example: 83604275-bdba-490a-b87a-978e8dffdb14
-        hostname:
-          description: The server hostname.
-          type: string
-          example: example-server
-      required:
-        - id
-        - hostname
-    OperatingSystemRecord:
-      allOf:
-        - $ref: '#/components/schemas/RatedUsageRecord'
-        - type: object
-          description: Operating system usage record.
-          properties:
-            metadata:
-              $ref: '#/components/schemas/OperatingSystemDetails'
-          required:
-            - metadata
-    OperatingSystemDetails:
-      type: object
-      description: Details of the operating system associated with this rated usage record.
-      properties:
-        cores:
-          description: Number of cores.
-          type: integer
-          format: int32
-          example: 2
-        correlationId:
-          description: Correlation is used to associate Operating System License charges and the Server on which it was installed. In this scenario, the correlation ID will be equal to the rated usage record ID representing the charge for the Server.
-          type: string
-          example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
-      required:
-        - cores
-        - correlationId
-    BandwidthRecord:
-      allOf:
-        - $ref: '#/components/schemas/RatedUsageRecord'
-        - type: object
-          description: Bandwidth usage record.
-          properties:
-            metadata:
-              $ref: '#/components/schemas/BandwidthDetails'
-          required:
-            - metadata
-    BandwidthDetails:
-      type: object
-      description: Details of the bandwidth associated with this rated usage record.
-      properties:
-        ingressGb:
-          description: The amount of GB consumed in ingress (IN).
-          type: number
-          example: 1.33
-        egressGb:
-          description: The amount of GB consumed in egress (OUT).
-          type: number
-          example: 1.33
-        packageQuantity:
-          description: Package size per month.
-          type: number
-          example: 15
-        packageUnit:
-          description: Package size unit.
-          type: string
-          enum:
-            - GB
-            - TB
-      required:
-        - ingressGb
-        - egressGb
-    PublicSubnetRecord:
-      allOf:
-        - $ref: '#/components/schemas/RatedUsageRecord'
-        - type: object
-          description: Public IP record.
-          properties:
-            metadata:
-              $ref: '#/components/schemas/PublicSubnetDetails'
-          required:
-            - metadata
-    PublicSubnetDetails:
-      type: object
-      description: Details of public subnets.
-      properties:
-        id:
-          description: Public Subnet identifier as returned by the BMC API.
-          type: string
-          example: 83604275-bdba-490a-b87a-978e8dffdb14
-        cidr:
-          description: Classless Inter-Domain Routing
-          type: string
-          example: 192.168.0.15/24
-        size:
-          description: CIDR size
-          type: string
-          example: /24
-      required:
-        - cidr
-        - size
-    StorageRecord:
-      allOf:
-        - $ref: '#/components/schemas/RatedUsageRecord'
-        - type: object
-          description: Storage usage record.
-          properties:
-            metadata:
-              $ref: '#/components/schemas/StorageDetails'
-          required:
-            - metadata
-    StorageDetails:
-      type: object
-      description: Details of the storage associated with this rated usage record.
-      properties:
-        networkStorageId:
-          description: Network storage ID.
-          type: string
-          example: 123asd239-323las2d2-123123a
-        networkStorageName:
-          description: Network storage name.
-          type: string
-          example: First network storage.
-        volumeId:
-          description: Volume ID.
-          type: string
-          example: 123asd239-323las2d2-123123a
-        volumeName:
-          description: Volume name.
-          type: string
-          example: First volume.
-        capacityInGb:
-          description: Capacity in GB.
-          type: integer
-          format: int64
-          example: 150000
-        createdOn:
-          description: Timestamp when the record was created.
-          type: string
-          format: date-time
-          example: '2020-03-19T16:39:00Z'
-      required:
-        - networkStorageId
-        - networkStorageName
-        - volumeId
-        - volumeName
-        - capacityInGb
-        - createdOn
     Product:
       type: object
       description: Product details
@@ -1023,73 +762,6 @@ components:
         - sku
         - price
         - priceUnit
-    ConfigurationDetails:
-      type: object
-      description: Billing configuration details.
-      properties:
-        thresholdConfiguration:
-          $ref: '#/components/schemas/ThresholdConfigurationDetails'
-    ThresholdConfigurationDetails:
-      type: object
-      description: Threshold billing configuration.
-      properties:
-        thresholdAmount:
-          description: Threshold billing amount.
-          type: number
-          example: 100
-      required:
-        - thresholdAmount
-    ProductAvailability:
-      type: object
-      description: Product availability details.
-      properties:
-        productCode:
-          type: string
-          description: Product code.
-          example: d1.c1.small
-        productCategory:
-          type: string
-          description: Product category.
-          example: SERVER
-        locationAvailabilityDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationAvailabilityDetail'
-      required:
-        - productCode
-        - productCategory
-        - locationAvailabilityDetails
-    LocationAvailabilityDetail:
-      type: object
-      description: Info about location, solutions and availability for a product.
-      properties:
-        location:
-          $ref: '#/components/schemas/LocationEnum'
-        minQuantityRequested:
-          type: number
-          description: Requested quantity.
-          example: 2
-        minQuantityAvailable:
-          type: boolean
-          description: Is product available in specific location for requested quantity
-          example: true
-        availableQuantity:
-          type: number
-          description: Total available quantity of product in specific location. Max value is 10.
-          example: 5
-        solutions:
-          type: array
-          items:
-            type: string
-            enum:
-              - SERVER_RANCHER
-          description: Solutions supported in specific location for a product.
-      required:
-        - location
-        - minQuantityRequested
-        - minQuantityAvailable
-        - availableQuantity
-        - solutions
     ReservationAutoRenewDisableRequest:
       description: Disabling auto-renewal for reservation request.
       type: object
@@ -1191,6 +863,336 @@ components:
         - code
         - type
         - value
+    RatedUsageRecord:
+      type: object
+      description: Rated usage record.
+      properties:
+        id:
+          description: The unique identifier of the rated usage record.
+          type: string
+          example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
+        productCategory:
+          description: The category of the product associated with this usage record.
+          type: string
+          enum:
+            - bmc-server
+            - bandwidth
+            - operating-system
+            - public-ip
+            - storage
+          example: bmc-server
+        productCode:
+          description: The code identifying the product associated to this usage record.
+          type: string
+          example: s1.c1.small
+        location:
+          $ref: '#/components/schemas/LocationEnum'
+        yearMonth:
+          description: Year and month of the usage record.
+          type: string
+          example: 2020-03
+        startDateTime:
+          description: The point in time (in UTC) when usage has started.
+          type: string
+          format: date-time
+          example: '2020-03-19T16:39:00Z'
+        endDateTime:
+          description: The point in time (in UTC) until usage has been rated.
+          type: string
+          format: date-time
+          example: '2020-03-20T17:00:00Z'
+        cost:
+          description: The rated usage in cents.
+          type: integer
+          format: int64
+          example: 384
+        costBeforeDiscount:
+          description: The cost in cents before discount.
+          type: integer
+          format: int64
+          example: 15456
+        costDescription:
+          description: The rated usage cost description.
+          type: string
+          example: 24 Hour(s) @ $0.16 /Hour
+        priceModel:
+          description: The price model applied to this usage record.
+          type: string
+          example: hourly
+        unitPrice:
+          description: The unit price.
+          type: number
+          example: 0.16
+        unitPriceDescription:
+          description: User friendly description of the unit price.
+          type: string
+          example: per hour
+        quantity:
+          description: The number of units being charged.
+          type: number
+          example: 24
+        active:
+          description: A flag indicating whether the rated usage record is still active.
+          type: boolean
+          example: true
+        usageSessionId:
+          description: The usage session ID is used to correlate rated usage records across periods of time. For example, a server used for over a month will generate multiple rated usage records. The entire usage session cost can be computed by aggregating the records having the same usage session ID. It is usual to have one rated usage record per month or invoice.
+          type: string
+          example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
+        correlationId:
+          description: Holds usage record id
+          type: string
+          example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
+        reservationId:
+          description: Reservation id associated with this rated usage record.
+          type: string
+          example: c32a24a1-5949-4b60-99c0-c8aaa3a92b04
+        discountDetails:
+          $ref: '#/components/schemas/DiscountDetails'
+      required:
+        - id
+        - productCategory
+        - productCode
+        - location
+        - startDateTime
+        - endDateTime
+        - cost
+        - priceModel
+        - unitPrice
+        - unitPriceDescription
+        - quantity
+        - active
+        - usageSessionId
+        - correlationId
+    ServerDetails:
+      type: object
+      description: Details of the server associated with this rated usage record.
+      properties:
+        id:
+          description: The server identifier as returned by the BMC API.
+          type: string
+          example: 83604275-bdba-490a-b87a-978e8dffdb14
+        hostname:
+          description: The server hostname.
+          type: string
+          example: example-server
+      required:
+        - id
+        - hostname
+    ServerRecord:
+      allOf:
+        - $ref: '#/components/schemas/RatedUsageRecord'
+        - type: object
+          description: Server usage record.
+          properties:
+            metadata:
+              $ref: '#/components/schemas/ServerDetails'
+          required:
+            - metadata
+    BandwidthDetails:
+      type: object
+      description: Details of the bandwidth associated with this rated usage record.
+      properties:
+        ingressGb:
+          description: The amount of GB consumed in ingress (IN).
+          type: number
+          example: 1.33
+        egressGb:
+          description: The amount of GB consumed in egress (OUT).
+          type: number
+          example: 1.33
+        packageQuantity:
+          description: Package size per month.
+          type: number
+          example: 15
+        packageUnit:
+          description: Package size unit.
+          type: string
+          enum:
+            - GB
+            - TB
+      required:
+        - ingressGb
+        - egressGb
+    BandwidthRecord:
+      allOf:
+        - $ref: '#/components/schemas/RatedUsageRecord'
+        - type: object
+          description: Bandwidth usage record.
+          properties:
+            metadata:
+              $ref: '#/components/schemas/BandwidthDetails'
+          required:
+            - metadata
+    OperatingSystemDetails:
+      type: object
+      description: Details of the operating system associated with this rated usage record.
+      properties:
+        cores:
+          description: Number of cores.
+          type: integer
+          format: int32
+          example: 2
+        correlationId:
+          description: Correlation is used to associate Operating System License charges and the Server on which it was installed. In this scenario, the correlation ID will be equal to the rated usage record ID representing the charge for the Server.
+          type: string
+          example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
+      required:
+        - cores
+        - correlationId
+    OperatingSystemRecord:
+      allOf:
+        - $ref: '#/components/schemas/RatedUsageRecord'
+        - type: object
+          description: Operating system usage record.
+          properties:
+            metadata:
+              $ref: '#/components/schemas/OperatingSystemDetails'
+          required:
+            - metadata
+    PublicSubnetDetails:
+      type: object
+      description: Details of public subnets.
+      properties:
+        id:
+          description: Public Subnet identifier as returned by the BMC API.
+          type: string
+          example: 83604275-bdba-490a-b87a-978e8dffdb14
+        cidr:
+          description: Classless Inter-Domain Routing
+          type: string
+          example: 192.168.0.15/24
+        size:
+          description: CIDR size
+          type: string
+          example: /24
+      required:
+        - cidr
+        - size
+    PublicSubnetRecord:
+      allOf:
+        - $ref: '#/components/schemas/RatedUsageRecord'
+        - type: object
+          description: Public IP record.
+          properties:
+            metadata:
+              $ref: '#/components/schemas/PublicSubnetDetails'
+          required:
+            - metadata
+    StorageDetails:
+      type: object
+      description: Details of the storage associated with this rated usage record.
+      properties:
+        networkStorageId:
+          description: Network storage ID.
+          type: string
+          example: 123asd239-323las2d2-123123a
+        networkStorageName:
+          description: Network storage name.
+          type: string
+          example: First network storage.
+        volumeId:
+          description: Volume ID.
+          type: string
+          example: 123asd239-323las2d2-123123a
+        volumeName:
+          description: Volume name.
+          type: string
+          example: First volume.
+        capacityInGb:
+          description: Capacity in GB.
+          type: integer
+          format: int64
+          example: 150000
+        createdOn:
+          description: Timestamp when the record was created.
+          type: string
+          format: date-time
+          example: '2020-03-19T16:39:00Z'
+      required:
+        - networkStorageId
+        - networkStorageName
+        - volumeId
+        - volumeName
+        - capacityInGb
+        - createdOn
+    StorageRecord:
+      allOf:
+        - $ref: '#/components/schemas/RatedUsageRecord'
+        - type: object
+          description: Storage usage record.
+          properties:
+            metadata:
+              $ref: '#/components/schemas/StorageDetails'
+          required:
+            - metadata
+    ThresholdConfigurationDetails:
+      type: object
+      description: Threshold billing configuration.
+      properties:
+        thresholdAmount:
+          description: Threshold billing amount.
+          type: number
+          example: 100
+      required:
+        - thresholdAmount
+    ConfigurationDetails:
+      type: object
+      description: Billing configuration details.
+      properties:
+        thresholdConfiguration:
+          $ref: '#/components/schemas/ThresholdConfigurationDetails'
+    LocationAvailabilityDetail:
+      type: object
+      description: Info about location, solutions and availability for a product.
+      properties:
+        location:
+          $ref: '#/components/schemas/LocationEnum'
+        minQuantityRequested:
+          type: number
+          description: Requested quantity.
+          example: 2
+        minQuantityAvailable:
+          type: boolean
+          description: Is product available in specific location for requested quantity
+          example: true
+        availableQuantity:
+          type: number
+          description: Total available quantity of product in specific location. Max value is 10.
+          example: 5
+        solutions:
+          type: array
+          items:
+            type: string
+            enum:
+              - SERVER_RANCHER
+          description: Solutions supported in specific location for a product.
+      required:
+        - location
+        - minQuantityRequested
+        - minQuantityAvailable
+        - availableQuantity
+        - solutions
+    ProductAvailability:
+      type: object
+      description: Product availability details.
+      properties:
+        productCode:
+          type: string
+          description: Product code.
+          example: d1.c1.small
+        productCategory:
+          type: string
+          description: Product category.
+          example: SERVER
+        locationAvailabilityDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationAvailabilityDetail'
+      required:
+        - productCode
+        - productCategory
+        - locationAvailabilityDetails
   responses:
     BadRequest:
       description: The request failed due to wrong data. Please check the provided parameters and try again.

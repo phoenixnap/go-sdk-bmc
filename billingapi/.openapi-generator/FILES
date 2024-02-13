@@ -1,6 +1,7 @@
 README.md
 api/openapi.yaml
 api_billing_configurations.go
+api_product_availability.go
 api_products.go
 api_rated_usage.go
 api_reservations.go
@@ -21,6 +22,7 @@ docs/PriceUnitEnum.md
 docs/PricingPlan.md
 docs/Product.md
 docs/ProductAvailability.md
+docs/ProductAvailabilityAPI.md
 docs/ProductCategoryEnum.md
 docs/ProductsAPI.md
 docs/ProductsGet200ResponseInner.md

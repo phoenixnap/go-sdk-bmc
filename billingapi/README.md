@@ -88,7 +88,7 @@ All URIs are relative to *https://api.phoenixnap.com/billing/v1*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *BillingConfigurationsAPI* | [**AccountBillingConfigurationMeGet**](docs/BillingConfigurationsAPI.md#accountbillingconfigurationmeget) | **Get** /account-billing-configurations/me | Retrieves billing configuration associated with the authenticated account.
-*ProductsAPI* | [**ProductAvailabilityGet**](docs/ProductsAPI.md#productavailabilityget) | **Get** /product-availability | List all Product availabilities.
+*ProductAvailabilityAPI* | [**ProductAvailabilityGet**](docs/ProductAvailabilityAPI.md#productavailabilityget) | **Get** /product-availability | List all Product availabilities.
 *ProductsAPI* | [**ProductsGet**](docs/ProductsAPI.md#productsget) | **Get** /products | List all Products.
 *RatedUsageAPI* | [**RatedUsageGet**](docs/RatedUsageAPI.md#ratedusageget) | **Get** /rated-usage | List the rated usage.
 *RatedUsageAPI* | [**RatedUsageMonthToDateGet**](docs/RatedUsageAPI.md#ratedusagemonthtodateget) | **Get** /rated-usage/month-to-date | List the rated usage records for the current calendar month.
