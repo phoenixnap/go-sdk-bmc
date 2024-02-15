@@ -482,6 +482,9 @@ components:
         - results
         type: object
       example:
+        limit: 2
+        offset: 10
+        total: 342
         results:
         - id: 5fa54d1e91867c03a0a7b4a4
           number: 34440-2488782
@@ -499,9 +502,6 @@ components:
           status: PAID
           sentOn: 2021-04-13T20:24:32.491Z
           dueDate: 2021-05-13T20:24:32.491Z
-        limit: 2
-        offset: 10
-        total: 342
     Invoice:
       example:
         number: 34440-2488782
