@@ -2983,8 +2983,8 @@ components:
             \ `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `esxi/esxi70`,\
             \ `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`,\
             \ `rockylinux/rockylinux9`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`,\
-            \ `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or\
-            \ `netris/softgate_25g`."
+            \ `proxmox/proxmox8`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g`\
+            \ or `netris/softgate_25g`."
           example: ubuntu/bionic
           type: string
         type:
@@ -3269,8 +3269,8 @@ components:
             \ `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `esxi/esxi70`,\
             \ `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`,\
             \ `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `debian/bullseye`,\
-            \ `debian/bookworm`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g`,\
-            \ `netris/softgate_10g` or `netris/softgate_25g`."
+            \ `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`, `netris/controller`,\
+            \ `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`."
           example: ubuntu/bionic
           type: string
         type:
@@ -3528,8 +3528,8 @@ components:
             \ `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`,\
             \ `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `esxi/esxi70`,\
             \ `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `debian/bullseye`,\
-            \ `debian/bookworm`, `proxmox/bullseye`, `netris/controller`, `netris/softgate_1g`,\
-            \ `netris/softgate_10g` or `netris/softgate_25g`."
+            \ `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`, `netris/controller`,\
+            \ `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`."
           example: ubuntu/bionic
           type: string
         installDefaultSshKeys:
