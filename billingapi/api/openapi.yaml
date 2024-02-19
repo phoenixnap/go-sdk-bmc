@@ -241,7 +241,7 @@ paths:
         name: productCategory
         required: false
         schema:
-          $ref: '#/components/schemas/ProductCategoryEnum'
+          $ref: '#/components/schemas/ReservationProductCategoryEnum'
         style: form
       responses:
         "200":
@@ -328,17 +328,17 @@ paths:
       summary: Create a reservation.
       tags:
       - Reservations
-  /reservations/{reservationId}:
+  /reservations/{id}:
     get:
       description: Retrieves the reservations with the specified identifier. All date
         & times are in UTC.
       operationId: reservationsReservationIdGet
       parameters:
-      - description: The reservation's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+      - description: Resource id.
+        example: d90bbea9-5725-47ce-879e-d3905bafac2a
         explode: false
         in: path
-        name: reservationId
+        name: id
         required: true
         schema:
           type: string
@@ -397,17 +397,17 @@ paths:
       summary: Get a reservation.
       tags:
       - Reservations
-  /reservations/{reservationId}/actions/auto-renew/disable:
+  /reservations/{id}/actions/auto-renew/disable:
     description: Disable auto-renewal for reservation by the reservation id.
     post:
       description: Disable auto-renewal for reservation by reservation id.
       operationId: reservationsReservationIdActionsAutoRenewDisablePost
       parameters:
-      - description: The reservation's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+      - description: Resource id.
+        example: d90bbea9-5725-47ce-879e-d3905bafac2a
         explode: false
         in: path
-        name: reservationId
+        name: id
         required: true
         schema:
           type: string
@@ -464,17 +464,17 @@ paths:
       summary: Disable auto-renewal for reservation by id.
       tags:
       - Reservations
-  /reservations/{reservationId}/actions/auto-renew/enable:
+  /reservations/{id}/actions/auto-renew/enable:
     description: Enable auto-renewal for reservation by the reservation id.
     post:
       description: Enable auto-renewal for unexpired reservation by reservation id.
       operationId: reservationsReservationIdActionsAutoRenewEnablePost
       parameters:
-      - description: The reservation's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+      - description: Resource id.
+        example: d90bbea9-5725-47ce-879e-d3905bafac2a
         explode: false
         in: path
-        name: reservationId
+        name: id
         required: true
         schema:
           type: string
@@ -526,17 +526,17 @@ paths:
       summary: Enable auto-renewal for unexpired reservation by reservation id.
       tags:
       - Reservations
-  /reservations/{reservationId}/actions/convert:
+  /reservations/{id}/actions/convert:
     description: Convert reservation pricing model.
     post:
       description: Convert reservation pricing model by reservation id.
       operationId: reservationsReservationIdActionsConvertPost
       parameters:
-      - description: The reservation's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+      - description: Resource id.
+        example: d90bbea9-5725-47ce-879e-d3905bafac2a
         explode: false
         in: path
-        name: reservationId
+        name: id
         required: true
         schema:
           type: string
@@ -734,6 +734,17 @@ paths:
       tags:
       - Product Availability
 components:
+  parameters:
+    ResourceIdParam:
+      description: Resource id.
+      example: d90bbea9-5725-47ce-879e-d3905bafac2a
+      explode: false
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      style: simple
   responses:
     BadRequest:
       content:
@@ -926,128 +937,6 @@ components:
       - ramInGb
       - storage
       type: object
-    Reservation:
-      description: Reservation details
-      example:
-        priceUnit: MONTH
-        nextBillingDate: 2020-04-19T00:00:00.000+00:00
-        initialInvoiceModel: null
-        endDateTime: 2020-04-19T16:39:00Z
-        productCategory: server
-        lastRenewalDateTime: 2020-03-19T16:39:00Z
-        productCode: s1.c1.small
-        startDateTime: 2020-03-19T16:39:00Z
-        price: 175
-        reservationModel: null
-        autoRenew: true
-        location: null
-        id: 83604275-bdba-490a-b87a-978e8dffdb14
-        assignedResourceId: 83604275-bdba-490a-b87a-978e8dffdb14
-        sku: XXX-XXX-XXX
-        nextRenewalDateTime: 2020-04-19T16:39:00Z
-      properties:
-        id:
-          description: The reservation identifier.
-          example: 83604275-bdba-490a-b87a-978e8dffdb14
-          type: string
-        productCode:
-          description: The code identifying the product. This code has significant
-            across all locations.
-          example: s1.c1.small
-          type: string
-        productCategory:
-          description: The product category.
-          enum:
-          - server
-          - bandwidth
-          - operating-system
-          example: server
-          type: string
-        location:
-          $ref: '#/components/schemas/LocationEnum'
-        reservationModel:
-          $ref: '#/components/schemas/ReservationModelEnum'
-        initialInvoiceModel:
-          $ref: '#/components/schemas/ReservationInvoicingModelEnum'
-        startDateTime:
-          description: The point in time (in UTC) when the reservation starts.
-          example: 2020-03-19T16:39:00Z
-          format: date-time
-          type: string
-        endDateTime:
-          description: The point in time (in UTC) when the reservation end.
-          example: 2020-04-19T16:39:00Z
-          format: date-time
-          type: string
-        lastRenewalDateTime:
-          description: The point in time (in UTC) when the reservation was renewed
-            last.
-          example: 2020-03-19T16:39:00Z
-          format: date-time
-          type: string
-        nextRenewalDateTime:
-          description: The point in time (in UTC) when the reservation will be renewed
-            if auto renew is set to true.
-          example: 2020-04-19T16:39:00Z
-          format: date-time
-          type: string
-        autoRenew:
-          description: A flag indicating whether the reservation will auto-renew (default
-            is true).
-          example: true
-          type: boolean
-        sku:
-          description: The sku that will be applied to this reservation. It is useful
-            to find out the price by querying the /product endpoint.
-          example: XXX-XXX-XXX
-          type: string
-        price:
-          description: Reservation price.
-          example: 175
-          type: number
-        priceUnit:
-          $ref: '#/components/schemas/PriceUnitEnum'
-        assignedResourceId:
-          description: The resource ID currently being assigned to Reservation.
-          example: 83604275-bdba-490a-b87a-978e8dffdb14
-          type: string
-        nextBillingDate:
-          description: Next billing date for Reservation.
-          example: 2020-04-19
-          format: date
-          type: string
-      required:
-      - autoRenew
-      - id
-      - location
-      - price
-      - priceUnit
-      - productCategory
-      - productCode
-      - reservationModel
-      - sku
-      - startDateTime
-      type: object
-    ReservationAutoRenewDisableRequest:
-      description: Disabling auto-renewal for reservation request.
-      example:
-        autoRenewDisableReason: autoRenewDisableReason
-      properties:
-        autoRenewDisableReason:
-          type: string
-      type: object
-    ReservationRequest:
-      description: Reservation request.
-      example:
-        sku: XXX-XXX-XXX
-      properties:
-        sku:
-          description: The sku code of product pricing plan.
-          example: XXX-XXX-XXX
-          type: string
-      required:
-      - sku
-      type: object
     LocationEnum:
       description: The location code.
       enum:
@@ -1059,24 +948,6 @@ components:
       - SEA
       - AUS
       type: string
-    ReservationModelEnum:
-      description: The reservation model.
-      enum:
-      - ONE_MONTH_RESERVATION
-      - TWELVE_MONTHS_RESERVATION
-      - TWENTY_FOUR_MONTHS_RESERVATION
-      - THIRTY_SIX_MONTHS_RESERVATION
-      - FREE_TIER
-      type: string
-    ReservationInvoicingModelEnum:
-      description: Reservations created with initial invoice model ON_CREATION will
-        be invoiced on same date when reservation is created. Reservation created
-        with CALENDAR_MONTH initial invoice model will be invoiced at the beginning
-        of next month.
-      enum:
-      - ON_CREATION
-      - CALENDAR_MONTH
-      type: string
     ProductCategoryEnum:
       description: The product category.
       enum:
@@ -1085,17 +956,6 @@ components:
       - OPERATING_SYSTEM
       - PUBLIC_IP
       - STORAGE
-      type: string
-    PriceUnitEnum:
-      description: The unit to which the price applies.
-      enum:
-      - HOUR
-      - MONTH
-      - GB
-      - UNIT
-      - FLAT
-      - TB_PER_HOUR
-      example: MONTH
       type: string
     Error:
       properties:
@@ -1408,6 +1268,158 @@ components:
         required:
         - metadata
         type: object
+    PriceUnitEnum:
+      description: The unit to which the price applies.
+      enum:
+      - HOUR
+      - MONTH
+      - GB
+      - UNIT
+      - FLAT
+      - TB_PER_HOUR
+      example: MONTH
+      type: string
+    ReservationProductCategoryEnum:
+      description: The commitment product category.
+      enum:
+      - server
+      - bandwidth
+      example: server
+      type: string
+    ReservationModelEnum:
+      description: The reservation model.
+      enum:
+      - ONE_MONTH_RESERVATION
+      - TWELVE_MONTHS_RESERVATION
+      - TWENTY_FOUR_MONTHS_RESERVATION
+      - THIRTY_SIX_MONTHS_RESERVATION
+      - FREE_TIER
+      type: string
+    ReservationInvoicingModelEnum:
+      description: Reservations created with initial invoice model ON_CREATION will
+        be invoiced on same date when reservation is created. Reservation created
+        with CALENDAR_MONTH initial invoice model will be invoiced at the beginning
+        of next month.
+      enum:
+      - ON_CREATION
+      - CALENDAR_MONTH
+      type: string
+    Reservation:
+      description: Reservation details
+      example:
+        priceUnit: MONTH
+        nextBillingDate: 2020-04-19T00:00:00.000+00:00
+        initialInvoiceModel: null
+        endDateTime: 2020-04-19T16:39:00Z
+        productCategory: server
+        lastRenewalDateTime: 2020-03-19T16:39:00Z
+        productCode: s1.c1.small
+        startDateTime: 2020-03-19T16:39:00Z
+        price: 175
+        reservationModel: null
+        autoRenew: true
+        location: null
+        id: 83604275-bdba-490a-b87a-978e8dffdb14
+        assignedResourceId: 83604275-bdba-490a-b87a-978e8dffdb14
+        sku: XXX-XXX-XXX
+        nextRenewalDateTime: 2020-04-19T16:39:00Z
+      properties:
+        id:
+          description: The reservation identifier.
+          example: 83604275-bdba-490a-b87a-978e8dffdb14
+          type: string
+        productCode:
+          description: The code identifying the product. This code has significant
+            across all locations.
+          example: s1.c1.small
+          type: string
+        productCategory:
+          $ref: '#/components/schemas/ReservationProductCategoryEnum'
+        location:
+          $ref: '#/components/schemas/LocationEnum'
+        reservationModel:
+          $ref: '#/components/schemas/ReservationModelEnum'
+        initialInvoiceModel:
+          $ref: '#/components/schemas/ReservationInvoicingModelEnum'
+        startDateTime:
+          description: The point in time (in UTC) when the reservation starts.
+          example: 2020-03-19T16:39:00Z
+          format: date-time
+          type: string
+        endDateTime:
+          description: The point in time (in UTC) when the reservation end.
+          example: 2020-04-19T16:39:00Z
+          format: date-time
+          type: string
+        lastRenewalDateTime:
+          description: The point in time (in UTC) when the reservation was renewed
+            last.
+          example: 2020-03-19T16:39:00Z
+          format: date-time
+          type: string
+        nextRenewalDateTime:
+          description: The point in time (in UTC) when the reservation will be renewed
+            if auto renew is set to true.
+          example: 2020-04-19T16:39:00Z
+          format: date-time
+          type: string
+        autoRenew:
+          description: A flag indicating whether the reservation will auto-renew (default
+            is true).
+          example: true
+          type: boolean
+        sku:
+          description: The sku that will be applied to this reservation. It is useful
+            to find out the price by querying the /product endpoint.
+          example: XXX-XXX-XXX
+          type: string
+        price:
+          description: Reservation price.
+          example: 175
+          type: number
+        priceUnit:
+          $ref: '#/components/schemas/PriceUnitEnum'
+        assignedResourceId:
+          description: The resource ID currently being assigned to Reservation.
+          example: 83604275-bdba-490a-b87a-978e8dffdb14
+          type: string
+        nextBillingDate:
+          description: Next billing date for Reservation.
+          example: 2020-04-19
+          format: date
+          type: string
+      required:
+      - autoRenew
+      - id
+      - location
+      - price
+      - priceUnit
+      - productCategory
+      - productCode
+      - reservationModel
+      - sku
+      - startDateTime
+      type: object
+    ReservationRequest:
+      description: Reservation request.
+      example:
+        sku: XXX-XXX-XXX
+      properties:
+        sku:
+          description: The sku code of product pricing plan.
+          example: XXX-XXX-XXX
+          type: string
+      required:
+      - sku
+      type: object
+    ReservationAutoRenewDisableRequest:
+      description: Disabling auto-renewal for reservation request.
+      example:
+        autoRenewDisableReason: autoRenewDisableReason
+      properties:
+        autoRenewDisableReason:
+          type: string
+      type: object
     ThresholdConfigurationDetails:
       description: Threshold billing configuration.
       example:

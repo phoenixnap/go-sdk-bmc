@@ -94,10 +94,10 @@ Class | Method | HTTP request | Description
 *RatedUsageAPI* | [**RatedUsageMonthToDateGet**](docs/RatedUsageAPI.md#ratedusagemonthtodateget) | **Get** /rated-usage/month-to-date | List the rated usage records for the current calendar month.
 *ReservationsAPI* | [**ReservationsGet**](docs/ReservationsAPI.md#reservationsget) | **Get** /reservations | List all Reservations.
 *ReservationsAPI* | [**ReservationsPost**](docs/ReservationsAPI.md#reservationspost) | **Post** /reservations | Create a reservation.
-*ReservationsAPI* | [**ReservationsReservationIdActionsAutoRenewDisablePost**](docs/ReservationsAPI.md#reservationsreservationidactionsautorenewdisablepost) | **Post** /reservations/{reservationId}/actions/auto-renew/disable | Disable auto-renewal for reservation by id.
-*ReservationsAPI* | [**ReservationsReservationIdActionsAutoRenewEnablePost**](docs/ReservationsAPI.md#reservationsreservationidactionsautorenewenablepost) | **Post** /reservations/{reservationId}/actions/auto-renew/enable | Enable auto-renewal for unexpired reservation by reservation id.
-*ReservationsAPI* | [**ReservationsReservationIdActionsConvertPost**](docs/ReservationsAPI.md#reservationsreservationidactionsconvertpost) | **Post** /reservations/{reservationId}/actions/convert | Convert reservation pricing model by reservation ID.
-*ReservationsAPI* | [**ReservationsReservationIdGet**](docs/ReservationsAPI.md#reservationsreservationidget) | **Get** /reservations/{reservationId} | Get a reservation.
+*ReservationsAPI* | [**ReservationsReservationIdActionsAutoRenewDisablePost**](docs/ReservationsAPI.md#reservationsreservationidactionsautorenewdisablepost) | **Post** /reservations/{id}/actions/auto-renew/disable | Disable auto-renewal for reservation by id.
+*ReservationsAPI* | [**ReservationsReservationIdActionsAutoRenewEnablePost**](docs/ReservationsAPI.md#reservationsreservationidactionsautorenewenablepost) | **Post** /reservations/{id}/actions/auto-renew/enable | Enable auto-renewal for unexpired reservation by reservation id.
+*ReservationsAPI* | [**ReservationsReservationIdActionsConvertPost**](docs/ReservationsAPI.md#reservationsreservationidactionsconvertpost) | **Post** /reservations/{id}/actions/convert | Convert reservation pricing model by reservation ID.
+*ReservationsAPI* | [**ReservationsReservationIdGet**](docs/ReservationsAPI.md#reservationsreservationidget) | **Get** /reservations/{id} | Get a reservation.
 
 
 ## Documentation For Models
@@ -126,6 +126,7 @@ Class | Method | HTTP request | Description
  - [ReservationAutoRenewDisableRequest](docs/ReservationAutoRenewDisableRequest.md)
  - [ReservationInvoicingModelEnum](docs/ReservationInvoicingModelEnum.md)
  - [ReservationModelEnum](docs/ReservationModelEnum.md)
+ - [ReservationProductCategoryEnum](docs/ReservationProductCategoryEnum.md)
  - [ReservationRequest](docs/ReservationRequest.md)
  - [ServerDetails](docs/ServerDetails.md)
  - [ServerProduct](docs/ServerProduct.md)

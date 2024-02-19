@@ -808,6 +808,51 @@ components:
             bmc: Grants full access to bmc-api.
             bmc.read: Grants read only access to bmc-api.
   schemas:
+    PrivateNetworkServer:
+      type: object
+      description: Server details linked to the Private Network.
+      required:
+        - id
+        - ips
+      properties:
+        id:
+          description: The server identifier.
+          type: string
+          example: 603f3e995c18d515cda9c4f8
+        ips:
+          type: array
+          description: List of private IPs associated to the server.
+          items:
+            type: string
+            example: 10.0.0.2
+          example:
+            - 10.0.0.2
+            - 10.0.0.3
+    NetworkMembership:
+      type: object
+      description: Resource details linked to the Network.
+      required:
+        - resourceId
+        - resourceType
+        - ips
+      properties:
+        resourceId:
+          description: The resource identifier.
+          type: string
+          example: 603f3e995c18d515cda9c4f8
+        resourceType:
+          description: The resource's type.
+          type: string
+          example: server
+        ips:
+          type: array
+          description: List of IPs associated to the resource.
+          items:
+            type: string
+          example:
+            - 10.111.14.104
+            - 10.111.14.105
+            - 10.111.14.106
     PrivateNetwork:
       type: object
       description: Private Network details.
@@ -877,26 +922,21 @@ components:
           type: string
           format: date-time
           example: '2022-04-07T13:30:30.491Z'
-    PrivateNetworkServer:
+    Error:
       type: object
-      description: Server details linked to the Private Network.
       required:
-        - id
-        - ips
+        - message
       properties:
-        id:
-          description: The server identifier.
+        message:
           type: string
-          example: 603f3e995c18d515cda9c4f8
-        ips:
+          readOnly: true
+          description: The description detailing the cause of the error code.
+        validationErrors:
           type: array
-          description: List of private IPs associated to the server.
           items:
             type: string
-            example: 10.0.0.2
-          example:
-            - 10.0.0.2
-            - 10.0.0.3
+          readOnly: true
+          description: Validation errors, if any.
     PrivateNetworkCreate:
       type: object
       description: Details of Private Network to be created.
@@ -958,6 +998,16 @@ components:
           description: Identifies network as the default private network for the specified location.
           type: boolean
           example: true
+    PublicNetworkIpBlock:
+      type: object
+      description: The assigned IP block to the Public Network.
+      required:
+        - id
+      properties:
+        id:
+          description: The IP Block identifier.
+          type: string
+          example: 60473a6115e34466c9f8f083
     PublicNetwork:
       type: object
       description: Public Network details.
@@ -1013,16 +1063,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PublicNetworkIpBlock'
-    PublicNetworkIpBlock:
-      type: object
-      description: The assigned IP block to the Public Network.
-      required:
-        - id
-      properties:
-        id:
-          description: The IP Block identifier.
-          type: string
-          example: 60473a6115e34466c9f8f083
     PublicNetworkCreate:
       type: object
       description: Details of Public Network to be created.
@@ -1074,46 +1114,6 @@ components:
           type: string
           maxLength: 250
           example: Further details on the network.
-    NetworkMembership:
-      type: object
-      description: Resource details linked to the Network.
-      required:
-        - resourceId
-        - resourceType
-        - ips
-      properties:
-        resourceId:
-          description: The resource identifier.
-          type: string
-          example: 603f3e995c18d515cda9c4f8
-        resourceType:
-          description: The resource's type.
-          type: string
-          example: server
-        ips:
-          type: array
-          description: List of IPs associated to the resource.
-          items:
-            type: string
-          example:
-            - 10.111.14.104
-            - 10.111.14.105
-            - 10.111.14.106
-    Error:
-      type: object
-      required:
-        - message
-      properties:
-        message:
-          type: string
-          readOnly: true
-          description: The description detailing the cause of the error code.
-        validationErrors:
-          type: array
-          items:
-            type: string
-          readOnly: true
-          description: Validation errors, if any.
   responses:
     BadRequest:
       description: The request failed due to wrong data. Please check the provided parameters and try again.

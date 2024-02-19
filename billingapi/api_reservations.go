@@ -56,10 +56,10 @@ type ReservationsAPI interface {
 		Disable auto-renewal for reservation by reservation id.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param reservationId The reservation's ID.
+		@param id Resource id.
 		@return ApiReservationsReservationIdActionsAutoRenewDisablePostRequest
 	*/
-	ReservationsReservationIdActionsAutoRenewDisablePost(ctx context.Context, reservationId string) ApiReservationsReservationIdActionsAutoRenewDisablePostRequest
+	ReservationsReservationIdActionsAutoRenewDisablePost(ctx context.Context, id string) ApiReservationsReservationIdActionsAutoRenewDisablePostRequest
 
 	// ReservationsReservationIdActionsAutoRenewDisablePostExecute executes the request
 	//  @return Reservation
@@ -71,10 +71,10 @@ type ReservationsAPI interface {
 		Enable auto-renewal for unexpired reservation by reservation id.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param reservationId The reservation's ID.
+		@param id Resource id.
 		@return ApiReservationsReservationIdActionsAutoRenewEnablePostRequest
 	*/
-	ReservationsReservationIdActionsAutoRenewEnablePost(ctx context.Context, reservationId string) ApiReservationsReservationIdActionsAutoRenewEnablePostRequest
+	ReservationsReservationIdActionsAutoRenewEnablePost(ctx context.Context, id string) ApiReservationsReservationIdActionsAutoRenewEnablePostRequest
 
 	// ReservationsReservationIdActionsAutoRenewEnablePostExecute executes the request
 	//  @return Reservation
@@ -86,10 +86,10 @@ type ReservationsAPI interface {
 		Convert reservation pricing model by reservation id.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param reservationId The reservation's ID.
+		@param id Resource id.
 		@return ApiReservationsReservationIdActionsConvertPostRequest
 	*/
-	ReservationsReservationIdActionsConvertPost(ctx context.Context, reservationId string) ApiReservationsReservationIdActionsConvertPostRequest
+	ReservationsReservationIdActionsConvertPost(ctx context.Context, id string) ApiReservationsReservationIdActionsConvertPostRequest
 
 	// ReservationsReservationIdActionsConvertPostExecute executes the request
 	//  @return Reservation
@@ -101,10 +101,10 @@ type ReservationsAPI interface {
 		Retrieves the reservations with the specified identifier. All date & times are in UTC.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param reservationId The reservation's ID.
+		@param id Resource id.
 		@return ApiReservationsReservationIdGetRequest
 	*/
-	ReservationsReservationIdGet(ctx context.Context, reservationId string) ApiReservationsReservationIdGetRequest
+	ReservationsReservationIdGet(ctx context.Context, id string) ApiReservationsReservationIdGetRequest
 
 	// ReservationsReservationIdGetExecute executes the request
 	//  @return Reservation
@@ -117,11 +117,11 @@ type ReservationsAPIService service
 type ApiReservationsGetRequest struct {
 	ctx             context.Context
 	ApiService      ReservationsAPI
-	productCategory *ProductCategoryEnum
+	productCategory *ReservationProductCategoryEnum
 }
 
 // The product category
-func (r ApiReservationsGetRequest) ProductCategory(productCategory ProductCategoryEnum) ApiReservationsGetRequest {
+func (r ApiReservationsGetRequest) ProductCategory(productCategory ReservationProductCategoryEnum) ApiReservationsGetRequest {
 	r.productCategory = &productCategory
 	return r
 }
@@ -408,7 +408,7 @@ func (a *ReservationsAPIService) ReservationsPostExecute(r ApiReservationsPostRe
 type ApiReservationsReservationIdActionsAutoRenewDisablePostRequest struct {
 	ctx                                context.Context
 	ApiService                         ReservationsAPI
-	reservationId                      string
+	id                                 string
 	reservationAutoRenewDisableRequest *ReservationAutoRenewDisableRequest
 }
 
@@ -427,14 +427,14 @@ ReservationsReservationIdActionsAutoRenewDisablePost Disable auto-renewal for re
 Disable auto-renewal for reservation by reservation id.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param reservationId The reservation's ID.
+ @param id Resource id.
  @return ApiReservationsReservationIdActionsAutoRenewDisablePostRequest
 */
-func (a *ReservationsAPIService) ReservationsReservationIdActionsAutoRenewDisablePost(ctx context.Context, reservationId string) ApiReservationsReservationIdActionsAutoRenewDisablePostRequest {
+func (a *ReservationsAPIService) ReservationsReservationIdActionsAutoRenewDisablePost(ctx context.Context, id string) ApiReservationsReservationIdActionsAutoRenewDisablePostRequest {
 	return ApiReservationsReservationIdActionsAutoRenewDisablePostRequest{
-		ApiService:    a,
-		ctx:           ctx,
-		reservationId: reservationId,
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -453,8 +453,8 @@ func (a *ReservationsAPIService) ReservationsReservationIdActionsAutoRenewDisabl
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/reservations/{reservationId}/actions/auto-renew/disable"
-	localVarPath = strings.Replace(localVarPath, "{"+"reservationId"+"}", url.PathEscape(parameterValueToString(r.reservationId, "reservationId")), -1)
+	localVarPath := localBasePath + "/reservations/{id}/actions/auto-renew/disable"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -571,9 +571,9 @@ func (a *ReservationsAPIService) ReservationsReservationIdActionsAutoRenewDisabl
 }
 
 type ApiReservationsReservationIdActionsAutoRenewEnablePostRequest struct {
-	ctx           context.Context
-	ApiService    ReservationsAPI
-	reservationId string
+	ctx        context.Context
+	ApiService ReservationsAPI
+	id         string
 }
 
 func (r ApiReservationsReservationIdActionsAutoRenewEnablePostRequest) Execute() (*Reservation, *http.Response, error) {
@@ -586,14 +586,14 @@ ReservationsReservationIdActionsAutoRenewEnablePost Enable auto-renewal for unex
 Enable auto-renewal for unexpired reservation by reservation id.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param reservationId The reservation's ID.
+ @param id Resource id.
  @return ApiReservationsReservationIdActionsAutoRenewEnablePostRequest
 */
-func (a *ReservationsAPIService) ReservationsReservationIdActionsAutoRenewEnablePost(ctx context.Context, reservationId string) ApiReservationsReservationIdActionsAutoRenewEnablePostRequest {
+func (a *ReservationsAPIService) ReservationsReservationIdActionsAutoRenewEnablePost(ctx context.Context, id string) ApiReservationsReservationIdActionsAutoRenewEnablePostRequest {
 	return ApiReservationsReservationIdActionsAutoRenewEnablePostRequest{
-		ApiService:    a,
-		ctx:           ctx,
-		reservationId: reservationId,
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -612,8 +612,8 @@ func (a *ReservationsAPIService) ReservationsReservationIdActionsAutoRenewEnable
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/reservations/{reservationId}/actions/auto-renew/enable"
-	localVarPath = strings.Replace(localVarPath, "{"+"reservationId"+"}", url.PathEscape(parameterValueToString(r.reservationId, "reservationId")), -1)
+	localVarPath := localBasePath + "/reservations/{id}/actions/auto-renew/enable"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -730,7 +730,7 @@ func (a *ReservationsAPIService) ReservationsReservationIdActionsAutoRenewEnable
 type ApiReservationsReservationIdActionsConvertPostRequest struct {
 	ctx                context.Context
 	ApiService         ReservationsAPI
-	reservationId      string
+	id                 string
 	reservationRequest *ReservationRequest
 }
 
@@ -749,14 +749,14 @@ ReservationsReservationIdActionsConvertPost Convert reservation pricing model by
 Convert reservation pricing model by reservation id.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param reservationId The reservation's ID.
+ @param id Resource id.
  @return ApiReservationsReservationIdActionsConvertPostRequest
 */
-func (a *ReservationsAPIService) ReservationsReservationIdActionsConvertPost(ctx context.Context, reservationId string) ApiReservationsReservationIdActionsConvertPostRequest {
+func (a *ReservationsAPIService) ReservationsReservationIdActionsConvertPost(ctx context.Context, id string) ApiReservationsReservationIdActionsConvertPostRequest {
 	return ApiReservationsReservationIdActionsConvertPostRequest{
-		ApiService:    a,
-		ctx:           ctx,
-		reservationId: reservationId,
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -775,8 +775,8 @@ func (a *ReservationsAPIService) ReservationsReservationIdActionsConvertPostExec
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/reservations/{reservationId}/actions/convert"
-	localVarPath = strings.Replace(localVarPath, "{"+"reservationId"+"}", url.PathEscape(parameterValueToString(r.reservationId, "reservationId")), -1)
+	localVarPath := localBasePath + "/reservations/{id}/actions/convert"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -882,9 +882,9 @@ func (a *ReservationsAPIService) ReservationsReservationIdActionsConvertPostExec
 }
 
 type ApiReservationsReservationIdGetRequest struct {
-	ctx           context.Context
-	ApiService    ReservationsAPI
-	reservationId string
+	ctx        context.Context
+	ApiService ReservationsAPI
+	id         string
 }
 
 func (r ApiReservationsReservationIdGetRequest) Execute() (*Reservation, *http.Response, error) {
@@ -897,14 +897,14 @@ ReservationsReservationIdGet Get a reservation.
 Retrieves the reservations with the specified identifier. All date & times are in UTC.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param reservationId The reservation's ID.
+ @param id Resource id.
  @return ApiReservationsReservationIdGetRequest
 */
-func (a *ReservationsAPIService) ReservationsReservationIdGet(ctx context.Context, reservationId string) ApiReservationsReservationIdGetRequest {
+func (a *ReservationsAPIService) ReservationsReservationIdGet(ctx context.Context, id string) ApiReservationsReservationIdGetRequest {
 	return ApiReservationsReservationIdGetRequest{
-		ApiService:    a,
-		ctx:           ctx,
-		reservationId: reservationId,
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -923,8 +923,8 @@ func (a *ReservationsAPIService) ReservationsReservationIdGetExecute(r ApiReserv
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/reservations/{reservationId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"reservationId"+"}", url.PathEscape(parameterValueToString(r.reservationId, "reservationId")), -1)
+	localVarPath := localBasePath + "/reservations/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

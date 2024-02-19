@@ -35,6 +35,7 @@ docs/Reservation.md
 docs/ReservationAutoRenewDisableRequest.md
 docs/ReservationInvoicingModelEnum.md
 docs/ReservationModelEnum.md
+docs/ReservationProductCategoryEnum.md
 docs/ReservationRequest.md
 docs/ReservationsAPI.md
 docs/ServerDetails.md
@@ -70,6 +71,7 @@ model_reservation.go
 model_reservation_auto_renew_disable_request.go
 model_reservation_invoicing_model_enum.go
 model_reservation_model_enum.go
+model_reservation_product_category_enum.go
 model_reservation_request.go
 model_server_details.go
 model_server_product.go

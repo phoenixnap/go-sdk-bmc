@@ -219,7 +219,7 @@ paths:
           required: false
           description: The product category
           schema:
-            $ref: '#/components/schemas/ProductCategoryEnum'
+            $ref: '#/components/schemas/ReservationProductCategoryEnum'
           example: SERVER
       responses:
         '200':
@@ -265,15 +265,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  /reservations/{reservationId}:
+  /reservations/{id}:
     parameters:
-      - in: path
-        name: reservationId
-        required: true
-        schema:
-          type: string
-        description: The reservation's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+      - $ref: '#/components/parameters/ResourceIdParam'
     get:
       tags:
         - Reservations
@@ -302,16 +296,10 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  /reservations/{reservationId}/actions/auto-renew/disable:
+  /reservations/{id}/actions/auto-renew/disable:
     description: Disable auto-renewal for reservation by the reservation id.
     parameters:
-      - in: path
-        name: reservationId
-        required: true
-        schema:
-          type: string
-        description: The reservation's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+      - $ref: '#/components/parameters/ResourceIdParam'
     post:
       tags:
         - Reservations
@@ -343,16 +331,10 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  /reservations/{reservationId}/actions/auto-renew/enable:
+  /reservations/{id}/actions/auto-renew/enable:
     description: Enable auto-renewal for reservation by the reservation id.
     parameters:
-      - in: path
-        name: reservationId
-        required: true
-        schema:
-          type: string
-        description: The reservation's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+      - $ref: '#/components/parameters/ResourceIdParam'
     post:
       tags:
         - Reservations
@@ -379,16 +361,10 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  /reservations/{reservationId}/actions/convert:
+  /reservations/{id}/actions/convert:
     description: Convert reservation pricing model.
     parameters:
-      - in: path
-        name: reservationId
-        required: true
-        schema:
-          type: string
-        description: The reservation's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+      - $ref: '#/components/parameters/ResourceIdParam'
     post:
       tags:
         - Reservations
@@ -682,102 +658,6 @@ components:
         - cpu
         - network
         - storage
-    Reservation:
-      type: object
-      description: Reservation details
-      properties:
-        id:
-          description: The reservation identifier.
-          type: string
-          example: 83604275-bdba-490a-b87a-978e8dffdb14
-        productCode:
-          description: The code identifying the product. This code has significant across all locations.
-          type: string
-          example: s1.c1.small
-        productCategory:
-          description: The product category.
-          type: string
-          enum:
-            - server
-            - bandwidth
-            - operating-system
-          example: server
-        location:
-          $ref: '#/components/schemas/LocationEnum'
-        reservationModel:
-          $ref: '#/components/schemas/ReservationModelEnum'
-        initialInvoiceModel:
-          $ref: '#/components/schemas/ReservationInvoicingModelEnum'
-        startDateTime:
-          description: The point in time (in UTC) when the reservation starts.
-          type: string
-          format: date-time
-          example: '2020-03-19T16:39:00Z'
-        endDateTime:
-          description: The point in time (in UTC) when the reservation end.
-          type: string
-          format: date-time
-          example: '2020-04-19T16:39:00Z'
-        lastRenewalDateTime:
-          description: The point in time (in UTC) when the reservation was renewed last.
-          type: string
-          format: date-time
-          example: '2020-03-19T16:39:00Z'
-        nextRenewalDateTime:
-          description: The point in time (in UTC) when the reservation will be renewed if auto renew is set to true.
-          type: string
-          format: date-time
-          example: '2020-04-19T16:39:00Z'
-        autoRenew:
-          description: A flag indicating whether the reservation will auto-renew (default is true).
-          type: boolean
-          example: true
-        sku:
-          description: The sku that will be applied to this reservation. It is useful to find out the price by querying the /product endpoint.
-          type: string
-          example: XXX-XXX-XXX
-        price:
-          description: Reservation price.
-          type: number
-          example: 175
-        priceUnit:
-          $ref: '#/components/schemas/PriceUnitEnum'
-        assignedResourceId:
-          description: The resource ID currently being assigned to Reservation.
-          type: string
-          example: 83604275-bdba-490a-b87a-978e8dffdb14
-        nextBillingDate:
-          description: Next billing date for Reservation.
-          type: string
-          format: date
-          example: '2020-04-19'
-      required:
-        - id
-        - productCode
-        - productCategory
-        - location
-        - reservationModel
-        - startDateTime
-        - autoRenew
-        - sku
-        - price
-        - priceUnit
-    ReservationAutoRenewDisableRequest:
-      description: Disabling auto-renewal for reservation request.
-      type: object
-      properties:
-        autoRenewDisableReason:
-          type: string
-    ReservationRequest:
-      type: object
-      description: Reservation request.
-      properties:
-        sku:
-          description: The sku code of product pricing plan.
-          type: string
-          example: XXX-XXX-XXX
-      required:
-        - sku
     LocationEnum:
       description: The location code.
       type: string
@@ -789,21 +669,6 @@ components:
         - CHI
         - SEA
         - AUS
-    ReservationModelEnum:
-      description: The reservation model.
-      type: string
-      enum:
-        - ONE_MONTH_RESERVATION
-        - TWELVE_MONTHS_RESERVATION
-        - TWENTY_FOUR_MONTHS_RESERVATION
-        - THIRTY_SIX_MONTHS_RESERVATION
-        - FREE_TIER
-    ReservationInvoicingModelEnum:
-      description: Reservations created with initial invoice model ON_CREATION will be invoiced on same date when reservation is created. Reservation created with CALENDAR_MONTH initial invoice model will be invoiced at the beginning of next month.
-      type: string
-      enum:
-        - ON_CREATION
-        - CALENDAR_MONTH
     ProductCategoryEnum:
       description: The product category.
       type: string
@@ -813,17 +678,6 @@ components:
         - OPERATING_SYSTEM
         - PUBLIC_IP
         - STORAGE
-    PriceUnitEnum:
-      description: The unit to which the price applies.
-      type: string
-      enum:
-        - HOUR
-        - MONTH
-        - GB
-        - UNIT
-        - FLAT
-        - TB_PER_HOUR
-      example: MONTH
     Error:
       type: object
       required:
@@ -1126,6 +980,129 @@ components:
               $ref: '#/components/schemas/StorageDetails'
           required:
             - metadata
+    PriceUnitEnum:
+      description: The unit to which the price applies.
+      type: string
+      enum:
+        - HOUR
+        - MONTH
+        - GB
+        - UNIT
+        - FLAT
+        - TB_PER_HOUR
+      example: MONTH
+    ReservationProductCategoryEnum:
+      description: The commitment product category.
+      type: string
+      enum:
+        - server
+        - bandwidth
+      example: server
+    ReservationModelEnum:
+      description: The reservation model.
+      type: string
+      enum:
+        - ONE_MONTH_RESERVATION
+        - TWELVE_MONTHS_RESERVATION
+        - TWENTY_FOUR_MONTHS_RESERVATION
+        - THIRTY_SIX_MONTHS_RESERVATION
+        - FREE_TIER
+    ReservationInvoicingModelEnum:
+      description: Reservations created with initial invoice model ON_CREATION will be invoiced on same date when reservation is created. Reservation created with CALENDAR_MONTH initial invoice model will be invoiced at the beginning of next month.
+      type: string
+      enum:
+        - ON_CREATION
+        - CALENDAR_MONTH
+    Reservation:
+      type: object
+      description: Reservation details
+      properties:
+        id:
+          description: The reservation identifier.
+          type: string
+          example: 83604275-bdba-490a-b87a-978e8dffdb14
+        productCode:
+          description: The code identifying the product. This code has significant across all locations.
+          type: string
+          example: s1.c1.small
+        productCategory:
+          $ref: '#/components/schemas/ReservationProductCategoryEnum'
+        location:
+          $ref: '#/components/schemas/LocationEnum'
+        reservationModel:
+          $ref: '#/components/schemas/ReservationModelEnum'
+        initialInvoiceModel:
+          $ref: '#/components/schemas/ReservationInvoicingModelEnum'
+        startDateTime:
+          description: The point in time (in UTC) when the reservation starts.
+          type: string
+          format: date-time
+          example: '2020-03-19T16:39:00Z'
+        endDateTime:
+          description: The point in time (in UTC) when the reservation end.
+          type: string
+          format: date-time
+          example: '2020-04-19T16:39:00Z'
+        lastRenewalDateTime:
+          description: The point in time (in UTC) when the reservation was renewed last.
+          type: string
+          format: date-time
+          example: '2020-03-19T16:39:00Z'
+        nextRenewalDateTime:
+          description: The point in time (in UTC) when the reservation will be renewed if auto renew is set to true.
+          type: string
+          format: date-time
+          example: '2020-04-19T16:39:00Z'
+        autoRenew:
+          description: A flag indicating whether the reservation will auto-renew (default is true).
+          type: boolean
+          example: true
+        sku:
+          description: The sku that will be applied to this reservation. It is useful to find out the price by querying the /product endpoint.
+          type: string
+          example: XXX-XXX-XXX
+        price:
+          description: Reservation price.
+          type: number
+          example: 175
+        priceUnit:
+          $ref: '#/components/schemas/PriceUnitEnum'
+        assignedResourceId:
+          description: The resource ID currently being assigned to Reservation.
+          type: string
+          example: 83604275-bdba-490a-b87a-978e8dffdb14
+        nextBillingDate:
+          description: Next billing date for Reservation.
+          type: string
+          format: date
+          example: '2020-04-19'
+      required:
+        - id
+        - productCode
+        - productCategory
+        - location
+        - reservationModel
+        - startDateTime
+        - autoRenew
+        - sku
+        - price
+        - priceUnit
+    ReservationRequest:
+      type: object
+      description: Reservation request.
+      properties:
+        sku:
+          description: The sku code of product pricing plan.
+          type: string
+          example: XXX-XXX-XXX
+      required:
+        - sku
+    ReservationAutoRenewDisableRequest:
+      description: Disabling auto-renewal for reservation request.
+      type: object
+      properties:
+        autoRenewDisableReason:
+          type: string
     ThresholdConfigurationDetails:
       type: object
       description: Threshold billing configuration.
@@ -1230,3 +1207,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    ResourceIdParam:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      description: Resource id.
+      example: d90bbea9-5725-47ce-879e-d3905bafac2a
