@@ -18,6 +18,7 @@ docs/LocationAvailabilityDetail.md
 docs/LocationEnum.md
 docs/OperatingSystemDetails.md
 docs/OperatingSystemRecord.md
+docs/PackageUnitEnum.md
 docs/PriceUnitEnum.md
 docs/PricingPlan.md
 docs/Product.md
@@ -57,6 +58,7 @@ model_location_availability_detail.go
 model_location_enum.go
 model_operating_system_details.go
 model_operating_system_record.go
+model_package_unit_enum.go
 model_price_unit_enum.go
 model_pricing_plan.go
 model_product.go

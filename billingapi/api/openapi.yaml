@@ -746,25 +746,6 @@ components:
         type: string
       style: simple
   responses:
-    BadRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request failed due to wrong data. Please check the provided
-        parameters and try again.
-    NotFound:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request failed since the resource could not been found.
-    Conflict:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request failed since the resource was not in the correct state.
     Unauthorized:
       content:
         application/json:
@@ -786,157 +767,35 @@ components:
             $ref: '#/components/schemas/Error'
       description: The server encountered an unexpected condition that prevented it
         from fulfilling the request.
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed due to wrong data. Please check the provided
+        parameters and try again.
+    NotFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed since the resource could not been found.
+    Conflict:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed since the resource was not in the correct state.
   schemas:
-    ApplicableDiscounts:
-      description: "Represents the applicable discount details for a product, including\
-        \ the discounted price and discount information."
-      properties:
-        discountedPrice:
-          description: The price of the product after applying a discount.
-          example: 107.5
-          type: number
-        discountDetails:
-          items:
-            $ref: '#/components/schemas/DiscountDetails'
-          type: array
-      type: object
-    Product:
-      description: Product details
-      properties:
-        productCode:
-          description: The code identifying the product. This code has significant
-            across all locations.
-          example: s1.c1.small
-          type: string
-        productCategory:
-          description: The product category.
-          example: SERVER
-          type: string
-        plans:
-          description: The pricing plans available for this product.
-          items:
-            $ref: '#/components/schemas/PricingPlan'
-          type: array
-      required:
-      - productCategory
-      - productCode
-      type: object
-    PricingPlan:
-      description: Pricing plan details.
-      properties:
-        sku:
-          description: The SKU identifying this pricing plan.
-          example: XXX-XXX-XXX
-          type: string
-        skuDescription:
-          description: Description of this pricing plan.
-          example: Hourly Rate for s1.c1.small in Phoenix
-          type: string
-        location:
-          description: The code identifying the location.
-          enum:
-          - PHX
-          - ASH
-          - NLD
-          - SGP
-          - CHI
-          - SEA
-          - AUS
-          - GLOBAL
-          example: PHX
-          type: string
-        pricingModel:
-          description: The pricing model.
-          enum:
-          - HOURLY
-          - METERED
-          - ONE_MONTH_RESERVATION
-          - TWELVE_MONTHS_RESERVATION
-          - TWENTY_FOUR_MONTHS_RESERVATION
-          - THIRTY_SIX_MONTHS_RESERVATION
-          - MONTHLY_PACKAGE
-          - FREE_TIER
-          example: HOURLY
-          type: string
-        price:
-          description: The price per unit.
-          example: 0.22
-          type: number
-        priceUnit:
-          $ref: '#/components/schemas/PriceUnitEnum'
-        applicableDiscounts:
-          $ref: '#/components/schemas/ApplicableDiscounts'
-        correlatedProductCode:
-          description: Product code of the product this product is correlated with
-          example: s1.c1.small
-          type: string
-        packageQuantity:
-          description: Package size per month.
-          example: 50
-          type: number
-        packageUnit:
-          description: Package size unit.
-          enum:
-          - GB
-          - TB
-          type: string
-      required:
-      - location
-      - price
-      - priceUnit
-      - pricingModel
-      - sku
-      type: object
-    ServerProduct:
-      allOf:
-      - $ref: '#/components/schemas/Product'
-      - description: Server product.
-        properties:
-          metadata:
-            $ref: '#/components/schemas/ServerProductMetadata'
-        required:
-        - metadata
-        type: object
-    ServerProductMetadata:
-      description: Details of the server product.
-      properties:
-        ramInGb:
-          description: RAM in GB.
-          example: 256
-          type: number
-        cpu:
-          description: CPU name.
-          example: Dual Gold 6258R
-          type: string
-        cpuCount:
-          description: Number of CPUs.
-          example: 56
-          type: number
-        coresPerCpu:
-          description: The number of physical cores present on each CPU.
-          example: 2
-          type: number
-        cpuFrequency:
-          description: CPU frequency in GHz.
-          example: 2.7
-          type: number
-        network:
-          description: Server network.
-          example: 2x 25Gbps
-          type: string
-        storage:
-          description: Server storage.
-          example: 2x 2TB NVMe
-          type: string
-      required:
-      - coresPerCpu
-      - cpu
-      - cpuCount
-      - cpuFrequency
-      - network
-      - ramInGb
-      - storage
-      type: object
+    ProductCategoryEnum:
+      description: The product category.
+      enum:
+      - SERVER
+      - BANDWIDTH
+      - OPERATING_SYSTEM
+      - PUBLIC_IP
+      - STORAGE
+      type: string
     LocationEnum:
       description: The location code.
       enum:
@@ -948,30 +807,6 @@ components:
       - SEA
       - AUS
       type: string
-    ProductCategoryEnum:
-      description: The product category.
-      enum:
-      - SERVER
-      - BANDWIDTH
-      - OPERATING_SYSTEM
-      - PUBLIC_IP
-      - STORAGE
-      type: string
-    Error:
-      properties:
-        message:
-          description: The description detailing the cause of the error code.
-          readOnly: true
-          type: string
-        validationErrors:
-          description: "Validation errors, if any."
-          items:
-            type: string
-          readOnly: true
-          type: array
-      required:
-      - message
-      type: object
     DiscountDetails:
       description: Represents the details of a discount applied to a product or charge.
       properties:
@@ -1268,6 +1103,21 @@ components:
         required:
         - metadata
         type: object
+    Error:
+      properties:
+        message:
+          description: The description detailing the cause of the error code.
+          readOnly: true
+          type: string
+        validationErrors:
+          description: "Validation errors, if any."
+          items:
+            type: string
+          readOnly: true
+          type: array
+      required:
+      - message
+      type: object
     PriceUnitEnum:
       description: The unit to which the price applies.
       enum:
@@ -1279,6 +1129,159 @@ components:
       - TB_PER_HOUR
       example: MONTH
       type: string
+    ApplicableDiscounts:
+      description: "Represents the applicable discount details for a product, including\
+        \ the discounted price and discount information."
+      properties:
+        discountedPrice:
+          description: The price of the product after applying a discount.
+          example: 107.5
+          type: number
+        discountDetails:
+          items:
+            $ref: '#/components/schemas/DiscountDetails'
+          type: array
+      type: object
+    PackageUnitEnum:
+      description: Package size unit.
+      enum:
+      - GB
+      - TB
+      example: TB
+      type: string
+    PricingPlan:
+      description: Pricing plan details.
+      properties:
+        sku:
+          description: The SKU identifying this pricing plan.
+          example: XXX-XXX-XXX
+          type: string
+        skuDescription:
+          description: Description of this pricing plan.
+          example: Hourly Rate for s1.c1.small in Phoenix
+          type: string
+        location:
+          description: The code identifying the location.
+          enum:
+          - PHX
+          - ASH
+          - NLD
+          - SGP
+          - CHI
+          - SEA
+          - AUS
+          - GLOBAL
+          example: PHX
+          type: string
+        pricingModel:
+          description: The pricing model.
+          enum:
+          - HOURLY
+          - METERED
+          - ONE_MONTH_RESERVATION
+          - TWELVE_MONTHS_RESERVATION
+          - TWENTY_FOUR_MONTHS_RESERVATION
+          - THIRTY_SIX_MONTHS_RESERVATION
+          - MONTHLY_PACKAGE
+          - FREE_TIER
+          example: HOURLY
+          type: string
+        price:
+          description: The price per unit.
+          example: 0.22
+          type: number
+        priceUnit:
+          $ref: '#/components/schemas/PriceUnitEnum'
+        applicableDiscounts:
+          $ref: '#/components/schemas/ApplicableDiscounts'
+        correlatedProductCode:
+          description: Product code of the product this product is correlated with
+          example: s1.c1.small
+          type: string
+        packageQuantity:
+          description: Package size per month.
+          example: 50
+          type: number
+        packageUnit:
+          $ref: '#/components/schemas/PackageUnitEnum'
+      required:
+      - location
+      - price
+      - priceUnit
+      - pricingModel
+      - sku
+      type: object
+    Product:
+      description: Product details
+      properties:
+        productCode:
+          description: The code identifying the product. This code has significant
+            across all locations.
+          example: s1.c1.small
+          type: string
+        productCategory:
+          description: The product category.
+          example: SERVER
+          type: string
+        plans:
+          description: The pricing plans available for this product.
+          items:
+            $ref: '#/components/schemas/PricingPlan'
+          type: array
+      required:
+      - productCategory
+      - productCode
+      type: object
+    ServerProductMetadata:
+      description: Details of the server product.
+      properties:
+        ramInGb:
+          description: RAM in GB.
+          example: 256
+          type: number
+        cpu:
+          description: CPU name.
+          example: Dual Gold 6258R
+          type: string
+        cpuCount:
+          description: Number of CPUs.
+          example: 56
+          type: number
+        coresPerCpu:
+          description: The number of physical cores present on each CPU.
+          example: 2
+          type: number
+        cpuFrequency:
+          description: CPU frequency in GHz.
+          example: 2.7
+          type: number
+        network:
+          description: Server network.
+          example: 2x 25Gbps
+          type: string
+        storage:
+          description: Server storage.
+          example: 2x 2TB NVMe
+          type: string
+      required:
+      - coresPerCpu
+      - cpu
+      - cpuCount
+      - cpuFrequency
+      - network
+      - ramInGb
+      - storage
+      type: object
+    ServerProduct:
+      allOf:
+      - $ref: '#/components/schemas/Product'
+      - description: Server product.
+        properties:
+          metadata:
+            $ref: '#/components/schemas/ServerProductMetadata'
+        required:
+        - metadata
+        type: object
     ReservationProductCategoryEnum:
       description: The commitment product category.
       enum:

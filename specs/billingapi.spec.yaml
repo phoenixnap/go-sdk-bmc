@@ -510,154 +510,15 @@ components:
             bmc: Grants full access to bmc-api.
             bmc.read: Grants read only access to bmc-api.
   schemas:
-    ApplicableDiscounts:
-      type: object
-      description: Represents the applicable discount details for a product, including the discounted price and discount information.
-      properties:
-        discountedPrice:
-          description: The price of the product after applying a discount.
-          type: number
-          example: 107.5
-        discountDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/DiscountDetails'
-    Product:
-      type: object
-      description: Product details
-      properties:
-        productCode:
-          description: The code identifying the product. This code has significant across all locations.
-          type: string
-          example: s1.c1.small
-        productCategory:
-          description: The product category.
-          type: string
-          example: SERVER
-        plans:
-          description: The pricing plans available for this product.
-          type: array
-          items:
-            $ref: '#/components/schemas/PricingPlan'
-      required:
-        - productCode
-        - productCategory
-    PricingPlan:
-      type: object
-      description: Pricing plan details.
-      properties:
-        sku:
-          description: The SKU identifying this pricing plan.
-          type: string
-          example: XXX-XXX-XXX
-        skuDescription:
-          description: Description of this pricing plan.
-          type: string
-          example: Hourly Rate for s1.c1.small in Phoenix
-        location:
-          description: The code identifying the location.
-          type: string
-          enum:
-            - PHX
-            - ASH
-            - NLD
-            - SGP
-            - CHI
-            - SEA
-            - AUS
-            - GLOBAL
-          example: PHX
-        pricingModel:
-          description: The pricing model.
-          type: string
-          enum:
-            - HOURLY
-            - METERED
-            - ONE_MONTH_RESERVATION
-            - TWELVE_MONTHS_RESERVATION
-            - TWENTY_FOUR_MONTHS_RESERVATION
-            - THIRTY_SIX_MONTHS_RESERVATION
-            - MONTHLY_PACKAGE
-            - FREE_TIER
-          example: HOURLY
-        price:
-          description: The price per unit.
-          type: number
-          example: 0.22
-        priceUnit:
-          $ref: '#/components/schemas/PriceUnitEnum'
-        applicableDiscounts:
-          $ref: '#/components/schemas/ApplicableDiscounts'
-        correlatedProductCode:
-          description: Product code of the product this product is correlated with
-          type: string
-          example: s1.c1.small
-        packageQuantity:
-          description: Package size per month.
-          type: number
-          example: 50
-        packageUnit:
-          description: Package size unit.
-          type: string
-          enum:
-            - GB
-            - TB
-      required:
-        - sku
-        - location
-        - pricingModel
-        - price
-        - priceUnit
-    ServerProduct:
-      allOf:
-        - $ref: '#/components/schemas/Product'
-        - type: object
-          description: Server product.
-          properties:
-            metadata:
-              $ref: '#/components/schemas/ServerProductMetadata'
-          required:
-            - metadata
-    ServerProductMetadata:
-      type: object
-      description: Details of the server product.
-      properties:
-        ramInGb:
-          description: RAM in GB.
-          type: number
-          example: 256
-        cpu:
-          description: CPU name.
-          type: string
-          example: Dual Gold 6258R
-        cpuCount:
-          description: Number of CPUs.
-          type: number
-          example: 56
-        coresPerCpu:
-          description: The number of physical cores present on each CPU.
-          type: number
-          example: 2
-        cpuFrequency:
-          description: CPU frequency in GHz.
-          type: number
-          example: 2.7
-        network:
-          description: Server network.
-          type: string
-          example: 2x 25Gbps
-        storage:
-          description: Server storage.
-          type: string
-          example: 2x 2TB NVMe
-      required:
-        - ramInGb
-        - cpuCount
-        - coresPerCpu
-        - cpuFrequency
-        - cpu
-        - network
-        - storage
+    ProductCategoryEnum:
+      description: The product category.
+      type: string
+      enum:
+        - SERVER
+        - BANDWIDTH
+        - OPERATING_SYSTEM
+        - PUBLIC_IP
+        - STORAGE
     LocationEnum:
       description: The location code.
       type: string
@@ -669,30 +530,6 @@ components:
         - CHI
         - SEA
         - AUS
-    ProductCategoryEnum:
-      description: The product category.
-      type: string
-      enum:
-        - SERVER
-        - BANDWIDTH
-        - OPERATING_SYSTEM
-        - PUBLIC_IP
-        - STORAGE
-    Error:
-      type: object
-      required:
-        - message
-      properties:
-        message:
-          type: string
-          readOnly: true
-          description: The description detailing the cause of the error code.
-        validationErrors:
-          type: array
-          items:
-            type: string
-          readOnly: true
-          description: Validation errors, if any.
     DiscountDetails:
       type: object
       description: Represents the details of a discount applied to a product or charge.
@@ -980,6 +817,21 @@ components:
               $ref: '#/components/schemas/StorageDetails'
           required:
             - metadata
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          readOnly: true
+          description: The description detailing the cause of the error code.
+        validationErrors:
+          type: array
+          items:
+            type: string
+          readOnly: true
+          description: Validation errors, if any.
     PriceUnitEnum:
       description: The unit to which the price applies.
       type: string
@@ -991,6 +843,157 @@ components:
         - FLAT
         - TB_PER_HOUR
       example: MONTH
+    ApplicableDiscounts:
+      type: object
+      description: Represents the applicable discount details for a product, including the discounted price and discount information.
+      properties:
+        discountedPrice:
+          description: The price of the product after applying a discount.
+          type: number
+          example: 107.5
+        discountDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiscountDetails'
+    PackageUnitEnum:
+      description: Package size unit.
+      type: string
+      enum:
+        - GB
+        - TB
+      example: TB
+    PricingPlan:
+      type: object
+      description: Pricing plan details.
+      properties:
+        sku:
+          description: The SKU identifying this pricing plan.
+          type: string
+          example: XXX-XXX-XXX
+        skuDescription:
+          description: Description of this pricing plan.
+          type: string
+          example: Hourly Rate for s1.c1.small in Phoenix
+        location:
+          description: The code identifying the location.
+          type: string
+          enum:
+            - PHX
+            - ASH
+            - NLD
+            - SGP
+            - CHI
+            - SEA
+            - AUS
+            - GLOBAL
+          example: PHX
+        pricingModel:
+          description: The pricing model.
+          type: string
+          enum:
+            - HOURLY
+            - METERED
+            - ONE_MONTH_RESERVATION
+            - TWELVE_MONTHS_RESERVATION
+            - TWENTY_FOUR_MONTHS_RESERVATION
+            - THIRTY_SIX_MONTHS_RESERVATION
+            - MONTHLY_PACKAGE
+            - FREE_TIER
+          example: HOURLY
+        price:
+          description: The price per unit.
+          type: number
+          example: 0.22
+        priceUnit:
+          $ref: '#/components/schemas/PriceUnitEnum'
+        applicableDiscounts:
+          $ref: '#/components/schemas/ApplicableDiscounts'
+        correlatedProductCode:
+          description: Product code of the product this product is correlated with
+          type: string
+          example: s1.c1.small
+        packageQuantity:
+          description: Package size per month.
+          type: number
+          example: 50
+        packageUnit:
+          $ref: '#/components/schemas/PackageUnitEnum'
+      required:
+        - sku
+        - location
+        - pricingModel
+        - price
+        - priceUnit
+    Product:
+      type: object
+      description: Product details
+      properties:
+        productCode:
+          description: The code identifying the product. This code has significant across all locations.
+          type: string
+          example: s1.c1.small
+        productCategory:
+          description: The product category.
+          type: string
+          example: SERVER
+        plans:
+          description: The pricing plans available for this product.
+          type: array
+          items:
+            $ref: '#/components/schemas/PricingPlan'
+      required:
+        - productCode
+        - productCategory
+    ServerProductMetadata:
+      type: object
+      description: Details of the server product.
+      properties:
+        ramInGb:
+          description: RAM in GB.
+          type: number
+          example: 256
+        cpu:
+          description: CPU name.
+          type: string
+          example: Dual Gold 6258R
+        cpuCount:
+          description: Number of CPUs.
+          type: number
+          example: 56
+        coresPerCpu:
+          description: The number of physical cores present on each CPU.
+          type: number
+          example: 2
+        cpuFrequency:
+          description: CPU frequency in GHz.
+          type: number
+          example: 2.7
+        network:
+          description: Server network.
+          type: string
+          example: 2x 25Gbps
+        storage:
+          description: Server storage.
+          type: string
+          example: 2x 2TB NVMe
+      required:
+        - ramInGb
+        - cpuCount
+        - coresPerCpu
+        - cpuFrequency
+        - cpu
+        - network
+        - storage
+    ServerProduct:
+      allOf:
+        - $ref: '#/components/schemas/Product'
+        - type: object
+          description: Server product.
+          properties:
+            metadata:
+              $ref: '#/components/schemas/ServerProductMetadata'
+          required:
+            - metadata
     ReservationProductCategoryEnum:
       description: The commitment product category.
       type: string
@@ -1171,24 +1174,6 @@ components:
         - productCategory
         - locationAvailabilityDetails
   responses:
-    BadRequest:
-      description: The request failed due to wrong data. Please check the provided parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The request failed since the resource could not been found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Conflict:
-      description: The request failed since the resource was not in the correct state.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: The request failed due to invalid credentials. Please check the provided credentials and try again.
       content:
@@ -1203,6 +1188,24 @@ components:
             $ref: '#/components/schemas/Error'
     InternalServerError:
       description: The server encountered an unexpected condition that prevented it from fulfilling the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request failed due to wrong data. Please check the provided parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The request failed since the resource could not been found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: The request failed since the resource was not in the correct state.
       content:
         application/json:
           schema:

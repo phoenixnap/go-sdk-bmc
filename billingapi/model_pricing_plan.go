@@ -36,9 +36,8 @@ type PricingPlan struct {
 	// Product code of the product this product is correlated with
 	CorrelatedProductCode *string `json:"correlatedProductCode,omitempty"`
 	// Package size per month.
-	PackageQuantity *float32 `json:"packageQuantity,omitempty"`
-	// Package size unit.
-	PackageUnit          *string `json:"packageUnit,omitempty"`
+	PackageQuantity      *float32         `json:"packageQuantity,omitempty"`
+	PackageUnit          *PackageUnitEnum `json:"packageUnit,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -315,9 +314,9 @@ func (o *PricingPlan) SetPackageQuantity(v float32) {
 }
 
 // GetPackageUnit returns the PackageUnit field value if set, zero value otherwise.
-func (o *PricingPlan) GetPackageUnit() string {
+func (o *PricingPlan) GetPackageUnit() PackageUnitEnum {
 	if o == nil || IsNil(o.PackageUnit) {
-		var ret string
+		var ret PackageUnitEnum
 		return ret
 	}
 	return *o.PackageUnit
@@ -325,7 +324,7 @@ func (o *PricingPlan) GetPackageUnit() string {
 
 // GetPackageUnitOk returns a tuple with the PackageUnit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PricingPlan) GetPackageUnitOk() (*string, bool) {
+func (o *PricingPlan) GetPackageUnitOk() (*PackageUnitEnum, bool) {
 	if o == nil || IsNil(o.PackageUnit) {
 		return nil, false
 	}
@@ -341,8 +340,8 @@ func (o *PricingPlan) HasPackageUnit() bool {
 	return false
 }
 
-// SetPackageUnit gets a reference to the given string and assigns it to the PackageUnit field.
-func (o *PricingPlan) SetPackageUnit(v string) {
+// SetPackageUnit gets a reference to the given PackageUnitEnum and assigns it to the PackageUnit field.
+func (o *PricingPlan) SetPackageUnit(v PackageUnitEnum) {
 	o.PackageUnit = &v
 }
 

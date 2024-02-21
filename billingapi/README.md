@@ -112,6 +112,7 @@ Class | Method | HTTP request | Description
  - [LocationEnum](docs/LocationEnum.md)
  - [OperatingSystemDetails](docs/OperatingSystemDetails.md)
  - [OperatingSystemRecord](docs/OperatingSystemRecord.md)
+ - [PackageUnitEnum](docs/PackageUnitEnum.md)
  - [PriceUnitEnum](docs/PriceUnitEnum.md)
  - [PricingPlan](docs/PricingPlan.md)
  - [Product](docs/Product.md)
