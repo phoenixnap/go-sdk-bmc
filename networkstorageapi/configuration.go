@@ -91,8 +91,8 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader: make(map[string]string),
-		UserAgent:     "PNAP-go-sdk-bmc/" + networkstorageapi + "/" + SdkVersion,
-		XPoweredBy:    "PNAP-go-sdk-bmc/" + networkstorageapi + "/" + SdkVersion,
+		UserAgent:     "PNAP-go-sdk-bmc/networkstorageapi/" + SdkVersion,
+		XPoweredBy:    "PNAP-go-sdk-bmc/networkstorageapi/" + SdkVersion,
 		Debug:         false,
 		Servers: ServerConfigurations{
 			{

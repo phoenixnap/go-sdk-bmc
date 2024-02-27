@@ -91,8 +91,8 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader: make(map[string]string),
-		UserAgent:     "PNAP-go-sdk-bmc/" + paymentsapi + "/" + SdkVersion,
-		XPoweredBy:    "PNAP-go-sdk-bmc/" + paymentsapi + "/" + SdkVersion,
+		UserAgent:     "PNAP-go-sdk-bmc/paymentsapi/" + SdkVersion,
+		XPoweredBy:    "PNAP-go-sdk-bmc/paymentsapi/" + SdkVersion,
 		Debug:         false,
 		Servers: ServerConfigurations{
 			{
