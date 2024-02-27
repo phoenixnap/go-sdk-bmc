@@ -15,7 +15,7 @@ on:
 jobs:
   prerequisite:
     name: Prerequisite for Generation
-    if: github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feature' || startsWith(github.ref, 'refs/heads/chore' || startsWith(github.ref, 'refs/heads/bugfix' || startsWith(github.ref, 'refs/heads/story')
+    if: github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feature') || startsWith(github.ref, 'refs/heads/chore') || startsWith(github.ref, 'refs/heads/bugfix') || startsWith(github.ref, 'refs/heads/story')
     runs-on: ubuntu-latest
     steps:
       - name: Prerequisite
