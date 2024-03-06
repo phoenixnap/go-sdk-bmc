@@ -2509,10 +2509,38 @@ components:
       - isBillingTag
       - name
       type: object
+    EsxiDatastoreConfiguration:
+      description: Esxi data storage configuration.
+      example:
+        datastoreName: datastore1
+      properties:
+        datastoreName:
+          description: Datastore name
+          example: datastore1
+          maxLength: 42
+          minLength: 1
+          pattern: "^[a-zA-Z0-9]+$"
+          type: string
+          writeOnly: true
+      required:
+      - datastoreName
+      type: object
+    EsxiOsConfiguration:
+      description: Esxi OS configuration.
+      example:
+        datastoreConfiguration:
+          datastoreName: datastore1
+      properties:
+        datastoreConfiguration:
+          $ref: '#/components/schemas/EsxiDatastoreConfiguration'
+      type: object
     OsConfiguration:
       description: OS specific configuration properties.
       example:
         managementUiUrl: https://172.217.22.14
+        esxi:
+          datastoreConfiguration:
+            datastoreName: datastore1
         cloudInit:
           userData: userData
         netrisController:
@@ -2578,6 +2606,8 @@ components:
             \ Only supported for ubuntu/focal and ubuntu/jammy."
           example: true
           type: boolean
+        esxi:
+          $ref: '#/components/schemas/EsxiOsConfiguration'
         cloudInit:
           $ref: '#/components/schemas/OsConfiguration_cloudInit'
       type: object
@@ -2883,6 +2913,9 @@ components:
         os: ubuntu/bionic
         osConfiguration:
           managementUiUrl: https://172.217.22.14
+          esxi:
+            datastoreConfiguration:
+              datastoreName: datastore1
           cloudInit:
             userData: userData
           netrisController:
@@ -3176,6 +3209,9 @@ components:
         os: ubuntu/bionic
         osConfiguration:
           managementUiUrl: https://172.217.22.14
+          esxi:
+            datastoreConfiguration:
+              datastoreName: datastore1
           cloudInit:
             userData: userData
           netrisController:
@@ -3442,6 +3478,9 @@ components:
         os: ubuntu/bionic
         osConfiguration:
           managementUiUrl: https://172.217.22.14
+          esxi:
+            datastoreConfiguration:
+              datastoreName: datastore1
           cloudInit:
             userData: userData
           netrisController:

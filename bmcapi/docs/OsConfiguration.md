@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **ManagementUiUrl** | Pointer to **string** | (Read-only) The URL of the management UI which will only be returned in response to provisioning a server. | [optional] [readonly] 
 **ManagementAccessAllowedIps** | Pointer to **[]string** | List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server. | [optional] 
 **InstallOsToRam** | Pointer to **bool** | If true, OS will be installed to and booted from the server&#39;s RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Follow the &lt;a href&#x3D;&#39;https://phoenixnap.com/kb/bmc-custom-os&#39; target&#x3D;&#39;_blank&#39;&gt;instructions&lt;/a&gt; on how to install custom OS on BMC. Only supported for ubuntu/focal and ubuntu/jammy. | [optional] [default to false]
+**Esxi** | Pointer to [**EsxiOsConfiguration**](EsxiOsConfiguration.md) |  | [optional] 
 **CloudInit** | Pointer to [**OsConfigurationCloudInit**](OsConfigurationCloudInit.md) |  | [optional] 
 
 ## Methods
@@ -206,6 +207,31 @@ SetInstallOsToRam sets InstallOsToRam field to given value.
 `func (o *OsConfiguration) HasInstallOsToRam() bool`
 
 HasInstallOsToRam returns a boolean if a field has been set.
+
+### GetEsxi
+
+`func (o *OsConfiguration) GetEsxi() EsxiOsConfiguration`
+
+GetEsxi returns the Esxi field if non-nil, zero value otherwise.
+
+### GetEsxiOk
+
+`func (o *OsConfiguration) GetEsxiOk() (*EsxiOsConfiguration, bool)`
+
+GetEsxiOk returns a tuple with the Esxi field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEsxi
+
+`func (o *OsConfiguration) SetEsxi(v EsxiOsConfiguration)`
+
+SetEsxi sets Esxi field to given value.
+
+### HasEsxi
+
+`func (o *OsConfiguration) HasEsxi() bool`
+
+HasEsxi returns a boolean if a field has been set.
 
 ### GetCloudInit
 

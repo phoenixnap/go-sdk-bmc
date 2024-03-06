@@ -1381,6 +1381,26 @@ components:
           enum:
             - USER
             - SYSTEM
+    EsxiDatastoreConfiguration:
+      type: object
+      description: Esxi data storage configuration.
+      required:
+        - datastoreName
+      properties:
+        datastoreName:
+          description: Datastore name
+          type: string
+          example: datastore1
+          maxLength: 42
+          minLength: 1
+          pattern: ^[a-zA-Z0-9]+$
+          writeOnly: true
+    EsxiOsConfiguration:
+      type: object
+      description: Esxi OS configuration.
+      properties:
+        datastoreConfiguration:
+          $ref: '#/components/schemas/EsxiDatastoreConfiguration'
     OsConfiguration:
       type: object
       description: OS specific configuration properties.
@@ -1472,6 +1492,8 @@ components:
           type: boolean
           default: false
           example: true
+        esxi:
+          $ref: '#/components/schemas/EsxiOsConfiguration'
         cloudInit:
           type: object
           description: Cloud-init configuration details.

@@ -31,6 +31,7 @@ type OsConfiguration struct {
 	ManagementAccessAllowedIps []string `json:"managementAccessAllowedIps,omitempty"`
 	// If true, OS will be installed to and booted from the server's RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Follow the <a href='https://phoenixnap.com/kb/bmc-custom-os' target='_blank'>instructions</a> on how to install custom OS on BMC. Only supported for ubuntu/focal and ubuntu/jammy.
 	InstallOsToRam       *bool                     `json:"installOsToRam,omitempty"`
+	Esxi                 *EsxiOsConfiguration      `json:"esxi,omitempty"`
 	CloudInit            *OsConfigurationCloudInit `json:"cloudInit,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -282,6 +283,38 @@ func (o *OsConfiguration) SetInstallOsToRam(v bool) {
 	o.InstallOsToRam = &v
 }
 
+// GetEsxi returns the Esxi field value if set, zero value otherwise.
+func (o *OsConfiguration) GetEsxi() EsxiOsConfiguration {
+	if o == nil || IsNil(o.Esxi) {
+		var ret EsxiOsConfiguration
+		return ret
+	}
+	return *o.Esxi
+}
+
+// GetEsxiOk returns a tuple with the Esxi field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OsConfiguration) GetEsxiOk() (*EsxiOsConfiguration, bool) {
+	if o == nil || IsNil(o.Esxi) {
+		return nil, false
+	}
+	return o.Esxi, true
+}
+
+// HasEsxi returns a boolean if a field has been set.
+func (o *OsConfiguration) HasEsxi() bool {
+	if o != nil && !IsNil(o.Esxi) {
+		return true
+	}
+
+	return false
+}
+
+// SetEsxi gets a reference to the given EsxiOsConfiguration and assigns it to the Esxi field.
+func (o *OsConfiguration) SetEsxi(v EsxiOsConfiguration) {
+	o.Esxi = &v
+}
+
 // GetCloudInit returns the CloudInit field value if set, zero value otherwise.
 func (o *OsConfiguration) GetCloudInit() OsConfigurationCloudInit {
 	if o == nil || IsNil(o.CloudInit) {
@@ -345,6 +378,9 @@ func (o OsConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.InstallOsToRam) {
 		toSerialize["installOsToRam"] = o.InstallOsToRam
 	}
+	if !IsNil(o.Esxi) {
+		toSerialize["esxi"] = o.Esxi
+	}
 	if !IsNil(o.CloudInit) {
 		toSerialize["cloudInit"] = o.CloudInit
 	}
@@ -377,6 +413,7 @@ func (o *OsConfiguration) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "managementUiUrl")
 		delete(additionalProperties, "managementAccessAllowedIps")
 		delete(additionalProperties, "installOsToRam")
+		delete(additionalProperties, "esxi")
 		delete(additionalProperties, "cloudInit")
 		o.AdditionalProperties = additionalProperties
 	}
