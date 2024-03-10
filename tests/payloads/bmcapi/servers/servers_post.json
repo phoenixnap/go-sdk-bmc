@@ -46,7 +46,12 @@
                     "installOsToRam": false,
                     "cloudInit": {
                       "userData": "data"
-                    }
+                    },
+                    "esxi": {
+                      "datastoreConfiguration": {
+                          "datastoreName": "datastore1"
+                      }
+                  }
                 },
                 "networkConfiguration": {
                   "gatewayAddress": "gatewayAddress",
@@ -164,7 +169,12 @@
                 "installOsToRam": false,
                 "cloudInit": {
                   "userData": "data"
-                }
+                },
+                "esxi": {
+                  "datastoreConfiguration": {
+                      "datastoreName": "datastore1"
+                  }
+              }
             },
             "networkConfiguration": {
               "gatewayAddress": "gatewayAddress",
