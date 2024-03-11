@@ -1,4 +1,4 @@
-module github.com/phoenixnap/go-sdk-bmc/billingapi/v2
+module github.com/phoenixnap/go-sdk-bmc/billingapi/v3
 
 go 1.18
 
