@@ -200,7 +200,7 @@ func (suite *BillingApiTestSuite) TestGetReservations() {
 	// Fetch a map of query parameters
 	qpMap := TestUtilsImpl{}.generateQueryParams(request)
 
-	productCategory := billingapi.ProductCategoryEnum(fmt.Sprintf("%v", qpMap["productCategory"]))
+	productCategory := billingapi.ReservationProductCategoryEnum(fmt.Sprintf("%v", qpMap["productCategory"]))
 
 	// Operation Execution
 	result, _, _ := suite.Client.ReservationsAPI.ReservationsGet(context.Background()).ProductCategory(productCategory).Execute()
