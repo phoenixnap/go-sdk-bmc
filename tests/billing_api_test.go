@@ -93,7 +93,7 @@ func (suite *BillingApiTestSuite) TestGetProductAvailability() {
 	minQuantity := float32(minQuantity64)
 
 	// Operation Execution
-	result, _, _ := suite.Client.ProductsAPI.ProductAvailabilityGet(context.Background()).ProductCategory(productCategory).ProductCode(productCode).ShowOnlyMinQuantityAvailable(showOnlyMinQuantityAvailable).Location(location).Solution(solution).MinQuantity(minQuantity).Execute()
+	result, _, _ := suite.Client.ProductAvailabilityApi.ProductAvailabilityGet(context.Background()).ProductCategory(productCategory).ProductCode(productCode).ShowOnlyMinQuantityAvailable(showOnlyMinQuantityAvailable).Location(location).Solution(solution).MinQuantity(minQuantity).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -122,7 +122,7 @@ func (suite *BillingApiTestSuite) TestGetProducts() {
 	location := fmt.Sprintf("%v", qpMap["location"])
 
 	// Operation Execution
-	result, _, _ := suite.Client.ProductsAPI.ProductsGet(context.Background()).ProductCode(productCode).ProductCategory(productCategory).SkuCode(skuCode).Location(location).Execute()
+	result, _, _ := suite.Client.ProductAvailabilityApi.ProductsGet(context.Background()).ProductCode(productCode).ProductCategory(productCategory).SkuCode(skuCode).Location(location).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)

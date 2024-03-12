@@ -74,6 +74,11 @@
                 "installOsToRam": false,
                 "cloudInit": {
                   "userData": "data"
+                },
+                "esxi": {
+                  "datastoreConfiguration": {
+                    "datastoreName": "name"
+                  }
                 }
             },
             "networkConfiguration": {
