@@ -45,6 +45,7 @@ runs:
           --additional-properties packageName=${{ inputs.package-name }} \
           --additional-properties majorVersion=$suffix \
           --additional-properties disallowAdditionalPropertiesIfNotPresent=false \
+          --additional-properties enumClassPrefix=true \
           --global-property modelTests=false,apiTests=false
     - uses: ./.github/workflows/composite/setup-go
     - name: Fix goimports

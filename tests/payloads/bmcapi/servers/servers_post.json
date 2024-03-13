@@ -46,6 +46,11 @@
                     "installOsToRam": false,
                     "cloudInit": {
                       "userData": "data"
+                    },
+                    "esxi": {
+                      "datastoreConfiguration": {
+                        "datastoreName": "name"
+                      }
                     }
                 },
                 "networkConfiguration": {
@@ -164,6 +169,11 @@
                 "installOsToRam": false,
                 "cloudInit": {
                   "userData": "data"
+                },
+                "esxi": {
+                  "datastoreConfiguration": {
+                    "datastoreName": "name"
+                  }
                 }
             },
             "networkConfiguration": {

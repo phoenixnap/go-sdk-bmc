@@ -21,8 +21,8 @@ type ReservationInvoicingModelEnum string
 
 // List of ReservationInvoicingModelEnum
 const (
-	ON_CREATION    ReservationInvoicingModelEnum = "ON_CREATION"
-	CALENDAR_MONTH ReservationInvoicingModelEnum = "CALENDAR_MONTH"
+	RESERVATIONINVOICINGMODELENUM_ON_CREATION    ReservationInvoicingModelEnum = "ON_CREATION"
+	RESERVATIONINVOICINGMODELENUM_CALENDAR_MONTH ReservationInvoicingModelEnum = "CALENDAR_MONTH"
 )
 
 // All allowed values of ReservationInvoicingModelEnum enum

@@ -21,8 +21,8 @@ type ReservationProductCategoryEnum string
 
 // List of ReservationProductCategoryEnum
 const (
-	SERVER    ReservationProductCategoryEnum = "server"
-	BANDWIDTH ReservationProductCategoryEnum = "bandwidth"
+	RESERVATIONPRODUCTCATEGORYENUM_SERVER    ReservationProductCategoryEnum = "server"
+	RESERVATIONPRODUCTCATEGORYENUM_BANDWIDTH ReservationProductCategoryEnum = "bandwidth"
 )
 
 // All allowed values of ReservationProductCategoryEnum enum

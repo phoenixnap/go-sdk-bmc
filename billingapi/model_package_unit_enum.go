@@ -21,8 +21,8 @@ type PackageUnitEnum string
 
 // List of PackageUnitEnum
 const (
-	GB PackageUnitEnum = "GB"
-	TB PackageUnitEnum = "TB"
+	PACKAGEUNITENUM_GB PackageUnitEnum = "GB"
+	PACKAGEUNITENUM_TB PackageUnitEnum = "TB"
 )
 
 // All allowed values of PackageUnitEnum enum
