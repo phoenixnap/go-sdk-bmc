@@ -21,13 +21,13 @@ type LocationEnum string
 
 // List of LocationEnum
 const (
-	PHX LocationEnum = "PHX"
-	ASH LocationEnum = "ASH"
-	NLD LocationEnum = "NLD"
-	SGP LocationEnum = "SGP"
-	CHI LocationEnum = "CHI"
-	SEA LocationEnum = "SEA"
-	AUS LocationEnum = "AUS"
+	LOCATIONENUM_PHX LocationEnum = "PHX"
+	LOCATIONENUM_ASH LocationEnum = "ASH"
+	LOCATIONENUM_NLD LocationEnum = "NLD"
+	LOCATIONENUM_SGP LocationEnum = "SGP"
+	LOCATIONENUM_CHI LocationEnum = "CHI"
+	LOCATIONENUM_SEA LocationEnum = "SEA"
+	LOCATIONENUM_AUS LocationEnum = "AUS"
 )
 
 // All allowed values of LocationEnum enum

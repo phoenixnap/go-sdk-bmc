@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | The reservation identifier. | 
 **ProductCode** | **string** | The code identifying the product. This code has significant across all locations. | 
-**ProductCategory** | **string** | The product category. | 
+**ProductCategory** | [**ReservationProductCategoryEnum**](ReservationProductCategoryEnum.md) |  | 
 **Location** | [**LocationEnum**](LocationEnum.md) |  | 
 **ReservationModel** | [**ReservationModelEnum**](ReservationModelEnum.md) |  | 
 **InitialInvoiceModel** | Pointer to [**ReservationInvoicingModelEnum**](ReservationInvoicingModelEnum.md) |  | [optional] 
@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 
 ### NewReservation
 
-`func NewReservation(id string, productCode string, productCategory string, location LocationEnum, reservationModel ReservationModelEnum, startDateTime time.Time, autoRenew bool, sku string, price float32, priceUnit PriceUnitEnum, ) *Reservation`
+`func NewReservation(id string, productCode string, productCategory ReservationProductCategoryEnum, location LocationEnum, reservationModel ReservationModelEnum, startDateTime time.Time, autoRenew bool, sku string, price float32, priceUnit PriceUnitEnum, ) *Reservation`
 
 NewReservation instantiates a new Reservation object
 This constructor will assign default values to properties that have it defined,
@@ -82,20 +82,20 @@ SetProductCode sets ProductCode field to given value.
 
 ### GetProductCategory
 
-`func (o *Reservation) GetProductCategory() string`
+`func (o *Reservation) GetProductCategory() ReservationProductCategoryEnum`
 
 GetProductCategory returns the ProductCategory field if non-nil, zero value otherwise.
 
 ### GetProductCategoryOk
 
-`func (o *Reservation) GetProductCategoryOk() (*string, bool)`
+`func (o *Reservation) GetProductCategoryOk() (*ReservationProductCategoryEnum, bool)`
 
 GetProductCategoryOk returns a tuple with the ProductCategory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProductCategory
 
-`func (o *Reservation) SetProductCategory(v string)`
+`func (o *Reservation) SetProductCategory(v ReservationProductCategoryEnum)`
 
 SetProductCategory sets ProductCategory field to given value.
 

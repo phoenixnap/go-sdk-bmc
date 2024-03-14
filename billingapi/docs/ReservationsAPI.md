@@ -6,10 +6,10 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**ReservationsGet**](ReservationsAPI.md#ReservationsGet) | **Get** /reservations | List all Reservations.
 [**ReservationsPost**](ReservationsAPI.md#ReservationsPost) | **Post** /reservations | Create a reservation.
-[**ReservationsReservationIdActionsAutoRenewDisablePost**](ReservationsAPI.md#ReservationsReservationIdActionsAutoRenewDisablePost) | **Post** /reservations/{reservationId}/actions/auto-renew/disable | Disable auto-renewal for reservation by id.
-[**ReservationsReservationIdActionsAutoRenewEnablePost**](ReservationsAPI.md#ReservationsReservationIdActionsAutoRenewEnablePost) | **Post** /reservations/{reservationId}/actions/auto-renew/enable | Enable auto-renewal for unexpired reservation by reservation id.
-[**ReservationsReservationIdActionsConvertPost**](ReservationsAPI.md#ReservationsReservationIdActionsConvertPost) | **Post** /reservations/{reservationId}/actions/convert | Convert reservation pricing model by reservation ID.
-[**ReservationsReservationIdGet**](ReservationsAPI.md#ReservationsReservationIdGet) | **Get** /reservations/{reservationId} | Get a reservation.
+[**ReservationsReservationIdActionsAutoRenewDisablePost**](ReservationsAPI.md#ReservationsReservationIdActionsAutoRenewDisablePost) | **Post** /reservations/{id}/actions/auto-renew/disable | Disable auto-renewal for reservation by id.
+[**ReservationsReservationIdActionsAutoRenewEnablePost**](ReservationsAPI.md#ReservationsReservationIdActionsAutoRenewEnablePost) | **Post** /reservations/{id}/actions/auto-renew/enable | Enable auto-renewal for unexpired reservation by reservation id.
+[**ReservationsReservationIdActionsConvertPost**](ReservationsAPI.md#ReservationsReservationIdActionsConvertPost) | **Post** /reservations/{id}/actions/convert | Convert reservation pricing model by reservation ID.
+[**ReservationsReservationIdGet**](ReservationsAPI.md#ReservationsReservationIdGet) | **Get** /reservations/{id} | Get a reservation.
 
 
 
@@ -34,7 +34,7 @@ import (
 )
 
 func main() {
-	productCategory := openapiclient.ProductCategoryEnum("SERVER") // ProductCategoryEnum | The product category (optional)
+	productCategory := openapiclient.ReservationProductCategoryEnum("server") // ReservationProductCategoryEnum | The product category (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiReservationsGetRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **productCategory** | [**ProductCategoryEnum**](ProductCategoryEnum.md) | The product category | 
+ **productCategory** | [**ReservationProductCategoryEnum**](ReservationProductCategoryEnum.md) | The product category | 
 
 ### Return type
 
@@ -147,7 +147,7 @@ Name | Type | Description  | Notes
 
 ## ReservationsReservationIdActionsAutoRenewDisablePost
 
-> Reservation ReservationsReservationIdActionsAutoRenewDisablePost(ctx, reservationId).ReservationAutoRenewDisableRequest(reservationAutoRenewDisableRequest).Execute()
+> Reservation ReservationsReservationIdActionsAutoRenewDisablePost(ctx, id).ReservationAutoRenewDisableRequest(reservationAutoRenewDisableRequest).Execute()
 
 Disable auto-renewal for reservation by id.
 
@@ -166,12 +166,12 @@ import (
 )
 
 func main() {
-	reservationId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The reservation's ID.
+	id := "d90bbea9-5725-47ce-879e-d3905bafac2a" // string | Resource id.
 	reservationAutoRenewDisableRequest := *openapiclient.NewReservationAutoRenewDisableRequest() // ReservationAutoRenewDisableRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ReservationsAPI.ReservationsReservationIdActionsAutoRenewDisablePost(context.Background(), reservationId).ReservationAutoRenewDisableRequest(reservationAutoRenewDisableRequest).Execute()
+	resp, r, err := apiClient.ReservationsAPI.ReservationsReservationIdActionsAutoRenewDisablePost(context.Background(), id).ReservationAutoRenewDisableRequest(reservationAutoRenewDisableRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ReservationsAPI.ReservationsReservationIdActionsAutoRenewDisablePost``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -187,7 +187,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**reservationId** | **string** | The reservation&#39;s ID. | 
+**id** | **string** | Resource id. | 
 
 ### Other Parameters
 
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 
 ## ReservationsReservationIdActionsAutoRenewEnablePost
 
-> Reservation ReservationsReservationIdActionsAutoRenewEnablePost(ctx, reservationId).Execute()
+> Reservation ReservationsReservationIdActionsAutoRenewEnablePost(ctx, id).Execute()
 
 Enable auto-renewal for unexpired reservation by reservation id.
 
@@ -238,11 +238,11 @@ import (
 )
 
 func main() {
-	reservationId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The reservation's ID.
+	id := "d90bbea9-5725-47ce-879e-d3905bafac2a" // string | Resource id.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ReservationsAPI.ReservationsReservationIdActionsAutoRenewEnablePost(context.Background(), reservationId).Execute()
+	resp, r, err := apiClient.ReservationsAPI.ReservationsReservationIdActionsAutoRenewEnablePost(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ReservationsAPI.ReservationsReservationIdActionsAutoRenewEnablePost``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -258,7 +258,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**reservationId** | **string** | The reservation&#39;s ID. | 
+**id** | **string** | Resource id. | 
 
 ### Other Parameters
 
@@ -289,7 +289,7 @@ Name | Type | Description  | Notes
 
 ## ReservationsReservationIdActionsConvertPost
 
-> Reservation ReservationsReservationIdActionsConvertPost(ctx, reservationId).ReservationRequest(reservationRequest).Execute()
+> Reservation ReservationsReservationIdActionsConvertPost(ctx, id).ReservationRequest(reservationRequest).Execute()
 
 Convert reservation pricing model by reservation ID.
 
@@ -308,12 +308,12 @@ import (
 )
 
 func main() {
-	reservationId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The reservation's ID.
+	id := "d90bbea9-5725-47ce-879e-d3905bafac2a" // string | Resource id.
 	reservationRequest := *openapiclient.NewReservationRequest("XXX-XXX-XXX") // ReservationRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ReservationsAPI.ReservationsReservationIdActionsConvertPost(context.Background(), reservationId).ReservationRequest(reservationRequest).Execute()
+	resp, r, err := apiClient.ReservationsAPI.ReservationsReservationIdActionsConvertPost(context.Background(), id).ReservationRequest(reservationRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ReservationsAPI.ReservationsReservationIdActionsConvertPost``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -329,7 +329,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**reservationId** | **string** | The reservation&#39;s ID. | 
+**id** | **string** | Resource id. | 
 
 ### Other Parameters
 
@@ -361,7 +361,7 @@ Name | Type | Description  | Notes
 
 ## ReservationsReservationIdGet
 
-> Reservation ReservationsReservationIdGet(ctx, reservationId).Execute()
+> Reservation ReservationsReservationIdGet(ctx, id).Execute()
 
 Get a reservation.
 
@@ -380,11 +380,11 @@ import (
 )
 
 func main() {
-	reservationId := "e6afba51-7de8-4080-83ab-0f915570659c" // string | The reservation's ID.
+	id := "d90bbea9-5725-47ce-879e-d3905bafac2a" // string | Resource id.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ReservationsAPI.ReservationsReservationIdGet(context.Background(), reservationId).Execute()
+	resp, r, err := apiClient.ReservationsAPI.ReservationsReservationIdGet(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ReservationsAPI.ReservationsReservationIdGet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -400,7 +400,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**reservationId** | **string** | The reservation&#39;s ID. | 
+**id** | **string** | Resource id. | 
 
 ### Other Parameters
 

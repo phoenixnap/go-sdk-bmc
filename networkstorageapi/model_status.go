@@ -21,10 +21,10 @@ type Status string
 
 // List of Status
 const (
-	READY    Status = "READY"
-	BUSY     Status = "BUSY"
-	DELETING Status = "DELETING"
-	ERROR    Status = "ERROR"
+	STATUS_READY    Status = "READY"
+	STATUS_BUSY     Status = "BUSY"
+	STATUS_DELETING Status = "DELETING"
+	STATUS_ERROR    Status = "ERROR"
 )
 
 // All allowed values of Status enum

@@ -93,7 +93,7 @@ func (suite *BillingApiTestSuite) TestGetProductAvailability() {
 	minQuantity := float32(minQuantity64)
 
 	// Operation Execution
-	result, _, _ := suite.Client.ProductsAPI.ProductAvailabilityGet(context.Background()).ProductCategory(productCategory).ProductCode(productCode).ShowOnlyMinQuantityAvailable(showOnlyMinQuantityAvailable).Location(location).Solution(solution).MinQuantity(minQuantity).Execute()
+	result, _, _ := suite.Client.ProductAvailabilityAPI.ProductAvailabilityGet(context.Background()).ProductCategory(productCategory).ProductCode(productCode).ShowOnlyMinQuantityAvailable(showOnlyMinQuantityAvailable).Location(location).Solution(solution).MinQuantity(minQuantity).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -200,7 +200,7 @@ func (suite *BillingApiTestSuite) TestGetReservations() {
 	// Fetch a map of query parameters
 	qpMap := TestUtilsImpl{}.generateQueryParams(request)
 
-	productCategory := billingapi.ProductCategoryEnum(fmt.Sprintf("%v", qpMap["productCategory"]))
+	productCategory := billingapi.ReservationProductCategoryEnum(fmt.Sprintf("%v", qpMap["productCategory"]))
 
 	// Operation Execution
 	result, _, _ := suite.Client.ReservationsAPI.ReservationsGet(context.Background()).ProductCategory(productCategory).Execute()

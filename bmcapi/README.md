@@ -125,6 +125,8 @@ Class | Method | HTTP request | Description
  - [DeleteResult](docs/DeleteResult.md)
  - [DeleteSshKeyResult](docs/DeleteSshKeyResult.md)
  - [Error](docs/Error.md)
+ - [EsxiDatastoreConfiguration](docs/EsxiDatastoreConfiguration.md)
+ - [EsxiOsConfiguration](docs/EsxiOsConfiguration.md)
  - [IpBlocksConfiguration](docs/IpBlocksConfiguration.md)
  - [NetworkConfiguration](docs/NetworkConfiguration.md)
  - [OsConfiguration](docs/OsConfiguration.md)

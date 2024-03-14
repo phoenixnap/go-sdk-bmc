@@ -1,6 +1,7 @@
 README.md
 api/openapi.yaml
 api_billing_configurations.go
+api_product_availability.go
 api_products.go
 api_rated_usage.go
 api_reservations.go
@@ -17,10 +18,12 @@ docs/LocationAvailabilityDetail.md
 docs/LocationEnum.md
 docs/OperatingSystemDetails.md
 docs/OperatingSystemRecord.md
+docs/PackageUnitEnum.md
 docs/PriceUnitEnum.md
 docs/PricingPlan.md
 docs/Product.md
 docs/ProductAvailability.md
+docs/ProductAvailabilityAPI.md
 docs/ProductCategoryEnum.md
 docs/ProductsAPI.md
 docs/ProductsGet200ResponseInner.md
@@ -33,6 +36,7 @@ docs/Reservation.md
 docs/ReservationAutoRenewDisableRequest.md
 docs/ReservationInvoicingModelEnum.md
 docs/ReservationModelEnum.md
+docs/ReservationProductCategoryEnum.md
 docs/ReservationRequest.md
 docs/ReservationsAPI.md
 docs/ServerDetails.md
@@ -54,6 +58,7 @@ model_location_availability_detail.go
 model_location_enum.go
 model_operating_system_details.go
 model_operating_system_record.go
+model_package_unit_enum.go
 model_price_unit_enum.go
 model_pricing_plan.go
 model_product.go
@@ -68,6 +73,7 @@ model_reservation.go
 model_reservation_auto_renew_disable_request.go
 model_reservation_invoicing_model_enum.go
 model_reservation_model_enum.go
+model_reservation_product_category_enum.go
 model_reservation_request.go
 model_server_details.go
 model_server_product.go

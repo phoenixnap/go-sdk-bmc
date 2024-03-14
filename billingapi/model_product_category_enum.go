@@ -21,11 +21,11 @@ type ProductCategoryEnum string
 
 // List of ProductCategoryEnum
 const (
-	SERVER           ProductCategoryEnum = "SERVER"
-	BANDWIDTH        ProductCategoryEnum = "BANDWIDTH"
-	OPERATING_SYSTEM ProductCategoryEnum = "OPERATING_SYSTEM"
-	PUBLIC_IP        ProductCategoryEnum = "PUBLIC_IP"
-	STORAGE          ProductCategoryEnum = "STORAGE"
+	PRODUCTCATEGORYENUM_SERVER           ProductCategoryEnum = "SERVER"
+	PRODUCTCATEGORYENUM_BANDWIDTH        ProductCategoryEnum = "BANDWIDTH"
+	PRODUCTCATEGORYENUM_OPERATING_SYSTEM ProductCategoryEnum = "OPERATING_SYSTEM"
+	PRODUCTCATEGORYENUM_PUBLIC_IP        ProductCategoryEnum = "PUBLIC_IP"
+	PRODUCTCATEGORYENUM_STORAGE          ProductCategoryEnum = "STORAGE"
 )
 
 // All allowed values of ProductCategoryEnum enum

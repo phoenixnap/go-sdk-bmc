@@ -121,6 +121,9 @@ components:
               items:
                 $ref: '#/components/schemas/Transaction'
       example:
+        limit: 2
+        offset: 10
+        total: 342
         results:
           - id: 60ffafcdffb8b074c7968faf
             status: FAILED
@@ -148,9 +151,6 @@ components:
             cardPaymentMethodDetails:
               cardType: VISA
               lastFourDigits: '5666'
-        limit: 2
-        offset: 10
-        total: 342
     Transaction:
       type: object
       description: Transaction response model.

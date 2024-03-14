@@ -138,8 +138,8 @@ func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader:    make(map[string]string),
 		{{! Custom: Setting user agents and x powered by. }}
-		UserAgent:        "PNAP-go-sdk-bmc/" + SdkVersion,
-        XPoweredBy:       "PNAP-go-sdk-bmc/" + SdkVersion,
+		UserAgent:        "PNAP-go-sdk-bmc/{{packageName}}/" + SdkVersion,
+        XPoweredBy:       "PNAP-go-sdk-bmc/{{packageName}}/" + SdkVersion,
 		Debug:            false,
 		{{#servers}}
 		{{#-first}}

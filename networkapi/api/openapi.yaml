@@ -1255,6 +1255,63 @@ components:
             $ref: '#/components/schemas/Error'
       description: The resource is in an incompatible state.
   schemas:
+    PrivateNetworkServer:
+      description: Server details linked to the Private Network.
+      example:
+        id: 603f3e995c18d515cda9c4f8
+        ips:
+        - 10.0.0.2
+        - 10.0.0.3
+      properties:
+        id:
+          description: The server identifier.
+          example: 603f3e995c18d515cda9c4f8
+          type: string
+        ips:
+          description: List of private IPs associated to the server.
+          example:
+          - 10.0.0.2
+          - 10.0.0.3
+          items:
+            example: 10.0.0.2
+            type: string
+          type: array
+      required:
+      - id
+      - ips
+      type: object
+    NetworkMembership:
+      description: Resource details linked to the Network.
+      example:
+        resourceId: 603f3e995c18d515cda9c4f8
+        ips:
+        - 10.111.14.104
+        - 10.111.14.105
+        - 10.111.14.106
+        resourceType: server
+      properties:
+        resourceId:
+          description: The resource identifier.
+          example: 603f3e995c18d515cda9c4f8
+          type: string
+        resourceType:
+          description: The resource's type.
+          example: server
+          type: string
+        ips:
+          description: List of IPs associated to the resource.
+          example:
+          - 10.111.14.104
+          - 10.111.14.105
+          - 10.111.14.106
+          items:
+            type: string
+          type: array
+      required:
+      - ips
+      - resourceId
+      - resourceType
+      type: object
     PrivateNetwork:
       description: Private Network details.
       example:
@@ -1359,30 +1416,20 @@ components:
       - type
       - vlanId
       type: object
-    PrivateNetworkServer:
-      description: Server details linked to the Private Network.
-      example:
-        id: 603f3e995c18d515cda9c4f8
-        ips:
-        - 10.0.0.2
-        - 10.0.0.3
+    Error:
       properties:
-        id:
-          description: The server identifier.
-          example: 603f3e995c18d515cda9c4f8
+        message:
+          description: The description detailing the cause of the error code.
+          readOnly: true
           type: string
-        ips:
-          description: List of private IPs associated to the server.
-          example:
-          - 10.0.0.2
-          - 10.0.0.3
+        validationErrors:
+          description: "Validation errors, if any."
           items:
-            example: 10.0.0.2
             type: string
+          readOnly: true
           type: array
       required:
-      - id
-      - ips
+      - message
       type: object
     PrivateNetworkCreate:
       description: Details of Private Network to be created.
@@ -1462,6 +1509,18 @@ components:
       required:
       - locationDefault
       - name
+      type: object
+    PublicNetworkIpBlock:
+      description: The assigned IP block to the Public Network.
+      example:
+        id: 60473a6115e34466c9f8f083
+      properties:
+        id:
+          description: The IP Block identifier.
+          example: 60473a6115e34466c9f8f083
+          type: string
+      required:
+      - id
       type: object
     PublicNetwork:
       description: Public Network details.
@@ -1544,18 +1603,6 @@ components:
       - status
       - vlanId
       type: object
-    PublicNetworkIpBlock:
-      description: The assigned IP block to the Public Network.
-      example:
-        id: 60473a6115e34466c9f8f083
-      properties:
-        id:
-          description: The IP Block identifier.
-          example: 60473a6115e34466c9f8f083
-          type: string
-      required:
-      - id
-      type: object
     PublicNetworkCreate:
       description: Details of Public Network to be created.
       example:
@@ -1623,53 +1670,6 @@ components:
           example: Further details on the network.
           maxLength: 250
           type: string
-      type: object
-    NetworkMembership:
-      description: Resource details linked to the Network.
-      example:
-        resourceId: 603f3e995c18d515cda9c4f8
-        ips:
-        - 10.111.14.104
-        - 10.111.14.105
-        - 10.111.14.106
-        resourceType: server
-      properties:
-        resourceId:
-          description: The resource identifier.
-          example: 603f3e995c18d515cda9c4f8
-          type: string
-        resourceType:
-          description: The resource's type.
-          example: server
-          type: string
-        ips:
-          description: List of IPs associated to the resource.
-          example:
-          - 10.111.14.104
-          - 10.111.14.105
-          - 10.111.14.106
-          items:
-            type: string
-          type: array
-      required:
-      - ips
-      - resourceId
-      - resourceType
-      type: object
-    Error:
-      properties:
-        message:
-          description: The description detailing the cause of the error code.
-          readOnly: true
-          type: string
-        validationErrors:
-          description: "Validation errors, if any."
-          items:
-            type: string
-          readOnly: true
-          type: array
-      required:
-      - message
       type: object
   securitySchemes:
     OAuth2:

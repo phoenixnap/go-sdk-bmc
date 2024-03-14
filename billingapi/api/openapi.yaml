@@ -36,6 +36,8 @@ tags:
   name: Reservations
 - description: Account Billing Configuration operations
   name: Billing Configurations
+- description: Product availability operations
+  name: Product Availability
 paths:
   /rated-usage:
     get:
@@ -239,7 +241,7 @@ paths:
         name: productCategory
         required: false
         schema:
-          $ref: '#/components/schemas/ProductCategoryEnum'
+          $ref: '#/components/schemas/ReservationProductCategoryEnum'
         style: form
       responses:
         "200":
@@ -326,17 +328,17 @@ paths:
       summary: Create a reservation.
       tags:
       - Reservations
-  /reservations/{reservationId}:
+  /reservations/{id}:
     get:
       description: Retrieves the reservations with the specified identifier. All date
         & times are in UTC.
       operationId: reservationsReservationIdGet
       parameters:
-      - description: The reservation's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+      - description: Resource id.
+        example: d90bbea9-5725-47ce-879e-d3905bafac2a
         explode: false
         in: path
-        name: reservationId
+        name: id
         required: true
         schema:
           type: string
@@ -395,17 +397,17 @@ paths:
       summary: Get a reservation.
       tags:
       - Reservations
-  /reservations/{reservationId}/actions/auto-renew/disable:
+  /reservations/{id}/actions/auto-renew/disable:
     description: Disable auto-renewal for reservation by the reservation id.
     post:
       description: Disable auto-renewal for reservation by reservation id.
       operationId: reservationsReservationIdActionsAutoRenewDisablePost
       parameters:
-      - description: The reservation's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+      - description: Resource id.
+        example: d90bbea9-5725-47ce-879e-d3905bafac2a
         explode: false
         in: path
-        name: reservationId
+        name: id
         required: true
         schema:
           type: string
@@ -462,17 +464,17 @@ paths:
       summary: Disable auto-renewal for reservation by id.
       tags:
       - Reservations
-  /reservations/{reservationId}/actions/auto-renew/enable:
+  /reservations/{id}/actions/auto-renew/enable:
     description: Enable auto-renewal for reservation by the reservation id.
     post:
       description: Enable auto-renewal for unexpired reservation by reservation id.
       operationId: reservationsReservationIdActionsAutoRenewEnablePost
       parameters:
-      - description: The reservation's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+      - description: Resource id.
+        example: d90bbea9-5725-47ce-879e-d3905bafac2a
         explode: false
         in: path
-        name: reservationId
+        name: id
         required: true
         schema:
           type: string
@@ -524,17 +526,17 @@ paths:
       summary: Enable auto-renewal for unexpired reservation by reservation id.
       tags:
       - Reservations
-  /reservations/{reservationId}/actions/convert:
+  /reservations/{id}/actions/convert:
     description: Convert reservation pricing model.
     post:
       description: Convert reservation pricing model by reservation id.
       operationId: reservationsReservationIdActionsConvertPost
       parameters:
-      - description: The reservation's ID.
-        example: e6afba51-7de8-4080-83ab-0f915570659c
+      - description: Resource id.
+        example: d90bbea9-5725-47ce-879e-d3905bafac2a
         explode: false
         in: path
-        name: reservationId
+        name: id
         required: true
         schema:
           type: string
@@ -730,28 +732,20 @@ paths:
         - bmc.read
       summary: List all Product availabilities.
       tags:
-      - Products
+      - Product Availability
 components:
+  parameters:
+    ResourceIdParam:
+      description: Resource id.
+      example: d90bbea9-5725-47ce-879e-d3905bafac2a
+      explode: false
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      style: simple
   responses:
-    BadRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request failed due to wrong data. Please check the provided
-        parameters and try again.
-    NotFound:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request failed since the resource could not been found.
-    Conflict:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request failed since the resource was not in the correct state.
     Unauthorized:
       content:
         application/json:
@@ -773,7 +767,70 @@ components:
             $ref: '#/components/schemas/Error'
       description: The server encountered an unexpected condition that prevented it
         from fulfilling the request.
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed due to wrong data. Please check the provided
+        parameters and try again.
+    NotFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed since the resource could not been found.
+    Conflict:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request failed since the resource was not in the correct state.
   schemas:
+    ProductCategoryEnum:
+      description: The product category.
+      enum:
+      - SERVER
+      - BANDWIDTH
+      - OPERATING_SYSTEM
+      - PUBLIC_IP
+      - STORAGE
+      type: string
+    LocationEnum:
+      description: The location code.
+      enum:
+      - PHX
+      - ASH
+      - NLD
+      - SGP
+      - CHI
+      - SEA
+      - AUS
+      type: string
+    DiscountDetails:
+      description: Represents the details of a discount applied to a product or charge.
+      properties:
+        code:
+          description: A unique code associated with the discount.
+          example: new-year-2022-monthly
+          type: string
+        type:
+          description: The type of discount applied.
+          enum:
+          - PRODUCT_CATEGORY_PERCENTAGE
+          - GLOBAL_PERCENTAGE
+          example: PRODUCT_CATEGORY_PERCENTAGE
+          type: string
+        value:
+          description: |
+            The value or amount of the discount. The interpretation of this value depends on the 'type' of discount.
+          example: 20.5
+          type: number
+      required:
+      - code
+      - type
+      - value
+      type: object
     RatedUsageRecord:
       description: Rated usage record.
       properties:
@@ -880,29 +937,6 @@ components:
       - unitPriceDescription
       - usageSessionId
       type: object
-    ApplicableDiscounts:
-      description: "Represents the applicable discount details for a product, including\
-        \ the discounted price and discount information."
-      properties:
-        discountedPrice:
-          description: The price of the product after applying a discount.
-          example: 107.5
-          type: number
-        discountDetails:
-          items:
-            $ref: '#/components/schemas/DiscountDetails'
-          type: array
-      type: object
-    ServerRecord:
-      allOf:
-      - $ref: '#/components/schemas/RatedUsageRecord'
-      - description: Server usage record.
-        properties:
-          metadata:
-            $ref: '#/components/schemas/ServerDetails'
-        required:
-        - metadata
-        type: object
     ServerDetails:
       description: Details of the server associated with this rated usage record.
       properties:
@@ -918,43 +952,13 @@ components:
       - hostname
       - id
       type: object
-    OperatingSystemRecord:
+    ServerRecord:
       allOf:
       - $ref: '#/components/schemas/RatedUsageRecord'
-      - description: Operating system usage record.
+      - description: Server usage record.
         properties:
           metadata:
-            $ref: '#/components/schemas/OperatingSystemDetails'
-        required:
-        - metadata
-        type: object
-    OperatingSystemDetails:
-      description: Details of the operating system associated with this rated usage
-        record.
-      properties:
-        cores:
-          description: Number of cores.
-          example: 2
-          format: int32
-          type: integer
-        correlationId:
-          description: "Correlation is used to associate Operating System License\
-            \ charges and the Server on which it was installed. In this scenario,\
-            \ the correlation ID will be equal to the rated usage record ID representing\
-            \ the charge for the Server."
-          example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
-          type: string
-      required:
-      - cores
-      - correlationId
-      type: object
-    BandwidthRecord:
-      allOf:
-      - $ref: '#/components/schemas/RatedUsageRecord'
-      - description: Bandwidth usage record.
-        properties:
-          metadata:
-            $ref: '#/components/schemas/BandwidthDetails'
+            $ref: '#/components/schemas/ServerDetails'
         required:
         - metadata
         type: object
@@ -983,13 +987,43 @@ components:
       - egressGb
       - ingressGb
       type: object
-    PublicSubnetRecord:
+    BandwidthRecord:
       allOf:
       - $ref: '#/components/schemas/RatedUsageRecord'
-      - description: Public IP record.
+      - description: Bandwidth usage record.
         properties:
           metadata:
-            $ref: '#/components/schemas/PublicSubnetDetails'
+            $ref: '#/components/schemas/BandwidthDetails'
+        required:
+        - metadata
+        type: object
+    OperatingSystemDetails:
+      description: Details of the operating system associated with this rated usage
+        record.
+      properties:
+        cores:
+          description: Number of cores.
+          example: 2
+          format: int32
+          type: integer
+        correlationId:
+          description: "Correlation is used to associate Operating System License\
+            \ charges and the Server on which it was installed. In this scenario,\
+            \ the correlation ID will be equal to the rated usage record ID representing\
+            \ the charge for the Server."
+          example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
+          type: string
+      required:
+      - cores
+      - correlationId
+      type: object
+    OperatingSystemRecord:
+      allOf:
+      - $ref: '#/components/schemas/RatedUsageRecord'
+      - description: Operating system usage record.
+        properties:
+          metadata:
+            $ref: '#/components/schemas/OperatingSystemDetails'
         required:
         - metadata
         type: object
@@ -1012,13 +1046,13 @@ components:
       - cidr
       - size
       type: object
-    StorageRecord:
+    PublicSubnetRecord:
       allOf:
       - $ref: '#/components/schemas/RatedUsageRecord'
-      - description: Storage usage record.
+      - description: Public IP record.
         properties:
           metadata:
-            $ref: '#/components/schemas/StorageDetails'
+            $ref: '#/components/schemas/PublicSubnetDetails'
         required:
         - metadata
         type: object
@@ -1059,27 +1093,62 @@ components:
       - volumeId
       - volumeName
       type: object
-    Product:
-      description: Product details
+    StorageRecord:
+      allOf:
+      - $ref: '#/components/schemas/RatedUsageRecord'
+      - description: Storage usage record.
+        properties:
+          metadata:
+            $ref: '#/components/schemas/StorageDetails'
+        required:
+        - metadata
+        type: object
+    Error:
       properties:
-        productCode:
-          description: The code identifying the product. This code has significant
-            across all locations.
-          example: s1.c1.small
+        message:
+          description: The description detailing the cause of the error code.
+          readOnly: true
           type: string
-        productCategory:
-          description: The product category.
-          example: SERVER
-          type: string
-        plans:
-          description: The pricing plans available for this product.
+        validationErrors:
+          description: "Validation errors, if any."
           items:
-            $ref: '#/components/schemas/PricingPlan'
+            type: string
+          readOnly: true
           type: array
       required:
-      - productCategory
-      - productCode
+      - message
       type: object
+    PriceUnitEnum:
+      description: The unit to which the price applies.
+      enum:
+      - HOUR
+      - MONTH
+      - GB
+      - UNIT
+      - FLAT
+      - TB_PER_HOUR
+      example: MONTH
+      type: string
+    ApplicableDiscounts:
+      description: "Represents the applicable discount details for a product, including\
+        \ the discounted price and discount information."
+      properties:
+        discountedPrice:
+          description: The price of the product after applying a discount.
+          example: 107.5
+          type: number
+        discountDetails:
+          items:
+            $ref: '#/components/schemas/DiscountDetails'
+          type: array
+      type: object
+    PackageUnitEnum:
+      description: Package size unit.
+      enum:
+      - GB
+      - TB
+      example: TB
+      type: string
     PricingPlan:
       description: Pricing plan details.
       properties:
@@ -1134,11 +1203,7 @@ components:
           example: 50
           type: number
         packageUnit:
-          description: Package size unit.
-          enum:
-          - GB
-          - TB
-          type: string
+          $ref: '#/components/schemas/PackageUnitEnum'
       required:
       - location
       - price
@@ -1146,16 +1211,27 @@ components:
       - pricingModel
       - sku
       type: object
-    ServerProduct:
-      allOf:
-      - $ref: '#/components/schemas/Product'
-      - description: Server product.
-        properties:
-          metadata:
-            $ref: '#/components/schemas/ServerProductMetadata'
-        required:
-        - metadata
-        type: object
+    Product:
+      description: Product details
+      properties:
+        productCode:
+          description: The code identifying the product. This code has significant
+            across all locations.
+          example: s1.c1.small
+          type: string
+        productCategory:
+          description: The product category.
+          example: SERVER
+          type: string
+        plans:
+          description: The pricing plans available for this product.
+          items:
+            $ref: '#/components/schemas/PricingPlan'
+          type: array
+      required:
+      - productCategory
+      - productCode
+      type: object
     ServerProductMetadata:
       description: Details of the server product.
       properties:
@@ -1196,6 +1272,41 @@ components:
       - ramInGb
       - storage
       type: object
+    ServerProduct:
+      allOf:
+      - $ref: '#/components/schemas/Product'
+      - description: Server product.
+        properties:
+          metadata:
+            $ref: '#/components/schemas/ServerProductMetadata'
+        required:
+        - metadata
+        type: object
+    ReservationProductCategoryEnum:
+      description: The commitment product category.
+      enum:
+      - server
+      - bandwidth
+      example: server
+      type: string
+    ReservationModelEnum:
+      description: The reservation model.
+      enum:
+      - ONE_MONTH_RESERVATION
+      - TWELVE_MONTHS_RESERVATION
+      - TWENTY_FOUR_MONTHS_RESERVATION
+      - THIRTY_SIX_MONTHS_RESERVATION
+      - FREE_TIER
+      type: string
+    ReservationInvoicingModelEnum:
+      description: Reservations created with initial invoice model ON_CREATION will
+        be invoiced on same date when reservation is created. Reservation created
+        with CALENDAR_MONTH initial invoice model will be invoiced at the beginning
+        of next month.
+      enum:
+      - ON_CREATION
+      - CALENDAR_MONTH
+      type: string
     Reservation:
       description: Reservation details
       example:
@@ -1226,13 +1337,7 @@ components:
           example: s1.c1.small
           type: string
         productCategory:
-          description: The product category.
-          enum:
-          - server
-          - bandwidth
-          - operating-system
-          example: server
-          type: string
+          $ref: '#/components/schemas/ReservationProductCategoryEnum'
         location:
           $ref: '#/components/schemas/LocationEnum'
         reservationModel:
@@ -1298,14 +1403,25 @@ components:
       - sku
       - startDateTime
       type: object
-    ConfigurationDetails:
-      description: Billing configuration details.
+    ReservationRequest:
+      description: Reservation request.
       example:
-        thresholdConfiguration:
-          thresholdAmount: 100
+        sku: XXX-XXX-XXX
       properties:
-        thresholdConfiguration:
-          $ref: '#/components/schemas/ThresholdConfigurationDetails'
+        sku:
+          description: The sku code of product pricing plan.
+          example: XXX-XXX-XXX
+          type: string
+      required:
+      - sku
+      type: object
+    ReservationAutoRenewDisableRequest:
+      description: Disabling auto-renewal for reservation request.
+      example:
+        autoRenewDisableReason: autoRenewDisableReason
+      properties:
+        autoRenewDisableReason:
+          type: string
       type: object
     ThresholdConfigurationDetails:
       description: Threshold billing configuration.
@@ -1319,43 +1435,14 @@ components:
       required:
       - thresholdAmount
       type: object
-    ProductAvailability:
-      description: Product availability details.
+    ConfigurationDetails:
+      description: Billing configuration details.
       example:
-        productCode: d1.c1.small
-        locationAvailabilityDetails:
-        - availableQuantity: 5
-          minQuantityRequested: 2
-          minQuantityAvailable: true
-          solutions:
-          - SERVER_RANCHER
-          - SERVER_RANCHER
-          location: null
-        - availableQuantity: 5
-          minQuantityRequested: 2
-          minQuantityAvailable: true
-          solutions:
-          - SERVER_RANCHER
-          - SERVER_RANCHER
-          location: null
-        productCategory: SERVER
+        thresholdConfiguration:
+          thresholdAmount: 100
       properties:
-        productCode:
-          description: Product code.
-          example: d1.c1.small
-          type: string
-        productCategory:
-          description: Product category.
-          example: SERVER
-          type: string
-        locationAvailabilityDetails:
-          items:
-            $ref: '#/components/schemas/LocationAvailabilityDetail'
-          type: array
-      required:
-      - locationAvailabilityDetails
-      - productCategory
-      - productCode
+        thresholdConfiguration:
+          $ref: '#/components/schemas/ThresholdConfigurationDetails'
       type: object
     LocationAvailabilityDetail:
       description: "Info about location, solutions and availability for a product."
@@ -1397,113 +1484,43 @@ components:
       - minQuantityRequested
       - solutions
       type: object
-    ReservationAutoRenewDisableRequest:
-      description: Disabling auto-renewal for reservation request.
+    ProductAvailability:
+      description: Product availability details.
       example:
-        autoRenewDisableReason: autoRenewDisableReason
+        productCode: d1.c1.small
+        locationAvailabilityDetails:
+        - availableQuantity: 5
+          minQuantityRequested: 2
+          minQuantityAvailable: true
+          solutions:
+          - SERVER_RANCHER
+          - SERVER_RANCHER
+          location: null
+        - availableQuantity: 5
+          minQuantityRequested: 2
+          minQuantityAvailable: true
+          solutions:
+          - SERVER_RANCHER
+          - SERVER_RANCHER
+          location: null
+        productCategory: SERVER
       properties:
-        autoRenewDisableReason:
+        productCode:
+          description: Product code.
+          example: d1.c1.small
           type: string
-      type: object
-    ReservationRequest:
-      description: Reservation request.
-      example:
-        sku: XXX-XXX-XXX
-      properties:
-        sku:
-          description: The sku code of product pricing plan.
-          example: XXX-XXX-XXX
+        productCategory:
+          description: Product category.
+          example: SERVER
           type: string
-      required:
-      - sku
-      type: object
-    LocationEnum:
-      description: The location code.
-      enum:
-      - PHX
-      - ASH
-      - NLD
-      - SGP
-      - CHI
-      - SEA
-      - AUS
-      type: string
-    ReservationModelEnum:
-      description: The reservation model.
-      enum:
-      - ONE_MONTH_RESERVATION
-      - TWELVE_MONTHS_RESERVATION
-      - TWENTY_FOUR_MONTHS_RESERVATION
-      - THIRTY_SIX_MONTHS_RESERVATION
-      - FREE_TIER
-      type: string
-    ReservationInvoicingModelEnum:
-      description: Reservations created with initial invoice model ON_CREATION will
-        be invoiced on same date when reservation is created. Reservation created
-        with CALENDAR_MONTH initial invoice model will be invoiced at the beginning
-        of next month.
-      enum:
-      - ON_CREATION
-      - CALENDAR_MONTH
-      type: string
-    ProductCategoryEnum:
-      description: The product category.
-      enum:
-      - SERVER
-      - BANDWIDTH
-      - OPERATING_SYSTEM
-      - PUBLIC_IP
-      - STORAGE
-      type: string
-    PriceUnitEnum:
-      description: The unit to which the price applies.
-      enum:
-      - HOUR
-      - MONTH
-      - GB
-      - UNIT
-      - FLAT
-      - TB_PER_HOUR
-      example: MONTH
-      type: string
-    Error:
-      properties:
-        message:
-          description: The description detailing the cause of the error code.
-          readOnly: true
-          type: string
-        validationErrors:
-          description: "Validation errors, if any."
+        locationAvailabilityDetails:
           items:
-            type: string
-          readOnly: true
+            $ref: '#/components/schemas/LocationAvailabilityDetail'
           type: array
       required:
-      - message
-      type: object
-    DiscountDetails:
-      description: Represents the details of a discount applied to a product or charge.
-      properties:
-        code:
-          description: A unique code associated with the discount.
-          example: new-year-2022-monthly
-          type: string
-        type:
-          description: The type of discount applied.
-          enum:
-          - PRODUCT_CATEGORY_PERCENTAGE
-          - GLOBAL_PERCENTAGE
-          example: PRODUCT_CATEGORY_PERCENTAGE
-          type: string
-        value:
-          description: |
-            The value or amount of the discount. The interpretation of this value depends on the 'type' of discount.
-          example: 20.5
-          type: number
-      required:
-      - code
-      - type
-      - value
+      - locationAvailabilityDetails
+      - productCategory
+      - productCode
       type: object
     ratedUsageGet_200_response_inner:
       discriminator:

@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **ApplicableDiscounts** | Pointer to [**ApplicableDiscounts**](ApplicableDiscounts.md) |  | [optional] 
 **CorrelatedProductCode** | Pointer to **string** | Product code of the product this product is correlated with | [optional] 
 **PackageQuantity** | Pointer to **float32** | Package size per month. | [optional] 
-**PackageUnit** | Pointer to **string** | Package size unit. | [optional] 
+**PackageUnit** | Pointer to [**PackageUnitEnum**](PackageUnitEnum.md) |  | [optional] 
 
 ## Methods
 
@@ -236,20 +236,20 @@ HasPackageQuantity returns a boolean if a field has been set.
 
 ### GetPackageUnit
 
-`func (o *PricingPlan) GetPackageUnit() string`
+`func (o *PricingPlan) GetPackageUnit() PackageUnitEnum`
 
 GetPackageUnit returns the PackageUnit field if non-nil, zero value otherwise.
 
 ### GetPackageUnitOk
 
-`func (o *PricingPlan) GetPackageUnitOk() (*string, bool)`
+`func (o *PricingPlan) GetPackageUnitOk() (*PackageUnitEnum, bool)`
 
 GetPackageUnitOk returns a tuple with the PackageUnit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPackageUnit
 
-`func (o *PricingPlan) SetPackageUnit(v string)`
+`func (o *PricingPlan) SetPackageUnit(v PackageUnitEnum)`
 
 SetPackageUnit sets PackageUnit field to given value.
 

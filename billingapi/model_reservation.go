@@ -25,9 +25,8 @@ type Reservation struct {
 	// The reservation identifier.
 	Id string `json:"id"`
 	// The code identifying the product. This code has significant across all locations.
-	ProductCode string `json:"productCode"`
-	// The product category.
-	ProductCategory     string                         `json:"productCategory"`
+	ProductCode         string                         `json:"productCode"`
+	ProductCategory     ReservationProductCategoryEnum `json:"productCategory"`
 	Location            LocationEnum                   `json:"location"`
 	ReservationModel    ReservationModelEnum           `json:"reservationModel"`
 	InitialInvoiceModel *ReservationInvoicingModelEnum `json:"initialInvoiceModel,omitempty"`
@@ -59,7 +58,7 @@ type _Reservation Reservation
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReservation(id string, productCode string, productCategory string, location LocationEnum, reservationModel ReservationModelEnum, startDateTime time.Time, autoRenew bool, sku string, price float32, priceUnit PriceUnitEnum) *Reservation {
+func NewReservation(id string, productCode string, productCategory ReservationProductCategoryEnum, location LocationEnum, reservationModel ReservationModelEnum, startDateTime time.Time, autoRenew bool, sku string, price float32, priceUnit PriceUnitEnum) *Reservation {
 	this := Reservation{}
 	this.Id = id
 	this.ProductCode = productCode
@@ -131,9 +130,9 @@ func (o *Reservation) SetProductCode(v string) {
 }
 
 // GetProductCategory returns the ProductCategory field value
-func (o *Reservation) GetProductCategory() string {
+func (o *Reservation) GetProductCategory() ReservationProductCategoryEnum {
 	if o == nil {
-		var ret string
+		var ret ReservationProductCategoryEnum
 		return ret
 	}
 
@@ -142,7 +141,7 @@ func (o *Reservation) GetProductCategory() string {
 
 // GetProductCategoryOk returns a tuple with the ProductCategory field value
 // and a boolean to check if the value has been set.
-func (o *Reservation) GetProductCategoryOk() (*string, bool) {
+func (o *Reservation) GetProductCategoryOk() (*ReservationProductCategoryEnum, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -150,7 +149,7 @@ func (o *Reservation) GetProductCategoryOk() (*string, bool) {
 }
 
 // SetProductCategory sets field value
-func (o *Reservation) SetProductCategory(v string) {
+func (o *Reservation) SetProductCategory(v ReservationProductCategoryEnum) {
 	o.ProductCategory = v
 }
 
