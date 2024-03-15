@@ -20,7 +20,7 @@ var _ MappedNullable = &OsConfigurationCloudInit{}
 
 // OsConfigurationCloudInit Cloud-init configuration details.
 type OsConfigurationCloudInit struct {
-	// (Write-only) User data for the <a href='https://cloudinit.readthedocs.io/en/latest/' target='_blank'>cloud-init</a> configuration in base64 encoding. NoCloud format is supported. Follow the <a href='https://phoenixnap.com/kb/bmc-cloud-init' target='_blank'>instructions</a> on how to provision a server using cloud-init. Only ubuntu/bionic, ubuntu/focal and ubuntu/jammy are supported. User data will not be stored and cannot be retrieved once you deploy the server. Copy and save it for future reference.
+	// (Write-only) User data for the <a href='https://cloudinit.readthedocs.io/en/latest/' target='_blank'>cloud-init</a> configuration in base64 encoding. NoCloud format is supported. Follow the <a href='https://phoenixnap.com/kb/bmc-cloud-init' target='_blank'>instructions</a> on how to provision a server using cloud-init. Only ubuntu/bionic, ubuntu/focal, ubuntu/jammy, debian/bullseye, debian/bookworm, centos/centos7, centos/centos8, almalinux/almalinux8, almalinux/almalinux9, rockylinux/rockylinux8, rockylinux/rockylinux9 and virtuozzo/virtuozzo7 are supported. User data will not be stored and cannot be retrieved once you deploy the server. Copy and save it for future reference.
 	UserData             *string `json:"userData,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
