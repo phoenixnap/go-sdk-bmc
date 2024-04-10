@@ -373,12 +373,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: The request failed since the resource could not been found.
         "500":
           content:
             application/json:
@@ -497,12 +491,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: The request failed since the resource could not been found.
         "500":
           content:
             application/json:
@@ -1242,12 +1230,6 @@ components:
             $ref: '#/components/schemas/Error'
       description: The server encountered an unexpected condition that prevented it
         from fulfilling the request.
-    NotFound:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request failed since the resource could not been found.
     Conflict:
       content:
         application/json:
