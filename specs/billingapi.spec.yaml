@@ -944,6 +944,18 @@ components:
       required:
         - productCode
         - productCategory
+    GpuConfigurationMetadata:
+      type: object
+      description: GPU configuration details.
+      properties:
+        count:
+          description: GPU card count.
+          type: number
+          example: 2
+        name:
+          description: GPU name.
+          type: string
+          example: Intel MAX 11000
     ServerProductMetadata:
       type: object
       description: Details of the server product.
@@ -976,6 +988,11 @@ components:
           description: Server storage.
           type: string
           example: 2x 2TB NVMe
+        gpuConfigurations:
+          description: GPU configurations
+          type: array
+          items:
+            $ref: '#/components/schemas/GpuConfigurationMetadata'
       required:
         - ramInGb
         - cpuCount

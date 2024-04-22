@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **CpuFrequency** | **float32** | CPU frequency in GHz. | 
 **Network** | **string** | Server network. | 
 **Storage** | **string** | Server storage. | 
+**GpuConfigurations** | Pointer to [**[]GpuConfigurationMetadata**](GpuConfigurationMetadata.md) | GPU configurations | [optional] 
 
 ## Methods
 
@@ -170,6 +171,31 @@ and a boolean to check if the value has been set.
 
 SetStorage sets Storage field to given value.
 
+
+### GetGpuConfigurations
+
+`func (o *ServerProductMetadata) GetGpuConfigurations() []GpuConfigurationMetadata`
+
+GetGpuConfigurations returns the GpuConfigurations field if non-nil, zero value otherwise.
+
+### GetGpuConfigurationsOk
+
+`func (o *ServerProductMetadata) GetGpuConfigurationsOk() (*[]GpuConfigurationMetadata, bool)`
+
+GetGpuConfigurationsOk returns a tuple with the GpuConfigurations field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGpuConfigurations
+
+`func (o *ServerProductMetadata) SetGpuConfigurations(v []GpuConfigurationMetadata)`
+
+SetGpuConfigurations sets GpuConfigurations field to given value.
+
+### HasGpuConfigurations
+
+`func (o *ServerProductMetadata) HasGpuConfigurations() bool`
+
+HasGpuConfigurations returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

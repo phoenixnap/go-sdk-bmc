@@ -108,6 +108,7 @@ Class | Method | HTTP request | Description
  - [ConfigurationDetails](docs/ConfigurationDetails.md)
  - [DiscountDetails](docs/DiscountDetails.md)
  - [Error](docs/Error.md)
+ - [GpuConfigurationMetadata](docs/GpuConfigurationMetadata.md)
  - [LocationAvailabilityDetail](docs/LocationAvailabilityDetail.md)
  - [LocationEnum](docs/LocationEnum.md)
  - [OperatingSystemDetails](docs/OperatingSystemDetails.md)
