@@ -11,6 +11,7 @@ docs/DeleteSshKeyResult.md
 docs/Error.md
 docs/EsxiDatastoreConfiguration.md
 docs/EsxiOsConfiguration.md
+docs/GpuConfiguration.md
 docs/IpBlocksConfiguration.md
 docs/NetworkConfiguration.md
 docs/OsConfiguration.md
@@ -56,6 +57,7 @@ model_delete_ssh_key_result.go
 model_error.go
 model_esxi_datastore_configuration.go
 model_esxi_os_configuration.go
+model_gpu_configuration.go
 model_ip_blocks_configuration.go
 model_network_configuration.go
 model_os_configuration.go

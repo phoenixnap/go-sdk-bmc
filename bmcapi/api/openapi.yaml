@@ -2880,6 +2880,21 @@ components:
         rootPartition:
           $ref: '#/components/schemas/StorageConfiguration_rootPartition'
       type: object
+    GpuConfiguration:
+      description: The GPU configuration.
+      example:
+        count: 2
+        longName: Intel Max 1100 GPU
+      properties:
+        longName:
+          description: The long name of the GPU.
+          example: Intel Max 1100 GPU
+          type: string
+        count:
+          description: The number of GPUs.
+          example: 2
+          type: integer
+      type: object
     Server:
       description: Bare metal server.
       example:
@@ -2977,6 +2992,9 @@ components:
         publicIpAddresses:
         - 182.16.0.1
         - 183.16.0.1
+        gpuConfiguration:
+          count: 2
+          longName: Intel Max 1100 GPU
         location: PHX
         supersededBy: 64a539b8d9c2c9ba8424ca31
         status: creating
@@ -3132,6 +3150,8 @@ components:
           $ref: '#/components/schemas/NetworkConfiguration'
         storageConfiguration:
           $ref: '#/components/schemas/StorageConfiguration'
+        gpuConfiguration:
+          $ref: '#/components/schemas/GpuConfiguration'
         supersededBy:
           description: Unique identifier of the server to which the reservation has
             been transferred.

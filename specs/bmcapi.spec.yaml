@@ -1668,6 +1668,18 @@ components:
               type: integer
               default: -1
               example: 128
+    GpuConfiguration:
+      type: object
+      description: The GPU configuration.
+      properties:
+        longName:
+          description: The long name of the GPU.
+          type: string
+          example: Intel Max 1100 GPU
+        count:
+          description: The number of GPUs.
+          type: integer
+          example: 2
     Server:
       type: object
       description: Bare metal server.
@@ -1807,6 +1819,8 @@ components:
           $ref: '#/components/schemas/NetworkConfiguration'
         storageConfiguration:
           $ref: '#/components/schemas/StorageConfiguration'
+        gpuConfiguration:
+          $ref: '#/components/schemas/GpuConfiguration'
         supersededBy:
           description: Unique identifier of the server to which the reservation has been transferred.
           type: string

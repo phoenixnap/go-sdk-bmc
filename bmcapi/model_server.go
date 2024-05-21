@@ -69,6 +69,7 @@ type Server struct {
 	OsConfiguration      *OsConfiguration     `json:"osConfiguration,omitempty"`
 	NetworkConfiguration NetworkConfiguration `json:"networkConfiguration"`
 	StorageConfiguration StorageConfiguration `json:"storageConfiguration"`
+	GpuConfiguration     *GpuConfiguration    `json:"gpuConfiguration,omitempty"`
 	// Unique identifier of the server to which the reservation has been transferred.
 	SupersededBy *string `json:"supersededBy,omitempty"`
 	// Unique identifier of the server from which the reservation has been transferred.
@@ -796,6 +797,38 @@ func (o *Server) SetStorageConfiguration(v StorageConfiguration) {
 	o.StorageConfiguration = v
 }
 
+// GetGpuConfiguration returns the GpuConfiguration field value if set, zero value otherwise.
+func (o *Server) GetGpuConfiguration() GpuConfiguration {
+	if o == nil || IsNil(o.GpuConfiguration) {
+		var ret GpuConfiguration
+		return ret
+	}
+	return *o.GpuConfiguration
+}
+
+// GetGpuConfigurationOk returns a tuple with the GpuConfiguration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Server) GetGpuConfigurationOk() (*GpuConfiguration, bool) {
+	if o == nil || IsNil(o.GpuConfiguration) {
+		return nil, false
+	}
+	return o.GpuConfiguration, true
+}
+
+// HasGpuConfiguration returns a boolean if a field has been set.
+func (o *Server) HasGpuConfiguration() bool {
+	if o != nil && !IsNil(o.GpuConfiguration) {
+		return true
+	}
+
+	return false
+}
+
+// SetGpuConfiguration gets a reference to the given GpuConfiguration and assigns it to the GpuConfiguration field.
+func (o *Server) SetGpuConfiguration(v GpuConfiguration) {
+	o.GpuConfiguration = &v
+}
+
 // GetSupersededBy returns the SupersededBy field value if set, zero value otherwise.
 func (o *Server) GetSupersededBy() string {
 	if o == nil || IsNil(o.SupersededBy) {
@@ -915,6 +948,9 @@ func (o Server) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["networkConfiguration"] = o.NetworkConfiguration
 	toSerialize["storageConfiguration"] = o.StorageConfiguration
+	if !IsNil(o.GpuConfiguration) {
+		toSerialize["gpuConfiguration"] = o.GpuConfiguration
+	}
 	if !IsNil(o.SupersededBy) {
 		toSerialize["supersededBy"] = o.SupersededBy
 	}
@@ -1003,6 +1039,7 @@ func (o *Server) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "osConfiguration")
 		delete(additionalProperties, "networkConfiguration")
 		delete(additionalProperties, "storageConfiguration")
+		delete(additionalProperties, "gpuConfiguration")
 		delete(additionalProperties, "supersededBy")
 		delete(additionalProperties, "supersedes")
 		o.AdditionalProperties = additionalProperties

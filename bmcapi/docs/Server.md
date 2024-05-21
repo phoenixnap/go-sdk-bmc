@@ -29,6 +29,7 @@ Name | Type | Description | Notes
 **OsConfiguration** | Pointer to [**OsConfiguration**](OsConfiguration.md) |  | [optional] 
 **NetworkConfiguration** | [**NetworkConfiguration**](NetworkConfiguration.md) |  | 
 **StorageConfiguration** | [**StorageConfiguration**](StorageConfiguration.md) |  | 
+**GpuConfiguration** | Pointer to [**GpuConfiguration**](GpuConfiguration.md) |  | [optional] 
 **SupersededBy** | Pointer to **string** | Unique identifier of the server to which the reservation has been transferred. | [optional] 
 **Supersedes** | Pointer to **string** | Unique identifier of the server from which the reservation has been transferred. | [optional] 
 
@@ -600,6 +601,31 @@ and a boolean to check if the value has been set.
 
 SetStorageConfiguration sets StorageConfiguration field to given value.
 
+
+### GetGpuConfiguration
+
+`func (o *Server) GetGpuConfiguration() GpuConfiguration`
+
+GetGpuConfiguration returns the GpuConfiguration field if non-nil, zero value otherwise.
+
+### GetGpuConfigurationOk
+
+`func (o *Server) GetGpuConfigurationOk() (*GpuConfiguration, bool)`
+
+GetGpuConfigurationOk returns a tuple with the GpuConfiguration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGpuConfiguration
+
+`func (o *Server) SetGpuConfiguration(v GpuConfiguration)`
+
+SetGpuConfiguration sets GpuConfiguration field to given value.
+
+### HasGpuConfiguration
+
+`func (o *Server) HasGpuConfiguration() bool`
+
+HasGpuConfiguration returns a boolean if a field has been set.
 
 ### GetSupersededBy
 
