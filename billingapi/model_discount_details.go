@@ -22,9 +22,8 @@ var _ MappedNullable = &DiscountDetails{}
 // DiscountDetails Represents the details of a discount applied to a product or charge.
 type DiscountDetails struct {
 	// A unique code associated with the discount.
-	Code string `json:"code"`
-	// The type of discount applied.
-	Type string `json:"type"`
+	Code string           `json:"code"`
+	Type DiscountTypeEnum `json:"type"`
 	// The value or amount of the discount. The interpretation of this value depends on the 'type' of discount.
 	Value                float32 `json:"value"`
 	AdditionalProperties map[string]interface{}
@@ -36,7 +35,7 @@ type _DiscountDetails DiscountDetails
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDiscountDetails(code string, type_ string, value float32) *DiscountDetails {
+func NewDiscountDetails(code string, type_ DiscountTypeEnum, value float32) *DiscountDetails {
 	this := DiscountDetails{}
 	this.Code = code
 	this.Type = type_
@@ -77,9 +76,9 @@ func (o *DiscountDetails) SetCode(v string) {
 }
 
 // GetType returns the Type field value
-func (o *DiscountDetails) GetType() string {
+func (o *DiscountDetails) GetType() DiscountTypeEnum {
 	if o == nil {
-		var ret string
+		var ret DiscountTypeEnum
 		return ret
 	}
 
@@ -88,7 +87,7 @@ func (o *DiscountDetails) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *DiscountDetails) GetTypeOk() (*string, bool) {
+func (o *DiscountDetails) GetTypeOk() (*DiscountTypeEnum, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -96,7 +95,7 @@ func (o *DiscountDetails) GetTypeOk() (*string, bool) {
 }
 
 // SetType sets field value
-func (o *DiscountDetails) SetType(v string) {
+func (o *DiscountDetails) SetType(v DiscountTypeEnum) {
 	o.Type = v
 }
 

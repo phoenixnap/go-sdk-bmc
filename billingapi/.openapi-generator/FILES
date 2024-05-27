@@ -13,6 +13,7 @@ docs/BandwidthRecord.md
 docs/BillingConfigurationsAPI.md
 docs/ConfigurationDetails.md
 docs/DiscountDetails.md
+docs/DiscountTypeEnum.md
 docs/Error.md
 docs/GpuConfigurationMetadata.md
 docs/LocationAvailabilityDetail.md
@@ -54,6 +55,7 @@ model_bandwidth_details.go
 model_bandwidth_record.go
 model_configuration_details.go
 model_discount_details.go
+model_discount_type_enum.go
 model_error.go
 model_gpu_configuration_metadata.go
 model_location_availability_detail.go

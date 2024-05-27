@@ -107,6 +107,7 @@ Class | Method | HTTP request | Description
  - [BandwidthRecord](docs/BandwidthRecord.md)
  - [ConfigurationDetails](docs/ConfigurationDetails.md)
  - [DiscountDetails](docs/DiscountDetails.md)
+ - [DiscountTypeEnum](docs/DiscountTypeEnum.md)
  - [Error](docs/Error.md)
  - [GpuConfigurationMetadata](docs/GpuConfigurationMetadata.md)
  - [LocationAvailabilityDetail](docs/LocationAvailabilityDetail.md)

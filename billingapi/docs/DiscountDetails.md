@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Code** | **string** | A unique code associated with the discount. | 
-**Type** | **string** | The type of discount applied. | 
+**Type** | [**DiscountTypeEnum**](DiscountTypeEnum.md) |  | 
 **Value** | **float32** | The value or amount of the discount. The interpretation of this value depends on the &#39;type&#39; of discount.  | 
 
 ## Methods
 
 ### NewDiscountDetails
 
-`func NewDiscountDetails(code string, type_ string, value float32, ) *DiscountDetails`
+`func NewDiscountDetails(code string, type_ DiscountTypeEnum, value float32, ) *DiscountDetails`
 
 NewDiscountDetails instantiates a new DiscountDetails object
 This constructor will assign default values to properties that have it defined,
@@ -49,20 +49,20 @@ SetCode sets Code field to given value.
 
 ### GetType
 
-`func (o *DiscountDetails) GetType() string`
+`func (o *DiscountDetails) GetType() DiscountTypeEnum`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *DiscountDetails) GetTypeOk() (*string, bool)`
+`func (o *DiscountDetails) GetTypeOk() (*DiscountTypeEnum, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *DiscountDetails) SetType(v string)`
+`func (o *DiscountDetails) SetType(v DiscountTypeEnum)`
 
 SetType sets Type field to given value.
 
