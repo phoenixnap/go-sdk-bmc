@@ -796,6 +796,16 @@ components:
       - PUBLIC_IP
       - STORAGE
       type: string
+    RatedUsageProductCategoryEnum:
+      description: The category of the product associated with this usage record.
+      enum:
+      - bmc-server
+      - bandwidth
+      - operating-system
+      - public-ip
+      - storage
+      example: bmc-server
+      type: string
     LocationEnum:
       description: The location code.
       enum:
@@ -841,15 +851,7 @@ components:
           example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
           type: string
         productCategory:
-          description: The category of the product associated with this usage record.
-          enum:
-          - bmc-server
-          - bandwidth
-          - operating-system
-          - public-ip
-          - storage
-          example: bmc-server
-          type: string
+          $ref: '#/components/schemas/RatedUsageProductCategoryEnum'
         productCode:
           description: The code identifying the product associated to this usage record.
           example: s1.c1.small
@@ -1550,12 +1552,17 @@ components:
           public-ip: '#/components/schemas/PublicSubnetRecord'
           storage: '#/components/schemas/StorageRecord'
         propertyName: productCategory
+      example:
+        productCategory: bmc-server
       oneOf:
       - $ref: '#/components/schemas/ServerRecord'
       - $ref: '#/components/schemas/BandwidthRecord'
       - $ref: '#/components/schemas/OperatingSystemRecord'
       - $ref: '#/components/schemas/PublicSubnetRecord'
       - $ref: '#/components/schemas/StorageRecord'
+      properties:
+        productCategory:
+          $ref: '#/components/schemas/RatedUsageProductCategoryEnum'
     productsGet_200_response_inner:
       discriminator:
         mapping:

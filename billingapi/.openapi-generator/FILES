@@ -33,6 +33,7 @@ docs/PublicSubnetDetails.md
 docs/PublicSubnetRecord.md
 docs/RatedUsageAPI.md
 docs/RatedUsageGet200ResponseInner.md
+docs/RatedUsageProductCategoryEnum.md
 docs/RatedUsageRecord.md
 docs/Reservation.md
 docs/ReservationAutoRenewDisableRequest.md
@@ -72,6 +73,7 @@ model_products_get_200_response_inner.go
 model_public_subnet_details.go
 model_public_subnet_record.go
 model_rated_usage_get_200_response_inner.go
+model_rated_usage_product_category_enum.go
 model_rated_usage_record.go
 model_reservation.go
 model_reservation_auto_renew_disable_request.go

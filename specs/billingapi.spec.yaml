@@ -79,6 +79,9 @@ paths:
               schema:
                 type: array
                 items:
+                  properties:
+                    productCategory:
+                      $ref: '#/components/schemas/RatedUsageProductCategoryEnum'
                   oneOf:
                     - $ref: '#/components/schemas/ServerRecord'
                     - $ref: '#/components/schemas/BandwidthRecord'
@@ -125,6 +128,9 @@ paths:
               schema:
                 type: array
                 items:
+                  properties:
+                    productCategory:
+                      $ref: '#/components/schemas/RatedUsageProductCategoryEnum'
                   oneOf:
                     - $ref: '#/components/schemas/ServerRecord'
                     - $ref: '#/components/schemas/BandwidthRecord'
@@ -519,6 +525,16 @@ components:
         - OPERATING_SYSTEM
         - PUBLIC_IP
         - STORAGE
+    RatedUsageProductCategoryEnum:
+      description: The category of the product associated with this usage record.
+      type: string
+      enum:
+        - bmc-server
+        - bandwidth
+        - operating-system
+        - public-ip
+        - storage
+      example: bmc-server
     LocationEnum:
       description: The location code.
       type: string
@@ -565,15 +581,7 @@ components:
           type: string
           example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
         productCategory:
-          description: The category of the product associated with this usage record.
-          type: string
-          enum:
-            - bmc-server
-            - bandwidth
-            - operating-system
-            - public-ip
-            - storage
-          example: bmc-server
+          $ref: '#/components/schemas/RatedUsageProductCategoryEnum'
         productCode:
           description: The code identifying the product associated to this usage record.
           type: string

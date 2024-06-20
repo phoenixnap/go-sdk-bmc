@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ProductCategory** | Pointer to [**RatedUsageProductCategoryEnum**](RatedUsageProductCategoryEnum.md) |  | [optional] 
 **Id** | **string** | The unique identifier of the rated usage record. | 
-**ProductCategory** | **string** | The category of the product associated with this usage record. | 
 **ProductCode** | **string** | The code identifying the product associated to this usage record. | 
 **Location** | [**LocationEnum**](LocationEnum.md) |  | 
 **YearMonth** | Pointer to **string** | Year and month of the usage record. | [optional] 
@@ -29,7 +29,7 @@ Name | Type | Description | Notes
 
 ### NewRatedUsageGet200ResponseInner
 
-`func NewRatedUsageGet200ResponseInner(id string, productCategory string, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, usageSessionId string, correlationId string, metadata StorageDetails, ) *RatedUsageGet200ResponseInner`
+`func NewRatedUsageGet200ResponseInner(id string, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, usageSessionId string, correlationId string, metadata StorageDetails, ) *RatedUsageGet200ResponseInner`
 
 NewRatedUsageGet200ResponseInner instantiates a new RatedUsageGet200ResponseInner object
 This constructor will assign default values to properties that have it defined,
@@ -43,6 +43,31 @@ will change when the set of required properties is changed
 NewRatedUsageGet200ResponseInnerWithDefaults instantiates a new RatedUsageGet200ResponseInner object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetProductCategory
+
+`func (o *RatedUsageGet200ResponseInner) GetProductCategory() RatedUsageProductCategoryEnum`
+
+GetProductCategory returns the ProductCategory field if non-nil, zero value otherwise.
+
+### GetProductCategoryOk
+
+`func (o *RatedUsageGet200ResponseInner) GetProductCategoryOk() (*RatedUsageProductCategoryEnum, bool)`
+
+GetProductCategoryOk returns a tuple with the ProductCategory field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProductCategory
+
+`func (o *RatedUsageGet200ResponseInner) SetProductCategory(v RatedUsageProductCategoryEnum)`
+
+SetProductCategory sets ProductCategory field to given value.
+
+### HasProductCategory
+
+`func (o *RatedUsageGet200ResponseInner) HasProductCategory() bool`
+
+HasProductCategory returns a boolean if a field has been set.
 
 ### GetId
 
@@ -62,26 +87,6 @@ and a boolean to check if the value has been set.
 `func (o *RatedUsageGet200ResponseInner) SetId(v string)`
 
 SetId sets Id field to given value.
-
-
-### GetProductCategory
-
-`func (o *RatedUsageGet200ResponseInner) GetProductCategory() string`
-
-GetProductCategory returns the ProductCategory field if non-nil, zero value otherwise.
-
-### GetProductCategoryOk
-
-`func (o *RatedUsageGet200ResponseInner) GetProductCategoryOk() (*string, bool)`
-
-GetProductCategoryOk returns a tuple with the ProductCategory field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetProductCategory
-
-`func (o *RatedUsageGet200ResponseInner) SetProductCategory(v string)`
-
-SetProductCategory sets ProductCategory field to given value.
 
 
 ### GetProductCode

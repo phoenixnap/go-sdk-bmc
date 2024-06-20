@@ -23,9 +23,8 @@ var _ MappedNullable = &BandwidthRecord{}
 // BandwidthRecord struct for BandwidthRecord
 type BandwidthRecord struct {
 	// The unique identifier of the rated usage record.
-	Id string `json:"id"`
-	// The category of the product associated with this usage record.
-	ProductCategory string `json:"productCategory"`
+	Id              string                        `json:"id"`
+	ProductCategory RatedUsageProductCategoryEnum `json:"productCategory"`
 	// The code identifying the product associated to this usage record.
 	ProductCode string       `json:"productCode"`
 	Location    LocationEnum `json:"location"`
@@ -68,7 +67,7 @@ type _BandwidthRecord BandwidthRecord
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBandwidthRecord(id string, productCategory string, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, usageSessionId string, correlationId string, metadata BandwidthDetails) *BandwidthRecord {
+func NewBandwidthRecord(id string, productCategory RatedUsageProductCategoryEnum, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, usageSessionId string, correlationId string, metadata BandwidthDetails) *BandwidthRecord {
 	this := BandwidthRecord{}
 	this.Id = id
 	this.ProductCategory = productCategory
@@ -121,9 +120,9 @@ func (o *BandwidthRecord) SetId(v string) {
 }
 
 // GetProductCategory returns the ProductCategory field value
-func (o *BandwidthRecord) GetProductCategory() string {
+func (o *BandwidthRecord) GetProductCategory() RatedUsageProductCategoryEnum {
 	if o == nil {
-		var ret string
+		var ret RatedUsageProductCategoryEnum
 		return ret
 	}
 
@@ -132,7 +131,7 @@ func (o *BandwidthRecord) GetProductCategory() string {
 
 // GetProductCategoryOk returns a tuple with the ProductCategory field value
 // and a boolean to check if the value has been set.
-func (o *BandwidthRecord) GetProductCategoryOk() (*string, bool) {
+func (o *BandwidthRecord) GetProductCategoryOk() (*RatedUsageProductCategoryEnum, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -140,7 +139,7 @@ func (o *BandwidthRecord) GetProductCategoryOk() (*string, bool) {
 }
 
 // SetProductCategory sets field value
-func (o *BandwidthRecord) SetProductCategory(v string) {
+func (o *BandwidthRecord) SetProductCategory(v RatedUsageProductCategoryEnum) {
 	o.ProductCategory = v
 }
 

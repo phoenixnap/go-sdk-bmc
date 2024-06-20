@@ -124,6 +124,7 @@ Class | Method | HTTP request | Description
  - [PublicSubnetDetails](docs/PublicSubnetDetails.md)
  - [PublicSubnetRecord](docs/PublicSubnetRecord.md)
  - [RatedUsageGet200ResponseInner](docs/RatedUsageGet200ResponseInner.md)
+ - [RatedUsageProductCategoryEnum](docs/RatedUsageProductCategoryEnum.md)
  - [RatedUsageRecord](docs/RatedUsageRecord.md)
  - [Reservation](docs/Reservation.md)
  - [ReservationAutoRenewDisableRequest](docs/ReservationAutoRenewDisableRequest.md)
