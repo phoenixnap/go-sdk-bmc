@@ -107,7 +107,7 @@ paths:
                 name: Rancher Deployment
                 description: A Rancher Server deployment.
                 location: PHX
-                initialClusterVersion: v2.5.9
+                initialClusterVersion: v2.6.4
                 metadata:
                   url: https://rancher
                   username: admin
@@ -151,7 +151,7 @@ paths:
                       name: Rancher Deployment
                       description: A Rancher Server deployment in Phoenix.
                       location: PHX
-                      initialClusterVersion: v2.5.9
+                      initialClusterVersion: v2.6.4
                       nodePools:
                         - name: rancher-server-node-pool
                           nodeCount: 1
@@ -162,7 +162,7 @@ paths:
                       name: Rancher Deployment
                       description: A Rancher Server deployment in Ashburn.
                       location: ASH
-                      initialClusterVersion: v2.5.9
+                      initialClusterVersion: v2.6.4
                       nodePools:
                         - name: rancher-server-node-pool
                           nodeCount: 1
@@ -264,7 +264,7 @@ components:
           description: (Read-only) The Rancher version that was installed on the cluster during the first creation process.
           type: string
           readOnly: true
-          example: v2.5.9
+          example: v2.6.4
         nodePools:
           description: The node pools associated with the cluster.
           type: array
