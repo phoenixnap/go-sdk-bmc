@@ -20,131 +20,132 @@ import (
 	"strings"
 )
 
-type PrivateNetworksAPI interface {
+type BGPPeerGroupsAPI interface {
 
 	/*
-		PrivateNetworksGet List Private Networks.
+		BgpPeerGroupsGet List BGP Peer Groups.
 
-		List all Private Networks owned by account.
+		List all BGP Peer Groups owned by account.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiPrivateNetworksGetRequest
+		@return ApiBgpPeerGroupsGetRequest
 	*/
-	PrivateNetworksGet(ctx context.Context) ApiPrivateNetworksGetRequest
+	BgpPeerGroupsGet(ctx context.Context) ApiBgpPeerGroupsGetRequest
 
-	// PrivateNetworksGetExecute executes the request
-	//  @return []PrivateNetwork
-	PrivateNetworksGetExecute(r ApiPrivateNetworksGetRequest) ([]PrivateNetwork, *http.Response, error)
+	// BgpPeerGroupsGetExecute executes the request
+	//  @return []BgpPeerGroup
+	BgpPeerGroupsGetExecute(r ApiBgpPeerGroupsGetRequest) ([]BgpPeerGroup, *http.Response, error)
 
 	/*
-		PrivateNetworksNetworkIdDelete Delete a Private Network.
+		BgpPeerGroupsPeerGroupIdDelete Delete a BGP Peer Group.
 
-		Delete Private Network.
+		Deletes BGP Peer Group by ID.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param privateNetworkId The private network identifier.
-		@return ApiPrivateNetworksNetworkIdDeleteRequest
+		@param bgpPeerGroupId The BGP peer group ID.
+		@return ApiBgpPeerGroupsPeerGroupIdDeleteRequest
 	*/
-	PrivateNetworksNetworkIdDelete(ctx context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdDeleteRequest
+	BgpPeerGroupsPeerGroupIdDelete(ctx context.Context, bgpPeerGroupId string) ApiBgpPeerGroupsPeerGroupIdDeleteRequest
 
-	// PrivateNetworksNetworkIdDeleteExecute executes the request
-	PrivateNetworksNetworkIdDeleteExecute(r ApiPrivateNetworksNetworkIdDeleteRequest) (*http.Response, error)
+	// BgpPeerGroupsPeerGroupIdDeleteExecute executes the request
+	//  @return BgpPeerGroup
+	BgpPeerGroupsPeerGroupIdDeleteExecute(r ApiBgpPeerGroupsPeerGroupIdDeleteRequest) (*BgpPeerGroup, *http.Response, error)
 
 	/*
-		PrivateNetworksNetworkIdGet Get a Private Network.
+		BgpPeerGroupsPeerGroupIdGet Get a BGP Peer Group.
 
-		Retrieve Private Network Details.
+		Retrieves BGP Peer Group by ID.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param privateNetworkId The private network identifier.
-		@return ApiPrivateNetworksNetworkIdGetRequest
+		@param bgpPeerGroupId The BGP peer group ID.
+		@return ApiBgpPeerGroupsPeerGroupIdGetRequest
 	*/
-	PrivateNetworksNetworkIdGet(ctx context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdGetRequest
+	BgpPeerGroupsPeerGroupIdGet(ctx context.Context, bgpPeerGroupId string) ApiBgpPeerGroupsPeerGroupIdGetRequest
 
-	// PrivateNetworksNetworkIdGetExecute executes the request
-	//  @return PrivateNetwork
-	PrivateNetworksNetworkIdGetExecute(r ApiPrivateNetworksNetworkIdGetRequest) (*PrivateNetwork, *http.Response, error)
+	// BgpPeerGroupsPeerGroupIdGetExecute executes the request
+	//  @return BgpPeerGroup
+	BgpPeerGroupsPeerGroupIdGetExecute(r ApiBgpPeerGroupsPeerGroupIdGetRequest) (*BgpPeerGroup, *http.Response, error)
 
 	/*
-		PrivateNetworksNetworkIdPut Update a Private Network.
+		BgpPeerGroupsPeerGroupIdPatch Modify a BGP Peer Group.
 
-		Update Private Network Details.
+		Modifies BGP Peer Group by ID.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param privateNetworkId The private network identifier.
-		@return ApiPrivateNetworksNetworkIdPutRequest
+		@param bgpPeerGroupId The BGP peer group ID.
+		@return ApiBgpPeerGroupsPeerGroupIdPatchRequest
 	*/
-	PrivateNetworksNetworkIdPut(ctx context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdPutRequest
+	BgpPeerGroupsPeerGroupIdPatch(ctx context.Context, bgpPeerGroupId string) ApiBgpPeerGroupsPeerGroupIdPatchRequest
 
-	// PrivateNetworksNetworkIdPutExecute executes the request
-	//  @return PrivateNetwork
-	PrivateNetworksNetworkIdPutExecute(r ApiPrivateNetworksNetworkIdPutRequest) (*PrivateNetwork, *http.Response, error)
+	// BgpPeerGroupsPeerGroupIdPatchExecute executes the request
+	//  @return BgpPeerGroup
+	BgpPeerGroupsPeerGroupIdPatchExecute(r ApiBgpPeerGroupsPeerGroupIdPatchRequest) (*BgpPeerGroup, *http.Response, error)
 
 	/*
-		PrivateNetworksPost Create a Private Network.
+		BgpPeerGroupsPost Create a BGP Peer Group.
 
-		Create a Private Network.
+		Create a BGP Peer Group.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiPrivateNetworksPostRequest
+		@return ApiBgpPeerGroupsPostRequest
 	*/
-	PrivateNetworksPost(ctx context.Context) ApiPrivateNetworksPostRequest
+	BgpPeerGroupsPost(ctx context.Context) ApiBgpPeerGroupsPostRequest
 
-	// PrivateNetworksPostExecute executes the request
-	//  @return PrivateNetwork
-	PrivateNetworksPostExecute(r ApiPrivateNetworksPostRequest) (*PrivateNetwork, *http.Response, error)
+	// BgpPeerGroupsPostExecute executes the request
+	//  @return BgpPeerGroup
+	BgpPeerGroupsPostExecute(r ApiBgpPeerGroupsPostRequest) (*BgpPeerGroup, *http.Response, error)
 }
 
-// PrivateNetworksAPIService PrivateNetworksAPI service
-type PrivateNetworksAPIService service
+// BGPPeerGroupsAPIService BGPPeerGroupsAPI service
+type BGPPeerGroupsAPIService service
 
-type ApiPrivateNetworksGetRequest struct {
+type ApiBgpPeerGroupsGetRequest struct {
 	ctx        context.Context
-	ApiService PrivateNetworksAPI
+	ApiService BGPPeerGroupsAPI
 	location   *string
 }
 
-// If present will filter the result by the given location of the Private Networks.
-func (r ApiPrivateNetworksGetRequest) Location(location string) ApiPrivateNetworksGetRequest {
+// If present will filter the result by the given location of the BGP Peer Group.
+func (r ApiBgpPeerGroupsGetRequest) Location(location string) ApiBgpPeerGroupsGetRequest {
 	r.location = &location
 	return r
 }
 
-func (r ApiPrivateNetworksGetRequest) Execute() ([]PrivateNetwork, *http.Response, error) {
-	return r.ApiService.PrivateNetworksGetExecute(r)
+func (r ApiBgpPeerGroupsGetRequest) Execute() ([]BgpPeerGroup, *http.Response, error) {
+	return r.ApiService.BgpPeerGroupsGetExecute(r)
 }
 
 /*
-PrivateNetworksGet List Private Networks.
+BgpPeerGroupsGet List BGP Peer Groups.
 
-List all Private Networks owned by account.
+List all BGP Peer Groups owned by account.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPrivateNetworksGetRequest
+ @return ApiBgpPeerGroupsGetRequest
 */
-func (a *PrivateNetworksAPIService) PrivateNetworksGet(ctx context.Context) ApiPrivateNetworksGetRequest {
-	return ApiPrivateNetworksGetRequest{
+func (a *BGPPeerGroupsAPIService) BgpPeerGroupsGet(ctx context.Context) ApiBgpPeerGroupsGetRequest {
+	return ApiBgpPeerGroupsGetRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []PrivateNetwork
-func (a *PrivateNetworksAPIService) PrivateNetworksGetExecute(r ApiPrivateNetworksGetRequest) ([]PrivateNetwork, *http.Response, error) {
+//  @return []BgpPeerGroup
+func (a *BGPPeerGroupsAPIService) BgpPeerGroupsGetExecute(r ApiBgpPeerGroupsGetRequest) ([]BgpPeerGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []PrivateNetwork
+		localVarReturnValue []BgpPeerGroup
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateNetworksAPIService.PrivateNetworksGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BGPPeerGroupsAPIService.BgpPeerGroupsGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/private-networks"
+	localVarPath := localBasePath + "/bgp-peer-groups"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -250,185 +251,50 @@ func (a *PrivateNetworksAPIService) PrivateNetworksGetExecute(r ApiPrivateNetwor
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPrivateNetworksNetworkIdDeleteRequest struct {
-	ctx              context.Context
-	ApiService       PrivateNetworksAPI
-	privateNetworkId string
+type ApiBgpPeerGroupsPeerGroupIdDeleteRequest struct {
+	ctx            context.Context
+	ApiService     BGPPeerGroupsAPI
+	bgpPeerGroupId string
 }
 
-func (r ApiPrivateNetworksNetworkIdDeleteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PrivateNetworksNetworkIdDeleteExecute(r)
+func (r ApiBgpPeerGroupsPeerGroupIdDeleteRequest) Execute() (*BgpPeerGroup, *http.Response, error) {
+	return r.ApiService.BgpPeerGroupsPeerGroupIdDeleteExecute(r)
 }
 
 /*
-PrivateNetworksNetworkIdDelete Delete a Private Network.
+BgpPeerGroupsPeerGroupIdDelete Delete a BGP Peer Group.
 
-Delete Private Network.
+Deletes BGP Peer Group by ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param privateNetworkId The private network identifier.
- @return ApiPrivateNetworksNetworkIdDeleteRequest
+ @param bgpPeerGroupId The BGP peer group ID.
+ @return ApiBgpPeerGroupsPeerGroupIdDeleteRequest
 */
-func (a *PrivateNetworksAPIService) PrivateNetworksNetworkIdDelete(ctx context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdDeleteRequest {
-	return ApiPrivateNetworksNetworkIdDeleteRequest{
-		ApiService:       a,
-		ctx:              ctx,
-		privateNetworkId: privateNetworkId,
+func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPeerGroupIdDelete(ctx context.Context, bgpPeerGroupId string) ApiBgpPeerGroupsPeerGroupIdDeleteRequest {
+	return ApiBgpPeerGroupsPeerGroupIdDeleteRequest{
+		ApiService:     a,
+		ctx:            ctx,
+		bgpPeerGroupId: bgpPeerGroupId,
 	}
 }
 
 // Execute executes the request
-func (a *PrivateNetworksAPIService) PrivateNetworksNetworkIdDeleteExecute(r ApiPrivateNetworksNetworkIdDeleteRequest) (*http.Response, error) {
+//  @return BgpPeerGroup
+func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPeerGroupIdDeleteExecute(r ApiBgpPeerGroupsPeerGroupIdDeleteRequest) (*BgpPeerGroup, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateNetworksAPIService.PrivateNetworksNetworkIdDelete")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/private-networks/{privateNetworkId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"privateNetworkId"+"}", url.PathEscape(parameterValueToString(r.privateNetworkId, "privateNetworkId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiPrivateNetworksNetworkIdGetRequest struct {
-	ctx              context.Context
-	ApiService       PrivateNetworksAPI
-	privateNetworkId string
-}
-
-func (r ApiPrivateNetworksNetworkIdGetRequest) Execute() (*PrivateNetwork, *http.Response, error) {
-	return r.ApiService.PrivateNetworksNetworkIdGetExecute(r)
-}
-
-/*
-PrivateNetworksNetworkIdGet Get a Private Network.
-
-Retrieve Private Network Details.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param privateNetworkId The private network identifier.
- @return ApiPrivateNetworksNetworkIdGetRequest
-*/
-func (a *PrivateNetworksAPIService) PrivateNetworksNetworkIdGet(ctx context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdGetRequest {
-	return ApiPrivateNetworksNetworkIdGetRequest{
-		ApiService:       a,
-		ctx:              ctx,
-		privateNetworkId: privateNetworkId,
-	}
-}
-
-// Execute executes the request
-//  @return PrivateNetwork
-func (a *PrivateNetworksAPIService) PrivateNetworksNetworkIdGetExecute(r ApiPrivateNetworksNetworkIdGetRequest) (*PrivateNetwork, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
+		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PrivateNetwork
+		localVarReturnValue *BgpPeerGroup
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateNetworksAPIService.PrivateNetworksNetworkIdGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BGPPeerGroupsAPIService.BgpPeerGroupsPeerGroupIdDelete")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/private-networks/{privateNetworkId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"privateNetworkId"+"}", url.PathEscape(parameterValueToString(r.privateNetworkId, "privateNetworkId")), -1)
+	localVarPath := localBasePath + "/bgp-peer-groups/{bgpPeerGroupId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"bgpPeerGroupId"+"}", url.PathEscape(parameterValueToString(r.bgpPeerGroupId, "bgpPeerGroupId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -472,6 +338,174 @@ func (a *PrivateNetworksAPIService) PrivateNetworksNetworkIdGetExecute(r ApiPriv
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiBgpPeerGroupsPeerGroupIdGetRequest struct {
+	ctx            context.Context
+	ApiService     BGPPeerGroupsAPI
+	bgpPeerGroupId string
+}
+
+func (r ApiBgpPeerGroupsPeerGroupIdGetRequest) Execute() (*BgpPeerGroup, *http.Response, error) {
+	return r.ApiService.BgpPeerGroupsPeerGroupIdGetExecute(r)
+}
+
+/*
+BgpPeerGroupsPeerGroupIdGet Get a BGP Peer Group.
+
+Retrieves BGP Peer Group by ID.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param bgpPeerGroupId The BGP peer group ID.
+ @return ApiBgpPeerGroupsPeerGroupIdGetRequest
+*/
+func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPeerGroupIdGet(ctx context.Context, bgpPeerGroupId string) ApiBgpPeerGroupsPeerGroupIdGetRequest {
+	return ApiBgpPeerGroupsPeerGroupIdGetRequest{
+		ApiService:     a,
+		ctx:            ctx,
+		bgpPeerGroupId: bgpPeerGroupId,
+	}
+}
+
+// Execute executes the request
+//  @return BgpPeerGroup
+func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPeerGroupIdGetExecute(r ApiBgpPeerGroupsPeerGroupIdGetRequest) (*BgpPeerGroup, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BgpPeerGroup
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BGPPeerGroupsAPIService.BgpPeerGroupsPeerGroupIdGet")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/bgp-peer-groups/{bgpPeerGroupId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"bgpPeerGroupId"+"}", url.PathEscape(parameterValueToString(r.bgpPeerGroupId, "bgpPeerGroupId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v Error
@@ -520,62 +554,62 @@ func (a *PrivateNetworksAPIService) PrivateNetworksNetworkIdGetExecute(r ApiPriv
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPrivateNetworksNetworkIdPutRequest struct {
-	ctx                  context.Context
-	ApiService           PrivateNetworksAPI
-	privateNetworkId     string
-	privateNetworkModify *PrivateNetworkModify
+type ApiBgpPeerGroupsPeerGroupIdPatchRequest struct {
+	ctx               context.Context
+	ApiService        BGPPeerGroupsAPI
+	bgpPeerGroupId    string
+	bgpPeerGroupPatch *BgpPeerGroupPatch
 }
 
-func (r ApiPrivateNetworksNetworkIdPutRequest) PrivateNetworkModify(privateNetworkModify PrivateNetworkModify) ApiPrivateNetworksNetworkIdPutRequest {
-	r.privateNetworkModify = &privateNetworkModify
+func (r ApiBgpPeerGroupsPeerGroupIdPatchRequest) BgpPeerGroupPatch(bgpPeerGroupPatch BgpPeerGroupPatch) ApiBgpPeerGroupsPeerGroupIdPatchRequest {
+	r.bgpPeerGroupPatch = &bgpPeerGroupPatch
 	return r
 }
 
-func (r ApiPrivateNetworksNetworkIdPutRequest) Execute() (*PrivateNetwork, *http.Response, error) {
-	return r.ApiService.PrivateNetworksNetworkIdPutExecute(r)
+func (r ApiBgpPeerGroupsPeerGroupIdPatchRequest) Execute() (*BgpPeerGroup, *http.Response, error) {
+	return r.ApiService.BgpPeerGroupsPeerGroupIdPatchExecute(r)
 }
 
 /*
-PrivateNetworksNetworkIdPut Update a Private Network.
+BgpPeerGroupsPeerGroupIdPatch Modify a BGP Peer Group.
 
-Update Private Network Details.
+Modifies BGP Peer Group by ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param privateNetworkId The private network identifier.
- @return ApiPrivateNetworksNetworkIdPutRequest
+ @param bgpPeerGroupId The BGP peer group ID.
+ @return ApiBgpPeerGroupsPeerGroupIdPatchRequest
 */
-func (a *PrivateNetworksAPIService) PrivateNetworksNetworkIdPut(ctx context.Context, privateNetworkId string) ApiPrivateNetworksNetworkIdPutRequest {
-	return ApiPrivateNetworksNetworkIdPutRequest{
-		ApiService:       a,
-		ctx:              ctx,
-		privateNetworkId: privateNetworkId,
+func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPeerGroupIdPatch(ctx context.Context, bgpPeerGroupId string) ApiBgpPeerGroupsPeerGroupIdPatchRequest {
+	return ApiBgpPeerGroupsPeerGroupIdPatchRequest{
+		ApiService:     a,
+		ctx:            ctx,
+		bgpPeerGroupId: bgpPeerGroupId,
 	}
 }
 
 // Execute executes the request
-//  @return PrivateNetwork
-func (a *PrivateNetworksAPIService) PrivateNetworksNetworkIdPutExecute(r ApiPrivateNetworksNetworkIdPutRequest) (*PrivateNetwork, *http.Response, error) {
+//  @return BgpPeerGroup
+func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPeerGroupIdPatchExecute(r ApiBgpPeerGroupsPeerGroupIdPatchRequest) (*BgpPeerGroup, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
+		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PrivateNetwork
+		localVarReturnValue *BgpPeerGroup
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateNetworksAPIService.PrivateNetworksNetworkIdPut")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BGPPeerGroupsAPIService.BgpPeerGroupsPeerGroupIdPatch")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/private-networks/{privateNetworkId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"privateNetworkId"+"}", url.PathEscape(parameterValueToString(r.privateNetworkId, "privateNetworkId")), -1)
+	localVarPath := localBasePath + "/bgp-peer-groups/{bgpPeerGroupId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"bgpPeerGroupId"+"}", url.PathEscape(parameterValueToString(r.bgpPeerGroupId, "bgpPeerGroupId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.privateNetworkModify == nil {
-		return localVarReturnValue, nil, reportError("privateNetworkModify is required and must be specified")
+	if r.bgpPeerGroupPatch == nil {
+		return localVarReturnValue, nil, reportError("bgpPeerGroupPatch is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -596,7 +630,7 @@ func (a *PrivateNetworksAPIService) PrivateNetworksNetworkIdPutExecute(r ApiPriv
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.privateNetworkModify
+	localVarPostBody = r.bgpPeerGroupPatch
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -652,6 +686,17 @@ func (a *PrivateNetworksAPIService) PrivateNetworksNetworkIdPutExecute(r ApiPriv
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -677,73 +722,60 @@ func (a *PrivateNetworksAPIService) PrivateNetworksNetworkIdPutExecute(r ApiPriv
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPrivateNetworksPostRequest struct {
-	ctx                  context.Context
-	ApiService           PrivateNetworksAPI
-	privateNetworkCreate *PrivateNetworkCreate
-	force                *bool
+type ApiBgpPeerGroupsPostRequest struct {
+	ctx                context.Context
+	ApiService         BGPPeerGroupsAPI
+	bgpPeerGroupCreate *BgpPeerGroupCreate
 }
 
-func (r ApiPrivateNetworksPostRequest) PrivateNetworkCreate(privateNetworkCreate PrivateNetworkCreate) ApiPrivateNetworksPostRequest {
-	r.privateNetworkCreate = &privateNetworkCreate
+func (r ApiBgpPeerGroupsPostRequest) BgpPeerGroupCreate(bgpPeerGroupCreate BgpPeerGroupCreate) ApiBgpPeerGroupsPostRequest {
+	r.bgpPeerGroupCreate = &bgpPeerGroupCreate
 	return r
 }
 
-// Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups.
-func (r ApiPrivateNetworksPostRequest) Force(force bool) ApiPrivateNetworksPostRequest {
-	r.force = &force
-	return r
-}
-
-func (r ApiPrivateNetworksPostRequest) Execute() (*PrivateNetwork, *http.Response, error) {
-	return r.ApiService.PrivateNetworksPostExecute(r)
+func (r ApiBgpPeerGroupsPostRequest) Execute() (*BgpPeerGroup, *http.Response, error) {
+	return r.ApiService.BgpPeerGroupsPostExecute(r)
 }
 
 /*
-PrivateNetworksPost Create a Private Network.
+BgpPeerGroupsPost Create a BGP Peer Group.
 
-Create a Private Network.
+Create a BGP Peer Group.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPrivateNetworksPostRequest
+ @return ApiBgpPeerGroupsPostRequest
 */
-func (a *PrivateNetworksAPIService) PrivateNetworksPost(ctx context.Context) ApiPrivateNetworksPostRequest {
-	return ApiPrivateNetworksPostRequest{
+func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPost(ctx context.Context) ApiBgpPeerGroupsPostRequest {
+	return ApiBgpPeerGroupsPostRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return PrivateNetwork
-func (a *PrivateNetworksAPIService) PrivateNetworksPostExecute(r ApiPrivateNetworksPostRequest) (*PrivateNetwork, *http.Response, error) {
+//  @return BgpPeerGroup
+func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPostExecute(r ApiBgpPeerGroupsPostRequest) (*BgpPeerGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PrivateNetwork
+		localVarReturnValue *BgpPeerGroup
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateNetworksAPIService.PrivateNetworksPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BGPPeerGroupsAPIService.BgpPeerGroupsPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/private-networks"
+	localVarPath := localBasePath + "/bgp-peer-groups"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.privateNetworkCreate == nil {
-		return localVarReturnValue, nil, reportError("privateNetworkCreate is required and must be specified")
+	if r.bgpPeerGroupCreate == nil {
+		return localVarReturnValue, nil, reportError("bgpPeerGroupCreate is required and must be specified")
 	}
 
-	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
-	} else {
-		var defaultValue bool = false
-		r.force = &defaultValue
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -762,7 +794,7 @@ func (a *PrivateNetworksAPIService) PrivateNetworksPostExecute(r ApiPrivateNetwo
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.privateNetworkCreate
+	localVarPostBody = r.bgpPeerGroupCreate
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -808,6 +840,28 @@ func (a *PrivateNetworksAPIService) PrivateNetworksPostExecute(r ApiPrivateNetwo
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 406 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
 			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
