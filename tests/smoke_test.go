@@ -3,6 +3,7 @@ package tests
 import (
 	"context"
 	"fmt"
+	"testing"
 
 	"github.com/phoenixnap/go-sdk-bmc/auditapi"
 	"github.com/stretchr/testify/suite"
@@ -51,6 +52,6 @@ func (suite *SmokeTestSuite) TestSmoke() {
 	fmt.Printf("RESULT: %v\n", result[0])
 }
 
-// func TestSmokeTestSuite(t *testing.T) {
-// 	suite.Run(t, new(SmokeTestSuite))
-// }
+func TestSmokeTestSuite(t *testing.T) {
+	suite.Run(t, new(SmokeTestSuite))
+}
