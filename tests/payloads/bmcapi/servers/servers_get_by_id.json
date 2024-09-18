@@ -130,6 +130,10 @@
                 "raid": "NO_RAID",
                 "size": -1
               }
+            },
+            "gpuConfiguration": {
+              "longName": "Nvideo PTX 5090X",
+              "count": 3
             }
         }
     }
