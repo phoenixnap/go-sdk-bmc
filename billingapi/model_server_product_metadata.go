@@ -34,7 +34,9 @@ type ServerProductMetadata struct {
 	// Server network.
 	Network string `json:"network"`
 	// Server storage.
-	Storage              string `json:"storage"`
+	Storage string `json:"storage"`
+	// GPU configurations
+	GpuConfigurations    []GpuConfigurationMetadata `json:"gpuConfigurations,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -232,6 +234,38 @@ func (o *ServerProductMetadata) SetStorage(v string) {
 	o.Storage = v
 }
 
+// GetGpuConfigurations returns the GpuConfigurations field value if set, zero value otherwise.
+func (o *ServerProductMetadata) GetGpuConfigurations() []GpuConfigurationMetadata {
+	if o == nil || IsNil(o.GpuConfigurations) {
+		var ret []GpuConfigurationMetadata
+		return ret
+	}
+	return o.GpuConfigurations
+}
+
+// GetGpuConfigurationsOk returns a tuple with the GpuConfigurations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServerProductMetadata) GetGpuConfigurationsOk() ([]GpuConfigurationMetadata, bool) {
+	if o == nil || IsNil(o.GpuConfigurations) {
+		return nil, false
+	}
+	return o.GpuConfigurations, true
+}
+
+// HasGpuConfigurations returns a boolean if a field has been set.
+func (o *ServerProductMetadata) HasGpuConfigurations() bool {
+	if o != nil && !IsNil(o.GpuConfigurations) {
+		return true
+	}
+
+	return false
+}
+
+// SetGpuConfigurations gets a reference to the given []GpuConfigurationMetadata and assigns it to the GpuConfigurations field.
+func (o *ServerProductMetadata) SetGpuConfigurations(v []GpuConfigurationMetadata) {
+	o.GpuConfigurations = v
+}
+
 func (o ServerProductMetadata) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -249,6 +283,9 @@ func (o ServerProductMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize["cpuFrequency"] = o.CpuFrequency
 	toSerialize["network"] = o.Network
 	toSerialize["storage"] = o.Storage
+	if !IsNil(o.GpuConfigurations) {
+		toSerialize["gpuConfigurations"] = o.GpuConfigurations
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -305,6 +342,7 @@ func (o *ServerProductMetadata) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "cpuFrequency")
 		delete(additionalProperties, "network")
 		delete(additionalProperties, "storage")
+		delete(additionalProperties, "gpuConfigurations")
 		o.AdditionalProperties = additionalProperties
 	}
 

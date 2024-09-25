@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | The unique identifier of the rated usage record. | 
-**ProductCategory** | **string** | The category of the product associated with this usage record. | 
+**ProductCategory** | [**RatedUsageProductCategoryEnum**](RatedUsageProductCategoryEnum.md) |  | 
 **ProductCode** | **string** | The code identifying the product associated to this usage record. | 
 **Location** | [**LocationEnum**](LocationEnum.md) |  | 
 **YearMonth** | Pointer to **string** | Year and month of the usage record. | [optional] 
@@ -28,7 +28,7 @@ Name | Type | Description | Notes
 
 ### NewRatedUsageRecord
 
-`func NewRatedUsageRecord(id string, productCategory string, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, usageSessionId string, correlationId string, ) *RatedUsageRecord`
+`func NewRatedUsageRecord(id string, productCategory RatedUsageProductCategoryEnum, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, usageSessionId string, correlationId string, ) *RatedUsageRecord`
 
 NewRatedUsageRecord instantiates a new RatedUsageRecord object
 This constructor will assign default values to properties that have it defined,
@@ -65,20 +65,20 @@ SetId sets Id field to given value.
 
 ### GetProductCategory
 
-`func (o *RatedUsageRecord) GetProductCategory() string`
+`func (o *RatedUsageRecord) GetProductCategory() RatedUsageProductCategoryEnum`
 
 GetProductCategory returns the ProductCategory field if non-nil, zero value otherwise.
 
 ### GetProductCategoryOk
 
-`func (o *RatedUsageRecord) GetProductCategoryOk() (*string, bool)`
+`func (o *RatedUsageRecord) GetProductCategoryOk() (*RatedUsageProductCategoryEnum, bool)`
 
 GetProductCategoryOk returns a tuple with the ProductCategory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProductCategory
 
-`func (o *RatedUsageRecord) SetProductCategory(v string)`
+`func (o *RatedUsageRecord) SetProductCategory(v RatedUsageProductCategoryEnum)`
 
 SetProductCategory sets ProductCategory field to given value.
 

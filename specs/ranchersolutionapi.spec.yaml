@@ -107,7 +107,7 @@ paths:
                 name: Rancher Deployment
                 description: A Rancher Server deployment.
                 location: PHX
-                initialClusterVersion: v2.5.9
+                initialClusterVersion: v2.6.4
                 metadata:
                   url: https://rancher
                   username: admin
@@ -151,7 +151,7 @@ paths:
                       name: Rancher Deployment
                       description: A Rancher Server deployment in Phoenix.
                       location: PHX
-                      initialClusterVersion: v2.5.9
+                      initialClusterVersion: v2.6.4
                       nodePools:
                         - name: rancher-server-node-pool
                           nodeCount: 1
@@ -162,7 +162,7 @@ paths:
                       name: Rancher Deployment
                       description: A Rancher Server deployment in Ashburn.
                       location: ASH
-                      initialClusterVersion: v2.5.9
+                      initialClusterVersion: v2.6.4
                       nodePools:
                         - name: rancher-server-node-pool
                           nodeCount: 1
@@ -264,7 +264,7 @@ components:
           description: (Read-only) The Rancher version that was installed on the cluster during the first creation process.
           type: string
           readOnly: true
-          example: v2.5.9
+          example: v2.6.4
         nodePools:
           description: The node pools associated with the cluster.
           type: array
@@ -380,7 +380,7 @@ components:
           default: 1
           example: 3
         serverType:
-          description: Node server type. Cannot be changed once the cluster is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m2.medium`, `d2.m2.large` or `d2.m2.xlarge`.
+          description: Node server type. Cannot be changed once the cluster is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.xlarge`, `d2.m2.xxlarge`, `d2.m3.xlarge`, `d2.m4.xlarge`, `d2.m5.xlarge`, `d2.c4.db1.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge`, `a1.c5.large`, `d3.s5.xlarge`, `d3.m4.xxlarge`, `d3.m5.xxlarge`, `d3.m6.xxlarge`, `s3.c3.medium`, `s3.c3.large`, `d3.c4.medium`, `d3.c5.medium`, `d3.c6.medium`, `d3.c1.large`, `d3.c2.large`, `d3.c3.large`, `d3.m1.xlarge`, `d3.m2.xlarge`, `d3.m3.xlarge`, `d3.g2.c1.xlarge`, `d3.g2.c2.xlarge` or `d3.g2.c3.xlarge`.
           type: string
           default: s0.d1.small
           example: s0.d1.small

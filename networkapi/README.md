@@ -6,8 +6,9 @@ networks to avoid unnecessary egress data charges. Model your networks according
 <br>
 <span class='pnap-api-knowledge-base-link'>
 Helpful knowledge base articles are available for 
-<a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>multi-private backend networks</a>
-and <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-15' target='_blank'>public networks</a>.
+<a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>multi-private backend networks</a>, 
+<a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-15' target='_blank'>public networks</a> and
+<a href='https://phoenixnap.com/kb/border-gateway-protocol-bmc' target='_blank'>border gateway protocol peer groups</a>.
 </span><br>
 <br>
 <b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b>
@@ -88,6 +89,11 @@ All URIs are relative to *https://api.phoenixnap.com/networks/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*BGPPeerGroupsAPI* | [**BgpPeerGroupsGet**](docs/BGPPeerGroupsAPI.md#bgppeergroupsget) | **Get** /bgp-peer-groups | List BGP Peer Groups.
+*BGPPeerGroupsAPI* | [**BgpPeerGroupsPeerGroupIdDelete**](docs/BGPPeerGroupsAPI.md#bgppeergroupspeergroupiddelete) | **Delete** /bgp-peer-groups/{bgpPeerGroupId} | Delete a BGP Peer Group.
+*BGPPeerGroupsAPI* | [**BgpPeerGroupsPeerGroupIdGet**](docs/BGPPeerGroupsAPI.md#bgppeergroupspeergroupidget) | **Get** /bgp-peer-groups/{bgpPeerGroupId} | Get a BGP Peer Group.
+*BGPPeerGroupsAPI* | [**BgpPeerGroupsPeerGroupIdPatch**](docs/BGPPeerGroupsAPI.md#bgppeergroupspeergroupidpatch) | **Patch** /bgp-peer-groups/{bgpPeerGroupId} | Modify a BGP Peer Group.
+*BGPPeerGroupsAPI* | [**BgpPeerGroupsPost**](docs/BGPPeerGroupsAPI.md#bgppeergroupspost) | **Post** /bgp-peer-groups | Create a BGP Peer Group.
 *PrivateNetworksAPI* | [**PrivateNetworksGet**](docs/PrivateNetworksAPI.md#privatenetworksget) | **Get** /private-networks | List Private Networks.
 *PrivateNetworksAPI* | [**PrivateNetworksNetworkIdDelete**](docs/PrivateNetworksAPI.md#privatenetworksnetworkiddelete) | **Delete** /private-networks/{privateNetworkId} | Delete a Private Network.
 *PrivateNetworksAPI* | [**PrivateNetworksNetworkIdGet**](docs/PrivateNetworksAPI.md#privatenetworksnetworkidget) | **Get** /private-networks/{privateNetworkId} | Get a Private Network.
@@ -104,6 +110,11 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AsnDetails](docs/AsnDetails.md)
+ - [BgpIPv4Prefix](docs/BgpIPv4Prefix.md)
+ - [BgpPeerGroup](docs/BgpPeerGroup.md)
+ - [BgpPeerGroupCreate](docs/BgpPeerGroupCreate.md)
+ - [BgpPeerGroupPatch](docs/BgpPeerGroupPatch.md)
  - [Error](docs/Error.md)
  - [NetworkMembership](docs/NetworkMembership.md)
  - [PrivateNetwork](docs/PrivateNetwork.md)

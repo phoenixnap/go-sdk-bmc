@@ -30,9 +30,9 @@ type Server struct {
 	Hostname string `json:"hostname"`
 	// Description of server.
 	Description *string `json:"description,omitempty"`
-	// The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
+	// The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
 	Os *string `json:"os,omitempty"`
-	// Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.xlarge`, `d2.m2.xxlarge`, `d2.m3.xlarge`, `d2.m4.xlarge`, `d2.m5.xlarge`, `d2.c4.db1.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge`, `a1.c5.large`, `d3.s5.xlarge`, `d3.m4.xxlarge`, `d3.m5.xxlarge`,  `d3.m6.xxlarge`, `s3.c3.medium`, `s3.c3.large`, `d3.c4.medium`, `d3.c5.medium` or `d3.c6.medium`.
+	// Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.xlarge`, `d2.m2.xxlarge`, `d2.m3.xlarge`, `d2.m4.xlarge`, `d2.m5.xlarge`, `d2.c4.db1.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge`, `a1.c5.large`, `d3.s5.xlarge`, `d3.m4.xxlarge`, `d3.m5.xxlarge`,  `d3.m6.xxlarge`, `s3.c3.medium`, `s3.c3.large`, `d3.c4.medium`, `d3.c5.medium`, `d3.c6.medium`, `d3.c1.large`, `d3.c2.large`, `d3.c3.large`, `d3.m1.xlarge`, `d3.m2.xlarge`, `d3.m3.xlarge`, `d3.g2.c1.xlarge`, `d3.g2.c2.xlarge` or `d3.g2.c3.xlarge`.
 	Type string `json:"type"`
 	// Server location ID. Cannot be changed once a server is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
 	Location string `json:"location"`
@@ -69,6 +69,7 @@ type Server struct {
 	OsConfiguration      *OsConfiguration     `json:"osConfiguration,omitempty"`
 	NetworkConfiguration NetworkConfiguration `json:"networkConfiguration"`
 	StorageConfiguration StorageConfiguration `json:"storageConfiguration"`
+	GpuConfiguration     *GpuConfiguration    `json:"gpuConfiguration,omitempty"`
 	// Unique identifier of the server to which the reservation has been transferred.
 	SupersededBy *string `json:"supersededBy,omitempty"`
 	// Unique identifier of the server from which the reservation has been transferred.
@@ -796,6 +797,38 @@ func (o *Server) SetStorageConfiguration(v StorageConfiguration) {
 	o.StorageConfiguration = v
 }
 
+// GetGpuConfiguration returns the GpuConfiguration field value if set, zero value otherwise.
+func (o *Server) GetGpuConfiguration() GpuConfiguration {
+	if o == nil || IsNil(o.GpuConfiguration) {
+		var ret GpuConfiguration
+		return ret
+	}
+	return *o.GpuConfiguration
+}
+
+// GetGpuConfigurationOk returns a tuple with the GpuConfiguration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Server) GetGpuConfigurationOk() (*GpuConfiguration, bool) {
+	if o == nil || IsNil(o.GpuConfiguration) {
+		return nil, false
+	}
+	return o.GpuConfiguration, true
+}
+
+// HasGpuConfiguration returns a boolean if a field has been set.
+func (o *Server) HasGpuConfiguration() bool {
+	if o != nil && !IsNil(o.GpuConfiguration) {
+		return true
+	}
+
+	return false
+}
+
+// SetGpuConfiguration gets a reference to the given GpuConfiguration and assigns it to the GpuConfiguration field.
+func (o *Server) SetGpuConfiguration(v GpuConfiguration) {
+	o.GpuConfiguration = &v
+}
+
 // GetSupersededBy returns the SupersededBy field value if set, zero value otherwise.
 func (o *Server) GetSupersededBy() string {
 	if o == nil || IsNil(o.SupersededBy) {
@@ -915,6 +948,9 @@ func (o Server) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["networkConfiguration"] = o.NetworkConfiguration
 	toSerialize["storageConfiguration"] = o.StorageConfiguration
+	if !IsNil(o.GpuConfiguration) {
+		toSerialize["gpuConfiguration"] = o.GpuConfiguration
+	}
 	if !IsNil(o.SupersededBy) {
 		toSerialize["supersededBy"] = o.SupersededBy
 	}
@@ -1003,6 +1039,7 @@ func (o *Server) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "osConfiguration")
 		delete(additionalProperties, "networkConfiguration")
 		delete(additionalProperties, "storageConfiguration")
+		delete(additionalProperties, "gpuConfiguration")
 		delete(additionalProperties, "supersededBy")
 		delete(additionalProperties, "supersedes")
 		o.AdditionalProperties = additionalProperties

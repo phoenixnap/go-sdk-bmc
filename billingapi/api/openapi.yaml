@@ -796,6 +796,16 @@ components:
       - PUBLIC_IP
       - STORAGE
       type: string
+    RatedUsageProductCategoryEnum:
+      description: The category of the product associated with this usage record.
+      enum:
+      - bmc-server
+      - bandwidth
+      - operating-system
+      - public-ip
+      - storage
+      example: bmc-server
+      type: string
     LocationEnum:
       description: The location code.
       enum:
@@ -807,6 +817,13 @@ components:
       - SEA
       - AUS
       type: string
+    DiscountTypeEnum:
+      description: The discount type.
+      enum:
+      - PRODUCT_CODE_PERCENTAGE
+      - PRODUCT_CATEGORY_PERCENTAGE
+      - GLOBAL_PERCENTAGE
+      type: string
     DiscountDetails:
       description: Represents the details of a discount applied to a product or charge.
       properties:
@@ -815,12 +832,7 @@ components:
           example: new-year-2022-monthly
           type: string
         type:
-          description: The type of discount applied.
-          enum:
-          - PRODUCT_CATEGORY_PERCENTAGE
-          - GLOBAL_PERCENTAGE
-          example: PRODUCT_CATEGORY_PERCENTAGE
-          type: string
+          $ref: '#/components/schemas/DiscountTypeEnum'
         value:
           description: |
             The value or amount of the discount. The interpretation of this value depends on the 'type' of discount.
@@ -839,15 +851,7 @@ components:
           example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
           type: string
         productCategory:
-          description: The category of the product associated with this usage record.
-          enum:
-          - bmc-server
-          - bandwidth
-          - operating-system
-          - public-ip
-          - storage
-          example: bmc-server
-          type: string
+          $ref: '#/components/schemas/RatedUsageProductCategoryEnum'
         productCode:
           description: The code identifying the product associated to this usage record.
           example: s1.c1.small
@@ -1232,6 +1236,18 @@ components:
       - productCategory
       - productCode
       type: object
+    GpuConfigurationMetadata:
+      description: GPU configuration details.
+      properties:
+        count:
+          description: GPU card count.
+          example: 2
+          type: number
+        name:
+          description: GPU name.
+          example: Intel MAX 11000
+          type: string
+      type: object
     ServerProductMetadata:
       description: Details of the server product.
       properties:
@@ -1263,6 +1279,11 @@ components:
           description: Server storage.
           example: 2x 2TB NVMe
           type: string
+        gpuConfigurations:
+          description: GPU configurations
+          items:
+            $ref: '#/components/schemas/GpuConfigurationMetadata'
+          type: array
       required:
       - coresPerCpu
       - cpu
@@ -1531,12 +1552,17 @@ components:
           public-ip: '#/components/schemas/PublicSubnetRecord'
           storage: '#/components/schemas/StorageRecord'
         propertyName: productCategory
+      example:
+        productCategory: bmc-server
       oneOf:
       - $ref: '#/components/schemas/ServerRecord'
       - $ref: '#/components/schemas/BandwidthRecord'
       - $ref: '#/components/schemas/OperatingSystemRecord'
       - $ref: '#/components/schemas/PublicSubnetRecord'
       - $ref: '#/components/schemas/StorageRecord'
+      properties:
+        productCategory:
+          $ref: '#/components/schemas/RatedUsageProductCategoryEnum'
     productsGet_200_response_inner:
       discriminator:
         mapping:

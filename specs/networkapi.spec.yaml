@@ -8,8 +8,9 @@ info:
     <br>
     <span class='pnap-api-knowledge-base-link'>
     Helpful knowledge base articles are available for 
-    <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>multi-private backend networks</a>
-    and <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-15' target='_blank'>public networks</a>.
+    <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#multi-private-backend-network-api' target='_blank'>multi-private backend networks</a>, 
+    <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-15' target='_blank'>public networks</a> and
+    <a href='https://phoenixnap.com/kb/border-gateway-protocol-bmc' target='_blank'>border gateway protocol peer groups</a>.
     </span><br>
     <br>
     <b>All URLs are relative to (https://api.phoenixnap.com/networks/v1/)</b>
@@ -33,6 +34,8 @@ tags:
     description: Private Network operations
   - name: Public Networks
     description: Public networks operations
+  - name: BGP Peer Groups
+    description: BGP peer groups operations
 paths:
   /private-networks:
     get:
@@ -259,8 +262,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
     put:
@@ -349,8 +350,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
     delete:
@@ -797,6 +796,418 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
+  /bgp-peer-groups:
+    get:
+      tags:
+        - BGP Peer Groups
+      description: List all BGP Peer Groups owned by account.
+      summary: List BGP Peer Groups.
+      operationId: bgpPeerGroupsGet
+      security:
+        - OAuth2:
+            - bmc.read
+      parameters:
+        - in: query
+          name: location
+          required: false
+          description: If present will filter the result by the given location of the BGP Peer Group.
+          schema:
+            description: Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+            type: string
+          example: PHX
+      responses:
+        '200':
+          description: List all BGP Peer Groups owned by account.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BgpPeerGroup'
+              example:
+                - id: 60473c2509268bc77fd06d29
+                  status: READY
+                  location: ASH
+                  ipv4Prefixes:
+                    - ipv4AllocationId: 6047127fed34ecc3ba8402d2
+                      cidr: 10.111.14.40/29
+                      status: READY
+                      isBringYourOwnIp: false
+                      inUse: false
+                  targetAsnDetails:
+                    asn: 65401
+                    isBringYourOwn: false
+                    verificationStatus: VERIFIED
+                  activeAsnDetails:
+                    asn: 65401
+                    isBringYourOwn: false
+                    verificationStatus: VERIFIED
+                  password: E!73423ghhjfge45
+                  advertisedRoutes: NONE
+                  rpkiRoaOriginAsn: 19437
+                  eBgpMultiHop: 7
+                  peeringLoopbacksV4:
+                    - 169.254.247.0
+                    - 169.254.247.1
+                  keepAliveTimerSeconds: 10
+                  holdTimerSeconds: 30
+                  createdOn: '2024-03-01T10:30:00Z'
+                  lastUpdatedOn: '2024-03-01T14:30:00Z'
+                - id: 60473c2509268bc77fd06d30
+                  status: READY
+                  location: PHX
+                  ipv4Prefixes:
+                    - ipv4AllocationId: 6047127fed34ecc3ba8402d3
+                      cidr: 10.121.14.40/29
+                      status: READY
+                      isBringYourOwnIp: false
+                      inUse: false
+                  targetAsnDetails:
+                    asn: 65401
+                    isBringYourOwn: false
+                    verificationStatus: VERIFIED
+                  activeAsnDetails:
+                    asn: 65401
+                    isBringYourOwn: false
+                    verificationStatus: VERIFIED
+                  password: E!2187asd324aio1
+                  advertisedRoutes: DEFAULT
+                  rpkiRoaOriginAsn: 20454
+                  eBgpMultiHop: 7
+                  peeringLoopbacksV4:
+                    - 170.254.247.0
+                    - 170.254.247.1
+                  keepAliveTimerSeconds: 10
+                  holdTimerSeconds: 30
+                  createdOn: '2024-03-01T10:30:00Z'
+                  lastUpdatedOn: '2024-03-01T14:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - BGP Peer Groups
+      description: Create a BGP Peer Group.
+      summary: Create a BGP Peer Group.
+      operationId: bgpPeerGroupsPost
+      security:
+        - OAuth2:
+            - bmc
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BgpPeerGroupCreate'
+            examples:
+              bgpPeerGroupWithDefaultAndRequiredParameters:
+                value:
+                  location: PHX
+                  asn: 65401
+                  advertisedRoutes: NONE
+              bgpPeerGroupWithAllCustomParameters:
+                value:
+                  location: ASH
+                  asn: 65402
+                  password: E!73423ghhjfge45
+                  advertisedRoutes: DEFAULT
+      responses:
+        '202':
+          description: Request to create BGP Peer Group is accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BgpPeerGroup'
+              examples:
+                bgpPeerGroupWithRequiredParametersResponse:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    status: PENDING
+                    location: PHX
+                    ipv4Prefixes:
+                      - ipv4AllocationId: 6047127fed34ecc3ba8402d2
+                        cidr: 10.111.14.40/29
+                        status: READY
+                        isBringYourOwnIp: false
+                        inUse: false
+                    targetAsnDetails:
+                      asn: 65401
+                      isBringYourOwn: false
+                      verificationStatus: VERIFIED
+                    password: E!73423ghhjfge45
+                    advertisedRoutes: NONE
+                    rpkiRoaOriginAsn: 20454
+                    eBgpMultiHop: 7
+                    peeringLoopbacksV4:
+                      - 169.254.247.0
+                      - 169.254.247.1
+                    keepAliveTimerSeconds: 10
+                    holdTimerSeconds: 30
+                    lastUpdatedOn: '2024-03-01T14:30:00Z'
+                bgpPeerGroupWithAllParametersResponse:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    status: PENDING
+                    location: ASH
+                    ipv4Prefixes:
+                      - ipv4AllocationId: 6047127fed34ecc3ba8402d2
+                        cidr: 10.111.14.40/29
+                        status: READY
+                        isBringYourOwnIp: false
+                        inUse: false
+                    targetAsnDetails:
+                      asn: 65402
+                      isBringYourOwn: true
+                      verificationStatus: PENDING_VERIFICATION
+                    password: E!73423ghhjfge45
+                    advertisedRoutes: DEFAULT
+                    rpkiRoaOriginAsn: 19437
+                    eBgpMultiHop: 7
+                    peeringLoopbacksV4:
+                      - 169.254.247.0
+                      - 169.254.247.1
+                    keepAliveTimerSeconds: 10
+                    holdTimerSeconds: 30
+                    lastUpdatedOn: '2024-03-01T14:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '406':
+          description: Creation of BGP Peer Group in location is presently not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /bgp-peer-groups/{bgpPeerGroupId}:
+    parameters:
+      - $ref: '#/components/parameters/bgpPeerGroupIdPathParam'
+    get:
+      tags:
+        - BGP Peer Groups
+      description: Retrieves BGP Peer Group by ID.
+      summary: Get a BGP Peer Group.
+      operationId: bgpPeerGroupsPeerGroupIdGet
+      security:
+        - OAuth2:
+            - bmc.read
+      responses:
+        '200':
+          description: BGP Peer Group by ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BgpPeerGroup'
+              examples:
+                bgpPeerGroupResponse:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    status: READY
+                    location: ASH
+                    ipv4Prefixes:
+                      - ipv4AllocationId: 6047127fed34ecc3ba8402d2
+                        cidr: 10.111.14.40/29
+                        status: READY
+                        isBringYourOwnIp: false
+                        inUse: false
+                    targetAsnDetails:
+                      asn: 65401
+                      isBringYourOwn: false
+                      verificationStatus: VERIFIED
+                    activeAsnDetails:
+                      asn: 65401
+                      isBringYourOwn: false
+                      verificationStatus: VERIFIED
+                    password: E!73423ghhjfge45
+                    advertisedRoutes: NONE
+                    rpkiRoaOriginAsn: 19437
+                    eBgpMultiHop: 7
+                    peeringLoopbacksV4:
+                      - 169.254.247.0
+                      - 169.254.247.1
+                    keepAliveTimerSeconds: 10
+                    holdTimerSeconds: 30
+                    createdOn: '2024-03-01T10:30:00Z'
+                    lastUpdatedOn: '2024-03-01T14:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    patch:
+      tags:
+        - BGP Peer Groups
+      description: Modifies BGP Peer Group by ID.
+      summary: Modify a BGP Peer Group.
+      operationId: bgpPeerGroupsPeerGroupIdPatch
+      security:
+        - OAuth2:
+            - bmc
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BgpPeerGroupPatch'
+            examples:
+              modifyBgpPeerGroup:
+                value:
+                  password: E!73423ghhjfge46
+                  advertisedRoutes: DEFAULT
+              modifyBgpPeerGroupAsn:
+                value:
+                  asn: 65402
+                  password: E!73423ghhjfge46
+                  advertisedRoutes: DEFAULT
+      responses:
+        '202':
+          description: Request to modify BGP Peer Group is accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BgpPeerGroup'
+              examples:
+                modifyBgpPeerGroupResponse:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    status: PENDING
+                    location: ASH
+                    ipv4Prefixes:
+                      - ipv4AllocationId: 6047127fed34ecc3ba8402d2
+                        cidr: 10.111.14.40/29
+                        status: READY
+                        isBringYourOwnIp: false
+                        inUse: false
+                    targetAsnDetails:
+                      asn: 65401
+                      isBringYourOwn: false
+                      verificationStatus: VERIFIED
+                    activeAsnDetails:
+                      asn: 65401
+                      isBringYourOwn: false
+                      verificationStatus: VERIFIED
+                    password: E!73423ghhjfge46
+                    advertisedRoutes: DEFAULT
+                    rpkiRoaOriginAsn: 19437
+                    eBgpMultiHop: 7
+                    peeringLoopbacksV4:
+                      - 169.254.247.0
+                      - 169.254.247.1
+                    keepAliveTimerSeconds: 10
+                    holdTimerSeconds: 30
+                    createdOn: '2024-03-01T10:30:00Z'
+                    lastUpdatedOn: '2024-03-01T14:30:00Z'
+                modifyBgpPeerGroupAsnResponse:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    status: PENDING
+                    location: ASH
+                    ipv4Prefixes:
+                      - ipv4AllocationId: 6047127fed34ecc3ba8402d2
+                        cidr: 10.111.14.40/29
+                        status: READY
+                        isBringYourOwnIp: false
+                        inUse: false
+                    targetAsnDetails:
+                      asn: 65402
+                      isBringYourOwn: true
+                      verificationStatus: PENDING_VERIFICATION
+                    activeAsnDetails:
+                      asn: 65401
+                      isBringYourOwn: false
+                      verificationStatus: VERIFIED
+                    password: E!73423ghhjfge46
+                    advertisedRoutes: DEFAULT
+                    rpkiRoaOriginAsn: 19437
+                    eBgpMultiHop: 7
+                    peeringLoopbacksV4:
+                      - 169.254.247.0
+                      - 169.254.247.1
+                    keepAliveTimerSeconds: 10
+                    holdTimerSeconds: 30
+                    createdOn: '2024-03-01T10:30:00Z'
+                    lastUpdatedOn: '2024-03-01T14:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      tags:
+        - BGP Peer Groups
+      description: Deletes BGP Peer Group by ID.
+      summary: Delete a BGP Peer Group.
+      operationId: bgpPeerGroupsPeerGroupIdDelete
+      security:
+        - OAuth2:
+            - bmc
+      responses:
+        '202':
+          description: Request to delete BGP Peer Group is accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BgpPeerGroup'
+              examples:
+                bgpPeerGroupResponse:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    status: PENDING
+                    location: ASH
+                    ipv4Prefixes:
+                      - ipv4AllocationId: 6047127fed34ecc3ba8402d2
+                        cidr: 10.111.14.40/29
+                        status: READY
+                        isBringYourOwnIp: false
+                        inUse: false
+                    targetAsnDetails:
+                      asn: 65401
+                      isBringYourOwn: false
+                      verificationStatus: VERIFIED
+                    activeAsnDetails:
+                      asn: 65401
+                      isBringYourOwn: false
+                      verificationStatus: VERIFIED
+                    password: E!73423ghhjfge45
+                    advertisedRoutes: NONE
+                    rpkiRoaOriginAsn: 19437
+                    eBgpMultiHop: 7
+                    peeringLoopbacksV4:
+                      - 169.254.247.0
+                      - 169.254.247.1
+                    keepAliveTimerSeconds: 10
+                    holdTimerSeconds: 30
+                    createdOn: '2024-03-01T10:30:00Z'
+                    lastUpdatedOn: '2024-03-01T14:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 components:
   securitySchemes:
     OAuth2:
@@ -1114,6 +1525,200 @@ components:
           type: string
           maxLength: 250
           example: Further details on the network.
+    BgpIPv4Prefix:
+      type: object
+      description: The BGP IPv4 Prefix.
+      required:
+        - ipv4AllocationId
+        - cidr
+        - status
+        - isBringYourOwnIp
+        - inUse
+      properties:
+        ipv4AllocationId:
+          description: IPv4 allocation ID.
+          type: string
+          example: 6047127fed34ecc3ba8402d2
+        cidr:
+          description: The IP block in CIDR format.
+          type: string
+          pattern: ^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/(?:[1-9]|[1-2]\d|3[0-2])$
+          example: 10.111.14.40/29
+        status:
+          description: 'The BGP IPv4 Prefix status. Can have one of the following values: `PENDING`, `BUSY`, `READY`, `ERROR` and `DELETING`.'
+          type: string
+          example: READY
+        isBringYourOwnIp:
+          description: Identifies IP as a `bring your own` IP block.
+          type: boolean
+          example: false
+        inUse:
+          description: The Boolean value of the BGP IPv4 Prefix is in use.
+          type: boolean
+          example: false
+    AsnDetails:
+      type: object
+      description: BGP Peer Group ASN details.
+      readOnly: true
+      required:
+        - asn
+        - isBringYourOwn
+        - verificationStatus
+      properties:
+        asn:
+          description: The BGP Peer Group ASN.
+          type: integer
+          format: int64
+          example: 65401
+        isBringYourOwn:
+          description: True if the BGP Peer Group ASN is a `bring your own` ASN.
+          type: boolean
+          example: false
+        verificationStatus:
+          description: 'The BGP Peer Group ASN verification status. Can have one of the following values: `PENDING_VERIFICATION`, `FAILED_VERIFICATION` and `VERIFIED`.'
+          type: string
+          example: VERIFIED
+        verificationReason:
+          description: The BGP Peer Group ASN verification reason for the respective status.
+          type: string
+          example: Bring Your Own ASN verification succeeded all checks.
+    BgpPeerGroup:
+      type: object
+      description: The Border Gateway Protocol (BGP) Peer Group.
+      readOnly: true
+      required:
+        - id
+        - status
+        - location
+        - ipv4Prefixes
+        - targetAsnDetails
+        - password
+        - advertisedRoutes
+        - rpkiRoaOriginAsn
+        - eBgpMultiHop
+        - peeringLoopbacksV4
+        - keepAliveTimerSeconds
+        - holdTimerSeconds
+      properties:
+        id:
+          description: The unique identifier of the BGP Peer Group.
+          type: string
+          example: 60473c2509268bc77fd06d29
+        status:
+          description: 'The BGP Peer Group status. Can have one of the following values: `PENDING`, `BUSY`, `READY`, `ERROR`, `PENDING_DELETION` and `DELETING`.'
+          type: string
+          example: READY
+        location:
+          description: 'The BGP Peer Group location. Can have one of the following values: `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.'
+          type: string
+          example: ASH
+        ipv4Prefixes:
+          description: The List of the BGP Peer Group IPv4 prefixes.
+          type: array
+          items:
+            $ref: '#/components/schemas/BgpIPv4Prefix'
+        targetAsnDetails:
+          $ref: '#/components/schemas/AsnDetails'
+        activeAsnDetails:
+          $ref: '#/components/schemas/AsnDetails'
+        password:
+          description: The BGP Peer Group password.
+          type: string
+          minLength: 8
+          maxLength: 32
+          pattern: ^[a-zA-Z0-9!@#$%^&*()\-|\[\]{}=;:<>,.]+$
+          example: E!73423ghhjfge45
+        advertisedRoutes:
+          description: 'The Advertised routes for the BGP Peer Group. Can have one of the following values: `DEFAULT` and `NONE`.'
+          type: string
+          example: DEFAULT
+        rpkiRoaOriginAsn:
+          description: The RPKI ROA Origin ASN of the BGP Peer Group based on location.
+          type: integer
+          format: int64
+          example: 20454
+        eBgpMultiHop:
+          description: The eBGP Multi-hop of the BGP Peer Group.
+          type: integer
+          example: 7
+        peeringLoopbacksV4:
+          description: The IPv4 Peering Loopback addresses of the BGP Peer Group. Valid IP formats are IPv4 addresses.
+          type: array
+          items:
+            type: string
+            pattern: ^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.)){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$
+            example: 169.254.247.1
+          example:
+            - 169.254.247.0
+            - 169.254.247.1
+        keepAliveTimerSeconds:
+          description: The Keep Alive Timer in seconds of the BGP Peer Group.
+          type: integer
+          example: 10
+        holdTimerSeconds:
+          description: The Hold Timer in seconds of the BGP Peer Group.
+          type: integer
+          example: 30
+        createdOn:
+          description: Date and time of creation.
+          type: string
+          format: data-time
+          example: '2024-03-01T10:30:00Z'
+        lastUpdatedOn:
+          description: Date and time of last update.
+          type: string
+          format: data-time
+          example: '2024-03-01T14:30:00Z'
+    BgpPeerGroupCreate:
+      type: object
+      description: Create a BGP Peer Group.
+      required:
+        - location
+        - asn
+        - advertisedRoutes
+      properties:
+        location:
+          description: 'The BGP Peer Group location. Can have one of the following values: `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.'
+          type: string
+          example: ASH
+        asn:
+          description: The BGP Peer Group ASN.
+          type: integer
+          format: int64
+          default: 65401
+          example: 65401
+        password:
+          description: The BGP Peer Group password.
+          minLength: 8
+          maxLength: 32
+          pattern: ^[a-zA-Z0-9!@#$%^&*()\-|\[\]{}=;:<>,.]+$
+          type: string
+          example: E!73423ghhjfge45
+        advertisedRoutes:
+          description: 'The Advertised routes for the BGP Peer Group. Can have one of the following values: `DEFAULT` and `NONE`.'
+          type: string
+          default: NONE
+          example: DEFAULT
+    BgpPeerGroupPatch:
+      type: object
+      description: Update a BGP Peer Group.
+      properties:
+        asn:
+          description: The BGP Peer Group ASN.
+          type: integer
+          format: int64
+          example: 65401
+        password:
+          description: The BGP Peer Group password.
+          minLength: 8
+          maxLength: 32
+          pattern: ^[a-zA-Z0-9!@#$%^&*()\-|\[\]{}=;:<>,.]+$
+          type: string
+          example: E!73423ghijfge45
+        advertisedRoutes:
+          description: 'The Advertised routes for the BGP Peer Group. Can have one of the following values: `DEFAULT` and `NONE`.'
+          type: string
+          example: DEFAULT
   responses:
     BadRequest:
       description: The request failed due to wrong data. Please check the provided parameters and try again.
@@ -1135,12 +1740,6 @@ components:
             $ref: '#/components/schemas/Error'
     InternalServerError:
       description: The server encountered an unexpected condition that prevented it from fulfilling the request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The request failed since the resource could not been found.
       content:
         application/json:
           schema:
@@ -1185,3 +1784,11 @@ components:
         type: string
       description: The IP Block identifier.
       example: 6047127fed34ecc3ba8402d2
+    bgpPeerGroupIdPathParam:
+      in: path
+      name: bgpPeerGroupId
+      required: true
+      schema:
+        type: string
+      description: The BGP peer group ID.
+      example: 603f3b2cfcaf050643b89a4b

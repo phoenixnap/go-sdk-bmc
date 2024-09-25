@@ -339,6 +339,125 @@ func (suite *NetworkApiTestSuite) TestDeletePublicNetworkIpBlocksByPublicNetwork
 	suite.verifyCalledOnce(expectationId)
 }
 
+func (suite *NetworkApiTestSuite) TestGetBgpPeerGroups() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("networkapi/bgp_peer_groups_get", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	// Fetch a map of query parameters
+	qpMap := TestUtilsImpl{}.generateQueryParams(request)
+
+	loc := fmt.Sprintf("%v", qpMap["location"])
+
+	// Operation Execution
+	result, _, _ := suite.apiClient.BGPPeerGroupsAPI.BgpPeerGroupsGet(suite.ctx).Location(loc).Execute()
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
+
+	// Verify
+	suite.verifyCalledOnce(expectationId)
+}
+
+func (suite *NetworkApiTestSuite) TestCreateBgpPeerGroups() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("networkapi/bgp_peer_groups_post", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	body, _ := json.Marshal(request.Body.Json)
+	var bgpPeerGroupCreate networkapi.BgpPeerGroupCreate
+	json.Unmarshal(body, &bgpPeerGroupCreate)
+
+	// Operation Execution
+	result, _, _ := suite.apiClient.BGPPeerGroupsAPI.BgpPeerGroupsPost(suite.ctx).BgpPeerGroupCreate(bgpPeerGroupCreate).Execute()
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
+
+	// Verify
+	suite.verifyCalledOnce(expectationId)
+}
+
+func (suite *NetworkApiTestSuite) TestGetBgpPeerGroupsByID() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("networkapi/bgp_peer_groups_get_by_id", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	bgpPeerGroupId := request.PathParameters["id"][0]
+
+	// Operation Execution
+	result, _, _ := suite.apiClient.BGPPeerGroupsAPI.BgpPeerGroupsPeerGroupIdGet(suite.ctx, bgpPeerGroupId).Execute()
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
+
+	// Verify
+	suite.verifyCalledOnce(expectationId)
+}
+
+func (suite *NetworkApiTestSuite) TestDeleteBgpPeerGroupsByID() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("networkapi/bgp_peer_groups_delete_by_id", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	bgpPeerGroupId := request.PathParameters["id"][0]
+
+	// Operation Execution
+	result, _, _ := suite.apiClient.BGPPeerGroupsAPI.BgpPeerGroupsPeerGroupIdDelete(suite.ctx, bgpPeerGroupId).Execute()
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
+
+	// Verify
+	suite.verifyCalledOnce(expectationId)
+}
+
+func (suite *NetworkApiTestSuite) TestPatchBgpPeerGroupsByID() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("networkapi/bgp_peer_groups_patch_by_id", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	bgpPeerGroupId := request.PathParameters["id"][0]
+
+	body, _ := json.Marshal(request.Body.Json)
+	var bgpPeerGroupPatch networkapi.BgpPeerGroupPatch
+	json.Unmarshal(body, &bgpPeerGroupPatch)
+
+	// Operation Execution
+	result, _, _ := suite.apiClient.BGPPeerGroupsAPI.BgpPeerGroupsPeerGroupIdPatch(suite.ctx, bgpPeerGroupId).BgpPeerGroupPatch(bgpPeerGroupPatch).Execute()
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
+
+	// Verify
+	suite.verifyCalledOnce(expectationId)
+}
+
 func TestNetworkApiTestSuite(t *testing.T) {
 	suite.Run(t, new(NetworkApiTestSuite))
 }

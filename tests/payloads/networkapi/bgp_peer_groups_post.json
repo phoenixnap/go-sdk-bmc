@@ -1,0 +1,54 @@
+{
+    "request": {
+        "method": "POST",
+        "path": "/networks/v1/bgp-peer-groups",
+        "body": {
+          "type": "JSON",
+          "json": {
+              "location": "ASH",
+              "asn": 65401,
+              "password": "E!73423ghhjfge45",
+              "advertisedRoutes": "NONE"
+          }
+        }
+    },
+    "response": {
+        "statusCode": 202,
+        "body": {
+          "id": "60473c2509268bc77fd06d29",
+          "status": "PENDING",
+          "location": "ASH",
+          "ipv4Prefixes": [
+            {
+              "ipv4AllocationId": "6047127fed34ecc3ba8402d2",
+              "cidr": "10.111.14.40/29",
+              "status": "READY",
+              "isBringYourOwnIp": false,
+              "inUse": false
+            }
+          ],
+          "targetAsnDetails": {
+            "asn": 65401,
+            "isBringYourOwn": false,
+            "verificationStatus": "VERIFIED"
+          },
+          "activeAsnDetails": {
+            "asn": 65401,
+            "isBringYourOwn": false,
+            "verificationStatus": "VERIFIED"
+          },
+          "password": "E!73423ghhjfge45",
+          "advertisedRoutes": "NONE",
+          "rpkiRoaOriginAsn": 19437,
+          "eBgpMultiHop": 7,
+          "peeringLoopbacksV4": [
+            "169.254.247.0",
+            "169.254.247.1"
+          ],
+          "keepAliveTimerSeconds": 10,
+          "holdTimerSeconds": 30,
+          "createdOn": "2024-03-01T10:30:00Z",
+          "lastUpdatedOn": "2024-03-01T14:30:00Z"
+      }
+    }
+}

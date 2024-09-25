@@ -79,6 +79,9 @@ paths:
               schema:
                 type: array
                 items:
+                  properties:
+                    productCategory:
+                      $ref: '#/components/schemas/RatedUsageProductCategoryEnum'
                   oneOf:
                     - $ref: '#/components/schemas/ServerRecord'
                     - $ref: '#/components/schemas/BandwidthRecord'
@@ -125,6 +128,9 @@ paths:
               schema:
                 type: array
                 items:
+                  properties:
+                    productCategory:
+                      $ref: '#/components/schemas/RatedUsageProductCategoryEnum'
                   oneOf:
                     - $ref: '#/components/schemas/ServerRecord'
                     - $ref: '#/components/schemas/BandwidthRecord'
@@ -519,6 +525,16 @@ components:
         - OPERATING_SYSTEM
         - PUBLIC_IP
         - STORAGE
+    RatedUsageProductCategoryEnum:
+      description: The category of the product associated with this usage record.
+      type: string
+      enum:
+        - bmc-server
+        - bandwidth
+        - operating-system
+        - public-ip
+        - storage
+      example: bmc-server
     LocationEnum:
       description: The location code.
       type: string
@@ -530,6 +546,13 @@ components:
         - CHI
         - SEA
         - AUS
+    DiscountTypeEnum:
+      description: The discount type.
+      type: string
+      enum:
+        - PRODUCT_CODE_PERCENTAGE
+        - PRODUCT_CATEGORY_PERCENTAGE
+        - GLOBAL_PERCENTAGE
     DiscountDetails:
       type: object
       description: Represents the details of a discount applied to a product or charge.
@@ -539,12 +562,7 @@ components:
           type: string
           example: new-year-2022-monthly
         type:
-          type: string
-          description: The type of discount applied.
-          enum:
-            - PRODUCT_CATEGORY_PERCENTAGE
-            - GLOBAL_PERCENTAGE
-          example: PRODUCT_CATEGORY_PERCENTAGE
+          $ref: '#/components/schemas/DiscountTypeEnum'
         value:
           description: |
             The value or amount of the discount. The interpretation of this value depends on the 'type' of discount.
@@ -563,15 +581,7 @@ components:
           type: string
           example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
         productCategory:
-          description: The category of the product associated with this usage record.
-          type: string
-          enum:
-            - bmc-server
-            - bandwidth
-            - operating-system
-            - public-ip
-            - storage
-          example: bmc-server
+          $ref: '#/components/schemas/RatedUsageProductCategoryEnum'
         productCode:
           description: The code identifying the product associated to this usage record.
           type: string
@@ -944,6 +954,18 @@ components:
       required:
         - productCode
         - productCategory
+    GpuConfigurationMetadata:
+      type: object
+      description: GPU configuration details.
+      properties:
+        count:
+          description: GPU card count.
+          type: number
+          example: 2
+        name:
+          description: GPU name.
+          type: string
+          example: Intel MAX 11000
     ServerProductMetadata:
       type: object
       description: Details of the server product.
@@ -976,6 +998,11 @@ components:
           description: Server storage.
           type: string
           example: 2x 2TB NVMe
+        gpuConfigurations:
+          description: GPU configurations
+          type: array
+          items:
+            $ref: '#/components/schemas/GpuConfigurationMetadata'
       required:
         - ramInGb
         - cpuCount

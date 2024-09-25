@@ -490,12 +490,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: The request failed since the resource could not been found.
         "500":
           content:
             application/json:
@@ -2886,6 +2880,21 @@ components:
         rootPartition:
           $ref: '#/components/schemas/StorageConfiguration_rootPartition'
       type: object
+    GpuConfiguration:
+      description: The GPU configuration.
+      example:
+        count: 2
+        longName: Intel Max 1100 GPU
+      properties:
+        longName:
+          description: The long name of the GPU.
+          example: Intel Max 1100 GPU
+          type: string
+        count:
+          description: The number of GPUs.
+          example: 2
+          type: integer
+      type: object
     Server:
       description: Bare metal server.
       example:
@@ -2983,6 +2992,9 @@ components:
         publicIpAddresses:
         - 182.16.0.1
         - 183.16.0.1
+        gpuConfiguration:
+          count: 2
+          longName: Intel Max 1100 GPU
         location: PHX
         supersededBy: 64a539b8d9c2c9ba8424ca31
         status: creating
@@ -3012,12 +3024,12 @@ components:
         os:
           description: "The server’s OS ID used when the server was created. Currently\
             \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
-            \ `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`,\
-            \ `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `esxi/esxi70`,\
-            \ `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`,\
-            \ `rockylinux/rockylinux9`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`,\
-            \ `proxmox/proxmox8`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g`\
-            \ or `netris/softgate_25g`."
+            \ `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `centos/centos7`, `centos/centos8`,\
+            \ `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`,\
+            \ `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`,\
+            \ `almalinux/almalinux9`, `rockylinux/rockylinux9`, `debian/bullseye`,\
+            \ `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`, `netris/controller`,\
+            \ `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`."
           example: ubuntu/bionic
           type: string
         type:
@@ -3034,7 +3046,9 @@ components:
             \ `d2.m2.xxlarge`, `d2.m3.xlarge`, `d2.m4.xlarge`, `d2.m5.xlarge`, `d2.c4.db1.pliops1`,\
             \ `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge`, `a1.c5.large`, `d3.s5.xlarge`,\
             \ `d3.m4.xxlarge`, `d3.m5.xxlarge`,  `d3.m6.xxlarge`, `s3.c3.medium`,\
-            \ `s3.c3.large`, `d3.c4.medium`, `d3.c5.medium` or `d3.c6.medium`."
+            \ `s3.c3.large`, `d3.c4.medium`, `d3.c5.medium`, `d3.c6.medium`, `d3.c1.large`,\
+            \ `d3.c2.large`, `d3.c3.large`, `d3.m1.xlarge`, `d3.m2.xlarge`, `d3.m3.xlarge`,\
+            \ `d3.g2.c1.xlarge`, `d3.g2.c2.xlarge` or `d3.g2.c3.xlarge`."
           example: s1.c1.small
           type: string
         location:
@@ -3137,6 +3151,8 @@ components:
           $ref: '#/components/schemas/NetworkConfiguration'
         storageConfiguration:
           $ref: '#/components/schemas/StorageConfiguration'
+        gpuConfiguration:
+          $ref: '#/components/schemas/GpuConfiguration'
         supersededBy:
           description: Unique identifier of the server to which the reservation has
             been transferred.
@@ -3302,12 +3318,13 @@ components:
         os:
           description: "The server’s OS ID used when the server was created. Currently\
             \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
-            \ `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`,\
-            \ `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `esxi/esxi70`,\
-            \ `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`,\
-            \ `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `debian/bullseye`,\
-            \ `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`, `netris/controller`,\
-            \ `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`."
+            \ `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `centos/centos7`, `centos/centos8`,\
+            \ `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`,\
+            \ `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`,\
+            \ `almalinux/almalinux9`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`,\
+            \ `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`,\
+            \ `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or\
+            \ `netris/softgate_25g`."
           example: ubuntu/bionic
           type: string
         type:
@@ -3324,7 +3341,9 @@ components:
             \ `d2.m2.xxlarge`, `d2.m3.xlarge`, `d2.m4.xlarge`, `d2.m5.xlarge`, `d2.c4.db1.pliops1`,\
             \ `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge`, `a1.c5.large`, `d3.s5.xlarge`,\
             \ `d3.m4.xxlarge`, `d3.m5.xxlarge`, `d3.m6.xxlarge`, `s3.c3.medium`, `s3.c3.large`,\
-            \ `d3.c4.medium`, `d3.c5.medium` or `d3.c6.medium`."
+            \ `d3.c4.medium`, `d3.c5.medium`, `d3.c6.medium`, `d3.c1.large`, `d3.c2.large`,\
+            \ `d3.c3.large`, `d3.m1.xlarge`, `d3.m2.xlarge`, `d3.m3.xlarge`, `d3.g2.c1.xlarge`,\
+            \ `d3.g2.c2.xlarge` or `d3.g2.c3.xlarge`."
           example: s1.c1.small
           type: string
         location:
@@ -3566,11 +3585,12 @@ components:
         os:
           description: "The server’s OS ID used when the server was created. Currently\
             \ this field should be set to either `ubuntu/bionic`, `ubuntu/focal`,\
-            \ `ubuntu/jammy`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`,\
-            \ `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `esxi/esxi70`,\
-            \ `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `debian/bullseye`,\
-            \ `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`, `netris/controller`,\
-            \ `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`."
+            \ `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `centos/centos7`, `centos/centos8`,\
+            \ `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`,\
+            \ `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`,\
+            \ `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`,\
+            \ `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or\
+            \ `netris/softgate_25g`."
           example: ubuntu/bionic
           type: string
         installDefaultSshKeys:
@@ -4108,9 +4128,12 @@ components:
             \ target='_blank'>cloud-init</a> configuration in base64 encoding. NoCloud\
             \ format is supported. Follow the <a href='https://phoenixnap.com/kb/bmc-cloud-init'\
             \ target='_blank'>instructions</a> on how to provision a server using\
-            \ cloud-init. Only ubuntu/bionic, ubuntu/focal and ubuntu/jammy are supported.\
-            \ User data will not be stored and cannot be retrieved once you deploy\
-            \ the server. Copy and save it for future reference."
+            \ cloud-init. Only ubuntu/bionic, ubuntu/focal, ubuntu/jammy, debian/bullseye,\
+            \ debian/bookworm, centos/centos7, centos/centos8, almalinux/almalinux8,\
+            \ almalinux/almalinux9, rockylinux/rockylinux8, rockylinux/rockylinux9\
+            \ and virtuozzo/virtuozzo7 are supported. User data will not be stored\
+            \ and cannot be retrieved once you deploy the server. Copy and save it\
+            \ for future reference."
           format: byte
           type: string
           writeOnly: true
