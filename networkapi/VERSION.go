@@ -1,3 +1,3 @@
 package networkapi
 
-const SdkVersion = "3.1.0"
+const SdkVersion = "3.1.1-SNAPSHOT"
