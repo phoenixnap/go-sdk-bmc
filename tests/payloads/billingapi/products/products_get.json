@@ -55,7 +55,13 @@
             "coresPerCpu" : 5,
             "cpuFrequency" : 5,
             "network" : "network",
-            "storage" : "storage"
+            "storage" : "storage",
+            "gpuConfigurations": [
+              {
+                "count": 10,
+                "name": "gpu"
+              }
+            ]
           }
         }
       ]
