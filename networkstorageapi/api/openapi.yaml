@@ -577,7 +577,8 @@ paths:
       tags:
       - Storage Networks
     patch:
-      description: Update a storage network's volume details.
+      description: Update a storage network's volume details. Volume's capacity requested
+        cannot be less than or equal to current volume's capacity.
       operationId: storageNetworksStorageNetworkIdVolumesVolumeIdPatch
       parameters:
       - description: ID of the storage.

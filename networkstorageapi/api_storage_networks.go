@@ -159,7 +159,7 @@ type StorageNetworksAPI interface {
 	/*
 		StorageNetworksStorageNetworkIdVolumesVolumeIdPatch Update a storage network's volume details.
 
-		Update a storage network's volume details.
+		Update a storage network's volume details. Volume's capacity requested cannot be less than or equal to current volume's capacity.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param storageId ID of the storage.
@@ -1600,7 +1600,7 @@ func (r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdPatchRequest) Execute()
 /*
 StorageNetworksStorageNetworkIdVolumesVolumeIdPatch Update a storage network's volume details.
 
-Update a storage network's volume details.
+Update a storage network's volume details. Volume's capacity requested cannot be less than or equal to current volume's capacity.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param storageId ID of the storage.
