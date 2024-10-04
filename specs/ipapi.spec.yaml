@@ -98,6 +98,7 @@ paths:
                 cidr: 1.1.1.0/28
                 location: PHX
                 cidrBlockSize: /28
+                ipVersion: V4
                 status: unassigned
                 description: 'IP Block #1 used for publicly accessing server #1.'
                 isBringYourOwn: false
@@ -290,14 +291,6 @@ components:
     IpBlock:
       type: object
       description: IP Block Details.
-      required:
-        - id
-        - location
-        - cidrBlockSize
-        - cidr
-        - status
-        - isBringYourOwn
-        - createdOn
       properties:
         id:
           description: IP Block identifier.
@@ -315,6 +308,10 @@ components:
           description: The IP Block in CIDR notation.
           type: string
           example: 1.1.1.0/31
+        ipVersion:
+          description: The IP Version of the block.
+          type: string
+          example: V4
         status:
           description: 'The status of the IP Block. Can have one of the following values: `creating` , `assigning` , `error assigning` , `assigned` , `unassigning` , `error unassigning` or `unassigned`.'
           type: string
@@ -354,9 +351,6 @@ components:
     DeleteIpBlockResult:
       type: object
       description: Result of a successful delete action.
-      required:
-        - result
-        - ipBlockId
       properties:
         result:
           description: IP Block has been deleted.
