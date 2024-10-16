@@ -3049,7 +3049,8 @@ components:
             \ `d3.m4.xxlarge`, `d3.m5.xxlarge`,  `d3.m6.xxlarge`, `s3.c3.medium`,\
             \ `s3.c3.large`, `d3.c4.medium`, `d3.c5.medium`, `d3.c6.medium`, `d3.c1.large`,\
             \ `d3.c2.large`, `d3.c3.large`, `d3.m1.xlarge`, `d3.m2.xlarge`, `d3.m3.xlarge`,\
-            \ `d3.g2.c1.xlarge`, `d3.g2.c2.xlarge` or `d3.g2.c3.xlarge`."
+            \ `d3.g2.c1.xlarge`, `d3.g2.c2.xlarge`, `d3.g2.c3.xlarge`, s4.x6.c6.large\
+            \ or s4.x6.m6.xlarge."
           example: s1.c1.small
           type: string
         location:
@@ -3344,7 +3345,7 @@ components:
             \ `d3.m4.xxlarge`, `d3.m5.xxlarge`, `d3.m6.xxlarge`, `s3.c3.medium`, `s3.c3.large`,\
             \ `d3.c4.medium`, `d3.c5.medium`, `d3.c6.medium`, `d3.c1.large`, `d3.c2.large`,\
             \ `d3.c3.large`, `d3.m1.xlarge`, `d3.m2.xlarge`, `d3.m3.xlarge`, `d3.g2.c1.xlarge`,\
-            \ `d3.g2.c2.xlarge` or `d3.g2.c3.xlarge`."
+            \ `d3.g2.c2.xlarge`, `d3.g2.c3.xlarge`, s4.x6.c6.large or s4.x6.m6.xlarge."
           example: s1.c1.small
           type: string
         location:
