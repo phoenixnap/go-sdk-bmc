@@ -843,6 +843,59 @@ components:
       - type
       - value
       type: object
+    CreditTypeEnum:
+      description: The credit type model.
+      enum:
+      - PROMO
+      - SYSTEM
+      example: PROMO
+      type: string
+    CreditDetailsBase:
+      description: Base credit details value object.
+      properties:
+        appliedAmount:
+          description: Amount applied.
+          example: 50
+          type: number
+        type:
+          $ref: '#/components/schemas/CreditTypeEnum'
+      required:
+      - appliedAmount
+      - type
+      type: object
+    PromoCreditDetails:
+      allOf:
+      - $ref: '#/components/schemas/CreditDetailsBase'
+      - description: Promo credit details.
+        properties:
+          couponId:
+            description: Coupon id which is the source of the promo credit.
+            example: 574845ca-53e6-4e6e-ae16-3ecd2a7d8508
+            type: string
+          couponCode:
+            description: Coupon code which is the source of the promo credit.
+            example: promo234
+            type: string
+        required:
+        - couponCode
+        - couponId
+        type: object
+    SystemCreditCauseEnum:
+      description: The cause/reason of system credit being applied.
+      enum:
+      - RESERVATION_UPGRADE
+      example: RESERVATION_UPGRADE
+      type: string
+    SystemCreditDetails:
+      allOf:
+      - $ref: '#/components/schemas/CreditDetailsBase'
+      - description: System credit details.
+        properties:
+          cause:
+            $ref: '#/components/schemas/SystemCreditCauseEnum'
+        required:
+        - cause
+        type: object
     RatedUsageRecord:
       description: Rated usage record.
       properties:
@@ -925,6 +978,10 @@ components:
           type: string
         discountDetails:
           $ref: '#/components/schemas/DiscountDetails'
+        creditDetails:
+          items:
+            $ref: '#/components/schemas/CreditDetails'
+          type: array
       required:
       - active
       - correlationId
@@ -1575,6 +1632,11 @@ components:
       oneOf:
       - $ref: '#/components/schemas/Product'
       - $ref: '#/components/schemas/ServerProduct'
+    CreditDetails:
+      oneOf:
+      - $ref: '#/components/schemas/PromoCreditDetails'
+      - $ref: '#/components/schemas/SystemCreditDetails'
+      title: CreditDetails
   securitySchemes:
     OAuth2:
       flows:

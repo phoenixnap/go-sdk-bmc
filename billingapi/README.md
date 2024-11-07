@@ -106,6 +106,9 @@ Class | Method | HTTP request | Description
  - [BandwidthDetails](docs/BandwidthDetails.md)
  - [BandwidthRecord](docs/BandwidthRecord.md)
  - [ConfigurationDetails](docs/ConfigurationDetails.md)
+ - [CreditDetails](docs/CreditDetails.md)
+ - [CreditDetailsBase](docs/CreditDetailsBase.md)
+ - [CreditTypeEnum](docs/CreditTypeEnum.md)
  - [DiscountDetails](docs/DiscountDetails.md)
  - [DiscountTypeEnum](docs/DiscountTypeEnum.md)
  - [Error](docs/Error.md)
@@ -121,6 +124,7 @@ Class | Method | HTTP request | Description
  - [ProductAvailability](docs/ProductAvailability.md)
  - [ProductCategoryEnum](docs/ProductCategoryEnum.md)
  - [ProductsGet200ResponseInner](docs/ProductsGet200ResponseInner.md)
+ - [PromoCreditDetails](docs/PromoCreditDetails.md)
  - [PublicSubnetDetails](docs/PublicSubnetDetails.md)
  - [PublicSubnetRecord](docs/PublicSubnetRecord.md)
  - [RatedUsageGet200ResponseInner](docs/RatedUsageGet200ResponseInner.md)
@@ -138,6 +142,8 @@ Class | Method | HTTP request | Description
  - [ServerRecord](docs/ServerRecord.md)
  - [StorageDetails](docs/StorageDetails.md)
  - [StorageRecord](docs/StorageRecord.md)
+ - [SystemCreditCauseEnum](docs/SystemCreditCauseEnum.md)
+ - [SystemCreditDetails](docs/SystemCreditDetails.md)
  - [ThresholdConfigurationDetails](docs/ThresholdConfigurationDetails.md)
 
 
