@@ -1605,7 +1605,7 @@ components:
           type: string
           example: 60473c2509268bc77fd06d29
         status:
-          description: 'The BGP Peer Group status. Can have one of the following values: `PENDING`, `BUSY`, `READY`, `ERROR`, `PENDING_DELETION` and `DELETING`.'
+          description: 'The BGP Peer Group status. Can have one of the following values: `PENDING`, `ON_HOLD`, `BUSY`, `READY`, `ERROR`, `PENDING_DELETION` and `DELETING`.'
           type: string
           example: READY
         location:

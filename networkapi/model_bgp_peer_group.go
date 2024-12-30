@@ -23,7 +23,7 @@ var _ MappedNullable = &BgpPeerGroup{}
 type BgpPeerGroup struct {
 	// The unique identifier of the BGP Peer Group.
 	Id string `json:"id"`
-	// The BGP Peer Group status. Can have one of the following values: `PENDING`, `BUSY`, `READY`, `ERROR`, `PENDING_DELETION` and `DELETING`.
+	// The BGP Peer Group status. Can have one of the following values: `PENDING`, `ON_HOLD`, `BUSY`, `READY`, `ERROR`, `PENDING_DELETION` and `DELETING`.
 	Status string `json:"status"`
 	// The BGP Peer Group location. Can have one of the following values: `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
 	Location string `json:"location"`
