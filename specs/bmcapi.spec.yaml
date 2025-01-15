@@ -2307,7 +2307,7 @@ components:
           description: The reason for changing the limit.
           type: string
           example: I need more servers for my cluster.
-          pattern: ^(?!\s*$).+
+          pattern: ^(?s)(?!\s*$).+
     QuotaEditLimitRequestDetails:
       allOf:
         - $ref: '#/components/schemas/QuotaEditLimitRequest'
