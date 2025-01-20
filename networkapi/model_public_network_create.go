@@ -30,7 +30,7 @@ type PublicNetworkCreate struct {
 	// The VLAN that will be assigned to this network.
 	VlanId *int32 `json:"vlanId,omitempty"`
 	// A list of IP Blocks that will be associated with this public network.
-	IpBlocks             []PublicNetworkIpBlock `json:"ipBlocks,omitempty"`
+	IpBlocks             []PublicNetworkIpBlockCreate `json:"ipBlocks,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -168,9 +168,9 @@ func (o *PublicNetworkCreate) SetVlanId(v int32) {
 }
 
 // GetIpBlocks returns the IpBlocks field value if set, zero value otherwise.
-func (o *PublicNetworkCreate) GetIpBlocks() []PublicNetworkIpBlock {
+func (o *PublicNetworkCreate) GetIpBlocks() []PublicNetworkIpBlockCreate {
 	if o == nil || IsNil(o.IpBlocks) {
-		var ret []PublicNetworkIpBlock
+		var ret []PublicNetworkIpBlockCreate
 		return ret
 	}
 	return o.IpBlocks
@@ -178,7 +178,7 @@ func (o *PublicNetworkCreate) GetIpBlocks() []PublicNetworkIpBlock {
 
 // GetIpBlocksOk returns a tuple with the IpBlocks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PublicNetworkCreate) GetIpBlocksOk() ([]PublicNetworkIpBlock, bool) {
+func (o *PublicNetworkCreate) GetIpBlocksOk() ([]PublicNetworkIpBlockCreate, bool) {
 	if o == nil || IsNil(o.IpBlocks) {
 		return nil, false
 	}
@@ -194,8 +194,8 @@ func (o *PublicNetworkCreate) HasIpBlocks() bool {
 	return false
 }
 
-// SetIpBlocks gets a reference to the given []PublicNetworkIpBlock and assigns it to the IpBlocks field.
-func (o *PublicNetworkCreate) SetIpBlocks(v []PublicNetworkIpBlock) {
+// SetIpBlocks gets a reference to the given []PublicNetworkIpBlockCreate and assigns it to the IpBlocks field.
+func (o *PublicNetworkCreate) SetIpBlocks(v []PublicNetworkIpBlockCreate) {
 	o.IpBlocks = v
 }
 

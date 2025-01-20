@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | The description of this public network. | [optional] 
 **Location** | **string** | The location of this public network. Supported values are &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60;, &#x60;SEA&#x60; and &#x60;AUS&#x60;. | 
 **VlanId** | Pointer to **int32** | The VLAN that will be assigned to this network. | [optional] 
-**IpBlocks** | Pointer to [**[]PublicNetworkIpBlock**](PublicNetworkIpBlock.md) | A list of IP Blocks that will be associated with this public network. | [optional] 
+**IpBlocks** | Pointer to [**[]PublicNetworkIpBlockCreate**](PublicNetworkIpBlockCreate.md) | A list of IP Blocks that will be associated with this public network. | [optional] 
 
 ## Methods
 
@@ -121,20 +121,20 @@ HasVlanId returns a boolean if a field has been set.
 
 ### GetIpBlocks
 
-`func (o *PublicNetworkCreate) GetIpBlocks() []PublicNetworkIpBlock`
+`func (o *PublicNetworkCreate) GetIpBlocks() []PublicNetworkIpBlockCreate`
 
 GetIpBlocks returns the IpBlocks field if non-nil, zero value otherwise.
 
 ### GetIpBlocksOk
 
-`func (o *PublicNetworkCreate) GetIpBlocksOk() (*[]PublicNetworkIpBlock, bool)`
+`func (o *PublicNetworkCreate) GetIpBlocksOk() (*[]PublicNetworkIpBlockCreate, bool)`
 
 GetIpBlocksOk returns a tuple with the IpBlocks field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIpBlocks
 
-`func (o *PublicNetworkCreate) SetIpBlocks(v []PublicNetworkIpBlock)`
+`func (o *PublicNetworkCreate) SetIpBlocks(v []PublicNetworkIpBlockCreate)`
 
 SetIpBlocks sets IpBlocks field to given value.
 

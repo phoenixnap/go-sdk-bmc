@@ -16,44 +16,38 @@ import (
 	"fmt"
 )
 
-// checks if the PublicNetworkIpBlock type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &PublicNetworkIpBlock{}
+// checks if the PublicNetworkIpBlockCreate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicNetworkIpBlockCreate{}
 
-// PublicNetworkIpBlock The assigned IP block to the Public Network.
-type PublicNetworkIpBlock struct {
+// PublicNetworkIpBlockCreate Details of IP block to be assigned to Public Network.
+type PublicNetworkIpBlockCreate struct {
 	// The IP Block identifier.
-	Id string `json:"id"`
-	// The CIDR notation of the IP block.
-	Cidr string `json:"cidr"`
-	// The number of IPs used in the IP block.
-	UsedIpsCount         string `json:"usedIpsCount"`
+	Id                   string `json:"id"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _PublicNetworkIpBlock PublicNetworkIpBlock
+type _PublicNetworkIpBlockCreate PublicNetworkIpBlockCreate
 
-// NewPublicNetworkIpBlock instantiates a new PublicNetworkIpBlock object
+// NewPublicNetworkIpBlockCreate instantiates a new PublicNetworkIpBlockCreate object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicNetworkIpBlock(id string, cidr string, usedIpsCount string) *PublicNetworkIpBlock {
-	this := PublicNetworkIpBlock{}
+func NewPublicNetworkIpBlockCreate(id string) *PublicNetworkIpBlockCreate {
+	this := PublicNetworkIpBlockCreate{}
 	this.Id = id
-	this.Cidr = cidr
-	this.UsedIpsCount = usedIpsCount
 	return &this
 }
 
-// NewPublicNetworkIpBlockWithDefaults instantiates a new PublicNetworkIpBlock object
+// NewPublicNetworkIpBlockCreateWithDefaults instantiates a new PublicNetworkIpBlockCreate object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPublicNetworkIpBlockWithDefaults() *PublicNetworkIpBlock {
-	this := PublicNetworkIpBlock{}
+func NewPublicNetworkIpBlockCreateWithDefaults() *PublicNetworkIpBlockCreate {
+	this := PublicNetworkIpBlockCreate{}
 	return &this
 }
 
 // GetId returns the Id field value
-func (o *PublicNetworkIpBlock) GetId() string {
+func (o *PublicNetworkIpBlockCreate) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -64,7 +58,7 @@ func (o *PublicNetworkIpBlock) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *PublicNetworkIpBlock) GetIdOk() (*string, bool) {
+func (o *PublicNetworkIpBlockCreate) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -72,59 +66,11 @@ func (o *PublicNetworkIpBlock) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *PublicNetworkIpBlock) SetId(v string) {
+func (o *PublicNetworkIpBlockCreate) SetId(v string) {
 	o.Id = v
 }
 
-// GetCidr returns the Cidr field value
-func (o *PublicNetworkIpBlock) GetCidr() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Cidr
-}
-
-// GetCidrOk returns a tuple with the Cidr field value
-// and a boolean to check if the value has been set.
-func (o *PublicNetworkIpBlock) GetCidrOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Cidr, true
-}
-
-// SetCidr sets field value
-func (o *PublicNetworkIpBlock) SetCidr(v string) {
-	o.Cidr = v
-}
-
-// GetUsedIpsCount returns the UsedIpsCount field value
-func (o *PublicNetworkIpBlock) GetUsedIpsCount() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.UsedIpsCount
-}
-
-// GetUsedIpsCountOk returns a tuple with the UsedIpsCount field value
-// and a boolean to check if the value has been set.
-func (o *PublicNetworkIpBlock) GetUsedIpsCountOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.UsedIpsCount, true
-}
-
-// SetUsedIpsCount sets field value
-func (o *PublicNetworkIpBlock) SetUsedIpsCount(v string) {
-	o.UsedIpsCount = v
-}
-
-func (o PublicNetworkIpBlock) MarshalJSON() ([]byte, error) {
+func (o PublicNetworkIpBlockCreate) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -132,11 +78,9 @@ func (o PublicNetworkIpBlock) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o PublicNetworkIpBlock) ToMap() (map[string]interface{}, error) {
+func (o PublicNetworkIpBlockCreate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
-	toSerialize["cidr"] = o.Cidr
-	toSerialize["usedIpsCount"] = o.UsedIpsCount
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -145,14 +89,12 @@ func (o PublicNetworkIpBlock) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *PublicNetworkIpBlock) UnmarshalJSON(data []byte) (err error) {
+func (o *PublicNetworkIpBlockCreate) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"id",
-		"cidr",
-		"usedIpsCount",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -169,60 +111,58 @@ func (o *PublicNetworkIpBlock) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varPublicNetworkIpBlock := _PublicNetworkIpBlock{}
+	varPublicNetworkIpBlockCreate := _PublicNetworkIpBlockCreate{}
 
-	err = json.Unmarshal(data, &varPublicNetworkIpBlock)
+	err = json.Unmarshal(data, &varPublicNetworkIpBlockCreate)
 
 	if err != nil {
 		return err
 	}
 
-	*o = PublicNetworkIpBlock(varPublicNetworkIpBlock)
+	*o = PublicNetworkIpBlockCreate(varPublicNetworkIpBlockCreate)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
-		delete(additionalProperties, "cidr")
-		delete(additionalProperties, "usedIpsCount")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullablePublicNetworkIpBlock struct {
-	value *PublicNetworkIpBlock
+type NullablePublicNetworkIpBlockCreate struct {
+	value *PublicNetworkIpBlockCreate
 	isSet bool
 }
 
-func (v NullablePublicNetworkIpBlock) Get() *PublicNetworkIpBlock {
+func (v NullablePublicNetworkIpBlockCreate) Get() *PublicNetworkIpBlockCreate {
 	return v.value
 }
 
-func (v *NullablePublicNetworkIpBlock) Set(val *PublicNetworkIpBlock) {
+func (v *NullablePublicNetworkIpBlockCreate) Set(val *PublicNetworkIpBlockCreate) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePublicNetworkIpBlock) IsSet() bool {
+func (v NullablePublicNetworkIpBlockCreate) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePublicNetworkIpBlock) Unset() {
+func (v *NullablePublicNetworkIpBlockCreate) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePublicNetworkIpBlock(val *PublicNetworkIpBlock) *NullablePublicNetworkIpBlock {
-	return &NullablePublicNetworkIpBlock{value: val, isSet: true}
+func NewNullablePublicNetworkIpBlockCreate(val *PublicNetworkIpBlockCreate) *NullablePublicNetworkIpBlockCreate {
+	return &NullablePublicNetworkIpBlockCreate{value: val, isSet: true}
 }
 
-func (v NullablePublicNetworkIpBlock) MarshalJSON() ([]byte, error) {
+func (v NullablePublicNetworkIpBlockCreate) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePublicNetworkIpBlock) UnmarshalJSON(src []byte) error {
+func (v *NullablePublicNetworkIpBlockCreate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
