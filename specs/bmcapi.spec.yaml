@@ -1972,7 +1972,7 @@ components:
           pattern: '[a-zA-Z0-9().-]+'
     RelinquishIpBlock:
       type: object
-      description: Object used to determine whether to relinquish ownership of the IP block upon server deletion.
+      description: Object used to determine whether to relinquish ownership of the IP block upon unassignment from server or server deletion.
       properties:
         deleteIpBlocks:
           description: Determines whether the IP blocks assigned to the server should be deleted or not.

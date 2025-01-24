@@ -3458,7 +3458,7 @@ components:
       type: object
     RelinquishIpBlock:
       description: Object used to determine whether to relinquish ownership of the
-        IP block upon server deletion.
+        IP block upon unassignment from server or server deletion.
       example:
         deleteIpBlocks: true
       properties:
