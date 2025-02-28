@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DeleteIpBlocks** | Pointer to **bool** | Determines whether the IP blocks assigned to the server should be deleted or not. | [optional] [default to false]
+**DeleteIpBlocks** | Pointer to **bool** | Determines whether the IPv4 and IPv6 blocks assigned to the server should be deleted or not. | [optional] [default to false]
 
 ## Methods
 

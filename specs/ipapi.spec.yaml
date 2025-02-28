@@ -92,6 +92,11 @@ paths:
                   cidrBlockSize: /24
                   ipVersion: V4
                   location: PHX
+              IpBlockCreateBlockIpV6:
+                value:
+                  cidrBlockSize: /64
+                  ipVersion: V6
+                  location: PHX
       responses:
         '201':
           description: IP Block created.
@@ -276,11 +281,11 @@ components:
           type: string
           example: PHX
         cidrBlockSize:
-          description: 'CIDR IP Block Size. V4 supported sizes: [`/31`, `/30`, `/29` or `/28`]. For a larger Block Size contact support.'
+          description: 'CIDR IP Block Size. V4 supported sizes: [`/31`, `/30`, `/29` or `/28`]. V6 supported sizes: [`/64`]. For a larger Block Size contact support.'
           type: string
           example: /30
         ipVersion:
-          description: IP Version. This field should be set to `V4`
+          description: IP Version. This field should be set to `V4` or `V6`
           type: string
           default: V4
           example: V4

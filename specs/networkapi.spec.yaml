@@ -487,11 +487,15 @@ paths:
                 value:
                   name: Initial public network
                   location: PHX
-              PublicNetworkCreationOnlyWithoutIpBlocks:
+              PublicNetworkCreationWithDualIpBlocks:
                 value:
                   name: Initial public network
                   location: PHX
                   description: 'My first public network #1'
+                  ipBlocks:
+                    - id: 60473a6115e34466c9f8f083
+                    - id: 60473a6115e34466c9f8f084
+                  raEnabled: true
               PublicNetworkCreationWithAllParameters:
                 value:
                   name: Initial public network
@@ -508,6 +512,9 @@ paths:
                     - id: 5ff5cc9bc1acf144d9106233
                     - id: 610001e7da283e36d0a0df9f
                     - id: 613b51c01f4b04615ba1d3be
+                    - id: 613b51c01f4b04615oe4j3es
+                  vlanId: 20
+                  raEnabled: false
       responses:
         '201':
           description: Network successfully created.
@@ -526,13 +533,20 @@ paths:
                     status: READY
                     createdOn: '2022-04-05T13:50:30.491Z'
                     memberships: []
-                PublicNetworkOnlyWithoutIpBlocks:
+                PublicNetworkWithDualIpBlocks:
                   value:
                     id: 60472f76bbadb4f36541d2fd
                     name: Initial public network
                     location: PHX
                     description: 'My first public network #1'
-                    ipBlocks: []
+                    ipBlocks:
+                      - id: 60473a6115e34466c9f8f083
+                        cidr: 10.111.14.0/29
+                        usedIpsCount: '0'
+                      - id: 60473a6115e34466c9f8f084
+                        cidr: 2001:db8::/64
+                        usedIpsCount: '0'
+                    raEnabled: true
                     vlanId: 10
                     status: READY
                     createdOn: '2022-04-05T13:50:30.491Z'
@@ -574,7 +588,11 @@ paths:
                       - id: 613b51c01f4b04615ba1d3be
                         cidr: 10.111.23.0/29
                         usedIpsCount: '0'
-                    vlanId: 10
+                      - id: 613b51c01f4b04615oe4j3es
+                        cidr: 2001:db8::/64
+                        usedIpsCount: '0'
+                    raEnabled: false
+                    vlanId: 20
                     status: READY
                     createdOn: '2022-04-05T13:50:30.491Z'
                     memberships: []
@@ -743,16 +761,20 @@ paths:
             schema:
               $ref: '#/components/schemas/PublicNetworkModify'
             examples:
-              PublicNetworkModifyWithNameAndDescription:
+              PublicNetworkModify:
                 value:
                   name: My public network
                   description: The new description of my public network
+                  raEnabled: false
               PublicNetworkModifyWithNameOnly:
                 value:
                   name: My public network
               PublicNetworkModifyWithDescriptionOnly:
                 value:
                   description: The new description of my public network
+              PublicNetworkModifyWithRouterAdvertisementOnly:
+                value:
+                  raEnabled: false
       responses:
         '200':
           description: Network successfully updated.
@@ -765,11 +787,38 @@ paths:
                 name: My public network
                 location: PHX
                 description: The new description of my public network
-                ipBlocks: []
+                ipBlocks:
+                  - id: 60473a6115e34466c9f8f083
+                    cidr: 10.111.14.0/29
+                    usedIpsCount: '0'
                 vlanId: 10
                 status: READY
                 createdOn: '2022-04-05T13:50:30.491Z'
                 memberships: []
+        '202':
+          description: Network update has been accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicNetwork'
+              example:
+                id: 60472f76bbadb4f36541d2ff
+                name: My public network
+                location: PHX
+                description: The description of my public network
+                ipBlocks:
+                  - id: 60473a6115e34466c9f8f084
+                    cidr: 2001:db8::/64
+                    usedIpsCount: '1'
+                raEnabled: true
+                vlanId: 11
+                status: BUSY
+                createdOn: '2022-04-05T13:50:30.491Z'
+                memberships:
+                  - resourceId: 6128d3754b478b76ee8b3cdd
+                    resourceType: server
+                    ips:
+                      - 2001:db8::1
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -1342,6 +1391,7 @@ components:
           description: List of IPs associated to the resource.
           items:
             type: string
+            example: 10.111.14.104
           example:
             - 10.111.14.104
             - 10.111.14.105
@@ -1566,6 +1616,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PublicNetworkIpBlock'
+        raEnabled:
+          description: Boolean indicating whether Router Advertisement is enabled. Only applicable for Network with IPv6 Blocks.
+          type: boolean
+          example: true
     PublicNetworkIpBlockCreate:
       type: object
       description: Details of IP block to be assigned to Public Network.
@@ -1606,11 +1660,15 @@ components:
           maximum: 4094
           example: 10
         ipBlocks:
-          description: A list of IP Blocks that will be associated with this public network.
+          description: A list of IP Blocks that will be associated with this public network. Supported maximum of 10 IPv4 Blocks and 1 IPv6 Block.
           type: array
-          maxItems: 10
+          maxItems: 11
           items:
             $ref: '#/components/schemas/PublicNetworkIpBlockCreate'
+        raEnabled:
+          description: Boolean indicating whether Router Advertisement is enabled. Only applicable for Network with IPv6 Blocks.
+          type: boolean
+          example: true
     PublicNetworkModify:
       type: object
       description: Public Network Modifiable Details.
@@ -1627,6 +1685,10 @@ components:
           type: string
           maxLength: 250
           example: Further details on the network.
+        raEnabled:
+          description: Boolean indicating whether Router Advertisement is enabled. Only applicable for Network with IPv6 Blocks.
+          type: boolean
+          example: true
     BgpIPv4Prefix:
       type: object
       description: The BGP IPv4 Prefix.

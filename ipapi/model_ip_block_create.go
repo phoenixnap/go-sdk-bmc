@@ -23,9 +23,9 @@ var _ MappedNullable = &IpBlockCreate{}
 type IpBlockCreate struct {
 	// IP Block location ID. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
 	Location string `json:"location"`
-	// CIDR IP Block Size. V4 supported sizes: [`/31`, `/30`, `/29` or `/28`]. For a larger Block Size contact support.
+	// CIDR IP Block Size. V4 supported sizes: [`/31`, `/30`, `/29` or `/28`]. V6 supported sizes: [`/64`]. For a larger Block Size contact support.
 	CidrBlockSize string `json:"cidrBlockSize"`
-	// IP Version. This field should be set to `V4`
+	// IP Version. This field should be set to `V4` or `V6`
 	IpVersion *string `json:"ipVersion,omitempty"`
 	// The description of the IP Block.
 	Description *string `json:"description,omitempty"`

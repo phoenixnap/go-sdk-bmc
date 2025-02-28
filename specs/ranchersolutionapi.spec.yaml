@@ -305,6 +305,7 @@ components:
         nodeCount:
           description: Number of configured nodes, currently only node counts of 1 and 3 are possible.
           type: integer
+          example: '1'
         serverType:
           description: Node server type. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`.
           type: string
@@ -402,12 +403,14 @@ components:
           type: array
           items:
             type: string
+            example: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user
           example: '[ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75 user]'
         keyIds:
           description: List of public SSH key identifiers. These are public keys that were already recorded on this system. Use <a href='https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get' target='_blank'>GET /ssh-keys</a> to retrieve a list of possible values.
           type: array
           items:
             type: string
+            example: 5fa54d1e91867c03a0a7b4a4
           example:
             - 5fa54d1e91867c03a0a7b4a4
     RancherServerMetadata:
@@ -433,12 +436,33 @@ components:
         caCertificate:
           description: The SSL CA certificate to be used for rancher admin.
           type: string
+          example: |
+            -----BEGIN CERTIFICATE-----
+            MIIFczCCA1sCFG28dphawQO8dwgDVut8bZ3bn2p8MA0GCSqGSIb3DQEBCwUAMHYx
+            CzAJBgNVBAYTAm10MQ0wCwYDVQQIDAR0ZXN0MQ0wCwYDVQQHDAR0ZXN0MQ0wCwYD
+            CWpsBgDTtUizX7S9UoPnQsB4fOeeafEuNFNSGjhWzzsBnSRLlMDiyxYZKXSKU54K
+            zlIoNcx18w==
+            -----END CERTIFICATE-----
         certificate:
           description: The SSL certificate to be used for rancher admin.
           type: string
+          example: |
+            -----BEGIN CERTIFICATE-----
+            MIIFczCCA1sCFG28dphawQO8dwgDVut8bZ3bn2p8MA0GCSqGSIb3DQEBCwUAMHYx
+            CzAJBgNVBAYTAm10MQ0wCwYDVQQIDAR0ZXN0MQ0wCwYDVQQHDAR0ZXN0MQ0wCwYD
+            CWpsBgDTtUizX7S9UoPnQsB4fOeeafEuNFNSGjhWzzsBnSRLlMDiyxYZKXSKU54K
+            zlIoNcx18w==
+            -----END CERTIFICATE-----
         certificateKey:
           description: The SSL certificate key to be used for rancher admin.
           type: string
+          example: |
+            -----BEGIN PRIVATE KEY-----
+            MIIFczCCA1sCFG28dphawQO8dwgDVut8bZ3bn2p8MA0GCSqGSIb3DQEBCwUAMHYx
+            CzAJBgNVBAYTAm10MQ0wCwYDVQQIDAR0ZXN0MQ0wCwYDVQQHDAR0ZXN0MQ0wCwYD
+            CWpsBgDTtUizX7S9UoPnQsB4fOeeafEuNFNSGjhWzzsBnSRLlMDiyxYZKXSKU54K
+            zlIoNcx18w==
+            -----END PRIVATE KEY-----
     DeleteResult:
       type: object
       description: Result of a successful delete action.
