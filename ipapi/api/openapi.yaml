@@ -101,6 +101,11 @@ paths:
                   cidrBlockSize: /24
                   ipVersion: V4
                   location: PHX
+              IpBlockCreateBlockIpV6:
+                value:
+                  cidrBlockSize: /64
+                  ipVersion: V6
+                  location: PHX
             schema:
               $ref: '#/components/schemas/IpBlockCreate'
         required: true
@@ -473,12 +478,13 @@ components:
           type: string
         cidrBlockSize:
           description: "CIDR IP Block Size. V4 supported sizes: [`/31`, `/30`, `/29`\
-            \ or `/28`]. For a larger Block Size contact support."
+            \ or `/28`]. V6 supported sizes: [`/64`]. For a larger Block Size contact\
+            \ support."
           example: /30
           type: string
         ipVersion:
           default: V4
-          description: IP Version. This field should be set to `V4`
+          description: IP Version. This field should be set to `V4` or `V6`
           example: V4
           type: string
         description:

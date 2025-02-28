@@ -23,7 +23,9 @@ type PublicNetworkModify struct {
 	// A friendly name given to the network. This name should be unique.
 	Name *string `json:"name,omitempty"`
 	// The description of this public network
-	Description          *string `json:"description,omitempty"`
+	Description *string `json:"description,omitempty"`
+	// Boolean indicating whether Router Advertisement is enabled. Only applicable for Network with IPv6 Blocks.
+	RaEnabled            *bool `json:"raEnabled,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -110,6 +112,38 @@ func (o *PublicNetworkModify) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetRaEnabled returns the RaEnabled field value if set, zero value otherwise.
+func (o *PublicNetworkModify) GetRaEnabled() bool {
+	if o == nil || IsNil(o.RaEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.RaEnabled
+}
+
+// GetRaEnabledOk returns a tuple with the RaEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PublicNetworkModify) GetRaEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.RaEnabled) {
+		return nil, false
+	}
+	return o.RaEnabled, true
+}
+
+// HasRaEnabled returns a boolean if a field has been set.
+func (o *PublicNetworkModify) HasRaEnabled() bool {
+	if o != nil && !IsNil(o.RaEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetRaEnabled gets a reference to the given bool and assigns it to the RaEnabled field.
+func (o *PublicNetworkModify) SetRaEnabled(v bool) {
+	o.RaEnabled = &v
+}
+
 func (o PublicNetworkModify) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -125,6 +159,9 @@ func (o PublicNetworkModify) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.RaEnabled) {
+		toSerialize["raEnabled"] = o.RaEnabled
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -150,6 +187,7 @@ func (o *PublicNetworkModify) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
+		delete(additionalProperties, "raEnabled")
 		o.AdditionalProperties = additionalProperties
 	}
 

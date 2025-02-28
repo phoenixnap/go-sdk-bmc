@@ -39,7 +39,9 @@ type PublicNetwork struct {
 	// Date and time when this public network was created.
 	CreatedOn time.Time `json:"createdOn"`
 	// A list of IP Blocks that are associated with this public network.
-	IpBlocks             []PublicNetworkIpBlock `json:"ipBlocks"`
+	IpBlocks []PublicNetworkIpBlock `json:"ipBlocks"`
+	// Boolean indicating whether Router Advertisement is enabled. Only applicable for Network with IPv6 Blocks.
+	RaEnabled            *bool `json:"raEnabled,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -294,6 +296,38 @@ func (o *PublicNetwork) SetIpBlocks(v []PublicNetworkIpBlock) {
 	o.IpBlocks = v
 }
 
+// GetRaEnabled returns the RaEnabled field value if set, zero value otherwise.
+func (o *PublicNetwork) GetRaEnabled() bool {
+	if o == nil || IsNil(o.RaEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.RaEnabled
+}
+
+// GetRaEnabledOk returns a tuple with the RaEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PublicNetwork) GetRaEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.RaEnabled) {
+		return nil, false
+	}
+	return o.RaEnabled, true
+}
+
+// HasRaEnabled returns a boolean if a field has been set.
+func (o *PublicNetwork) HasRaEnabled() bool {
+	if o != nil && !IsNil(o.RaEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetRaEnabled gets a reference to the given bool and assigns it to the RaEnabled field.
+func (o *PublicNetwork) SetRaEnabled(v bool) {
+	o.RaEnabled = &v
+}
+
 func (o PublicNetwork) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -315,6 +349,9 @@ func (o PublicNetwork) ToMap() (map[string]interface{}, error) {
 	toSerialize["status"] = o.Status
 	toSerialize["createdOn"] = o.CreatedOn
 	toSerialize["ipBlocks"] = o.IpBlocks
+	if !IsNil(o.RaEnabled) {
+		toSerialize["raEnabled"] = o.RaEnabled
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -374,6 +411,7 @@ func (o *PublicNetwork) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "createdOn")
 		delete(additionalProperties, "ipBlocks")
+		delete(additionalProperties, "raEnabled")
 		o.AdditionalProperties = additionalProperties
 	}
 

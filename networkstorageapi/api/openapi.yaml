@@ -846,7 +846,7 @@ components:
           usedCapacityInGb: 1000
           name: My volume name
           id: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
-          status: READY
+          status: null
         - description: My volume description
           deleteRequestedOn: 2022-04-07T08:50:20.359Z
           createdOn: 2021-03-13T20:24:32.491Z
@@ -878,7 +878,7 @@ components:
           usedCapacityInGb: 1000
           name: My volume name
           id: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
-          status: READY
+          status: null
         description: My storage network description
         deleteRequestedOn: 2022-04-07T08:50:20.359Z
         location: PHX
@@ -888,7 +888,7 @@ components:
         - 100.64.0.1
         - 100.64.0.2
         createdOn: 2021-03-13T20:24:32.491Z
-        status: READY
+        status: null
       properties:
         id:
           description: Storage network ID.
@@ -919,6 +919,7 @@ components:
           - 100.64.0.1
           - 100.64.0.2
           items:
+            example: 100.64.0.1
             type: string
           type: array
         createdOn:
@@ -951,7 +952,7 @@ components:
             value: beta
           - name: group
             value: discounted
-        clientVlan: 329
+        clientVlan: 5
         description: My storage network description
         location: PHX
       properties:
@@ -982,6 +983,7 @@ components:
           type: array
         clientVlan:
           description: Custom Client VLAN that the Storage Network will be set to.
+          example: 5
           maximum: 4094
           minimum: 2
           type: integer
@@ -1097,7 +1099,7 @@ components:
         usedCapacityInGb: 1000
         name: My volume name
         id: 50dc434c-9bba-427b-bcd6-0bdba45c4dd2
-        status: READY
+        status: null
       properties:
         id:
           description: Volume ID.
@@ -1232,7 +1234,7 @@ components:
       description: Update storage network volume.
       example:
         capacityInGb: 2000
-        pathSuffix: pathSuffix
+        pathSuffix: /my/volume/path
         permissions:
           nfs:
             rootSquash:
@@ -1272,6 +1274,7 @@ components:
           type: integer
         pathSuffix:
           description: Last part of volume's path.
+          example: /my/volume/path
           maxLength: 27
           minLength: 0
           pattern: "^(\\/[\\w-]+)+$|^$"
@@ -1562,7 +1565,6 @@ components:
       - BUSY
       - DELETING
       - ERROR
-      example: READY
       type: string
     TagAssignment:
       description: Tag assigned to resource.

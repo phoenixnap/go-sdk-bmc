@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Status** | **string** | The status of the public network. Can have one of the following values: &#x60;BUSY&#x60;, &#x60;READY&#x60;, &#x60;DELETING&#x60; or &#x60;ERROR&#x60;. | 
 **CreatedOn** | **time.Time** | Date and time when this public network was created. | 
 **IpBlocks** | [**[]PublicNetworkIpBlock**](PublicNetworkIpBlock.md) | A list of IP Blocks that are associated with this public network. | 
+**RaEnabled** | Pointer to **bool** | Boolean indicating whether Router Advertisement is enabled. Only applicable for Network with IPv6 Blocks. | [optional] 
 
 ## Methods
 
@@ -217,6 +218,31 @@ and a boolean to check if the value has been set.
 
 SetIpBlocks sets IpBlocks field to given value.
 
+
+### GetRaEnabled
+
+`func (o *PublicNetwork) GetRaEnabled() bool`
+
+GetRaEnabled returns the RaEnabled field if non-nil, zero value otherwise.
+
+### GetRaEnabledOk
+
+`func (o *PublicNetwork) GetRaEnabledOk() (*bool, bool)`
+
+GetRaEnabledOk returns a tuple with the RaEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRaEnabled
+
+`func (o *PublicNetwork) SetRaEnabled(v bool)`
+
+SetRaEnabled sets RaEnabled field to given value.
+
+### HasRaEnabled
+
+`func (o *PublicNetwork) HasRaEnabled() bool`
+
+HasRaEnabled returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

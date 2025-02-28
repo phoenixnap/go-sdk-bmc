@@ -360,6 +360,7 @@ components:
           description: The optional values of the tag.
           example: "[DEV, PROD]"
           items:
+            example: DEV
             type: string
           type: array
         description:

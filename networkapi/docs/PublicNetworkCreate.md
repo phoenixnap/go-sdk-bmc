@@ -8,7 +8,8 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | The description of this public network. | [optional] 
 **Location** | **string** | The location of this public network. Supported values are &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60;, &#x60;SEA&#x60; and &#x60;AUS&#x60;. | 
 **VlanId** | Pointer to **int32** | The VLAN that will be assigned to this network. | [optional] 
-**IpBlocks** | Pointer to [**[]PublicNetworkIpBlockCreate**](PublicNetworkIpBlockCreate.md) | A list of IP Blocks that will be associated with this public network. | [optional] 
+**IpBlocks** | Pointer to [**[]PublicNetworkIpBlockCreate**](PublicNetworkIpBlockCreate.md) | A list of IP Blocks that will be associated with this public network. Supported maximum of 10 IPv4 Blocks and 1 IPv6 Block. | [optional] 
+**RaEnabled** | Pointer to **bool** | Boolean indicating whether Router Advertisement is enabled. Only applicable for Network with IPv6 Blocks. | [optional] 
 
 ## Methods
 
@@ -143,6 +144,31 @@ SetIpBlocks sets IpBlocks field to given value.
 `func (o *PublicNetworkCreate) HasIpBlocks() bool`
 
 HasIpBlocks returns a boolean if a field has been set.
+
+### GetRaEnabled
+
+`func (o *PublicNetworkCreate) GetRaEnabled() bool`
+
+GetRaEnabled returns the RaEnabled field if non-nil, zero value otherwise.
+
+### GetRaEnabledOk
+
+`func (o *PublicNetworkCreate) GetRaEnabledOk() (*bool, bool)`
+
+GetRaEnabledOk returns a tuple with the RaEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRaEnabled
+
+`func (o *PublicNetworkCreate) SetRaEnabled(v bool)`
+
+SetRaEnabled sets RaEnabled field to given value.
+
+### HasRaEnabled
+
+`func (o *PublicNetworkCreate) HasRaEnabled() bool`
+
+HasRaEnabled returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
