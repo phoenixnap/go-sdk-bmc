@@ -10,7 +10,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
     - name: Setup GO
       uses: ./.github/workflows/composite/setup-go
       with:
@@ -23,7 +23,7 @@ runs:
       run: cd tests && go test -v -run ${{ inputs.test-suite }} | tee >(go-junit-report -set-exit-code > ${{inputs.test-suite}}.xml)
     - name: Upload Test Results
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Test Results
         path: 'tests/*'

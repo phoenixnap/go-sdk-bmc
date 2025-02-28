@@ -55,7 +55,7 @@ runs:
       shell: bash
       run: wget ${{ inputs.spec-link }} -O ./${{ inputs.package-name }}/${{ inputs.package-name }}.spec.yaml
     - name: Upload SDK Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.package-name }}
         path: ${{ inputs.package-name }}
