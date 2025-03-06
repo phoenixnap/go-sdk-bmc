@@ -298,13 +298,13 @@ func (suite *NetworkApiTestSuite) TestPostPublicNetworkIpBlockByPublicNetworkId(
 	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
 
 	body, _ := json.Marshal(request.Body.Json)
-	var publicNetworkIpBlock networkapi.PublicNetworkIpBlock
-	json.Unmarshal(body, &publicNetworkIpBlock)
+	var publicNetworkIpBlockCreate networkapi.PublicNetworkIpBlockCreate
+	json.Unmarshal(body, &publicNetworkIpBlockCreate)
 
 	publicNetworkId := request.PathParameters["id"][0]
 
 	// Operation Execution
-	result, _, _ := suite.apiClient.PublicNetworksAPI.PublicNetworksNetworkIdIpBlocksPost(suite.ctx, publicNetworkId).PublicNetworkIpBlock(publicNetworkIpBlock).Execute()
+	result, _, _ := suite.apiClient.PublicNetworksAPI.PublicNetworksNetworkIdIpBlocksPost(suite.ctx, publicNetworkId).PublicNetworkIpBlockCreate(publicNetworkIpBlockCreate).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
