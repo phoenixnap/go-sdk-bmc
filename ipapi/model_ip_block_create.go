@@ -23,8 +23,10 @@ var _ MappedNullable = &IpBlockCreate{}
 type IpBlockCreate struct {
 	// IP Block location ID. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
 	Location string `json:"location"`
-	// CIDR IP Block Size. Currently this field should be set to either `/31`, `/30`, `/29` or `/28`. For a larger Block Size contact support.
+	// CIDR IP Block Size. V4 supported sizes: [`/31`, `/30`, `/29` or `/28`]. V6 supported sizes: [`/64`]. For a larger Block Size contact support.
 	CidrBlockSize string `json:"cidrBlockSize"`
+	// IP Version. This field should be set to `V4` or `V6`
+	IpVersion *string `json:"ipVersion,omitempty"`
 	// The description of the IP Block.
 	Description *string `json:"description,omitempty"`
 	// Tags to set to the ip-block. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).
@@ -42,6 +44,8 @@ func NewIpBlockCreate(location string, cidrBlockSize string) *IpBlockCreate {
 	this := IpBlockCreate{}
 	this.Location = location
 	this.CidrBlockSize = cidrBlockSize
+	var ipVersion string = "V4"
+	this.IpVersion = &ipVersion
 	return &this
 }
 
@@ -50,6 +54,8 @@ func NewIpBlockCreate(location string, cidrBlockSize string) *IpBlockCreate {
 // but it doesn't guarantee that properties required by API are set
 func NewIpBlockCreateWithDefaults() *IpBlockCreate {
 	this := IpBlockCreate{}
+	var ipVersion string = "V4"
+	this.IpVersion = &ipVersion
 	return &this
 }
 
@@ -99,6 +105,38 @@ func (o *IpBlockCreate) GetCidrBlockSizeOk() (*string, bool) {
 // SetCidrBlockSize sets field value
 func (o *IpBlockCreate) SetCidrBlockSize(v string) {
 	o.CidrBlockSize = v
+}
+
+// GetIpVersion returns the IpVersion field value if set, zero value otherwise.
+func (o *IpBlockCreate) GetIpVersion() string {
+	if o == nil || IsNil(o.IpVersion) {
+		var ret string
+		return ret
+	}
+	return *o.IpVersion
+}
+
+// GetIpVersionOk returns a tuple with the IpVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IpBlockCreate) GetIpVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.IpVersion) {
+		return nil, false
+	}
+	return o.IpVersion, true
+}
+
+// HasIpVersion returns a boolean if a field has been set.
+func (o *IpBlockCreate) HasIpVersion() bool {
+	if o != nil && !IsNil(o.IpVersion) {
+		return true
+	}
+
+	return false
+}
+
+// SetIpVersion gets a reference to the given string and assigns it to the IpVersion field.
+func (o *IpBlockCreate) SetIpVersion(v string) {
+	o.IpVersion = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -177,6 +215,9 @@ func (o IpBlockCreate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["location"] = o.Location
 	toSerialize["cidrBlockSize"] = o.CidrBlockSize
+	if !IsNil(o.IpVersion) {
+		toSerialize["ipVersion"] = o.IpVersion
+	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
@@ -229,6 +270,7 @@ func (o *IpBlockCreate) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "location")
 		delete(additionalProperties, "cidrBlockSize")
+		delete(additionalProperties, "ipVersion")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "tags")
 		o.AdditionalProperties = additionalProperties

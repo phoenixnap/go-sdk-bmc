@@ -219,6 +219,7 @@ components:
           type: array
           items:
             type: string
+            example: "DEV"
           example: "[DEV, PROD]"
         description:
           description: "The description of the tag."

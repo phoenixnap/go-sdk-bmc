@@ -359,7 +359,7 @@ components:
           - serverId: 60b08f04adab617be44068bb
           serverType: s0.d1.small
           name: rancher-server-node-pool
-          nodeCount: 0
+          nodeCount: 1
           sshConfig: ""
         initialClusterVersion: v2.6.4
         workloadConfiguration: ""
@@ -426,7 +426,7 @@ components:
         - serverId: 60b08f04adab617be44068bb
         serverType: s0.d1.small
         name: rancher-server-node-pool
-        nodeCount: 0
+        nodeCount: 1
         sshConfig: ""
       properties:
         name:
@@ -439,6 +439,7 @@ components:
         nodeCount:
           description: "Number of configured nodes, currently only node counts of\
             \ 1 and 3 are possible."
+          example: 1
           type: integer
         serverType:
           default: s0.d1.small
@@ -573,6 +574,8 @@ components:
           example: "[ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75\
             \ user]"
           items:
+            example: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
+              user
             type: string
           type: array
         keyIds:
@@ -582,6 +585,7 @@ components:
           example:
           - 5fa54d1e91867c03a0a7b4a4
           items:
+            example: 5fa54d1e91867c03a0a7b4a4
             type: string
           type: array
       type: object
@@ -612,12 +616,33 @@ components:
       properties:
         caCertificate:
           description: The SSL CA certificate to be used for rancher admin.
+          example: |
+            -----BEGIN CERTIFICATE-----
+            MIIFczCCA1sCFG28dphawQO8dwgDVut8bZ3bn2p8MA0GCSqGSIb3DQEBCwUAMHYx
+            CzAJBgNVBAYTAm10MQ0wCwYDVQQIDAR0ZXN0MQ0wCwYDVQQHDAR0ZXN0MQ0wCwYD
+            CWpsBgDTtUizX7S9UoPnQsB4fOeeafEuNFNSGjhWzzsBnSRLlMDiyxYZKXSKU54K
+            zlIoNcx18w==
+            -----END CERTIFICATE-----
           type: string
         certificate:
           description: The SSL certificate to be used for rancher admin.
+          example: |
+            -----BEGIN CERTIFICATE-----
+            MIIFczCCA1sCFG28dphawQO8dwgDVut8bZ3bn2p8MA0GCSqGSIb3DQEBCwUAMHYx
+            CzAJBgNVBAYTAm10MQ0wCwYDVQQIDAR0ZXN0MQ0wCwYDVQQHDAR0ZXN0MQ0wCwYD
+            CWpsBgDTtUizX7S9UoPnQsB4fOeeafEuNFNSGjhWzzsBnSRLlMDiyxYZKXSKU54K
+            zlIoNcx18w==
+            -----END CERTIFICATE-----
           type: string
         certificateKey:
           description: The SSL certificate key to be used for rancher admin.
+          example: |
+            -----BEGIN PRIVATE KEY-----
+            MIIFczCCA1sCFG28dphawQO8dwgDVut8bZ3bn2p8MA0GCSqGSIb3DQEBCwUAMHYx
+            CzAJBgNVBAYTAm10MQ0wCwYDVQQIDAR0ZXN0MQ0wCwYDVQQHDAR0ZXN0MQ0wCwYD
+            CWpsBgDTtUizX7S9UoPnQsB4fOeeafEuNFNSGjhWzzsBnSRLlMDiyxYZKXSKU54K
+            zlIoNcx18w==
+            -----END PRIVATE KEY-----
           type: string
       type: object
     DeleteResult:

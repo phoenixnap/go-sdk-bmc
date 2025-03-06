@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **CorrelationId** | **string** | Holds usage record id | 
 **ReservationId** | Pointer to **string** | Reservation id associated with this rated usage record. | [optional] 
 **DiscountDetails** | Pointer to [**DiscountDetails**](DiscountDetails.md) |  | [optional] 
+**CreditDetails** | Pointer to [**[]CreditDetails**](CreditDetails.md) |  | [optional] 
 **Metadata** | [**StorageDetails**](StorageDetails.md) |  | 
 
 ## Methods
@@ -453,6 +454,31 @@ SetDiscountDetails sets DiscountDetails field to given value.
 `func (o *RatedUsageGet200ResponseInner) HasDiscountDetails() bool`
 
 HasDiscountDetails returns a boolean if a field has been set.
+
+### GetCreditDetails
+
+`func (o *RatedUsageGet200ResponseInner) GetCreditDetails() []CreditDetails`
+
+GetCreditDetails returns the CreditDetails field if non-nil, zero value otherwise.
+
+### GetCreditDetailsOk
+
+`func (o *RatedUsageGet200ResponseInner) GetCreditDetailsOk() (*[]CreditDetails, bool)`
+
+GetCreditDetailsOk returns a tuple with the CreditDetails field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreditDetails
+
+`func (o *RatedUsageGet200ResponseInner) SetCreditDetails(v []CreditDetails)`
+
+SetCreditDetails sets CreditDetails field to given value.
+
+### HasCreditDetails
+
+`func (o *RatedUsageGet200ResponseInner) HasCreditDetails() bool`
+
+HasCreditDetails returns a boolean if a field has been set.
 
 ### GetMetadata
 

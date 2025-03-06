@@ -29,8 +29,10 @@ type PublicNetworkCreate struct {
 	Location string `json:"location"`
 	// The VLAN that will be assigned to this network.
 	VlanId *int32 `json:"vlanId,omitempty"`
-	// A list of IP Blocks that will be associated with this public network.
-	IpBlocks             []PublicNetworkIpBlock `json:"ipBlocks,omitempty"`
+	// A list of IP Blocks that will be associated with this public network. Supported maximum of 10 IPv4 Blocks and 1 IPv6 Block.
+	IpBlocks []PublicNetworkIpBlockCreate `json:"ipBlocks,omitempty"`
+	// Boolean indicating whether Router Advertisement is enabled. Only applicable for Network with IPv6 Blocks.
+	RaEnabled            *bool `json:"raEnabled,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -168,9 +170,9 @@ func (o *PublicNetworkCreate) SetVlanId(v int32) {
 }
 
 // GetIpBlocks returns the IpBlocks field value if set, zero value otherwise.
-func (o *PublicNetworkCreate) GetIpBlocks() []PublicNetworkIpBlock {
+func (o *PublicNetworkCreate) GetIpBlocks() []PublicNetworkIpBlockCreate {
 	if o == nil || IsNil(o.IpBlocks) {
-		var ret []PublicNetworkIpBlock
+		var ret []PublicNetworkIpBlockCreate
 		return ret
 	}
 	return o.IpBlocks
@@ -178,7 +180,7 @@ func (o *PublicNetworkCreate) GetIpBlocks() []PublicNetworkIpBlock {
 
 // GetIpBlocksOk returns a tuple with the IpBlocks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PublicNetworkCreate) GetIpBlocksOk() ([]PublicNetworkIpBlock, bool) {
+func (o *PublicNetworkCreate) GetIpBlocksOk() ([]PublicNetworkIpBlockCreate, bool) {
 	if o == nil || IsNil(o.IpBlocks) {
 		return nil, false
 	}
@@ -194,9 +196,41 @@ func (o *PublicNetworkCreate) HasIpBlocks() bool {
 	return false
 }
 
-// SetIpBlocks gets a reference to the given []PublicNetworkIpBlock and assigns it to the IpBlocks field.
-func (o *PublicNetworkCreate) SetIpBlocks(v []PublicNetworkIpBlock) {
+// SetIpBlocks gets a reference to the given []PublicNetworkIpBlockCreate and assigns it to the IpBlocks field.
+func (o *PublicNetworkCreate) SetIpBlocks(v []PublicNetworkIpBlockCreate) {
 	o.IpBlocks = v
+}
+
+// GetRaEnabled returns the RaEnabled field value if set, zero value otherwise.
+func (o *PublicNetworkCreate) GetRaEnabled() bool {
+	if o == nil || IsNil(o.RaEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.RaEnabled
+}
+
+// GetRaEnabledOk returns a tuple with the RaEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PublicNetworkCreate) GetRaEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.RaEnabled) {
+		return nil, false
+	}
+	return o.RaEnabled, true
+}
+
+// HasRaEnabled returns a boolean if a field has been set.
+func (o *PublicNetworkCreate) HasRaEnabled() bool {
+	if o != nil && !IsNil(o.RaEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetRaEnabled gets a reference to the given bool and assigns it to the RaEnabled field.
+func (o *PublicNetworkCreate) SetRaEnabled(v bool) {
+	o.RaEnabled = &v
 }
 
 func (o PublicNetworkCreate) MarshalJSON() ([]byte, error) {
@@ -219,6 +253,9 @@ func (o PublicNetworkCreate) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.IpBlocks) {
 		toSerialize["ipBlocks"] = o.IpBlocks
+	}
+	if !IsNil(o.RaEnabled) {
+		toSerialize["raEnabled"] = o.RaEnabled
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -269,6 +306,7 @@ func (o *PublicNetworkCreate) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "location")
 		delete(additionalProperties, "vlanId")
 		delete(additionalProperties, "ipBlocks")
+		delete(additionalProperties, "raEnabled")
 		o.AdditionalProperties = additionalProperties
 	}
 

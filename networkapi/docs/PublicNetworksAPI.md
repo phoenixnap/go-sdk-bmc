@@ -295,7 +295,7 @@ Name | Type | Description  | Notes
 
 ## PublicNetworksNetworkIdIpBlocksPost
 
-> PublicNetworkIpBlock PublicNetworksNetworkIdIpBlocksPost(ctx, publicNetworkId).PublicNetworkIpBlock(publicNetworkIpBlock).Execute()
+> PublicNetworkIpBlock PublicNetworksNetworkIdIpBlocksPost(ctx, publicNetworkId).PublicNetworkIpBlockCreate(publicNetworkIpBlockCreate).Execute()
 
 Adds an IP block to this public network.
 
@@ -315,11 +315,11 @@ import (
 
 func main() {
 	publicNetworkId := "603f3b2cfcaf050643b89a4b" // string | The Public Network identifier.
-	publicNetworkIpBlock := *openapiclient.NewPublicNetworkIpBlock("60473a6115e34466c9f8f083") // PublicNetworkIpBlock | 
+	publicNetworkIpBlockCreate := *openapiclient.NewPublicNetworkIpBlockCreate("60473a6115e34466c9f8f083") // PublicNetworkIpBlockCreate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PublicNetworksAPI.PublicNetworksNetworkIdIpBlocksPost(context.Background(), publicNetworkId).PublicNetworkIpBlock(publicNetworkIpBlock).Execute()
+	resp, r, err := apiClient.PublicNetworksAPI.PublicNetworksNetworkIdIpBlocksPost(context.Background(), publicNetworkId).PublicNetworkIpBlockCreate(publicNetworkIpBlockCreate).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PublicNetworksAPI.PublicNetworksNetworkIdIpBlocksPost``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -345,7 +345,7 @@ Other parameters are passed through a pointer to a apiPublicNetworksNetworkIdIpB
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **publicNetworkIpBlock** | [**PublicNetworkIpBlock**](PublicNetworkIpBlock.md) |  | 
+ **publicNetworkIpBlockCreate** | [**PublicNetworkIpBlockCreate**](PublicNetworkIpBlockCreate.md) |  | 
 
 ### Return type
 

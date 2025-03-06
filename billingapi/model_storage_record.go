@@ -57,6 +57,7 @@ type StorageRecord struct {
 	// Reservation id associated with this rated usage record.
 	ReservationId        *string          `json:"reservationId,omitempty"`
 	DiscountDetails      *DiscountDetails `json:"discountDetails,omitempty"`
+	CreditDetails        []CreditDetails  `json:"creditDetails,omitempty"`
 	Metadata             StorageDetails   `json:"metadata"`
 	AdditionalProperties map[string]interface{}
 }
@@ -591,6 +592,38 @@ func (o *StorageRecord) SetDiscountDetails(v DiscountDetails) {
 	o.DiscountDetails = &v
 }
 
+// GetCreditDetails returns the CreditDetails field value if set, zero value otherwise.
+func (o *StorageRecord) GetCreditDetails() []CreditDetails {
+	if o == nil || IsNil(o.CreditDetails) {
+		var ret []CreditDetails
+		return ret
+	}
+	return o.CreditDetails
+}
+
+// GetCreditDetailsOk returns a tuple with the CreditDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StorageRecord) GetCreditDetailsOk() ([]CreditDetails, bool) {
+	if o == nil || IsNil(o.CreditDetails) {
+		return nil, false
+	}
+	return o.CreditDetails, true
+}
+
+// HasCreditDetails returns a boolean if a field has been set.
+func (o *StorageRecord) HasCreditDetails() bool {
+	if o != nil && !IsNil(o.CreditDetails) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreditDetails gets a reference to the given []CreditDetails and assigns it to the CreditDetails field.
+func (o *StorageRecord) SetCreditDetails(v []CreditDetails) {
+	o.CreditDetails = v
+}
+
 // GetMetadata returns the Metadata field value
 func (o *StorageRecord) GetMetadata() StorageDetails {
 	if o == nil {
@@ -653,6 +686,9 @@ func (o StorageRecord) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.DiscountDetails) {
 		toSerialize["discountDetails"] = o.DiscountDetails
+	}
+	if !IsNil(o.CreditDetails) {
+		toSerialize["creditDetails"] = o.CreditDetails
 	}
 	toSerialize["metadata"] = o.Metadata
 
@@ -731,6 +767,7 @@ func (o *StorageRecord) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "correlationId")
 		delete(additionalProperties, "reservationId")
 		delete(additionalProperties, "discountDetails")
+		delete(additionalProperties, "creditDetails")
 		delete(additionalProperties, "metadata")
 		o.AdditionalProperties = additionalProperties
 	}

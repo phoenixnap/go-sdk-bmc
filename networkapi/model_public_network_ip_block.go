@@ -22,7 +22,11 @@ var _ MappedNullable = &PublicNetworkIpBlock{}
 // PublicNetworkIpBlock The assigned IP block to the Public Network.
 type PublicNetworkIpBlock struct {
 	// The IP Block identifier.
-	Id                   string `json:"id"`
+	Id string `json:"id"`
+	// The CIDR notation of the IP block.
+	Cidr string `json:"cidr"`
+	// The number of IPs used in the IP block.
+	UsedIpsCount         string `json:"usedIpsCount"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,9 +36,11 @@ type _PublicNetworkIpBlock PublicNetworkIpBlock
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicNetworkIpBlock(id string) *PublicNetworkIpBlock {
+func NewPublicNetworkIpBlock(id string, cidr string, usedIpsCount string) *PublicNetworkIpBlock {
 	this := PublicNetworkIpBlock{}
 	this.Id = id
+	this.Cidr = cidr
+	this.UsedIpsCount = usedIpsCount
 	return &this
 }
 
@@ -70,6 +76,54 @@ func (o *PublicNetworkIpBlock) SetId(v string) {
 	o.Id = v
 }
 
+// GetCidr returns the Cidr field value
+func (o *PublicNetworkIpBlock) GetCidr() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Cidr
+}
+
+// GetCidrOk returns a tuple with the Cidr field value
+// and a boolean to check if the value has been set.
+func (o *PublicNetworkIpBlock) GetCidrOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Cidr, true
+}
+
+// SetCidr sets field value
+func (o *PublicNetworkIpBlock) SetCidr(v string) {
+	o.Cidr = v
+}
+
+// GetUsedIpsCount returns the UsedIpsCount field value
+func (o *PublicNetworkIpBlock) GetUsedIpsCount() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.UsedIpsCount
+}
+
+// GetUsedIpsCountOk returns a tuple with the UsedIpsCount field value
+// and a boolean to check if the value has been set.
+func (o *PublicNetworkIpBlock) GetUsedIpsCountOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UsedIpsCount, true
+}
+
+// SetUsedIpsCount sets field value
+func (o *PublicNetworkIpBlock) SetUsedIpsCount(v string) {
+	o.UsedIpsCount = v
+}
+
 func (o PublicNetworkIpBlock) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -81,6 +135,8 @@ func (o PublicNetworkIpBlock) MarshalJSON() ([]byte, error) {
 func (o PublicNetworkIpBlock) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
+	toSerialize["cidr"] = o.Cidr
+	toSerialize["usedIpsCount"] = o.UsedIpsCount
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -95,6 +151,8 @@ func (o *PublicNetworkIpBlock) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"id",
+		"cidr",
+		"usedIpsCount",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -125,6 +183,8 @@ func (o *PublicNetworkIpBlock) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
+		delete(additionalProperties, "cidr")
+		delete(additionalProperties, "usedIpsCount")
 		o.AdditionalProperties = additionalProperties
 	}
 

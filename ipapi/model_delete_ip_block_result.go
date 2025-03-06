@@ -13,7 +13,6 @@ package ipapi
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the DeleteIpBlockResult type satisfies the MappedNullable interface at compile time
@@ -22,9 +21,9 @@ var _ MappedNullable = &DeleteIpBlockResult{}
 // DeleteIpBlockResult Result of a successful delete action.
 type DeleteIpBlockResult struct {
 	// IP Block has been deleted.
-	Result string `json:"result"`
+	Result *string `json:"result,omitempty"`
 	// The unique identifier of the IP Block.
-	IpBlockId            string `json:"ipBlockId"`
+	IpBlockId            *string `json:"ipBlockId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,10 +33,8 @@ type _DeleteIpBlockResult DeleteIpBlockResult
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteIpBlockResult(result string, ipBlockId string) *DeleteIpBlockResult {
+func NewDeleteIpBlockResult() *DeleteIpBlockResult {
 	this := DeleteIpBlockResult{}
-	this.Result = result
-	this.IpBlockId = ipBlockId
 	return &this
 }
 
@@ -49,52 +46,68 @@ func NewDeleteIpBlockResultWithDefaults() *DeleteIpBlockResult {
 	return &this
 }
 
-// GetResult returns the Result field value
+// GetResult returns the Result field value if set, zero value otherwise.
 func (o *DeleteIpBlockResult) GetResult() string {
-	if o == nil {
+	if o == nil || IsNil(o.Result) {
 		var ret string
 		return ret
 	}
-
-	return o.Result
+	return *o.Result
 }
 
-// GetResultOk returns a tuple with the Result field value
+// GetResultOk returns a tuple with the Result field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeleteIpBlockResult) GetResultOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Result) {
 		return nil, false
 	}
-	return &o.Result, true
+	return o.Result, true
 }
 
-// SetResult sets field value
+// HasResult returns a boolean if a field has been set.
+func (o *DeleteIpBlockResult) HasResult() bool {
+	if o != nil && !IsNil(o.Result) {
+		return true
+	}
+
+	return false
+}
+
+// SetResult gets a reference to the given string and assigns it to the Result field.
 func (o *DeleteIpBlockResult) SetResult(v string) {
-	o.Result = v
+	o.Result = &v
 }
 
-// GetIpBlockId returns the IpBlockId field value
+// GetIpBlockId returns the IpBlockId field value if set, zero value otherwise.
 func (o *DeleteIpBlockResult) GetIpBlockId() string {
-	if o == nil {
+	if o == nil || IsNil(o.IpBlockId) {
 		var ret string
 		return ret
 	}
-
-	return o.IpBlockId
+	return *o.IpBlockId
 }
 
-// GetIpBlockIdOk returns a tuple with the IpBlockId field value
+// GetIpBlockIdOk returns a tuple with the IpBlockId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeleteIpBlockResult) GetIpBlockIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.IpBlockId) {
 		return nil, false
 	}
-	return &o.IpBlockId, true
+	return o.IpBlockId, true
 }
 
-// SetIpBlockId sets field value
+// HasIpBlockId returns a boolean if a field has been set.
+func (o *DeleteIpBlockResult) HasIpBlockId() bool {
+	if o != nil && !IsNil(o.IpBlockId) {
+		return true
+	}
+
+	return false
+}
+
+// SetIpBlockId gets a reference to the given string and assigns it to the IpBlockId field.
 func (o *DeleteIpBlockResult) SetIpBlockId(v string) {
-	o.IpBlockId = v
+	o.IpBlockId = &v
 }
 
 func (o DeleteIpBlockResult) MarshalJSON() ([]byte, error) {
@@ -107,8 +120,12 @@ func (o DeleteIpBlockResult) MarshalJSON() ([]byte, error) {
 
 func (o DeleteIpBlockResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["result"] = o.Result
-	toSerialize["ipBlockId"] = o.IpBlockId
+	if !IsNil(o.Result) {
+		toSerialize["result"] = o.Result
+	}
+	if !IsNil(o.IpBlockId) {
+		toSerialize["ipBlockId"] = o.IpBlockId
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -118,28 +135,6 @@ func (o DeleteIpBlockResult) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *DeleteIpBlockResult) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"result",
-		"ipBlockId",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varDeleteIpBlockResult := _DeleteIpBlockResult{}
 
 	err = json.Unmarshal(data, &varDeleteIpBlockResult)

@@ -737,14 +737,14 @@ func (a *PublicNetworksAPIService) PublicNetworksNetworkIdIpBlocksIpBlockIdDelet
 }
 
 type ApiPublicNetworksNetworkIdIpBlocksPostRequest struct {
-	ctx                  context.Context
-	ApiService           PublicNetworksAPI
-	publicNetworkId      string
-	publicNetworkIpBlock *PublicNetworkIpBlock
+	ctx                        context.Context
+	ApiService                 PublicNetworksAPI
+	publicNetworkId            string
+	publicNetworkIpBlockCreate *PublicNetworkIpBlockCreate
 }
 
-func (r ApiPublicNetworksNetworkIdIpBlocksPostRequest) PublicNetworkIpBlock(publicNetworkIpBlock PublicNetworkIpBlock) ApiPublicNetworksNetworkIdIpBlocksPostRequest {
-	r.publicNetworkIpBlock = &publicNetworkIpBlock
+func (r ApiPublicNetworksNetworkIdIpBlocksPostRequest) PublicNetworkIpBlockCreate(publicNetworkIpBlockCreate PublicNetworkIpBlockCreate) ApiPublicNetworksNetworkIdIpBlocksPostRequest {
+	r.publicNetworkIpBlockCreate = &publicNetworkIpBlockCreate
 	return r
 }
 
@@ -790,8 +790,8 @@ func (a *PublicNetworksAPIService) PublicNetworksNetworkIdIpBlocksPostExecute(r 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.publicNetworkIpBlock == nil {
-		return localVarReturnValue, nil, reportError("publicNetworkIpBlock is required and must be specified")
+	if r.publicNetworkIpBlockCreate == nil {
+		return localVarReturnValue, nil, reportError("publicNetworkIpBlockCreate is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -812,7 +812,7 @@ func (a *PublicNetworksAPIService) PublicNetworksNetworkIdIpBlocksPostExecute(r 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.publicNetworkIpBlock
+	localVarPostBody = r.publicNetworkIpBlockCreate
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

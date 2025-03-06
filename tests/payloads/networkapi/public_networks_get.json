@@ -21,34 +21,54 @@
         "description": "My first public network #1",
         "ipBlocks": [
           {
-            "id": "60473a6115e34466c9f8f083"
+            "id": "60473a6115e34466c9f8f083",
+            "cidr": "10.0.0.0/24",
+            "usedIpsCount": "99"
           },
           {
-            "id": "616e6ec6d66b406a45ab8797"
+            "id": "616e6ec6d66b406a45ab8797",
+            "cidr": "10.0.0.0/24",
+            "usedIpsCount": "99"
           },
           {
-            "id": "617d2d128bacbb05aca2caeb"
+            "id": "617d2d128bacbb05aca2caeb",
+            "cidr": "10.0.0.0/24",
+            "usedIpsCount": "99"
           },
           {
-            "id": "617d2da78bacbb05aca2caef"
+            "id": "617d2da78bacbb05aca2caef",
+            "cidr": "10.0.0.0/24",
+            "usedIpsCount": "99"
           },
           {
-            "id": "618e5383a835704f8c59522d"
+            "id": "618e5383a835704f8c59522d",
+            "cidr": "10.0.0.0/24",
+            "usedIpsCount": "99"
           },
           {
-            "id": "617d2f834dcf2869f8e4ef0b"
+            "id": "617d2f834dcf2869f8e4ef0b",
+            "cidr": "10.0.0.0/24",
+            "usedIpsCount": "99"
           },
           {
-            "id": "5f325c71b8a7ef1473e3c85b"
+            "id": "5f325c71b8a7ef1473e3c85b",
+            "cidr": "10.0.0.0/24",
+            "usedIpsCount": "99"
           },
           {
-            "id": "5ff5cc9bc1acf144d9106233"
+            "id": "5ff5cc9bc1acf144d9106233",
+            "cidr": "10.0.0.0/24",
+            "usedIpsCount": "99"
           },
           {
-            "id": "610001e7da283e36d0a0df9f"
+            "id": "610001e7da283e36d0a0df9f",
+            "cidr": "10.0.0.0/24",
+            "usedIpsCount": "99"
           },
           {
-            "id": "613b51c01f4b04615ba1d3be"
+            "id": "613b51c01f4b04615ba1d3be",
+            "cidr": "10.0.0.0/24",
+            "usedIpsCount": "99"
           }
         ],
         "status": "BUSY",

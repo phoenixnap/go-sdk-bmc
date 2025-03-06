@@ -357,7 +357,7 @@ paths:
     post:
       tags:
         - Servers
-      description: Adds an IP block to this server. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/configure-server-with-public-ip-block#ftoc-heading-2' target='_blank'>here</a>.
+      description: Adds an IP block to this server. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required.  A server can have at most one IPv4 block and one IPv6 block assigned simultaneously. Assigning IPv6 to server is only supported post-provision. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/configure-server-with-public-ip-block#ftoc-heading-2' target='_blank'>here</a>.
       summary: Assign IP Block to Server.
       operationId: serversServerIdIpBlocksPost
       security:
@@ -633,6 +633,11 @@ paths:
                 value:
                   id: 60473c2509268bc77fd06d29
                   ips: []
+              PublicNetworkWithIpV6AndComputeSlaacIpTrue:
+                value:
+                  id: 60473c2509268bc77fd06d29
+                  ips: []
+                  computeSlaacIp: true
       responses:
         '202':
           description: The server is being added to the specified Public Network.
@@ -677,6 +682,14 @@ paths:
                   ips:
                     - 182.16.0.146
                     - 182.16.0.147
+                    - 2001:db8::b
+              PublicNetworkWithProvidedIpsAndRanges:
+                value:
+                  ips:
+                    - 182.16.0.150
+                    - 182.16.0.146 - 182.16.0.148
+                    - 2001:db8::f
+                    - 2001:db8::b - 2001:db8::d
               PublicNetworkWithNoIpsAndForceTrue:
                 value:
                   ips: []
@@ -694,6 +707,16 @@ paths:
                     ips:
                       - 182.16.0.146
                       - 182.16.0.147
+                      - 2001:db8::b
+                    statusDescription: assigned
+                PublicNetworkWithProvidedIpsAndRanges:
+                  value:
+                    id: 60473a6115e34466c9f8f088
+                    ips:
+                      - 182.16.0.150
+                      - 182.16.0.146 - 182.16.0.148
+                      - 2001:db8::f
+                      - 2001:db8::b - 2001:db8::d
                     statusDescription: assigned
                 PublicNetworkWithNoIpsAndForceTrue:
                   value:
@@ -1501,6 +1524,7 @@ components:
               writeOnly: true
               type: string
               format: byte
+              example: IyEvYmluL2Jhc2gKbWtkaXIgL3Jvb3QvY2xvdWQtaW5pdC1zY3JpcHQtZXhlY3V0ZWQ=
     ServerPrivateNetwork:
       type: object
       description: Private network details of bare metal server.
@@ -1606,19 +1630,26 @@ components:
           type: string
           example: 60473c2509268bc77fd06d29
         ips:
-          description: Configurable/configured IPs on the server.<br> At least 1 IP address is required. Valid IP formats are single IPv4 addresses or IPv4 ranges. All IPs must be within the network's range.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
+          description: Configurable/configured IPs on the server.<br> At least 1 IP address is required. Valid IP format is single IP addresses. All IPs must be within the network's range.<br> Setting the `computeSlaacIp` field to `true` allows you to provide an empty array of IPs.<br> Additionally, setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
           type: array
           items:
             type: string
-            example: 182.16.0.146
+            example:
+              - 182.16.0.146
+              - 2001:db8::b
           example:
             - 182.16.0.146
-            - 182.16.0.148 - 182.16.0.150
+            - 2001:db8::b
         statusDescription:
           description: (Read-only) The status of the assignment to the network.
           readOnly: true
           type: string
           example: assigned
+        computeSlaacIp:
+          description: (Write-only) Requests Stateless Address Autoconfiguration (SLAAC). Applicable for Network which contains IPv6 block(s).
+          writeOnly: true
+          type: boolean
+          example: true
     PublicNetworkConfiguration:
       type: object
       description: Public network details of bare metal server.
@@ -1722,11 +1753,11 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
           type: string
           example: ubuntu/bionic
         type:
-          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.xlarge`, `d2.m2.xxlarge`, `d2.m3.xlarge`, `d2.m4.xlarge`, `d2.m5.xlarge`, `d2.c4.db1.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge`, `a1.c5.large`, `d3.s5.xlarge`, `d3.m4.xxlarge`, `d3.m5.xxlarge`,  `d3.m6.xxlarge`, `s3.c3.medium`, `s3.c3.large`, `d3.c4.medium`, `d3.c5.medium`, `d3.c6.medium`, `d3.c1.large`, `d3.c2.large`, `d3.c3.large`, `d3.m1.xlarge`, `d3.m2.xlarge`, `d3.m3.xlarge`, `d3.g2.c1.xlarge`, `d3.g2.c2.xlarge` or `d3.g2.c3.xlarge`.
+          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.xlarge`, `d2.m2.xxlarge`, `d2.m3.xlarge`, `d2.m4.xlarge`, `d2.m5.xlarge`, `d2.c4.db1.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge`, `a1.c5.large`, `a1.c5.xlarge`, `d3.s5.xlarge`, `d3.m4.xxlarge`, `d3.m5.xxlarge`,  `d3.m6.xxlarge`, `s3.c3.medium`, `s3.c3.large`, `d3.c4.medium`, `d3.c5.medium`, `d3.c6.medium`, `d3.c1.large`, `d3.c2.large`, `d3.c3.large`, `d3.m1.xlarge`, `d3.m2.xlarge`, `d3.m3.xlarge`, `d3.g2.c1.xlarge`, `d3.g2.c2.xlarge`, `d3.g2.c3.xlarge`, s4.x6.c6.large or s4.x6.m6.xlarge.
           type: string
           example: s1.c1.small
         location:
@@ -1880,11 +1911,11 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
           type: string
           example: ubuntu/bionic
         type:
-          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.xlarge`, `d2.m2.xxlarge`, `d2.m3.xlarge`, `d2.m4.xlarge`, `d2.m5.xlarge`, `d2.c4.db1.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge`, `a1.c5.large`, `d3.s5.xlarge`, `d3.m4.xxlarge`, `d3.m5.xxlarge`, `d3.m6.xxlarge`, `s3.c3.medium`, `s3.c3.large`, `d3.c4.medium`, `d3.c5.medium`, `d3.c6.medium`, `d3.c1.large`, `d3.c2.large`, `d3.c3.large`, `d3.m1.xlarge`, `d3.m2.xlarge`, `d3.m3.xlarge`, `d3.g2.c1.xlarge`, `d3.g2.c2.xlarge` or `d3.g2.c3.xlarge`.
+          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.xlarge`, `d2.m2.xxlarge`, `d2.m3.xlarge`, `d2.m4.xlarge`, `d2.m5.xlarge`, `d2.c4.db1.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge`, `a1.c5.large`, `a1.c5.xlarge`, `d3.s5.xlarge`, `d3.m4.xxlarge`, `d3.m5.xxlarge`, `d3.m6.xxlarge`, `s3.c3.medium`, `s3.c3.large`, `d3.c4.medium`, `d3.c5.medium`, `d3.c6.medium`, `d3.c1.large`, `d3.c2.large`, `d3.c3.large`, `d3.m1.xlarge`, `d3.m2.xlarge`, `d3.m3.xlarge`, `d3.g2.c1.xlarge`, `d3.g2.c2.xlarge`, `d3.g2.c3.xlarge`, s4.x6.c6.large or s4.x6.m6.xlarge.
           type: string
           example: s1.c1.small
         location:
@@ -1972,10 +2003,10 @@ components:
           pattern: '[a-zA-Z0-9().-]+'
     RelinquishIpBlock:
       type: object
-      description: Object used to determine whether to relinquish ownership of the IP block upon server deletion.
+      description: Object used to determine whether to relinquish ownership of the IP blocks upon unassignment from server or server deletion.
       properties:
         deleteIpBlocks:
-          description: Determines whether the IP blocks assigned to the server should be deleted or not.
+          description: Determines whether the IPv4 and IPv6 blocks assigned to the server should be deleted or not.
           type: boolean
           default: false
           example: true
@@ -1984,14 +2015,20 @@ components:
       description: Update network details of bare metal server.
       properties:
         ips:
-          description: List of IPs to be associated to the server.<br> Valid IP formats are single IPv4 addresses or IPv4 ranges. IPs must be within the network's range.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. <li> Assign one or more IP addresses which are already configured on other resource(s) in network. <li> Assign IP addresses which are considered as reserved in network.</ul>
+          description: List of IPs to be associated to the server.<br> Valid IP formats include single IP addresses or IP ranges (IPv4 or IPv6). IPs must be within the network's range.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. <li> Assign one or more IP addresses which are already configured on other resource(s) in network. <li> Assign IP addresses which are considered as reserved in network.</ul>
           type: array
           items:
             type: string
-            example: 10.1.1.1
+            example:
+              - 10.1.1.1
+              - 10.1.1.20 - 10.1.1.25
+              - 2001:db8::f
+              - 2001:db8::b - 2001:db8::d
           example:
             - 10.1.1.1
             - 10.1.1.20 - 10.1.1.25
+            - 2001:db8::f
+            - 2001:db8::b - 2001:db8::d
     ServerProvision:
       type: object
       description: Provision bare metal server.
@@ -2012,7 +2049,7 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
           type: string
           example: ubuntu/bionic
         installDefaultSshKeys:
@@ -2307,7 +2344,7 @@ components:
           description: The reason for changing the limit.
           type: string
           example: I need more servers for my cluster.
-          pattern: ^(?!\s*$).+
+          pattern: ^(?s)(?!\s*$).+
     QuotaEditLimitRequestDetails:
       allOf:
         - $ref: '#/components/schemas/QuotaEditLimitRequest'
@@ -2353,7 +2390,6 @@ components:
             - WITHIN_LIMIT
             - OVER_LIMIT
             - ON_LIMIT
-          example: OVER_LIMIT
         limit:
           description: The limit set for the quota.
           type: integer

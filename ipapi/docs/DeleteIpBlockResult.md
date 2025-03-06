@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Result** | **string** | IP Block has been deleted. | 
-**IpBlockId** | **string** | The unique identifier of the IP Block. | 
+**Result** | Pointer to **string** | IP Block has been deleted. | [optional] 
+**IpBlockId** | Pointer to **string** | The unique identifier of the IP Block. | [optional] 
 
 ## Methods
 
 ### NewDeleteIpBlockResult
 
-`func NewDeleteIpBlockResult(result string, ipBlockId string, ) *DeleteIpBlockResult`
+`func NewDeleteIpBlockResult() *DeleteIpBlockResult`
 
 NewDeleteIpBlockResult instantiates a new DeleteIpBlockResult object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetResult sets Result field to given value.
 
+### HasResult
+
+`func (o *DeleteIpBlockResult) HasResult() bool`
+
+HasResult returns a boolean if a field has been set.
 
 ### GetIpBlockId
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetIpBlockId sets IpBlockId field to given value.
 
+### HasIpBlockId
+
+`func (o *DeleteIpBlockResult) HasIpBlockId() bool`
+
+HasIpBlockId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

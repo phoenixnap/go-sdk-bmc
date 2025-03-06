@@ -57,6 +57,7 @@ type RatedUsageRecord struct {
 	// Reservation id associated with this rated usage record.
 	ReservationId        *string          `json:"reservationId,omitempty"`
 	DiscountDetails      *DiscountDetails `json:"discountDetails,omitempty"`
+	CreditDetails        []CreditDetails  `json:"creditDetails,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -589,6 +590,38 @@ func (o *RatedUsageRecord) SetDiscountDetails(v DiscountDetails) {
 	o.DiscountDetails = &v
 }
 
+// GetCreditDetails returns the CreditDetails field value if set, zero value otherwise.
+func (o *RatedUsageRecord) GetCreditDetails() []CreditDetails {
+	if o == nil || IsNil(o.CreditDetails) {
+		var ret []CreditDetails
+		return ret
+	}
+	return o.CreditDetails
+}
+
+// GetCreditDetailsOk returns a tuple with the CreditDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RatedUsageRecord) GetCreditDetailsOk() ([]CreditDetails, bool) {
+	if o == nil || IsNil(o.CreditDetails) {
+		return nil, false
+	}
+	return o.CreditDetails, true
+}
+
+// HasCreditDetails returns a boolean if a field has been set.
+func (o *RatedUsageRecord) HasCreditDetails() bool {
+	if o != nil && !IsNil(o.CreditDetails) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreditDetails gets a reference to the given []CreditDetails and assigns it to the CreditDetails field.
+func (o *RatedUsageRecord) SetCreditDetails(v []CreditDetails) {
+	o.CreditDetails = v
+}
+
 func (o RatedUsageRecord) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -627,6 +660,9 @@ func (o RatedUsageRecord) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.DiscountDetails) {
 		toSerialize["discountDetails"] = o.DiscountDetails
+	}
+	if !IsNil(o.CreditDetails) {
+		toSerialize["creditDetails"] = o.CreditDetails
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -703,6 +739,7 @@ func (o *RatedUsageRecord) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "correlationId")
 		delete(additionalProperties, "reservationId")
 		delete(additionalProperties, "discountDetails")
+		delete(additionalProperties, "creditDetails")
 		o.AdditionalProperties = additionalProperties
 	}
 

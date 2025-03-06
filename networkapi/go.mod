@@ -1,4 +1,4 @@
-module github.com/phoenixnap/go-sdk-bmc/networkapi/v3
+module github.com/phoenixnap/go-sdk-bmc/networkapi/v4
 
 go 1.18
 

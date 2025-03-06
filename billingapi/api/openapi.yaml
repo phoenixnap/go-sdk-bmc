@@ -804,7 +804,6 @@ components:
       - operating-system
       - public-ip
       - storage
-      example: bmc-server
       type: string
     LocationEnum:
       description: The location code.
@@ -843,6 +842,59 @@ components:
       - type
       - value
       type: object
+    CreditTypeEnum:
+      description: The credit type model.
+      enum:
+      - PROMO
+      - SYSTEM
+      example: PROMO
+      type: string
+    CreditDetailsBase:
+      description: Base credit details value object.
+      properties:
+        appliedAmount:
+          description: Amount applied.
+          example: 50
+          type: number
+        type:
+          $ref: '#/components/schemas/CreditTypeEnum'
+      required:
+      - appliedAmount
+      - type
+      type: object
+    PromoCreditDetails:
+      allOf:
+      - $ref: '#/components/schemas/CreditDetailsBase'
+      - description: Promo credit details.
+        properties:
+          couponId:
+            description: Coupon id which is the source of the promo credit.
+            example: 574845ca-53e6-4e6e-ae16-3ecd2a7d8508
+            type: string
+          couponCode:
+            description: Coupon code which is the source of the promo credit.
+            example: promo234
+            type: string
+        required:
+        - couponCode
+        - couponId
+        type: object
+    SystemCreditCauseEnum:
+      description: The cause/reason of system credit being applied.
+      enum:
+      - RESERVATION_UPGRADE
+      example: RESERVATION_UPGRADE
+      type: string
+    SystemCreditDetails:
+      allOf:
+      - $ref: '#/components/schemas/CreditDetailsBase'
+      - description: System credit details.
+        properties:
+          cause:
+            $ref: '#/components/schemas/SystemCreditCauseEnum'
+        required:
+        - cause
+        type: object
     RatedUsageRecord:
       description: Rated usage record.
       properties:
@@ -925,6 +977,10 @@ components:
           type: string
         discountDetails:
           $ref: '#/components/schemas/DiscountDetails'
+        creditDetails:
+          items:
+            $ref: '#/components/schemas/CreditDetails'
+          type: array
       required:
       - active
       - correlationId
@@ -1131,7 +1187,6 @@ components:
       - UNIT
       - FLAT
       - TB_PER_HOUR
-      example: MONTH
       type: string
     ApplicableDiscounts:
       description: "Represents the applicable discount details for a product, including\
@@ -1175,7 +1230,6 @@ components:
           - SEA
           - AUS
           - GLOBAL
-          example: PHX
           type: string
         pricingModel:
           description: The pricing model.
@@ -1188,7 +1242,6 @@ components:
           - THIRTY_SIX_MONTHS_RESERVATION
           - MONTHLY_PACKAGE
           - FREE_TIER
-          example: HOURLY
           type: string
         price:
           description: The price per unit.
@@ -1308,7 +1361,6 @@ components:
       enum:
       - server
       - bandwidth
-      example: server
       type: string
     ReservationModelEnum:
       description: The reservation model.
@@ -1331,11 +1383,11 @@ components:
     Reservation:
       description: Reservation details
       example:
-        priceUnit: MONTH
+        priceUnit: null
         nextBillingDate: 2020-04-19T00:00:00.000+00:00
         initialInvoiceModel: null
         endDateTime: 2020-04-19T16:39:00Z
-        productCategory: server
+        productCategory: null
         lastRenewalDateTime: 2020-03-19T16:39:00Z
         productCode: s1.c1.small
         startDateTime: 2020-03-19T16:39:00Z
@@ -1439,9 +1491,10 @@ components:
     ReservationAutoRenewDisableRequest:
       description: Disabling auto-renewal for reservation request.
       example:
-        autoRenewDisableReason: autoRenewDisableReason
+        autoRenewDisableReason: It is not needed anymore.
       properties:
         autoRenewDisableReason:
+          example: It is not needed anymore.
           type: string
       type: object
     ThresholdConfigurationDetails:
@@ -1553,7 +1606,7 @@ components:
           storage: '#/components/schemas/StorageRecord'
         propertyName: productCategory
       example:
-        productCategory: bmc-server
+        productCategory: null
       oneOf:
       - $ref: '#/components/schemas/ServerRecord'
       - $ref: '#/components/schemas/BandwidthRecord'
@@ -1575,6 +1628,11 @@ components:
       oneOf:
       - $ref: '#/components/schemas/Product'
       - $ref: '#/components/schemas/ServerProduct'
+    CreditDetails:
+      oneOf:
+      - $ref: '#/components/schemas/PromoCreditDetails'
+      - $ref: '#/components/schemas/SystemCreditDetails'
+      title: CreditDetails
   securitySchemes:
     OAuth2:
       flows:

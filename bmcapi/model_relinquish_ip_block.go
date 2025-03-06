@@ -18,9 +18,9 @@ import (
 // checks if the RelinquishIpBlock type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &RelinquishIpBlock{}
 
-// RelinquishIpBlock Object used to determine whether to relinquish ownership of the IP block upon server deletion.
+// RelinquishIpBlock Object used to determine whether to relinquish ownership of the IP blocks upon unassignment from server or server deletion.
 type RelinquishIpBlock struct {
-	// Determines whether the IP blocks assigned to the server should be deleted or not.
+	// Determines whether the IPv4 and IPv6 blocks assigned to the server should be deleted or not.
 	DeleteIpBlocks       *bool `json:"deleteIpBlocks,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

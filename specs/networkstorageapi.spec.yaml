@@ -279,7 +279,7 @@ paths:
     patch:
       tags:
         - Storage Networks
-      description: Update a storage network's volume details.
+      description: Update a storage network's volume details. Volume's capacity requested cannot be less than or equal to current volume's capacity.
       summary: Update a storage network's volume details.
       operationId: storageNetworksStorageNetworkIdVolumesVolumeIdPatch
       security:
@@ -420,6 +420,7 @@ components:
           type: array
           items:
             type: string
+            example: 100.64.0.1
           example:
             - 100.64.0.1
             - 100.64.0.2
@@ -474,6 +475,7 @@ components:
           type: integer
           minimum: 2
           maximum: 4094
+          example: 5
     StorageNetworkVolumeCreate:
       title: StorageNetworkVolumeCreate
       type: object
@@ -662,6 +664,7 @@ components:
           minLength: 0
           maxLength: 27
           pattern: ^(\/[\w-]+)+$|^$
+          example: /my/volume/path
         permissions:
           $ref: '#/components/schemas/PermissionsUpdate'
     Permissions:
@@ -844,7 +847,6 @@ components:
         - BUSY
         - DELETING
         - ERROR
-      example: READY
     TagAssignment:
       type: object
       description: Tag assigned to resource.

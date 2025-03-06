@@ -5,7 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Location** | **string** | IP Block location ID. Currently this field should be set to &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60;, &#x60;SEA&#x60; or &#x60;AUS&#x60;. | 
-**CidrBlockSize** | **string** | CIDR IP Block Size. Currently this field should be set to either &#x60;/31&#x60;, &#x60;/30&#x60;, &#x60;/29&#x60; or &#x60;/28&#x60;. For a larger Block Size contact support. | 
+**CidrBlockSize** | **string** | CIDR IP Block Size. V4 supported sizes: [&#x60;/31&#x60;, &#x60;/30&#x60;, &#x60;/29&#x60; or &#x60;/28&#x60;]. V6 supported sizes: [&#x60;/64&#x60;]. For a larger Block Size contact support. | 
+**IpVersion** | Pointer to **string** | IP Version. This field should be set to &#x60;V4&#x60; or &#x60;V6&#x60; | [optional] [default to "V4"]
 **Description** | Pointer to **string** | The description of the IP Block. | [optional] 
 **Tags** | Pointer to [**[]TagAssignmentRequest**](TagAssignmentRequest.md) | Tags to set to the ip-block. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview). | [optional] 
 
@@ -67,6 +68,31 @@ and a boolean to check if the value has been set.
 
 SetCidrBlockSize sets CidrBlockSize field to given value.
 
+
+### GetIpVersion
+
+`func (o *IpBlockCreate) GetIpVersion() string`
+
+GetIpVersion returns the IpVersion field if non-nil, zero value otherwise.
+
+### GetIpVersionOk
+
+`func (o *IpBlockCreate) GetIpVersionOk() (*string, bool)`
+
+GetIpVersionOk returns a tuple with the IpVersion field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIpVersion
+
+`func (o *IpBlockCreate) SetIpVersion(v string)`
+
+SetIpVersion sets IpVersion field to given value.
+
+### HasIpVersion
+
+`func (o *IpBlockCreate) HasIpVersion() bool`
+
+HasIpVersion returns a boolean if a field has been set.
 
 ### GetDescription
 
