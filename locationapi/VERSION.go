@@ -1,3 +1,3 @@
 package locationapi
 
-const SdkVersion = "3.1.1-SNAPSHOT"
+const SdkVersion = "3.0.3-SNAPSHOT"
