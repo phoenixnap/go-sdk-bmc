@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DiscountedPrice** | Pointer to **float32** | The price of the product after applying a discount. | [optional] 
-**DiscountDetails** | Pointer to [**[]DiscountDetails**](DiscountDetails.md) |  | [optional] 
+**DiscountDetails** | Pointer to [**[]ApplicableDiscountDetails**](ApplicableDiscountDetails.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasDiscountedPrice returns a boolean if a field has been set.
 
 ### GetDiscountDetails
 
-`func (o *ApplicableDiscounts) GetDiscountDetails() []DiscountDetails`
+`func (o *ApplicableDiscounts) GetDiscountDetails() []ApplicableDiscountDetails`
 
 GetDiscountDetails returns the DiscountDetails field if non-nil, zero value otherwise.
 
 ### GetDiscountDetailsOk
 
-`func (o *ApplicableDiscounts) GetDiscountDetailsOk() (*[]DiscountDetails, bool)`
+`func (o *ApplicableDiscounts) GetDiscountDetailsOk() (*[]ApplicableDiscountDetails, bool)`
 
 GetDiscountDetailsOk returns a tuple with the DiscountDetails field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDiscountDetails
 
-`func (o *ApplicableDiscounts) SetDiscountDetails(v []DiscountDetails)`
+`func (o *ApplicableDiscounts) SetDiscountDetails(v []ApplicableDiscountDetails)`
 
 SetDiscountDetails sets DiscountDetails field to given value.
 

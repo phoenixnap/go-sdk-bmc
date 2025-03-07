@@ -1188,6 +1188,17 @@ components:
       - FLAT
       - TB_PER_HOUR
       type: string
+    ApplicableDiscountDetails:
+      allOf:
+      - $ref: '#/components/schemas/DiscountDetails'
+      - description: Represents the details of the discount that is most applicable
+          to a product.
+        properties:
+          couponCode:
+            description: Coupon code which is the source of the discount.
+            example: promo234
+            type: string
+        type: object
     ApplicableDiscounts:
       description: "Represents the applicable discount details for a product, including\
         \ the discounted price and discount information."
@@ -1198,7 +1209,7 @@ components:
           type: number
         discountDetails:
           items:
-            $ref: '#/components/schemas/DiscountDetails'
+            $ref: '#/components/schemas/ApplicableDiscountDetails'
           type: array
       type: object
     PackageUnitEnum:
