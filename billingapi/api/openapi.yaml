@@ -842,6 +842,17 @@ components:
       - type
       - value
       type: object
+    ApplicableDiscountDetails:
+      allOf:
+      - $ref: '#/components/schemas/DiscountDetails'
+      - description: Represents a discount that is either applicable upon product
+          purchase or reflects a discount applied to rated usage.
+        properties:
+          couponCode:
+            description: Coupon code which is the source of the discount.
+            example: promo234
+            type: string
+        type: object
     CreditTypeEnum:
       description: The credit type model.
       enum:
@@ -976,7 +987,7 @@ components:
           example: c32a24a1-5949-4b60-99c0-c8aaa3a92b04
           type: string
         discountDetails:
-          $ref: '#/components/schemas/DiscountDetails'
+          $ref: '#/components/schemas/ApplicableDiscountDetails'
         creditDetails:
           items:
             $ref: '#/components/schemas/CreditDetails'
@@ -1188,17 +1199,6 @@ components:
       - FLAT
       - TB_PER_HOUR
       type: string
-    ApplicableDiscountDetails:
-      allOf:
-      - $ref: '#/components/schemas/DiscountDetails'
-      - description: Represents the details of the discount that is most applicable
-          to a product.
-        properties:
-          couponCode:
-            description: Coupon code which is the source of the discount.
-            example: promo234
-            type: string
-        type: object
     ApplicableDiscounts:
       description: "Represents the applicable discount details for a product, including\
         \ the discounted price and discount information."
