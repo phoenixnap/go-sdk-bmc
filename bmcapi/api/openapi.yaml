@@ -2669,8 +2669,13 @@ components:
           type: array
         dhcp:
           default: false
-          description: Determines whether DHCP is enabled for this server. Should
-            be false if any IPs are provided. Not supported for Proxmox OS.
+          description: "Determines whether DHCP is enabled for this server.<br> The\
+            \ following restrictions apply when enabling DHCP:<ul> <li> DHCP support\
+            \ is limited to servers configured exclusively with private networks (PRIVATE_ONLY).\
+            \ <li> DHCP value needs to be consistent across all server-configured\
+            \ private networks.  <li> The server does not support manual gateway address\
+            \ configuration. <li> Private IP addresses for network cannot be specified.</ul>\
+            \ Note: Not supported on Proxmox OS."
           example: false
           type: boolean
         statusDescription:
