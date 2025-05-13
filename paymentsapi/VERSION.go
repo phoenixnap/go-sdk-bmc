@@ -1,3 +1,3 @@
 package paymentsapi
 
-const SdkVersion = "1.0.5-SNAPSHOT"
+const SdkVersion = "1.0.5"
