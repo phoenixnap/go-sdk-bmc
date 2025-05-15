@@ -31,8 +31,10 @@ type IpBlock struct {
 	Cidr *string `json:"cidr,omitempty"`
 	// The IP Version of the block.
 	IpVersion *string `json:"ipVersion,omitempty"`
-	// The status of the IP Block. Can have one of the following values: `creating` , `assigning` , `error assigning` , `assigned` , `unassigning` , `error unassigning` or `unassigned`.
+	// The status of the IP Block. Can have one of the following values: `creating`, `subnetted`, `assigning` , `error assigning` , `assigned` , `unassigning` , `error unassigning` or `unassigned`.
 	Status *string `json:"status,omitempty"`
+	// IP Block parent identifier. If present, this block is subnetted from the parent IP Block.
+	ParentIpBlockAllocationId *string `json:"parentIpBlockAllocationId,omitempty"`
 	// ID of the resource assigned to the IP Block.
 	AssignedResourceId *string `json:"assignedResourceId,omitempty"`
 	// Type of the resource assigned to the IP Block.
@@ -41,6 +43,8 @@ type IpBlock struct {
 	Description *string `json:"description,omitempty"`
 	// The tags assigned if any.
 	Tags []TagAssignment `json:"tags,omitempty"`
+	// True if the IP block is a `system managed` block.
+	IsSystemManaged *bool `json:"isSystemManaged,omitempty"`
 	// True if the IP block is a `bring your own` block.
 	IsBringYourOwn *bool `json:"isBringYourOwn,omitempty"`
 	// Date and time when the IP block was created.
@@ -259,6 +263,38 @@ func (o *IpBlock) SetStatus(v string) {
 	o.Status = &v
 }
 
+// GetParentIpBlockAllocationId returns the ParentIpBlockAllocationId field value if set, zero value otherwise.
+func (o *IpBlock) GetParentIpBlockAllocationId() string {
+	if o == nil || IsNil(o.ParentIpBlockAllocationId) {
+		var ret string
+		return ret
+	}
+	return *o.ParentIpBlockAllocationId
+}
+
+// GetParentIpBlockAllocationIdOk returns a tuple with the ParentIpBlockAllocationId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IpBlock) GetParentIpBlockAllocationIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ParentIpBlockAllocationId) {
+		return nil, false
+	}
+	return o.ParentIpBlockAllocationId, true
+}
+
+// HasParentIpBlockAllocationId returns a boolean if a field has been set.
+func (o *IpBlock) HasParentIpBlockAllocationId() bool {
+	if o != nil && !IsNil(o.ParentIpBlockAllocationId) {
+		return true
+	}
+
+	return false
+}
+
+// SetParentIpBlockAllocationId gets a reference to the given string and assigns it to the ParentIpBlockAllocationId field.
+func (o *IpBlock) SetParentIpBlockAllocationId(v string) {
+	o.ParentIpBlockAllocationId = &v
+}
+
 // GetAssignedResourceId returns the AssignedResourceId field value if set, zero value otherwise.
 func (o *IpBlock) GetAssignedResourceId() string {
 	if o == nil || IsNil(o.AssignedResourceId) {
@@ -387,6 +423,38 @@ func (o *IpBlock) SetTags(v []TagAssignment) {
 	o.Tags = v
 }
 
+// GetIsSystemManaged returns the IsSystemManaged field value if set, zero value otherwise.
+func (o *IpBlock) GetIsSystemManaged() bool {
+	if o == nil || IsNil(o.IsSystemManaged) {
+		var ret bool
+		return ret
+	}
+	return *o.IsSystemManaged
+}
+
+// GetIsSystemManagedOk returns a tuple with the IsSystemManaged field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IpBlock) GetIsSystemManagedOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsSystemManaged) {
+		return nil, false
+	}
+	return o.IsSystemManaged, true
+}
+
+// HasIsSystemManaged returns a boolean if a field has been set.
+func (o *IpBlock) HasIsSystemManaged() bool {
+	if o != nil && !IsNil(o.IsSystemManaged) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsSystemManaged gets a reference to the given bool and assigns it to the IsSystemManaged field.
+func (o *IpBlock) SetIsSystemManaged(v bool) {
+	o.IsSystemManaged = &v
+}
+
 // GetIsBringYourOwn returns the IsBringYourOwn field value if set, zero value otherwise.
 func (o *IpBlock) GetIsBringYourOwn() bool {
 	if o == nil || IsNil(o.IsBringYourOwn) {
@@ -479,6 +547,9 @@ func (o IpBlock) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+	if !IsNil(o.ParentIpBlockAllocationId) {
+		toSerialize["parentIpBlockAllocationId"] = o.ParentIpBlockAllocationId
+	}
 	if !IsNil(o.AssignedResourceId) {
 		toSerialize["assignedResourceId"] = o.AssignedResourceId
 	}
@@ -490,6 +561,9 @@ func (o IpBlock) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.IsSystemManaged) {
+		toSerialize["isSystemManaged"] = o.IsSystemManaged
 	}
 	if !IsNil(o.IsBringYourOwn) {
 		toSerialize["isBringYourOwn"] = o.IsBringYourOwn
@@ -525,10 +599,12 @@ func (o *IpBlock) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "cidr")
 		delete(additionalProperties, "ipVersion")
 		delete(additionalProperties, "status")
+		delete(additionalProperties, "parentIpBlockAllocationId")
 		delete(additionalProperties, "assignedResourceId")
 		delete(additionalProperties, "assignedResourceType")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "tags")
+		delete(additionalProperties, "isSystemManaged")
 		delete(additionalProperties, "isBringYourOwn")
 		delete(additionalProperties, "createdOn")
 		o.AdditionalProperties = additionalProperties

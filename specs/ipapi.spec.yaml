@@ -113,6 +113,7 @@ paths:
                 status: unassigned
                 description: 'IP Block #1 used for publicly accessing server #1.'
                 isBringYourOwn: false
+                isSystemManaged: false
                 createdOn: '2021-03-13T20:24:32.491Z'
         '400':
           $ref: '#/components/responses/BadRequest'
@@ -329,9 +330,13 @@ components:
           type: string
           example: V4
         status:
-          description: 'The status of the IP Block. Can have one of the following values: `creating` , `assigning` , `error assigning` , `assigned` , `unassigning` , `error unassigning` or `unassigned`.'
+          description: 'The status of the IP Block. Can have one of the following values: `creating`, `subnetted`, `assigning` , `error assigning` , `assigned` , `unassigning` , `error unassigning` or `unassigned`.'
           type: string
           example: unassigned
+        parentIpBlockAllocationId:
+          description: IP Block parent identifier. If present, this block is subnetted from the parent IP Block.
+          type: string
+          example: 5edf1c9b4212930ac543d999
         assignedResourceId:
           description: ID of the resource assigned to the IP Block.
           type: string
@@ -355,6 +360,10 @@ components:
               value: beta
             - name: group
               value: discounted
+        isSystemManaged:
+          description: True if the IP block is a `system managed` block.
+          type: boolean
+          example: false
         isBringYourOwn:
           description: True if the IP block is a `bring your own` block.
           type: boolean

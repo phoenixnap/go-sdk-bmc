@@ -9,11 +9,13 @@ Name | Type | Description | Notes
 **CidrBlockSize** | Pointer to **string** | CIDR IP Block Size. Currently this field should be set to either &#x60;/31&#x60;, &#x60;/30&#x60;, &#x60;/29&#x60;, &#x60;/28&#x60;, &#x60;/27&#x60;, &#x60;/26&#x60;, &#x60;/25&#x60;, &#x60;/24&#x60;, &#x60;/23&#x60; or &#x60;/22&#x60;. | [optional] 
 **Cidr** | Pointer to **string** | The IP Block in CIDR notation. | [optional] 
 **IpVersion** | Pointer to **string** | The IP Version of the block. | [optional] 
-**Status** | Pointer to **string** | The status of the IP Block. Can have one of the following values: &#x60;creating&#x60; , &#x60;assigning&#x60; , &#x60;error assigning&#x60; , &#x60;assigned&#x60; , &#x60;unassigning&#x60; , &#x60;error unassigning&#x60; or &#x60;unassigned&#x60;. | [optional] 
+**Status** | Pointer to **string** | The status of the IP Block. Can have one of the following values: &#x60;creating&#x60;, &#x60;subnetted&#x60;, &#x60;assigning&#x60; , &#x60;error assigning&#x60; , &#x60;assigned&#x60; , &#x60;unassigning&#x60; , &#x60;error unassigning&#x60; or &#x60;unassigned&#x60;. | [optional] 
+**ParentIpBlockAllocationId** | Pointer to **string** | IP Block parent identifier. If present, this block is subnetted from the parent IP Block. | [optional] 
 **AssignedResourceId** | Pointer to **string** | ID of the resource assigned to the IP Block. | [optional] 
 **AssignedResourceType** | Pointer to **string** | Type of the resource assigned to the IP Block. | [optional] 
 **Description** | Pointer to **string** | The description of the IP Block. | [optional] 
 **Tags** | Pointer to [**[]TagAssignment**](TagAssignment.md) | The tags assigned if any. | [optional] 
+**IsSystemManaged** | Pointer to **bool** | True if the IP block is a &#x60;system managed&#x60; block. | [optional] 
 **IsBringYourOwn** | Pointer to **bool** | True if the IP block is a &#x60;bring your own&#x60; block. | [optional] 
 **CreatedOn** | Pointer to **time.Time** | Date and time when the IP block was created. | [optional] 
 
@@ -186,6 +188,31 @@ SetStatus sets Status field to given value.
 
 HasStatus returns a boolean if a field has been set.
 
+### GetParentIpBlockAllocationId
+
+`func (o *IpBlock) GetParentIpBlockAllocationId() string`
+
+GetParentIpBlockAllocationId returns the ParentIpBlockAllocationId field if non-nil, zero value otherwise.
+
+### GetParentIpBlockAllocationIdOk
+
+`func (o *IpBlock) GetParentIpBlockAllocationIdOk() (*string, bool)`
+
+GetParentIpBlockAllocationIdOk returns a tuple with the ParentIpBlockAllocationId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetParentIpBlockAllocationId
+
+`func (o *IpBlock) SetParentIpBlockAllocationId(v string)`
+
+SetParentIpBlockAllocationId sets ParentIpBlockAllocationId field to given value.
+
+### HasParentIpBlockAllocationId
+
+`func (o *IpBlock) HasParentIpBlockAllocationId() bool`
+
+HasParentIpBlockAllocationId returns a boolean if a field has been set.
+
 ### GetAssignedResourceId
 
 `func (o *IpBlock) GetAssignedResourceId() string`
@@ -285,6 +312,31 @@ SetTags sets Tags field to given value.
 `func (o *IpBlock) HasTags() bool`
 
 HasTags returns a boolean if a field has been set.
+
+### GetIsSystemManaged
+
+`func (o *IpBlock) GetIsSystemManaged() bool`
+
+GetIsSystemManaged returns the IsSystemManaged field if non-nil, zero value otherwise.
+
+### GetIsSystemManagedOk
+
+`func (o *IpBlock) GetIsSystemManagedOk() (*bool, bool)`
+
+GetIsSystemManagedOk returns a tuple with the IsSystemManaged field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsSystemManaged
+
+`func (o *IpBlock) SetIsSystemManaged(v bool)`
+
+SetIsSystemManaged sets IsSystemManaged field to given value.
+
+### HasIsSystemManaged
+
+`func (o *IpBlock) HasIsSystemManaged() bool`
+
+HasIsSystemManaged returns a boolean if a field has been set.
 
 ### GetIsBringYourOwn
 

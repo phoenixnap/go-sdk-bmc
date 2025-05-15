@@ -122,6 +122,7 @@ paths:
                 status: unassigned
                 description: "IP Block #1 used for publicly accessing server #1."
                 isBringYourOwn: false
+                isSystemManaged: false
                 createdOn: 2021-03-13T20:24:32.491Z
               schema:
                 $ref: '#/components/schemas/IpBlock'
@@ -510,22 +511,24 @@ components:
     IpBlock:
       description: IP Block Details.
       example:
-        ipVersion: V4
         description: "IP Block #1 used for publicly accessing server #1."
-        isBringYourOwn: false
-        location: PHX
-        cidr: 1.1.1.0/31
-        id: 6047127fed34ecc3ba8402d2
-        assignedResourceId: 6047127fed34ecc3ba8402d2
         assignedResourceType: server
         createdOn: 2021-03-13T20:24:32.491Z
-        cidrBlockSize: /30
-        status: unassigned
         tags:
         - name: stage
           value: beta
         - name: group
           value: discounted
+        parentIpBlockAllocationId: 5edf1c9b4212930ac543d999
+        isSystemManaged: false
+        ipVersion: V4
+        isBringYourOwn: false
+        location: PHX
+        cidr: 1.1.1.0/31
+        id: 6047127fed34ecc3ba8402d2
+        assignedResourceId: 6047127fed34ecc3ba8402d2
+        cidrBlockSize: /30
+        status: unassigned
       properties:
         id:
           description: IP Block identifier.
@@ -552,9 +555,14 @@ components:
           type: string
         status:
           description: "The status of the IP Block. Can have one of the following\
-            \ values: `creating` , `assigning` , `error assigning` , `assigned` ,\
-            \ `unassigning` , `error unassigning` or `unassigned`."
+            \ values: `creating`, `subnetted`, `assigning` , `error assigning` , `assigned`\
+            \ , `unassigning` , `error unassigning` or `unassigned`."
           example: unassigned
+          type: string
+        parentIpBlockAllocationId:
+          description: "IP Block parent identifier. If present, this block is subnetted\
+            \ from the parent IP Block."
+          example: 5edf1c9b4212930ac543d999
           type: string
         assignedResourceId:
           description: ID of the resource assigned to the IP Block.
@@ -579,6 +587,10 @@ components:
           items:
             $ref: '#/components/schemas/TagAssignment'
           type: array
+        isSystemManaged:
+          description: True if the IP block is a `system managed` block.
+          example: false
+          type: boolean
         isBringYourOwn:
           description: True if the IP block is a `bring your own` block.
           example: false
