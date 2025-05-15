@@ -55,10 +55,10 @@ type ServerRecord struct {
 	// Holds usage record id
 	CorrelationId string `json:"correlationId"`
 	// Reservation id associated with this rated usage record.
-	ReservationId        *string          `json:"reservationId,omitempty"`
-	DiscountDetails      *DiscountDetails `json:"discountDetails,omitempty"`
-	CreditDetails        []CreditDetails  `json:"creditDetails,omitempty"`
-	Metadata             ServerDetails    `json:"metadata"`
+	ReservationId        *string                    `json:"reservationId,omitempty"`
+	DiscountDetails      *ApplicableDiscountDetails `json:"discountDetails,omitempty"`
+	CreditDetails        []CreditDetails            `json:"creditDetails,omitempty"`
+	Metadata             ServerDetails              `json:"metadata"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -561,9 +561,9 @@ func (o *ServerRecord) SetReservationId(v string) {
 }
 
 // GetDiscountDetails returns the DiscountDetails field value if set, zero value otherwise.
-func (o *ServerRecord) GetDiscountDetails() DiscountDetails {
+func (o *ServerRecord) GetDiscountDetails() ApplicableDiscountDetails {
 	if o == nil || IsNil(o.DiscountDetails) {
-		var ret DiscountDetails
+		var ret ApplicableDiscountDetails
 		return ret
 	}
 	return *o.DiscountDetails
@@ -571,7 +571,7 @@ func (o *ServerRecord) GetDiscountDetails() DiscountDetails {
 
 // GetDiscountDetailsOk returns a tuple with the DiscountDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServerRecord) GetDiscountDetailsOk() (*DiscountDetails, bool) {
+func (o *ServerRecord) GetDiscountDetailsOk() (*ApplicableDiscountDetails, bool) {
 	if o == nil || IsNil(o.DiscountDetails) {
 		return nil, false
 	}
@@ -587,8 +587,8 @@ func (o *ServerRecord) HasDiscountDetails() bool {
 	return false
 }
 
-// SetDiscountDetails gets a reference to the given DiscountDetails and assigns it to the DiscountDetails field.
-func (o *ServerRecord) SetDiscountDetails(v DiscountDetails) {
+// SetDiscountDetails gets a reference to the given ApplicableDiscountDetails and assigns it to the DiscountDetails field.
+func (o *ServerRecord) SetDiscountDetails(v ApplicableDiscountDetails) {
 	o.DiscountDetails = &v
 }
 

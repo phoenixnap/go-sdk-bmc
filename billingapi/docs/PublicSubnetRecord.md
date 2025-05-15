@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **UsageSessionId** | **string** | The usage session ID is used to correlate rated usage records across periods of time. For example, a server used for over a month will generate multiple rated usage records. The entire usage session cost can be computed by aggregating the records having the same usage session ID. It is usual to have one rated usage record per month or invoice. | 
 **CorrelationId** | **string** | Holds usage record id | 
 **ReservationId** | Pointer to **string** | Reservation id associated with this rated usage record. | [optional] 
-**DiscountDetails** | Pointer to [**DiscountDetails**](DiscountDetails.md) |  | [optional] 
+**DiscountDetails** | Pointer to [**ApplicableDiscountDetails**](ApplicableDiscountDetails.md) |  | [optional] 
 **CreditDetails** | Pointer to [**[]CreditDetails**](CreditDetails.md) |  | [optional] 
 **Metadata** | [**PublicSubnetDetails**](PublicSubnetDetails.md) |  | 
 
@@ -427,20 +427,20 @@ HasReservationId returns a boolean if a field has been set.
 
 ### GetDiscountDetails
 
-`func (o *PublicSubnetRecord) GetDiscountDetails() DiscountDetails`
+`func (o *PublicSubnetRecord) GetDiscountDetails() ApplicableDiscountDetails`
 
 GetDiscountDetails returns the DiscountDetails field if non-nil, zero value otherwise.
 
 ### GetDiscountDetailsOk
 
-`func (o *PublicSubnetRecord) GetDiscountDetailsOk() (*DiscountDetails, bool)`
+`func (o *PublicSubnetRecord) GetDiscountDetailsOk() (*ApplicableDiscountDetails, bool)`
 
 GetDiscountDetailsOk returns a tuple with the DiscountDetails field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDiscountDetails
 
-`func (o *PublicSubnetRecord) SetDiscountDetails(v DiscountDetails)`
+`func (o *PublicSubnetRecord) SetDiscountDetails(v ApplicableDiscountDetails)`
 
 SetDiscountDetails sets DiscountDetails field to given value.
 

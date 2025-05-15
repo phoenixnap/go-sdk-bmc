@@ -102,6 +102,7 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [ApplicableDiscountDetails](docs/ApplicableDiscountDetails.md)
  - [ApplicableDiscounts](docs/ApplicableDiscounts.md)
  - [BandwidthDetails](docs/BandwidthDetails.md)
  - [BandwidthRecord](docs/BandwidthRecord.md)

@@ -571,6 +571,16 @@ components:
         - code
         - type
         - value
+    ApplicableDiscountDetails:
+      allOf:
+        - $ref: '#/components/schemas/DiscountDetails'
+        - type: object
+          description: Represents a discount that is either applicable upon product purchase or reflects a discount applied to rated usage.
+          properties:
+            couponCode:
+              description: Coupon code which is the source of the discount.
+              type: string
+              example: promo234
     CreditTypeEnum:
       description: The credit type model.
       type: string
@@ -701,7 +711,7 @@ components:
           type: string
           example: c32a24a1-5949-4b60-99c0-c8aaa3a92b04
         discountDetails:
-          $ref: '#/components/schemas/DiscountDetails'
+          $ref: '#/components/schemas/ApplicableDiscountDetails'
         creditDetails:
           type: array
           items:
@@ -922,7 +932,7 @@ components:
         discountDetails:
           type: array
           items:
-            $ref: '#/components/schemas/DiscountDetails'
+            $ref: '#/components/schemas/ApplicableDiscountDetails'
     PackageUnitEnum:
       description: Package size unit.
       type: string

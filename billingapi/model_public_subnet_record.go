@@ -55,10 +55,10 @@ type PublicSubnetRecord struct {
 	// Holds usage record id
 	CorrelationId string `json:"correlationId"`
 	// Reservation id associated with this rated usage record.
-	ReservationId        *string             `json:"reservationId,omitempty"`
-	DiscountDetails      *DiscountDetails    `json:"discountDetails,omitempty"`
-	CreditDetails        []CreditDetails     `json:"creditDetails,omitempty"`
-	Metadata             PublicSubnetDetails `json:"metadata"`
+	ReservationId        *string                    `json:"reservationId,omitempty"`
+	DiscountDetails      *ApplicableDiscountDetails `json:"discountDetails,omitempty"`
+	CreditDetails        []CreditDetails            `json:"creditDetails,omitempty"`
+	Metadata             PublicSubnetDetails        `json:"metadata"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -561,9 +561,9 @@ func (o *PublicSubnetRecord) SetReservationId(v string) {
 }
 
 // GetDiscountDetails returns the DiscountDetails field value if set, zero value otherwise.
-func (o *PublicSubnetRecord) GetDiscountDetails() DiscountDetails {
+func (o *PublicSubnetRecord) GetDiscountDetails() ApplicableDiscountDetails {
 	if o == nil || IsNil(o.DiscountDetails) {
-		var ret DiscountDetails
+		var ret ApplicableDiscountDetails
 		return ret
 	}
 	return *o.DiscountDetails
@@ -571,7 +571,7 @@ func (o *PublicSubnetRecord) GetDiscountDetails() DiscountDetails {
 
 // GetDiscountDetailsOk returns a tuple with the DiscountDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PublicSubnetRecord) GetDiscountDetailsOk() (*DiscountDetails, bool) {
+func (o *PublicSubnetRecord) GetDiscountDetailsOk() (*ApplicableDiscountDetails, bool) {
 	if o == nil || IsNil(o.DiscountDetails) {
 		return nil, false
 	}
@@ -587,8 +587,8 @@ func (o *PublicSubnetRecord) HasDiscountDetails() bool {
 	return false
 }
 
-// SetDiscountDetails gets a reference to the given DiscountDetails and assigns it to the DiscountDetails field.
-func (o *PublicSubnetRecord) SetDiscountDetails(v DiscountDetails) {
+// SetDiscountDetails gets a reference to the given ApplicableDiscountDetails and assigns it to the DiscountDetails field.
+func (o *PublicSubnetRecord) SetDiscountDetails(v ApplicableDiscountDetails) {
 	o.DiscountDetails = &v
 }
 

@@ -21,8 +21,8 @@ var _ MappedNullable = &ApplicableDiscounts{}
 // ApplicableDiscounts Represents the applicable discount details for a product, including the discounted price and discount information.
 type ApplicableDiscounts struct {
 	// The price of the product after applying a discount.
-	DiscountedPrice      *float32          `json:"discountedPrice,omitempty"`
-	DiscountDetails      []DiscountDetails `json:"discountDetails,omitempty"`
+	DiscountedPrice      *float32                    `json:"discountedPrice,omitempty"`
+	DiscountDetails      []ApplicableDiscountDetails `json:"discountDetails,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -78,9 +78,9 @@ func (o *ApplicableDiscounts) SetDiscountedPrice(v float32) {
 }
 
 // GetDiscountDetails returns the DiscountDetails field value if set, zero value otherwise.
-func (o *ApplicableDiscounts) GetDiscountDetails() []DiscountDetails {
+func (o *ApplicableDiscounts) GetDiscountDetails() []ApplicableDiscountDetails {
 	if o == nil || IsNil(o.DiscountDetails) {
-		var ret []DiscountDetails
+		var ret []ApplicableDiscountDetails
 		return ret
 	}
 	return o.DiscountDetails
@@ -88,7 +88,7 @@ func (o *ApplicableDiscounts) GetDiscountDetails() []DiscountDetails {
 
 // GetDiscountDetailsOk returns a tuple with the DiscountDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApplicableDiscounts) GetDiscountDetailsOk() ([]DiscountDetails, bool) {
+func (o *ApplicableDiscounts) GetDiscountDetailsOk() ([]ApplicableDiscountDetails, bool) {
 	if o == nil || IsNil(o.DiscountDetails) {
 		return nil, false
 	}
@@ -104,8 +104,8 @@ func (o *ApplicableDiscounts) HasDiscountDetails() bool {
 	return false
 }
 
-// SetDiscountDetails gets a reference to the given []DiscountDetails and assigns it to the DiscountDetails field.
-func (o *ApplicableDiscounts) SetDiscountDetails(v []DiscountDetails) {
+// SetDiscountDetails gets a reference to the given []ApplicableDiscountDetails and assigns it to the DiscountDetails field.
+func (o *ApplicableDiscounts) SetDiscountDetails(v []ApplicableDiscountDetails) {
 	o.DiscountDetails = v
 }
 

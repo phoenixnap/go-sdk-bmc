@@ -1383,7 +1383,7 @@ components:
           type: string
           example: 603f3e995c18d515cda9c4f8
         resourceType:
-          description: The resource's type.
+          description: 'The resource''s type. Can have one of the following values: `server`, `storage` or `virtual`.'
           type: string
           example: server
         ips:

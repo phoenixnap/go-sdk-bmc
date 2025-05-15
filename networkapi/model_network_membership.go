@@ -23,7 +23,7 @@ var _ MappedNullable = &NetworkMembership{}
 type NetworkMembership struct {
 	// The resource identifier.
 	ResourceId string `json:"resourceId"`
-	// The resource's type.
+	// The resource's type. Can have one of the following values: `server`, `storage` or `virtual`.
 	ResourceType string `json:"resourceType"`
 	// List of IPs associated to the resource.
 	Ips                  []string `json:"ips"`

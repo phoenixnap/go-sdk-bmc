@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ResourceId** | **string** | The resource identifier. | 
-**ResourceType** | **string** | The resource&#39;s type. | 
+**ResourceType** | **string** | The resource&#39;s type. Can have one of the following values: &#x60;server&#x60;, &#x60;storage&#x60; or &#x60;virtual&#x60;. | 
 **Ips** | **[]string** | List of IPs associated to the resource. | 
 
 ## Methods
