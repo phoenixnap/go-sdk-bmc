@@ -27,10 +27,13 @@ type BgpPeerGroup struct {
 	Status string `json:"status"`
 	// The BGP Peer Group location. Can have one of the following values: `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
 	Location string `json:"location"`
-	// The List of the BGP Peer Group IPv4 prefixes.
-	Ipv4Prefixes     []BgpIPv4Prefix `json:"ipv4Prefixes"`
-	TargetAsnDetails AsnDetails      `json:"targetAsnDetails"`
-	ActiveAsnDetails *AsnDetails     `json:"activeAsnDetails,omitempty"`
+	// The List of the BGP Peer Group IPv4 prefixes. Deprecated in favour of generic ipPrefixes.
+	// Deprecated
+	Ipv4Prefixes []BgpIPv4Prefix `json:"ipv4Prefixes"`
+	// The List of the BGP Peer Group IP prefixes.
+	IpPrefixes       []BgpIpPrefix `json:"ipPrefixes"`
+	TargetAsnDetails AsnDetails    `json:"targetAsnDetails"`
+	ActiveAsnDetails *AsnDetails   `json:"activeAsnDetails,omitempty"`
 	// The BGP Peer Group password.
 	Password string `json:"password"`
 	// The Advertised routes for the BGP Peer Group. Can have one of the following values: `DEFAULT` and `NONE`.
@@ -41,6 +44,8 @@ type BgpPeerGroup struct {
 	EBgpMultiHop int32 `json:"eBgpMultiHop"`
 	// The IPv4 Peering Loopback addresses of the BGP Peer Group. Valid IP formats are IPv4 addresses.
 	PeeringLoopbacksV4 []string `json:"peeringLoopbacksV4"`
+	// The IPv6 Peering Loopback addresses of the BGP Peer Group. Valid IP formats are IPv6 addresses.
+	PeeringLoopbacksV6 []string `json:"peeringLoopbacksV6"`
 	// The Keep Alive Timer in seconds of the BGP Peer Group.
 	KeepAliveTimerSeconds int32 `json:"keepAliveTimerSeconds"`
 	// The Hold Timer in seconds of the BGP Peer Group.
@@ -58,18 +63,20 @@ type _BgpPeerGroup BgpPeerGroup
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBgpPeerGroup(id string, status string, location string, ipv4Prefixes []BgpIPv4Prefix, targetAsnDetails AsnDetails, password string, advertisedRoutes string, rpkiRoaOriginAsn int64, eBgpMultiHop int32, peeringLoopbacksV4 []string, keepAliveTimerSeconds int32, holdTimerSeconds int32) *BgpPeerGroup {
+func NewBgpPeerGroup(id string, status string, location string, ipv4Prefixes []BgpIPv4Prefix, ipPrefixes []BgpIpPrefix, targetAsnDetails AsnDetails, password string, advertisedRoutes string, rpkiRoaOriginAsn int64, eBgpMultiHop int32, peeringLoopbacksV4 []string, peeringLoopbacksV6 []string, keepAliveTimerSeconds int32, holdTimerSeconds int32) *BgpPeerGroup {
 	this := BgpPeerGroup{}
 	this.Id = id
 	this.Status = status
 	this.Location = location
 	this.Ipv4Prefixes = ipv4Prefixes
+	this.IpPrefixes = ipPrefixes
 	this.TargetAsnDetails = targetAsnDetails
 	this.Password = password
 	this.AdvertisedRoutes = advertisedRoutes
 	this.RpkiRoaOriginAsn = rpkiRoaOriginAsn
 	this.EBgpMultiHop = eBgpMultiHop
 	this.PeeringLoopbacksV4 = peeringLoopbacksV4
+	this.PeeringLoopbacksV6 = peeringLoopbacksV6
 	this.KeepAliveTimerSeconds = keepAliveTimerSeconds
 	this.HoldTimerSeconds = holdTimerSeconds
 	return &this
@@ -156,6 +163,7 @@ func (o *BgpPeerGroup) SetLocation(v string) {
 }
 
 // GetIpv4Prefixes returns the Ipv4Prefixes field value
+// Deprecated
 func (o *BgpPeerGroup) GetIpv4Prefixes() []BgpIPv4Prefix {
 	if o == nil {
 		var ret []BgpIPv4Prefix
@@ -167,6 +175,7 @@ func (o *BgpPeerGroup) GetIpv4Prefixes() []BgpIPv4Prefix {
 
 // GetIpv4PrefixesOk returns a tuple with the Ipv4Prefixes field value
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *BgpPeerGroup) GetIpv4PrefixesOk() ([]BgpIPv4Prefix, bool) {
 	if o == nil {
 		return nil, false
@@ -175,8 +184,33 @@ func (o *BgpPeerGroup) GetIpv4PrefixesOk() ([]BgpIPv4Prefix, bool) {
 }
 
 // SetIpv4Prefixes sets field value
+// Deprecated
 func (o *BgpPeerGroup) SetIpv4Prefixes(v []BgpIPv4Prefix) {
 	o.Ipv4Prefixes = v
+}
+
+// GetIpPrefixes returns the IpPrefixes field value
+func (o *BgpPeerGroup) GetIpPrefixes() []BgpIpPrefix {
+	if o == nil {
+		var ret []BgpIpPrefix
+		return ret
+	}
+
+	return o.IpPrefixes
+}
+
+// GetIpPrefixesOk returns a tuple with the IpPrefixes field value
+// and a boolean to check if the value has been set.
+func (o *BgpPeerGroup) GetIpPrefixesOk() ([]BgpIpPrefix, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.IpPrefixes, true
+}
+
+// SetIpPrefixes sets field value
+func (o *BgpPeerGroup) SetIpPrefixes(v []BgpIpPrefix) {
+	o.IpPrefixes = v
 }
 
 // GetTargetAsnDetails returns the TargetAsnDetails field value
@@ -355,6 +389,30 @@ func (o *BgpPeerGroup) SetPeeringLoopbacksV4(v []string) {
 	o.PeeringLoopbacksV4 = v
 }
 
+// GetPeeringLoopbacksV6 returns the PeeringLoopbacksV6 field value
+func (o *BgpPeerGroup) GetPeeringLoopbacksV6() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+
+	return o.PeeringLoopbacksV6
+}
+
+// GetPeeringLoopbacksV6Ok returns a tuple with the PeeringLoopbacksV6 field value
+// and a boolean to check if the value has been set.
+func (o *BgpPeerGroup) GetPeeringLoopbacksV6Ok() ([]string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PeeringLoopbacksV6, true
+}
+
+// SetPeeringLoopbacksV6 sets field value
+func (o *BgpPeerGroup) SetPeeringLoopbacksV6(v []string) {
+	o.PeeringLoopbacksV6 = v
+}
+
 // GetKeepAliveTimerSeconds returns the KeepAliveTimerSeconds field value
 func (o *BgpPeerGroup) GetKeepAliveTimerSeconds() int32 {
 	if o == nil {
@@ -481,6 +539,7 @@ func (o BgpPeerGroup) ToMap() (map[string]interface{}, error) {
 	toSerialize["status"] = o.Status
 	toSerialize["location"] = o.Location
 	toSerialize["ipv4Prefixes"] = o.Ipv4Prefixes
+	toSerialize["ipPrefixes"] = o.IpPrefixes
 	toSerialize["targetAsnDetails"] = o.TargetAsnDetails
 	if !IsNil(o.ActiveAsnDetails) {
 		toSerialize["activeAsnDetails"] = o.ActiveAsnDetails
@@ -490,6 +549,7 @@ func (o BgpPeerGroup) ToMap() (map[string]interface{}, error) {
 	toSerialize["rpkiRoaOriginAsn"] = o.RpkiRoaOriginAsn
 	toSerialize["eBgpMultiHop"] = o.EBgpMultiHop
 	toSerialize["peeringLoopbacksV4"] = o.PeeringLoopbacksV4
+	toSerialize["peeringLoopbacksV6"] = o.PeeringLoopbacksV6
 	toSerialize["keepAliveTimerSeconds"] = o.KeepAliveTimerSeconds
 	toSerialize["holdTimerSeconds"] = o.HoldTimerSeconds
 	if !IsNil(o.CreatedOn) {
@@ -515,12 +575,14 @@ func (o *BgpPeerGroup) UnmarshalJSON(data []byte) (err error) {
 		"status",
 		"location",
 		"ipv4Prefixes",
+		"ipPrefixes",
 		"targetAsnDetails",
 		"password",
 		"advertisedRoutes",
 		"rpkiRoaOriginAsn",
 		"eBgpMultiHop",
 		"peeringLoopbacksV4",
+		"peeringLoopbacksV6",
 		"keepAliveTimerSeconds",
 		"holdTimerSeconds",
 	}
@@ -556,6 +618,7 @@ func (o *BgpPeerGroup) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "location")
 		delete(additionalProperties, "ipv4Prefixes")
+		delete(additionalProperties, "ipPrefixes")
 		delete(additionalProperties, "targetAsnDetails")
 		delete(additionalProperties, "activeAsnDetails")
 		delete(additionalProperties, "password")
@@ -563,6 +626,7 @@ func (o *BgpPeerGroup) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "rpkiRoaOriginAsn")
 		delete(additionalProperties, "eBgpMultiHop")
 		delete(additionalProperties, "peeringLoopbacksV4")
+		delete(additionalProperties, "peeringLoopbacksV6")
 		delete(additionalProperties, "keepAliveTimerSeconds")
 		delete(additionalProperties, "holdTimerSeconds")
 		delete(additionalProperties, "createdOn")

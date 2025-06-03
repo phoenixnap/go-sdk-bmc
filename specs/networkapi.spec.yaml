@@ -959,6 +959,15 @@ paths:
                 - id: 60473c2509268bc77fd06d29
                   status: READY
                   location: ASH
+                  ipPrefixes:
+                    - ipAllocationId: 6047127fed34ecc3ba8402d2
+                      cidr: 10.111.14.40/29
+                      ipVersion: V4
+                      status: READY
+                    - ipAllocationId: 6047127fed34ecc3ba8402e2
+                      cidr: 2607:ff00:313:80c0::/64
+                      ipVersion: V6
+                      status: READY
                   ipv4Prefixes:
                     - ipv4AllocationId: 6047127fed34ecc3ba8402d2
                       cidr: 10.111.14.40/29
@@ -980,6 +989,9 @@ paths:
                   peeringLoopbacksV4:
                     - 169.254.247.0
                     - 169.254.247.1
+                  peeringLoopbacksV6:
+                    - fd00:0:0:1005::1
+                    - fd00:0:0:1005::2
                   keepAliveTimerSeconds: 10
                   holdTimerSeconds: 30
                   createdOn: '2024-03-01T10:30:00Z'
@@ -987,6 +999,11 @@ paths:
                 - id: 60473c2509268bc77fd06d30
                   status: READY
                   location: PHX
+                  ipPrefixes:
+                    - ipAllocationId: 6047127fed34ecc3ba8402d3
+                      cidr: 10.121.14.40/29
+                      ipVersion: V4
+                      status: READY
                   ipv4Prefixes:
                     - ipv4AllocationId: 6047127fed34ecc3ba8402d3
                       cidr: 10.121.14.40/29
@@ -1008,6 +1025,9 @@ paths:
                   peeringLoopbacksV4:
                     - 170.254.247.0
                     - 170.254.247.1
+                  peeringLoopbacksV6:
+                    - fd00:0:0:1005::1
+                    - fd00:0:0:1005::2
                   keepAliveTimerSeconds: 10
                   holdTimerSeconds: 30
                   createdOn: '2024-03-01T10:30:00Z'
@@ -1060,6 +1080,15 @@ paths:
                     id: 60473c2509268bc77fd06d29
                     status: PENDING
                     location: PHX
+                    ipPrefixes:
+                      - ipAllocationId: 6047127fed34ecc3ba8402d2
+                        cidr: 10.111.14.40/29
+                        ipVersion: V4
+                        status: READY
+                      - ipAllocationId: 6047127fed34ecc3ba8402e2
+                        cidr: 2607:ff00:313:80c0::/64
+                        ipVersion: V6
+                        status: READY
                     ipv4Prefixes:
                       - ipv4AllocationId: 6047127fed34ecc3ba8402d2
                         cidr: 10.111.14.40/29
@@ -1077,6 +1106,9 @@ paths:
                     peeringLoopbacksV4:
                       - 169.254.247.0
                       - 169.254.247.1
+                    peeringLoopbacksV6:
+                      - fd00:0:0:1005::1
+                      - fd00:0:0:1005::2
                     keepAliveTimerSeconds: 10
                     holdTimerSeconds: 30
                     lastUpdatedOn: '2024-03-01T14:30:00Z'
@@ -1085,6 +1117,15 @@ paths:
                     id: 60473c2509268bc77fd06d29
                     status: PENDING
                     location: ASH
+                    ipPrefixes:
+                      - ipAllocationId: 6047127fed34ecc3ba8402d2
+                        cidr: 10.111.14.40/29
+                        ipVersion: V4
+                        status: READY
+                      - ipAllocationId: 6047127fed34ecc3ba8402e2
+                        cidr: 2607:ff00:313:80c0::/64
+                        ipVersion: V6
+                        status: READY
                     ipv4Prefixes:
                       - ipv4AllocationId: 6047127fed34ecc3ba8402d2
                         cidr: 10.111.14.40/29
@@ -1102,6 +1143,9 @@ paths:
                     peeringLoopbacksV4:
                       - 169.254.247.0
                       - 169.254.247.1
+                    peeringLoopbacksV6:
+                      - fd00:0:0:1005::1
+                      - fd00:0:0:1005::2
                     keepAliveTimerSeconds: 10
                     holdTimerSeconds: 30
                     lastUpdatedOn: '2024-03-01T14:30:00Z'
@@ -1146,6 +1190,15 @@ paths:
                     id: 60473c2509268bc77fd06d29
                     status: READY
                     location: ASH
+                    ipPrefixes:
+                      - ipAllocationId: 6047127fed34ecc3ba8402d2
+                        cidr: 10.111.14.40/29
+                        ipVersion: V4
+                        status: READY
+                      - ipAllocationId: 6047127fed34ecc3ba8402e2
+                        cidr: 2607:ff00:313:80c0::/64
+                        ipVersion: V6
+                        status: READY
                     ipv4Prefixes:
                       - ipv4AllocationId: 6047127fed34ecc3ba8402d2
                         cidr: 10.111.14.40/29
@@ -1167,6 +1220,9 @@ paths:
                     peeringLoopbacksV4:
                       - 169.254.247.0
                       - 169.254.247.1
+                    peeringLoopbacksV6:
+                      - fd00:0:0:1005::1
+                      - fd00:0:0:1005::2
                     keepAliveTimerSeconds: 10
                     holdTimerSeconds: 30
                     createdOn: '2024-03-01T10:30:00Z'
@@ -1217,6 +1273,15 @@ paths:
                     id: 60473c2509268bc77fd06d29
                     status: PENDING
                     location: ASH
+                    ipPrefixes:
+                      - ipAllocationId: 6047127fed34ecc3ba8402d2
+                        cidr: 10.111.14.40/29
+                        ipVersion: V4
+                        status: READY
+                      - ipAllocationId: 6047127fed34ecc3ba8402e2
+                        cidr: 2607:ff00:313:80c0::/64
+                        ipVersion: V6
+                        status: READY
                     ipv4Prefixes:
                       - ipv4AllocationId: 6047127fed34ecc3ba8402d2
                         cidr: 10.111.14.40/29
@@ -1238,6 +1303,9 @@ paths:
                     peeringLoopbacksV4:
                       - 169.254.247.0
                       - 169.254.247.1
+                    peeringLoopbacksV6:
+                      - fd00:0:0:1005::1
+                      - fd00:0:0:1005::2
                     keepAliveTimerSeconds: 10
                     holdTimerSeconds: 30
                     createdOn: '2024-03-01T10:30:00Z'
@@ -1247,6 +1315,15 @@ paths:
                     id: 60473c2509268bc77fd06d29
                     status: PENDING
                     location: ASH
+                    ipPrefixes:
+                      - ipAllocationId: 6047127fed34ecc3ba8402d2
+                        cidr: 10.111.14.40/29
+                        ipVersion: V4
+                        status: READY
+                      - ipAllocationId: 6047127fed34ecc3ba8402e2
+                        cidr: 2607:ff00:313:80c0::/64
+                        ipVersion: V6
+                        status: READY
                     ipv4Prefixes:
                       - ipv4AllocationId: 6047127fed34ecc3ba8402d2
                         cidr: 10.111.14.40/29
@@ -1268,6 +1345,9 @@ paths:
                     peeringLoopbacksV4:
                       - 169.254.247.0
                       - 169.254.247.1
+                    peeringLoopbacksV6:
+                      - fd00:0:0:1005::1
+                      - fd00:0:0:1005::2
                     keepAliveTimerSeconds: 10
                     holdTimerSeconds: 30
                     createdOn: '2024-03-01T10:30:00Z'
@@ -1304,6 +1384,15 @@ paths:
                     id: 60473c2509268bc77fd06d29
                     status: PENDING
                     location: ASH
+                    ipPrefixes:
+                      - ipAllocationId: 6047127fed34ecc3ba8402d2
+                        cidr: 10.111.14.40/29
+                        ipVersion: V4
+                        status: READY
+                      - ipAllocationId: 6047127fed34ecc3ba8402e2
+                        cidr: 2607:ff00:313:80c0::/64
+                        ipVersion: V6
+                        status: READY
                     ipv4Prefixes:
                       - ipv4AllocationId: 6047127fed34ecc3ba8402d2
                         cidr: 10.111.14.40/29
@@ -1325,6 +1414,9 @@ paths:
                     peeringLoopbacksV4:
                       - 169.254.247.0
                       - 169.254.247.1
+                    peeringLoopbacksV6:
+                      - fd00:0:0:1005::1
+                      - fd00:0:0:1005::2
                     keepAliveTimerSeconds: 10
                     holdTimerSeconds: 30
                     createdOn: '2024-03-01T10:30:00Z'
@@ -1691,7 +1783,8 @@ components:
           example: true
     BgpIPv4Prefix:
       type: object
-      description: The BGP IPv4 Prefix.
+      description: The BGP IPv4 Prefix. Deprecated in favour of generic BgpIpPrefix.
+      deprecated: true
       required:
         - ipv4AllocationId
         - cidr
@@ -1720,6 +1813,31 @@ components:
           description: The Boolean value of the BGP IPv4 Prefix is in use.
           type: boolean
           example: false
+    BgpIpPrefix:
+      type: object
+      description: The BGP IP Prefix.
+      required:
+        - ipAllocationId
+        - cidr
+        - ipVersion
+        - status
+      properties:
+        ipAllocationId:
+          description: IP allocation ID.
+          type: string
+          example: 6047127fed34ecc3ba8402d2
+        cidr:
+          description: The IP block in CIDR format, dependent on IP version.
+          type: string
+          example: 10.111.14.40/29
+        ipVersion:
+          description: The IP block version.
+          type: string
+          example: V4
+        status:
+          description: 'The BGP IP Prefix status. Can have one of the following values: `PENDING`, `BUSY`, `READY`, `ERROR` and `DELETING`.'
+          type: string
+          example: READY
     AsnDetails:
       type: object
       description: BGP Peer Group ASN details.
@@ -1754,6 +1872,7 @@ components:
         - id
         - status
         - location
+        - ipPrefixes
         - ipv4Prefixes
         - targetAsnDetails
         - password
@@ -1761,6 +1880,7 @@ components:
         - rpkiRoaOriginAsn
         - eBgpMultiHop
         - peeringLoopbacksV4
+        - peeringLoopbacksV6
         - keepAliveTimerSeconds
         - holdTimerSeconds
       properties:
@@ -1777,10 +1897,16 @@ components:
           type: string
           example: ASH
         ipv4Prefixes:
-          description: The List of the BGP Peer Group IPv4 prefixes.
+          description: The List of the BGP Peer Group IPv4 prefixes. Deprecated in favour of generic ipPrefixes.
+          deprecated: true
           type: array
           items:
             $ref: '#/components/schemas/BgpIPv4Prefix'
+        ipPrefixes:
+          description: The List of the BGP Peer Group IP prefixes.
+          type: array
+          items:
+            $ref: '#/components/schemas/BgpIpPrefix'
         targetAsnDetails:
           $ref: '#/components/schemas/AsnDetails'
         activeAsnDetails:
@@ -1815,6 +1941,15 @@ components:
           example:
             - 169.254.247.0
             - 169.254.247.1
+        peeringLoopbacksV6:
+          description: The IPv6 Peering Loopback addresses of the BGP Peer Group. Valid IP formats are IPv6 addresses.
+          type: array
+          items:
+            type: string
+            example: fd00:0:0:1005::2
+          example:
+            - fd00:0:0:1005::1
+            - fd00:0:0:1005::2
         keepAliveTimerSeconds:
           description: The Keep Alive Timer in seconds of the BGP Peer Group.
           type: integer

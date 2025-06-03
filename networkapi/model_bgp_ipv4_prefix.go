@@ -19,7 +19,7 @@ import (
 // checks if the BgpIPv4Prefix type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BgpIPv4Prefix{}
 
-// BgpIPv4Prefix The BGP IPv4 Prefix.
+// BgpIPv4Prefix The BGP IPv4 Prefix. Deprecated in favour of generic BgpIpPrefix.
 type BgpIPv4Prefix struct {
 	// IPv4 allocation ID.
 	Ipv4AllocationId string `json:"ipv4AllocationId"`

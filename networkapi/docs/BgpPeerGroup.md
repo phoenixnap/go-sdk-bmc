@@ -7,7 +7,8 @@ Name | Type | Description | Notes
 **Id** | **string** | The unique identifier of the BGP Peer Group. | 
 **Status** | **string** | The BGP Peer Group status. Can have one of the following values: &#x60;PENDING&#x60;, &#x60;ON_HOLD&#x60;, &#x60;BUSY&#x60;, &#x60;READY&#x60;, &#x60;ERROR&#x60;, &#x60;PENDING_DELETION&#x60; and &#x60;DELETING&#x60;. | 
 **Location** | **string** | The BGP Peer Group location. Can have one of the following values: &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60;, &#x60;SEA&#x60; and &#x60;AUS&#x60;. | 
-**Ipv4Prefixes** | [**[]BgpIPv4Prefix**](BgpIPv4Prefix.md) | The List of the BGP Peer Group IPv4 prefixes. | 
+**Ipv4Prefixes** | [**[]BgpIPv4Prefix**](BgpIPv4Prefix.md) | The List of the BGP Peer Group IPv4 prefixes. Deprecated in favour of generic ipPrefixes. | 
+**IpPrefixes** | [**[]BgpIpPrefix**](BgpIpPrefix.md) | The List of the BGP Peer Group IP prefixes. | 
 **TargetAsnDetails** | [**AsnDetails**](AsnDetails.md) |  | 
 **ActiveAsnDetails** | Pointer to [**AsnDetails**](AsnDetails.md) |  | [optional] 
 **Password** | **string** | The BGP Peer Group password. | 
@@ -15,6 +16,7 @@ Name | Type | Description | Notes
 **RpkiRoaOriginAsn** | **int64** | The RPKI ROA Origin ASN of the BGP Peer Group based on location. | 
 **EBgpMultiHop** | **int32** | The eBGP Multi-hop of the BGP Peer Group. | 
 **PeeringLoopbacksV4** | **[]string** | The IPv4 Peering Loopback addresses of the BGP Peer Group. Valid IP formats are IPv4 addresses. | 
+**PeeringLoopbacksV6** | **[]string** | The IPv6 Peering Loopback addresses of the BGP Peer Group. Valid IP formats are IPv6 addresses. | 
 **KeepAliveTimerSeconds** | **int32** | The Keep Alive Timer in seconds of the BGP Peer Group. | 
 **HoldTimerSeconds** | **int32** | The Hold Timer in seconds of the BGP Peer Group. | 
 **CreatedOn** | Pointer to **string** | Date and time of creation. | [optional] 
@@ -24,7 +26,7 @@ Name | Type | Description | Notes
 
 ### NewBgpPeerGroup
 
-`func NewBgpPeerGroup(id string, status string, location string, ipv4Prefixes []BgpIPv4Prefix, targetAsnDetails AsnDetails, password string, advertisedRoutes string, rpkiRoaOriginAsn int64, eBgpMultiHop int32, peeringLoopbacksV4 []string, keepAliveTimerSeconds int32, holdTimerSeconds int32, ) *BgpPeerGroup`
+`func NewBgpPeerGroup(id string, status string, location string, ipv4Prefixes []BgpIPv4Prefix, ipPrefixes []BgpIpPrefix, targetAsnDetails AsnDetails, password string, advertisedRoutes string, rpkiRoaOriginAsn int64, eBgpMultiHop int32, peeringLoopbacksV4 []string, peeringLoopbacksV6 []string, keepAliveTimerSeconds int32, holdTimerSeconds int32, ) *BgpPeerGroup`
 
 NewBgpPeerGroup instantiates a new BgpPeerGroup object
 This constructor will assign default values to properties that have it defined,
@@ -117,6 +119,26 @@ and a boolean to check if the value has been set.
 `func (o *BgpPeerGroup) SetIpv4Prefixes(v []BgpIPv4Prefix)`
 
 SetIpv4Prefixes sets Ipv4Prefixes field to given value.
+
+
+### GetIpPrefixes
+
+`func (o *BgpPeerGroup) GetIpPrefixes() []BgpIpPrefix`
+
+GetIpPrefixes returns the IpPrefixes field if non-nil, zero value otherwise.
+
+### GetIpPrefixesOk
+
+`func (o *BgpPeerGroup) GetIpPrefixesOk() (*[]BgpIpPrefix, bool)`
+
+GetIpPrefixesOk returns a tuple with the IpPrefixes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIpPrefixes
+
+`func (o *BgpPeerGroup) SetIpPrefixes(v []BgpIpPrefix)`
+
+SetIpPrefixes sets IpPrefixes field to given value.
 
 
 ### GetTargetAsnDetails
@@ -262,6 +284,26 @@ and a boolean to check if the value has been set.
 `func (o *BgpPeerGroup) SetPeeringLoopbacksV4(v []string)`
 
 SetPeeringLoopbacksV4 sets PeeringLoopbacksV4 field to given value.
+
+
+### GetPeeringLoopbacksV6
+
+`func (o *BgpPeerGroup) GetPeeringLoopbacksV6() []string`
+
+GetPeeringLoopbacksV6 returns the PeeringLoopbacksV6 field if non-nil, zero value otherwise.
+
+### GetPeeringLoopbacksV6Ok
+
+`func (o *BgpPeerGroup) GetPeeringLoopbacksV6Ok() (*[]string, bool)`
+
+GetPeeringLoopbacksV6Ok returns a tuple with the PeeringLoopbacksV6 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPeeringLoopbacksV6
+
+`func (o *BgpPeerGroup) SetPeeringLoopbacksV6(v []string)`
+
+SetPeeringLoopbacksV6 sets PeeringLoopbacksV6 field to given value.
 
 
 ### GetKeepAliveTimerSeconds
