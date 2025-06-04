@@ -1321,7 +1321,7 @@ paths:
                   ipVersion: V4
                   status: READY
                 - ipAllocationId: 6047127fed34ecc3ba8402e2
-                  cidr: 2607:ff00:313:80c0::/64
+                  cidr: 2607:ff00:313:80c0::/58
                   ipVersion: V6
                   status: READY
                 ipv4Prefixes:
@@ -1464,7 +1464,7 @@ paths:
                       ipVersion: V4
                       status: READY
                     - ipAllocationId: 6047127fed34ecc3ba8402e2
-                      cidr: 2607:ff00:313:80c0::/64
+                      cidr: 2607:ff00:313:80c0::/58
                       ipVersion: V6
                       status: READY
                     ipv4Prefixes:
@@ -1501,7 +1501,7 @@ paths:
                       ipVersion: V4
                       status: READY
                     - ipAllocationId: 6047127fed34ecc3ba8402e2
-                      cidr: 2607:ff00:313:80c0::/64
+                      cidr: 2607:ff00:313:80c0::/58
                       ipVersion: V6
                       status: READY
                     ipv4Prefixes:
@@ -1606,7 +1606,7 @@ paths:
                       ipVersion: V4
                       status: READY
                     - ipAllocationId: 6047127fed34ecc3ba8402e2
-                      cidr: 2607:ff00:313:80c0::/64
+                      cidr: 2607:ff00:313:80c0::/58
                       ipVersion: V6
                       status: READY
                     ipv4Prefixes:
@@ -1709,7 +1709,7 @@ paths:
                       ipVersion: V4
                       status: READY
                     - ipAllocationId: 6047127fed34ecc3ba8402e2
-                      cidr: 2607:ff00:313:80c0::/64
+                      cidr: 2607:ff00:313:80c0::/58
                       ipVersion: V6
                       status: READY
                     ipv4Prefixes:
@@ -1822,7 +1822,7 @@ paths:
                       ipVersion: V4
                       status: READY
                     - ipAllocationId: 6047127fed34ecc3ba8402e2
-                      cidr: 2607:ff00:313:80c0::/64
+                      cidr: 2607:ff00:313:80c0::/58
                       ipVersion: V6
                       status: READY
                     ipv4Prefixes:
@@ -1864,7 +1864,7 @@ paths:
                       ipVersion: V4
                       status: READY
                     - ipAllocationId: 6047127fed34ecc3ba8402e2
-                      cidr: 2607:ff00:313:80c0::/64
+                      cidr: 2607:ff00:313:80c0::/58
                       ipVersion: V6
                       status: READY
                     ipv4Prefixes:
