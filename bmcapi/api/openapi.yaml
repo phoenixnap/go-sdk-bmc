@@ -1953,6 +1953,77 @@ paths:
       summary: Reserve server.
       tags:
       - Servers
+  /servers/{serverId}/actions/transfer-reservation:
+    post:
+      description: Transfer server reservation. An active (READY) reservation can
+        be transferred from a server in ERROR or RESERVED status to another HOURLY
+        provisioned server of the same location and type.
+      operationId: serversServerIdActionsTransferReservation
+      parameters:
+      - description: The server's ID.
+        example: 60473a6115e34466c9f8f083
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              targetServerId: 54a21648dasda4s9843a17
+            schema:
+              $ref: '#/components/schemas/ReservationTransferDetails'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+          description: The server reservation has been successfully transferred.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Transfer server reservation.
+      tags:
+      - Servers
   /ssh-keys:
     get:
       description: List all SSH Keys.
@@ -3854,6 +3925,18 @@ components:
           type: string
       required:
       - pricingModel
+      type: object
+    ReservationTransferDetails:
+      description: Reservation transfer details.
+      example:
+        targetServerId: 54a21648dasda4s9843a17
+      properties:
+        targetServerId:
+          description: ID of target server to transfer reservation to.
+          example: 54a21648dasda4s9843a17
+          type: string
+      required:
+      - targetServerId
       type: object
     SshKey:
       description: SSH Key.

@@ -1111,6 +1111,43 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
+  /servers/{serverId}/actions/transfer-reservation:
+    parameters:
+      - $ref: '#/components/parameters/serverIdPathParam'
+    post:
+      tags:
+        - Servers
+      description: Transfer server reservation. An active (READY) reservation can be transferred from a server in ERROR or RESERVED status to another HOURLY provisioned server of the same location and type.
+      summary: Transfer server reservation.
+      operationId: serversServerIdActionsTransferReservation
+      security:
+        - OAuth2:
+            - bmc
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservationTransferDetails'
+            example:
+              targetServerId: 54a21648dasda4s9843a17
+      responses:
+        '200':
+          description: The server reservation has been successfully transferred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /ssh-keys:
     post:
       tags:
@@ -2225,6 +2262,16 @@ components:
           description: Server pricing model. Currently this field should be set to `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`.
           type: string
           example: ONE_MONTH_RESERVATION
+    ReservationTransferDetails:
+      type: object
+      description: Reservation transfer details.
+      required:
+        - targetServerId
+      properties:
+        targetServerId:
+          description: ID of target server to transfer reservation to.
+          type: string
+          example: 54a21648dasda4s9843a17
     SshKey:
       type: object
       description: SSH Key.
