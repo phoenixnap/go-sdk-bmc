@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Location** | [**LocationEnum**](LocationEnum.md) |  | 
 **ReservationModel** | [**ReservationModelEnum**](ReservationModelEnum.md) |  | 
 **InitialInvoiceModel** | Pointer to [**ReservationInvoicingModelEnum**](ReservationInvoicingModelEnum.md) |  | [optional] 
+**Quantity** | [**Quantity**](Quantity.md) |  | 
 **StartDateTime** | **time.Time** | The point in time (in UTC) when the reservation starts. | 
 **EndDateTime** | Pointer to **time.Time** | The point in time (in UTC) when the reservation end. | [optional] 
 **LastRenewalDateTime** | Pointer to **time.Time** | The point in time (in UTC) when the reservation was renewed last. | [optional] 
@@ -25,7 +26,7 @@ Name | Type | Description | Notes
 
 ### NewReservation
 
-`func NewReservation(id string, productCode string, productCategory ReservationProductCategoryEnum, location LocationEnum, reservationModel ReservationModelEnum, startDateTime time.Time, autoRenew bool, sku string, price float32, priceUnit PriceUnitEnum, ) *Reservation`
+`func NewReservation(id string, productCode string, productCategory ReservationProductCategoryEnum, location LocationEnum, reservationModel ReservationModelEnum, quantity Quantity, startDateTime time.Time, autoRenew bool, sku string, price float32, priceUnit PriceUnitEnum, ) *Reservation`
 
 NewReservation instantiates a new Reservation object
 This constructor will assign default values to properties that have it defined,
@@ -164,6 +165,26 @@ SetInitialInvoiceModel sets InitialInvoiceModel field to given value.
 `func (o *Reservation) HasInitialInvoiceModel() bool`
 
 HasInitialInvoiceModel returns a boolean if a field has been set.
+
+### GetQuantity
+
+`func (o *Reservation) GetQuantity() Quantity`
+
+GetQuantity returns the Quantity field if non-nil, zero value otherwise.
+
+### GetQuantityOk
+
+`func (o *Reservation) GetQuantityOk() (*Quantity, bool)`
+
+GetQuantityOk returns a tuple with the Quantity field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQuantity
+
+`func (o *Reservation) SetQuantity(v Quantity)`
+
+SetQuantity sets Quantity field to given value.
+
 
 ### GetStartDateTime
 

@@ -1108,6 +1108,26 @@ components:
       enum:
         - ON_CREATION
         - CALENDAR_MONTH
+    QuantityUnitEnum:
+      description: The quantity unit.
+      type: string
+      enum:
+        - TB
+        - COUNT
+    Quantity:
+      type: object
+      description: Represents the quantity.
+      properties:
+        quantity:
+          description: Quantity size.
+          type: number
+          example: 30
+          minimum: 1
+        unit:
+          $ref: '#/components/schemas/QuantityUnitEnum'
+      required:
+        - quantity
+        - unit
     Reservation:
       type: object
       description: Reservation details
@@ -1128,6 +1148,8 @@ components:
           $ref: '#/components/schemas/ReservationModelEnum'
         initialInvoiceModel:
           $ref: '#/components/schemas/ReservationInvoicingModelEnum'
+        quantity:
+          $ref: '#/components/schemas/Quantity'
         startDateTime:
           description: The point in time (in UTC) when the reservation starts.
           type: string
@@ -1177,6 +1199,7 @@ components:
         - productCategory
         - location
         - reservationModel
+        - quantity
         - startDateTime
         - autoRenew
         - sku

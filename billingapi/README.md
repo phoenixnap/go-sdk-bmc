@@ -128,6 +128,8 @@ Class | Method | HTTP request | Description
  - [PromoCreditDetails](docs/PromoCreditDetails.md)
  - [PublicSubnetDetails](docs/PublicSubnetDetails.md)
  - [PublicSubnetRecord](docs/PublicSubnetRecord.md)
+ - [Quantity](docs/Quantity.md)
+ - [QuantityUnitEnum](docs/QuantityUnitEnum.md)
  - [RatedUsageGet200ResponseInner](docs/RatedUsageGet200ResponseInner.md)
  - [RatedUsageProductCategoryEnum](docs/RatedUsageProductCategoryEnum.md)
  - [RatedUsageRecord](docs/RatedUsageRecord.md)

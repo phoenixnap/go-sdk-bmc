@@ -30,6 +30,7 @@ type Reservation struct {
 	Location            LocationEnum                   `json:"location"`
 	ReservationModel    ReservationModelEnum           `json:"reservationModel"`
 	InitialInvoiceModel *ReservationInvoicingModelEnum `json:"initialInvoiceModel,omitempty"`
+	Quantity            Quantity                       `json:"quantity"`
 	// The point in time (in UTC) when the reservation starts.
 	StartDateTime time.Time `json:"startDateTime"`
 	// The point in time (in UTC) when the reservation end.
@@ -58,13 +59,14 @@ type _Reservation Reservation
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReservation(id string, productCode string, productCategory ReservationProductCategoryEnum, location LocationEnum, reservationModel ReservationModelEnum, startDateTime time.Time, autoRenew bool, sku string, price float32, priceUnit PriceUnitEnum) *Reservation {
+func NewReservation(id string, productCode string, productCategory ReservationProductCategoryEnum, location LocationEnum, reservationModel ReservationModelEnum, quantity Quantity, startDateTime time.Time, autoRenew bool, sku string, price float32, priceUnit PriceUnitEnum) *Reservation {
 	this := Reservation{}
 	this.Id = id
 	this.ProductCode = productCode
 	this.ProductCategory = productCategory
 	this.Location = location
 	this.ReservationModel = reservationModel
+	this.Quantity = quantity
 	this.StartDateTime = startDateTime
 	this.AutoRenew = autoRenew
 	this.Sku = sku
@@ -231,6 +233,30 @@ func (o *Reservation) HasInitialInvoiceModel() bool {
 // SetInitialInvoiceModel gets a reference to the given ReservationInvoicingModelEnum and assigns it to the InitialInvoiceModel field.
 func (o *Reservation) SetInitialInvoiceModel(v ReservationInvoicingModelEnum) {
 	o.InitialInvoiceModel = &v
+}
+
+// GetQuantity returns the Quantity field value
+func (o *Reservation) GetQuantity() Quantity {
+	if o == nil {
+		var ret Quantity
+		return ret
+	}
+
+	return o.Quantity
+}
+
+// GetQuantityOk returns a tuple with the Quantity field value
+// and a boolean to check if the value has been set.
+func (o *Reservation) GetQuantityOk() (*Quantity, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Quantity, true
+}
+
+// SetQuantity sets field value
+func (o *Reservation) SetQuantity(v Quantity) {
+	o.Quantity = v
 }
 
 // GetStartDateTime returns the StartDateTime field value
@@ -531,6 +557,7 @@ func (o Reservation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.InitialInvoiceModel) {
 		toSerialize["initialInvoiceModel"] = o.InitialInvoiceModel
 	}
+	toSerialize["quantity"] = o.Quantity
 	toSerialize["startDateTime"] = o.StartDateTime
 	if !IsNil(o.EndDateTime) {
 		toSerialize["endDateTime"] = o.EndDateTime
@@ -569,6 +596,7 @@ func (o *Reservation) UnmarshalJSON(data []byte) (err error) {
 		"productCategory",
 		"location",
 		"reservationModel",
+		"quantity",
 		"startDateTime",
 		"autoRenew",
 		"sku",
@@ -609,6 +637,7 @@ func (o *Reservation) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "location")
 		delete(additionalProperties, "reservationModel")
 		delete(additionalProperties, "initialInvoiceModel")
+		delete(additionalProperties, "quantity")
 		delete(additionalProperties, "startDateTime")
 		delete(additionalProperties, "endDateTime")
 		delete(additionalProperties, "lastRenewalDateTime")
