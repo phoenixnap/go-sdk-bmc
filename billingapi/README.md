@@ -139,6 +139,7 @@ Class | Method | HTTP request | Description
  - [ReservationModelEnum](docs/ReservationModelEnum.md)
  - [ReservationProductCategoryEnum](docs/ReservationProductCategoryEnum.md)
  - [ReservationRequest](docs/ReservationRequest.md)
+ - [ReservationStateEnum](docs/ReservationStateEnum.md)
  - [ServerDetails](docs/ServerDetails.md)
  - [ServerProduct](docs/ServerProduct.md)
  - [ServerProductMetadata](docs/ServerProductMetadata.md)

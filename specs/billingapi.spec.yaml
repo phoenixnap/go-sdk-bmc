@@ -1102,6 +1102,14 @@ components:
         - TWENTY_FOUR_MONTHS_RESERVATION
         - THIRTY_SIX_MONTHS_RESERVATION
         - FREE_TIER
+    ReservationStateEnum:
+      description: Reservation state.
+      type: string
+      enum:
+        - REQUESTED
+        - NOT_APPROVED
+        - ACTIVE
+        - EXPIRED
     ReservationInvoicingModelEnum:
       description: Reservations created with initial invoice model ON_CREATION will be invoiced on same date when reservation is created. Reservation created with CALENDAR_MONTH initial invoice model will be invoiced at the beginning of next month.
       type: string
@@ -1146,6 +1154,8 @@ components:
           $ref: '#/components/schemas/LocationEnum'
         reservationModel:
           $ref: '#/components/schemas/ReservationModelEnum'
+        reservationState:
+          $ref: '#/components/schemas/ReservationStateEnum'
         initialInvoiceModel:
           $ref: '#/components/schemas/ReservationInvoicingModelEnum'
         quantity:
@@ -1199,6 +1209,7 @@ components:
         - productCategory
         - location
         - reservationModel
+        - reservationState
         - quantity
         - startDateTime
         - autoRenew

@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **ProductCategory** | [**ReservationProductCategoryEnum**](ReservationProductCategoryEnum.md) |  | 
 **Location** | [**LocationEnum**](LocationEnum.md) |  | 
 **ReservationModel** | [**ReservationModelEnum**](ReservationModelEnum.md) |  | 
+**ReservationState** | [**ReservationStateEnum**](ReservationStateEnum.md) |  | 
 **InitialInvoiceModel** | Pointer to [**ReservationInvoicingModelEnum**](ReservationInvoicingModelEnum.md) |  | [optional] 
 **Quantity** | [**Quantity**](Quantity.md) |  | 
 **StartDateTime** | **time.Time** | The point in time (in UTC) when the reservation starts. | 
@@ -26,7 +27,7 @@ Name | Type | Description | Notes
 
 ### NewReservation
 
-`func NewReservation(id string, productCode string, productCategory ReservationProductCategoryEnum, location LocationEnum, reservationModel ReservationModelEnum, quantity Quantity, startDateTime time.Time, autoRenew bool, sku string, price float32, priceUnit PriceUnitEnum, ) *Reservation`
+`func NewReservation(id string, productCode string, productCategory ReservationProductCategoryEnum, location LocationEnum, reservationModel ReservationModelEnum, reservationState ReservationStateEnum, quantity Quantity, startDateTime time.Time, autoRenew bool, sku string, price float32, priceUnit PriceUnitEnum, ) *Reservation`
 
 NewReservation instantiates a new Reservation object
 This constructor will assign default values to properties that have it defined,
@@ -139,6 +140,26 @@ and a boolean to check if the value has been set.
 `func (o *Reservation) SetReservationModel(v ReservationModelEnum)`
 
 SetReservationModel sets ReservationModel field to given value.
+
+
+### GetReservationState
+
+`func (o *Reservation) GetReservationState() ReservationStateEnum`
+
+GetReservationState returns the ReservationState field if non-nil, zero value otherwise.
+
+### GetReservationStateOk
+
+`func (o *Reservation) GetReservationStateOk() (*ReservationStateEnum, bool)`
+
+GetReservationStateOk returns a tuple with the ReservationState field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReservationState
+
+`func (o *Reservation) SetReservationState(v ReservationStateEnum)`
+
+SetReservationState sets ReservationState field to given value.
 
 
 ### GetInitialInvoiceModel
