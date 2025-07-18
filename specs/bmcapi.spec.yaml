@@ -1608,7 +1608,7 @@ components:
           default: USE_OR_CREATE_DEFAULT
           example: USER_DEFINED
         privateNetworks:
-          description: The list of private networks this server is member of. When this field is part of request body, it'll be used to specify the private networks to assign to this server upon provisioning. Used alongside the `USER_DEFINED` configurationType.
+          description: The list of private networks this server belongs to. If this field is part of a request body, it will be used for specifying the private networks to assign to this server upon provisioning. Used alongside the USER_DEFINED configurationType.
           type: array
           items:
             $ref: '#/components/schemas/ServerPrivateNetwork'
@@ -1651,7 +1651,7 @@ components:
             - NONE
           default: PURCHASE_NEW
         ipBlocks:
-          description: Used to specify the previously purchased IP blocks to assign to this server upon provisioning. Used alongside the USER_DEFINED configurationType.
+          description: Used for specifying the previously purchased IPv4 blocks to assign to this server upon provisioning. Used alongside the USER_DEFINED configurationType.
           type: array
           maxItems: 1
           items:
@@ -1667,16 +1667,20 @@ components:
           type: string
           example: 60473c2509268bc77fd06d29
         ips:
-          description: Configurable/configured IPs on the server.<br> At least 1 IP address is required. Valid IP format is single IP addresses. All IPs must be within the network's range.<br> Setting the `computeSlaacIp` field to `true` allows you to provide an empty array of IPs.<br> Additionally, setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
+          description: Configurable/configured IPs on the server.<br> At least 1 IP address is required. Valid IP formats include single IP addresses or IP ranges (IPv4 or IPv6). All IPs must be within the network's range.<br> Setting the `computeSlaacIp` field to `true` allows you to provide an empty array of IPs.<br> Additionally, setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
           type: array
           items:
             type: string
             example:
               - 182.16.0.146
-              - 2001:db8::b
+              - 10.1.1.20 - 10.1.1.25
+              - 2001:db8::f
+              - 2001:db8::b - 2001:db8::d
           example:
             - 182.16.0.146
-            - 2001:db8::b
+            - 10.1.1.20 - 10.1.1.25
+            - 2001:db8::f
+            - 2001:db8::b - 2001:db8::d
         statusDescription:
           description: (Read-only) The status of the assignment to the network.
           readOnly: true
@@ -1692,7 +1696,7 @@ components:
       description: Public network details of bare metal server.
       properties:
         publicNetworks:
-          description: The list of public networks this server is member of. When this field is part of request body, it'll be used to specify the public networks to assign to this server upon provisioning.
+          description: The list of public networks this server belongs to. If this field is part of a request body, it will be used for specifying the public networks to assign to this server on provision. Only IPv4 addresses can be specified.
           type: array
           items:
             $ref: '#/components/schemas/ServerPublicNetwork'

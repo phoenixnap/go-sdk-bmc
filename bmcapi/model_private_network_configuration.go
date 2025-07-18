@@ -25,7 +25,7 @@ type PrivateNetworkConfiguration struct {
 	GatewayAddress *string `json:"gatewayAddress,omitempty"`
 	// (Write-only) Determines the approach for configuring private network(s) for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT`, `USER_DEFINED` or `NONE`.
 	ConfigurationType *string `json:"configurationType,omitempty"`
-	// The list of private networks this server is member of. When this field is part of request body, it'll be used to specify the private networks to assign to this server upon provisioning. Used alongside the `USER_DEFINED` configurationType.
+	// The list of private networks this server belongs to. If this field is part of a request body, it will be used for specifying the private networks to assign to this server upon provisioning. Used alongside the USER_DEFINED configurationType.
 	PrivateNetworks      []ServerPrivateNetwork `json:"privateNetworks,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
