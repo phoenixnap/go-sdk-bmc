@@ -940,6 +940,29 @@ components:
         - GB
         - TB
       example: TB
+    PackageQuantity:
+      type: object
+      description: Represents the package size per month, for a product's pricing plan, including the min quantity and max quantity information.
+      properties:
+        min:
+          description: Minimum package quantity.
+          type: number
+          example: 0
+        max:
+          description: Maximum package quantity.
+          type: number
+          example: 100
+      required:
+        - min
+        - max
+    PackageDetails:
+      type: object
+      description: Represents details object which contains package quantity and its unit.
+      properties:
+        packageQuantity:
+          $ref: '#/components/schemas/PackageQuantity'
+        packageUnit:
+          $ref: '#/components/schemas/PackageUnitEnum'
     PricingPlan:
       type: object
       description: Pricing plan details.
@@ -992,8 +1015,13 @@ components:
           description: Package size per month.
           type: number
           example: 50
+          deprecated: true
         packageUnit:
-          $ref: '#/components/schemas/PackageUnitEnum'
+          allOf:
+            - $ref: '#/components/schemas/PackageUnitEnum'
+          deprecated: true
+        packageDetails:
+          $ref: '#/components/schemas/PackageDetails'
       required:
         - sku
         - location
