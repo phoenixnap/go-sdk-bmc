@@ -1198,6 +1198,7 @@ components:
       - UNIT
       - FLAT
       - TB_PER_HOUR
+      - TB_PER_MONTH
       type: string
     ApplicableDiscounts:
       description: "Represents the applicable discount details for a product, including\

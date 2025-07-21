@@ -921,6 +921,7 @@ components:
         - UNIT
         - FLAT
         - TB_PER_HOUR
+        - TB_PER_MONTH
     ApplicableDiscounts:
       type: object
       description: Represents the applicable discount details for a product, including the discounted price and discount information.
