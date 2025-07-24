@@ -1403,6 +1403,7 @@ components:
       enum:
       - server
       - bandwidth
+      - storage
       type: string
     ReservationModelEnum:
       description: The reservation model.
@@ -1453,6 +1454,24 @@ components:
       - quantity
       - unit
       type: object
+    Utilization:
+      example:
+        quantity:
+          unit: null
+          quantity: 30
+        percentage: 30
+      properties:
+        quantity:
+          $ref: '#/components/schemas/Quantity'
+        percentage:
+          example: 30
+          maximum: 100
+          minimum: 0
+          type: number
+      required:
+      - percentage
+      - quantity
+      type: object
     Reservation:
       description: Reservation details
       example:
@@ -1463,6 +1482,11 @@ components:
           quantity: 30
         reservationState: null
         initialInvoiceModel: null
+        utilization:
+          quantity:
+            unit: null
+            quantity: 30
+          percentage: 30
         endDateTime: 2020-04-19T16:39:00Z
         productCategory: null
         lastRenewalDateTime: 2020-03-19T16:39:00Z
@@ -1545,6 +1569,8 @@ components:
           example: 2020-04-19
           format: date
           type: string
+        utilization:
+          $ref: '#/components/schemas/Utilization'
       required:
       - autoRenew
       - id

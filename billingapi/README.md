@@ -151,6 +151,7 @@ Class | Method | HTTP request | Description
  - [SystemCreditCauseEnum](docs/SystemCreditCauseEnum.md)
  - [SystemCreditDetails](docs/SystemCreditDetails.md)
  - [ThresholdConfigurationDetails](docs/ThresholdConfigurationDetails.md)
+ - [Utilization](docs/Utilization.md)
 
 
 ## Documentation For Authorization

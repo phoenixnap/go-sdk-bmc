@@ -50,7 +50,8 @@ type Reservation struct {
 	// The resource ID currently being assigned to Reservation.
 	AssignedResourceId *string `json:"assignedResourceId,omitempty"`
 	// Next billing date for Reservation.
-	NextBillingDate      *string `json:"nextBillingDate,omitempty"`
+	NextBillingDate      *string      `json:"nextBillingDate,omitempty"`
+	Utilization          *Utilization `json:"utilization,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -565,6 +566,38 @@ func (o *Reservation) SetNextBillingDate(v string) {
 	o.NextBillingDate = &v
 }
 
+// GetUtilization returns the Utilization field value if set, zero value otherwise.
+func (o *Reservation) GetUtilization() Utilization {
+	if o == nil || IsNil(o.Utilization) {
+		var ret Utilization
+		return ret
+	}
+	return *o.Utilization
+}
+
+// GetUtilizationOk returns a tuple with the Utilization field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Reservation) GetUtilizationOk() (*Utilization, bool) {
+	if o == nil || IsNil(o.Utilization) {
+		return nil, false
+	}
+	return o.Utilization, true
+}
+
+// HasUtilization returns a boolean if a field has been set.
+func (o *Reservation) HasUtilization() bool {
+	if o != nil && !IsNil(o.Utilization) {
+		return true
+	}
+
+	return false
+}
+
+// SetUtilization gets a reference to the given Utilization and assigns it to the Utilization field.
+func (o *Reservation) SetUtilization(v Utilization) {
+	o.Utilization = &v
+}
+
 func (o Reservation) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -604,6 +637,9 @@ func (o Reservation) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.NextBillingDate) {
 		toSerialize["nextBillingDate"] = o.NextBillingDate
+	}
+	if !IsNil(o.Utilization) {
+		toSerialize["utilization"] = o.Utilization
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -677,6 +713,7 @@ func (o *Reservation) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "priceUnit")
 		delete(additionalProperties, "assignedResourceId")
 		delete(additionalProperties, "nextBillingDate")
+		delete(additionalProperties, "utilization")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -1122,6 +1122,7 @@ components:
       enum:
         - server
         - bandwidth
+        - storage
     ReservationModelEnum:
       description: The reservation model.
       type: string
@@ -1165,6 +1166,19 @@ components:
       required:
         - quantity
         - unit
+    Utilization:
+      type: object
+      properties:
+        quantity:
+          $ref: '#/components/schemas/Quantity'
+        percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+          example: 30
+      required:
+        - quantity
+        - percentage
     Reservation:
       type: object
       description: Reservation details
@@ -1232,6 +1246,8 @@ components:
           type: string
           format: date
           example: '2020-04-19'
+        utilization:
+          $ref: '#/components/schemas/Utilization'
       required:
         - id
         - productCode
