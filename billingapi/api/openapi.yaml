@@ -1588,12 +1588,17 @@ components:
     ReservationRequest:
       description: Reservation request.
       example:
+        quantity:
+          unit: null
+          quantity: 30
         sku: XXX-XXX-XXX
       properties:
         sku:
           description: The sku code of product pricing plan.
           example: XXX-XXX-XXX
           type: string
+        quantity:
+          $ref: '#/components/schemas/Quantity'
       required:
       - sku
       type: object

@@ -1269,6 +1269,8 @@ components:
           description: The sku code of product pricing plan.
           type: string
           example: XXX-XXX-XXX
+        quantity:
+          $ref: '#/components/schemas/Quantity'
       required:
         - sku
     ReservationAutoRenewDisableRequest:
