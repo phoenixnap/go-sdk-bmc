@@ -1524,6 +1524,14 @@ components:
                 - 172.217.22.14
                 - 10.111.14.40/29
                 - 10.111.14.66 - 10.111.14.71
+            bringYourOwnLicense:
+              description: |
+                Use a Bring Your Own (BYO) Windows license. 
+                If true, the server is provisioned in trial mode, and you must activate your own license. 
+                If false (default), the server includes a managed Windows license billed by the platform.
+              type: boolean
+              example: false
+              default: false
         rootPassword:
           description: (Read-only) Auto-generated password set for user 'root' on an ESXi or Proxmox server.<br>  The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
           readOnly: true
@@ -2161,6 +2169,14 @@ components:
                 - 172.217.22.14
                 - 10.111.14.40/29
                 - 10.111.14.66 - 10.111.14.71
+            bringYourOwnLicense:
+              description: |
+                Use a Bring Your Own (BYO) Windows license. 
+                If true, the server is provisioned in trial mode, and you must activate your own license. 
+                If false (default), the server includes a managed Windows license billed by the platform.
+              type: boolean
+              example: false
+              default: false
         esxi:
           description: VMWare ESXi configuration properties.
           type: object
