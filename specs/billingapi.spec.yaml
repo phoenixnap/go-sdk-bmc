@@ -732,8 +732,6 @@ components:
         - unitPriceDescription
         - quantity
         - active
-        - usageSessionId
-        - correlationId
     ServerDetails:
       type: object
       description: Details of the server associated with this rated usage record.
@@ -894,8 +892,6 @@ components:
           properties:
             metadata:
               $ref: '#/components/schemas/StorageDetails'
-          required:
-            - metadata
     Error:
       type: object
       required:

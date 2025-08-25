@@ -51,14 +51,14 @@ type StorageRecord struct {
 	// A flag indicating whether the rated usage record is still active.
 	Active bool `json:"active"`
 	// The usage session ID is used to correlate rated usage records across periods of time. For example, a server used for over a month will generate multiple rated usage records. The entire usage session cost can be computed by aggregating the records having the same usage session ID. It is usual to have one rated usage record per month or invoice.
-	UsageSessionId string `json:"usageSessionId"`
+	UsageSessionId *string `json:"usageSessionId,omitempty"`
 	// Holds usage record id
-	CorrelationId string `json:"correlationId"`
+	CorrelationId *string `json:"correlationId,omitempty"`
 	// Reservation id associated with this rated usage record.
 	ReservationId        *string                    `json:"reservationId,omitempty"`
 	DiscountDetails      *ApplicableDiscountDetails `json:"discountDetails,omitempty"`
 	CreditDetails        []CreditDetails            `json:"creditDetails,omitempty"`
-	Metadata             StorageDetails             `json:"metadata"`
+	Metadata             *StorageDetails            `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,7 +68,7 @@ type _StorageRecord StorageRecord
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStorageRecord(id string, productCategory RatedUsageProductCategoryEnum, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, usageSessionId string, correlationId string, metadata StorageDetails) *StorageRecord {
+func NewStorageRecord(id string, productCategory RatedUsageProductCategoryEnum, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool) *StorageRecord {
 	this := StorageRecord{}
 	this.Id = id
 	this.ProductCategory = productCategory
@@ -82,9 +82,6 @@ func NewStorageRecord(id string, productCategory RatedUsageProductCategoryEnum, 
 	this.UnitPriceDescription = unitPriceDescription
 	this.Quantity = quantity
 	this.Active = active
-	this.UsageSessionId = usageSessionId
-	this.CorrelationId = correlationId
-	this.Metadata = metadata
 	return &this
 }
 
@@ -480,52 +477,68 @@ func (o *StorageRecord) SetActive(v bool) {
 	o.Active = v
 }
 
-// GetUsageSessionId returns the UsageSessionId field value
+// GetUsageSessionId returns the UsageSessionId field value if set, zero value otherwise.
 func (o *StorageRecord) GetUsageSessionId() string {
-	if o == nil {
+	if o == nil || IsNil(o.UsageSessionId) {
 		var ret string
 		return ret
 	}
-
-	return o.UsageSessionId
+	return *o.UsageSessionId
 }
 
-// GetUsageSessionIdOk returns a tuple with the UsageSessionId field value
+// GetUsageSessionIdOk returns a tuple with the UsageSessionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageRecord) GetUsageSessionIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.UsageSessionId) {
 		return nil, false
 	}
-	return &o.UsageSessionId, true
+	return o.UsageSessionId, true
 }
 
-// SetUsageSessionId sets field value
+// HasUsageSessionId returns a boolean if a field has been set.
+func (o *StorageRecord) HasUsageSessionId() bool {
+	if o != nil && !IsNil(o.UsageSessionId) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsageSessionId gets a reference to the given string and assigns it to the UsageSessionId field.
 func (o *StorageRecord) SetUsageSessionId(v string) {
-	o.UsageSessionId = v
+	o.UsageSessionId = &v
 }
 
-// GetCorrelationId returns the CorrelationId field value
+// GetCorrelationId returns the CorrelationId field value if set, zero value otherwise.
 func (o *StorageRecord) GetCorrelationId() string {
-	if o == nil {
+	if o == nil || IsNil(o.CorrelationId) {
 		var ret string
 		return ret
 	}
-
-	return o.CorrelationId
+	return *o.CorrelationId
 }
 
-// GetCorrelationIdOk returns a tuple with the CorrelationId field value
+// GetCorrelationIdOk returns a tuple with the CorrelationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageRecord) GetCorrelationIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CorrelationId) {
 		return nil, false
 	}
-	return &o.CorrelationId, true
+	return o.CorrelationId, true
 }
 
-// SetCorrelationId sets field value
+// HasCorrelationId returns a boolean if a field has been set.
+func (o *StorageRecord) HasCorrelationId() bool {
+	if o != nil && !IsNil(o.CorrelationId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCorrelationId gets a reference to the given string and assigns it to the CorrelationId field.
 func (o *StorageRecord) SetCorrelationId(v string) {
-	o.CorrelationId = v
+	o.CorrelationId = &v
 }
 
 // GetReservationId returns the ReservationId field value if set, zero value otherwise.
@@ -624,28 +637,36 @@ func (o *StorageRecord) SetCreditDetails(v []CreditDetails) {
 	o.CreditDetails = v
 }
 
-// GetMetadata returns the Metadata field value
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *StorageRecord) GetMetadata() StorageDetails {
-	if o == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret StorageDetails
 		return ret
 	}
-
-	return o.Metadata
+	return *o.Metadata
 }
 
-// GetMetadataOk returns a tuple with the Metadata field value
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageRecord) GetMetadataOk() (*StorageDetails, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
-	return &o.Metadata, true
+	return o.Metadata, true
 }
 
-// SetMetadata sets field value
+// HasMetadata returns a boolean if a field has been set.
+func (o *StorageRecord) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given StorageDetails and assigns it to the Metadata field.
 func (o *StorageRecord) SetMetadata(v StorageDetails) {
-	o.Metadata = v
+	o.Metadata = &v
 }
 
 func (o StorageRecord) MarshalJSON() ([]byte, error) {
@@ -679,8 +700,12 @@ func (o StorageRecord) ToMap() (map[string]interface{}, error) {
 	toSerialize["unitPriceDescription"] = o.UnitPriceDescription
 	toSerialize["quantity"] = o.Quantity
 	toSerialize["active"] = o.Active
-	toSerialize["usageSessionId"] = o.UsageSessionId
-	toSerialize["correlationId"] = o.CorrelationId
+	if !IsNil(o.UsageSessionId) {
+		toSerialize["usageSessionId"] = o.UsageSessionId
+	}
+	if !IsNil(o.CorrelationId) {
+		toSerialize["correlationId"] = o.CorrelationId
+	}
 	if !IsNil(o.ReservationId) {
 		toSerialize["reservationId"] = o.ReservationId
 	}
@@ -690,7 +715,9 @@ func (o StorageRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CreditDetails) {
 		toSerialize["creditDetails"] = o.CreditDetails
 	}
-	toSerialize["metadata"] = o.Metadata
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -716,9 +743,6 @@ func (o *StorageRecord) UnmarshalJSON(data []byte) (err error) {
 		"unitPriceDescription",
 		"quantity",
 		"active",
-		"usageSessionId",
-		"correlationId",
-		"metadata",
 	}
 
 	allProperties := make(map[string]interface{})

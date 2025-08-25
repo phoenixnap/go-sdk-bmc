@@ -994,7 +994,6 @@ components:
           type: array
       required:
       - active
-      - correlationId
       - cost
       - endDateTime
       - id
@@ -1006,7 +1005,6 @@ components:
       - startDateTime
       - unitPrice
       - unitPriceDescription
-      - usageSessionId
       type: object
     ServerDetails:
       description: Details of the server associated with this rated usage record.
@@ -1171,8 +1169,6 @@ components:
         properties:
           metadata:
             $ref: '#/components/schemas/StorageDetails'
-        required:
-        - metadata
         type: object
     Error:
       properties:
