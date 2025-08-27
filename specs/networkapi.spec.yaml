@@ -1421,6 +1421,8 @@ paths:
                     holdTimerSeconds: 30
                     createdOn: '2024-03-01T10:30:00Z'
                     lastUpdatedOn: '2024-03-01T14:30:00Z'
+        '204':
+          description: The BGP Peer Group has been deleted.
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':

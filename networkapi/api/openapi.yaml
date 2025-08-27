@@ -1640,6 +1640,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/BgpPeerGroup'
           description: Request to delete BGP Peer Group is accepted.
+        "204":
+          description: The BGP Peer Group has been deleted.
         "400":
           content:
             application/json:
