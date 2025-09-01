@@ -878,12 +878,7 @@ components:
           format: date-time
           example: '2020-03-19T16:39:00Z'
       required:
-        - networkStorageId
-        - networkStorageName
-        - volumeId
-        - volumeName
         - capacityInGb
-        - createdOn
     StorageRecord:
       allOf:
         - $ref: '#/components/schemas/RatedUsageRecord'
@@ -892,6 +887,8 @@ components:
           properties:
             metadata:
               $ref: '#/components/schemas/StorageDetails'
+          required:
+            - metadata
     Error:
       type: object
       required:

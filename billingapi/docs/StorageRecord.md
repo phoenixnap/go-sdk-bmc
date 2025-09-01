@@ -24,13 +24,13 @@ Name | Type | Description | Notes
 **ReservationId** | Pointer to **string** | Reservation id associated with this rated usage record. | [optional] 
 **DiscountDetails** | Pointer to [**ApplicableDiscountDetails**](ApplicableDiscountDetails.md) |  | [optional] 
 **CreditDetails** | Pointer to [**[]CreditDetails**](CreditDetails.md) |  | [optional] 
-**Metadata** | Pointer to [**StorageDetails**](StorageDetails.md) |  | [optional] 
+**Metadata** | [**StorageDetails**](StorageDetails.md) |  | 
 
 ## Methods
 
 ### NewStorageRecord
 
-`func NewStorageRecord(id string, productCategory RatedUsageProductCategoryEnum, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, ) *StorageRecord`
+`func NewStorageRecord(id string, productCategory RatedUsageProductCategoryEnum, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, metadata StorageDetails, ) *StorageRecord`
 
 NewStorageRecord instantiates a new StorageRecord object
 This constructor will assign default values to properties that have it defined,
@@ -504,11 +504,6 @@ and a boolean to check if the value has been set.
 
 SetMetadata sets Metadata field to given value.
 
-### HasMetadata
-
-`func (o *StorageRecord) HasMetadata() bool`
-
-HasMetadata returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

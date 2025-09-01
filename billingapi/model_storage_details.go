@@ -23,17 +23,17 @@ var _ MappedNullable = &StorageDetails{}
 // StorageDetails Details of the storage associated with this rated usage record.
 type StorageDetails struct {
 	// Network storage ID.
-	NetworkStorageId string `json:"networkStorageId"`
+	NetworkStorageId *string `json:"networkStorageId,omitempty"`
 	// Network storage name.
-	NetworkStorageName string `json:"networkStorageName"`
+	NetworkStorageName *string `json:"networkStorageName,omitempty"`
 	// Volume ID.
-	VolumeId string `json:"volumeId"`
+	VolumeId *string `json:"volumeId,omitempty"`
 	// Volume name.
-	VolumeName string `json:"volumeName"`
+	VolumeName *string `json:"volumeName,omitempty"`
 	// Capacity in GB.
 	CapacityInGb int64 `json:"capacityInGb"`
 	// Timestamp when the record was created.
-	CreatedOn            time.Time `json:"createdOn"`
+	CreatedOn            *time.Time `json:"createdOn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -43,14 +43,9 @@ type _StorageDetails StorageDetails
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStorageDetails(networkStorageId string, networkStorageName string, volumeId string, volumeName string, capacityInGb int64, createdOn time.Time) *StorageDetails {
+func NewStorageDetails(capacityInGb int64) *StorageDetails {
 	this := StorageDetails{}
-	this.NetworkStorageId = networkStorageId
-	this.NetworkStorageName = networkStorageName
-	this.VolumeId = volumeId
-	this.VolumeName = volumeName
 	this.CapacityInGb = capacityInGb
-	this.CreatedOn = createdOn
 	return &this
 }
 
@@ -62,100 +57,132 @@ func NewStorageDetailsWithDefaults() *StorageDetails {
 	return &this
 }
 
-// GetNetworkStorageId returns the NetworkStorageId field value
+// GetNetworkStorageId returns the NetworkStorageId field value if set, zero value otherwise.
 func (o *StorageDetails) GetNetworkStorageId() string {
-	if o == nil {
+	if o == nil || IsNil(o.NetworkStorageId) {
 		var ret string
 		return ret
 	}
-
-	return o.NetworkStorageId
+	return *o.NetworkStorageId
 }
 
-// GetNetworkStorageIdOk returns a tuple with the NetworkStorageId field value
+// GetNetworkStorageIdOk returns a tuple with the NetworkStorageId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageDetails) GetNetworkStorageIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.NetworkStorageId) {
 		return nil, false
 	}
-	return &o.NetworkStorageId, true
+	return o.NetworkStorageId, true
 }
 
-// SetNetworkStorageId sets field value
+// HasNetworkStorageId returns a boolean if a field has been set.
+func (o *StorageDetails) HasNetworkStorageId() bool {
+	if o != nil && !IsNil(o.NetworkStorageId) {
+		return true
+	}
+
+	return false
+}
+
+// SetNetworkStorageId gets a reference to the given string and assigns it to the NetworkStorageId field.
 func (o *StorageDetails) SetNetworkStorageId(v string) {
-	o.NetworkStorageId = v
+	o.NetworkStorageId = &v
 }
 
-// GetNetworkStorageName returns the NetworkStorageName field value
+// GetNetworkStorageName returns the NetworkStorageName field value if set, zero value otherwise.
 func (o *StorageDetails) GetNetworkStorageName() string {
-	if o == nil {
+	if o == nil || IsNil(o.NetworkStorageName) {
 		var ret string
 		return ret
 	}
-
-	return o.NetworkStorageName
+	return *o.NetworkStorageName
 }
 
-// GetNetworkStorageNameOk returns a tuple with the NetworkStorageName field value
+// GetNetworkStorageNameOk returns a tuple with the NetworkStorageName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageDetails) GetNetworkStorageNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.NetworkStorageName) {
 		return nil, false
 	}
-	return &o.NetworkStorageName, true
+	return o.NetworkStorageName, true
 }
 
-// SetNetworkStorageName sets field value
+// HasNetworkStorageName returns a boolean if a field has been set.
+func (o *StorageDetails) HasNetworkStorageName() bool {
+	if o != nil && !IsNil(o.NetworkStorageName) {
+		return true
+	}
+
+	return false
+}
+
+// SetNetworkStorageName gets a reference to the given string and assigns it to the NetworkStorageName field.
 func (o *StorageDetails) SetNetworkStorageName(v string) {
-	o.NetworkStorageName = v
+	o.NetworkStorageName = &v
 }
 
-// GetVolumeId returns the VolumeId field value
+// GetVolumeId returns the VolumeId field value if set, zero value otherwise.
 func (o *StorageDetails) GetVolumeId() string {
-	if o == nil {
+	if o == nil || IsNil(o.VolumeId) {
 		var ret string
 		return ret
 	}
-
-	return o.VolumeId
+	return *o.VolumeId
 }
 
-// GetVolumeIdOk returns a tuple with the VolumeId field value
+// GetVolumeIdOk returns a tuple with the VolumeId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageDetails) GetVolumeIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.VolumeId) {
 		return nil, false
 	}
-	return &o.VolumeId, true
+	return o.VolumeId, true
 }
 
-// SetVolumeId sets field value
+// HasVolumeId returns a boolean if a field has been set.
+func (o *StorageDetails) HasVolumeId() bool {
+	if o != nil && !IsNil(o.VolumeId) {
+		return true
+	}
+
+	return false
+}
+
+// SetVolumeId gets a reference to the given string and assigns it to the VolumeId field.
 func (o *StorageDetails) SetVolumeId(v string) {
-	o.VolumeId = v
+	o.VolumeId = &v
 }
 
-// GetVolumeName returns the VolumeName field value
+// GetVolumeName returns the VolumeName field value if set, zero value otherwise.
 func (o *StorageDetails) GetVolumeName() string {
-	if o == nil {
+	if o == nil || IsNil(o.VolumeName) {
 		var ret string
 		return ret
 	}
-
-	return o.VolumeName
+	return *o.VolumeName
 }
 
-// GetVolumeNameOk returns a tuple with the VolumeName field value
+// GetVolumeNameOk returns a tuple with the VolumeName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageDetails) GetVolumeNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.VolumeName) {
 		return nil, false
 	}
-	return &o.VolumeName, true
+	return o.VolumeName, true
 }
 
-// SetVolumeName sets field value
+// HasVolumeName returns a boolean if a field has been set.
+func (o *StorageDetails) HasVolumeName() bool {
+	if o != nil && !IsNil(o.VolumeName) {
+		return true
+	}
+
+	return false
+}
+
+// SetVolumeName gets a reference to the given string and assigns it to the VolumeName field.
 func (o *StorageDetails) SetVolumeName(v string) {
-	o.VolumeName = v
+	o.VolumeName = &v
 }
 
 // GetCapacityInGb returns the CapacityInGb field value
@@ -182,28 +209,36 @@ func (o *StorageDetails) SetCapacityInGb(v int64) {
 	o.CapacityInGb = v
 }
 
-// GetCreatedOn returns the CreatedOn field value
+// GetCreatedOn returns the CreatedOn field value if set, zero value otherwise.
 func (o *StorageDetails) GetCreatedOn() time.Time {
-	if o == nil {
+	if o == nil || IsNil(o.CreatedOn) {
 		var ret time.Time
 		return ret
 	}
-
-	return o.CreatedOn
+	return *o.CreatedOn
 }
 
-// GetCreatedOnOk returns a tuple with the CreatedOn field value
+// GetCreatedOnOk returns a tuple with the CreatedOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StorageDetails) GetCreatedOnOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreatedOn) {
 		return nil, false
 	}
-	return &o.CreatedOn, true
+	return o.CreatedOn, true
 }
 
-// SetCreatedOn sets field value
+// HasCreatedOn returns a boolean if a field has been set.
+func (o *StorageDetails) HasCreatedOn() bool {
+	if o != nil && !IsNil(o.CreatedOn) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedOn gets a reference to the given time.Time and assigns it to the CreatedOn field.
 func (o *StorageDetails) SetCreatedOn(v time.Time) {
-	o.CreatedOn = v
+	o.CreatedOn = &v
 }
 
 func (o StorageDetails) MarshalJSON() ([]byte, error) {
@@ -216,12 +251,22 @@ func (o StorageDetails) MarshalJSON() ([]byte, error) {
 
 func (o StorageDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["networkStorageId"] = o.NetworkStorageId
-	toSerialize["networkStorageName"] = o.NetworkStorageName
-	toSerialize["volumeId"] = o.VolumeId
-	toSerialize["volumeName"] = o.VolumeName
+	if !IsNil(o.NetworkStorageId) {
+		toSerialize["networkStorageId"] = o.NetworkStorageId
+	}
+	if !IsNil(o.NetworkStorageName) {
+		toSerialize["networkStorageName"] = o.NetworkStorageName
+	}
+	if !IsNil(o.VolumeId) {
+		toSerialize["volumeId"] = o.VolumeId
+	}
+	if !IsNil(o.VolumeName) {
+		toSerialize["volumeName"] = o.VolumeName
+	}
 	toSerialize["capacityInGb"] = o.CapacityInGb
-	toSerialize["createdOn"] = o.CreatedOn
+	if !IsNil(o.CreatedOn) {
+		toSerialize["createdOn"] = o.CreatedOn
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -235,12 +280,7 @@ func (o *StorageDetails) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"networkStorageId",
-		"networkStorageName",
-		"volumeId",
-		"volumeName",
 		"capacityInGb",
-		"createdOn",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -58,7 +58,7 @@ type StorageRecord struct {
 	ReservationId        *string                    `json:"reservationId,omitempty"`
 	DiscountDetails      *ApplicableDiscountDetails `json:"discountDetails,omitempty"`
 	CreditDetails        []CreditDetails            `json:"creditDetails,omitempty"`
-	Metadata             *StorageDetails            `json:"metadata,omitempty"`
+	Metadata             StorageDetails             `json:"metadata"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,7 +68,7 @@ type _StorageRecord StorageRecord
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStorageRecord(id string, productCategory RatedUsageProductCategoryEnum, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool) *StorageRecord {
+func NewStorageRecord(id string, productCategory RatedUsageProductCategoryEnum, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, metadata StorageDetails) *StorageRecord {
 	this := StorageRecord{}
 	this.Id = id
 	this.ProductCategory = productCategory
@@ -82,6 +82,7 @@ func NewStorageRecord(id string, productCategory RatedUsageProductCategoryEnum, 
 	this.UnitPriceDescription = unitPriceDescription
 	this.Quantity = quantity
 	this.Active = active
+	this.Metadata = metadata
 	return &this
 }
 
@@ -637,36 +638,28 @@ func (o *StorageRecord) SetCreditDetails(v []CreditDetails) {
 	o.CreditDetails = v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value
 func (o *StorageRecord) GetMetadata() StorageDetails {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret StorageDetails
 		return ret
 	}
-	return *o.Metadata
+
+	return o.Metadata
 }
 
-// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// GetMetadataOk returns a tuple with the Metadata field value
 // and a boolean to check if the value has been set.
 func (o *StorageRecord) GetMetadataOk() (*StorageDetails, bool) {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
-// HasMetadata returns a boolean if a field has been set.
-func (o *StorageRecord) HasMetadata() bool {
-	if o != nil && !IsNil(o.Metadata) {
-		return true
-	}
-
-	return false
-}
-
-// SetMetadata gets a reference to the given StorageDetails and assigns it to the Metadata field.
+// SetMetadata sets field value
 func (o *StorageRecord) SetMetadata(v StorageDetails) {
-	o.Metadata = &v
+	o.Metadata = v
 }
 
 func (o StorageRecord) MarshalJSON() ([]byte, error) {
@@ -715,9 +708,7 @@ func (o StorageRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CreditDetails) {
 		toSerialize["creditDetails"] = o.CreditDetails
 	}
-	if !IsNil(o.Metadata) {
-		toSerialize["metadata"] = o.Metadata
-	}
+	toSerialize["metadata"] = o.Metadata
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -743,6 +734,7 @@ func (o *StorageRecord) UnmarshalJSON(data []byte) (err error) {
 		"unitPriceDescription",
 		"quantity",
 		"active",
+		"metadata",
 	}
 
 	allProperties := make(map[string]interface{})

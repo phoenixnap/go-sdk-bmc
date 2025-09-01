@@ -1156,11 +1156,6 @@ components:
           type: string
       required:
       - capacityInGb
-      - createdOn
-      - networkStorageId
-      - networkStorageName
-      - volumeId
-      - volumeName
       type: object
     StorageRecord:
       allOf:
@@ -1169,6 +1164,8 @@ components:
         properties:
           metadata:
             $ref: '#/components/schemas/StorageDetails'
+        required:
+        - metadata
         type: object
     Error:
       properties:
