@@ -5,7 +5,11 @@
 
 * `REQUESTED` (value: `"REQUESTED"`)
 
-* `NOT_APPROVED` (value: `"NOT_APPROVED"`)
+* `DECLINED` (value: `"DECLINED"`)
+
+* `IN_REVIEW` (value: `"IN_REVIEW"`)
+
+* `SETTING_UP` (value: `"SETTING_UP"`)
 
 * `ACTIVE` (value: `"ACTIVE"`)
 

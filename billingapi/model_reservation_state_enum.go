@@ -21,16 +21,20 @@ type ReservationStateEnum string
 
 // List of ReservationStateEnum
 const (
-	RESERVATIONSTATEENUM_REQUESTED    ReservationStateEnum = "REQUESTED"
-	RESERVATIONSTATEENUM_NOT_APPROVED ReservationStateEnum = "NOT_APPROVED"
-	RESERVATIONSTATEENUM_ACTIVE       ReservationStateEnum = "ACTIVE"
-	RESERVATIONSTATEENUM_EXPIRED      ReservationStateEnum = "EXPIRED"
+	RESERVATIONSTATEENUM_REQUESTED  ReservationStateEnum = "REQUESTED"
+	RESERVATIONSTATEENUM_DECLINED   ReservationStateEnum = "DECLINED"
+	RESERVATIONSTATEENUM_IN_REVIEW  ReservationStateEnum = "IN_REVIEW"
+	RESERVATIONSTATEENUM_SETTING_UP ReservationStateEnum = "SETTING_UP"
+	RESERVATIONSTATEENUM_ACTIVE     ReservationStateEnum = "ACTIVE"
+	RESERVATIONSTATEENUM_EXPIRED    ReservationStateEnum = "EXPIRED"
 )
 
 // All allowed values of ReservationStateEnum enum
 var AllowedReservationStateEnumEnumValues = []ReservationStateEnum{
 	"REQUESTED",
-	"NOT_APPROVED",
+	"DECLINED",
+	"IN_REVIEW",
+	"SETTING_UP",
 	"ACTIVE",
 	"EXPIRED",
 }

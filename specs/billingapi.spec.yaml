@@ -1130,7 +1130,9 @@ components:
       type: string
       enum:
         - REQUESTED
-        - NOT_APPROVED
+        - DECLINED
+        - IN_REVIEW
+        - SETTING_UP
         - ACTIVE
         - EXPIRED
     ReservationInvoicingModelEnum:

@@ -1411,7 +1411,9 @@ components:
       description: Reservation state.
       enum:
       - REQUESTED
-      - NOT_APPROVED
+      - DECLINED
+      - IN_REVIEW
+      - SETTING_UP
       - ACTIVE
       - EXPIRED
       type: string
