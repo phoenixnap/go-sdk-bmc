@@ -257,7 +257,7 @@ components:
           type: string
           example: My first Rancher Server Cluster.
         location:
-          description: Deployment location. Cannot be changed once a cluster is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
+          description: Deployment location. Cannot be changed once a cluster is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI` or `SEA`.
           type: string
           example: PHX
         initialClusterVersion:
@@ -386,7 +386,7 @@ components:
           default: s0.d1.small
           example: s0.d1.small
         location:
-          description: Workload cluster location. Cannot be changed once cluster is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
+          description: Workload cluster location. Cannot be changed once cluster is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI` or `SEA`.
           type: string
           example: PHX
     SshConfig:

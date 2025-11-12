@@ -21,7 +21,7 @@ var _ MappedNullable = &BgpPeerGroupCreate{}
 
 // BgpPeerGroupCreate Create a BGP Peer Group.
 type BgpPeerGroupCreate struct {
-	// The BGP Peer Group location. Can have one of the following values: `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+	// The BGP Peer Group location. Can have one of the following values: `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`.
 	Location string `json:"location"`
 	// The BGP Peer Group ASN.
 	Asn int64 `json:"asn"`

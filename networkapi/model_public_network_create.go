@@ -25,7 +25,7 @@ type PublicNetworkCreate struct {
 	Name string `json:"name"`
 	// The description of this public network.
 	Description *string `json:"description,omitempty"`
-	// The location of this public network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+	// The location of this public network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`.
 	Location string `json:"location"`
 	// The VLAN that will be assigned to this network.
 	VlanId *int32 `json:"vlanId,omitempty"`

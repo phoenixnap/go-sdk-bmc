@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **VlanId** | **int32** | The VLAN of this public network. | 
 **Memberships** | [**[]NetworkMembership**](NetworkMembership.md) | A list of resources that are members of this public network. | 
 **Name** | **string** | The friendly name of this public network. | 
-**Location** | **string** | The location of this public network. Supported values are &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60;, &#x60;SEA&#x60; and &#x60;AUS&#x60;. | 
+**Location** | **string** | The location of this public network. Supported values are &#x60;PHX&#x60;, &#x60;ASH&#x60;, &#x60;SGP&#x60;, &#x60;NLD&#x60;, &#x60;CHI&#x60; and &#x60;SEA&#x60;. | 
 **Description** | Pointer to **string** | The description of this public network. | [optional] 
 **Status** | **string** | The status of the public network. Can have one of the following values: &#x60;BUSY&#x60;, &#x60;READY&#x60;, &#x60;DELETING&#x60; or &#x60;ERROR&#x60;. | 
 **CreatedOn** | **time.Time** | Date and time when this public network was created. | 

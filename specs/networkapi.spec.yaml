@@ -53,7 +53,7 @@ paths:
           required: false
           description: If present will filter the result by the given location of the Private Networks.
           schema:
-            description: Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+            description: Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`.
             type: string
           example: PHX
       responses:
@@ -388,7 +388,7 @@ paths:
           required: false
           description: If present will filter the result by the given location of the Public Networks.
           schema:
-            description: Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+            description: Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`.
             type: string
           example: PHX
       responses:
@@ -943,7 +943,7 @@ paths:
           required: false
           description: If present will filter the result by the given location of the BGP Peer Group.
           schema:
-            description: Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+            description: Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`.
             type: string
           example: PHX
       responses:
@@ -1594,7 +1594,7 @@ components:
           maxLength: 250
           example: Further details on the network
         location:
-          description: The location of this private network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+          description: The location of this private network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`.
           type: string
           example: PHX
         locationDefault:
@@ -1688,7 +1688,7 @@ components:
           maxLength: 100
           example: Sample Network
         location:
-          description: The location of this public network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+          description: The location of this public network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`.
           type: string
           example: PHX
         description:
@@ -1744,7 +1744,7 @@ components:
           maxLength: 250
           example: Further details on the network.
         location:
-          description: The location of this public network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+          description: The location of this public network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`.
           type: string
           example: PHX
         vlanId:
@@ -1895,7 +1895,7 @@ components:
           type: string
           example: READY
         location:
-          description: 'The BGP Peer Group location. Can have one of the following values: `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.'
+          description: 'The BGP Peer Group location. Can have one of the following values: `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`.'
           type: string
           example: ASH
         ipv4Prefixes:
@@ -1979,7 +1979,7 @@ components:
         - advertisedRoutes
       properties:
         location:
-          description: 'The BGP Peer Group location. Can have one of the following values: `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.'
+          description: 'The BGP Peer Group location. Can have one of the following values: `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`.'
           type: string
           example: ASH
         asn:

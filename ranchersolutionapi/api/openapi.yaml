@@ -379,8 +379,8 @@ components:
           type: string
         location:
           description: "Deployment location. Cannot be changed once a cluster is created.\
-            \ Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`,\
-            \ `SEA` or `AUS`."
+            \ Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`\
+            \ or `SEA`."
           example: PHX
           type: string
         initialClusterVersion:
@@ -547,7 +547,7 @@ components:
         location:
           description: "Workload cluster location. Cannot be changed once cluster\
             \ is created. Currently this field should be set to `PHX`, `ASH`, `SGP`,\
-            \ `NLD`, `CHI`, `SEA` or `AUS`."
+            \ `NLD`, `CHI` or `SEA`."
           example: PHX
           type: string
       required:
