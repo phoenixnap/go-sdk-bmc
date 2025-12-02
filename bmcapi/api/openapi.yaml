@@ -748,18 +748,21 @@ paths:
                     - 10.0.0.2
                     dhcp: false
                     statusDescription: in-progress
+                    vlanId: 10
                 DhcpTrue:
                   value:
                     id: 60473a6115e34466c9f8f083
                     ips: []
                     dhcp: true
                     statusDescription: in-progress
+                    vlanId: 10
                 DhcpFalseIpsEmptyForceTrue:
                   value:
                     id: 60473a6115e34466c9f8f083
                     ips: []
                     dhcp: false
                     statusDescription: in-progress
+                    vlanId: 10
               schema:
                 $ref: '#/components/schemas/ServerPrivateNetwork'
           description: The server is being added to the specified private network.
@@ -941,10 +944,16 @@ paths:
                     ips:
                     - 10.0.0.1
                     - 10.0.0.2
+                    dhcp: false
+                    statusDescription: assigned
+                    vlanId: 10
                 privateNetworkWithoutIpsForceTrue:
                   value:
                     id: 60473a6115e34466c9f8f083
                     ips: []
+                    dhcp: false
+                    statusDescription: assigned
+                    vlanId: 10
               schema:
                 $ref: '#/components/schemas/ServerPrivateNetwork'
           description: Updated IP addresses assigned to server.
@@ -1045,6 +1054,28 @@ paths:
         "202":
           content:
             application/json:
+              examples:
+                PublicNetworkWithProvidedIps:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    ips:
+                    - 182.16.0.146
+                    - 182.16.0.147
+                    statusDescription: in-progress
+                    vlanId: 10
+                PublicNetworkWithNoIpsAndForceTrue:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    ips: []
+                    statusDescription: in-progress
+                    vlanId: 10
+                PublicNetworkWithIpV6AndComputeSlaacIpTrue:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    ips:
+                    - 2001:db8::f
+                    statusDescription: in-progress
+                    vlanId: 10
               schema:
                 $ref: '#/components/schemas/ServerPublicNetwork'
           description: The server is being added to the specified Public Network.
@@ -1242,6 +1273,7 @@ paths:
                     - 182.16.0.147
                     - 2001:db8::b
                     statusDescription: assigned
+                    vlanId: 10
                 PublicNetworkWithProvidedIpsAndRanges:
                   value:
                     id: 60473a6115e34466c9f8f088
@@ -1251,11 +1283,13 @@ paths:
                     - 2001:db8::f
                     - 2001:db8::b - 2001:db8::d
                     statusDescription: assigned
+                    vlanId: 10
                 PublicNetworkWithNoIpsAndForceTrue:
                   value:
                     id: 60473a6115e34466c9f8f088
                     ips: []
                     statusDescription: assigned
+                    vlanId: 10
               schema:
                 $ref: '#/components/schemas/ServerPublicNetwork'
           description: Updated IP addresses assigned to server.
@@ -2708,6 +2742,7 @@ components:
       description: Private network details of bare metal server.
       example:
         statusDescription: assigned
+        vlanId: 10
         id: 603f3b2cfcaf050643b89a4b
         ips:
         - 10.1.1.1
@@ -2755,6 +2790,12 @@ components:
           example: assigned
           readOnly: true
           type: string
+        vlanId:
+          description: (Read-only) The VLAN on which this network has been configured
+            within the network switch.
+          example: 10
+          readOnly: true
+          type: integer
       required:
       - id
       type: object
@@ -2866,6 +2907,7 @@ components:
       description: Public network details of bare metal server.
       example:
         statusDescription: assigned
+        vlanId: 10
         id: 60473c2509268bc77fd06d29
         ips:
         - 182.16.0.146
@@ -2910,6 +2952,12 @@ components:
           example: true
           type: boolean
           writeOnly: true
+        vlanId:
+          description: (Read-only) The VLAN on which this network has been configured
+            within the network switch.
+          example: 10
+          readOnly: true
+          type: integer
       required:
       - id
       type: object
@@ -3610,9 +3658,9 @@ components:
       properties:
         ips:
           description: List of IPs to be associated to the server.<br> Valid IP formats
-            include single IP addresses or IP ranges (IPv4 or IPv6). IPs must be within
-            the network's range.<br> Setting the `force` query parameter to `true`
-            allows you to:<ul> <li> Assign no specific IP addresses by designating
+            include single IP addresses or IP ranges (IPv4 or IPv6). All IPs must
+            be within the network's range.<br> Setting the `force` query parameter
+            to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating
             an empty array of IPs. <li> Assign one or more IP addresses which are
             already configured on other resource(s) in network. <li> Assign IP addresses
             which are considered as reserved in network.</ul>
@@ -3732,7 +3780,7 @@ components:
             \ `esxi/esxi80`, `almalinux/almalinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux8`,\
             \ `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`,\
             \ `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`,\
-            \ `proxmox/proxmox8`, `proxmox/proxmox9`, `netris/controller`, `netris/softgate_1g`,\
+            \ `proxmox/proxmox8`, `proxmox/proxmox9`,`netris/controller`, `netris/softgate_1g`,\
             \ `netris/softgate_10g` or `netris/softgate_25g`."
           example: ubuntu/bionic
           type: string

@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Ips** | Pointer to **[]string** | Configurable/configured IPs on the server.&lt;br&gt; At least 1 IP address is required. Valid IP formats include single IP addresses or IP ranges (IPv4 or IPv6). All IPs must be within the network&#39;s range.&lt;br&gt; Setting the &#x60;computeSlaacIp&#x60; field to &#x60;true&#x60; allows you to provide an empty array of IPs.&lt;br&gt; Additionally, setting the &#x60;force&#x60; query parameter to &#x60;true&#x60; allows you to:&lt;ul&gt; &lt;li&gt; Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. &lt;li&gt; Assign one or more IP addresses which are already configured on other resource(s) in network.&lt;/ul&gt; | [optional] 
 **StatusDescription** | Pointer to **string** | (Read-only) The status of the assignment to the network. | [optional] [readonly] 
 **ComputeSlaacIp** | Pointer to **bool** | (Write-only) Requests Stateless Address Autoconfiguration (SLAAC). Applicable for Network which contains IPv6 block(s). | [optional] 
+**VlanId** | Pointer to **int32** | (Read-only) The VLAN on which this network has been configured within the network switch. | [optional] [readonly] 
 
 ## Methods
 
@@ -122,6 +123,31 @@ SetComputeSlaacIp sets ComputeSlaacIp field to given value.
 `func (o *ServerPublicNetwork) HasComputeSlaacIp() bool`
 
 HasComputeSlaacIp returns a boolean if a field has been set.
+
+### GetVlanId
+
+`func (o *ServerPublicNetwork) GetVlanId() int32`
+
+GetVlanId returns the VlanId field if non-nil, zero value otherwise.
+
+### GetVlanIdOk
+
+`func (o *ServerPublicNetwork) GetVlanIdOk() (*int32, bool)`
+
+GetVlanIdOk returns a tuple with the VlanId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVlanId
+
+`func (o *ServerPublicNetwork) SetVlanId(v int32)`
+
+SetVlanId sets VlanId field to given value.
+
+### HasVlanId
+
+`func (o *ServerPublicNetwork) HasVlanId() bool`
+
+HasVlanId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

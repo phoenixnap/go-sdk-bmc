@@ -28,7 +28,9 @@ type ServerPrivateNetwork struct {
 	// Determines whether DHCP is enabled for this server.<br> The following restrictions apply when enabling DHCP:<ul> <li> DHCP support is limited to servers configured exclusively with private networks (PRIVATE_ONLY). <li> DHCP value needs to be consistent across all server-configured private networks.  <li> The server does not support manual gateway address configuration. <li> Private IP addresses for network cannot be specified.</ul> Note: Not supported on Proxmox OS.
 	Dhcp *bool `json:"dhcp,omitempty"`
 	// (Read-only) The status of the network.
-	StatusDescription    *string `json:"statusDescription,omitempty"`
+	StatusDescription *string `json:"statusDescription,omitempty"`
+	// (Read-only) The VLAN on which this network has been configured within the network switch.
+	VlanId               *int32 `json:"vlanId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -176,6 +178,38 @@ func (o *ServerPrivateNetwork) SetStatusDescription(v string) {
 	o.StatusDescription = &v
 }
 
+// GetVlanId returns the VlanId field value if set, zero value otherwise.
+func (o *ServerPrivateNetwork) GetVlanId() int32 {
+	if o == nil || IsNil(o.VlanId) {
+		var ret int32
+		return ret
+	}
+	return *o.VlanId
+}
+
+// GetVlanIdOk returns a tuple with the VlanId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServerPrivateNetwork) GetVlanIdOk() (*int32, bool) {
+	if o == nil || IsNil(o.VlanId) {
+		return nil, false
+	}
+	return o.VlanId, true
+}
+
+// HasVlanId returns a boolean if a field has been set.
+func (o *ServerPrivateNetwork) HasVlanId() bool {
+	if o != nil && !IsNil(o.VlanId) {
+		return true
+	}
+
+	return false
+}
+
+// SetVlanId gets a reference to the given int32 and assigns it to the VlanId field.
+func (o *ServerPrivateNetwork) SetVlanId(v int32) {
+	o.VlanId = &v
+}
+
 func (o ServerPrivateNetwork) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -195,6 +229,9 @@ func (o ServerPrivateNetwork) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.StatusDescription) {
 		toSerialize["statusDescription"] = o.StatusDescription
+	}
+	if !IsNil(o.VlanId) {
+		toSerialize["vlanId"] = o.VlanId
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -243,6 +280,7 @@ func (o *ServerPrivateNetwork) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "ips")
 		delete(additionalProperties, "dhcp")
 		delete(additionalProperties, "statusDescription")
+		delete(additionalProperties, "vlanId")
 		o.AdditionalProperties = additionalProperties
 	}
 

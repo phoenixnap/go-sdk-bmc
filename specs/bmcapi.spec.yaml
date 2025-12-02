@@ -496,18 +496,21 @@ paths:
                       - 10.0.0.2
                     dhcp: false
                     statusDescription: in-progress
+                    vlanId: 10
                 DhcpTrue:
                   value:
                     id: 60473a6115e34466c9f8f083
                     ips: []
                     dhcp: true
                     statusDescription: in-progress
+                    vlanId: 10
                 DhcpFalseIpsEmptyForceTrue:
                   value:
                     id: 60473a6115e34466c9f8f083
                     ips: []
                     dhcp: false
                     statusDescription: in-progress
+                    vlanId: 10
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -560,10 +563,16 @@ paths:
                     ips:
                       - 10.0.0.1
                       - 10.0.0.2
+                    dhcp: false
+                    statusDescription: assigned
+                    vlanId: 10
                 privateNetworkWithoutIpsForceTrue:
                   value:
                     id: 60473a6115e34466c9f8f083
                     ips: []
+                    dhcp: false
+                    statusDescription: assigned
+                    vlanId: 10
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -645,6 +654,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServerPublicNetwork'
+              examples:
+                PublicNetworkWithProvidedIps:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    ips:
+                      - 182.16.0.146
+                      - 182.16.0.147
+                    statusDescription: in-progress
+                    vlanId: 10
+                PublicNetworkWithNoIpsAndForceTrue:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    ips: []
+                    statusDescription: in-progress
+                    vlanId: 10
+                PublicNetworkWithIpV6AndComputeSlaacIpTrue:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    ips:
+                      - 2001:db8::f
+                    statusDescription: in-progress
+                    vlanId: 10
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -709,6 +740,7 @@ paths:
                       - 182.16.0.147
                       - 2001:db8::b
                     statusDescription: assigned
+                    vlanId: 10
                 PublicNetworkWithProvidedIpsAndRanges:
                   value:
                     id: 60473a6115e34466c9f8f088
@@ -718,11 +750,13 @@ paths:
                       - 2001:db8::f
                       - 2001:db8::b - 2001:db8::d
                     statusDescription: assigned
+                    vlanId: 10
                 PublicNetworkWithNoIpsAndForceTrue:
                   value:
                     id: 60473a6115e34466c9f8f088
                     ips: []
                     statusDescription: assigned
+                    vlanId: 10
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -1600,6 +1634,11 @@ components:
           readOnly: true
           type: string
           example: assigned
+        vlanId:
+          description: (Read-only) The VLAN on which this network has been configured within the network switch.
+          readOnly: true
+          type: integer
+          example: 10
     PrivateNetworkConfiguration:
       type: object
       description: Private network details of bare metal server.
@@ -1699,6 +1738,11 @@ components:
           writeOnly: true
           type: boolean
           example: true
+        vlanId:
+          description: (Read-only) The VLAN on which this network has been configured within the network switch.
+          readOnly: true
+          type: integer
+          example: 10
     PublicNetworkConfiguration:
       type: object
       description: Public network details of bare metal server.
@@ -2064,7 +2108,7 @@ components:
       description: Update network details of bare metal server.
       properties:
         ips:
-          description: List of IPs to be associated to the server.<br> Valid IP formats include single IP addresses or IP ranges (IPv4 or IPv6). IPs must be within the network's range.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. <li> Assign one or more IP addresses which are already configured on other resource(s) in network. <li> Assign IP addresses which are considered as reserved in network.</ul>
+          description: List of IPs to be associated to the server.<br> Valid IP formats include single IP addresses or IP ranges (IPv4 or IPv6). All IPs must be within the network's range.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. <li> Assign one or more IP addresses which are already configured on other resource(s) in network. <li> Assign IP addresses which are considered as reserved in network.</ul>
           type: array
           items:
             type: string
@@ -2098,7 +2142,7 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux8`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`, `proxmox/proxmox8`, `proxmox/proxmox9`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux8`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`, `proxmox/proxmox8`, `proxmox/proxmox9`,`netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
           type: string
           example: ubuntu/bionic
         installDefaultSshKeys:

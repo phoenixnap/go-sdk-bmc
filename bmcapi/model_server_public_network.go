@@ -28,7 +28,9 @@ type ServerPublicNetwork struct {
 	// (Read-only) The status of the assignment to the network.
 	StatusDescription *string `json:"statusDescription,omitempty"`
 	// (Write-only) Requests Stateless Address Autoconfiguration (SLAAC). Applicable for Network which contains IPv6 block(s).
-	ComputeSlaacIp       *bool `json:"computeSlaacIp,omitempty"`
+	ComputeSlaacIp *bool `json:"computeSlaacIp,omitempty"`
+	// (Read-only) The VLAN on which this network has been configured within the network switch.
+	VlanId               *int32 `json:"vlanId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -172,6 +174,38 @@ func (o *ServerPublicNetwork) SetComputeSlaacIp(v bool) {
 	o.ComputeSlaacIp = &v
 }
 
+// GetVlanId returns the VlanId field value if set, zero value otherwise.
+func (o *ServerPublicNetwork) GetVlanId() int32 {
+	if o == nil || IsNil(o.VlanId) {
+		var ret int32
+		return ret
+	}
+	return *o.VlanId
+}
+
+// GetVlanIdOk returns a tuple with the VlanId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServerPublicNetwork) GetVlanIdOk() (*int32, bool) {
+	if o == nil || IsNil(o.VlanId) {
+		return nil, false
+	}
+	return o.VlanId, true
+}
+
+// HasVlanId returns a boolean if a field has been set.
+func (o *ServerPublicNetwork) HasVlanId() bool {
+	if o != nil && !IsNil(o.VlanId) {
+		return true
+	}
+
+	return false
+}
+
+// SetVlanId gets a reference to the given int32 and assigns it to the VlanId field.
+func (o *ServerPublicNetwork) SetVlanId(v int32) {
+	o.VlanId = &v
+}
+
 func (o ServerPublicNetwork) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -191,6 +225,9 @@ func (o ServerPublicNetwork) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ComputeSlaacIp) {
 		toSerialize["computeSlaacIp"] = o.ComputeSlaacIp
+	}
+	if !IsNil(o.VlanId) {
+		toSerialize["vlanId"] = o.VlanId
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -239,6 +276,7 @@ func (o *ServerPublicNetwork) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "ips")
 		delete(additionalProperties, "statusDescription")
 		delete(additionalProperties, "computeSlaacIp")
+		delete(additionalProperties, "vlanId")
 		o.AdditionalProperties = additionalProperties
 	}
 
