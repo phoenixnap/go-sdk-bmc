@@ -137,6 +137,7 @@ Class | Method | HTTP request | Description
  - [RatedUsageRecord](docs/RatedUsageRecord.md)
  - [Reservation](docs/Reservation.md)
  - [ReservationAutoRenewDisableRequest](docs/ReservationAutoRenewDisableRequest.md)
+ - [ReservationDetails](docs/ReservationDetails.md)
  - [ReservationInvoicingModelEnum](docs/ReservationInvoicingModelEnum.md)
  - [ReservationModelEnum](docs/ReservationModelEnum.md)
  - [ReservationProductCategoryEnum](docs/ReservationProductCategoryEnum.md)

@@ -55,7 +55,9 @@ type PublicSubnetRecord struct {
 	// Holds usage record id
 	CorrelationId *string `json:"correlationId,omitempty"`
 	// Reservation id associated with this rated usage record.
+	// Deprecated
 	ReservationId        *string                    `json:"reservationId,omitempty"`
+	ReservationDetails   *ReservationDetails        `json:"reservationDetails,omitempty"`
 	DiscountDetails      *ApplicableDiscountDetails `json:"discountDetails,omitempty"`
 	CreditDetails        []CreditDetails            `json:"creditDetails,omitempty"`
 	Metadata             PublicSubnetDetails        `json:"metadata"`
@@ -543,6 +545,7 @@ func (o *PublicSubnetRecord) SetCorrelationId(v string) {
 }
 
 // GetReservationId returns the ReservationId field value if set, zero value otherwise.
+// Deprecated
 func (o *PublicSubnetRecord) GetReservationId() string {
 	if o == nil || IsNil(o.ReservationId) {
 		var ret string
@@ -553,6 +556,7 @@ func (o *PublicSubnetRecord) GetReservationId() string {
 
 // GetReservationIdOk returns a tuple with the ReservationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *PublicSubnetRecord) GetReservationIdOk() (*string, bool) {
 	if o == nil || IsNil(o.ReservationId) {
 		return nil, false
@@ -570,8 +574,41 @@ func (o *PublicSubnetRecord) HasReservationId() bool {
 }
 
 // SetReservationId gets a reference to the given string and assigns it to the ReservationId field.
+// Deprecated
 func (o *PublicSubnetRecord) SetReservationId(v string) {
 	o.ReservationId = &v
+}
+
+// GetReservationDetails returns the ReservationDetails field value if set, zero value otherwise.
+func (o *PublicSubnetRecord) GetReservationDetails() ReservationDetails {
+	if o == nil || IsNil(o.ReservationDetails) {
+		var ret ReservationDetails
+		return ret
+	}
+	return *o.ReservationDetails
+}
+
+// GetReservationDetailsOk returns a tuple with the ReservationDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PublicSubnetRecord) GetReservationDetailsOk() (*ReservationDetails, bool) {
+	if o == nil || IsNil(o.ReservationDetails) {
+		return nil, false
+	}
+	return o.ReservationDetails, true
+}
+
+// HasReservationDetails returns a boolean if a field has been set.
+func (o *PublicSubnetRecord) HasReservationDetails() bool {
+	if o != nil && !IsNil(o.ReservationDetails) {
+		return true
+	}
+
+	return false
+}
+
+// SetReservationDetails gets a reference to the given ReservationDetails and assigns it to the ReservationDetails field.
+func (o *PublicSubnetRecord) SetReservationDetails(v ReservationDetails) {
+	o.ReservationDetails = &v
 }
 
 // GetDiscountDetails returns the DiscountDetails field value if set, zero value otherwise.
@@ -702,6 +739,9 @@ func (o PublicSubnetRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ReservationId) {
 		toSerialize["reservationId"] = o.ReservationId
 	}
+	if !IsNil(o.ReservationDetails) {
+		toSerialize["reservationDetails"] = o.ReservationDetails
+	}
 	if !IsNil(o.DiscountDetails) {
 		toSerialize["discountDetails"] = o.DiscountDetails
 	}
@@ -782,6 +822,7 @@ func (o *PublicSubnetRecord) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "usageSessionId")
 		delete(additionalProperties, "correlationId")
 		delete(additionalProperties, "reservationId")
+		delete(additionalProperties, "reservationDetails")
 		delete(additionalProperties, "discountDetails")
 		delete(additionalProperties, "creditDetails")
 		delete(additionalProperties, "metadata")

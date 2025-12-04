@@ -545,6 +545,36 @@ components:
         - CHI
         - SEA
         - AUS
+    QuantityUnitEnum:
+      description: The quantity unit.
+      type: string
+      enum:
+        - TB
+        - COUNT
+    Quantity:
+      type: object
+      description: Represents the quantity.
+      properties:
+        quantity:
+          description: Quantity size.
+          type: number
+          example: 30
+          minimum: 1
+        unit:
+          $ref: '#/components/schemas/QuantityUnitEnum'
+      required:
+        - quantity
+        - unit
+    ReservationDetails:
+      type: object
+      description: Details of a Reservation entry inside Rated Usage.
+      properties:
+        id:
+          description: The Reservation identifier.
+          type: string
+          example: 83604275-bdba-490a-b87a-978e8dffdb14
+        quantity:
+          $ref: '#/components/schemas/Quantity'
     DiscountTypeEnum:
       description: The discount type.
       type: string
@@ -709,7 +739,10 @@ components:
         reservationId:
           description: Reservation id associated with this rated usage record.
           type: string
+          deprecated: true
           example: c32a24a1-5949-4b60-99c0-c8aaa3a92b04
+        reservationDetails:
+          $ref: '#/components/schemas/ReservationDetails'
         discountDetails:
           $ref: '#/components/schemas/ApplicableDiscountDetails'
         creditDetails:
@@ -1141,26 +1174,6 @@ components:
       enum:
         - ON_CREATION
         - CALENDAR_MONTH
-    QuantityUnitEnum:
-      description: The quantity unit.
-      type: string
-      enum:
-        - TB
-        - COUNT
-    Quantity:
-      type: object
-      description: Represents the quantity.
-      properties:
-        quantity:
-          description: Quantity size.
-          type: number
-          example: 30
-          minimum: 1
-        unit:
-          $ref: '#/components/schemas/QuantityUnitEnum'
-      required:
-        - quantity
-        - unit
     Utilization:
       type: object
       properties:
