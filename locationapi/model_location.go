@@ -21,9 +21,9 @@ var _ MappedNullable = &Location{}
 
 // Location Location resource
 type Location struct {
-	Location             LocationEnum      `json:"location"`
-	LocationDescription  *string           `json:"locationDescription,omitempty"`
-	ProductCategories    []ProductCategory `json:"productCategories,omitempty"`
+	Location             ProductLocationEnum `json:"location"`
+	LocationDescription  *string             `json:"locationDescription,omitempty"`
+	ProductCategories    []ProductCategory   `json:"productCategories,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,7 +33,7 @@ type _Location Location
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLocation(location LocationEnum) *Location {
+func NewLocation(location ProductLocationEnum) *Location {
 	this := Location{}
 	this.Location = location
 	return &this
@@ -48,9 +48,9 @@ func NewLocationWithDefaults() *Location {
 }
 
 // GetLocation returns the Location field value
-func (o *Location) GetLocation() LocationEnum {
+func (o *Location) GetLocation() ProductLocationEnum {
 	if o == nil {
-		var ret LocationEnum
+		var ret ProductLocationEnum
 		return ret
 	}
 
@@ -59,7 +59,7 @@ func (o *Location) GetLocation() LocationEnum {
 
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
-func (o *Location) GetLocationOk() (*LocationEnum, bool) {
+func (o *Location) GetLocationOk() (*ProductLocationEnum, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -67,7 +67,7 @@ func (o *Location) GetLocationOk() (*LocationEnum, bool) {
 }
 
 // SetLocation sets field value
-func (o *Location) SetLocation(v LocationEnum) {
+func (o *Location) SetLocation(v ProductLocationEnum) {
 	o.Location = v
 }
 

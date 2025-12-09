@@ -471,7 +471,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/LocationEnum'
+              $ref: '#/components/schemas/ProductLocationEnum'
           example:
             - PHX
         - in: query
@@ -535,7 +535,7 @@ components:
         - public-ip
         - storage
     LocationEnum:
-      description: The location code.
+      description: Supported location codes. All locations are active except AUS, which is deprecated and preserved only for legacy data.
       type: string
       enum:
         - PHX
@@ -1012,7 +1012,6 @@ components:
             - SGP
             - CHI
             - SEA
-            - AUS
             - GLOBAL
         pricingModel:
           description: The pricing model.
@@ -1304,12 +1303,28 @@ components:
       properties:
         thresholdConfiguration:
           $ref: '#/components/schemas/ThresholdConfigurationDetails'
+    ProductLocationEnum:
+      description: |
+        This enum is used <b>only in product-related schemas</b> and contains
+        <b>only currently active and supported locations</b>.
+        Deprecated or retired locations are intentionally excluded and will not appear
+        in create/update operations.
+        Historical data in other API responses may still reference deprecated locations,
+        but those values are not part of this enum.
+      type: string
+      enum:
+        - PHX
+        - ASH
+        - NLD
+        - SGP
+        - CHI
+        - SEA
     LocationAvailabilityDetail:
       type: object
       description: Info about location, solutions and availability for a product.
       properties:
         location:
-          $ref: '#/components/schemas/LocationEnum'
+          $ref: '#/components/schemas/ProductLocationEnum'
         minQuantityRequested:
           type: number
           description: Requested quantity.

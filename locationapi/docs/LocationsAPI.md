@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-	location := openapiclient.LocationEnum("PHX") // LocationEnum | Location of interest (optional)
+	location := openapiclient.ProductLocationEnum("PHX") // ProductLocationEnum | Location of interest (optional)
 	productCategory := openapiclient.ProductCategoryEnum("SERVER") // ProductCategoryEnum | Product category of interest (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -55,7 +55,7 @@ Other parameters are passed through a pointer to a apiGetLocationsRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **location** | [**LocationEnum**](LocationEnum.md) | Location of interest | 
+ **location** | [**ProductLocationEnum**](ProductLocationEnum.md) | Location of interest | 
  **productCategory** | [**ProductCategoryEnum**](ProductCategoryEnum.md) | Product category of interest | 
 
 ### Return type

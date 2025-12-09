@@ -46,7 +46,7 @@ type ApiProductAvailabilityGetRequest struct {
 	productCategory              *[]string
 	productCode                  *[]string
 	showOnlyMinQuantityAvailable *bool
-	location                     *[]LocationEnum
+	location                     *[]ProductLocationEnum
 	solution                     *[]string
 	minQuantity                  *float32
 }
@@ -68,7 +68,7 @@ func (r ApiProductAvailabilityGetRequest) ShowOnlyMinQuantityAvailable(showOnlyM
 	return r
 }
 
-func (r ApiProductAvailabilityGetRequest) Location(location []LocationEnum) ApiProductAvailabilityGetRequest {
+func (r ApiProductAvailabilityGetRequest) Location(location []ProductLocationEnum) ApiProductAvailabilityGetRequest {
 	r.location = &location
 	return r
 }

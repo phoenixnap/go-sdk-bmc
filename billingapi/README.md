@@ -126,6 +126,7 @@ Class | Method | HTTP request | Description
  - [Product](docs/Product.md)
  - [ProductAvailability](docs/ProductAvailability.md)
  - [ProductCategoryEnum](docs/ProductCategoryEnum.md)
+ - [ProductLocationEnum](docs/ProductLocationEnum.md)
  - [ProductsGet200ResponseInner](docs/ProductsGet200ResponseInner.md)
  - [PromoCreditDetails](docs/PromoCreditDetails.md)
  - [PublicSubnetDetails](docs/PublicSubnetDetails.md)

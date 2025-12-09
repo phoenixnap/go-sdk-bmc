@@ -83,9 +83,9 @@ Class | Method | HTTP request | Description
 
  - [Error](docs/Error.md)
  - [Location](docs/Location.md)
- - [LocationEnum](docs/LocationEnum.md)
  - [ProductCategory](docs/ProductCategory.md)
  - [ProductCategoryEnum](docs/ProductCategoryEnum.md)
+ - [ProductLocationEnum](docs/ProductLocationEnum.md)
 
 
 ## Documentation For Authorization

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Location** | [**LocationEnum**](LocationEnum.md) |  | 
+**Location** | [**ProductLocationEnum**](ProductLocationEnum.md) |  | 
 **MinQuantityRequested** | **float32** | Requested quantity. | 
 **MinQuantityAvailable** | **bool** | Is product available in specific location for requested quantity | 
 **AvailableQuantity** | **float32** | Total available quantity of product in specific location. Max value is 10. | 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewLocationAvailabilityDetail
 
-`func NewLocationAvailabilityDetail(location LocationEnum, minQuantityRequested float32, minQuantityAvailable bool, availableQuantity float32, solutions []string, ) *LocationAvailabilityDetail`
+`func NewLocationAvailabilityDetail(location ProductLocationEnum, minQuantityRequested float32, minQuantityAvailable bool, availableQuantity float32, solutions []string, ) *LocationAvailabilityDetail`
 
 NewLocationAvailabilityDetail instantiates a new LocationAvailabilityDetail object
 This constructor will assign default values to properties that have it defined,
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLocation
 
-`func (o *LocationAvailabilityDetail) GetLocation() LocationEnum`
+`func (o *LocationAvailabilityDetail) GetLocation() ProductLocationEnum`
 
 GetLocation returns the Location field if non-nil, zero value otherwise.
 
 ### GetLocationOk
 
-`func (o *LocationAvailabilityDetail) GetLocationOk() (*LocationEnum, bool)`
+`func (o *LocationAvailabilityDetail) GetLocationOk() (*ProductLocationEnum, bool)`
 
 GetLocationOk returns a tuple with the Location field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLocation
 
-`func (o *LocationAvailabilityDetail) SetLocation(v LocationEnum)`
+`func (o *LocationAvailabilityDetail) SetLocation(v ProductLocationEnum)`
 
 SetLocation sets Location field to given value.
 
