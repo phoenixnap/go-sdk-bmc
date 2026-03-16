@@ -29,7 +29,7 @@ runs:
         mv ./${{ inputs.package-name }}/VERSION.go ./VERSION.go
 
         echo "Cleaning up ${{ inputs.package-name }}..."
-        rm -r ./${{ inputs.package-name }}/*
+        rm -rf ./${{ inputs.package-name }}/*
 
         echo "Moving VERSION.go back in..."
         mv ./VERSION.go ./${{ inputs.package-name }}/VERSION.go
