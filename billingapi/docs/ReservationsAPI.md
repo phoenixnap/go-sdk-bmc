@@ -100,7 +100,7 @@ import (
 )
 
 func main() {
-	reservationRequest := *openapiclient.NewReservationRequest("XXX-XXX-XXX") // ReservationRequest |  (optional)
+	reservationRequest := *openapiclient.NewReservationRequest("XXX-XXX-XXX", *openapiclient.NewQuantity(float32(30), openapiclient.QuantityUnitEnum("TB"))) // ReservationRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -309,7 +309,7 @@ import (
 
 func main() {
 	id := "d90bbea9-5725-47ce-879e-d3905bafac2a" // string | Resource id.
-	reservationRequest := *openapiclient.NewReservationRequest("XXX-XXX-XXX") // ReservationRequest |  (optional)
+	reservationRequest := *openapiclient.NewReservationRequest("XXX-XXX-XXX", *openapiclient.NewQuantity(float32(30), openapiclient.QuantityUnitEnum("TB"))) // ReservationRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

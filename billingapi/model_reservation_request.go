@@ -22,8 +22,8 @@ var _ MappedNullable = &ReservationRequest{}
 // ReservationRequest Reservation request.
 type ReservationRequest struct {
 	// The sku code of product pricing plan.
-	Sku                  string    `json:"sku"`
-	Quantity             *Quantity `json:"quantity,omitempty"`
+	Sku                  string   `json:"sku"`
+	Quantity             Quantity `json:"quantity"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,9 +33,10 @@ type _ReservationRequest ReservationRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReservationRequest(sku string) *ReservationRequest {
+func NewReservationRequest(sku string, quantity Quantity) *ReservationRequest {
 	this := ReservationRequest{}
 	this.Sku = sku
+	this.Quantity = quantity
 	return &this
 }
 
@@ -71,36 +72,28 @@ func (o *ReservationRequest) SetSku(v string) {
 	o.Sku = v
 }
 
-// GetQuantity returns the Quantity field value if set, zero value otherwise.
+// GetQuantity returns the Quantity field value
 func (o *ReservationRequest) GetQuantity() Quantity {
-	if o == nil || IsNil(o.Quantity) {
+	if o == nil {
 		var ret Quantity
 		return ret
 	}
-	return *o.Quantity
+
+	return o.Quantity
 }
 
-// GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
+// GetQuantityOk returns a tuple with the Quantity field value
 // and a boolean to check if the value has been set.
 func (o *ReservationRequest) GetQuantityOk() (*Quantity, bool) {
-	if o == nil || IsNil(o.Quantity) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Quantity, true
+	return &o.Quantity, true
 }
 
-// HasQuantity returns a boolean if a field has been set.
-func (o *ReservationRequest) HasQuantity() bool {
-	if o != nil && !IsNil(o.Quantity) {
-		return true
-	}
-
-	return false
-}
-
-// SetQuantity gets a reference to the given Quantity and assigns it to the Quantity field.
+// SetQuantity sets field value
 func (o *ReservationRequest) SetQuantity(v Quantity) {
-	o.Quantity = &v
+	o.Quantity = v
 }
 
 func (o ReservationRequest) MarshalJSON() ([]byte, error) {
@@ -114,9 +107,7 @@ func (o ReservationRequest) MarshalJSON() ([]byte, error) {
 func (o ReservationRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["sku"] = o.Sku
-	if !IsNil(o.Quantity) {
-		toSerialize["quantity"] = o.Quantity
-	}
+	toSerialize["quantity"] = o.Quantity
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -131,6 +122,7 @@ func (o *ReservationRequest) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"sku",
+		"quantity",
 	}
 
 	allProperties := make(map[string]interface{})

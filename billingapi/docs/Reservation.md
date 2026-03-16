@@ -5,10 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | The reservation identifier. | 
-**ProductCode** | **string** | The code identifying the product. This code has significant across all locations. | 
+**ProductCode** | **string** | The code identifying the product. The same code is used for this product across all locations. | 
 **ProductCategory** | [**ReservationProductCategoryEnum**](ReservationProductCategoryEnum.md) |  | 
 **Location** | [**LocationEnum**](LocationEnum.md) |  | 
 **ReservationModel** | [**ReservationModelEnum**](ReservationModelEnum.md) |  | 
+**Term** | Pointer to [**ReservationTerm**](ReservationTerm.md) |  | [optional] 
 **ReservationState** | [**ReservationStateEnum**](ReservationStateEnum.md) |  | 
 **InitialInvoiceModel** | Pointer to [**ReservationInvoicingModelEnum**](ReservationInvoicingModelEnum.md) |  | [optional] 
 **Quantity** | [**Quantity**](Quantity.md) |  | 
@@ -142,6 +143,31 @@ and a boolean to check if the value has been set.
 
 SetReservationModel sets ReservationModel field to given value.
 
+
+### GetTerm
+
+`func (o *Reservation) GetTerm() ReservationTerm`
+
+GetTerm returns the Term field if non-nil, zero value otherwise.
+
+### GetTermOk
+
+`func (o *Reservation) GetTermOk() (*ReservationTerm, bool)`
+
+GetTermOk returns a tuple with the Term field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTerm
+
+`func (o *Reservation) SetTerm(v ReservationTerm)`
+
+SetTerm sets Term field to given value.
+
+### HasTerm
+
+`func (o *Reservation) HasTerm() bool`
+
+HasTerm returns a boolean if a field has been set.
 
 ### GetReservationState
 

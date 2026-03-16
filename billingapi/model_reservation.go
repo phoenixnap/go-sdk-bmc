@@ -24,11 +24,13 @@ var _ MappedNullable = &Reservation{}
 type Reservation struct {
 	// The reservation identifier.
 	Id string `json:"id"`
-	// The code identifying the product. This code has significant across all locations.
-	ProductCode         string                         `json:"productCode"`
-	ProductCategory     ReservationProductCategoryEnum `json:"productCategory"`
-	Location            LocationEnum                   `json:"location"`
+	// The code identifying the product. The same code is used for this product across all locations.
+	ProductCode     string                         `json:"productCode"`
+	ProductCategory ReservationProductCategoryEnum `json:"productCategory"`
+	Location        LocationEnum                   `json:"location"`
+	// Deprecated
 	ReservationModel    ReservationModelEnum           `json:"reservationModel"`
+	Term                *ReservationTerm               `json:"term,omitempty"`
 	ReservationState    ReservationStateEnum           `json:"reservationState"`
 	InitialInvoiceModel *ReservationInvoicingModelEnum `json:"initialInvoiceModel,omitempty"`
 	Quantity            Quantity                       `json:"quantity"`
@@ -183,6 +185,7 @@ func (o *Reservation) SetLocation(v LocationEnum) {
 }
 
 // GetReservationModel returns the ReservationModel field value
+// Deprecated
 func (o *Reservation) GetReservationModel() ReservationModelEnum {
 	if o == nil {
 		var ret ReservationModelEnum
@@ -194,6 +197,7 @@ func (o *Reservation) GetReservationModel() ReservationModelEnum {
 
 // GetReservationModelOk returns a tuple with the ReservationModel field value
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *Reservation) GetReservationModelOk() (*ReservationModelEnum, bool) {
 	if o == nil {
 		return nil, false
@@ -202,8 +206,41 @@ func (o *Reservation) GetReservationModelOk() (*ReservationModelEnum, bool) {
 }
 
 // SetReservationModel sets field value
+// Deprecated
 func (o *Reservation) SetReservationModel(v ReservationModelEnum) {
 	o.ReservationModel = v
+}
+
+// GetTerm returns the Term field value if set, zero value otherwise.
+func (o *Reservation) GetTerm() ReservationTerm {
+	if o == nil || IsNil(o.Term) {
+		var ret ReservationTerm
+		return ret
+	}
+	return *o.Term
+}
+
+// GetTermOk returns a tuple with the Term field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Reservation) GetTermOk() (*ReservationTerm, bool) {
+	if o == nil || IsNil(o.Term) {
+		return nil, false
+	}
+	return o.Term, true
+}
+
+// HasTerm returns a boolean if a field has been set.
+func (o *Reservation) HasTerm() bool {
+	if o != nil && !IsNil(o.Term) {
+		return true
+	}
+
+	return false
+}
+
+// SetTerm gets a reference to the given ReservationTerm and assigns it to the Term field.
+func (o *Reservation) SetTerm(v ReservationTerm) {
+	o.Term = &v
 }
 
 // GetReservationState returns the ReservationState field value
@@ -613,6 +650,9 @@ func (o Reservation) ToMap() (map[string]interface{}, error) {
 	toSerialize["productCategory"] = o.ProductCategory
 	toSerialize["location"] = o.Location
 	toSerialize["reservationModel"] = o.ReservationModel
+	if !IsNil(o.Term) {
+		toSerialize["term"] = o.Term
+	}
 	toSerialize["reservationState"] = o.ReservationState
 	if !IsNil(o.InitialInvoiceModel) {
 		toSerialize["initialInvoiceModel"] = o.InitialInvoiceModel
@@ -700,6 +740,7 @@ func (o *Reservation) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "productCategory")
 		delete(additionalProperties, "location")
 		delete(additionalProperties, "reservationModel")
+		delete(additionalProperties, "term")
 		delete(additionalProperties, "reservationState")
 		delete(additionalProperties, "initialInvoiceModel")
 		delete(additionalProperties, "quantity")

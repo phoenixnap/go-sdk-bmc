@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Sku** | **string** | The sku code of product pricing plan. | 
-**Quantity** | Pointer to [**Quantity**](Quantity.md) |  | [optional] 
+**Quantity** | [**Quantity**](Quantity.md) |  | 
 
 ## Methods
 
 ### NewReservationRequest
 
-`func NewReservationRequest(sku string, ) *ReservationRequest`
+`func NewReservationRequest(sku string, quantity Quantity, ) *ReservationRequest`
 
 NewReservationRequest instantiates a new ReservationRequest object
 This constructor will assign default values to properties that have it defined,
@@ -65,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetQuantity sets Quantity field to given value.
 
-### HasQuantity
-
-`func (o *ReservationRequest) HasQuantity() bool`
-
-HasQuantity returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -3222,8 +3222,8 @@ components:
             \ `d3.g2.c1.xlarge`, `d3.g2.c2.xlarge`, `d3.g2.c3.xlarge`, `d3.g3.c2.medium`,\
             \ `s4.x6.c6.large`, `s4.x6.m6.xlarge`, `s5.x6.c3.medium`, `s5.x6.c3.large`,\
             \ `s5.x6.c8.medium`, `s5.x6.c9.medium`, `s5.x6.c8.large`, `s5.x6.c9.large`,\
-            \ `s5.x6.m8.xlarge`, `s5.x6.m9.xlarge`, `s4.c3.medium`, `s4.c6.medium`\
-            \ or `s4.s2.large`."
+            \ `s5.x6.m8.xlarge`, `s5.x6.m9.xlarge`, `s4.c3.medium`, `s4.c6.medium`,\
+            \ `s4.c6.large`, `s4.c6.xlarge`, `s4.s2.large`, `a2.c9.large` or `a2.c9.xlarge`."
           example: s1.c1.small
           type: string
         location:
@@ -3523,7 +3523,8 @@ components:
             \ `d3.g2.c2.xlarge`, `d3.g2.c3.xlarge`,`d3.g3.c2.medium`, `s4.x6.c6.large`,\
             \ `s4.x6.m6.xlarge`, `s5.x6.c3.medium`, `s5.x6.c3.large`, `s5.x6.c8.medium`,\
             \ `s5.x6.c9.medium`, `s5.x6.c8.large`, `s5.x6.c9.large`, `s5.x6.m8.xlarge`,\
-            \ `s5.x6.m9.xlarge`, `s4.c3.medium`, `s4.c6.medium` or `s4.s2.large`."
+            \ `s5.x6.m9.xlarge`, `s4.c3.medium`, `s4.c6.medium`, `s4.c6.large`, `s4.c6.xlarge`,\
+            \ `s4.s2.large`, `a2.c9.large` or `a2.c9.xlarge`."
           example: s1.c1.small
           type: string
         location:

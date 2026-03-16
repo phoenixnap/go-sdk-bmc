@@ -490,7 +490,9 @@ paths:
           required: false
           schema:
             type: number
-          description: Minimal quantity of product needed. Minimum, maximum and default values might differ for different products. For servers, they are 1, 10 and 1 respectively.
+            minimum: 1
+            maximum: 10
+          description: Minimum quantity of the product that can be requested. For servers the allowed quantity range is 1 to 10.
           example: 2
       responses:
         '200':
@@ -1156,7 +1158,23 @@ components:
         - TWELVE_MONTHS_RESERVATION
         - TWENTY_FOUR_MONTHS_RESERVATION
         - THIRTY_SIX_MONTHS_RESERVATION
+        - CUSTOM_TERM
         - FREE_TIER
+      example: ONE_MONTH_RESERVATION
+    ReservationTerm:
+      type: object
+      description: The Reservation term.
+      properties:
+        lengthInMonths:
+          description: Term's length, expressed in months.
+          type: integer
+          format: int32
+          example: 12
+        reservationModel:
+          $ref: '#/components/schemas/ReservationModelEnum'
+      required:
+        - lengthInMonths
+        - reservationModel
     ReservationStateEnum:
       description: Reservation state.
       type: string
@@ -1195,7 +1213,7 @@ components:
           type: string
           example: 83604275-bdba-490a-b87a-978e8dffdb14
         productCode:
-          description: The code identifying the product. This code has significant across all locations.
+          description: The code identifying the product. The same code is used for this product across all locations.
           type: string
           example: s1.c1.small
         productCategory:
@@ -1203,7 +1221,11 @@ components:
         location:
           $ref: '#/components/schemas/LocationEnum'
         reservationModel:
-          $ref: '#/components/schemas/ReservationModelEnum'
+          allOf:
+            - $ref: '#/components/schemas/ReservationModelEnum'
+          deprecated: true
+        term:
+          $ref: '#/components/schemas/ReservationTerm'
         reservationState:
           $ref: '#/components/schemas/ReservationStateEnum'
         initialInvoiceModel:
@@ -1280,6 +1302,7 @@ components:
           $ref: '#/components/schemas/Quantity'
       required:
         - sku
+        - quantity
     ReservationAutoRenewDisableRequest:
       description: Disabling auto-renewal for reservation request.
       type: object

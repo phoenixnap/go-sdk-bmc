@@ -78,7 +78,7 @@ func (r ApiProductAvailabilityGetRequest) Solution(solution []string) ApiProduct
 	return r
 }
 
-// Minimal quantity of product needed. Minimum, maximum and default values might differ for different products. For servers, they are 1, 10 and 1 respectively.
+// Minimum quantity of the product that can be requested. For servers the allowed quantity range is 1 to 10.
 func (r ApiProductAvailabilityGetRequest) MinQuantity(minQuantity float32) ApiProductAvailabilityGetRequest {
 	r.minQuantity = &minQuantity
 	return r
