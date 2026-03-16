@@ -748,18 +748,21 @@ paths:
                     - 10.0.0.2
                     dhcp: false
                     statusDescription: in-progress
+                    vlanId: 10
                 DhcpTrue:
                   value:
                     id: 60473a6115e34466c9f8f083
                     ips: []
                     dhcp: true
                     statusDescription: in-progress
+                    vlanId: 10
                 DhcpFalseIpsEmptyForceTrue:
                   value:
                     id: 60473a6115e34466c9f8f083
                     ips: []
                     dhcp: false
                     statusDescription: in-progress
+                    vlanId: 10
               schema:
                 $ref: '#/components/schemas/ServerPrivateNetwork'
           description: The server is being added to the specified private network.
@@ -941,10 +944,16 @@ paths:
                     ips:
                     - 10.0.0.1
                     - 10.0.0.2
+                    dhcp: false
+                    statusDescription: assigned
+                    vlanId: 10
                 privateNetworkWithoutIpsForceTrue:
                   value:
                     id: 60473a6115e34466c9f8f083
                     ips: []
+                    dhcp: false
+                    statusDescription: assigned
+                    vlanId: 10
               schema:
                 $ref: '#/components/schemas/ServerPrivateNetwork'
           description: Updated IP addresses assigned to server.
@@ -1045,6 +1054,28 @@ paths:
         "202":
           content:
             application/json:
+              examples:
+                PublicNetworkWithProvidedIps:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    ips:
+                    - 182.16.0.146
+                    - 182.16.0.147
+                    statusDescription: in-progress
+                    vlanId: 10
+                PublicNetworkWithNoIpsAndForceTrue:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    ips: []
+                    statusDescription: in-progress
+                    vlanId: 10
+                PublicNetworkWithIpV6AndComputeSlaacIpTrue:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    ips:
+                    - 2001:db8::f
+                    statusDescription: in-progress
+                    vlanId: 10
               schema:
                 $ref: '#/components/schemas/ServerPublicNetwork'
           description: The server is being added to the specified Public Network.
@@ -1242,6 +1273,7 @@ paths:
                     - 182.16.0.147
                     - 2001:db8::b
                     statusDescription: assigned
+                    vlanId: 10
                 PublicNetworkWithProvidedIpsAndRanges:
                   value:
                     id: 60473a6115e34466c9f8f088
@@ -1251,11 +1283,13 @@ paths:
                     - 2001:db8::f
                     - 2001:db8::b - 2001:db8::d
                     statusDescription: assigned
+                    vlanId: 10
                 PublicNetworkWithNoIpsAndForceTrue:
                   value:
                     id: 60473a6115e34466c9f8f088
                     ips: []
                     statusDescription: assigned
+                    vlanId: 10
               schema:
                 $ref: '#/components/schemas/ServerPublicNetwork'
           description: Updated IP addresses assigned to server.
@@ -1953,6 +1987,77 @@ paths:
       summary: Reserve server.
       tags:
       - Servers
+  /servers/{serverId}/actions/transfer-reservation:
+    post:
+      description: Transfer server reservation. An active (READY) reservation can
+        be transferred from a server in ERROR or RESERVED status to another HOURLY
+        provisioned server of the same location and type.
+      operationId: serversServerIdActionsTransferReservation
+      parameters:
+      - description: The server's ID.
+        example: 60473a6115e34466c9f8f083
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              targetServerId: 54a21648dasda4s9843a17
+            schema:
+              $ref: '#/components/schemas/ReservationTransferDetails'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+          description: The server reservation has been successfully transferred.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Transfer server reservation.
+      tags:
+      - Servers
   /ssh-keys:
     get:
       description: List all SSH Keys.
@@ -2579,6 +2684,7 @@ components:
           - 172.217.22.14
           - 10.111.14.40/29
           - 10.111.14.66 - 10.111.14.71
+          bringYourOwnLicense: false
         rootPassword: MyP@ssw0rd_01
         managementAccessAllowedIps:
         - 172.217.22.14
@@ -2636,6 +2742,7 @@ components:
       description: Private network details of bare metal server.
       example:
         statusDescription: assigned
+        vlanId: 10
         id: 603f3b2cfcaf050643b89a4b
         ips:
         - 10.1.1.1
@@ -2683,6 +2790,12 @@ components:
           example: assigned
           readOnly: true
           type: string
+        vlanId:
+          description: (Read-only) The VLAN on which this network has been configured
+            within the network switch.
+          example: 10
+          readOnly: true
+          type: integer
       required:
       - id
       type: object
@@ -2721,10 +2834,10 @@ components:
           type: string
           writeOnly: true
         privateNetworks:
-          description: "The list of private networks this server is member of. When\
-            \ this field is part of request body, it'll be used to specify the private\
-            \ networks to assign to this server upon provisioning. Used alongside\
-            \ the `USER_DEFINED` configurationType."
+          description: "The list of private networks this server belongs to. If this\
+            \ field is part of a request body, it will be used for specifying the\
+            \ private networks to assign to this server upon provisioning. Used alongside\
+            \ the USER_DEFINED configurationType."
           example:
           - id: 60f81608e2f4665962b214db
             ips:
@@ -2782,8 +2895,9 @@ components:
           type: string
           writeOnly: true
         ipBlocks:
-          description: Used to specify the previously purchased IP blocks to assign
-            to this server upon provisioning. Used alongside the USER_DEFINED configurationType.
+          description: Used for specifying the previously purchased IPv4 blocks to
+            assign to this server upon provisioning. Used alongside the USER_DEFINED
+            configurationType.
           items:
             $ref: '#/components/schemas/ServerIpBlock'
           maxItems: 1
@@ -2793,10 +2907,13 @@ components:
       description: Public network details of bare metal server.
       example:
         statusDescription: assigned
+        vlanId: 10
         id: 60473c2509268bc77fd06d29
         ips:
         - 182.16.0.146
-        - 2001:db8::b
+        - 10.1.1.20 - 10.1.1.25
+        - 2001:db8::f
+        - 2001:db8::b - 2001:db8::d
         computeSlaacIp: true
       properties:
         id:
@@ -2805,19 +2922,23 @@ components:
           type: string
         ips:
           description: "Configurable/configured IPs on the server.<br> At least 1\
-            \ IP address is required. Valid IP format is single IP addresses. All\
-            \ IPs must be within the network's range.<br> Setting the `computeSlaacIp`\
-            \ field to `true` allows you to provide an empty array of IPs.<br> Additionally,\
-            \ setting the `force` query parameter to `true` allows you to:<ul> <li>\
-            \ Assign no specific IP addresses by designating an empty array of IPs.\
-            \ Note that at least one IP is required for the gateway address to be\
-            \ selected from this network. <li> Assign one or more IP addresses which\
-            \ are already configured on other resource(s) in network.</ul>"
+            \ IP address is required. Valid IP formats include single IP addresses\
+            \ or IP ranges (IPv4 or IPv6). All IPs must be within the network's range.<br>\
+            \ Setting the `computeSlaacIp` field to `true` allows you to provide an\
+            \ empty array of IPs.<br> Additionally, setting the `force` query parameter\
+            \ to `true` allows you to:<ul> <li> Assign no specific IP addresses by\
+            \ designating an empty array of IPs. Note that at least one IP is required\
+            \ for the gateway address to be selected from this network. <li> Assign\
+            \ one or more IP addresses which are already configured on other resource(s)\
+            \ in network.</ul>"
           example:
           - 182.16.0.146
-          - 2001:db8::b
+          - 10.1.1.20 - 10.1.1.25
+          - 2001:db8::f
+          - 2001:db8::b - 2001:db8::d
           items:
-            example: "[\"182.16.0.146\",\"2001:db8::b\"]"
+            example: "[\"182.16.0.146\",\"10.1.1.20 - 10.1.1.25\",\"2001:db8::f\"\
+              ,\"2001:db8::b - 2001:db8::d\"]"
             type: string
           type: array
         statusDescription:
@@ -2831,6 +2952,12 @@ components:
           example: true
           type: boolean
           writeOnly: true
+        vlanId:
+          description: (Read-only) The VLAN on which this network has been configured
+            within the network switch.
+          example: 10
+          readOnly: true
+          type: integer
       required:
       - id
       type: object
@@ -2847,9 +2974,10 @@ components:
           - 183.16.0.1
       properties:
         publicNetworks:
-          description: "The list of public networks this server is member of. When\
-            \ this field is part of request body, it'll be used to specify the public\
-            \ networks to assign to this server upon provisioning."
+          description: "The list of public networks this server belongs to. If this\
+            \ field is part of a request body, it will be used for specifying the\
+            \ public networks to assign to this server on provision. Only IPv4 addresses\
+            \ can be specified."
           example:
           - id: 60473c2509268bc77fd06d29
             ips:
@@ -2984,6 +3112,7 @@ components:
             - 172.217.22.14
             - 10.111.14.40/29
             - 10.111.14.66 - 10.111.14.71
+            bringYourOwnLicense: false
           rootPassword: MyP@ssw0rd_01
           managementAccessAllowedIps:
           - 172.217.22.14
@@ -3071,9 +3200,9 @@ components:
             \ `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`,\
             \ `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`,\
             \ `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`,\
-            \ `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`,\
-            \ `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or\
-            \ `netris/softgate_25g`."
+            \ `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`,\
+            \ `proxmox/proxmox8`, `proxmox/proxmox9`, `netris/controller`, `netris/softgate_1g`,\
+            \ `netris/softgate_10g` or `netris/softgate_25g`."
           example: ubuntu/bionic
           type: string
         type:
@@ -3090,14 +3219,17 @@ components:
             \ `d3.m4.xxlarge`, `d3.m5.xxlarge`,  `d3.m6.xxlarge`, `s3.c3.medium`,\
             \ `s3.c3.large`, `d3.c4.medium`, `d3.c5.medium`, `d3.c6.medium`, `d3.c1.large`,\
             \ `d3.c2.large`, `d3.c3.large`, `d3.m1.xlarge`, `d3.m2.xlarge`, `d3.m3.xlarge`,\
-            \ `d3.g2.c1.xlarge`, `d3.g2.c2.xlarge`, `d3.g2.c3.xlarge`, s4.x6.c6.large\
-            \ or s4.x6.m6.xlarge."
+            \ `d3.g2.c1.xlarge`, `d3.g2.c2.xlarge`, `d3.g2.c3.xlarge`, `d3.g3.c2.medium`,\
+            \ `s4.x6.c6.large`, `s4.x6.m6.xlarge`, `s5.x6.c3.medium`, `s5.x6.c3.large`,\
+            \ `s5.x6.c8.medium`, `s5.x6.c9.medium`, `s5.x6.c8.large`, `s5.x6.c9.large`,\
+            \ `s5.x6.m8.xlarge`, `s5.x6.m9.xlarge`, `s4.c3.medium`, `s4.c6.medium`\
+            \ or `s4.s2.large`."
           example: s1.c1.small
           type: string
         location:
           description: "Server location ID. Cannot be changed once a server is created.\
-            \ Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`,\
-            \ `SEA` or `AUS`."
+            \ Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`\
+            \ or `SEA`."
           example: PHX
           type: string
         cpu:
@@ -3290,6 +3422,7 @@ components:
             - 172.217.22.14
             - 10.111.14.40/29
             - 10.111.14.66 - 10.111.14.71
+            bringYourOwnLicense: false
           rootPassword: MyP@ssw0rd_01
           managementAccessAllowedIps:
           - 172.217.22.14
@@ -3368,9 +3501,9 @@ components:
             \ `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`,\
             \ `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`,\
             \ `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`,\
-            \ `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`,\
-            \ `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or\
-            \ `netris/softgate_25g`."
+            \ `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`,\
+            \ `proxmox/proxmox8`, `proxmox/proxmox9`, `netris/controller`, `netris/softgate_1g`,\
+            \ `netris/softgate_10g` or `netris/softgate_25g`."
           example: ubuntu/bionic
           type: string
         type:
@@ -3387,13 +3520,16 @@ components:
             \ `d3.m4.xxlarge`, `d3.m5.xxlarge`, `d3.m6.xxlarge`, `s3.c3.medium`, `s3.c3.large`,\
             \ `d3.c4.medium`, `d3.c5.medium`, `d3.c6.medium`, `d3.c1.large`, `d3.c2.large`,\
             \ `d3.c3.large`, `d3.m1.xlarge`, `d3.m2.xlarge`, `d3.m3.xlarge`, `d3.g2.c1.xlarge`,\
-            \ `d3.g2.c2.xlarge`, `d3.g2.c3.xlarge`, s4.x6.c6.large or s4.x6.m6.xlarge."
+            \ `d3.g2.c2.xlarge`, `d3.g2.c3.xlarge`,`d3.g3.c2.medium`, `s4.x6.c6.large`,\
+            \ `s4.x6.m6.xlarge`, `s5.x6.c3.medium`, `s5.x6.c3.large`, `s5.x6.c8.medium`,\
+            \ `s5.x6.c9.medium`, `s5.x6.c8.large`, `s5.x6.c9.large`, `s5.x6.m8.xlarge`,\
+            \ `s5.x6.m9.xlarge`, `s4.c3.medium`, `s4.c6.medium` or `s4.s2.large`."
           example: s1.c1.small
           type: string
         location:
           description: "Server location ID. Cannot be changed once a server is created.\
-            \ Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`,\
-            \ `SEA` or `AUS`."
+            \ Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`\
+            \ or `SEA`."
           example: PHX
           type: string
         installDefaultSshKeys:
@@ -3521,9 +3657,9 @@ components:
       properties:
         ips:
           description: List of IPs to be associated to the server.<br> Valid IP formats
-            include single IP addresses or IP ranges (IPv4 or IPv6). IPs must be within
-            the network's range.<br> Setting the `force` query parameter to `true`
-            allows you to:<ul> <li> Assign no specific IP addresses by designating
+            include single IP addresses or IP ranges (IPv4 or IPv6). All IPs must
+            be within the network's range.<br> Setting the `force` query parameter
+            to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating
             an empty array of IPs. <li> Assign one or more IP addresses which are
             already configured on other resource(s) in network. <li> Assign IP addresses
             which are considered as reserved in network.</ul>
@@ -3568,6 +3704,7 @@ components:
             - 172.217.22.14
             - 10.111.14.40/29
             - 10.111.14.66 - 10.111.14.71
+            bringYourOwnLicense: false
           rootPassword: MyP@ssw0rd_01
           managementAccessAllowedIps:
           - 172.217.22.14
@@ -3641,9 +3778,9 @@ components:
             \ `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`,\
             \ `esxi/esxi80`, `almalinux/almalinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux8`,\
             \ `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`,\
-            \ `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`,\
-            \ `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or\
-            \ `netris/softgate_25g`."
+            \ `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`,\
+            \ `proxmox/proxmox8`, `proxmox/proxmox9`,`netris/controller`, `netris/softgate_1g`,\
+            \ `netris/softgate_10g` or `netris/softgate_25g`."
           example: ubuntu/bionic
           type: string
         installDefaultSshKeys:
@@ -3724,6 +3861,7 @@ components:
           - 172.217.22.14
           - 10.111.14.40/29
           - 10.111.14.66 - 10.111.14.71
+          bringYourOwnLicense: false
         proxmox:
           managementUiUrl: https://172.217.22.14:8006
           rootPassword: MyP@ssw0rd_01
@@ -3756,6 +3894,7 @@ components:
             - 172.217.22.14
             - 10.111.14.40/29
             - 10.111.14.66 - 10.111.14.71
+            bringYourOwnLicense: false
           proxmox:
             managementUiUrl: https://172.217.22.14:8006
             rootPassword: MyP@ssw0rd_01
@@ -3819,6 +3958,7 @@ components:
             - 172.217.22.14
             - 10.111.14.40/29
             - 10.111.14.66 - 10.111.14.71
+            bringYourOwnLicense: false
           proxmox:
             managementUiUrl: https://172.217.22.14:8006
             rootPassword: MyP@ssw0rd_01
@@ -3854,6 +3994,18 @@ components:
           type: string
       required:
       - pricingModel
+      type: object
+    ReservationTransferDetails:
+      description: Reservation transfer details.
+      example:
+        targetServerId: 54a21648dasda4s9843a17
+      properties:
+        targetServerId:
+          description: ID of target server to transfer reservation to.
+          example: 54a21648dasda4s9843a17
+          type: string
+      required:
+      - targetServerId
       type: object
     SshKey:
       description: SSH Key.
@@ -4154,6 +4306,7 @@ components:
         - 172.217.22.14
         - 10.111.14.40/29
         - 10.111.14.66 - 10.111.14.71
+        bringYourOwnLicense: false
       properties:
         rdpAllowedIps:
           description: "List of IPs allowed for RDP access to Windows OS. Supported\
@@ -4169,6 +4322,14 @@ components:
             type: string
           minItems: 1
           type: array
+        bringYourOwnLicense:
+          default: false
+          description: "Use a Bring Your Own (BYO) Windows license. \nIf true, the\
+            \ server is provisioned in trial mode, and you must activate your own\
+            \ license. \nIf false (default), the server includes a managed Windows\
+            \ license billed by the platform.\n"
+          example: false
+          type: boolean
       type: object
     OsConfiguration_cloudInit:
       description: Cloud-init configuration details.

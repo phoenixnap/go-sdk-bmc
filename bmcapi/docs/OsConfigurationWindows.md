@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RdpAllowedIps** | Pointer to **[]string** | List of IPs allowed for RDP access to Windows OS. Supported in single IP, CIDR and range format. When undefined, RDP is disabled. To allow RDP access from any IP use 0.0.0.0/0. This will only be returned in response to provisioning a server. | [optional] 
+**BringYourOwnLicense** | Pointer to **bool** | Use a Bring Your Own (BYO) Windows license.  If true, the server is provisioned in trial mode, and you must activate your own license.  If false (default), the server includes a managed Windows license billed by the platform.  | [optional] [default to false]
 
 ## Methods
 
@@ -49,6 +50,31 @@ SetRdpAllowedIps sets RdpAllowedIps field to given value.
 `func (o *OsConfigurationWindows) HasRdpAllowedIps() bool`
 
 HasRdpAllowedIps returns a boolean if a field has been set.
+
+### GetBringYourOwnLicense
+
+`func (o *OsConfigurationWindows) GetBringYourOwnLicense() bool`
+
+GetBringYourOwnLicense returns the BringYourOwnLicense field if non-nil, zero value otherwise.
+
+### GetBringYourOwnLicenseOk
+
+`func (o *OsConfigurationWindows) GetBringYourOwnLicenseOk() (*bool, bool)`
+
+GetBringYourOwnLicenseOk returns a tuple with the BringYourOwnLicense field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBringYourOwnLicense
+
+`func (o *OsConfigurationWindows) SetBringYourOwnLicense(v bool)`
+
+SetBringYourOwnLicense sets BringYourOwnLicense field to given value.
+
+### HasBringYourOwnLicense
+
+`func (o *OsConfigurationWindows) HasBringYourOwnLicense() bool`
+
+HasBringYourOwnLicense returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

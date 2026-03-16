@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**NetworkStorageId** | **string** | Network storage ID. | 
-**NetworkStorageName** | **string** | Network storage name. | 
-**VolumeId** | **string** | Volume ID. | 
-**VolumeName** | **string** | Volume name. | 
+**NetworkStorageId** | Pointer to **string** | Network storage ID. | [optional] 
+**NetworkStorageName** | Pointer to **string** | Network storage name. | [optional] 
+**VolumeId** | Pointer to **string** | Volume ID. | [optional] 
+**VolumeName** | Pointer to **string** | Volume name. | [optional] 
 **CapacityInGb** | **int64** | Capacity in GB. | 
-**CreatedOn** | **time.Time** | Timestamp when the record was created. | 
+**CreatedOn** | Pointer to **time.Time** | Timestamp when the record was created. | [optional] 
 
 ## Methods
 
 ### NewStorageDetails
 
-`func NewStorageDetails(networkStorageId string, networkStorageName string, volumeId string, volumeName string, capacityInGb int64, createdOn time.Time, ) *StorageDetails`
+`func NewStorageDetails(capacityInGb int64, ) *StorageDetails`
 
 NewStorageDetails instantiates a new StorageDetails object
 This constructor will assign default values to properties that have it defined,
@@ -49,6 +49,11 @@ and a boolean to check if the value has been set.
 
 SetNetworkStorageId sets NetworkStorageId field to given value.
 
+### HasNetworkStorageId
+
+`func (o *StorageDetails) HasNetworkStorageId() bool`
+
+HasNetworkStorageId returns a boolean if a field has been set.
 
 ### GetNetworkStorageName
 
@@ -69,6 +74,11 @@ and a boolean to check if the value has been set.
 
 SetNetworkStorageName sets NetworkStorageName field to given value.
 
+### HasNetworkStorageName
+
+`func (o *StorageDetails) HasNetworkStorageName() bool`
+
+HasNetworkStorageName returns a boolean if a field has been set.
 
 ### GetVolumeId
 
@@ -89,6 +99,11 @@ and a boolean to check if the value has been set.
 
 SetVolumeId sets VolumeId field to given value.
 
+### HasVolumeId
+
+`func (o *StorageDetails) HasVolumeId() bool`
+
+HasVolumeId returns a boolean if a field has been set.
 
 ### GetVolumeName
 
@@ -109,6 +124,11 @@ and a boolean to check if the value has been set.
 
 SetVolumeName sets VolumeName field to given value.
 
+### HasVolumeName
+
+`func (o *StorageDetails) HasVolumeName() bool`
+
+HasVolumeName returns a boolean if a field has been set.
 
 ### GetCapacityInGb
 
@@ -149,6 +169,11 @@ and a boolean to check if the value has been set.
 
 SetCreatedOn sets CreatedOn field to given value.
 
+### HasCreatedOn
+
+`func (o *StorageDetails) HasCreatedOn() bool`
+
+HasCreatedOn returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

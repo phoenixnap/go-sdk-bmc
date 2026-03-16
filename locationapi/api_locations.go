@@ -42,12 +42,12 @@ type LocationsAPIService service
 type ApiGetLocationsRequest struct {
 	ctx             context.Context
 	ApiService      LocationsAPI
-	location        *LocationEnum
+	location        *ProductLocationEnum
 	productCategory *ProductCategoryEnum
 }
 
 // Location of interest
-func (r ApiGetLocationsRequest) Location(location LocationEnum) ApiGetLocationsRequest {
+func (r ApiGetLocationsRequest) Location(location ProductLocationEnum) ApiGetLocationsRequest {
 	r.location = &location
 	return r
 }

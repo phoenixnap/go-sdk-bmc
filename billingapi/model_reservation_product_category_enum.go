@@ -23,12 +23,14 @@ type ReservationProductCategoryEnum string
 const (
 	RESERVATIONPRODUCTCATEGORYENUM_SERVER    ReservationProductCategoryEnum = "server"
 	RESERVATIONPRODUCTCATEGORYENUM_BANDWIDTH ReservationProductCategoryEnum = "bandwidth"
+	RESERVATIONPRODUCTCATEGORYENUM_STORAGE   ReservationProductCategoryEnum = "storage"
 )
 
 // All allowed values of ReservationProductCategoryEnum enum
 var AllowedReservationProductCategoryEnumEnumValues = []ReservationProductCategoryEnum{
 	"server",
 	"bandwidth",
+	"storage",
 }
 
 func (v *ReservationProductCategoryEnum) UnmarshalJSON(src []byte) error {

@@ -28,7 +28,7 @@ paths:
         name: location
         required: false
         schema:
-          $ref: '#/components/schemas/LocationEnum'
+          $ref: '#/components/schemas/ProductLocationEnum'
         style: form
       - description: Product category of interest
         example: SERVER
@@ -110,7 +110,7 @@ components:
         location: null
       properties:
         location:
-          $ref: '#/components/schemas/LocationEnum'
+          $ref: '#/components/schemas/ProductLocationEnum'
         locationDescription:
           example: "Phoenix, USA"
           type: string
@@ -149,8 +149,14 @@ components:
         Example 1:
           productCategory: SERVER
           productCategoryDescription: Bare metal server
-    LocationEnum:
-      description: The location code.
+    ProductLocationEnum:
+      description: |
+        This enum is used <b>only in product-related schemas</b> and contains
+        <b>only currently active and supported locations</b>.
+        Deprecated or retired locations are intentionally excluded and will not appear
+        in create/update operations.
+        Historical data in other API responses may still reference deprecated locations,
+        but those values are not part of this enum.
       enum:
       - PHX
       - ASH
@@ -158,7 +164,6 @@ components:
       - SGP
       - CHI
       - SEA
-      - AUS
       type: string
     ProductCategoryEnum:
       description: The product category.

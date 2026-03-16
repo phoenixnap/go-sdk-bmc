@@ -21,7 +21,7 @@ var _ MappedNullable = &LocationAvailabilityDetail{}
 
 // LocationAvailabilityDetail Info about location, solutions and availability for a product.
 type LocationAvailabilityDetail struct {
-	Location LocationEnum `json:"location"`
+	Location ProductLocationEnum `json:"location"`
 	// Requested quantity.
 	MinQuantityRequested float32 `json:"minQuantityRequested"`
 	// Is product available in specific location for requested quantity
@@ -39,7 +39,7 @@ type _LocationAvailabilityDetail LocationAvailabilityDetail
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLocationAvailabilityDetail(location LocationEnum, minQuantityRequested float32, minQuantityAvailable bool, availableQuantity float32, solutions []string) *LocationAvailabilityDetail {
+func NewLocationAvailabilityDetail(location ProductLocationEnum, minQuantityRequested float32, minQuantityAvailable bool, availableQuantity float32, solutions []string) *LocationAvailabilityDetail {
 	this := LocationAvailabilityDetail{}
 	this.Location = location
 	this.MinQuantityRequested = minQuantityRequested
@@ -58,9 +58,9 @@ func NewLocationAvailabilityDetailWithDefaults() *LocationAvailabilityDetail {
 }
 
 // GetLocation returns the Location field value
-func (o *LocationAvailabilityDetail) GetLocation() LocationEnum {
+func (o *LocationAvailabilityDetail) GetLocation() ProductLocationEnum {
 	if o == nil {
-		var ret LocationEnum
+		var ret ProductLocationEnum
 		return ret
 	}
 
@@ -69,7 +69,7 @@ func (o *LocationAvailabilityDetail) GetLocation() LocationEnum {
 
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
-func (o *LocationAvailabilityDetail) GetLocationOk() (*LocationEnum, bool) {
+func (o *LocationAvailabilityDetail) GetLocationOk() (*ProductLocationEnum, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -77,7 +77,7 @@ func (o *LocationAvailabilityDetail) GetLocationOk() (*LocationEnum, bool) {
 }
 
 // SetLocation sets field value
-func (o *LocationAvailabilityDetail) SetLocation(v LocationEnum) {
+func (o *LocationAvailabilityDetail) SetLocation(v ProductLocationEnum) {
 	o.Location = v
 }
 

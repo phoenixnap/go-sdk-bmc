@@ -23,7 +23,7 @@ var _ MappedNullable = &IpBlock{}
 type IpBlock struct {
 	// IP Block identifier.
 	Id *string `json:"id,omitempty"`
-	// IP Block location ID. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
+	// IP Block location ID. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI` or `SEA`.
 	Location *string `json:"location,omitempty"`
 	// CIDR IP Block Size. Currently this field should be set to either `/31`, `/30`, `/29`, `/28`, `/27`, `/26`, `/25`, `/24`, `/23` or `/22`.
 	CidrBlockSize *string `json:"cidrBlockSize,omitempty"`

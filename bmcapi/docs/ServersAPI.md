@@ -15,6 +15,7 @@ Method | HTTP request | Description
 [**ServersServerIdActionsReservePost**](ServersAPI.md#ServersServerIdActionsReservePost) | **Post** /servers/{serverId}/actions/reserve | Reserve server.
 [**ServersServerIdActionsResetPost**](ServersAPI.md#ServersServerIdActionsResetPost) | **Post** /servers/{serverId}/actions/reset | Reset server.
 [**ServersServerIdActionsShutdownPost**](ServersAPI.md#ServersServerIdActionsShutdownPost) | **Post** /servers/{serverId}/actions/shutdown | Shutdown server.
+[**ServersServerIdActionsTransferReservation**](ServersAPI.md#ServersServerIdActionsTransferReservation) | **Post** /servers/{serverId}/actions/transfer-reservation | Transfer server reservation.
 [**ServersServerIdDelete**](ServersAPI.md#ServersServerIdDelete) | **Delete** /servers/{serverId} | Delete server.
 [**ServersServerIdGet**](ServersAPI.md#ServersServerIdGet) | **Get** /servers/{serverId} | Get server.
 [**ServersServerIdIpBlocksIpBlockIdDelete**](ServersAPI.md#ServersServerIdIpBlocksIpBlockIdDelete) | **Delete** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks/{ipBlockId} | Unassign IP Block from Server.
@@ -799,6 +800,78 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ServersServerIdActionsTransferReservation
+
+> Server ServersServerIdActionsTransferReservation(ctx, serverId).ReservationTransferDetails(reservationTransferDetails).Execute()
+
+Transfer server reservation.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
+)
+
+func main() {
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	reservationTransferDetails := *openapiclient.NewReservationTransferDetails("54a21648dasda4s9843a17") // ReservationTransferDetails | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdActionsTransferReservation(context.Background(), serverId).ReservationTransferDetails(reservationTransferDetails).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdActionsTransferReservation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdActionsTransferReservation`: Server
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdActionsTransferReservation`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**serverId** | **string** | The server&#39;s ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiServersServerIdActionsTransferReservationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **reservationTransferDetails** | [**ReservationTransferDetails**](ReservationTransferDetails.md) |  | 
+
+### Return type
+
+[**Server**](Server.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

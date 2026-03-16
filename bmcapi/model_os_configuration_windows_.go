@@ -21,7 +21,9 @@ var _ MappedNullable = &OsConfigurationWindows{}
 // OsConfigurationWindows Windows OS configuration properties.
 type OsConfigurationWindows struct {
 	// List of IPs allowed for RDP access to Windows OS. Supported in single IP, CIDR and range format. When undefined, RDP is disabled. To allow RDP access from any IP use 0.0.0.0/0. This will only be returned in response to provisioning a server.
-	RdpAllowedIps        []string `json:"rdpAllowedIps,omitempty"`
+	RdpAllowedIps []string `json:"rdpAllowedIps,omitempty"`
+	// Use a Bring Your Own (BYO) Windows license.  If true, the server is provisioned in trial mode, and you must activate your own license.  If false (default), the server includes a managed Windows license billed by the platform.
+	BringYourOwnLicense  *bool `json:"bringYourOwnLicense,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,6 +35,8 @@ type _OsConfigurationWindows OsConfigurationWindows
 // will change when the set of required properties is changed
 func NewOsConfigurationWindows() *OsConfigurationWindows {
 	this := OsConfigurationWindows{}
+	var bringYourOwnLicense bool = false
+	this.BringYourOwnLicense = &bringYourOwnLicense
 	return &this
 }
 
@@ -41,6 +45,8 @@ func NewOsConfigurationWindows() *OsConfigurationWindows {
 // but it doesn't guarantee that properties required by API are set
 func NewOsConfigurationWindowsWithDefaults() *OsConfigurationWindows {
 	this := OsConfigurationWindows{}
+	var bringYourOwnLicense bool = false
+	this.BringYourOwnLicense = &bringYourOwnLicense
 	return &this
 }
 
@@ -76,6 +82,38 @@ func (o *OsConfigurationWindows) SetRdpAllowedIps(v []string) {
 	o.RdpAllowedIps = v
 }
 
+// GetBringYourOwnLicense returns the BringYourOwnLicense field value if set, zero value otherwise.
+func (o *OsConfigurationWindows) GetBringYourOwnLicense() bool {
+	if o == nil || IsNil(o.BringYourOwnLicense) {
+		var ret bool
+		return ret
+	}
+	return *o.BringYourOwnLicense
+}
+
+// GetBringYourOwnLicenseOk returns a tuple with the BringYourOwnLicense field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OsConfigurationWindows) GetBringYourOwnLicenseOk() (*bool, bool) {
+	if o == nil || IsNil(o.BringYourOwnLicense) {
+		return nil, false
+	}
+	return o.BringYourOwnLicense, true
+}
+
+// HasBringYourOwnLicense returns a boolean if a field has been set.
+func (o *OsConfigurationWindows) HasBringYourOwnLicense() bool {
+	if o != nil && !IsNil(o.BringYourOwnLicense) {
+		return true
+	}
+
+	return false
+}
+
+// SetBringYourOwnLicense gets a reference to the given bool and assigns it to the BringYourOwnLicense field.
+func (o *OsConfigurationWindows) SetBringYourOwnLicense(v bool) {
+	o.BringYourOwnLicense = &v
+}
+
 func (o OsConfigurationWindows) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -88,6 +126,9 @@ func (o OsConfigurationWindows) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.RdpAllowedIps) {
 		toSerialize["rdpAllowedIps"] = o.RdpAllowedIps
+	}
+	if !IsNil(o.BringYourOwnLicense) {
+		toSerialize["bringYourOwnLicense"] = o.BringYourOwnLicense
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -112,6 +153,7 @@ func (o *OsConfigurationWindows) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "rdpAllowedIps")
+		delete(additionalProperties, "bringYourOwnLicense")
 		o.AdditionalProperties = additionalProperties
 	}
 

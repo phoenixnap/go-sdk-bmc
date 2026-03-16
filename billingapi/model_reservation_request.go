@@ -22,7 +22,8 @@ var _ MappedNullable = &ReservationRequest{}
 // ReservationRequest Reservation request.
 type ReservationRequest struct {
 	// The sku code of product pricing plan.
-	Sku                  string `json:"sku"`
+	Sku                  string    `json:"sku"`
+	Quantity             *Quantity `json:"quantity,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -70,6 +71,38 @@ func (o *ReservationRequest) SetSku(v string) {
 	o.Sku = v
 }
 
+// GetQuantity returns the Quantity field value if set, zero value otherwise.
+func (o *ReservationRequest) GetQuantity() Quantity {
+	if o == nil || IsNil(o.Quantity) {
+		var ret Quantity
+		return ret
+	}
+	return *o.Quantity
+}
+
+// GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ReservationRequest) GetQuantityOk() (*Quantity, bool) {
+	if o == nil || IsNil(o.Quantity) {
+		return nil, false
+	}
+	return o.Quantity, true
+}
+
+// HasQuantity returns a boolean if a field has been set.
+func (o *ReservationRequest) HasQuantity() bool {
+	if o != nil && !IsNil(o.Quantity) {
+		return true
+	}
+
+	return false
+}
+
+// SetQuantity gets a reference to the given Quantity and assigns it to the Quantity field.
+func (o *ReservationRequest) SetQuantity(v Quantity) {
+	o.Quantity = &v
+}
+
 func (o ReservationRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -81,6 +114,9 @@ func (o ReservationRequest) MarshalJSON() ([]byte, error) {
 func (o ReservationRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["sku"] = o.Sku
+	if !IsNil(o.Quantity) {
+		toSerialize["quantity"] = o.Quantity
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -125,6 +161,7 @@ func (o *ReservationRequest) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "sku")
+		delete(additionalProperties, "quantity")
 		o.AdditionalProperties = additionalProperties
 	}
 

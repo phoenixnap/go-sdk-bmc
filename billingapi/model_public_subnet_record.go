@@ -51,11 +51,13 @@ type PublicSubnetRecord struct {
 	// A flag indicating whether the rated usage record is still active.
 	Active bool `json:"active"`
 	// The usage session ID is used to correlate rated usage records across periods of time. For example, a server used for over a month will generate multiple rated usage records. The entire usage session cost can be computed by aggregating the records having the same usage session ID. It is usual to have one rated usage record per month or invoice.
-	UsageSessionId string `json:"usageSessionId"`
+	UsageSessionId *string `json:"usageSessionId,omitempty"`
 	// Holds usage record id
-	CorrelationId string `json:"correlationId"`
+	CorrelationId *string `json:"correlationId,omitempty"`
 	// Reservation id associated with this rated usage record.
+	// Deprecated
 	ReservationId        *string                    `json:"reservationId,omitempty"`
+	ReservationDetails   *ReservationDetails        `json:"reservationDetails,omitempty"`
 	DiscountDetails      *ApplicableDiscountDetails `json:"discountDetails,omitempty"`
 	CreditDetails        []CreditDetails            `json:"creditDetails,omitempty"`
 	Metadata             PublicSubnetDetails        `json:"metadata"`
@@ -68,7 +70,7 @@ type _PublicSubnetRecord PublicSubnetRecord
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicSubnetRecord(id string, productCategory RatedUsageProductCategoryEnum, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, usageSessionId string, correlationId string, metadata PublicSubnetDetails) *PublicSubnetRecord {
+func NewPublicSubnetRecord(id string, productCategory RatedUsageProductCategoryEnum, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, metadata PublicSubnetDetails) *PublicSubnetRecord {
 	this := PublicSubnetRecord{}
 	this.Id = id
 	this.ProductCategory = productCategory
@@ -82,8 +84,6 @@ func NewPublicSubnetRecord(id string, productCategory RatedUsageProductCategoryE
 	this.UnitPriceDescription = unitPriceDescription
 	this.Quantity = quantity
 	this.Active = active
-	this.UsageSessionId = usageSessionId
-	this.CorrelationId = correlationId
 	this.Metadata = metadata
 	return &this
 }
@@ -480,55 +480,72 @@ func (o *PublicSubnetRecord) SetActive(v bool) {
 	o.Active = v
 }
 
-// GetUsageSessionId returns the UsageSessionId field value
+// GetUsageSessionId returns the UsageSessionId field value if set, zero value otherwise.
 func (o *PublicSubnetRecord) GetUsageSessionId() string {
-	if o == nil {
+	if o == nil || IsNil(o.UsageSessionId) {
 		var ret string
 		return ret
 	}
-
-	return o.UsageSessionId
+	return *o.UsageSessionId
 }
 
-// GetUsageSessionIdOk returns a tuple with the UsageSessionId field value
+// GetUsageSessionIdOk returns a tuple with the UsageSessionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicSubnetRecord) GetUsageSessionIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.UsageSessionId) {
 		return nil, false
 	}
-	return &o.UsageSessionId, true
+	return o.UsageSessionId, true
 }
 
-// SetUsageSessionId sets field value
+// HasUsageSessionId returns a boolean if a field has been set.
+func (o *PublicSubnetRecord) HasUsageSessionId() bool {
+	if o != nil && !IsNil(o.UsageSessionId) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsageSessionId gets a reference to the given string and assigns it to the UsageSessionId field.
 func (o *PublicSubnetRecord) SetUsageSessionId(v string) {
-	o.UsageSessionId = v
+	o.UsageSessionId = &v
 }
 
-// GetCorrelationId returns the CorrelationId field value
+// GetCorrelationId returns the CorrelationId field value if set, zero value otherwise.
 func (o *PublicSubnetRecord) GetCorrelationId() string {
-	if o == nil {
+	if o == nil || IsNil(o.CorrelationId) {
 		var ret string
 		return ret
 	}
-
-	return o.CorrelationId
+	return *o.CorrelationId
 }
 
-// GetCorrelationIdOk returns a tuple with the CorrelationId field value
+// GetCorrelationIdOk returns a tuple with the CorrelationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicSubnetRecord) GetCorrelationIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CorrelationId) {
 		return nil, false
 	}
-	return &o.CorrelationId, true
+	return o.CorrelationId, true
 }
 
-// SetCorrelationId sets field value
+// HasCorrelationId returns a boolean if a field has been set.
+func (o *PublicSubnetRecord) HasCorrelationId() bool {
+	if o != nil && !IsNil(o.CorrelationId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCorrelationId gets a reference to the given string and assigns it to the CorrelationId field.
 func (o *PublicSubnetRecord) SetCorrelationId(v string) {
-	o.CorrelationId = v
+	o.CorrelationId = &v
 }
 
 // GetReservationId returns the ReservationId field value if set, zero value otherwise.
+// Deprecated
 func (o *PublicSubnetRecord) GetReservationId() string {
 	if o == nil || IsNil(o.ReservationId) {
 		var ret string
@@ -539,6 +556,7 @@ func (o *PublicSubnetRecord) GetReservationId() string {
 
 // GetReservationIdOk returns a tuple with the ReservationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *PublicSubnetRecord) GetReservationIdOk() (*string, bool) {
 	if o == nil || IsNil(o.ReservationId) {
 		return nil, false
@@ -556,8 +574,41 @@ func (o *PublicSubnetRecord) HasReservationId() bool {
 }
 
 // SetReservationId gets a reference to the given string and assigns it to the ReservationId field.
+// Deprecated
 func (o *PublicSubnetRecord) SetReservationId(v string) {
 	o.ReservationId = &v
+}
+
+// GetReservationDetails returns the ReservationDetails field value if set, zero value otherwise.
+func (o *PublicSubnetRecord) GetReservationDetails() ReservationDetails {
+	if o == nil || IsNil(o.ReservationDetails) {
+		var ret ReservationDetails
+		return ret
+	}
+	return *o.ReservationDetails
+}
+
+// GetReservationDetailsOk returns a tuple with the ReservationDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PublicSubnetRecord) GetReservationDetailsOk() (*ReservationDetails, bool) {
+	if o == nil || IsNil(o.ReservationDetails) {
+		return nil, false
+	}
+	return o.ReservationDetails, true
+}
+
+// HasReservationDetails returns a boolean if a field has been set.
+func (o *PublicSubnetRecord) HasReservationDetails() bool {
+	if o != nil && !IsNil(o.ReservationDetails) {
+		return true
+	}
+
+	return false
+}
+
+// SetReservationDetails gets a reference to the given ReservationDetails and assigns it to the ReservationDetails field.
+func (o *PublicSubnetRecord) SetReservationDetails(v ReservationDetails) {
+	o.ReservationDetails = &v
 }
 
 // GetDiscountDetails returns the DiscountDetails field value if set, zero value otherwise.
@@ -679,10 +730,17 @@ func (o PublicSubnetRecord) ToMap() (map[string]interface{}, error) {
 	toSerialize["unitPriceDescription"] = o.UnitPriceDescription
 	toSerialize["quantity"] = o.Quantity
 	toSerialize["active"] = o.Active
-	toSerialize["usageSessionId"] = o.UsageSessionId
-	toSerialize["correlationId"] = o.CorrelationId
+	if !IsNil(o.UsageSessionId) {
+		toSerialize["usageSessionId"] = o.UsageSessionId
+	}
+	if !IsNil(o.CorrelationId) {
+		toSerialize["correlationId"] = o.CorrelationId
+	}
 	if !IsNil(o.ReservationId) {
 		toSerialize["reservationId"] = o.ReservationId
+	}
+	if !IsNil(o.ReservationDetails) {
+		toSerialize["reservationDetails"] = o.ReservationDetails
 	}
 	if !IsNil(o.DiscountDetails) {
 		toSerialize["discountDetails"] = o.DiscountDetails
@@ -716,8 +774,6 @@ func (o *PublicSubnetRecord) UnmarshalJSON(data []byte) (err error) {
 		"unitPriceDescription",
 		"quantity",
 		"active",
-		"usageSessionId",
-		"correlationId",
 		"metadata",
 	}
 
@@ -766,6 +822,7 @@ func (o *PublicSubnetRecord) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "usageSessionId")
 		delete(additionalProperties, "correlationId")
 		delete(additionalProperties, "reservationId")
+		delete(additionalProperties, "reservationDetails")
 		delete(additionalProperties, "discountDetails")
 		delete(additionalProperties, "creditDetails")
 		delete(additionalProperties, "metadata")

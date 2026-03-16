@@ -19,9 +19,10 @@ Name | Type | Description | Notes
 **UnitPriceDescription** | **string** | User friendly description of the unit price. | 
 **Quantity** | **float32** | The number of units being charged. | 
 **Active** | **bool** | A flag indicating whether the rated usage record is still active. | 
-**UsageSessionId** | **string** | The usage session ID is used to correlate rated usage records across periods of time. For example, a server used for over a month will generate multiple rated usage records. The entire usage session cost can be computed by aggregating the records having the same usage session ID. It is usual to have one rated usage record per month or invoice. | 
-**CorrelationId** | **string** | Holds usage record id | 
+**UsageSessionId** | Pointer to **string** | The usage session ID is used to correlate rated usage records across periods of time. For example, a server used for over a month will generate multiple rated usage records. The entire usage session cost can be computed by aggregating the records having the same usage session ID. It is usual to have one rated usage record per month or invoice. | [optional] 
+**CorrelationId** | Pointer to **string** | Holds usage record id | [optional] 
 **ReservationId** | Pointer to **string** | Reservation id associated with this rated usage record. | [optional] 
+**ReservationDetails** | Pointer to [**ReservationDetails**](ReservationDetails.md) |  | [optional] 
 **DiscountDetails** | Pointer to [**ApplicableDiscountDetails**](ApplicableDiscountDetails.md) |  | [optional] 
 **CreditDetails** | Pointer to [**[]CreditDetails**](CreditDetails.md) |  | [optional] 
 **Metadata** | [**StorageDetails**](StorageDetails.md) |  | 
@@ -30,7 +31,7 @@ Name | Type | Description | Notes
 
 ### NewRatedUsageGet200ResponseInner
 
-`func NewRatedUsageGet200ResponseInner(id string, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, usageSessionId string, correlationId string, metadata StorageDetails, ) *RatedUsageGet200ResponseInner`
+`func NewRatedUsageGet200ResponseInner(id string, productCode string, location LocationEnum, startDateTime time.Time, endDateTime time.Time, cost int64, priceModel string, unitPrice float32, unitPriceDescription string, quantity float32, active bool, metadata StorageDetails, ) *RatedUsageGet200ResponseInner`
 
 NewRatedUsageGet200ResponseInner instantiates a new RatedUsageGet200ResponseInner object
 This constructor will assign default values to properties that have it defined,
@@ -384,6 +385,11 @@ and a boolean to check if the value has been set.
 
 SetUsageSessionId sets UsageSessionId field to given value.
 
+### HasUsageSessionId
+
+`func (o *RatedUsageGet200ResponseInner) HasUsageSessionId() bool`
+
+HasUsageSessionId returns a boolean if a field has been set.
 
 ### GetCorrelationId
 
@@ -404,6 +410,11 @@ and a boolean to check if the value has been set.
 
 SetCorrelationId sets CorrelationId field to given value.
 
+### HasCorrelationId
+
+`func (o *RatedUsageGet200ResponseInner) HasCorrelationId() bool`
+
+HasCorrelationId returns a boolean if a field has been set.
 
 ### GetReservationId
 
@@ -429,6 +440,31 @@ SetReservationId sets ReservationId field to given value.
 `func (o *RatedUsageGet200ResponseInner) HasReservationId() bool`
 
 HasReservationId returns a boolean if a field has been set.
+
+### GetReservationDetails
+
+`func (o *RatedUsageGet200ResponseInner) GetReservationDetails() ReservationDetails`
+
+GetReservationDetails returns the ReservationDetails field if non-nil, zero value otherwise.
+
+### GetReservationDetailsOk
+
+`func (o *RatedUsageGet200ResponseInner) GetReservationDetailsOk() (*ReservationDetails, bool)`
+
+GetReservationDetailsOk returns a tuple with the ReservationDetails field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReservationDetails
+
+`func (o *RatedUsageGet200ResponseInner) SetReservationDetails(v ReservationDetails)`
+
+SetReservationDetails sets ReservationDetails field to given value.
+
+### HasReservationDetails
+
+`func (o *RatedUsageGet200ResponseInner) HasReservationDetails() bool`
+
+HasReservationDetails returns a boolean if a field has been set.
 
 ### GetDiscountDetails
 

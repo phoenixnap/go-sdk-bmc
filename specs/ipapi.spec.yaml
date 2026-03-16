@@ -278,7 +278,7 @@ components:
         - cidrBlockSize
       properties:
         location:
-          description: IP Block location ID. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
+          description: IP Block location ID. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI` or `SEA`.
           type: string
           example: PHX
         cidrBlockSize:
@@ -314,7 +314,7 @@ components:
           type: string
           example: 6047127fed34ecc3ba8402d2
         location:
-          description: IP Block location ID. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
+          description: IP Block location ID. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI` or `SEA`.
           type: string
           example: PHX
         cidrBlockSize:

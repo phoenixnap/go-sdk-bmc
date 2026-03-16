@@ -9,7 +9,9 @@ Name | Type | Description | Notes
 **ProductCategory** | [**ReservationProductCategoryEnum**](ReservationProductCategoryEnum.md) |  | 
 **Location** | [**LocationEnum**](LocationEnum.md) |  | 
 **ReservationModel** | [**ReservationModelEnum**](ReservationModelEnum.md) |  | 
+**ReservationState** | [**ReservationStateEnum**](ReservationStateEnum.md) |  | 
 **InitialInvoiceModel** | Pointer to [**ReservationInvoicingModelEnum**](ReservationInvoicingModelEnum.md) |  | [optional] 
+**Quantity** | [**Quantity**](Quantity.md) |  | 
 **StartDateTime** | **time.Time** | The point in time (in UTC) when the reservation starts. | 
 **EndDateTime** | Pointer to **time.Time** | The point in time (in UTC) when the reservation end. | [optional] 
 **LastRenewalDateTime** | Pointer to **time.Time** | The point in time (in UTC) when the reservation was renewed last. | [optional] 
@@ -20,12 +22,13 @@ Name | Type | Description | Notes
 **PriceUnit** | [**PriceUnitEnum**](PriceUnitEnum.md) |  | 
 **AssignedResourceId** | Pointer to **string** | The resource ID currently being assigned to Reservation. | [optional] 
 **NextBillingDate** | Pointer to **string** | Next billing date for Reservation. | [optional] 
+**Utilization** | Pointer to [**Utilization**](Utilization.md) |  | [optional] 
 
 ## Methods
 
 ### NewReservation
 
-`func NewReservation(id string, productCode string, productCategory ReservationProductCategoryEnum, location LocationEnum, reservationModel ReservationModelEnum, startDateTime time.Time, autoRenew bool, sku string, price float32, priceUnit PriceUnitEnum, ) *Reservation`
+`func NewReservation(id string, productCode string, productCategory ReservationProductCategoryEnum, location LocationEnum, reservationModel ReservationModelEnum, reservationState ReservationStateEnum, quantity Quantity, startDateTime time.Time, autoRenew bool, sku string, price float32, priceUnit PriceUnitEnum, ) *Reservation`
 
 NewReservation instantiates a new Reservation object
 This constructor will assign default values to properties that have it defined,
@@ -140,6 +143,26 @@ and a boolean to check if the value has been set.
 SetReservationModel sets ReservationModel field to given value.
 
 
+### GetReservationState
+
+`func (o *Reservation) GetReservationState() ReservationStateEnum`
+
+GetReservationState returns the ReservationState field if non-nil, zero value otherwise.
+
+### GetReservationStateOk
+
+`func (o *Reservation) GetReservationStateOk() (*ReservationStateEnum, bool)`
+
+GetReservationStateOk returns a tuple with the ReservationState field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReservationState
+
+`func (o *Reservation) SetReservationState(v ReservationStateEnum)`
+
+SetReservationState sets ReservationState field to given value.
+
+
 ### GetInitialInvoiceModel
 
 `func (o *Reservation) GetInitialInvoiceModel() ReservationInvoicingModelEnum`
@@ -164,6 +187,26 @@ SetInitialInvoiceModel sets InitialInvoiceModel field to given value.
 `func (o *Reservation) HasInitialInvoiceModel() bool`
 
 HasInitialInvoiceModel returns a boolean if a field has been set.
+
+### GetQuantity
+
+`func (o *Reservation) GetQuantity() Quantity`
+
+GetQuantity returns the Quantity field if non-nil, zero value otherwise.
+
+### GetQuantityOk
+
+`func (o *Reservation) GetQuantityOk() (*Quantity, bool)`
+
+GetQuantityOk returns a tuple with the Quantity field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQuantity
+
+`func (o *Reservation) SetQuantity(v Quantity)`
+
+SetQuantity sets Quantity field to given value.
+
 
 ### GetStartDateTime
 
@@ -389,6 +432,31 @@ SetNextBillingDate sets NextBillingDate field to given value.
 `func (o *Reservation) HasNextBillingDate() bool`
 
 HasNextBillingDate returns a boolean if a field has been set.
+
+### GetUtilization
+
+`func (o *Reservation) GetUtilization() Utilization`
+
+GetUtilization returns the Utilization field if non-nil, zero value otherwise.
+
+### GetUtilizationOk
+
+`func (o *Reservation) GetUtilizationOk() (*Utilization, bool)`
+
+GetUtilizationOk returns a tuple with the Utilization field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUtilization
+
+`func (o *Reservation) SetUtilization(v Utilization)`
+
+SetUtilization sets Utilization field to given value.
+
+### HasUtilization
+
+`func (o *Reservation) HasUtilization() bool`
+
+HasUtilization returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
