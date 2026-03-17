@@ -130,66 +130,6 @@ func (dst *RatedUsageGet200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'BandwidthRecord'
-	if jsonDict["productCategory"] == "BandwidthRecord" {
-		// try to unmarshal JSON data into BandwidthRecord
-		err = json.Unmarshal(data, &dst.BandwidthRecord)
-		if err == nil {
-			return nil // data stored in dst.BandwidthRecord, return on the first match
-		} else {
-			dst.BandwidthRecord = nil
-			return fmt.Errorf("failed to unmarshal RatedUsageGet200ResponseInner as BandwidthRecord: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'OperatingSystemRecord'
-	if jsonDict["productCategory"] == "OperatingSystemRecord" {
-		// try to unmarshal JSON data into OperatingSystemRecord
-		err = json.Unmarshal(data, &dst.OperatingSystemRecord)
-		if err == nil {
-			return nil // data stored in dst.OperatingSystemRecord, return on the first match
-		} else {
-			dst.OperatingSystemRecord = nil
-			return fmt.Errorf("failed to unmarshal RatedUsageGet200ResponseInner as OperatingSystemRecord: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'PublicSubnetRecord'
-	if jsonDict["productCategory"] == "PublicSubnetRecord" {
-		// try to unmarshal JSON data into PublicSubnetRecord
-		err = json.Unmarshal(data, &dst.PublicSubnetRecord)
-		if err == nil {
-			return nil // data stored in dst.PublicSubnetRecord, return on the first match
-		} else {
-			dst.PublicSubnetRecord = nil
-			return fmt.Errorf("failed to unmarshal RatedUsageGet200ResponseInner as PublicSubnetRecord: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'ServerRecord'
-	if jsonDict["productCategory"] == "ServerRecord" {
-		// try to unmarshal JSON data into ServerRecord
-		err = json.Unmarshal(data, &dst.ServerRecord)
-		if err == nil {
-			return nil // data stored in dst.ServerRecord, return on the first match
-		} else {
-			dst.ServerRecord = nil
-			return fmt.Errorf("failed to unmarshal RatedUsageGet200ResponseInner as ServerRecord: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'StorageRecord'
-	if jsonDict["productCategory"] == "StorageRecord" {
-		// try to unmarshal JSON data into StorageRecord
-		err = json.Unmarshal(data, &dst.StorageRecord)
-		if err == nil {
-			return nil // data stored in dst.StorageRecord, return on the first match
-		} else {
-			dst.StorageRecord = nil
-			return fmt.Errorf("failed to unmarshal RatedUsageGet200ResponseInner as StorageRecord: %s", err.Error())
-		}
-	}
-
 	return nil
 }
 
@@ -241,6 +181,32 @@ func (obj *RatedUsageGet200ResponseInner) GetActualInstance() interface{} {
 
 	if obj.StorageRecord != nil {
 		return obj.StorageRecord
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj RatedUsageGet200ResponseInner) GetActualInstanceValue() interface{} {
+	if obj.BandwidthRecord != nil {
+		return *obj.BandwidthRecord
+	}
+
+	if obj.OperatingSystemRecord != nil {
+		return *obj.OperatingSystemRecord
+	}
+
+	if obj.PublicSubnetRecord != nil {
+		return *obj.PublicSubnetRecord
+	}
+
+	if obj.ServerRecord != nil {
+		return *obj.ServerRecord
+	}
+
+	if obj.StorageRecord != nil {
+		return *obj.StorageRecord
 	}
 
 	// all schemas are nil

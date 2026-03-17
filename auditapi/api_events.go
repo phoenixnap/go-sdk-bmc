@@ -135,28 +135,29 @@ func (a *EventsAPIService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *ht
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.order != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "form", "")
 	} else {
 		var defaultValue string = "ASC"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", defaultValue, "form", "")
 		r.order = &defaultValue
 	}
 	if r.username != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "username", r.username, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "username", r.username, "form", "")
 	}
 	if r.verb != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "verb", r.verb, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "verb", r.verb, "form", "")
 	}
 	if r.uri != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "uri", r.uri, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "uri", r.uri, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

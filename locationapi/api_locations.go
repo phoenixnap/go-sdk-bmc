@@ -99,10 +99,10 @@ func (a *LocationsAPIService) GetLocationsExecute(r ApiGetLocationsRequest) ([]L
 	localVarFormParams := url.Values{}
 
 	if r.location != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "form", "")
 	}
 	if r.productCategory != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

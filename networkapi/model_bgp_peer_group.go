@@ -35,7 +35,7 @@ type BgpPeerGroup struct {
 	TargetAsnDetails AsnDetails    `json:"targetAsnDetails"`
 	ActiveAsnDetails *AsnDetails   `json:"activeAsnDetails,omitempty"`
 	// The BGP Peer Group password.
-	Password string `json:"password"`
+	Password string `json:"password" validate:"regexp=^[a-zA-Z0-9!@#$%^&*()\\\\-|\\\\[\\\\]{}=;:<>,.]+$"`
 	// The Advertised routes for the BGP Peer Group. Can have one of the following values: `DEFAULT` and `NONE`.
 	AdvertisedRoutes string `json:"advertisedRoutes"`
 	// The RPKI ROA Origin ASN of the BGP Peer Group based on location.

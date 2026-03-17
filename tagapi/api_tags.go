@@ -152,7 +152,7 @@ func (a *TagsAPIService) TagsGetExecute(r ApiTagsGetRequest) ([]Tag, *http.Respo
 	localVarFormParams := url.Values{}
 
 	if r.name != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

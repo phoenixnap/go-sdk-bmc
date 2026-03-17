@@ -182,7 +182,7 @@ func (a *PublicNetworksAPIService) PublicNetworksGetExecute(r ApiPublicNetworksG
 	localVarFormParams := url.Values{}
 
 	if r.location != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -623,9 +623,10 @@ func (a *PublicNetworksAPIService) PublicNetworksNetworkIdIpBlocksIpBlockIdDelet
 	localVarFormParams := url.Values{}
 
 	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
 	} else {
 		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", defaultValue, "form", "")
 		r.force = &defaultValue
 	}
 	// to determine the Content-Type header

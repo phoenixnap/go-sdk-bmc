@@ -599,10 +599,10 @@ func (a *ServersAPIService) ServersGetExecute(r ApiServersGetRequest) ([]Server,
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "tag", s.Index(i).Interface(), "multi")
+				parameterAddToHeaderOrQuery(localVarQueryParams, "tag", s.Index(i).Interface(), "form", "multi")
 			}
 		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "tag", t, "multi")
+			parameterAddToHeaderOrQuery(localVarQueryParams, "tag", t, "form", "multi")
 		}
 	}
 	// to determine the Content-Type header
@@ -753,9 +753,10 @@ func (a *ServersAPIService) ServersPostExecute(r ApiServersPostRequest) (*Server
 	}
 
 	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
 	} else {
 		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", defaultValue, "form", "")
 		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -1427,9 +1428,10 @@ func (a *ServersAPIService) ServersServerIdActionsProvisionPostExecute(r ApiServ
 	}
 
 	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
 	} else {
 		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", defaultValue, "form", "")
 		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -3236,9 +3238,10 @@ func (a *ServersAPIService) ServersServerIdPrivateNetworksPatchExecute(r ApiServ
 	}
 
 	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
 	} else {
 		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", defaultValue, "form", "")
 		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -3417,9 +3420,10 @@ func (a *ServersAPIService) ServersServerIdPrivateNetworksPostExecute(r ApiServe
 	}
 
 	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
 	} else {
 		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", defaultValue, "form", "")
 		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -3752,9 +3756,10 @@ func (a *ServersAPIService) ServersServerIdPublicNetworksPatchExecute(r ApiServe
 	}
 
 	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
 	} else {
 		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", defaultValue, "form", "")
 		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -3933,9 +3938,10 @@ func (a *ServersAPIService) ServersServerIdPublicNetworksPostExecute(r ApiServer
 	}
 
 	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
 	} else {
 		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", defaultValue, "form", "")
 		r.force = &defaultValue
 	}
 	// to determine the Content-Type header

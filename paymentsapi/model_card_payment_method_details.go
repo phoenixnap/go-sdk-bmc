@@ -24,7 +24,7 @@ type CardPaymentMethodDetails struct {
 	// The Card Type. Supported Card Types include: VISA, MASTERCARD, DISCOVER, JCB & AMEX.
 	CardType string `json:"cardType"`
 	// The last four digits of the card number.
-	LastFourDigits       string `json:"lastFourDigits"`
+	LastFourDigits       string `json:"lastFourDigits" validate:"regexp=\\\\d{4}$"`
 	AdditionalProperties map[string]interface{}
 }
 

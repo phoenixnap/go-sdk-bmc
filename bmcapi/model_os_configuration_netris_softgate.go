@@ -23,11 +23,11 @@ type OsConfigurationNetrisSoftgate struct {
 	// (Read-only) Host OS on which the Netris Softgate is installed.
 	HostOs *string `json:"hostOs,omitempty"`
 	// (Write-only) IP address or hostname through which to reach the Netris Controller.
-	ControllerAddress *string `json:"controllerAddress,omitempty"`
+	ControllerAddress *string `json:"controllerAddress,omitempty" validate:"regexp=^(?!-)[\\\\w\\\\-]{1,63}(?<!-)(\\\\.(?!-)[\\\\w\\\\-]{1,63}(?<!-))*$"`
 	// (Write-only) The version of the Netris Controller to connect to.
 	ControllerVersion *string `json:"controllerVersion,omitempty"`
 	// (Write-only) The authentication key of the Netris Controller to connect to. Required for the softgate agent to be able to interact with the Netris Controller.
-	ControllerAuthKey    *string `json:"controllerAuthKey,omitempty"`
+	ControllerAuthKey    *string `json:"controllerAuthKey,omitempty" validate:"regexp=^\\\\S+$"`
 	AdditionalProperties map[string]interface{}
 }
 

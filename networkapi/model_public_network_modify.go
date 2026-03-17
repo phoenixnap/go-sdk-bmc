@@ -21,7 +21,7 @@ var _ MappedNullable = &PublicNetworkModify{}
 // PublicNetworkModify Public Network Modifiable Details.
 type PublicNetworkModify struct {
 	// A friendly name given to the network. This name should be unique.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name,omitempty" validate:"regexp=^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"`
 	// The description of this public network
 	Description *string `json:"description,omitempty"`
 	// Boolean indicating whether Router Advertisement is enabled. Only applicable for Network with IPv6 Blocks.

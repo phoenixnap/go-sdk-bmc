@@ -21,7 +21,7 @@ var _ MappedNullable = &StorageNetworkUpdate{}
 // StorageNetworkUpdate Update storage network.
 type StorageNetworkUpdate struct {
 	// Storage network friendly name.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name,omitempty" validate:"regexp=^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"`
 	// Storage network description.
 	Description          *string `json:"description,omitempty"`
 	AdditionalProperties map[string]interface{}

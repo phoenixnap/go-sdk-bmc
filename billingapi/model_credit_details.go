@@ -109,6 +109,20 @@ func (obj *CreditDetails) GetActualInstance() interface{} {
 	return nil
 }
 
+// Get the actual instance value
+func (obj CreditDetails) GetActualInstanceValue() interface{} {
+	if obj.PromoCreditDetails != nil {
+		return *obj.PromoCreditDetails
+	}
+
+	if obj.SystemCreditDetails != nil {
+		return *obj.SystemCreditDetails
+	}
+
+	// all schemas are nil
+	return nil
+}
+
 type NullableCreditDetails struct {
 	value *CreditDetails
 	isSet bool

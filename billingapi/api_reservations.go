@@ -167,7 +167,7 @@ func (a *ReservationsAPIService) ReservationsGetExecute(r ApiReservationsGetRequ
 	localVarFormParams := url.Values{}
 
 	if r.productCategory != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

@@ -152,7 +152,7 @@ func (a *BGPPeerGroupsAPIService) BgpPeerGroupsGetExecute(r ApiBgpPeerGroupsGetR
 	localVarFormParams := url.Values{}
 
 	if r.location != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

@@ -100,35 +100,35 @@ paths:
                 createdOn: 2022-04-07T13:20:30.491Z
               schema:
                 items:
-                  $ref: '#/components/schemas/PrivateNetwork'
+                  $ref: "#/components/schemas/PrivateNetwork"
                 type: array
           description: List of all the Private Networks owned by account.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -172,7 +172,7 @@ paths:
                   description: My Additional Backend Network
                   cidr: 10.0.0.0/24
             schema:
-              $ref: '#/components/schemas/PrivateNetworkCreate'
+              $ref: "#/components/schemas/PrivateNetworkCreate"
         required: true
       responses:
         "201":
@@ -208,34 +208,34 @@ paths:
                     status: READY
                     createdOn: 2022-04-07T13:20:30.491Z
               schema:
-                $ref: '#/components/schemas/PrivateNetwork'
+                $ref: "#/components/schemas/PrivateNetwork"
           description: Private Network successfully created.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -265,28 +265,28 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -360,27 +360,27 @@ paths:
                     status: READY
                     createdOn: 2022-04-07T13:20:30.491Z
               schema:
-                $ref: '#/components/schemas/PrivateNetwork'
+                $ref: "#/components/schemas/PrivateNetwork"
           description: Private Network Details.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -417,7 +417,7 @@ paths:
                   description: My Additional Backend Network
                   locationDefault: false
             schema:
-              $ref: '#/components/schemas/PrivateNetworkModify'
+              $ref: "#/components/schemas/PrivateNetworkModify"
         required: true
       responses:
         "200":
@@ -471,34 +471,34 @@ paths:
                     status: READY
                     createdOn: 2022-04-07T13:20:30.491Z
               schema:
-                $ref: '#/components/schemas/PrivateNetwork'
+                $ref: "#/components/schemas/PrivateNetwork"
           description: Private Network successfully updated.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -589,35 +589,35 @@ paths:
                 memberships: []
               schema:
                 items:
-                  $ref: '#/components/schemas/PublicNetwork'
+                  $ref: "#/components/schemas/PublicNetwork"
                 type: array
           description: List of all the Public Networks owned by account.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -666,7 +666,7 @@ paths:
                   vlanId: 20
                   raEnabled: false
             schema:
-              $ref: '#/components/schemas/PublicNetworkCreate'
+              $ref: "#/components/schemas/PublicNetworkCreate"
         required: true
       responses:
         "201":
@@ -747,40 +747,40 @@ paths:
                     createdOn: 2022-04-05T13:50:30.491Z
                     memberships: []
               schema:
-                $ref: '#/components/schemas/PublicNetwork'
+                $ref: "#/components/schemas/PublicNetwork"
           description: Network successfully created.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -812,34 +812,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -980,27 +980,27 @@ paths:
                       - 10.111.14.3
                       - 10.111.14.4
               schema:
-                $ref: '#/components/schemas/PublicNetwork'
+                $ref: "#/components/schemas/PublicNetwork"
           description: Public Network Details.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1041,7 +1041,7 @@ paths:
                 value:
                   raEnabled: false
             schema:
-              $ref: '#/components/schemas/PublicNetworkModify'
+              $ref: "#/components/schemas/PublicNetworkModify"
         required: true
       responses:
         "200":
@@ -1061,7 +1061,7 @@ paths:
                 createdOn: 2022-04-05T13:50:30.491Z
                 memberships: []
               schema:
-                $ref: '#/components/schemas/PublicNetwork'
+                $ref: "#/components/schemas/PublicNetwork"
           description: Network successfully updated.
         "202":
           content:
@@ -1085,40 +1085,40 @@ paths:
                   ips:
                   - 2001:db8::1
               schema:
-                $ref: '#/components/schemas/PublicNetwork'
+                $ref: "#/components/schemas/PublicNetwork"
           description: Network update has been accepted.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1147,7 +1147,7 @@ paths:
             example:
               id: 60473a6115e34466c9f8f083
             schema:
-              $ref: '#/components/schemas/PublicNetworkIpBlockCreate'
+              $ref: "#/components/schemas/PublicNetworkIpBlockCreate"
         required: true
       responses:
         "202":
@@ -1158,40 +1158,40 @@ paths:
                 cidr: 10.111.14.0/29
                 usedIpsCount: "3"
               schema:
-                $ref: '#/components/schemas/PublicNetworkIpBlock'
+                $ref: "#/components/schemas/PublicNetworkIpBlock"
           description: The specified IP block is being added to the public network.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1254,34 +1254,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1390,35 +1390,35 @@ paths:
                 lastUpdatedOn: 2024-03-01T14:30:00Z
               schema:
                 items:
-                  $ref: '#/components/schemas/BgpPeerGroup'
+                  $ref: "#/components/schemas/BgpPeerGroup"
                 type: array
           description: List all BGP Peer Groups owned by account.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1446,7 +1446,7 @@ paths:
                   password: E!73423ghhjfge45
                   advertisedRoutes: DEFAULT
             schema:
-              $ref: '#/components/schemas/BgpPeerGroupCreate'
+              $ref: "#/components/schemas/BgpPeerGroupCreate"
         required: true
       responses:
         "202":
@@ -1528,46 +1528,46 @@ paths:
                     holdTimerSeconds: 30
                     lastUpdatedOn: 2024-03-01T14:30:00Z
               schema:
-                $ref: '#/components/schemas/BgpPeerGroup'
+                $ref: "#/components/schemas/BgpPeerGroup"
           description: Request to create BGP Peer Group is accepted.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "406":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Creation of BGP Peer Group in location is presently not available.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1638,7 +1638,7 @@ paths:
                     createdOn: 2024-03-01T10:30:00Z
                     lastUpdatedOn: 2024-03-01T14:30:00Z
               schema:
-                $ref: '#/components/schemas/BgpPeerGroup'
+                $ref: "#/components/schemas/BgpPeerGroup"
           description: Request to delete BGP Peer Group is accepted.
         "204":
           description: The BGP Peer Group has been deleted.
@@ -1646,34 +1646,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1743,34 +1743,34 @@ paths:
                     createdOn: 2024-03-01T10:30:00Z
                     lastUpdatedOn: 2024-03-01T14:30:00Z
               schema:
-                $ref: '#/components/schemas/BgpPeerGroup'
+                $ref: "#/components/schemas/BgpPeerGroup"
           description: BGP Peer Group by ID.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1806,7 +1806,7 @@ paths:
                   password: E!73423ghhjfge46
                   advertisedRoutes: DEFAULT
             schema:
-              $ref: '#/components/schemas/BgpPeerGroupPatch'
+              $ref: "#/components/schemas/BgpPeerGroupPatch"
         required: true
       responses:
         "202":
@@ -1898,40 +1898,40 @@ paths:
                     createdOn: 2024-03-01T10:30:00Z
                     lastUpdatedOn: 2024-03-01T14:30:00Z
               schema:
-                $ref: '#/components/schemas/BgpPeerGroup'
+                $ref: "#/components/schemas/BgpPeerGroup"
           description: Request to modify BGP Peer Group is accepted.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -2000,35 +2000,35 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed due to wrong data. Please check the provided
         parameters and try again.
     Unauthorized:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed due to invalid credentials. Please check the
         provided credentials and try again.
     Forbidden:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed since this resource cannot be accessed by the
         provided credentials.
     InternalServerError:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The server encountered an unexpected condition that prevented it
         from fulfilling the request.
     Conflict:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The resource is in an incompatible state.
   schemas:
     PrivateNetworkServer:
@@ -2165,12 +2165,12 @@ components:
         servers:
           deprecated: true
           items:
-            $ref: '#/components/schemas/PrivateNetworkServer'
+            $ref: "#/components/schemas/PrivateNetworkServer"
           type: array
         memberships:
           description: A list of resources that are members of this private network.
           items:
-            $ref: '#/components/schemas/NetworkMembership'
+            $ref: "#/components/schemas/NetworkMembership"
           type: array
         status:
           description: "The status of the private network. Can have one of the following\
@@ -2195,6 +2195,11 @@ components:
       - vlanId
       type: object
     Error:
+      example:
+        validationErrors:
+        - validationErrors
+        - validationErrors
+        message: message
       properties:
         message:
           description: The description detailing the cause of the error code.
@@ -2355,7 +2360,7 @@ components:
         memberships:
           description: A list of resources that are members of this public network.
           items:
-            $ref: '#/components/schemas/NetworkMembership'
+            $ref: "#/components/schemas/NetworkMembership"
           type: array
         name:
           description: The friendly name of this public network.
@@ -2386,7 +2391,7 @@ components:
         ipBlocks:
           description: A list of IP Blocks that are associated with this public network.
           items:
-            $ref: '#/components/schemas/PublicNetworkIpBlock'
+            $ref: "#/components/schemas/PublicNetworkIpBlock"
           type: array
         raEnabled:
           description: Boolean indicating whether Router Advertisement is enabled.
@@ -2458,7 +2463,7 @@ components:
           description: A list of IP Blocks that will be associated with this public
             network. Supported maximum of 10 IPv4 Blocks and 1 IPv6 Block.
           items:
-            $ref: '#/components/schemas/PublicNetworkIpBlockCreate'
+            $ref: "#/components/schemas/PublicNetworkIpBlockCreate"
           maxItems: 11
           type: array
         raEnabled:
@@ -2671,17 +2676,17 @@ components:
           description: The List of the BGP Peer Group IPv4 prefixes. Deprecated in
             favour of generic ipPrefixes.
           items:
-            $ref: '#/components/schemas/BgpIPv4Prefix'
+            $ref: "#/components/schemas/BgpIPv4Prefix"
           type: array
         ipPrefixes:
           description: The List of the BGP Peer Group IP prefixes.
           items:
-            $ref: '#/components/schemas/BgpIpPrefix'
+            $ref: "#/components/schemas/BgpIpPrefix"
           type: array
         targetAsnDetails:
-          $ref: '#/components/schemas/AsnDetails'
+          $ref: "#/components/schemas/AsnDetails"
         activeAsnDetails:
-          $ref: '#/components/schemas/AsnDetails'
+          $ref: "#/components/schemas/AsnDetails"
         password:
           description: The BGP Peer Group password.
           example: E!73423ghhjfge45

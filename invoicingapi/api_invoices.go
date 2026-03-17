@@ -189,39 +189,43 @@ func (a *InvoicesAPIService) InvoicesGetExecute(r ApiInvoicesGetRequest) (*Pagin
 	localVarFormParams := url.Values{}
 
 	if r.number != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "number", r.number, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "number", r.number, "form", "")
 	}
 	if r.status != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
 	}
 	if r.sentOnFrom != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sentOnFrom", r.sentOnFrom, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sentOnFrom", r.sentOnFrom, "form", "")
 	}
 	if r.sentOnTo != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sentOnTo", r.sentOnTo, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sentOnTo", r.sentOnTo, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	} else {
 		var defaultValue int32 = 100
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
 		r.limit = &defaultValue
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	} else {
 		var defaultValue int32 = 0
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "form", "")
 		r.offset = &defaultValue
 	}
 	if r.sortField != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sortField", r.sortField, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortField", r.sortField, "form", "")
 	} else {
 		var defaultValue string = "sentOn"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortField", defaultValue, "form", "")
 		r.sortField = &defaultValue
 	}
 	if r.sortDirection != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sortDirection", r.sortDirection, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortDirection", r.sortDirection, "form", "")
 	} else {
 		var defaultValue string = "DESC"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortDirection", defaultValue, "form", "")
 		r.sortDirection = &defaultValue
 	}
 	// to determine the Content-Type header

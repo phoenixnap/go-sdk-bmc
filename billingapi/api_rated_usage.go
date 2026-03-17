@@ -125,10 +125,10 @@ func (a *RatedUsageAPIService) RatedUsageGetExecute(r ApiRatedUsageGetRequest) (
 		return localVarReturnValue, nil, reportError("toYearMonth is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "fromYearMonth", r.fromYearMonth, "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "toYearMonth", r.toYearMonth, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "fromYearMonth", r.fromYearMonth, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "toYearMonth", r.toYearMonth, "form", "")
 	if r.productCategory != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -269,7 +269,7 @@ func (a *RatedUsageAPIService) RatedUsageMonthToDateGetExecute(r ApiRatedUsageMo
 	localVarFormParams := url.Values{}
 
 	if r.productCategory != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

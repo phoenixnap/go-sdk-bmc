@@ -22,11 +22,11 @@ var _ MappedNullable = &StorageNetworkVolumeCreate{}
 // StorageNetworkVolumeCreate Create Volume.
 type StorageNetworkVolumeCreate struct {
 	// Volume friendly name.
-	Name string `json:"name"`
+	Name string `json:"name" validate:"regexp=^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"`
 	// Volume description.
 	Description *string `json:"description,omitempty"`
 	// Last part of volume's path.
-	PathSuffix *string `json:"pathSuffix,omitempty"`
+	PathSuffix *string `json:"pathSuffix,omitempty" validate:"regexp=^(\\/[\\\\w-]+)+$|^$"`
 	// Capacity of Volume in GB. Currently only whole numbers and multiples of 1000GB are supported.
 	CapacityInGb int32 `json:"capacityInGb"`
 	// Tags to set to the resource. To create a new tag or list all the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview).

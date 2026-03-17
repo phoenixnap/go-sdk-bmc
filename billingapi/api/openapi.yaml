@@ -71,7 +71,7 @@ paths:
         name: productCategory
         required: false
         schema:
-          $ref: '#/components/schemas/ProductCategoryEnum'
+          $ref: "#/components/schemas/ProductCategoryEnum"
         style: form
       responses:
         "200":
@@ -79,7 +79,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/ratedUsageGet_200_response_inner'
+                  $ref: "#/components/schemas/ratedUsageGet_200_response_inner"
                 type: array
           description: List of all the rated usage records for given period of months.
             If productCategory filter is not used returns all records.
@@ -87,21 +87,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -124,7 +124,7 @@ paths:
         name: productCategory
         required: false
         schema:
-          $ref: '#/components/schemas/ProductCategoryEnum'
+          $ref: "#/components/schemas/ProductCategoryEnum"
         style: form
       responses:
         "200":
@@ -132,28 +132,28 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/ratedUsageGet_200_response_inner'
+                  $ref: "#/components/schemas/ratedUsageGet_200_response_inner"
                 type: array
           description: List of all the rated usage records.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -205,21 +205,21 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/productsGet_200_response_inner'
+                  $ref: "#/components/schemas/productsGet_200_response_inner"
                 type: array
           description: List of all the products.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -241,7 +241,7 @@ paths:
         name: productCategory
         required: false
         schema:
-          $ref: '#/components/schemas/ReservationProductCategoryEnum'
+          $ref: "#/components/schemas/ReservationProductCategoryEnum"
         style: form
       responses:
         "200":
@@ -249,7 +249,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/Reservation'
+                  $ref: "#/components/schemas/Reservation"
                 type: array
           description: List of all reservations is returned if productCategory parameter
             is not specified.
@@ -257,21 +257,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -287,39 +287,39 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ReservationRequest'
+              $ref: "#/components/schemas/ReservationRequest"
       responses:
         "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Reservation'
+                $ref: "#/components/schemas/Reservation"
           description: Returns created reservation instance.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since the resource could not been found.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -348,47 +348,47 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Reservation'
+                $ref: "#/components/schemas/Reservation"
           description: The matched reservation.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since the resource could not been found.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since the resource was not in the correct
             state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -416,46 +416,46 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ReservationAutoRenewDisableRequest'
+              $ref: "#/components/schemas/ReservationAutoRenewDisableRequest"
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Reservation'
+                $ref: "#/components/schemas/Reservation"
           description: Reservation with auto-renewal disabled
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since the resource could not been found.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since the resource was not in the correct
             state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -484,40 +484,40 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Reservation'
+                $ref: "#/components/schemas/Reservation"
           description: Reservation with auto-renewal enabled.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since the resource could not been found.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since the resource was not in the correct
             state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -545,39 +545,39 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ReservationRequest'
+              $ref: "#/components/schemas/ReservationRequest"
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Reservation'
+                $ref: "#/components/schemas/Reservation"
           description: Converted reservation.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since the resource could not been found.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -598,27 +598,27 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConfigurationDetails'
+                $ref: "#/components/schemas/ConfigurationDetails"
           description: Billing configuration details for the account
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -677,7 +677,7 @@ paths:
         required: false
         schema:
           items:
-            $ref: '#/components/schemas/ProductLocationEnum'
+            $ref: "#/components/schemas/ProductLocationEnum"
           type: array
         style: form
       - example:
@@ -711,21 +711,21 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/ProductAvailability'
+                  $ref: "#/components/schemas/ProductAvailability"
                 type: array
           description: List of all product availabilities.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -751,41 +751,41 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed due to invalid credentials. Please check the
         provided credentials and try again.
     Forbidden:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed since this resource cannot be accessed by the
         provided credentials.
     InternalServerError:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The server encountered an unexpected condition that prevented it
         from fulfilling the request.
     BadRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed due to wrong data. Please check the provided
         parameters and try again.
     NotFound:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed since the resource could not been found.
     Conflict:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed since the resource was not in the correct state.
   schemas:
     ProductCategoryEnum:
@@ -827,7 +827,7 @@ components:
     Quantity:
       description: Represents the quantity.
       example:
-        unit: null
+        unit: TB
         quantity: 30
       properties:
         quantity:
@@ -836,7 +836,7 @@ components:
           minimum: 1
           type: number
         unit:
-          $ref: '#/components/schemas/QuantityUnitEnum'
+          $ref: "#/components/schemas/QuantityUnitEnum"
       required:
       - quantity
       - unit
@@ -849,7 +849,7 @@ components:
           example: 83604275-bdba-490a-b87a-978e8dffdb14
           type: string
         quantity:
-          $ref: '#/components/schemas/Quantity'
+          $ref: "#/components/schemas/Quantity"
       type: object
     DiscountTypeEnum:
       description: The discount type.
@@ -866,7 +866,7 @@ components:
           example: new-year-2022-monthly
           type: string
         type:
-          $ref: '#/components/schemas/DiscountTypeEnum'
+          $ref: "#/components/schemas/DiscountTypeEnum"
         value:
           description: |
             The value or amount of the discount. The interpretation of this value depends on the 'type' of discount.
@@ -879,7 +879,7 @@ components:
       type: object
     ApplicableDiscountDetails:
       allOf:
-      - $ref: '#/components/schemas/DiscountDetails'
+      - $ref: "#/components/schemas/DiscountDetails"
       - description: Represents a discount that is either applicable upon product
           purchase or reflects a discount applied to rated usage.
         properties:
@@ -888,6 +888,11 @@ components:
             example: promo234
             type: string
         type: object
+      example:
+        code: new-year-2022-monthly
+        type: PRODUCT_CODE_PERCENTAGE
+        value: 20.5
+        couponCode: promo234
     CreditTypeEnum:
       description: The credit type model.
       enum:
@@ -903,14 +908,14 @@ components:
           example: 50
           type: number
         type:
-          $ref: '#/components/schemas/CreditTypeEnum'
+          $ref: "#/components/schemas/CreditTypeEnum"
       required:
       - appliedAmount
       - type
       type: object
     PromoCreditDetails:
       allOf:
-      - $ref: '#/components/schemas/CreditDetailsBase'
+      - $ref: "#/components/schemas/CreditDetailsBase"
       - description: Promo credit details.
         properties:
           couponId:
@@ -933,11 +938,11 @@ components:
       type: string
     SystemCreditDetails:
       allOf:
-      - $ref: '#/components/schemas/CreditDetailsBase'
+      - $ref: "#/components/schemas/CreditDetailsBase"
       - description: System credit details.
         properties:
           cause:
-            $ref: '#/components/schemas/SystemCreditCauseEnum'
+            $ref: "#/components/schemas/SystemCreditCauseEnum"
         required:
         - cause
         type: object
@@ -949,13 +954,13 @@ components:
           example: ec4a9d49-1cef-49e9-b85e-b560f88bcd26
           type: string
         productCategory:
-          $ref: '#/components/schemas/RatedUsageProductCategoryEnum'
+          $ref: "#/components/schemas/RatedUsageProductCategoryEnum"
         productCode:
           description: The code identifying the product associated to this usage record.
           example: s1.c1.small
           type: string
         location:
-          $ref: '#/components/schemas/LocationEnum'
+          $ref: "#/components/schemas/LocationEnum"
         yearMonth:
           description: Year and month of the usage record.
           example: 2020-03
@@ -1023,12 +1028,12 @@ components:
           example: c32a24a1-5949-4b60-99c0-c8aaa3a92b04
           type: string
         reservationDetails:
-          $ref: '#/components/schemas/ReservationDetails'
+          $ref: "#/components/schemas/ReservationDetails"
         discountDetails:
-          $ref: '#/components/schemas/ApplicableDiscountDetails'
+          $ref: "#/components/schemas/ApplicableDiscountDetails"
         creditDetails:
           items:
-            $ref: '#/components/schemas/CreditDetails'
+            $ref: "#/components/schemas/CreditDetails"
           type: array
       required:
       - active
@@ -1061,11 +1066,11 @@ components:
       type: object
     ServerRecord:
       allOf:
-      - $ref: '#/components/schemas/RatedUsageRecord'
+      - $ref: "#/components/schemas/RatedUsageRecord"
       - description: Server usage record.
         properties:
           metadata:
-            $ref: '#/components/schemas/ServerDetails'
+            $ref: "#/components/schemas/ServerDetails"
         required:
         - metadata
         type: object
@@ -1096,11 +1101,11 @@ components:
       type: object
     BandwidthRecord:
       allOf:
-      - $ref: '#/components/schemas/RatedUsageRecord'
+      - $ref: "#/components/schemas/RatedUsageRecord"
       - description: Bandwidth usage record.
         properties:
           metadata:
-            $ref: '#/components/schemas/BandwidthDetails'
+            $ref: "#/components/schemas/BandwidthDetails"
         required:
         - metadata
         type: object
@@ -1126,11 +1131,11 @@ components:
       type: object
     OperatingSystemRecord:
       allOf:
-      - $ref: '#/components/schemas/RatedUsageRecord'
+      - $ref: "#/components/schemas/RatedUsageRecord"
       - description: Operating system usage record.
         properties:
           metadata:
-            $ref: '#/components/schemas/OperatingSystemDetails'
+            $ref: "#/components/schemas/OperatingSystemDetails"
         required:
         - metadata
         type: object
@@ -1155,11 +1160,11 @@ components:
       type: object
     PublicSubnetRecord:
       allOf:
-      - $ref: '#/components/schemas/RatedUsageRecord'
+      - $ref: "#/components/schemas/RatedUsageRecord"
       - description: Public IP record.
         properties:
           metadata:
-            $ref: '#/components/schemas/PublicSubnetDetails'
+            $ref: "#/components/schemas/PublicSubnetDetails"
         required:
         - metadata
         type: object
@@ -1197,15 +1202,20 @@ components:
       type: object
     StorageRecord:
       allOf:
-      - $ref: '#/components/schemas/RatedUsageRecord'
+      - $ref: "#/components/schemas/RatedUsageRecord"
       - description: Storage usage record.
         properties:
           metadata:
-            $ref: '#/components/schemas/StorageDetails'
+            $ref: "#/components/schemas/StorageDetails"
         required:
         - metadata
         type: object
     Error:
+      example:
+        validationErrors:
+        - validationErrors
+        - validationErrors
+        message: message
       properties:
         message:
           description: The description detailing the cause of the error code.
@@ -1234,6 +1244,17 @@ components:
     ApplicableDiscounts:
       description: "Represents the applicable discount details for a product, including\
         \ the discounted price and discount information."
+      example:
+        discountedPrice: 107.5
+        discountDetails:
+        - code: new-year-2022-monthly
+          type: PRODUCT_CODE_PERCENTAGE
+          value: 20.5
+          couponCode: promo234
+        - code: new-year-2022-monthly
+          type: PRODUCT_CODE_PERCENTAGE
+          value: 20.5
+          couponCode: promo234
       properties:
         discountedPrice:
           description: The price of the product after applying a discount.
@@ -1241,7 +1262,7 @@ components:
           type: number
         discountDetails:
           items:
-            $ref: '#/components/schemas/ApplicableDiscountDetails'
+            $ref: "#/components/schemas/ApplicableDiscountDetails"
           type: array
       type: object
     PackageUnitEnum:
@@ -1254,6 +1275,9 @@ components:
     PackageQuantity:
       description: "Represents the package size per month, for a product's pricing\
         \ plan, including the min quantity and max quantity information."
+      example:
+        min: 0
+        max: 100
       properties:
         min:
           description: Minimum package quantity.
@@ -1270,14 +1294,45 @@ components:
     PackageDetails:
       description: Represents details object which contains package quantity and its
         unit.
+      example:
+        packageUnit: TB
+        packageQuantity:
+          min: 0
+          max: 100
       properties:
         packageQuantity:
-          $ref: '#/components/schemas/PackageQuantity'
+          $ref: "#/components/schemas/PackageQuantity"
         packageUnit:
-          $ref: '#/components/schemas/PackageUnitEnum'
+          $ref: "#/components/schemas/PackageUnitEnum"
       type: object
     PricingPlan:
       description: Pricing plan details.
+      example:
+        pricingModel: HOURLY
+        packageDetails:
+          packageUnit: TB
+          packageQuantity:
+            min: 0
+            max: 100
+        priceUnit: HOUR
+        price: 0.22
+        applicableDiscounts:
+          discountedPrice: 107.5
+          discountDetails:
+          - code: new-year-2022-monthly
+            type: PRODUCT_CODE_PERCENTAGE
+            value: 20.5
+            couponCode: promo234
+          - code: new-year-2022-monthly
+            type: PRODUCT_CODE_PERCENTAGE
+            value: 20.5
+            couponCode: promo234
+        packageUnit: ""
+        skuDescription: Hourly Rate for s1.c1.small in Phoenix
+        location: PHX
+        packageQuantity: 50
+        sku: XXX-XXX-XXX
+        correlatedProductCode: s1.c1.small
       properties:
         sku:
           description: The SKU identifying this pricing plan.
@@ -1315,9 +1370,9 @@ components:
           example: 0.22
           type: number
         priceUnit:
-          $ref: '#/components/schemas/PriceUnitEnum'
+          $ref: "#/components/schemas/PriceUnitEnum"
         applicableDiscounts:
-          $ref: '#/components/schemas/ApplicableDiscounts'
+          $ref: "#/components/schemas/ApplicableDiscounts"
         correlatedProductCode:
           description: Product code of the product this product is correlated with
           example: s1.c1.small
@@ -1329,10 +1384,10 @@ components:
           type: number
         packageUnit:
           allOf:
-          - $ref: '#/components/schemas/PackageUnitEnum'
+          - $ref: "#/components/schemas/PackageUnitEnum"
           deprecated: true
         packageDetails:
-          $ref: '#/components/schemas/PackageDetails'
+          $ref: "#/components/schemas/PackageDetails"
       required:
       - location
       - price
@@ -1342,6 +1397,60 @@ components:
       type: object
     Product:
       description: Product details
+      example:
+        productCode: s1.c1.small
+        plans:
+        - pricingModel: HOURLY
+          packageDetails:
+            packageUnit: TB
+            packageQuantity:
+              min: 0
+              max: 100
+          priceUnit: HOUR
+          price: 0.22
+          applicableDiscounts:
+            discountedPrice: 107.5
+            discountDetails:
+            - code: new-year-2022-monthly
+              type: PRODUCT_CODE_PERCENTAGE
+              value: 20.5
+              couponCode: promo234
+            - code: new-year-2022-monthly
+              type: PRODUCT_CODE_PERCENTAGE
+              value: 20.5
+              couponCode: promo234
+          packageUnit: ""
+          skuDescription: Hourly Rate for s1.c1.small in Phoenix
+          location: PHX
+          packageQuantity: 50
+          sku: XXX-XXX-XXX
+          correlatedProductCode: s1.c1.small
+        - pricingModel: HOURLY
+          packageDetails:
+            packageUnit: TB
+            packageQuantity:
+              min: 0
+              max: 100
+          priceUnit: HOUR
+          price: 0.22
+          applicableDiscounts:
+            discountedPrice: 107.5
+            discountDetails:
+            - code: new-year-2022-monthly
+              type: PRODUCT_CODE_PERCENTAGE
+              value: 20.5
+              couponCode: promo234
+            - code: new-year-2022-monthly
+              type: PRODUCT_CODE_PERCENTAGE
+              value: 20.5
+              couponCode: promo234
+          packageUnit: ""
+          skuDescription: Hourly Rate for s1.c1.small in Phoenix
+          location: PHX
+          packageQuantity: 50
+          sku: XXX-XXX-XXX
+          correlatedProductCode: s1.c1.small
+        productCategory: SERVER
       properties:
         productCode:
           description: The code identifying the product. This code has significant
@@ -1355,7 +1464,7 @@ components:
         plans:
           description: The pricing plans available for this product.
           items:
-            $ref: '#/components/schemas/PricingPlan'
+            $ref: "#/components/schemas/PricingPlan"
           type: array
       required:
       - productCategory
@@ -1407,7 +1516,7 @@ components:
         gpuConfigurations:
           description: GPU configurations
           items:
-            $ref: '#/components/schemas/GpuConfigurationMetadata'
+            $ref: "#/components/schemas/GpuConfigurationMetadata"
           type: array
       required:
       - coresPerCpu
@@ -1420,11 +1529,11 @@ components:
       type: object
     ServerProduct:
       allOf:
-      - $ref: '#/components/schemas/Product'
+      - $ref: "#/components/schemas/Product"
       - description: Server product.
         properties:
           metadata:
-            $ref: '#/components/schemas/ServerProductMetadata'
+            $ref: "#/components/schemas/ServerProductMetadata"
         required:
         - metadata
         type: object
@@ -1458,7 +1567,7 @@ components:
           format: int32
           type: integer
         reservationModel:
-          $ref: '#/components/schemas/ReservationModelEnum'
+          $ref: "#/components/schemas/ReservationModelEnum"
       required:
       - lengthInMonths
       - reservationModel
@@ -1485,12 +1594,12 @@ components:
     Utilization:
       example:
         quantity:
-          unit: null
+          unit: TB
           quantity: 30
         percentage: 30
       properties:
         quantity:
-          $ref: '#/components/schemas/Quantity'
+          $ref: "#/components/schemas/Quantity"
         percentage:
           example: 30
           maximum: 100
@@ -1503,27 +1612,27 @@ components:
     Reservation:
       description: Reservation details
       example:
-        priceUnit: null
-        nextBillingDate: 2020-04-19T00:00:00.000+00:00
+        priceUnit: HOUR
+        nextBillingDate: 2020-04-19
         quantity:
-          unit: null
+          unit: TB
           quantity: 30
-        reservationState: null
-        initialInvoiceModel: null
+        reservationState: REQUESTED
+        initialInvoiceModel: ON_CREATION
         utilization:
           quantity:
-            unit: null
+            unit: TB
             quantity: 30
           percentage: 30
         endDateTime: 2020-04-19T16:39:00Z
-        productCategory: null
+        productCategory: server
         lastRenewalDateTime: 2020-03-19T16:39:00Z
         productCode: s1.c1.small
         startDateTime: 2020-03-19T16:39:00Z
         price: 175
         reservationModel: ""
         autoRenew: true
-        location: null
+        location: PHX
         term:
           lengthInMonths: 12
           reservationModel: ONE_MONTH_RESERVATION
@@ -1542,21 +1651,21 @@ components:
           example: s1.c1.small
           type: string
         productCategory:
-          $ref: '#/components/schemas/ReservationProductCategoryEnum'
+          $ref: "#/components/schemas/ReservationProductCategoryEnum"
         location:
-          $ref: '#/components/schemas/LocationEnum'
+          $ref: "#/components/schemas/LocationEnum"
         reservationModel:
           allOf:
-          - $ref: '#/components/schemas/ReservationModelEnum'
+          - $ref: "#/components/schemas/ReservationModelEnum"
           deprecated: true
         term:
-          $ref: '#/components/schemas/ReservationTerm'
+          $ref: "#/components/schemas/ReservationTerm"
         reservationState:
-          $ref: '#/components/schemas/ReservationStateEnum'
+          $ref: "#/components/schemas/ReservationStateEnum"
         initialInvoiceModel:
-          $ref: '#/components/schemas/ReservationInvoicingModelEnum'
+          $ref: "#/components/schemas/ReservationInvoicingModelEnum"
         quantity:
-          $ref: '#/components/schemas/Quantity'
+          $ref: "#/components/schemas/Quantity"
         startDateTime:
           description: The point in time (in UTC) when the reservation starts.
           example: 2020-03-19T16:39:00Z
@@ -1594,7 +1703,7 @@ components:
           example: 175
           type: number
         priceUnit:
-          $ref: '#/components/schemas/PriceUnitEnum'
+          $ref: "#/components/schemas/PriceUnitEnum"
         assignedResourceId:
           description: The resource ID currently being assigned to Reservation.
           example: 83604275-bdba-490a-b87a-978e8dffdb14
@@ -1605,7 +1714,7 @@ components:
           format: date
           type: string
         utilization:
-          $ref: '#/components/schemas/Utilization'
+          $ref: "#/components/schemas/Utilization"
       required:
       - autoRenew
       - id
@@ -1624,7 +1733,7 @@ components:
       description: Reservation request.
       example:
         quantity:
-          unit: null
+          unit: TB
           quantity: 30
         sku: XXX-XXX-XXX
       properties:
@@ -1633,7 +1742,7 @@ components:
           example: XXX-XXX-XXX
           type: string
         quantity:
-          $ref: '#/components/schemas/Quantity'
+          $ref: "#/components/schemas/Quantity"
       required:
       - quantity
       - sku
@@ -1666,7 +1775,7 @@ components:
           thresholdAmount: 100
       properties:
         thresholdConfiguration:
-          $ref: '#/components/schemas/ThresholdConfigurationDetails'
+          $ref: "#/components/schemas/ThresholdConfigurationDetails"
       type: object
     ProductLocationEnum:
       description: |
@@ -1693,10 +1802,10 @@ components:
         solutions:
         - SERVER_RANCHER
         - SERVER_RANCHER
-        location: null
+        location: PHX
       properties:
         location:
-          $ref: '#/components/schemas/ProductLocationEnum'
+          $ref: "#/components/schemas/ProductLocationEnum"
         minQuantityRequested:
           description: Requested quantity.
           example: 2
@@ -1735,14 +1844,14 @@ components:
           solutions:
           - SERVER_RANCHER
           - SERVER_RANCHER
-          location: null
+          location: PHX
         - availableQuantity: 5
           minQuantityRequested: 2
           minQuantityAvailable: true
           solutions:
           - SERVER_RANCHER
           - SERVER_RANCHER
-          location: null
+          location: PHX
         productCategory: SERVER
       properties:
         productCode:
@@ -1755,7 +1864,7 @@ components:
           type: string
         locationAvailabilityDetails:
           items:
-            $ref: '#/components/schemas/LocationAvailabilityDetail'
+            $ref: "#/components/schemas/LocationAvailabilityDetail"
           type: array
       required:
       - locationAvailabilityDetails
@@ -1765,39 +1874,39 @@ components:
     ratedUsageGet_200_response_inner:
       discriminator:
         mapping:
-          bmc-server: '#/components/schemas/ServerRecord'
-          bandwidth: '#/components/schemas/BandwidthRecord'
-          operating-system: '#/components/schemas/OperatingSystemRecord'
-          public-ip: '#/components/schemas/PublicSubnetRecord'
-          storage: '#/components/schemas/StorageRecord'
+          bmc-server: "#/components/schemas/ServerRecord"
+          bandwidth: "#/components/schemas/BandwidthRecord"
+          operating-system: "#/components/schemas/OperatingSystemRecord"
+          public-ip: "#/components/schemas/PublicSubnetRecord"
+          storage: "#/components/schemas/StorageRecord"
         propertyName: productCategory
       example:
-        productCategory: null
+        productCategory: bmc-server
       oneOf:
-      - $ref: '#/components/schemas/ServerRecord'
-      - $ref: '#/components/schemas/BandwidthRecord'
-      - $ref: '#/components/schemas/OperatingSystemRecord'
-      - $ref: '#/components/schemas/PublicSubnetRecord'
-      - $ref: '#/components/schemas/StorageRecord'
+      - $ref: "#/components/schemas/ServerRecord"
+      - $ref: "#/components/schemas/BandwidthRecord"
+      - $ref: "#/components/schemas/OperatingSystemRecord"
+      - $ref: "#/components/schemas/PublicSubnetRecord"
+      - $ref: "#/components/schemas/StorageRecord"
       properties:
         productCategory:
-          $ref: '#/components/schemas/RatedUsageProductCategoryEnum'
+          $ref: "#/components/schemas/RatedUsageProductCategoryEnum"
     productsGet_200_response_inner:
       discriminator:
         mapping:
-          SERVER: '#/components/schemas/ServerProduct'
-          BANDWIDTH: '#/components/schemas/Product'
-          OPERATING_SYSTEM: '#/components/schemas/Product'
-          STORAGE: '#/components/schemas/Product'
-          PUBLIC_IP: '#/components/schemas/Product'
+          SERVER: "#/components/schemas/ServerProduct"
+          BANDWIDTH: "#/components/schemas/Product"
+          OPERATING_SYSTEM: "#/components/schemas/Product"
+          STORAGE: "#/components/schemas/Product"
+          PUBLIC_IP: "#/components/schemas/Product"
         propertyName: productCategory
       oneOf:
-      - $ref: '#/components/schemas/Product'
-      - $ref: '#/components/schemas/ServerProduct'
+      - $ref: "#/components/schemas/Product"
+      - $ref: "#/components/schemas/ServerProduct"
     CreditDetails:
       oneOf:
-      - $ref: '#/components/schemas/PromoCreditDetails'
-      - $ref: '#/components/schemas/SystemCreditDetails'
+      - $ref: "#/components/schemas/PromoCreditDetails"
+      - $ref: "#/components/schemas/SystemCreditDetails"
       title: CreditDetails
   securitySchemes:
     OAuth2:

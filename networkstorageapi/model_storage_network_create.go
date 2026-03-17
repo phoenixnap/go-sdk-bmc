@@ -22,7 +22,7 @@ var _ MappedNullable = &StorageNetworkCreate{}
 // StorageNetworkCreate Create Storage Network.
 type StorageNetworkCreate struct {
 	// Storage network friendly name.
-	Name string `json:"name"`
+	Name string `json:"name" validate:"regexp=^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"`
 	// Storage network description.
 	Description *string `json:"description,omitempty"`
 	// Location of storage network. Currently this field should be set to `PHX` or `ASH`.
