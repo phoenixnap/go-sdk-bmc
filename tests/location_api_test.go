@@ -66,7 +66,7 @@ func (suite *LocationApiTestSuite) TestGetLocations() {
 	// execution
 	result, _, _ := suite.apiClient.LocationsAPI.
 		GetLocations(suite.ctx).
-		Location(locationapi.LocationEnum(location)).
+		Location(locationapi.ProductLocationEnum(location)).
 		ProductCategory(locationapi.ProductCategoryEnum(productCategory)).
 		Execute()
 

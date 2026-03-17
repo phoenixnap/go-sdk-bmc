@@ -87,7 +87,7 @@ func (suite *BillingApiTestSuite) TestGetProductAvailability() {
 	productCategory := []string{fmt.Sprintf("%v", qpMap["productCategory"])}
 	productCode := []string{fmt.Sprintf("%v", qpMap["productCode"])}
 	showOnlyMinQuantityAvailable, _ := strconv.ParseBool(fmt.Sprintf("%v", qpMap["showOnlyMinQuantityAvailable"]))
-	location := []billingapi.LocationEnum{billingapi.LocationEnum(fmt.Sprintf("%v", qpMap["location"]))}
+	location := []billingapi.ProductLocationEnum{billingapi.ProductLocationEnum(fmt.Sprintf("%v", qpMap["location"]))}
 	solution := []string{fmt.Sprintf("%v", qpMap["solution"])}
 	minQuantity64, _ := strconv.ParseFloat(minQuantityStr, 32)
 	minQuantity := float32(minQuantity64)
