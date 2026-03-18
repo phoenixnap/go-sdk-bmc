@@ -1,6 +1,6 @@
-module github.com/phoenixnap/go-sdk-bmc/locationapi/v3
+module github.com/phoenixnap/go-sdk-bmc/locationapi
 
-go 1.18
+go 1.23
 
 require (
 )
