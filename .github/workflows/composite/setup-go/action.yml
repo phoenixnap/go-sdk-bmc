@@ -4,7 +4,7 @@ inputs:
   go-version: 
     description: 'Version of GO to setup.'
     required: false
-    default: '1.18'
+    default: '1.23'
 runs:
   using: "composite"
   steps:
