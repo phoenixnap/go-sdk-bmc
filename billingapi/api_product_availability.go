@@ -93,8 +93,8 @@ ProductAvailabilityGet List all Product availabilities.
 
 Retrieves the list of product availability details.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiProductAvailabilityGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiProductAvailabilityGetRequest
 */
 func (a *ProductAvailabilityAPIService) ProductAvailabilityGet(ctx context.Context) ApiProductAvailabilityGetRequest {
 	return ApiProductAvailabilityGetRequest{
@@ -104,7 +104,8 @@ func (a *ProductAvailabilityAPIService) ProductAvailabilityGet(ctx context.Conte
 }
 
 // Execute executes the request
-//  @return []ProductAvailability
+//
+//	@return []ProductAvailability
 func (a *ProductAvailabilityAPIService) ProductAvailabilityGetExecute(r ApiProductAvailabilityGetRequest) ([]ProductAvailability, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -129,10 +130,10 @@ func (a *ProductAvailabilityAPIService) ProductAvailabilityGetExecute(r ApiProdu
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", s.Index(i).Interface(), "multi")
+				parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", s.Index(i).Interface(), "form", "multi")
 			}
 		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", t, "multi")
+			parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", t, "form", "multi")
 		}
 	}
 	if r.productCode != nil {
@@ -140,16 +141,17 @@ func (a *ProductAvailabilityAPIService) ProductAvailabilityGetExecute(r ApiProdu
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "productCode", s.Index(i).Interface(), "multi")
+				parameterAddToHeaderOrQuery(localVarQueryParams, "productCode", s.Index(i).Interface(), "form", "multi")
 			}
 		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "productCode", t, "multi")
+			parameterAddToHeaderOrQuery(localVarQueryParams, "productCode", t, "form", "multi")
 		}
 	}
 	if r.showOnlyMinQuantityAvailable != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "showOnlyMinQuantityAvailable", r.showOnlyMinQuantityAvailable, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "showOnlyMinQuantityAvailable", r.showOnlyMinQuantityAvailable, "form", "")
 	} else {
 		var defaultValue bool = true
+		parameterAddToHeaderOrQuery(localVarQueryParams, "showOnlyMinQuantityAvailable", defaultValue, "form", "")
 		r.showOnlyMinQuantityAvailable = &defaultValue
 	}
 	if r.location != nil {
@@ -157,10 +159,10 @@ func (a *ProductAvailabilityAPIService) ProductAvailabilityGetExecute(r ApiProdu
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "location", s.Index(i).Interface(), "multi")
+				parameterAddToHeaderOrQuery(localVarQueryParams, "location", s.Index(i).Interface(), "form", "multi")
 			}
 		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "location", t, "multi")
+			parameterAddToHeaderOrQuery(localVarQueryParams, "location", t, "form", "multi")
 		}
 	}
 	if r.solution != nil {
@@ -168,14 +170,14 @@ func (a *ProductAvailabilityAPIService) ProductAvailabilityGetExecute(r ApiProdu
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "solution", s.Index(i).Interface(), "multi")
+				parameterAddToHeaderOrQuery(localVarQueryParams, "solution", s.Index(i).Interface(), "form", "multi")
 			}
 		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "solution", t, "multi")
+			parameterAddToHeaderOrQuery(localVarQueryParams, "solution", t, "form", "multi")
 		}
 	}
 	if r.minQuantity != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "minQuantity", r.minQuantity, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "minQuantity", r.minQuantity, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

@@ -397,10 +397,10 @@ DeletePrivateNetwork Removes the server from private network.
 
 Removes the server from private network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. <b>This is an advanced network action that can make your server completely unavailable over any network. Make sure this server is reachable over remote console for guaranteed access in case of misconfiguration.</b>
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @param privateNetworkId The private network identifier.
- @return ApiDeletePrivateNetworkRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@param privateNetworkId The private network identifier.
+	@return ApiDeletePrivateNetworkRequest
 */
 func (a *ServersAPIService) DeletePrivateNetwork(ctx context.Context, serverId string, privateNetworkId string) ApiDeletePrivateNetworkRequest {
 	return ApiDeletePrivateNetworkRequest{
@@ -412,7 +412,8 @@ func (a *ServersAPIService) DeletePrivateNetwork(ctx context.Context, serverId s
 }
 
 // Execute executes the request
-//  @return string
+//
+//	@return string
 func (a *ServersAPIService) DeletePrivateNetworkExecute(r ApiDeletePrivateNetworkRequest) (string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
@@ -563,8 +564,8 @@ ServersGet List servers.
 
 List all servers owned by account.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiServersGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiServersGetRequest
 */
 func (a *ServersAPIService) ServersGet(ctx context.Context) ApiServersGetRequest {
 	return ApiServersGetRequest{
@@ -574,7 +575,8 @@ func (a *ServersAPIService) ServersGet(ctx context.Context) ApiServersGetRequest
 }
 
 // Execute executes the request
-//  @return []Server
+//
+//	@return []Server
 func (a *ServersAPIService) ServersGetExecute(r ApiServersGetRequest) ([]Server, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -599,10 +601,10 @@ func (a *ServersAPIService) ServersGetExecute(r ApiServersGetRequest) ([]Server,
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "tag", s.Index(i).Interface(), "multi")
+				parameterAddToHeaderOrQuery(localVarQueryParams, "tag", s.Index(i).Interface(), "form", "multi")
 			}
 		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "tag", t, "multi")
+			parameterAddToHeaderOrQuery(localVarQueryParams, "tag", t, "form", "multi")
 		}
 	}
 	// to determine the Content-Type header
@@ -718,8 +720,8 @@ ServersPost Create new server.
 
 Create (request) a new server for the account. Server DNS will be configured to access Google's public DNS at 8.8.8.8 . Note that the product availability API can be used prior to doing the provision request. Refer to https://developers.phoenixnap.com/docs/bmc-billing/1/routes/product-availability/get.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiServersPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiServersPostRequest
 */
 func (a *ServersAPIService) ServersPost(ctx context.Context) ApiServersPostRequest {
 	return ApiServersPostRequest{
@@ -729,7 +731,8 @@ func (a *ServersAPIService) ServersPost(ctx context.Context) ApiServersPostReque
 }
 
 // Execute executes the request
-//  @return Server
+//
+//	@return Server
 func (a *ServersAPIService) ServersPostExecute(r ApiServersPostRequest) (*Server, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -753,9 +756,10 @@ func (a *ServersAPIService) ServersPostExecute(r ApiServersPostRequest) (*Server
 	}
 
 	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
 	} else {
 		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", defaultValue, "form", "")
 		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -900,9 +904,9 @@ ServersServerIdActionsDeprovisionPost Deprovision a server.
 
 Deprovision the server. Supports advanced deprovision configuration.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @return ApiServersServerIdActionsDeprovisionPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@return ApiServersServerIdActionsDeprovisionPostRequest
 */
 func (a *ServersAPIService) ServersServerIdActionsDeprovisionPost(ctx context.Context, serverId string) ApiServersServerIdActionsDeprovisionPostRequest {
 	return ApiServersServerIdActionsDeprovisionPostRequest{
@@ -913,7 +917,8 @@ func (a *ServersAPIService) ServersServerIdActionsDeprovisionPost(ctx context.Co
 }
 
 // Execute executes the request
-//  @return string
+//
+//	@return string
 func (a *ServersAPIService) ServersServerIdActionsDeprovisionPostExecute(r ApiServersServerIdActionsDeprovisionPostRequest) (string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -1062,9 +1067,9 @@ ServersServerIdActionsPowerOffPost Power off server.
 
 Power off specific server.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @return ApiServersServerIdActionsPowerOffPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@return ApiServersServerIdActionsPowerOffPostRequest
 */
 func (a *ServersAPIService) ServersServerIdActionsPowerOffPost(ctx context.Context, serverId string) ApiServersServerIdActionsPowerOffPostRequest {
 	return ApiServersServerIdActionsPowerOffPostRequest{
@@ -1075,7 +1080,8 @@ func (a *ServersAPIService) ServersServerIdActionsPowerOffPost(ctx context.Conte
 }
 
 // Execute executes the request
-//  @return ActionResult
+//
+//	@return ActionResult
 func (a *ServersAPIService) ServersServerIdActionsPowerOffPostExecute(r ApiServersServerIdActionsPowerOffPostRequest) (*ActionResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -1219,9 +1225,9 @@ ServersServerIdActionsPowerOnPost Power on server.
 
 Power on specific server.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @return ApiServersServerIdActionsPowerOnPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@return ApiServersServerIdActionsPowerOnPostRequest
 */
 func (a *ServersAPIService) ServersServerIdActionsPowerOnPost(ctx context.Context, serverId string) ApiServersServerIdActionsPowerOnPostRequest {
 	return ApiServersServerIdActionsPowerOnPostRequest{
@@ -1232,7 +1238,8 @@ func (a *ServersAPIService) ServersServerIdActionsPowerOnPost(ctx context.Contex
 }
 
 // Execute executes the request
-//  @return ActionResult
+//
+//	@return ActionResult
 func (a *ServersAPIService) ServersServerIdActionsPowerOnPostExecute(r ApiServersServerIdActionsPowerOnPostRequest) (*ActionResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -1389,9 +1396,9 @@ ServersServerIdActionsProvisionPost Provision server.
 
 Provision reserved server. Server DNS will be configured to access Google's public DNS at 8.8.8.8.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @return ApiServersServerIdActionsProvisionPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@return ApiServersServerIdActionsProvisionPostRequest
 */
 func (a *ServersAPIService) ServersServerIdActionsProvisionPost(ctx context.Context, serverId string) ApiServersServerIdActionsProvisionPostRequest {
 	return ApiServersServerIdActionsProvisionPostRequest{
@@ -1402,7 +1409,8 @@ func (a *ServersAPIService) ServersServerIdActionsProvisionPost(ctx context.Cont
 }
 
 // Execute executes the request
-//  @return Server
+//
+//	@return Server
 func (a *ServersAPIService) ServersServerIdActionsProvisionPostExecute(r ApiServersServerIdActionsProvisionPostRequest) (*Server, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -1427,9 +1435,10 @@ func (a *ServersAPIService) ServersServerIdActionsProvisionPostExecute(r ApiServ
 	}
 
 	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
 	} else {
 		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", defaultValue, "form", "")
 		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -1568,9 +1577,9 @@ ServersServerIdActionsRebootPost Reboot server.
 
 Reboot specific server.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @return ApiServersServerIdActionsRebootPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@return ApiServersServerIdActionsRebootPostRequest
 */
 func (a *ServersAPIService) ServersServerIdActionsRebootPost(ctx context.Context, serverId string) ApiServersServerIdActionsRebootPostRequest {
 	return ApiServersServerIdActionsRebootPostRequest{
@@ -1581,7 +1590,8 @@ func (a *ServersAPIService) ServersServerIdActionsRebootPost(ctx context.Context
 }
 
 // Execute executes the request
-//  @return ActionResult
+//
+//	@return ActionResult
 func (a *ServersAPIService) ServersServerIdActionsRebootPostExecute(r ApiServersServerIdActionsRebootPostRequest) (*ActionResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -1731,9 +1741,9 @@ ServersServerIdActionsReservePost Reserve server.
 
 Reserve specific server.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @return ApiServersServerIdActionsReservePostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@return ApiServersServerIdActionsReservePostRequest
 */
 func (a *ServersAPIService) ServersServerIdActionsReservePost(ctx context.Context, serverId string) ApiServersServerIdActionsReservePostRequest {
 	return ApiServersServerIdActionsReservePostRequest{
@@ -1744,7 +1754,8 @@ func (a *ServersAPIService) ServersServerIdActionsReservePost(ctx context.Contex
 }
 
 // Execute executes the request
-//  @return Server
+//
+//	@return Server
 func (a *ServersAPIService) ServersServerIdActionsReservePostExecute(r ApiServersServerIdActionsReservePostRequest) (*Server, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -1899,9 +1910,9 @@ ServersServerIdActionsResetPost Reset server.
 
 Deprecated: Reset specific server. Reset only supports network configurations of type 'private network' or 'IP blocks'. As an alternative, the suggested action is to deprovision the server and provision a new one with the same configuration.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @return ApiServersServerIdActionsResetPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@return ApiServersServerIdActionsResetPostRequest
 
 Deprecated
 */
@@ -1914,7 +1925,9 @@ func (a *ServersAPIService) ServersServerIdActionsResetPost(ctx context.Context,
 }
 
 // Execute executes the request
-//  @return ResetResult
+//
+//	@return ResetResult
+//
 // Deprecated
 func (a *ServersAPIService) ServersServerIdActionsResetPostExecute(r ApiServersServerIdActionsResetPostRequest) (*ResetResult, *http.Response, error) {
 	var (
@@ -2064,9 +2077,9 @@ ServersServerIdActionsShutdownPost Shutdown server.
 
 Shut down specific server.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @return ApiServersServerIdActionsShutdownPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@return ApiServersServerIdActionsShutdownPostRequest
 */
 func (a *ServersAPIService) ServersServerIdActionsShutdownPost(ctx context.Context, serverId string) ApiServersServerIdActionsShutdownPostRequest {
 	return ApiServersServerIdActionsShutdownPostRequest{
@@ -2077,7 +2090,8 @@ func (a *ServersAPIService) ServersServerIdActionsShutdownPost(ctx context.Conte
 }
 
 // Execute executes the request
-//  @return ActionResult
+//
+//	@return ActionResult
 func (a *ServersAPIService) ServersServerIdActionsShutdownPostExecute(r ApiServersServerIdActionsShutdownPostRequest) (*ActionResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -2227,9 +2241,9 @@ ServersServerIdActionsTransferReservation Transfer server reservation.
 
 Transfer server reservation. An active (READY) reservation can be transferred from a server in ERROR or RESERVED status to another HOURLY provisioned server of the same location and type.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @return ApiServersServerIdActionsTransferReservationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@return ApiServersServerIdActionsTransferReservationRequest
 */
 func (a *ServersAPIService) ServersServerIdActionsTransferReservation(ctx context.Context, serverId string) ApiServersServerIdActionsTransferReservationRequest {
 	return ApiServersServerIdActionsTransferReservationRequest{
@@ -2240,7 +2254,8 @@ func (a *ServersAPIService) ServersServerIdActionsTransferReservation(ctx contex
 }
 
 // Execute executes the request
-//  @return Server
+//
+//	@return Server
 func (a *ServersAPIService) ServersServerIdActionsTransferReservationExecute(r ApiServersServerIdActionsTransferReservationRequest) (*Server, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -2389,9 +2404,9 @@ ServersServerIdDelete Delete server.
 
 Deprovision specific server. Any IP blocks assigned to this server will also be relinquished and deleted. Deprecated: see /servers/{serverId}/actions/deprovision
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @return ApiServersServerIdDeleteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@return ApiServersServerIdDeleteRequest
 
 Deprecated
 */
@@ -2404,7 +2419,9 @@ func (a *ServersAPIService) ServersServerIdDelete(ctx context.Context, serverId 
 }
 
 // Execute executes the request
-//  @return DeleteResult
+//
+//	@return DeleteResult
+//
 // Deprecated
 func (a *ServersAPIService) ServersServerIdDeleteExecute(r ApiServersServerIdDeleteRequest) (*DeleteResult, *http.Response, error) {
 	var (
@@ -2538,9 +2555,9 @@ ServersServerIdGet Get server.
 
 Get server properties.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @return ApiServersServerIdGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@return ApiServersServerIdGetRequest
 */
 func (a *ServersAPIService) ServersServerIdGet(ctx context.Context, serverId string) ApiServersServerIdGetRequest {
 	return ApiServersServerIdGetRequest{
@@ -2551,7 +2568,8 @@ func (a *ServersAPIService) ServersServerIdGet(ctx context.Context, serverId str
 }
 
 // Execute executes the request
-//  @return Server
+//
+//	@return Server
 func (a *ServersAPIService) ServersServerIdGetExecute(r ApiServersServerIdGetRequest) (*Server, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -2691,10 +2709,10 @@ ServersServerIdIpBlocksIpBlockIdDelete Unassign IP Block from Server.
 
 Removes the IP block from the server. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. <b>This is an advanced network action that can make your server completely unavailable over any network. Make sure this server is reachable over remote console for guaranteed access in case of misconfiguration.</b>
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @param ipBlockId The IP Block identifier.
- @return ApiServersServerIdIpBlocksIpBlockIdDeleteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@param ipBlockId The IP Block identifier.
+	@return ApiServersServerIdIpBlocksIpBlockIdDeleteRequest
 */
 func (a *ServersAPIService) ServersServerIdIpBlocksIpBlockIdDelete(ctx context.Context, serverId string, ipBlockId string) ApiServersServerIdIpBlocksIpBlockIdDeleteRequest {
 	return ApiServersServerIdIpBlocksIpBlockIdDeleteRequest{
@@ -2706,7 +2724,8 @@ func (a *ServersAPIService) ServersServerIdIpBlocksIpBlockIdDelete(ctx context.C
 }
 
 // Execute executes the request
-//  @return string
+//
+//	@return string
 func (a *ServersAPIService) ServersServerIdIpBlocksIpBlockIdDeleteExecute(r ApiServersServerIdIpBlocksIpBlockIdDeleteRequest) (string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
@@ -2862,9 +2881,9 @@ ServersServerIdIpBlocksPost Assign IP Block to Server.
 
 Adds an IP block to this server. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required.  A server can have at most one IPv4 block and one IPv6 block assigned simultaneously. Assigning IPv6 to server is only supported post-provision. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/configure-server-with-public-ip-block#ftoc-heading-2' target='_blank'>here</a>.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @return ApiServersServerIdIpBlocksPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@return ApiServersServerIdIpBlocksPostRequest
 */
 func (a *ServersAPIService) ServersServerIdIpBlocksPost(ctx context.Context, serverId string) ApiServersServerIdIpBlocksPostRequest {
 	return ApiServersServerIdIpBlocksPostRequest{
@@ -2875,7 +2894,8 @@ func (a *ServersAPIService) ServersServerIdIpBlocksPost(ctx context.Context, ser
 }
 
 // Execute executes the request
-//  @return ServerIpBlock
+//
+//	@return ServerIpBlock
 func (a *ServersAPIService) ServersServerIdIpBlocksPostExecute(r ApiServersServerIdIpBlocksPostRequest) (*ServerIpBlock, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -3030,9 +3050,9 @@ ServersServerIdPatch Patch a Server.
 
 Any changes to the hostname or description using the BMC API will reflect solely in the BMC API and portal. The changes are intended to keep the BMC data up to date with your server. We do not have access to your server's settings. Local changes to the server's hostname will not be reflected in the API or portal.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @return ApiServersServerIdPatchRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@return ApiServersServerIdPatchRequest
 */
 func (a *ServersAPIService) ServersServerIdPatch(ctx context.Context, serverId string) ApiServersServerIdPatchRequest {
 	return ApiServersServerIdPatchRequest{
@@ -3043,7 +3063,8 @@ func (a *ServersAPIService) ServersServerIdPatch(ctx context.Context, serverId s
 }
 
 // Execute executes the request
-//  @return Server
+//
+//	@return Server
 func (a *ServersAPIService) ServersServerIdPatchExecute(r ApiServersServerIdPatchRequest) (*Server, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
@@ -3195,10 +3216,10 @@ ServersServerIdPrivateNetworksPatch Updates the server's private network's IP ad
 
 IP address changes intended to keep the BMC data up to date with server's operating system. We do not have access to the server's operating system and therefore manual configuration is required to apply the changes on the host. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-6' target='_blank'>here</a>
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @param privateNetworkId The private network identifier.
- @return ApiServersServerIdPrivateNetworksPatchRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@param privateNetworkId The private network identifier.
+	@return ApiServersServerIdPrivateNetworksPatchRequest
 */
 func (a *ServersAPIService) ServersServerIdPrivateNetworksPatch(ctx context.Context, serverId string, privateNetworkId string) ApiServersServerIdPrivateNetworksPatchRequest {
 	return ApiServersServerIdPrivateNetworksPatchRequest{
@@ -3210,7 +3231,8 @@ func (a *ServersAPIService) ServersServerIdPrivateNetworksPatch(ctx context.Cont
 }
 
 // Execute executes the request
-//  @return ServerPrivateNetwork
+//
+//	@return ServerPrivateNetwork
 func (a *ServersAPIService) ServersServerIdPrivateNetworksPatchExecute(r ApiServersServerIdPrivateNetworksPatchRequest) (*ServerPrivateNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
@@ -3236,9 +3258,10 @@ func (a *ServersAPIService) ServersServerIdPrivateNetworksPatchExecute(r ApiServ
 	}
 
 	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
 	} else {
 		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", defaultValue, "form", "")
 		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -3379,9 +3402,9 @@ ServersServerIdPrivateNetworksPost Adds the server to a private network.
 
 Adds the server to a private network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3' target='_blank'>here</a>.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @return ApiServersServerIdPrivateNetworksPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@return ApiServersServerIdPrivateNetworksPostRequest
 */
 func (a *ServersAPIService) ServersServerIdPrivateNetworksPost(ctx context.Context, serverId string) ApiServersServerIdPrivateNetworksPostRequest {
 	return ApiServersServerIdPrivateNetworksPostRequest{
@@ -3392,7 +3415,8 @@ func (a *ServersAPIService) ServersServerIdPrivateNetworksPost(ctx context.Conte
 }
 
 // Execute executes the request
-//  @return ServerPrivateNetwork
+//
+//	@return ServerPrivateNetwork
 func (a *ServersAPIService) ServersServerIdPrivateNetworksPostExecute(r ApiServersServerIdPrivateNetworksPostRequest) (*ServerPrivateNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -3417,9 +3441,10 @@ func (a *ServersAPIService) ServersServerIdPrivateNetworksPostExecute(r ApiServe
 	}
 
 	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
 	} else {
 		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", defaultValue, "form", "")
 		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -3537,10 +3562,10 @@ ServersServerIdPublicNetworksDelete Removes the server from the Public Network
 
 Removes the server from the Public Network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. <b>This is an advanced network action that can make your server completely unavailable over any network. Make sure this server is reachable over remote console for guaranteed access in case of misconfiguration.</b>
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @param publicNetworkId The Public Network identifier.
- @return ApiServersServerIdPublicNetworksDeleteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@param publicNetworkId The Public Network identifier.
+	@return ApiServersServerIdPublicNetworksDeleteRequest
 */
 func (a *ServersAPIService) ServersServerIdPublicNetworksDelete(ctx context.Context, serverId string, publicNetworkId string) ApiServersServerIdPublicNetworksDeleteRequest {
 	return ApiServersServerIdPublicNetworksDeleteRequest{
@@ -3552,7 +3577,8 @@ func (a *ServersAPIService) ServersServerIdPublicNetworksDelete(ctx context.Cont
 }
 
 // Execute executes the request
-//  @return string
+//
+//	@return string
 func (a *ServersAPIService) ServersServerIdPublicNetworksDeleteExecute(r ApiServersServerIdPublicNetworksDeleteRequest) (string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
@@ -3711,10 +3737,10 @@ ServersServerIdPublicNetworksPatch Updates the server's public network's IP addr
 
 IP address changes intended to keep the BMC data up to date with server's operating system. We do not have access to the server's operating system and therefore manual configuration is required to apply the changes on the host. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/bmc-server-management-via-api#ftoc-heading-6' target='_blank'>here</a>
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @param publicNetworkId The Public Network identifier.
- @return ApiServersServerIdPublicNetworksPatchRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@param publicNetworkId The Public Network identifier.
+	@return ApiServersServerIdPublicNetworksPatchRequest
 */
 func (a *ServersAPIService) ServersServerIdPublicNetworksPatch(ctx context.Context, serverId string, publicNetworkId string) ApiServersServerIdPublicNetworksPatchRequest {
 	return ApiServersServerIdPublicNetworksPatchRequest{
@@ -3726,7 +3752,8 @@ func (a *ServersAPIService) ServersServerIdPublicNetworksPatch(ctx context.Conte
 }
 
 // Execute executes the request
-//  @return ServerPublicNetwork
+//
+//	@return ServerPublicNetwork
 func (a *ServersAPIService) ServersServerIdPublicNetworksPatchExecute(r ApiServersServerIdPublicNetworksPatchRequest) (*ServerPublicNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
@@ -3752,9 +3779,10 @@ func (a *ServersAPIService) ServersServerIdPublicNetworksPatchExecute(r ApiServe
 	}
 
 	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
 	} else {
 		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", defaultValue, "form", "")
 		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -3895,9 +3923,9 @@ ServersServerIdPublicNetworksPost Adds the server to a Public Network.
 
 Adds the server to a Public Network. <b>No actual configuration is performed on the operating system.</b> BMC configures exclusively the networking devices in the datacenter infrastructure. Manual network configuration changes in the operating system of this server are required. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/configure-bmc-server-after-adding-to-network#ftoc-heading-3' target='_blank'>here</a>.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @return ApiServersServerIdPublicNetworksPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@return ApiServersServerIdPublicNetworksPostRequest
 */
 func (a *ServersAPIService) ServersServerIdPublicNetworksPost(ctx context.Context, serverId string) ApiServersServerIdPublicNetworksPostRequest {
 	return ApiServersServerIdPublicNetworksPostRequest{
@@ -3908,7 +3936,8 @@ func (a *ServersAPIService) ServersServerIdPublicNetworksPost(ctx context.Contex
 }
 
 // Execute executes the request
-//  @return ServerPublicNetwork
+//
+//	@return ServerPublicNetwork
 func (a *ServersAPIService) ServersServerIdPublicNetworksPostExecute(r ApiServersServerIdPublicNetworksPostRequest) (*ServerPublicNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -3933,9 +3962,10 @@ func (a *ServersAPIService) ServersServerIdPublicNetworksPostExecute(r ApiServer
 	}
 
 	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
 	} else {
 		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", defaultValue, "form", "")
 		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -4069,9 +4099,9 @@ ServersServerIdTagsPut Overwrite tags assigned for Server.
 
 Overwrites tags assigned for Server and unassigns any tags not part of the request.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serverId The server's ID.
- @return ApiServersServerIdTagsPutRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@return ApiServersServerIdTagsPutRequest
 */
 func (a *ServersAPIService) ServersServerIdTagsPut(ctx context.Context, serverId string) ApiServersServerIdTagsPutRequest {
 	return ApiServersServerIdTagsPutRequest{
@@ -4082,7 +4112,8 @@ func (a *ServersAPIService) ServersServerIdTagsPut(ctx context.Context, serverId
 }
 
 // Execute executes the request
-//  @return Server
+//
+//	@return Server
 func (a *ServersAPIService) ServersServerIdTagsPutExecute(r ApiServersServerIdTagsPutRequest) (*Server, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut

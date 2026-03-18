@@ -22,11 +22,11 @@ var _ MappedNullable = &VolumeCreate{}
 // VolumeCreate Create Volume.
 type VolumeCreate struct {
 	// Volume friendly name.
-	Name string `json:"name"`
+	Name string `json:"name" validate:"regexp=^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"`
 	// Volume description.
 	Description *string `json:"description,omitempty"`
 	// Last part of volume's path.
-	PathSuffix *string `json:"pathSuffix,omitempty"`
+	PathSuffix *string `json:"pathSuffix,omitempty" validate:"regexp=^(\\/[\\\\w-]+)+$|^$"`
 	// Capacity of Volume in GB. Currently only whole numbers and multiples of 1000GB are supported.
 	CapacityInGb int32              `json:"capacityInGb"`
 	Permissions  *PermissionsCreate `json:"permissions,omitempty"`

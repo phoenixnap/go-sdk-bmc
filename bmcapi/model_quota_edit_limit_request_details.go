@@ -25,7 +25,7 @@ type QuotaEditLimitRequestDetails struct {
 	// The new limit that is requested. Minimum allowed limit values: - 0 (Server, IPs) - 1000 (Network Storage)
 	Limit int32 `json:"limit"`
 	// The reason for changing the limit.
-	Reason string `json:"reason"`
+	Reason string `json:"reason" validate:"regexp=^(?s)(?!\\\\s*$).+"`
 	// The point in time the request was submitted.
 	RequestedOn          time.Time `json:"requestedOn"`
 	AdditionalProperties map[string]interface{}

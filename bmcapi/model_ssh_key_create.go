@@ -24,9 +24,9 @@ type SshKeyCreate struct {
 	// Keys marked as default are always included on server creation and reset unless toggled off in creation/reset request.
 	Default bool `json:"default"`
 	// Friendly SSH key name to represent an SSH key.
-	Name string `json:"name"`
+	Name string `json:"name" validate:"regexp=^(?!\\\\s*$).+"`
 	// SSH key actual key value.
-	Key                  string `json:"key"`
+	Key                  string `json:"key" validate:"regexp=^(?!\\\\s*$).+"`
 	AdditionalProperties map[string]interface{}
 }
 

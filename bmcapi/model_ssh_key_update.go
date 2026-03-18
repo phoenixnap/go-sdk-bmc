@@ -24,7 +24,7 @@ type SshKeyUpdate struct {
 	// Keys marked as default are always included on server creation and reset unless toggled off in creation/reset request.
 	Default bool `json:"default"`
 	// SSH key name that can represent the key as an alternative to its ID.
-	Name                 string `json:"name"`
+	Name                 string `json:"name" validate:"regexp=^(?!\\\\s*$).+"`
 	AdditionalProperties map[string]interface{}
 }
 

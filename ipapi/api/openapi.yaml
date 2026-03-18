@@ -54,28 +54,28 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/IpBlock'
+                  $ref: "#/components/schemas/IpBlock"
                 type: array
           description: IP Blocks list.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -107,7 +107,7 @@ paths:
                   ipVersion: V6
                   location: PHX
             schema:
-              $ref: '#/components/schemas/IpBlockCreate'
+              $ref: "#/components/schemas/IpBlockCreate"
         required: true
       responses:
         "201":
@@ -125,40 +125,40 @@ paths:
                 isSystemManaged: false
                 createdOn: 2021-03-13T20:24:32.491Z
               schema:
-                $ref: '#/components/schemas/IpBlock'
+                $ref: "#/components/schemas/IpBlock"
           description: IP Block created.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "406":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: No IP Blocks available of provided cidr block size.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -187,27 +187,27 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteIpBlockResult'
+                $ref: "#/components/schemas/DeleteIpBlockResult"
           description: IP Block deleted.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -234,27 +234,27 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IpBlock'
+                $ref: "#/components/schemas/IpBlock"
           description: Specific IP Block details.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -282,47 +282,47 @@ paths:
             example:
               description: Ip Block description
             schema:
-              $ref: '#/components/schemas/IpBlockPatch'
+              $ref: "#/components/schemas/IpBlockPatch"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IpBlock'
+                $ref: "#/components/schemas/IpBlock"
           description: Updated IpBlock.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since the resource could not been found.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -356,7 +356,7 @@ paths:
               - name: group
                 value: discountId
               items:
-                $ref: '#/components/schemas/TagAssignmentRequest'
+                $ref: "#/components/schemas/TagAssignmentRequest"
               type: array
         required: true
       responses:
@@ -364,34 +364,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IpBlock'
+                $ref: "#/components/schemas/IpBlock"
           description: IP Blocks tags set.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -417,35 +417,35 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed due to invalid credentials. Please check the
         provided credentials and try again.
     Forbidden:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed since this resource cannot be accessed by the
         provided credentials.
     InternalServerError:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The server encountered an unexpected condition that prevented it
         from fulfilling the request.
     BadRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed due to wrong data. Please check the provided
         parameters and try again.
     NotFound:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed since the resource could not been found.
   schemas:
     IpBlockPatch:
@@ -502,7 +502,7 @@ components:
           - name: group
             value: discounted
           items:
-            $ref: '#/components/schemas/TagAssignmentRequest'
+            $ref: "#/components/schemas/TagAssignmentRequest"
           type: array
       required:
       - cidrBlockSize
@@ -585,7 +585,7 @@ components:
           - name: group
             value: discounted
           items:
-            $ref: '#/components/schemas/TagAssignment'
+            $ref: "#/components/schemas/TagAssignment"
           type: array
         isSystemManaged:
           description: True if the IP block is a `system managed` block.
@@ -647,6 +647,11 @@ components:
       - name
       type: object
     Error:
+      example:
+        validationErrors:
+        - validationErrors
+        - validationErrors
+        message: message
       properties:
         message:
           description: The description detailing the cause of the error code.

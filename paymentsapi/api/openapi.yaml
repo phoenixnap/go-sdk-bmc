@@ -106,34 +106,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedTransactions'
+                $ref: "#/components/schemas/PaginatedTransactions"
           description: A Paginated list of client's transactions.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -161,27 +161,27 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Transaction'
+                $ref: "#/components/schemas/Transaction"
           description: Transaction details.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -256,38 +256,38 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed due to wrong data. Please check the provided
         parameters and try again.
     Unauthorized:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed due to invalid credentials. Please check the
         provided credentials and try again.
     Forbidden:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed since this resource cannot be accessed by the
         provided credentials.
     InternalServerError:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The server encountered an unexpected condition that prevented it
         from fulfilling the request.
   schemas:
     PaginatedTransactions:
       allOf:
-      - $ref: '#/components/schemas/PaginatedResponse'
+      - $ref: "#/components/schemas/PaginatedResponse"
       - properties:
           results:
             items:
-              $ref: '#/components/schemas/Transaction'
+              $ref: "#/components/schemas/Transaction"
             type: array
         required:
         - results
@@ -368,9 +368,9 @@ components:
           format: date-time
           type: string
         metadata:
-          $ref: '#/components/schemas/TransactionMetadata'
+          $ref: "#/components/schemas/TransactionMetadata"
         cardPaymentMethodDetails:
-          $ref: '#/components/schemas/CardPaymentMethodDetails'
+          $ref: "#/components/schemas/CardPaymentMethodDetails"
       required:
       - amount
       - cardPaymentMethodDetails
@@ -447,6 +447,11 @@ components:
       - total
       type: object
     Error:
+      example:
+        validationErrors:
+        - validationErrors
+        - validationErrors
+        message: message
       properties:
         message:
           description: The description detailing the cause of the error code.

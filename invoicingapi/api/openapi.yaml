@@ -127,34 +127,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedInvoices'
+                $ref: "#/components/schemas/PaginatedInvoices"
           description: List all invoices.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -182,27 +182,27 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Invoice'
+                $ref: "#/components/schemas/Invoice"
           description: Get invoice details.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -237,21 +237,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -278,39 +278,39 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/InvoicePaymentRequest'
+              $ref: "#/components/schemas/InvoicePaymentRequest"
       responses:
         "202":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InvoicePaymentResponse'
+                $ref: "#/components/schemas/InvoicePaymentResponse"
           description: Invoice payment is being processed
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -439,44 +439,44 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed due to wrong data. Please check the provided
         parameters and try again.
     Unauthorized:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed due to invalid credentials. Please check the
         provided credentials and try again.
     Forbidden:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed since this resource cannot be accessed by the
         provided credentials.
     InternalServerError:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The server encountered an unexpected condition that prevented it
         from fulfilling the request.
     Conflict:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The resource is in an incompatible state.
   schemas:
     PaginatedInvoices:
       allOf:
-      - $ref: '#/components/schemas/PaginatedResponse'
+      - $ref: "#/components/schemas/PaginatedResponse"
       - properties:
           results:
             items:
-              $ref: '#/components/schemas/Invoice'
+              $ref: "#/components/schemas/Invoice"
             type: array
         required:
         - results
@@ -587,6 +587,11 @@ components:
       - total
       type: object
     Error:
+      example:
+        validationErrors:
+        - validationErrors
+        - validationErrors
+        message: message
       properties:
         message:
           description: The description detailing the cause of the error code.

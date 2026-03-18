@@ -88,8 +88,8 @@ RatedUsageGet List the rated usage.
 
 Retrieves all rated usage for given time period. The information is presented as a list of rated usage records. Every record corresponds to a charge. All date & times are in UTC.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRatedUsageGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRatedUsageGetRequest
 */
 func (a *RatedUsageAPIService) RatedUsageGet(ctx context.Context) ApiRatedUsageGetRequest {
 	return ApiRatedUsageGetRequest{
@@ -99,7 +99,8 @@ func (a *RatedUsageAPIService) RatedUsageGet(ctx context.Context) ApiRatedUsageG
 }
 
 // Execute executes the request
-//  @return []RatedUsageGet200ResponseInner
+//
+//	@return []RatedUsageGet200ResponseInner
 func (a *RatedUsageAPIService) RatedUsageGetExecute(r ApiRatedUsageGetRequest) ([]RatedUsageGet200ResponseInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -125,10 +126,10 @@ func (a *RatedUsageAPIService) RatedUsageGetExecute(r ApiRatedUsageGetRequest) (
 		return localVarReturnValue, nil, reportError("toYearMonth is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "fromYearMonth", r.fromYearMonth, "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "toYearMonth", r.toYearMonth, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "fromYearMonth", r.fromYearMonth, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "toYearMonth", r.toYearMonth, "form", "")
 	if r.productCategory != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -237,8 +238,8 @@ RatedUsageMonthToDateGet List the rated usage records for the current calendar m
 
 Retrieves all rated usage for the current calendar month. The information is presented as a list of rated usage records. Every record corresponds to a charge. All date & times are in UTC.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRatedUsageMonthToDateGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRatedUsageMonthToDateGetRequest
 */
 func (a *RatedUsageAPIService) RatedUsageMonthToDateGet(ctx context.Context) ApiRatedUsageMonthToDateGetRequest {
 	return ApiRatedUsageMonthToDateGetRequest{
@@ -248,7 +249,8 @@ func (a *RatedUsageAPIService) RatedUsageMonthToDateGet(ctx context.Context) Api
 }
 
 // Execute executes the request
-//  @return []RatedUsageGet200ResponseInner
+//
+//	@return []RatedUsageGet200ResponseInner
 func (a *RatedUsageAPIService) RatedUsageMonthToDateGetExecute(r ApiRatedUsageMonthToDateGetRequest) ([]RatedUsageGet200ResponseInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -269,7 +271,7 @@ func (a *RatedUsageAPIService) RatedUsageMonthToDateGetExecute(r ApiRatedUsageMo
 	localVarFormParams := url.Values{}
 
 	if r.productCategory != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

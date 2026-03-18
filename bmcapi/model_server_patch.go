@@ -23,7 +23,7 @@ type ServerPatch struct {
 	// Description of server.
 	Description *string `json:"description,omitempty"`
 	// Hostname of server
-	Hostname             *string `json:"hostname,omitempty"`
+	Hostname             *string `json:"hostname,omitempty" validate:"regexp=[a-zA-Z0-9().-]+"`
 	AdditionalProperties map[string]interface{}
 }
 

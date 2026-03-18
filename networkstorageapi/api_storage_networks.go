@@ -213,8 +213,8 @@ StorageNetworksGet List all storage networks.
 
 List all storage networks.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiStorageNetworksGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiStorageNetworksGetRequest
 */
 func (a *StorageNetworksAPIService) StorageNetworksGet(ctx context.Context) ApiStorageNetworksGetRequest {
 	return ApiStorageNetworksGetRequest{
@@ -224,7 +224,8 @@ func (a *StorageNetworksAPIService) StorageNetworksGet(ctx context.Context) ApiS
 }
 
 // Execute executes the request
-//  @return []StorageNetwork
+//
+//	@return []StorageNetwork
 func (a *StorageNetworksAPIService) StorageNetworksGetExecute(r ApiStorageNetworksGetRequest) ([]StorageNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -245,7 +246,7 @@ func (a *StorageNetworksAPIService) StorageNetworksGetExecute(r ApiStorageNetwor
 	localVarFormParams := url.Values{}
 
 	if r.location != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -359,9 +360,9 @@ StorageNetworksIdDelete Delete a storage network and its volume.
 
 Delete a storage network and its volume. A storage network can only be removed if it's not in 'BUSY' state. Billing stops on storage network deletion.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param storageId ID of the storage.
- @return ApiStorageNetworksIdDeleteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storageId ID of the storage.
+	@return ApiStorageNetworksIdDeleteRequest
 */
 func (a *StorageNetworksAPIService) StorageNetworksIdDelete(ctx context.Context, storageId string) ApiStorageNetworksIdDeleteRequest {
 	return ApiStorageNetworksIdDeleteRequest{
@@ -516,9 +517,9 @@ StorageNetworksIdGet Get storage network details.
 
 Get storage network details.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param storageId ID of the storage.
- @return ApiStorageNetworksIdGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storageId ID of the storage.
+	@return ApiStorageNetworksIdGetRequest
 */
 func (a *StorageNetworksAPIService) StorageNetworksIdGet(ctx context.Context, storageId string) ApiStorageNetworksIdGetRequest {
 	return ApiStorageNetworksIdGetRequest{
@@ -529,7 +530,8 @@ func (a *StorageNetworksAPIService) StorageNetworksIdGet(ctx context.Context, st
 }
 
 // Execute executes the request
-//  @return StorageNetwork
+//
+//	@return StorageNetwork
 func (a *StorageNetworksAPIService) StorageNetworksIdGetExecute(r ApiStorageNetworksIdGetRequest) (*StorageNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -658,9 +660,9 @@ StorageNetworksIdPatch Update storage network details.
 
 Update storage network details.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param storageId ID of the storage.
- @return ApiStorageNetworksIdPatchRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storageId ID of the storage.
+	@return ApiStorageNetworksIdPatchRequest
 */
 func (a *StorageNetworksAPIService) StorageNetworksIdPatch(ctx context.Context, storageId string) ApiStorageNetworksIdPatchRequest {
 	return ApiStorageNetworksIdPatchRequest{
@@ -671,7 +673,8 @@ func (a *StorageNetworksAPIService) StorageNetworksIdPatch(ctx context.Context, 
 }
 
 // Execute executes the request
-//  @return StorageNetwork
+//
+//	@return StorageNetwork
 func (a *StorageNetworksAPIService) StorageNetworksIdPatchExecute(r ApiStorageNetworksIdPatchRequest) (*StorageNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
@@ -814,8 +817,8 @@ StorageNetworksPost Create a storage network and volume.
 
 Create a storage network and volume.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiStorageNetworksPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiStorageNetworksPostRequest
 */
 func (a *StorageNetworksAPIService) StorageNetworksPost(ctx context.Context) ApiStorageNetworksPostRequest {
 	return ApiStorageNetworksPostRequest{
@@ -825,7 +828,8 @@ func (a *StorageNetworksAPIService) StorageNetworksPost(ctx context.Context) Api
 }
 
 // Execute executes the request
-//  @return StorageNetwork
+//
+//	@return StorageNetwork
 func (a *StorageNetworksAPIService) StorageNetworksPostExecute(r ApiStorageNetworksPostRequest) (*StorageNetwork, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -980,9 +984,9 @@ StorageNetworksStorageNetworkIdVolumesGet Display one or more volumes belonging 
 
 Display one or more volumes belonging to a storage network.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param storageId ID of the storage.
- @return ApiStorageNetworksStorageNetworkIdVolumesGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storageId ID of the storage.
+	@return ApiStorageNetworksStorageNetworkIdVolumesGetRequest
 */
 func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesGet(ctx context.Context, storageId string) ApiStorageNetworksStorageNetworkIdVolumesGetRequest {
 	return ApiStorageNetworksStorageNetworkIdVolumesGetRequest{
@@ -993,7 +997,8 @@ func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesGet(ct
 }
 
 // Execute executes the request
-//  @return []Volume
+//
+//	@return []Volume
 func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesGetExecute(r ApiStorageNetworksStorageNetworkIdVolumesGetRequest) ([]Volume, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1019,10 +1024,10 @@ func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesGetExe
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "tag", s.Index(i).Interface(), "multi")
+				parameterAddToHeaderOrQuery(localVarQueryParams, "tag", s.Index(i).Interface(), "form", "multi")
 			}
 		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "tag", t, "multi")
+			parameterAddToHeaderOrQuery(localVarQueryParams, "tag", t, "form", "multi")
 		}
 	}
 	// to determine the Content-Type header
@@ -1132,9 +1137,9 @@ StorageNetworksStorageNetworkIdVolumesPost Create a volume belonging to a storag
 
 Create a volume belonging to a storage network.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param storageId ID of the storage.
- @return ApiStorageNetworksStorageNetworkIdVolumesPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storageId ID of the storage.
+	@return ApiStorageNetworksStorageNetworkIdVolumesPostRequest
 */
 func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesPost(ctx context.Context, storageId string) ApiStorageNetworksStorageNetworkIdVolumesPostRequest {
 	return ApiStorageNetworksStorageNetworkIdVolumesPostRequest{
@@ -1145,7 +1150,8 @@ func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesPost(c
 }
 
 // Execute executes the request
-//  @return Volume
+//
+//	@return Volume
 func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesPostExecute(r ApiStorageNetworksStorageNetworkIdVolumesPostRequest) (*Volume, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -1306,10 +1312,10 @@ StorageNetworksStorageNetworkIdVolumesVolumeIdDelete Delete a Storage Network's 
 
 Delete a Storage Network's Volume
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param storageId ID of the storage.
- @param volumeId ID of volume.
- @return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdDeleteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storageId ID of the storage.
+	@param volumeId ID of volume.
+	@return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdDeleteRequest
 */
 func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolumeIdDelete(ctx context.Context, storageId string, volumeId string) ApiStorageNetworksStorageNetworkIdVolumesVolumeIdDeleteRequest {
 	return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdDeleteRequest{
@@ -1456,10 +1462,10 @@ StorageNetworksStorageNetworkIdVolumesVolumeIdGet Get a storage network's volume
 
 Get a storage network's volume details.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param storageId ID of the storage.
- @param volumeId ID of volume.
- @return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storageId ID of the storage.
+	@param volumeId ID of volume.
+	@return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdGetRequest
 */
 func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolumeIdGet(ctx context.Context, storageId string, volumeId string) ApiStorageNetworksStorageNetworkIdVolumesVolumeIdGetRequest {
 	return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdGetRequest{
@@ -1471,7 +1477,8 @@ func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolume
 }
 
 // Execute executes the request
-//  @return Volume
+//
+//	@return Volume
 func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolumeIdGetExecute(r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdGetRequest) (*Volume, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1602,10 +1609,10 @@ StorageNetworksStorageNetworkIdVolumesVolumeIdPatch Update a storage network's v
 
 Update a storage network's volume details. Volume's capacity requested cannot be less than or equal to current volume's capacity.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param storageId ID of the storage.
- @param volumeId ID of volume.
- @return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdPatchRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storageId ID of the storage.
+	@param volumeId ID of volume.
+	@return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdPatchRequest
 */
 func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolumeIdPatch(ctx context.Context, storageId string, volumeId string) ApiStorageNetworksStorageNetworkIdVolumesVolumeIdPatchRequest {
 	return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdPatchRequest{
@@ -1617,7 +1624,8 @@ func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolume
 }
 
 // Execute executes the request
-//  @return Volume
+//
+//	@return Volume
 func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolumeIdPatchExecute(r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdPatchRequest) (*Volume, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
@@ -1786,10 +1794,10 @@ StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut Overwrites tags assigned f
 
 Overwrites tags assigned for the volume.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param storageId ID of the storage.
- @param volumeId ID of volume.
- @return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storageId ID of the storage.
+	@param volumeId ID of volume.
+	@return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest
 */
 func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut(ctx context.Context, storageId string, volumeId string) ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest {
 	return ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest{
@@ -1801,7 +1809,8 @@ func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolume
 }
 
 // Execute executes the request
-//  @return Volume
+//
+//	@return Volume
 func (a *StorageNetworksAPIService) StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutExecute(r ApiStorageNetworksStorageNetworkIdVolumesVolumeIdTagsPutRequest) (*Volume, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut

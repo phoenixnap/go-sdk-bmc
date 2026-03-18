@@ -51,28 +51,28 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/Tag'
+                  $ref: "#/components/schemas/Tag"
                 type: array
           description: Tags list.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -88,7 +88,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TagCreate'
+              $ref: "#/components/schemas/TagCreate"
         description: The body containing the tag details.
         required: true
       responses:
@@ -96,41 +96,41 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tag'
+                $ref: "#/components/schemas/Tag"
           description: Tag created.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since a tag with the given name already
             exists.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -158,27 +158,27 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteResult'
+                $ref: "#/components/schemas/DeleteResult"
           description: Tag deleted.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -205,27 +205,27 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tag'
+                $ref: "#/components/schemas/Tag"
           description: Specific Tag details.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -251,7 +251,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TagUpdate'
+              $ref: "#/components/schemas/TagUpdate"
         description: The body containing the tag changes.
         required: true
       responses:
@@ -259,34 +259,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tag'
+                $ref: "#/components/schemas/Tag"
           description: Tag partially updated.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since a tag with the given name already
             exists.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -301,34 +301,34 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed due to wrong data. Please check the provided
         parameters and try again.
     Unauthorized:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed due to invalid credentials. Please check the
         provided credentials and try again.
     Forbidden:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed since this resource cannot be accessed by the
         provided credentials.
     Conflict:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed since a tag with the given name already exists.
     InternalServerError:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The server encountered an unexpected condition that prevented it
         from fulfilling the request.
   schemas:
@@ -375,7 +375,7 @@ components:
         resourceAssignments:
           description: The tag's assigned resources.
           items:
-            $ref: '#/components/schemas/ResourceAssignment'
+            $ref: "#/components/schemas/ResourceAssignment"
           type: array
         createdBy:
           default: USER
@@ -485,6 +485,11 @@ components:
       - resourceName
       type: object
     Error:
+      example:
+        validationErrors:
+        - validationErrors
+        - validationErrors
+        message: message
       properties:
         message:
           description: The description detailing the cause of the error code.

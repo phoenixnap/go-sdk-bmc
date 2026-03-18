@@ -120,8 +120,8 @@ BgpPeerGroupsGet List BGP Peer Groups.
 
 List all BGP Peer Groups owned by account.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiBgpPeerGroupsGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiBgpPeerGroupsGetRequest
 */
 func (a *BGPPeerGroupsAPIService) BgpPeerGroupsGet(ctx context.Context) ApiBgpPeerGroupsGetRequest {
 	return ApiBgpPeerGroupsGetRequest{
@@ -131,7 +131,8 @@ func (a *BGPPeerGroupsAPIService) BgpPeerGroupsGet(ctx context.Context) ApiBgpPe
 }
 
 // Execute executes the request
-//  @return []BgpPeerGroup
+//
+//	@return []BgpPeerGroup
 func (a *BGPPeerGroupsAPIService) BgpPeerGroupsGetExecute(r ApiBgpPeerGroupsGetRequest) ([]BgpPeerGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -152,7 +153,7 @@ func (a *BGPPeerGroupsAPIService) BgpPeerGroupsGetExecute(r ApiBgpPeerGroupsGetR
 	localVarFormParams := url.Values{}
 
 	if r.location != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -266,9 +267,9 @@ BgpPeerGroupsPeerGroupIdDelete Delete a BGP Peer Group.
 
 Deletes BGP Peer Group by ID.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param bgpPeerGroupId The BGP peer group ID.
- @return ApiBgpPeerGroupsPeerGroupIdDeleteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bgpPeerGroupId The BGP peer group ID.
+	@return ApiBgpPeerGroupsPeerGroupIdDeleteRequest
 */
 func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPeerGroupIdDelete(ctx context.Context, bgpPeerGroupId string) ApiBgpPeerGroupsPeerGroupIdDeleteRequest {
 	return ApiBgpPeerGroupsPeerGroupIdDeleteRequest{
@@ -279,7 +280,8 @@ func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPeerGroupIdDelete(ctx context.Con
 }
 
 // Execute executes the request
-//  @return BgpPeerGroup
+//
+//	@return BgpPeerGroup
 func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPeerGroupIdDeleteExecute(r ApiBgpPeerGroupsPeerGroupIdDeleteRequest) (*BgpPeerGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
@@ -423,9 +425,9 @@ BgpPeerGroupsPeerGroupIdGet Get a BGP Peer Group.
 
 Retrieves BGP Peer Group by ID.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param bgpPeerGroupId The BGP peer group ID.
- @return ApiBgpPeerGroupsPeerGroupIdGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bgpPeerGroupId The BGP peer group ID.
+	@return ApiBgpPeerGroupsPeerGroupIdGetRequest
 */
 func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPeerGroupIdGet(ctx context.Context, bgpPeerGroupId string) ApiBgpPeerGroupsPeerGroupIdGetRequest {
 	return ApiBgpPeerGroupsPeerGroupIdGetRequest{
@@ -436,7 +438,8 @@ func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPeerGroupIdGet(ctx context.Contex
 }
 
 // Execute executes the request
-//  @return BgpPeerGroup
+//
+//	@return BgpPeerGroup
 func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPeerGroupIdGetExecute(r ApiBgpPeerGroupsPeerGroupIdGetRequest) (*BgpPeerGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -575,9 +578,9 @@ BgpPeerGroupsPeerGroupIdPatch Modify a BGP Peer Group.
 
 Modifies BGP Peer Group by ID.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param bgpPeerGroupId The BGP peer group ID.
- @return ApiBgpPeerGroupsPeerGroupIdPatchRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bgpPeerGroupId The BGP peer group ID.
+	@return ApiBgpPeerGroupsPeerGroupIdPatchRequest
 */
 func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPeerGroupIdPatch(ctx context.Context, bgpPeerGroupId string) ApiBgpPeerGroupsPeerGroupIdPatchRequest {
 	return ApiBgpPeerGroupsPeerGroupIdPatchRequest{
@@ -588,7 +591,8 @@ func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPeerGroupIdPatch(ctx context.Cont
 }
 
 // Execute executes the request
-//  @return BgpPeerGroup
+//
+//	@return BgpPeerGroup
 func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPeerGroupIdPatchExecute(r ApiBgpPeerGroupsPeerGroupIdPatchRequest) (*BgpPeerGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
@@ -742,8 +746,8 @@ BgpPeerGroupsPost Create a BGP Peer Group.
 
 Create a BGP Peer Group.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiBgpPeerGroupsPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiBgpPeerGroupsPostRequest
 */
 func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPost(ctx context.Context) ApiBgpPeerGroupsPostRequest {
 	return ApiBgpPeerGroupsPostRequest{
@@ -753,7 +757,8 @@ func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPost(ctx context.Context) ApiBgpP
 }
 
 // Execute executes the request
-//  @return BgpPeerGroup
+//
+//	@return BgpPeerGroup
 func (a *BGPPeerGroupsAPIService) BgpPeerGroupsPostExecute(r ApiBgpPeerGroupsPostRequest) (*BgpPeerGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost

@@ -53,28 +53,28 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/Server'
+                  $ref: "#/components/schemas/Server"
                 type: array
           description: List of all the servers owned by account.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -268,41 +268,41 @@ paths:
                         - 182.16.0.146
                         - 182.16.0.147
             schema:
-              $ref: '#/components/schemas/ServerCreate'
+              $ref: "#/components/schemas/ServerCreate"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Server'
+                $ref: "#/components/schemas/Server"
           description: Request to create server is accepted.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "406":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: There are currently no servers available for the selected instance
             type. Check the availability of instance types at specific locations by
             using the 'product availability API GET' call. Refer to https://developers.phoenixnap.com/docs/bmc-billing/1/routes/product-availability/get.
@@ -310,13 +310,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -346,34 +346,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteResult'
+                $ref: "#/components/schemas/DeleteResult"
           description: Deprovisioned server.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -400,34 +400,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Server'
+                $ref: "#/components/schemas/Server"
           description: Specific server details.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -460,41 +460,41 @@ paths:
               description: My custom server edit
               hostname: my-server
             schema:
-              $ref: '#/components/schemas/ServerPatch'
+              $ref: "#/components/schemas/ServerPatch"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Server'
+                $ref: "#/components/schemas/Server"
           description: Updated server.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -530,7 +530,7 @@ paths:
             example:
               id: 60473a6115e34466c9f8f083
             schema:
-              $ref: '#/components/schemas/ServerIpBlock'
+              $ref: "#/components/schemas/ServerIpBlock"
         required: true
       responses:
         "202":
@@ -540,40 +540,40 @@ paths:
                 id: 60473a6115e34466c9f8f083
                 vlanId: 10
               schema:
-                $ref: '#/components/schemas/ServerIpBlock'
+                $ref: "#/components/schemas/ServerIpBlock"
           description: The specified IP block is being added to the server.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -617,7 +617,7 @@ paths:
             example:
               deleteIpBlocks: false
             schema:
-              $ref: '#/components/schemas/RelinquishIpBlock'
+              $ref: "#/components/schemas/RelinquishIpBlock"
         required: true
       responses:
         "202":
@@ -633,34 +633,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -733,7 +733,7 @@ paths:
                   ips: []
                   dhcp: false
             schema:
-              $ref: '#/components/schemas/ServerPrivateNetwork'
+              $ref: "#/components/schemas/ServerPrivateNetwork"
         required: true
       responses:
         "202":
@@ -764,34 +764,34 @@ paths:
                     statusDescription: in-progress
                     vlanId: 10
               schema:
-                $ref: '#/components/schemas/ServerPrivateNetwork'
+                $ref: "#/components/schemas/ServerPrivateNetwork"
           description: The server is being added to the specified private network.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -844,34 +844,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -931,7 +931,7 @@ paths:
                 value:
                   ips: []
             schema:
-              $ref: '#/components/schemas/ServerNetworkUpdate'
+              $ref: "#/components/schemas/ServerNetworkUpdate"
         required: true
       responses:
         "200":
@@ -955,40 +955,40 @@ paths:
                     statusDescription: assigned
                     vlanId: 10
               schema:
-                $ref: '#/components/schemas/ServerPrivateNetwork'
+                $ref: "#/components/schemas/ServerPrivateNetwork"
           description: Updated IP addresses assigned to server.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1048,7 +1048,7 @@ paths:
                   ips: []
                   computeSlaacIp: true
             schema:
-              $ref: '#/components/schemas/ServerPublicNetwork'
+              $ref: "#/components/schemas/ServerPublicNetwork"
         required: true
       responses:
         "202":
@@ -1077,40 +1077,40 @@ paths:
                     statusDescription: in-progress
                     vlanId: 10
               schema:
-                $ref: '#/components/schemas/ServerPublicNetwork'
+                $ref: "#/components/schemas/ServerPublicNetwork"
           description: The server is being added to the specified Public Network.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1163,34 +1163,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1258,7 +1258,7 @@ paths:
                 value:
                   ips: []
             schema:
-              $ref: '#/components/schemas/ServerNetworkUpdate'
+              $ref: "#/components/schemas/ServerNetworkUpdate"
         required: true
       responses:
         "200":
@@ -1291,40 +1291,40 @@ paths:
                     statusDescription: assigned
                     vlanId: 10
               schema:
-                $ref: '#/components/schemas/ServerPublicNetwork'
+                $ref: "#/components/schemas/ServerPublicNetwork"
           description: Updated IP addresses assigned to server.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1353,7 +1353,7 @@ paths:
           application/json:
             schema:
               items:
-                $ref: '#/components/schemas/TagAssignmentRequest'
+                $ref: "#/components/schemas/TagAssignmentRequest"
               type: array
         required: true
       responses:
@@ -1361,34 +1361,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Server'
+                $ref: "#/components/schemas/Server"
           description: Server tags set.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1465,53 +1465,53 @@ paths:
                       ipBlocks:
                       - id: 60473a6115e34466c9f8f083
             schema:
-              $ref: '#/components/schemas/ServerProvision'
+              $ref: "#/components/schemas/ServerProvision"
         required: true
       responses:
         "202":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Server'
+                $ref: "#/components/schemas/Server"
           description: Request to provision server is accepted.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "406":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: No server available of type server type.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1540,7 +1540,7 @@ paths:
             example:
               deleteIpBlocks: false
             schema:
-              $ref: '#/components/schemas/RelinquishIpBlock'
+              $ref: "#/components/schemas/RelinquishIpBlock"
         required: true
       responses:
         "202":
@@ -1560,34 +1560,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1615,40 +1615,40 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ActionResult'
+                $ref: "#/components/schemas/ActionResult"
           description: Powering on server.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1676,40 +1676,40 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ActionResult'
+                $ref: "#/components/schemas/ActionResult"
           description: Powering off server.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1737,40 +1737,40 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ActionResult'
+                $ref: "#/components/schemas/ActionResult"
           description: Rebooting server.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1798,40 +1798,40 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ActionResult'
+                $ref: "#/components/schemas/ActionResult"
           description: Shutting down server.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1869,47 +1869,47 @@ paths:
               sshKeyIds:
               - 5fa54d1e91867c03a0a7b4a4
             schema:
-              $ref: '#/components/schemas/ServerReset'
+              $ref: "#/components/schemas/ServerReset"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResetResult'
+                $ref: "#/components/schemas/ResetResult"
           description: Resetting server.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -1938,47 +1938,47 @@ paths:
             example:
               pricingModel: ONE_MONTH_RESERVATION
             schema:
-              $ref: '#/components/schemas/ServerReserve'
+              $ref: "#/components/schemas/ServerReserve"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Server'
+                $ref: "#/components/schemas/Server"
           description: Reserved server details.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -2009,47 +2009,47 @@ paths:
             example:
               targetServerId: 54a21648dasda4s9843a17
             schema:
-              $ref: '#/components/schemas/ReservationTransferDetails'
+              $ref: "#/components/schemas/ReservationTransferDetails"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Server'
+                $ref: "#/components/schemas/Server"
           description: The server reservation has been successfully transferred.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -2068,28 +2068,28 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/SshKey'
+                  $ref: "#/components/schemas/SshKey"
                 type: array
           description: List of all the SSH Keys owned by account.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -2111,47 +2111,47 @@ paths:
               key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF9LdAFElNCi7JoWh6KUcchrJ2Gac1aqGRPpdZNowObpRtmiRCecAMb7bUgNAaNfcmwiQi7tos9TlnFgprIcfMWb8MSs3ABYHmBgqEEt3RWYf0fAc9CsIpJdMCUG28TPGTlRXCEUVNKgLMdcseAlJoGp1CgbHWIN65fB3he3kAZcfpPn5mapV0tsl2p+ZyuAGRYdn5dJv2RZDHUZBkOeUobwsij+weHCKAFmKQKtCP7ybgVHaQjAPrj8MGnk1jBbjDt5ws+Be+9JNjQJee9zCKbAOsIo3i+GcUIkrw5jxPU/RTGlWBcemPaKHdciSzGcjWboapzIy49qypQhZe1U75
                 user@my_ip
             schema:
-              $ref: '#/components/schemas/SshKeyCreate'
+              $ref: "#/components/schemas/SshKeyCreate"
         required: true
       responses:
         "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SshKey'
+                $ref: "#/components/schemas/SshKey"
           description: SSH Key successfully created.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -2179,34 +2179,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteSshKeyResult'
+                $ref: "#/components/schemas/DeleteSshKeyResult"
           description: SSH Key deleted.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -2233,33 +2233,33 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SshKey'
+                $ref: "#/components/schemas/SshKey"
           description: Specific SSH Key details.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since the resource could not been found.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -2288,53 +2288,53 @@ paths:
               name: my-sshkey-01
               default: false
             schema:
-              $ref: '#/components/schemas/SshKeyUpdate'
+              $ref: "#/components/schemas/SshKeyUpdate"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SshKey'
+                $ref: "#/components/schemas/SshKey"
           description: Specific SSH Key details.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since the resource could not been found.
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The resource is in an incompatible state.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -2353,34 +2353,34 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/Quota'
+                  $ref: "#/components/schemas/Quota"
                 type: array
           description: Specific account quota details.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since the resource could not been found.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -2408,33 +2408,33 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Quota'
+                $ref: "#/components/schemas/Quota"
           description: Specific account quota details.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since the resource could not been found.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -2461,7 +2461,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/QuotaEditLimitRequest'
+              $ref: "#/components/schemas/QuotaEditLimitRequest"
         required: true
       responses:
         "202":
@@ -2470,28 +2470,28 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to wrong data. Please check the provided
             parameters and try again.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed due to invalid credentials. Please check
             the provided credentials and try again.
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The request failed since this resource cannot be accessed by
             the provided credentials.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: The server encountered an unexpected condition that prevented
             it from fulfilling the request.
       security:
@@ -2560,41 +2560,41 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed due to invalid credentials. Please check the
         provided credentials and try again.
     Forbidden:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed since this resource cannot be accessed by the
         provided credentials.
     InternalServerError:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The server encountered an unexpected condition that prevented it
         from fulfilling the request.
     BadRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed due to wrong data. Please check the provided
         parameters and try again.
     Conflict:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The resource is in an incompatible state.
     NotFound:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
       description: The request failed since the resource could not been found.
   schemas:
     TagAssignment:
@@ -2656,7 +2656,7 @@ components:
           datastoreName: datastore1
       properties:
         datastoreConfiguration:
-          $ref: '#/components/schemas/EsxiDatastoreConfiguration'
+          $ref: "#/components/schemas/EsxiDatastoreConfiguration"
       type: object
     OsConfiguration:
       description: OS specific configuration properties.
@@ -2692,11 +2692,11 @@ components:
         - 10.111.14.66 - 10.111.14.71
       properties:
         netrisController:
-          $ref: '#/components/schemas/OsConfiguration_netrisController'
+          $ref: "#/components/schemas/OsConfiguration_netrisController"
         netrisSoftgate:
-          $ref: '#/components/schemas/OsConfiguration_netrisSoftgate'
+          $ref: "#/components/schemas/OsConfiguration_netrisSoftgate"
         windows:
-          $ref: '#/components/schemas/OsConfiguration_windows'
+          $ref: "#/components/schemas/OsConfiguration_windows"
         rootPassword:
           description: (Read-only) Auto-generated password set for user 'root' on
             an ESXi or Proxmox server.<br>  The password is not stored and therefore
@@ -2734,9 +2734,9 @@ components:
           example: true
           type: boolean
         esxi:
-          $ref: '#/components/schemas/EsxiOsConfiguration'
+          $ref: "#/components/schemas/EsxiOsConfiguration"
         cloudInit:
-          $ref: '#/components/schemas/OsConfiguration_cloudInit'
+          $ref: "#/components/schemas/OsConfiguration_cloudInit"
       type: object
     ServerPrivateNetwork:
       description: Private network details of bare metal server.
@@ -2849,7 +2849,7 @@ components:
             - 10.0.0.17
             dhcp: false
           items:
-            $ref: '#/components/schemas/ServerPrivateNetwork'
+            $ref: "#/components/schemas/ServerPrivateNetwork"
           type: array
       type: object
     ServerIpBlock:
@@ -2899,7 +2899,7 @@ components:
             assign to this server upon provisioning. Used alongside the USER_DEFINED
             configurationType.
           items:
-            $ref: '#/components/schemas/ServerIpBlock'
+            $ref: "#/components/schemas/ServerIpBlock"
           maxItems: 1
           type: array
       type: object
@@ -2987,7 +2987,7 @@ components:
             ips:
             - 183.16.0.1
           items:
-            $ref: '#/components/schemas/ServerPublicNetwork'
+            $ref: "#/components/schemas/ServerPublicNetwork"
           type: array
       type: object
     NetworkConfiguration:
@@ -3032,11 +3032,11 @@ components:
           example: 182.16.0.145
           type: string
         privateNetworkConfiguration:
-          $ref: '#/components/schemas/PrivateNetworkConfiguration'
+          $ref: "#/components/schemas/PrivateNetworkConfiguration"
         ipBlocksConfiguration:
-          $ref: '#/components/schemas/IpBlocksConfiguration'
+          $ref: "#/components/schemas/IpBlocksConfiguration"
         publicNetworkConfiguration:
-          $ref: '#/components/schemas/PublicNetworkConfiguration'
+          $ref: "#/components/schemas/PublicNetworkConfiguration"
       type: object
     StorageConfiguration:
       description: Storage configuration.
@@ -3046,7 +3046,7 @@ components:
           raid: RAID_1
       properties:
         rootPartition:
-          $ref: '#/components/schemas/StorageConfiguration_rootPartition'
+          $ref: "#/components/schemas/StorageConfiguration_rootPartition"
       type: object
     GpuConfiguration:
       description: The GPU configuration.
@@ -3313,7 +3313,7 @@ components:
         tags:
           description: The tags assigned if any.
           items:
-            $ref: '#/components/schemas/TagAssignment'
+            $ref: "#/components/schemas/TagAssignment"
           type: array
         provisionedOn:
           description: Date and time when server was provisioned.
@@ -3321,13 +3321,13 @@ components:
           format: date-time
           type: string
         osConfiguration:
-          $ref: '#/components/schemas/OsConfiguration'
+          $ref: "#/components/schemas/OsConfiguration"
         networkConfiguration:
-          $ref: '#/components/schemas/NetworkConfiguration'
+          $ref: "#/components/schemas/NetworkConfiguration"
         storageConfiguration:
-          $ref: '#/components/schemas/StorageConfiguration'
+          $ref: "#/components/schemas/StorageConfiguration"
         gpuConfiguration:
-          $ref: '#/components/schemas/GpuConfiguration'
+          $ref: "#/components/schemas/GpuConfiguration"
         supersededBy:
           description: Unique identifier of the server to which the reservation has
             been transferred.
@@ -3357,6 +3357,11 @@ components:
       - type
       type: object
     Error:
+      example:
+        validationErrors:
+        - validationErrors
+        - validationErrors
+        message: message
       properties:
         message:
           description: The description detailing the cause of the error code.
@@ -3580,17 +3585,17 @@ components:
           example: PUBLIC_AND_PRIVATE
           type: string
         osConfiguration:
-          $ref: '#/components/schemas/OsConfiguration'
+          $ref: "#/components/schemas/OsConfiguration"
         tags:
           description: "Tags to set to the server. To create a new tag or list all\
             \ the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview)."
           items:
-            $ref: '#/components/schemas/TagAssignmentRequest'
+            $ref: "#/components/schemas/TagAssignmentRequest"
           type: array
         networkConfiguration:
-          $ref: '#/components/schemas/NetworkConfiguration'
+          $ref: "#/components/schemas/NetworkConfiguration"
         storageConfiguration:
-          $ref: '#/components/schemas/StorageConfiguration'
+          $ref: "#/components/schemas/StorageConfiguration"
       required:
       - hostname
       - location
@@ -3820,17 +3825,17 @@ components:
           example: PUBLIC_AND_PRIVATE
           type: string
         osConfiguration:
-          $ref: '#/components/schemas/OsConfiguration'
+          $ref: "#/components/schemas/OsConfiguration"
         tags:
           description: "Tags to set to the server. To create a new tag or list all\
             \ the existing tags that you can use, refer to [Tags API](https://developers.phoenixnap.com/docs/tags/1/overview)."
           items:
-            $ref: '#/components/schemas/TagAssignmentRequest'
+            $ref: "#/components/schemas/TagAssignmentRequest"
           type: array
         networkConfiguration:
-          $ref: '#/components/schemas/NetworkConfiguration'
+          $ref: "#/components/schemas/NetworkConfiguration"
         storageConfiguration:
-          $ref: '#/components/schemas/StorageConfiguration'
+          $ref: "#/components/schemas/StorageConfiguration"
       required:
       - hostname
       - os
@@ -3872,11 +3877,11 @@ components:
           - 10.111.14.66 - 10.111.14.71
       properties:
         windows:
-          $ref: '#/components/schemas/OsConfiguration_windows'
+          $ref: "#/components/schemas/OsConfiguration_windows"
         esxi:
-          $ref: '#/components/schemas/OsConfigurationMap_esxi'
+          $ref: "#/components/schemas/OsConfigurationMap_esxi"
         proxmox:
-          $ref: '#/components/schemas/OsConfigurationMap_proxmox'
+          $ref: "#/components/schemas/OsConfigurationMap_proxmox"
       type: object
     ServerReset:
       description: Reset bare metal server.
@@ -3939,7 +3944,7 @@ components:
             type: string
           type: array
         osConfiguration:
-          $ref: '#/components/schemas/OsConfigurationMap'
+          $ref: "#/components/schemas/OsConfigurationMap"
       type: object
     ResetResult:
       description: Result of a successful reset action.
@@ -3978,7 +3983,7 @@ components:
           example: MyP@ssw0rd_01
           type: string
         osConfiguration:
-          $ref: '#/components/schemas/OsConfigurationMap'
+          $ref: "#/components/schemas/OsConfigurationMap"
       required:
       - result
       type: object
@@ -4159,7 +4164,7 @@ components:
       type: object
     QuotaEditLimitRequestDetails:
       allOf:
-      - $ref: '#/components/schemas/QuotaEditLimitRequest'
+      - $ref: "#/components/schemas/QuotaEditLimitRequest"
       - description: Pending quota modification requests yet to be reviewed.
         properties:
           requestedOn:
@@ -4170,13 +4175,21 @@ components:
         required:
         - requestedOn
         type: object
+      example:
+        reason: I need more servers for my cluster.
+        limit: 10
+        requestedOn: 2021-09-01T10:10:10Z
     Quota:
       description: Quota.
       example:
         unit: COUNT
         quotaEditLimitRequestDetails:
-        - null
-        - null
+        - reason: I need more servers for my cluster.
+          limit: 10
+          requestedOn: 2021-09-01T10:10:10Z
+        - reason: I need more servers for my cluster.
+          limit: 10
+          requestedOn: 2021-09-01T10:10:10Z
         name: Servers
         limit: 2
         description: Maximum number of BMC servers
@@ -4221,7 +4234,7 @@ components:
           type: integer
         quotaEditLimitRequestDetails:
           items:
-            $ref: '#/components/schemas/QuotaEditLimitRequestDetails'
+            $ref: "#/components/schemas/QuotaEditLimitRequestDetails"
           readOnly: true
           type: array
       required:

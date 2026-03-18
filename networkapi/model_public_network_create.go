@@ -22,7 +22,7 @@ var _ MappedNullable = &PublicNetworkCreate{}
 // PublicNetworkCreate Details of Public Network to be created.
 type PublicNetworkCreate struct {
 	// The friendly name of this public network. This name should be unique.
-	Name string `json:"name"`
+	Name string `json:"name" validate:"regexp=^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"`
 	// The description of this public network.
 	Description *string `json:"description,omitempty"`
 	// The location of this public network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`.

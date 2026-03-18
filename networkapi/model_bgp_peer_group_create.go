@@ -26,7 +26,7 @@ type BgpPeerGroupCreate struct {
 	// The BGP Peer Group ASN.
 	Asn int64 `json:"asn"`
 	// The BGP Peer Group password.
-	Password *string `json:"password,omitempty"`
+	Password *string `json:"password,omitempty" validate:"regexp=^[a-zA-Z0-9!@#$%^&*()\\\\-|\\\\[\\\\]{}=;:<>,.]+$"`
 	// The Advertised routes for the BGP Peer Group. Can have one of the following values: `DEFAULT` and `NONE`.
 	AdvertisedRoutes     string `json:"advertisedRoutes"`
 	AdditionalProperties map[string]interface{}

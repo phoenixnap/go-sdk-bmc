@@ -71,9 +71,9 @@ TransactionIdGet Get Transaction.
 
 Get transaction details.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param transactionId The transaction identifier.
- @return ApiTransactionIdGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param transactionId The transaction identifier.
+	@return ApiTransactionIdGetRequest
 */
 func (a *TransactionsAPIService) TransactionIdGet(ctx context.Context, transactionId string) ApiTransactionIdGetRequest {
 	return ApiTransactionIdGetRequest{
@@ -84,7 +84,8 @@ func (a *TransactionsAPIService) TransactionIdGet(ctx context.Context, transacti
 }
 
 // Execute executes the request
-//  @return Transaction
+//
+//	@return Transaction
 func (a *TransactionsAPIService) TransactionIdGetExecute(r ApiTransactionIdGetRequest) (*Transaction, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -247,8 +248,8 @@ TransactionsGet Get Transactions.
 
 A paginated list of client's transactions.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiTransactionsGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiTransactionsGetRequest
 */
 func (a *TransactionsAPIService) TransactionsGet(ctx context.Context) ApiTransactionsGetRequest {
 	return ApiTransactionsGetRequest{
@@ -258,7 +259,8 @@ func (a *TransactionsAPIService) TransactionsGet(ctx context.Context) ApiTransac
 }
 
 // Execute executes the request
-//  @return PaginatedTransactions
+//
+//	@return PaginatedTransactions
 func (a *TransactionsAPIService) TransactionsGetExecute(r ApiTransactionsGetRequest) (*PaginatedTransactions, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -279,34 +281,38 @@ func (a *TransactionsAPIService) TransactionsGetExecute(r ApiTransactionsGetRequ
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	} else {
 		var defaultValue int32 = 100
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
 		r.limit = &defaultValue
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	} else {
 		var defaultValue int32 = 0
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "form", "")
 		r.offset = &defaultValue
 	}
 	if r.sortDirection != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sortDirection", r.sortDirection, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortDirection", r.sortDirection, "form", "")
 	} else {
 		var defaultValue string = "DESC"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortDirection", defaultValue, "form", "")
 		r.sortDirection = &defaultValue
 	}
 	if r.sortField != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sortField", r.sortField, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortField", r.sortField, "form", "")
 	} else {
 		var defaultValue string = "date"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortField", defaultValue, "form", "")
 		r.sortField = &defaultValue
 	}
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

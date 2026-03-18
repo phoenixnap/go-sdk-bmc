@@ -22,7 +22,7 @@ var _ MappedNullable = &ServerProvision{}
 // ServerProvision Provision bare metal server.
 type ServerProvision struct {
 	// Hostname of server.
-	Hostname string `json:"hostname"`
+	Hostname string `json:"hostname" validate:"regexp=^(?=.*[a-zA-Z])([a-zA-Z0-9().-])+$"`
 	// Description of server.
 	Description *string `json:"description,omitempty"`
 	// The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux8`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`, `proxmox/proxmox8`, `proxmox/proxmox9`,`netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
