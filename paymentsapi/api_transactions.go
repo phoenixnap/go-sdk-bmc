@@ -71,9 +71,9 @@ TransactionIdGet Get Transaction.
 
 Get transaction details.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param transactionId The transaction identifier.
- @return ApiTransactionIdGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param transactionId The transaction identifier.
+	@return ApiTransactionIdGetRequest
 */
 func (a *TransactionsAPIService) TransactionIdGet(ctx context.Context, transactionId string) ApiTransactionIdGetRequest {
 	return ApiTransactionIdGetRequest{
@@ -84,7 +84,8 @@ func (a *TransactionsAPIService) TransactionIdGet(ctx context.Context, transacti
 }
 
 // Execute executes the request
-//  @return Transaction
+//
+//	@return Transaction
 func (a *TransactionsAPIService) TransactionIdGetExecute(r ApiTransactionIdGetRequest) (*Transaction, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -247,8 +248,8 @@ TransactionsGet Get Transactions.
 
 A paginated list of client's transactions.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiTransactionsGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiTransactionsGetRequest
 */
 func (a *TransactionsAPIService) TransactionsGet(ctx context.Context) ApiTransactionsGetRequest {
 	return ApiTransactionsGetRequest{
@@ -258,7 +259,8 @@ func (a *TransactionsAPIService) TransactionsGet(ctx context.Context) ApiTransac
 }
 
 // Execute executes the request
-//  @return PaginatedTransactions
+//
+//	@return PaginatedTransactions
 func (a *TransactionsAPIService) TransactionsGetExecute(r ApiTransactionsGetRequest) (*PaginatedTransactions, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet

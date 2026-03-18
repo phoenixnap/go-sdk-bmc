@@ -67,8 +67,8 @@ GetLocations Get All Locations
 
 Retrieve the locations info.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetLocationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetLocationsRequest
 */
 func (a *LocationsAPIService) GetLocations(ctx context.Context) ApiGetLocationsRequest {
 	return ApiGetLocationsRequest{
@@ -78,7 +78,8 @@ func (a *LocationsAPIService) GetLocations(ctx context.Context) ApiGetLocationsR
 }
 
 // Execute executes the request
-//  @return []Location
+//
+//	@return []Location
 func (a *LocationsAPIService) GetLocationsExecute(r ApiGetLocationsRequest) ([]Location, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet

@@ -93,8 +93,8 @@ ProductAvailabilityGet List all Product availabilities.
 
 Retrieves the list of product availability details.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiProductAvailabilityGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiProductAvailabilityGetRequest
 */
 func (a *ProductAvailabilityAPIService) ProductAvailabilityGet(ctx context.Context) ApiProductAvailabilityGetRequest {
 	return ApiProductAvailabilityGetRequest{
@@ -104,7 +104,8 @@ func (a *ProductAvailabilityAPIService) ProductAvailabilityGet(ctx context.Conte
 }
 
 // Execute executes the request
-//  @return []ProductAvailability
+//
+//	@return []ProductAvailability
 func (a *ProductAvailabilityAPIService) ProductAvailabilityGetExecute(r ApiProductAvailabilityGetRequest) ([]ProductAvailability, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet

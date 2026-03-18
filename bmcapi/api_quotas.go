@@ -83,8 +83,8 @@ QuotasGet List quotas
 
 Get account quota details.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiQuotasGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiQuotasGetRequest
 */
 func (a *QuotasAPIService) QuotasGet(ctx context.Context) ApiQuotasGetRequest {
 	return ApiQuotasGetRequest{
@@ -94,7 +94,8 @@ func (a *QuotasAPIService) QuotasGet(ctx context.Context) ApiQuotasGetRequest {
 }
 
 // Execute executes the request
-//  @return []Quota
+//
+//	@return []Quota
 func (a *QuotasAPIService) QuotasGetExecute(r ApiQuotasGetRequest) ([]Quota, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -232,9 +233,9 @@ QuotasQuotaIdActionsRequestEditPost Request quota limit change.
 
 Sends a request to edit the limit of a quota.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param quotaId The ID of the Quota.
- @return ApiQuotasQuotaIdActionsRequestEditPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param quotaId The ID of the Quota.
+	@return ApiQuotasQuotaIdActionsRequestEditPostRequest
 */
 func (a *QuotasAPIService) QuotasQuotaIdActionsRequestEditPost(ctx context.Context, quotaId string) ApiQuotasQuotaIdActionsRequestEditPostRequest {
 	return ApiQuotasQuotaIdActionsRequestEditPostRequest{
@@ -372,9 +373,9 @@ QuotasQuotaIdGet Get a quota.
 
 Get account quota details.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param quotaId The ID of the Quota.
- @return ApiQuotasQuotaIdGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param quotaId The ID of the Quota.
+	@return ApiQuotasQuotaIdGetRequest
 */
 func (a *QuotasAPIService) QuotasQuotaIdGet(ctx context.Context, quotaId string) ApiQuotasQuotaIdGetRequest {
 	return ApiQuotasQuotaIdGetRequest{
@@ -385,7 +386,8 @@ func (a *QuotasAPIService) QuotasQuotaIdGet(ctx context.Context, quotaId string)
 }
 
 // Execute executes the request
-//  @return Quota
+//
+//	@return Quota
 func (a *QuotasAPIService) QuotasQuotaIdGetExecute(r ApiQuotasQuotaIdGetRequest) (*Quota, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
