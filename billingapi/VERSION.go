@@ -1,3 +1,3 @@
 package billingapi
 
-const SdkVersion = "3.3.1-SNAPSHOT"
+const SdkVersion = "4.0.0"
