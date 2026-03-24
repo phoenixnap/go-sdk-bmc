@@ -1,4 +1,4 @@
-module github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi
+module github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi/v3
 
 go 1.23
 
