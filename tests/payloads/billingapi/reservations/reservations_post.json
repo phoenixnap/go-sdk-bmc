@@ -5,7 +5,11 @@
       "body": {
         "type": "JSON",
         "json": {
-          "sku" : "XXX-XXX-XXX"
+          "sku" : "XXX-XXX-XXX",
+          "quantity": {
+            "unit": "TB",
+            "quantity": 30
+          }
         },
         "matchType": "STRICT"
       }
@@ -24,6 +28,11 @@
         "lastRenewalDateTime" : "2020-03-19T16:39:00Z",
         "nextRenewalDateTime" : "2020-03-19T16:39:00Z",
         "nextBillingDate" : "2020-04-19T16:39:00Z",
+        "reservationState": "ACTIVE",
+        "quantity": {
+          "unit": "TB",
+          "quantity": 30
+        },
         "autoRenew" : true,
         "sku" : "XXX-XXX-XXX",
         "price" : 175,
