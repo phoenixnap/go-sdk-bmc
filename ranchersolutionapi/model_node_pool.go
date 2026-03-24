@@ -21,7 +21,7 @@ var _ MappedNullable = &NodePool{}
 // NodePool Node Pool Configuration. A node pool contains the name and configuration for a cluster's node pool. Node pools are set of nodes with a common configuration and specification.
 type NodePool struct {
 	// The name of the node pool.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name,omitempty" validate:"regexp=^(?=.*[a-zA-Z])([a-zA-Z0-9().-])+$"`
 	// Number of configured nodes, currently only node counts of 1 and 3 are possible.
 	NodeCount *int32 `json:"nodeCount,omitempty"`
 	// Node server type. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`.

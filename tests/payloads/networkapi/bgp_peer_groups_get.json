@@ -27,6 +27,25 @@
                     "inUse": false
                   }
                 ],
+                "ipPrefixes": [
+                  {
+                    "ipAllocationId": "6047127fed34ecc3ba8402d2",
+                    "cidr": "10.111.14.40/29",
+                    "status": "READY",
+                    "isBringYourOwnIp": false,
+                    "inUse": false,
+                    "ipVersion": "v6"
+                  }
+                ],
+                "ipv6Prefixes": [
+                  {
+                    "ipv4AllocationId": "6047127fed34ecc3ba8402d2",
+                    "cidr": "10.111.14.40/29",
+                    "status": "READY",
+                    "isBringYourOwnIp": false,
+                    "inUse": false
+                  }
+                ],
                 "targetAsnDetails": {
                   "asn": 65401,
                   "isBringYourOwn": false,
@@ -44,6 +63,10 @@
                 "peeringLoopbacksV4": [
                   "169.254.247.0",
                   "169.254.247.1"
+                ],
+                "peeringLoopbacksV6": [
+                  "1000::",
+                  "1000::"
                 ],
                 "keepAliveTimerSeconds": 10,
                 "holdTimerSeconds": 30,

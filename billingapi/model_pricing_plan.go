@@ -36,8 +36,11 @@ type PricingPlan struct {
 	// Product code of the product this product is correlated with
 	CorrelatedProductCode *string `json:"correlatedProductCode,omitempty"`
 	// Package size per month.
-	PackageQuantity      *float32         `json:"packageQuantity,omitempty"`
+	// Deprecated
+	PackageQuantity *float32 `json:"packageQuantity,omitempty"`
+	// Deprecated
 	PackageUnit          *PackageUnitEnum `json:"packageUnit,omitempty"`
+	PackageDetails       *PackageDetails  `json:"packageDetails,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -282,6 +285,7 @@ func (o *PricingPlan) SetCorrelatedProductCode(v string) {
 }
 
 // GetPackageQuantity returns the PackageQuantity field value if set, zero value otherwise.
+// Deprecated
 func (o *PricingPlan) GetPackageQuantity() float32 {
 	if o == nil || IsNil(o.PackageQuantity) {
 		var ret float32
@@ -292,6 +296,7 @@ func (o *PricingPlan) GetPackageQuantity() float32 {
 
 // GetPackageQuantityOk returns a tuple with the PackageQuantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *PricingPlan) GetPackageQuantityOk() (*float32, bool) {
 	if o == nil || IsNil(o.PackageQuantity) {
 		return nil, false
@@ -309,11 +314,13 @@ func (o *PricingPlan) HasPackageQuantity() bool {
 }
 
 // SetPackageQuantity gets a reference to the given float32 and assigns it to the PackageQuantity field.
+// Deprecated
 func (o *PricingPlan) SetPackageQuantity(v float32) {
 	o.PackageQuantity = &v
 }
 
 // GetPackageUnit returns the PackageUnit field value if set, zero value otherwise.
+// Deprecated
 func (o *PricingPlan) GetPackageUnit() PackageUnitEnum {
 	if o == nil || IsNil(o.PackageUnit) {
 		var ret PackageUnitEnum
@@ -324,6 +331,7 @@ func (o *PricingPlan) GetPackageUnit() PackageUnitEnum {
 
 // GetPackageUnitOk returns a tuple with the PackageUnit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *PricingPlan) GetPackageUnitOk() (*PackageUnitEnum, bool) {
 	if o == nil || IsNil(o.PackageUnit) {
 		return nil, false
@@ -341,8 +349,41 @@ func (o *PricingPlan) HasPackageUnit() bool {
 }
 
 // SetPackageUnit gets a reference to the given PackageUnitEnum and assigns it to the PackageUnit field.
+// Deprecated
 func (o *PricingPlan) SetPackageUnit(v PackageUnitEnum) {
 	o.PackageUnit = &v
+}
+
+// GetPackageDetails returns the PackageDetails field value if set, zero value otherwise.
+func (o *PricingPlan) GetPackageDetails() PackageDetails {
+	if o == nil || IsNil(o.PackageDetails) {
+		var ret PackageDetails
+		return ret
+	}
+	return *o.PackageDetails
+}
+
+// GetPackageDetailsOk returns a tuple with the PackageDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PricingPlan) GetPackageDetailsOk() (*PackageDetails, bool) {
+	if o == nil || IsNil(o.PackageDetails) {
+		return nil, false
+	}
+	return o.PackageDetails, true
+}
+
+// HasPackageDetails returns a boolean if a field has been set.
+func (o *PricingPlan) HasPackageDetails() bool {
+	if o != nil && !IsNil(o.PackageDetails) {
+		return true
+	}
+
+	return false
+}
+
+// SetPackageDetails gets a reference to the given PackageDetails and assigns it to the PackageDetails field.
+func (o *PricingPlan) SetPackageDetails(v PackageDetails) {
+	o.PackageDetails = &v
 }
 
 func (o PricingPlan) MarshalJSON() ([]byte, error) {
@@ -374,6 +415,9 @@ func (o PricingPlan) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.PackageUnit) {
 		toSerialize["packageUnit"] = o.PackageUnit
+	}
+	if !IsNil(o.PackageDetails) {
+		toSerialize["packageDetails"] = o.PackageDetails
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -432,6 +476,7 @@ func (o *PricingPlan) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "correlatedProductCode")
 		delete(additionalProperties, "packageQuantity")
 		delete(additionalProperties, "packageUnit")
+		delete(additionalProperties, "packageDetails")
 		o.AdditionalProperties = additionalProperties
 	}
 

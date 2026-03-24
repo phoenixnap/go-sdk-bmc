@@ -112,6 +112,7 @@ Class | Method | HTTP request | Description
 
  - [AsnDetails](docs/AsnDetails.md)
  - [BgpIPv4Prefix](docs/BgpIPv4Prefix.md)
+ - [BgpIpPrefix](docs/BgpIpPrefix.md)
  - [BgpPeerGroup](docs/BgpPeerGroup.md)
  - [BgpPeerGroupCreate](docs/BgpPeerGroupCreate.md)
  - [BgpPeerGroupPatch](docs/BgpPeerGroupPatch.md)

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PublicNetworks** | Pointer to [**[]ServerPublicNetwork**](ServerPublicNetwork.md) | The list of public networks this server is member of. When this field is part of request body, it&#39;ll be used to specify the public networks to assign to this server upon provisioning. | [optional] 
+**PublicNetworks** | Pointer to [**[]ServerPublicNetwork**](ServerPublicNetwork.md) | The list of public networks this server belongs to. If this field is part of a request body, it will be used for specifying the public networks to assign to this server on provision. Only IPv4 addresses can be specified. | [optional] 
 
 ## Methods
 

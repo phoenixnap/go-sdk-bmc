@@ -21,12 +21,12 @@ var _ MappedNullable = &BgpPeerGroupCreate{}
 
 // BgpPeerGroupCreate Create a BGP Peer Group.
 type BgpPeerGroupCreate struct {
-	// The BGP Peer Group location. Can have one of the following values: `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` and `AUS`.
+	// The BGP Peer Group location. Can have one of the following values: `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`.
 	Location string `json:"location"`
 	// The BGP Peer Group ASN.
 	Asn int64 `json:"asn"`
 	// The BGP Peer Group password.
-	Password *string `json:"password,omitempty"`
+	Password *string `json:"password,omitempty" validate:"regexp=^[a-zA-Z0-9!@#$%^&*()\\\\-|\\\\[\\\\]{}=;:<>,.]+$"`
 	// The Advertised routes for the BGP Peer Group. Can have one of the following values: `DEFAULT` and `NONE`.
 	AdvertisedRoutes     string `json:"advertisedRoutes"`
 	AdditionalProperties map[string]interface{}

@@ -157,8 +157,8 @@ InvoicesGet List invoices.
 
 List invoices.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiInvoicesGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiInvoicesGetRequest
 */
 func (a *InvoicesAPIService) InvoicesGet(ctx context.Context) ApiInvoicesGetRequest {
 	return ApiInvoicesGetRequest{
@@ -168,7 +168,8 @@ func (a *InvoicesAPIService) InvoicesGet(ctx context.Context) ApiInvoicesGetRequ
 }
 
 // Execute executes the request
-//  @return PaginatedInvoices
+//
+//	@return PaginatedInvoices
 func (a *InvoicesAPIService) InvoicesGetExecute(r ApiInvoicesGetRequest) (*PaginatedInvoices, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -189,39 +190,43 @@ func (a *InvoicesAPIService) InvoicesGetExecute(r ApiInvoicesGetRequest) (*Pagin
 	localVarFormParams := url.Values{}
 
 	if r.number != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "number", r.number, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "number", r.number, "form", "")
 	}
 	if r.status != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
 	}
 	if r.sentOnFrom != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sentOnFrom", r.sentOnFrom, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sentOnFrom", r.sentOnFrom, "form", "")
 	}
 	if r.sentOnTo != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sentOnTo", r.sentOnTo, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sentOnTo", r.sentOnTo, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	} else {
 		var defaultValue int32 = 100
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
 		r.limit = &defaultValue
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	} else {
 		var defaultValue int32 = 0
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "form", "")
 		r.offset = &defaultValue
 	}
 	if r.sortField != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sortField", r.sortField, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortField", r.sortField, "form", "")
 	} else {
 		var defaultValue string = "sentOn"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortField", defaultValue, "form", "")
 		r.sortField = &defaultValue
 	}
 	if r.sortDirection != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sortDirection", r.sortDirection, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortDirection", r.sortDirection, "form", "")
 	} else {
 		var defaultValue string = "DESC"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortDirection", defaultValue, "form", "")
 		r.sortDirection = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -336,9 +341,9 @@ InvoicesInvoiceIdGeneratePdfPost Generate invoice details as PDF.
 
 Generate invoice details as PDF.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param invoiceId The unique resource identifier of the Invoice.
- @return ApiInvoicesInvoiceIdGeneratePdfPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param invoiceId The unique resource identifier of the Invoice.
+	@return ApiInvoicesInvoiceIdGeneratePdfPostRequest
 */
 func (a *InvoicesAPIService) InvoicesInvoiceIdGeneratePdfPost(ctx context.Context, invoiceId string) ApiInvoicesInvoiceIdGeneratePdfPostRequest {
 	return ApiInvoicesInvoiceIdGeneratePdfPostRequest{
@@ -349,7 +354,8 @@ func (a *InvoicesAPIService) InvoicesInvoiceIdGeneratePdfPost(ctx context.Contex
 }
 
 // Execute executes the request
-//  @return *os.File
+//
+//	@return *os.File
 func (a *InvoicesAPIService) InvoicesInvoiceIdGeneratePdfPostExecute(r ApiInvoicesInvoiceIdGeneratePdfPostRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -471,9 +477,9 @@ InvoicesInvoiceIdGet Get invoice details.
 
 Get invoice details.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param invoiceId The unique resource identifier of the Invoice.
- @return ApiInvoicesInvoiceIdGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param invoiceId The unique resource identifier of the Invoice.
+	@return ApiInvoicesInvoiceIdGetRequest
 */
 func (a *InvoicesAPIService) InvoicesInvoiceIdGet(ctx context.Context, invoiceId string) ApiInvoicesInvoiceIdGetRequest {
 	return ApiInvoicesInvoiceIdGetRequest{
@@ -484,7 +490,8 @@ func (a *InvoicesAPIService) InvoicesInvoiceIdGet(ctx context.Context, invoiceId
 }
 
 // Execute executes the request
-//  @return Invoice
+//
+//	@return Invoice
 func (a *InvoicesAPIService) InvoicesInvoiceIdGetExecute(r ApiInvoicesInvoiceIdGetRequest) (*Invoice, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -612,9 +619,9 @@ InvoicesInvoiceIdPayPost Pay an invoice.
 
 Manually pay an invoice.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param invoiceId The unique resource identifier of the Invoice.
- @return ApiInvoicesInvoiceIdPayPostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param invoiceId The unique resource identifier of the Invoice.
+	@return ApiInvoicesInvoiceIdPayPostRequest
 */
 func (a *InvoicesAPIService) InvoicesInvoiceIdPayPost(ctx context.Context, invoiceId string) ApiInvoicesInvoiceIdPayPostRequest {
 	return ApiInvoicesInvoiceIdPayPostRequest{
@@ -625,7 +632,8 @@ func (a *InvoicesAPIService) InvoicesInvoiceIdPayPost(ctx context.Context, invoi
 }
 
 // Execute executes the request
-//  @return map[string]interface{}
+//
+//	@return map[string]interface{}
 func (a *InvoicesAPIService) InvoicesInvoiceIdPayPostExecute(r ApiInvoicesInvoiceIdPayPostRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost

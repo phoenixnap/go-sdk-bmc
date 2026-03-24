@@ -22,7 +22,7 @@ var _ MappedNullable = &IpBlocksConfiguration{}
 type IpBlocksConfiguration struct {
 	// (Write-only) Determines the approach for configuring IP blocks for the server being provisioned. If PURCHASE_NEW is selected, the smallest supported range, depending on the operating system, is allocated to the server.
 	ConfigurationType *string `json:"configurationType,omitempty"`
-	// Used to specify the previously purchased IP blocks to assign to this server upon provisioning. Used alongside the USER_DEFINED configurationType.
+	// Used for specifying the previously purchased IPv4 blocks to assign to this server upon provisioning. Used alongside the USER_DEFINED configurationType.
 	IpBlocks             []ServerIpBlock `json:"ipBlocks,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

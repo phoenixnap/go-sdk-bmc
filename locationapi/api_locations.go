@@ -42,12 +42,12 @@ type LocationsAPIService service
 type ApiGetLocationsRequest struct {
 	ctx             context.Context
 	ApiService      LocationsAPI
-	location        *LocationEnum
+	location        *ProductLocationEnum
 	productCategory *ProductCategoryEnum
 }
 
 // Location of interest
-func (r ApiGetLocationsRequest) Location(location LocationEnum) ApiGetLocationsRequest {
+func (r ApiGetLocationsRequest) Location(location ProductLocationEnum) ApiGetLocationsRequest {
 	r.location = &location
 	return r
 }
@@ -67,8 +67,8 @@ GetLocations Get All Locations
 
 Retrieve the locations info.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetLocationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetLocationsRequest
 */
 func (a *LocationsAPIService) GetLocations(ctx context.Context) ApiGetLocationsRequest {
 	return ApiGetLocationsRequest{
@@ -78,7 +78,8 @@ func (a *LocationsAPIService) GetLocations(ctx context.Context) ApiGetLocationsR
 }
 
 // Execute executes the request
-//  @return []Location
+//
+//	@return []Location
 func (a *LocationsAPIService) GetLocationsExecute(r ApiGetLocationsRequest) ([]Location, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -99,10 +100,10 @@ func (a *LocationsAPIService) GetLocationsExecute(r ApiGetLocationsRequest) ([]L
 	localVarFormParams := url.Values{}
 
 	if r.location != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "form", "")
 	}
 	if r.productCategory != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

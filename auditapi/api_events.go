@@ -103,8 +103,8 @@ EventsGet List event logs.
 
 Retrieves the event logs for given time period. All date & times are in UTC.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiEventsGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiEventsGetRequest
 */
 func (a *EventsAPIService) EventsGet(ctx context.Context) ApiEventsGetRequest {
 	return ApiEventsGetRequest{
@@ -114,7 +114,8 @@ func (a *EventsAPIService) EventsGet(ctx context.Context) ApiEventsGetRequest {
 }
 
 // Execute executes the request
-//  @return []Event
+//
+//	@return []Event
 func (a *EventsAPIService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -135,28 +136,29 @@ func (a *EventsAPIService) EventsGetExecute(r ApiEventsGetRequest) ([]Event, *ht
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.order != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "form", "")
 	} else {
 		var defaultValue string = "ASC"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", defaultValue, "form", "")
 		r.order = &defaultValue
 	}
 	if r.username != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "username", r.username, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "username", r.username, "form", "")
 	}
 	if r.verb != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "verb", r.verb, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "verb", r.verb, "form", "")
 	}
 	if r.uri != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "uri", r.uri, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "uri", r.uri, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

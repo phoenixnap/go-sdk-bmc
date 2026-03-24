@@ -22,7 +22,8 @@ var _ MappedNullable = &ReservationRequest{}
 // ReservationRequest Reservation request.
 type ReservationRequest struct {
 	// The sku code of product pricing plan.
-	Sku                  string `json:"sku"`
+	Sku                  string   `json:"sku"`
+	Quantity             Quantity `json:"quantity"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,9 +33,10 @@ type _ReservationRequest ReservationRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReservationRequest(sku string) *ReservationRequest {
+func NewReservationRequest(sku string, quantity Quantity) *ReservationRequest {
 	this := ReservationRequest{}
 	this.Sku = sku
+	this.Quantity = quantity
 	return &this
 }
 
@@ -70,6 +72,30 @@ func (o *ReservationRequest) SetSku(v string) {
 	o.Sku = v
 }
 
+// GetQuantity returns the Quantity field value
+func (o *ReservationRequest) GetQuantity() Quantity {
+	if o == nil {
+		var ret Quantity
+		return ret
+	}
+
+	return o.Quantity
+}
+
+// GetQuantityOk returns a tuple with the Quantity field value
+// and a boolean to check if the value has been set.
+func (o *ReservationRequest) GetQuantityOk() (*Quantity, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Quantity, true
+}
+
+// SetQuantity sets field value
+func (o *ReservationRequest) SetQuantity(v Quantity) {
+	o.Quantity = v
+}
+
 func (o ReservationRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -81,6 +107,7 @@ func (o ReservationRequest) MarshalJSON() ([]byte, error) {
 func (o ReservationRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["sku"] = o.Sku
+	toSerialize["quantity"] = o.Quantity
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -95,6 +122,7 @@ func (o *ReservationRequest) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"sku",
+		"quantity",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -125,6 +153,7 @@ func (o *ReservationRequest) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "sku")
+		delete(additionalProperties, "quantity")
 		o.AdditionalProperties = additionalProperties
 	}
 

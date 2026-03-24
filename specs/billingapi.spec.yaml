@@ -471,7 +471,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/LocationEnum'
+              $ref: '#/components/schemas/ProductLocationEnum'
           example:
             - PHX
         - in: query
@@ -490,7 +490,9 @@ paths:
           required: false
           schema:
             type: number
-          description: Minimal quantity of product needed. Minimum, maximum and default values might differ for different products. For servers, they are 1, 10 and 1 respectively.
+            minimum: 1
+            maximum: 10
+          description: Minimum quantity of the product that can be requested. For servers the allowed quantity range is 1 to 10.
           example: 2
       responses:
         '200':
@@ -535,7 +537,7 @@ components:
         - public-ip
         - storage
     LocationEnum:
-      description: The location code.
+      description: Supported location codes. All locations are active except AUS, which is deprecated and preserved only for legacy data.
       type: string
       enum:
         - PHX
@@ -545,6 +547,36 @@ components:
         - CHI
         - SEA
         - AUS
+    QuantityUnitEnum:
+      description: The quantity unit.
+      type: string
+      enum:
+        - TB
+        - COUNT
+    Quantity:
+      type: object
+      description: Represents the quantity.
+      properties:
+        quantity:
+          description: Quantity size.
+          type: number
+          example: 30
+          minimum: 1
+        unit:
+          $ref: '#/components/schemas/QuantityUnitEnum'
+      required:
+        - quantity
+        - unit
+    ReservationDetails:
+      type: object
+      description: Details of a Reservation entry inside Rated Usage.
+      properties:
+        id:
+          description: The Reservation identifier.
+          type: string
+          example: 83604275-bdba-490a-b87a-978e8dffdb14
+        quantity:
+          $ref: '#/components/schemas/Quantity'
     DiscountTypeEnum:
       description: The discount type.
       type: string
@@ -709,7 +741,10 @@ components:
         reservationId:
           description: Reservation id associated with this rated usage record.
           type: string
+          deprecated: true
           example: c32a24a1-5949-4b60-99c0-c8aaa3a92b04
+        reservationDetails:
+          $ref: '#/components/schemas/ReservationDetails'
         discountDetails:
           $ref: '#/components/schemas/ApplicableDiscountDetails'
         creditDetails:
@@ -732,8 +767,6 @@ components:
         - unitPriceDescription
         - quantity
         - active
-        - usageSessionId
-        - correlationId
     ServerDetails:
       type: object
       description: Details of the server associated with this rated usage record.
@@ -880,12 +913,7 @@ components:
           format: date-time
           example: '2020-03-19T16:39:00Z'
       required:
-        - networkStorageId
-        - networkStorageName
-        - volumeId
-        - volumeName
         - capacityInGb
-        - createdOn
     StorageRecord:
       allOf:
         - $ref: '#/components/schemas/RatedUsageRecord'
@@ -921,6 +949,7 @@ components:
         - UNIT
         - FLAT
         - TB_PER_HOUR
+        - TB_PER_MONTH
     ApplicableDiscounts:
       type: object
       description: Represents the applicable discount details for a product, including the discounted price and discount information.
@@ -940,6 +969,29 @@ components:
         - GB
         - TB
       example: TB
+    PackageQuantity:
+      type: object
+      description: Represents the package size per month, for a product's pricing plan, including the min quantity and max quantity information.
+      properties:
+        min:
+          description: Minimum package quantity.
+          type: number
+          example: 0
+        max:
+          description: Maximum package quantity.
+          type: number
+          example: 100
+      required:
+        - min
+        - max
+    PackageDetails:
+      type: object
+      description: Represents details object which contains package quantity and its unit.
+      properties:
+        packageQuantity:
+          $ref: '#/components/schemas/PackageQuantity'
+        packageUnit:
+          $ref: '#/components/schemas/PackageUnitEnum'
     PricingPlan:
       type: object
       description: Pricing plan details.
@@ -962,7 +1014,6 @@ components:
             - SGP
             - CHI
             - SEA
-            - AUS
             - GLOBAL
         pricingModel:
           description: The pricing model.
@@ -992,8 +1043,13 @@ components:
           description: Package size per month.
           type: number
           example: 50
+          deprecated: true
         packageUnit:
-          $ref: '#/components/schemas/PackageUnitEnum'
+          allOf:
+            - $ref: '#/components/schemas/PackageUnitEnum'
+          deprecated: true
+        packageDetails:
+          $ref: '#/components/schemas/PackageDetails'
       required:
         - sku
         - location
@@ -1093,6 +1149,7 @@ components:
       enum:
         - server
         - bandwidth
+        - storage
     ReservationModelEnum:
       description: The reservation model.
       type: string
@@ -1101,13 +1158,52 @@ components:
         - TWELVE_MONTHS_RESERVATION
         - TWENTY_FOUR_MONTHS_RESERVATION
         - THIRTY_SIX_MONTHS_RESERVATION
+        - CUSTOM_TERM
         - FREE_TIER
+      example: ONE_MONTH_RESERVATION
+    ReservationTerm:
+      type: object
+      description: The Reservation term.
+      properties:
+        lengthInMonths:
+          description: Term's length, expressed in months.
+          type: integer
+          format: int32
+          example: 12
+        reservationModel:
+          $ref: '#/components/schemas/ReservationModelEnum'
+      required:
+        - lengthInMonths
+        - reservationModel
+    ReservationStateEnum:
+      description: Reservation state.
+      type: string
+      enum:
+        - REQUESTED
+        - DECLINED
+        - IN_REVIEW
+        - SETTING_UP
+        - ACTIVE
+        - EXPIRED
     ReservationInvoicingModelEnum:
       description: Reservations created with initial invoice model ON_CREATION will be invoiced on same date when reservation is created. Reservation created with CALENDAR_MONTH initial invoice model will be invoiced at the beginning of next month.
       type: string
       enum:
         - ON_CREATION
         - CALENDAR_MONTH
+    Utilization:
+      type: object
+      properties:
+        quantity:
+          $ref: '#/components/schemas/Quantity'
+        percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+          example: 30
+      required:
+        - quantity
+        - percentage
     Reservation:
       type: object
       description: Reservation details
@@ -1117,7 +1213,7 @@ components:
           type: string
           example: 83604275-bdba-490a-b87a-978e8dffdb14
         productCode:
-          description: The code identifying the product. This code has significant across all locations.
+          description: The code identifying the product. The same code is used for this product across all locations.
           type: string
           example: s1.c1.small
         productCategory:
@@ -1125,9 +1221,17 @@ components:
         location:
           $ref: '#/components/schemas/LocationEnum'
         reservationModel:
-          $ref: '#/components/schemas/ReservationModelEnum'
+          allOf:
+            - $ref: '#/components/schemas/ReservationModelEnum'
+          deprecated: true
+        term:
+          $ref: '#/components/schemas/ReservationTerm'
+        reservationState:
+          $ref: '#/components/schemas/ReservationStateEnum'
         initialInvoiceModel:
           $ref: '#/components/schemas/ReservationInvoicingModelEnum'
+        quantity:
+          $ref: '#/components/schemas/Quantity'
         startDateTime:
           description: The point in time (in UTC) when the reservation starts.
           type: string
@@ -1171,12 +1275,16 @@ components:
           type: string
           format: date
           example: '2020-04-19'
+        utilization:
+          $ref: '#/components/schemas/Utilization'
       required:
         - id
         - productCode
         - productCategory
         - location
         - reservationModel
+        - reservationState
+        - quantity
         - startDateTime
         - autoRenew
         - sku
@@ -1190,8 +1298,11 @@ components:
           description: The sku code of product pricing plan.
           type: string
           example: XXX-XXX-XXX
+        quantity:
+          $ref: '#/components/schemas/Quantity'
       required:
         - sku
+        - quantity
     ReservationAutoRenewDisableRequest:
       description: Disabling auto-renewal for reservation request.
       type: object
@@ -1215,12 +1326,28 @@ components:
       properties:
         thresholdConfiguration:
           $ref: '#/components/schemas/ThresholdConfigurationDetails'
+    ProductLocationEnum:
+      description: |
+        This enum is used <b>only in product-related schemas</b> and contains
+        <b>only currently active and supported locations</b>.
+        Deprecated or retired locations are intentionally excluded and will not appear
+        in create/update operations.
+        Historical data in other API responses may still reference deprecated locations,
+        but those values are not part of this enum.
+      type: string
+      enum:
+        - PHX
+        - ASH
+        - NLD
+        - SGP
+        - CHI
+        - SEA
     LocationAvailabilityDetail:
       type: object
       description: Info about location, solutions and availability for a product.
       properties:
         location:
-          $ref: '#/components/schemas/LocationEnum'
+          $ref: '#/components/schemas/ProductLocationEnum'
         minQuantityRequested:
           type: number
           description: Requested quantity.

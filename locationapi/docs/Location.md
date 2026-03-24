@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Location** | [**LocationEnum**](LocationEnum.md) |  | 
+**Location** | [**ProductLocationEnum**](ProductLocationEnum.md) |  | 
 **LocationDescription** | Pointer to **string** |  | [optional] 
 **ProductCategories** | Pointer to [**[]ProductCategory**](ProductCategory.md) |  | [optional] 
 
@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 
 ### NewLocation
 
-`func NewLocation(location LocationEnum, ) *Location`
+`func NewLocation(location ProductLocationEnum, ) *Location`
 
 NewLocation instantiates a new Location object
 This constructor will assign default values to properties that have it defined,
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLocation
 
-`func (o *Location) GetLocation() LocationEnum`
+`func (o *Location) GetLocation() ProductLocationEnum`
 
 GetLocation returns the Location field if non-nil, zero value otherwise.
 
 ### GetLocationOk
 
-`func (o *Location) GetLocationOk() (*LocationEnum, bool)`
+`func (o *Location) GetLocationOk() (*ProductLocationEnum, bool)`
 
 GetLocationOk returns a tuple with the Location field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLocation
 
-`func (o *Location) SetLocation(v LocationEnum)`
+`func (o *Location) SetLocation(v ProductLocationEnum)`
 
 SetLocation sets Location field to given value.
 

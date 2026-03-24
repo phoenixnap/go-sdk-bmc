@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **CorrelatedProductCode** | Pointer to **string** | Product code of the product this product is correlated with | [optional] 
 **PackageQuantity** | Pointer to **float32** | Package size per month. | [optional] 
 **PackageUnit** | Pointer to [**PackageUnitEnum**](PackageUnitEnum.md) |  | [optional] 
+**PackageDetails** | Pointer to [**PackageDetails**](PackageDetails.md) |  | [optional] 
 
 ## Methods
 
@@ -258,6 +259,31 @@ SetPackageUnit sets PackageUnit field to given value.
 `func (o *PricingPlan) HasPackageUnit() bool`
 
 HasPackageUnit returns a boolean if a field has been set.
+
+### GetPackageDetails
+
+`func (o *PricingPlan) GetPackageDetails() PackageDetails`
+
+GetPackageDetails returns the PackageDetails field if non-nil, zero value otherwise.
+
+### GetPackageDetailsOk
+
+`func (o *PricingPlan) GetPackageDetailsOk() (*PackageDetails, bool)`
+
+GetPackageDetailsOk returns a tuple with the PackageDetails field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPackageDetails
+
+`func (o *PricingPlan) SetPackageDetails(v PackageDetails)`
+
+SetPackageDetails sets PackageDetails field to given value.
+
+### HasPackageDetails
+
+`func (o *PricingPlan) HasPackageDetails() bool`
+
+HasPackageDetails returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -22,7 +22,7 @@ var _ MappedNullable = &EsxiDatastoreConfiguration{}
 // EsxiDatastoreConfiguration Esxi data storage configuration.
 type EsxiDatastoreConfiguration struct {
 	// Datastore name
-	DatastoreName        string `json:"datastoreName"`
+	DatastoreName        string `json:"datastoreName" validate:"regexp=^[a-zA-Z0-9]+$"`
 	AdditionalProperties map[string]interface{}
 }
 

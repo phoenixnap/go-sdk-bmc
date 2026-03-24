@@ -106,6 +106,7 @@ Class | Method | HTTP request | Description
 *ServersAPI* | [**ServersServerIdActionsReservePost**](docs/ServersAPI.md#serversserveridactionsreservepost) | **Post** /servers/{serverId}/actions/reserve | Reserve server.
 *ServersAPI* | [**ServersServerIdActionsResetPost**](docs/ServersAPI.md#serversserveridactionsresetpost) | **Post** /servers/{serverId}/actions/reset | Reset server.
 *ServersAPI* | [**ServersServerIdActionsShutdownPost**](docs/ServersAPI.md#serversserveridactionsshutdownpost) | **Post** /servers/{serverId}/actions/shutdown | Shutdown server.
+*ServersAPI* | [**ServersServerIdActionsTransferReservation**](docs/ServersAPI.md#serversserveridactionstransferreservation) | **Post** /servers/{serverId}/actions/transfer-reservation | Transfer server reservation.
 *ServersAPI* | [**ServersServerIdDelete**](docs/ServersAPI.md#serversserveriddelete) | **Delete** /servers/{serverId} | Delete server.
 *ServersAPI* | [**ServersServerIdGet**](docs/ServersAPI.md#serversserveridget) | **Get** /servers/{serverId} | Get server.
 *ServersAPI* | [**ServersServerIdIpBlocksIpBlockIdDelete**](docs/ServersAPI.md#serversserveridipblocksipblockiddelete) | **Delete** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks/{ipBlockId} | Unassign IP Block from Server.
@@ -144,6 +145,7 @@ Class | Method | HTTP request | Description
  - [QuotaEditLimitRequest](docs/QuotaEditLimitRequest.md)
  - [QuotaEditLimitRequestDetails](docs/QuotaEditLimitRequestDetails.md)
  - [RelinquishIpBlock](docs/RelinquishIpBlock.md)
+ - [ReservationTransferDetails](docs/ReservationTransferDetails.md)
  - [ResetResult](docs/ResetResult.md)
  - [Server](docs/Server.md)
  - [ServerCreate](docs/ServerCreate.md)

@@ -496,18 +496,21 @@ paths:
                       - 10.0.0.2
                     dhcp: false
                     statusDescription: in-progress
+                    vlanId: 10
                 DhcpTrue:
                   value:
                     id: 60473a6115e34466c9f8f083
                     ips: []
                     dhcp: true
                     statusDescription: in-progress
+                    vlanId: 10
                 DhcpFalseIpsEmptyForceTrue:
                   value:
                     id: 60473a6115e34466c9f8f083
                     ips: []
                     dhcp: false
                     statusDescription: in-progress
+                    vlanId: 10
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -560,10 +563,16 @@ paths:
                     ips:
                       - 10.0.0.1
                       - 10.0.0.2
+                    dhcp: false
+                    statusDescription: assigned
+                    vlanId: 10
                 privateNetworkWithoutIpsForceTrue:
                   value:
                     id: 60473a6115e34466c9f8f083
                     ips: []
+                    dhcp: false
+                    statusDescription: assigned
+                    vlanId: 10
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -645,6 +654,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServerPublicNetwork'
+              examples:
+                PublicNetworkWithProvidedIps:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    ips:
+                      - 182.16.0.146
+                      - 182.16.0.147
+                    statusDescription: in-progress
+                    vlanId: 10
+                PublicNetworkWithNoIpsAndForceTrue:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    ips: []
+                    statusDescription: in-progress
+                    vlanId: 10
+                PublicNetworkWithIpV6AndComputeSlaacIpTrue:
+                  value:
+                    id: 60473c2509268bc77fd06d29
+                    ips:
+                      - 2001:db8::f
+                    statusDescription: in-progress
+                    vlanId: 10
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -709,6 +740,7 @@ paths:
                       - 182.16.0.147
                       - 2001:db8::b
                     statusDescription: assigned
+                    vlanId: 10
                 PublicNetworkWithProvidedIpsAndRanges:
                   value:
                     id: 60473a6115e34466c9f8f088
@@ -718,11 +750,13 @@ paths:
                       - 2001:db8::f
                       - 2001:db8::b - 2001:db8::d
                     statusDescription: assigned
+                    vlanId: 10
                 PublicNetworkWithNoIpsAndForceTrue:
                   value:
                     id: 60473a6115e34466c9f8f088
                     ips: []
                     statusDescription: assigned
+                    vlanId: 10
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -1097,6 +1131,43 @@ paths:
       responses:
         '200':
           description: Reserved server details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /servers/{serverId}/actions/transfer-reservation:
+    parameters:
+      - $ref: '#/components/parameters/serverIdPathParam'
+    post:
+      tags:
+        - Servers
+      description: Transfer server reservation. An active (READY) reservation can be transferred from a server in ERROR or RESERVED status to another HOURLY provisioned server of the same location and type.
+      summary: Transfer server reservation.
+      operationId: serversServerIdActionsTransferReservation
+      security:
+        - OAuth2:
+            - bmc
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservationTransferDetails'
+            example:
+              targetServerId: 54a21648dasda4s9843a17
+      responses:
+        '200':
+          description: The server reservation has been successfully transferred.
           content:
             application/json:
               schema:
@@ -1487,6 +1558,14 @@ components:
                 - 172.217.22.14
                 - 10.111.14.40/29
                 - 10.111.14.66 - 10.111.14.71
+            bringYourOwnLicense:
+              description: |
+                Use a Bring Your Own (BYO) Windows license. 
+                If true, the server is provisioned in trial mode, and you must activate your own license. 
+                If false (default), the server includes a managed Windows license billed by the platform.
+              type: boolean
+              example: false
+              default: false
         rootPassword:
           description: (Read-only) Auto-generated password set for user 'root' on an ESXi or Proxmox server.<br>  The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
           readOnly: true
@@ -1555,6 +1634,11 @@ components:
           readOnly: true
           type: string
           example: assigned
+        vlanId:
+          description: (Read-only) The VLAN on which this network has been configured within the network switch.
+          readOnly: true
+          type: integer
+          example: 10
     PrivateNetworkConfiguration:
       type: object
       description: Private network details of bare metal server.
@@ -1571,7 +1655,7 @@ components:
           default: USE_OR_CREATE_DEFAULT
           example: USER_DEFINED
         privateNetworks:
-          description: The list of private networks this server is member of. When this field is part of request body, it'll be used to specify the private networks to assign to this server upon provisioning. Used alongside the `USER_DEFINED` configurationType.
+          description: The list of private networks this server belongs to. If this field is part of a request body, it will be used for specifying the private networks to assign to this server upon provisioning. Used alongside the USER_DEFINED configurationType.
           type: array
           items:
             $ref: '#/components/schemas/ServerPrivateNetwork'
@@ -1614,7 +1698,7 @@ components:
             - NONE
           default: PURCHASE_NEW
         ipBlocks:
-          description: Used to specify the previously purchased IP blocks to assign to this server upon provisioning. Used alongside the USER_DEFINED configurationType.
+          description: Used for specifying the previously purchased IPv4 blocks to assign to this server upon provisioning. Used alongside the USER_DEFINED configurationType.
           type: array
           maxItems: 1
           items:
@@ -1630,16 +1714,20 @@ components:
           type: string
           example: 60473c2509268bc77fd06d29
         ips:
-          description: Configurable/configured IPs on the server.<br> At least 1 IP address is required. Valid IP format is single IP addresses. All IPs must be within the network's range.<br> Setting the `computeSlaacIp` field to `true` allows you to provide an empty array of IPs.<br> Additionally, setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
+          description: Configurable/configured IPs on the server.<br> At least 1 IP address is required. Valid IP formats include single IP addresses or IP ranges (IPv4 or IPv6). All IPs must be within the network's range.<br> Setting the `computeSlaacIp` field to `true` allows you to provide an empty array of IPs.<br> Additionally, setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
           type: array
           items:
             type: string
             example:
               - 182.16.0.146
-              - 2001:db8::b
+              - 10.1.1.20 - 10.1.1.25
+              - 2001:db8::f
+              - 2001:db8::b - 2001:db8::d
           example:
             - 182.16.0.146
-            - 2001:db8::b
+            - 10.1.1.20 - 10.1.1.25
+            - 2001:db8::f
+            - 2001:db8::b - 2001:db8::d
         statusDescription:
           description: (Read-only) The status of the assignment to the network.
           readOnly: true
@@ -1650,12 +1738,17 @@ components:
           writeOnly: true
           type: boolean
           example: true
+        vlanId:
+          description: (Read-only) The VLAN on which this network has been configured within the network switch.
+          readOnly: true
+          type: integer
+          example: 10
     PublicNetworkConfiguration:
       type: object
       description: Public network details of bare metal server.
       properties:
         publicNetworks:
-          description: The list of public networks this server is member of. When this field is part of request body, it'll be used to specify the public networks to assign to this server upon provisioning.
+          description: The list of public networks this server belongs to. If this field is part of a request body, it will be used for specifying the public networks to assign to this server on provision. Only IPv4 addresses can be specified.
           type: array
           items:
             $ref: '#/components/schemas/ServerPublicNetwork'
@@ -1753,15 +1846,15 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`, `proxmox/proxmox8`, `proxmox/proxmox9`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
           type: string
           example: ubuntu/bionic
         type:
-          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.xlarge`, `d2.m2.xxlarge`, `d2.m3.xlarge`, `d2.m4.xlarge`, `d2.m5.xlarge`, `d2.c4.db1.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge`, `a1.c5.large`, `a1.c5.xlarge`, `d3.s5.xlarge`, `d3.m4.xxlarge`, `d3.m5.xxlarge`,  `d3.m6.xxlarge`, `s3.c3.medium`, `s3.c3.large`, `d3.c4.medium`, `d3.c5.medium`, `d3.c6.medium`, `d3.c1.large`, `d3.c2.large`, `d3.c3.large`, `d3.m1.xlarge`, `d3.m2.xlarge`, `d3.m3.xlarge`, `d3.g2.c1.xlarge`, `d3.g2.c2.xlarge`, `d3.g2.c3.xlarge`, s4.x6.c6.large or s4.x6.m6.xlarge.
+          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c4.small`, `d1.c4.medium`, `d1.c4.large`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.xlarge`, `d2.m2.xxlarge`, `d2.m3.xlarge`, `d2.m4.xlarge`, `d2.m5.xlarge`, `d2.c4.db1.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge`, `a1.c5.large`, `a1.c5.xlarge`, `d3.s5.xlarge`, `d3.m4.xxlarge`, `d3.m5.xxlarge`,  `d3.m6.xxlarge`, `s3.c3.medium`, `s3.c3.large`, `d3.c4.medium`, `d3.c5.medium`, `d3.c6.medium`, `d3.c1.large`, `d3.c2.large`, `d3.c3.large`, `d3.m1.xlarge`, `d3.m2.xlarge`, `d3.m3.xlarge`, `d3.g2.c1.xlarge`, `d3.g2.c2.xlarge`, `d3.g2.c3.xlarge`, `d3.g3.c2.medium`, `s4.x6.c6.large`, `s4.x6.m6.xlarge`, `s5.x6.c3.medium`, `s5.x6.c3.large`, `s5.x6.c8.medium`, `s5.x6.c9.medium`, `s5.x6.c8.large`, `s5.x6.c9.large`, `s5.x6.m8.xlarge`, `s5.x6.m9.xlarge`, `s4.c3.medium`, `s4.c6.medium`, `s4.c6.large`, `s4.c6.xlarge`, `s4.s2.large`, `a2.c9.large` or `a2.c9.xlarge`.
           type: string
           example: s1.c1.small
         location:
-          description: Server location ID. Cannot be changed once a server is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
+          description: Server location ID. Cannot be changed once a server is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI` or `SEA`.
           type: string
           example: PHX
         cpu:
@@ -1911,15 +2004,15 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`, `proxmox/proxmox8`, `proxmox/proxmox9`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
           type: string
           example: ubuntu/bionic
         type:
-          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c1.small`, `d1.c2.small`, `d1.c3.small`, `d1.c4.small`, `d1.c1.medium`, `d1.c2.medium`, `d1.c3.medium`, `d1.c4.medium`, `d1.c1.large`, `d1.c2.large`, `d1.c3.large`, `d1.c4.large`, `d1.m1.medium`, `d1.m2.medium`, `d1.m3.medium`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.xlarge`, `d2.m2.xxlarge`, `d2.m3.xlarge`, `d2.m4.xlarge`, `d2.m5.xlarge`, `d2.c4.db1.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge`, `a1.c5.large`, `a1.c5.xlarge`, `d3.s5.xlarge`, `d3.m4.xxlarge`, `d3.m5.xxlarge`, `d3.m6.xxlarge`, `s3.c3.medium`, `s3.c3.large`, `d3.c4.medium`, `d3.c5.medium`, `d3.c6.medium`, `d3.c1.large`, `d3.c2.large`, `d3.c3.large`, `d3.m1.xlarge`, `d3.m2.xlarge`, `d3.m3.xlarge`, `d3.g2.c1.xlarge`, `d3.g2.c2.xlarge`, `d3.g2.c3.xlarge`, s4.x6.c6.large or s4.x6.m6.xlarge.
+          description: Server type ID. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `d1.c4.small`, `d1.c4.medium`, `d1.c4.large`, `d1.m4.medium`, `d2.c1.medium`, `d2.c2.medium`, `d2.c3.medium`, `d2.c4.medium`, `d2.c5.medium`, `d2.c1.large`, `d2.c2.large`, `d2.c3.large`, `d2.c4.large`, `d2.c5.large`, `d2.m1.xlarge`, `d2.m2.xxlarge`, `d2.m3.xlarge`, `d2.m4.xlarge`, `d2.m5.xlarge`, `d2.c4.db1.pliops1`, `d3.m4.xlarge`, `d3.m5.xlarge`, `d3.m6.xlarge`, `a1.c5.large`, `a1.c5.xlarge`, `d3.s5.xlarge`, `d3.m4.xxlarge`, `d3.m5.xxlarge`, `d3.m6.xxlarge`, `s3.c3.medium`, `s3.c3.large`, `d3.c4.medium`, `d3.c5.medium`, `d3.c6.medium`, `d3.c1.large`, `d3.c2.large`, `d3.c3.large`, `d3.m1.xlarge`, `d3.m2.xlarge`, `d3.m3.xlarge`, `d3.g2.c1.xlarge`, `d3.g2.c2.xlarge`, `d3.g2.c3.xlarge`,`d3.g3.c2.medium`, `s4.x6.c6.large`, `s4.x6.m6.xlarge`, `s5.x6.c3.medium`, `s5.x6.c3.large`, `s5.x6.c8.medium`, `s5.x6.c9.medium`, `s5.x6.c8.large`, `s5.x6.c9.large`, `s5.x6.m8.xlarge`, `s5.x6.m9.xlarge`, `s4.c3.medium`, `s4.c6.medium`, `s4.c6.large`, `s4.c6.xlarge`, `s4.s2.large`, `a2.c9.large` or `a2.c9.xlarge`.
           type: string
           example: s1.c1.small
         location:
-          description: Server location ID. Cannot be changed once a server is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI`, `SEA` or `AUS`.
+          description: Server location ID. Cannot be changed once a server is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI` or `SEA`.
           type: string
           example: PHX
         installDefaultSshKeys:
@@ -2015,7 +2108,7 @@ components:
       description: Update network details of bare metal server.
       properties:
         ips:
-          description: List of IPs to be associated to the server.<br> Valid IP formats include single IP addresses or IP ranges (IPv4 or IPv6). IPs must be within the network's range.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. <li> Assign one or more IP addresses which are already configured on other resource(s) in network. <li> Assign IP addresses which are considered as reserved in network.</ul>
+          description: List of IPs to be associated to the server.<br> Valid IP formats include single IP addresses or IP ranges (IPv4 or IPv6). All IPs must be within the network's range.<br> Setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. <li> Assign one or more IP addresses which are already configured on other resource(s) in network. <li> Assign IP addresses which are considered as reserved in network.</ul>
           type: array
           items:
             type: string
@@ -2049,7 +2142,7 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux8`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `proxmox/bullseye`, `proxmox/proxmox8`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux8`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`, `proxmox/proxmox8`, `proxmox/proxmox9`,`netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
           type: string
           example: ubuntu/bionic
         installDefaultSshKeys:
@@ -2120,6 +2213,14 @@ components:
                 - 172.217.22.14
                 - 10.111.14.40/29
                 - 10.111.14.66 - 10.111.14.71
+            bringYourOwnLicense:
+              description: |
+                Use a Bring Your Own (BYO) Windows license. 
+                If true, the server is provisioned in trial mode, and you must activate your own license. 
+                If false (default), the server includes a managed Windows license billed by the platform.
+              type: boolean
+              example: false
+              default: false
         esxi:
           description: VMWare ESXi configuration properties.
           type: object
@@ -2225,6 +2326,16 @@ components:
           description: Server pricing model. Currently this field should be set to `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`.
           type: string
           example: ONE_MONTH_RESERVATION
+    ReservationTransferDetails:
+      type: object
+      description: Reservation transfer details.
+      required:
+        - targetServerId
+      properties:
+        targetServerId:
+          description: ID of target server to transfer reservation to.
+          type: string
+          example: 54a21648dasda4s9843a17
     SshKey:
       type: object
       description: SSH Key.

@@ -32,9 +32,9 @@ func main() {
 	productCategory := []string{"ProductCategory_example"} // []string | Product category. Currently only SERVER category is supported. (optional)
 	productCode := []string{"Inner_example"} // []string |  (optional)
 	showOnlyMinQuantityAvailable := true // bool | Show only locations where product with requested quantity is available or all locations where product is offered. (optional) (default to true)
-	location := []openapiclient.LocationEnum{openapiclient.LocationEnum("PHX")} // []LocationEnum |  (optional)
+	location := []openapiclient.ProductLocationEnum{openapiclient.ProductLocationEnum("PHX")} // []ProductLocationEnum |  (optional)
 	solution := []string{"Solution_example"} // []string |  (optional)
-	minQuantity := float32(2) // float32 | Minimal quantity of product needed. Minimum, maximum and default values might differ for different products. For servers, they are 1, 10 and 1 respectively. (optional)
+	minQuantity := float32(2) // float32 | Minimum quantity of the product that can be requested. For servers the allowed quantity range is 1 to 10. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -62,9 +62,9 @@ Name | Type | Description  | Notes
  **productCategory** | **[]string** | Product category. Currently only SERVER category is supported. | 
  **productCode** | **[]string** |  | 
  **showOnlyMinQuantityAvailable** | **bool** | Show only locations where product with requested quantity is available or all locations where product is offered. | [default to true]
- **location** | [**[]LocationEnum**](LocationEnum.md) |  | 
+ **location** | [**[]ProductLocationEnum**](ProductLocationEnum.md) |  | 
  **solution** | **[]string** |  | 
- **minQuantity** | **float32** | Minimal quantity of product needed. Minimum, maximum and default values might differ for different products. For servers, they are 1, 10 and 1 respectively. | 
+ **minQuantity** | **float32** | Minimum quantity of the product that can be requested. For servers the allowed quantity range is 1 to 10. | 
 
 ### Return type
 

@@ -77,8 +77,8 @@ ProductsGet List all Products.
 
 Retrieves all Products.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiProductsGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiProductsGetRequest
 */
 func (a *ProductsAPIService) ProductsGet(ctx context.Context) ApiProductsGetRequest {
 	return ApiProductsGetRequest{
@@ -88,7 +88,8 @@ func (a *ProductsAPIService) ProductsGet(ctx context.Context) ApiProductsGetRequ
 }
 
 // Execute executes the request
-//  @return []ProductsGet200ResponseInner
+//
+//	@return []ProductsGet200ResponseInner
 func (a *ProductsAPIService) ProductsGetExecute(r ApiProductsGetRequest) ([]ProductsGet200ResponseInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -109,16 +110,16 @@ func (a *ProductsAPIService) ProductsGetExecute(r ApiProductsGetRequest) ([]Prod
 	localVarFormParams := url.Values{}
 
 	if r.productCode != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "productCode", r.productCode, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "productCode", r.productCode, "form", "")
 	}
 	if r.productCategory != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "productCategory", r.productCategory, "form", "")
 	}
 	if r.skuCode != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "skuCode", r.skuCode, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "skuCode", r.skuCode, "form", "")
 	}
 	if r.location != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "location", r.location, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

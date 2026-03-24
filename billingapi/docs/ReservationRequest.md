@@ -5,12 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Sku** | **string** | The sku code of product pricing plan. | 
+**Quantity** | [**Quantity**](Quantity.md) |  | 
 
 ## Methods
 
 ### NewReservationRequest
 
-`func NewReservationRequest(sku string, ) *ReservationRequest`
+`func NewReservationRequest(sku string, quantity Quantity, ) *ReservationRequest`
 
 NewReservationRequest instantiates a new ReservationRequest object
 This constructor will assign default values to properties that have it defined,
@@ -43,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *ReservationRequest) SetSku(v string)`
 
 SetSku sets Sku field to given value.
+
+
+### GetQuantity
+
+`func (o *ReservationRequest) GetQuantity() Quantity`
+
+GetQuantity returns the Quantity field if non-nil, zero value otherwise.
+
+### GetQuantityOk
+
+`func (o *ReservationRequest) GetQuantityOk() (*Quantity, bool)`
+
+GetQuantityOk returns a tuple with the Quantity field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQuantity
+
+`func (o *ReservationRequest) SetQuantity(v Quantity)`
+
+SetQuantity sets Quantity field to given value.
 
 
 

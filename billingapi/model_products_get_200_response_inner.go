@@ -106,30 +106,6 @@ func (dst *ProductsGet200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'Product'
-	if jsonDict["productCategory"] == "Product" {
-		// try to unmarshal JSON data into Product
-		err = json.Unmarshal(data, &dst.Product)
-		if err == nil {
-			return nil // data stored in dst.Product, return on the first match
-		} else {
-			dst.Product = nil
-			return fmt.Errorf("failed to unmarshal ProductsGet200ResponseInner as Product: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'ServerProduct'
-	if jsonDict["productCategory"] == "ServerProduct" {
-		// try to unmarshal JSON data into ServerProduct
-		err = json.Unmarshal(data, &dst.ServerProduct)
-		if err == nil {
-			return nil // data stored in dst.ServerProduct, return on the first match
-		} else {
-			dst.ServerProduct = nil
-			return fmt.Errorf("failed to unmarshal ProductsGet200ResponseInner as ServerProduct: %s", err.Error())
-		}
-	}
-
 	return nil
 }
 
@@ -157,6 +133,20 @@ func (obj *ProductsGet200ResponseInner) GetActualInstance() interface{} {
 
 	if obj.ServerProduct != nil {
 		return obj.ServerProduct
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj ProductsGet200ResponseInner) GetActualInstanceValue() interface{} {
+	if obj.Product != nil {
+		return *obj.Product
+	}
+
+	if obj.ServerProduct != nil {
+		return *obj.ServerProduct
 	}
 
 	// all schemas are nil

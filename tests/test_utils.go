@@ -3,18 +3,22 @@ package tests
 import (
 	"bytes"
 	"encoding/json"
-	"io/ioutil"
+	"fmt"
+	"io"
 	"log"
 	"net/http"
+	"os"
 )
 
 type TestUtilsImpl struct {
 }
 
+// mock http client
 type MyHttpClient interface {
 	Do(*http.Request) (*http.Response, error)
 }
 
+// mock application
 type MyApplicationClient struct {
 	HttpClient MyHttpClient
 }
@@ -25,8 +29,9 @@ func NewApplicationClient(httpClient MyHttpClient) *MyApplicationClient {
 	}
 }
 
+// sets up an expectation using the mockserver. the request must be matched *exactly*.
 func (t TestUtilsImpl) setupExpectation(requestToMock Request, responseToGet Response, timesParam int) string {
-
+	// setup mockserver request body
 	body := Body{
 		HttpRequest:  requestToMock,
 		HttpResponse: responseToGet,
@@ -42,31 +47,36 @@ func (t TestUtilsImpl) setupExpectation(requestToMock Request, responseToGet Res
 		log.Fatal(err)
 	}
 
+	// setup the request itself
 	req, err := http.NewRequest(http.MethodPut, "http://localhost:1080/expectation", bytes.NewBuffer(jsonBody))
-
 	req.Header.Set("Content-Type", "application/json")
+
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	// dispatch request and ensure successful return
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Fatal(err)
 	} else if resp.StatusCode >= 400 {
-		body, _ := ioutil.ReadAll(resp.Body)
+		body, _ := io.ReadAll(resp.Body)
 		log.Fatal(string(body))
 	}
 
 	defer resp.Body.Close()
 
-	buffer, err := ioutil.ReadAll(resp.Body)
+	// read the contents of the response into a byte-buffer
+	buffer, err := io.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	// convert the byte-buffer to string
 	bufferString := string(buffer)
 	var result []map[string]interface{}
 
+	// unmarshal result into a more user-friendly structure
 	json.Unmarshal([]byte(bufferString), &result)
 
 	return result[0]["id"].(string)
@@ -78,12 +88,13 @@ func (t TestUtilsImpl) verifyExpectationMatchedTimes(expectationId string, times
 		AtLeast int `json:"atMost"`
 		AtMost  int `json:"atLeast"`
 	}
-	type ResponseBody struct {
+
+	type Body struct {
 		ExpectationId ExpectationId `json:"expectationId"`
 		Times         Times         `json:"times"`
 	}
 
-	body := ResponseBody{
+	body := Body{
 		ExpectationId: ExpectationId{Id: expectationId},
 		Times: Times{
 			AtLeast: timesIn,
@@ -115,16 +126,16 @@ func (t TestUtilsImpl) verifyExpectationMatchedTimes(expectationId string, times
 
 }
 
-var executed = false
+var readyForTesting = false
 
 func (t TestUtilsImpl) resetExpectations() {
 
 	var req *http.Request
 	var err error
 
-	if !executed {
+	if !readyForTesting {
 		req, err = http.NewRequest(http.MethodPut, "http://localhost:1080/mockserver/reset", http.NoBody)
-		executed = true
+		readyForTesting = true
 	} else {
 		req, err = http.NewRequest(http.MethodPut, "http://localhost:1080/mockserver/clear", http.NoBody)
 	}
@@ -153,9 +164,10 @@ func (t TestUtilsImpl) generatePayloadsFrom(filename string, payloadsPath string
 
 	var payload Payload
 
-	file, err := ioutil.ReadFile(payloadsPath + "/" + filename + ".json")
+	file, err := os.ReadFile(payloadsPath + "/" + filename + ".json")
 	if err != nil {
-		log.Fatal(err)
+		errMsg, _ := fmt.Printf("error when generating payloads: %s", err)
+		log.Fatal(errMsg)
 	}
 
 	json.Unmarshal(file, &payload)

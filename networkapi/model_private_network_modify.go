@@ -22,7 +22,7 @@ var _ MappedNullable = &PrivateNetworkModify{}
 // PrivateNetworkModify Object including details to be modified in the Private Network.
 type PrivateNetworkModify struct {
 	// A friendly name given to the private network. This name should be unique.
-	Name string `json:"name"`
+	Name string `json:"name" validate:"regexp=^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"`
 	// A description of this private network
 	Description *string `json:"description,omitempty"`
 	// Identifies network as the default private network for the specified location.

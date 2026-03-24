@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// LocationEnum The location code.
+// LocationEnum Supported location codes. All locations are active except AUS, which is deprecated and preserved only for legacy data.
 type LocationEnum string
 
 // List of LocationEnum

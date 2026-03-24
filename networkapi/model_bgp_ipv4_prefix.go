@@ -19,12 +19,12 @@ import (
 // checks if the BgpIPv4Prefix type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BgpIPv4Prefix{}
 
-// BgpIPv4Prefix The BGP IPv4 Prefix.
+// BgpIPv4Prefix The BGP IPv4 Prefix. Deprecated in favour of generic BgpIpPrefix.
 type BgpIPv4Prefix struct {
 	// IPv4 allocation ID.
 	Ipv4AllocationId string `json:"ipv4AllocationId"`
 	// The IP block in CIDR format.
-	Cidr string `json:"cidr"`
+	Cidr string `json:"cidr" validate:"regexp=^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\/(?:[1-9]|[1-2]\\\\d|3[0-2])$"`
 	// The BGP IPv4 Prefix status. Can have one of the following values: `PENDING`, `BUSY`, `READY`, `ERROR` and `DELETING`.
 	Status string `json:"status"`
 	// Identifies IP as a `bring your own` IP block.

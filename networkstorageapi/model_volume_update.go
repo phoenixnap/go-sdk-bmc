@@ -21,13 +21,13 @@ var _ MappedNullable = &VolumeUpdate{}
 // VolumeUpdate Update storage network volume.
 type VolumeUpdate struct {
 	// Volume friendly name.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name,omitempty" validate:"regexp=^(?=.*[a-zA-Z])([a-zA-Z0-9(). -])+$"`
 	// Volume description.
 	Description *string `json:"description,omitempty"`
 	// Capacity of Volume in GB. Currently only whole numbers and multiples of 1000GB are supported.
 	CapacityInGb *int32 `json:"capacityInGb,omitempty"`
 	// Last part of volume's path.
-	PathSuffix           *string            `json:"pathSuffix,omitempty"`
+	PathSuffix           *string            `json:"pathSuffix,omitempty" validate:"regexp=^(\\/[\\\\w-]+)+$|^$"`
 	Permissions          *PermissionsUpdate `json:"permissions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
