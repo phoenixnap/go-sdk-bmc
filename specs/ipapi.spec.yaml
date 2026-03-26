@@ -356,10 +356,14 @@ components:
           items:
             $ref: '#/components/schemas/TagAssignment'
           example:
-            - name: stage
+            - id: 60ffafcdffb8b074c7968dad
+              name: stage
               value: beta
-            - name: group
+              isBillingTag: false
+            - id: 60ffafcdffb8b074c7968dae
+              name: group
               value: discounted
+              isBillingTag: true
         isSystemManaged:
           description: True if the IP block is a `system managed` block.
           type: boolean

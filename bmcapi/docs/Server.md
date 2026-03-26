@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **PrivateIpAddresses** | **[]string** | Private IP addresses assigned to server. | 
 **PublicIpAddresses** | Pointer to **[]string** | Public IP addresses assigned to server. | [optional] 
 **ReservationId** | Pointer to **string** | The reservation reference id if any. | [optional] 
-**PricingModel** | **string** | The pricing model this server is being billed. Currently this field should be set to &#x60;HOURLY&#x60;, &#x60;ONE_MONTH_RESERVATION&#x60;, &#x60;TWELVE_MONTHS_RESERVATION&#x60;, &#x60;TWENTY_FOUR_MONTHS_RESERVATION&#x60; or &#x60;THIRTY_SIX_MONTHS_RESERVATION&#x60;. | [default to "HOURLY"]
+**PricingModel** | **string** | The pricing model this server is being billed. Currently this field should be set to &#x60;HOURLY&#x60;, &#x60;ONE_MONTH_RESERVATION&#x60;, &#x60;TWELVE_MONTHS_RESERVATION&#x60;, &#x60;TWENTY_FOUR_MONTHS_RESERVATION&#x60;, &#x60;THIRTY_SIX_MONTHS_RESERVATION&#x60; or &#x60;CUSTOM_TERM_RESERVATION&#x60;. | [default to "HOURLY"]
 **Password** | Pointer to **string** | Auto-generated password set for user &#x60;Admin&#x60; on Windows server, user &#x60;root&#x60; on ESXi servers, user &#x60;root&#x60; on Proxmox server and user &#x60;netris&#x60; on Netris servers.&lt;br&gt; The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference. | [optional] 
 **NetworkType** | Pointer to **string** | The type of network configuration for this server. Currently this field should be set to &#x60;PUBLIC_AND_PRIVATE&#x60;, &#x60;PRIVATE_ONLY&#x60;, &#x60;PUBLIC_ONLY&#x60; or &#x60;NONE&#x60;. | [optional] [default to "PUBLIC_AND_PRIVATE"]
 **ClusterId** | Pointer to **string** | The cluster reference id if any. | [optional] 

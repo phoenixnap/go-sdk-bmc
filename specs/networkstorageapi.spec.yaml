@@ -192,7 +192,8 @@ paths:
             items:
               type: string
           description: A list of query parameters related to tags in the form of tagName.tagValue
-          example: env.dev
+          example:
+            - env.dev
       tags:
         - Storage Networks
       description: Display one or more volumes belonging to a storage network.
@@ -589,10 +590,14 @@ components:
           items:
             $ref: '#/components/schemas/TagAssignment'
           example:
-            - name: stage
+            - id: 60ffafcdffb8b074c7968dad
+              name: stage
               value: beta
-            - name: group
+              isBillingTag: false
+            - id: 60ffafcdffb8b074c7968dae
+              name: group
               value: discounted
+              isBillingTag: true
     VolumeCreate:
       title: VolumeCreate
       type: object

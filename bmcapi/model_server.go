@@ -54,7 +54,7 @@ type Server struct {
 	PublicIpAddresses []string `json:"publicIpAddresses,omitempty"`
 	// The reservation reference id if any.
 	ReservationId *string `json:"reservationId,omitempty"`
-	// The pricing model this server is being billed. Currently this field should be set to `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`.
+	// The pricing model this server is being billed. Currently this field should be set to `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION`, `THIRTY_SIX_MONTHS_RESERVATION` or `CUSTOM_TERM_RESERVATION`.
 	PricingModel string `json:"pricingModel"`
 	// Auto-generated password set for user `Admin` on Windows server, user `root` on ESXi servers, user `root` on Proxmox server and user `netris` on Netris servers.<br> The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
 	Password *string `json:"password,omitempty"`

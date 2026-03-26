@@ -54,7 +54,8 @@ paths:
               type: string
           description: A list of query parameters related to tags in the form of tagName.tagValue
           explode: true
-          example: env.dev
+          example:
+            - env.dev
       responses:
         '200':
           description: List of all the servers owned by account.
@@ -1718,11 +1719,7 @@ components:
           type: array
           items:
             type: string
-            example:
-              - 182.16.0.146
-              - 10.1.1.20 - 10.1.1.25
-              - 2001:db8::f
-              - 2001:db8::b - 2001:db8::d
+            example: 182.16.0.146
           example:
             - 182.16.0.146
             - 10.1.1.20 - 10.1.1.25
@@ -1910,7 +1907,7 @@ components:
           type: string
           example: fc8bd49a-59cc-4538-a806-5e46228408ec
         pricingModel:
-          description: The pricing model this server is being billed. Currently this field should be set to `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`.
+          description: The pricing model this server is being billed. Currently this field should be set to `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`, `TWENTY_FOUR_MONTHS_RESERVATION`, `THIRTY_SIX_MONTHS_RESERVATION` or `CUSTOM_TERM_RESERVATION`.
           type: string
           default: HOURLY
           example: HOURLY
@@ -2112,11 +2109,7 @@ components:
           type: array
           items:
             type: string
-            example:
-              - 10.1.1.1
-              - 10.1.1.20 - 10.1.1.25
-              - 2001:db8::f
-              - 2001:db8::b - 2001:db8::d
+            example: 10.1.1.1
           example:
             - 10.1.1.1
             - 10.1.1.20 - 10.1.1.25

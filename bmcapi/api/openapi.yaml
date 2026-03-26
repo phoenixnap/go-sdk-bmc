@@ -37,7 +37,8 @@ paths:
       operationId: serversGet
       parameters:
       - description: A list of query parameters related to tags in the form of tagName.tagValue
-        example: env.dev
+        example:
+        - env.dev
         explode: true
         in: query
         name: tag
@@ -2937,8 +2938,7 @@ components:
           - 2001:db8::f
           - 2001:db8::b - 2001:db8::d
           items:
-            example: "[\"182.16.0.146\",\"10.1.1.20 - 10.1.1.25\",\"2001:db8::f\"\
-              ,\"2001:db8::b - 2001:db8::d\"]"
+            example: 182.16.0.146
             type: string
           type: array
         statusDescription:
@@ -3288,7 +3288,8 @@ components:
           default: HOURLY
           description: "The pricing model this server is being billed. Currently this\
             \ field should be set to `HOURLY`, `ONE_MONTH_RESERVATION`, `TWELVE_MONTHS_RESERVATION`,\
-            \ `TWENTY_FOUR_MONTHS_RESERVATION` or `THIRTY_SIX_MONTHS_RESERVATION`."
+            \ `TWENTY_FOUR_MONTHS_RESERVATION`, `THIRTY_SIX_MONTHS_RESERVATION` or\
+            \ `CUSTOM_TERM_RESERVATION`."
           example: HOURLY
           type: string
         password:
@@ -3675,8 +3676,7 @@ components:
           - 2001:db8::f
           - 2001:db8::b - 2001:db8::d
           items:
-            example: "[\"10.1.1.1\",\"10.1.1.20 - 10.1.1.25\",\"2001:db8::f\",\"2001:db8::b\
-              \ - 2001:db8::d\"]"
+            example: 10.1.1.1
             type: string
           type: array
       type: object
