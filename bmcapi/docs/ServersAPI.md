@@ -1561,7 +1561,7 @@ import (
 
 func main() {
 	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
-	serverPublicNetwork := *openapiclient.NewServerPublicNetwork("60473c2509268bc77fd06d29") // ServerPublicNetwork | 
+	serverPublicNetwork := *openapiclient.NewServerPublicNetwork("60473c2509268bc77fd06d29", []string{"182.16.0.146"}) // ServerPublicNetwork | 
 	force := true // bool | Query parameter controlling advanced features availability. Currently applicable for networking. It is advised to use with caution since it might lead to unhealthy setups. (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
