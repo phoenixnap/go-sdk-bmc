@@ -4158,7 +4158,7 @@ components:
         reason:
           description: The reason for changing the limit.
           example: I need more servers for my cluster.
-          pattern: ^(?s)(?!\s*$).+
+          pattern: "^[\\s\\S]*\\S[\\s\\S]*$"
           type: string
       required:
       - limit
