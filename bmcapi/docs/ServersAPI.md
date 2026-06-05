@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 
 ## ServersGet
 
-> []Server ServersGet(ctx).Tag(tag).Execute()
+> []Server ServersGet(ctx).Tag(tag).Location(location).Execute()
 
 List servers.
 
@@ -125,10 +125,11 @@ import (
 
 func main() {
 	tag := []string{"Inner_example"} // []string | A list of query parameters related to tags in the form of tagName.tagValue (optional)
+	location := []string{"Inner_example"} // []string | Filters servers by server location (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ServersAPI.ServersGet(context.Background()).Tag(tag).Execute()
+	resp, r, err := apiClient.ServersAPI.ServersGet(context.Background()).Tag(tag).Location(location).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersGet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -150,6 +151,7 @@ Other parameters are passed through a pointer to a apiServersGetRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tag** | **[]string** | A list of query parameters related to tags in the form of tagName.tagValue | 
+ **location** | **[]string** | Filters servers by server location | 
 
 ### Return type
 

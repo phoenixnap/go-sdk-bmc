@@ -547,11 +547,18 @@ type ApiServersGetRequest struct {
 	ctx        context.Context
 	ApiService ServersAPI
 	tag        *[]string
+	location   *[]string
 }
 
 // A list of query parameters related to tags in the form of tagName.tagValue
 func (r ApiServersGetRequest) Tag(tag []string) ApiServersGetRequest {
 	r.tag = &tag
+	return r
+}
+
+// Filters servers by server location
+func (r ApiServersGetRequest) Location(location []string) ApiServersGetRequest {
+	r.location = &location
 	return r
 }
 
@@ -605,6 +612,17 @@ func (a *ServersAPIService) ServersGetExecute(r ApiServersGetRequest) ([]Server,
 			}
 		} else {
 			parameterAddToHeaderOrQuery(localVarQueryParams, "tag", t, "form", "multi")
+		}
+	}
+	if r.location != nil {
+		t := *r.location
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "location", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "location", t, "form", "multi")
 		}
 	}
 	// to determine the Content-Type header

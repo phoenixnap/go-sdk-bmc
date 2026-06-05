@@ -48,6 +48,18 @@ paths:
             type: string
           type: array
         style: form
+      - description: Filters servers by server location
+        example:
+        - PHX
+        explode: true
+        in: query
+        name: location
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
       responses:
         "200":
           content:

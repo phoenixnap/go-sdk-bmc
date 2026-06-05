@@ -56,6 +56,15 @@ paths:
           explode: true
           example:
             - env.dev
+        - in: query
+          name: location
+          schema:
+            type: array
+            items:
+              type: string
+          description: Filters servers by server location
+          example:
+            - PHX
       responses:
         '200':
           description: List of all the servers owned by account.
