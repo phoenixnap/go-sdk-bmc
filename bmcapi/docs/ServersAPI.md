@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**ServersServerIdGet**](ServersAPI.md#ServersServerIdGet) | **Get** /servers/{serverId} | Get server.
 [**ServersServerIdIpBlocksIpBlockIdDelete**](ServersAPI.md#ServersServerIdIpBlocksIpBlockIdDelete) | **Delete** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks/{ipBlockId} | Unassign IP Block from Server.
 [**ServersServerIdIpBlocksPost**](ServersAPI.md#ServersServerIdIpBlocksPost) | **Post** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks | Assign IP Block to Server.
+[**ServersServerIdOsConfigurationIpxePut**](ServersAPI.md#ServersServerIdOsConfigurationIpxePut) | **Put** /servers/{serverId}/os-configuration/ipxe | Updates the iPXE OS configuration.
 [**ServersServerIdPatch**](ServersAPI.md#ServersServerIdPatch) | **Patch** /servers/{serverId} | Patch a Server.
 [**ServersServerIdPrivateNetworksPatch**](ServersAPI.md#ServersServerIdPrivateNetworksPatch) | **Patch** /servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId} | Updates the server&#39;s private network&#39;s IP addresses
 [**ServersServerIdPrivateNetworksPost**](ServersAPI.md#ServersServerIdPrivateNetworksPost) | **Post** /servers/{serverId}/network-configuration/private-network-configuration/private-networks | Adds the server to a private network.
@@ -527,7 +528,7 @@ Name | Type | Description  | Notes
 
 ## ServersServerIdActionsRebootPost
 
-> ActionResult ServersServerIdActionsRebootPost(ctx, serverId).Execute()
+> ActionResult ServersServerIdActionsRebootPost(ctx, serverId).RebootRequest(rebootRequest).Execute()
 
 Reboot server.
 
@@ -547,10 +548,11 @@ import (
 
 func main() {
 	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	rebootRequest := *openapiclient.NewRebootRequest() // RebootRequest | Configuration option to specify the reboot type: STANDARD or IPXE (default: STANDARD). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ServersAPI.ServersServerIdActionsRebootPost(context.Background(), serverId).Execute()
+	resp, r, err := apiClient.ServersAPI.ServersServerIdActionsRebootPost(context.Background(), serverId).RebootRequest(rebootRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdActionsRebootPost``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -576,6 +578,7 @@ Other parameters are passed through a pointer to a apiServersServerIdActionsRebo
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **rebootRequest** | [**RebootRequest**](RebootRequest.md) | Configuration option to specify the reboot type: STANDARD or IPXE (default: STANDARD). | 
 
 ### Return type
 
@@ -587,7 +590,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -1153,6 +1156,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ServerIpBlock**](ServerIpBlock.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ServersServerIdOsConfigurationIpxePut
+
+> OsConfigurationIPXE ServersServerIdOsConfigurationIpxePut(ctx, serverId).OsConfigurationIPXE(osConfigurationIPXE).Execute()
+
+Updates the iPXE OS configuration.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
+)
+
+func main() {
+	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
+	osConfigurationIPXE := *openapiclient.NewOsConfigurationIPXE("https://example.com/boot.ipxe") // OsConfigurationIPXE | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServersAPI.ServersServerIdOsConfigurationIpxePut(context.Background(), serverId).OsConfigurationIPXE(osConfigurationIPXE).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdOsConfigurationIpxePut``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ServersServerIdOsConfigurationIpxePut`: OsConfigurationIPXE
+	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdOsConfigurationIpxePut`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**serverId** | **string** | The server&#39;s ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiServersServerIdOsConfigurationIpxePutRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **osConfigurationIPXE** | [**OsConfigurationIPXE**](OsConfigurationIPXE.md) |  | 
+
+### Return type
+
+[**OsConfigurationIPXE**](OsConfigurationIPXE.md)
 
 ### Authorization
 

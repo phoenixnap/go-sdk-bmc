@@ -111,6 +111,7 @@ Class | Method | HTTP request | Description
 *ServersAPI* | [**ServersServerIdGet**](docs/ServersAPI.md#serversserveridget) | **Get** /servers/{serverId} | Get server.
 *ServersAPI* | [**ServersServerIdIpBlocksIpBlockIdDelete**](docs/ServersAPI.md#serversserveridipblocksipblockiddelete) | **Delete** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks/{ipBlockId} | Unassign IP Block from Server.
 *ServersAPI* | [**ServersServerIdIpBlocksPost**](docs/ServersAPI.md#serversserveridipblockspost) | **Post** /servers/{serverId}/network-configuration/ip-block-configurations/ip-blocks | Assign IP Block to Server.
+*ServersAPI* | [**ServersServerIdOsConfigurationIpxePut**](docs/ServersAPI.md#serversserveridosconfigurationipxeput) | **Put** /servers/{serverId}/os-configuration/ipxe | Updates the iPXE OS configuration.
 *ServersAPI* | [**ServersServerIdPatch**](docs/ServersAPI.md#serversserveridpatch) | **Patch** /servers/{serverId} | Patch a Server.
 *ServersAPI* | [**ServersServerIdPrivateNetworksPatch**](docs/ServersAPI.md#serversserveridprivatenetworkspatch) | **Patch** /servers/{serverId}/network-configuration/private-network-configuration/private-networks/{privateNetworkId} | Updates the server&#39;s private network&#39;s IP addresses
 *ServersAPI* | [**ServersServerIdPrivateNetworksPost**](docs/ServersAPI.md#serversserveridprivatenetworkspost) | **Post** /servers/{serverId}/network-configuration/private-network-configuration/private-networks | Adds the server to a private network.
@@ -133,6 +134,8 @@ Class | Method | HTTP request | Description
  - [NetworkConfiguration](docs/NetworkConfiguration.md)
  - [OsConfiguration](docs/OsConfiguration.md)
  - [OsConfigurationCloudInit](docs/OsConfigurationCloudInit.md)
+ - [OsConfigurationIPXE](docs/OsConfigurationIPXE.md)
+ - [OsConfigurationIPXENativeVlanConfiguration](docs/OsConfigurationIPXENativeVlanConfiguration.md)
  - [OsConfigurationMap](docs/OsConfigurationMap.md)
  - [OsConfigurationMapEsxi](docs/OsConfigurationMapEsxi.md)
  - [OsConfigurationMapProxmox](docs/OsConfigurationMapProxmox.md)
@@ -144,6 +147,7 @@ Class | Method | HTTP request | Description
  - [Quota](docs/Quota.md)
  - [QuotaEditLimitRequest](docs/QuotaEditLimitRequest.md)
  - [QuotaEditLimitRequestDetails](docs/QuotaEditLimitRequestDetails.md)
+ - [RebootRequest](docs/RebootRequest.md)
  - [RelinquishIpBlock](docs/RelinquishIpBlock.md)
  - [ReservationTransferDetails](docs/ReservationTransferDetails.md)
  - [ResetResult](docs/ResetResult.md)

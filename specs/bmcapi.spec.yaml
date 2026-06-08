@@ -1030,6 +1030,13 @@ paths:
       security:
         - OAuth2:
             - bmc
+      requestBody:
+        description: 'Configuration option to specify the reboot type: STANDARD or IPXE (default: STANDARD).'
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RebootRequest'
       responses:
         '200':
           description: Rebooting server.
@@ -1182,6 +1189,64 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Server'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /servers/{serverId}/os-configuration/ipxe:
+    parameters:
+      - $ref: '#/components/parameters/serverIdPathParam'
+    put:
+      tags:
+        - Servers
+      description: Updates the iPXE OS configuration by updating the URL and the native VLAN configuration.
+      summary: Updates the iPXE OS configuration.
+      operationId: serversServerIdOsConfigurationIpxePut
+      security:
+        - OAuth2:
+            - bmc
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OsConfigurationIPXE'
+            example:
+              url: https://example.com/boot.ipxe
+              nativeVlanConfiguration:
+                vlanId: 10
+                staticDhcpAddressV4: 185.74.213.56
+      responses:
+        '200':
+          description: Updated URL in iPXE OS configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OsConfigurationIPXE'
+              example:
+                url: https://example.com/boot.ipxe
+                nativeVlanConfiguration:
+                  vlanId: 10
+                  staticDhcpAddressV4: 185.74.213.56
+                  status: assigned
+        '202':
+          description: The iPXE OS configuration is being updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OsConfigurationIPXE'
+              example:
+                url: https://example.com/boot.ipxe
+                nativeVlanConfiguration:
+                  vlanId: 10
+                  staticDhcpAddressV4: 185.74.213.56
+                  status: in-progress
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -1503,6 +1568,46 @@ components:
       properties:
         datastoreConfiguration:
           $ref: '#/components/schemas/EsxiDatastoreConfiguration'
+    OsConfigurationIPXE:
+      type: object
+      description: iPXE configuration details. Configures the server to boot using the iPXE network boot firmware with a custom boot script. Only applicable when osName is 'ipxe' and must not be provided for any other OS.
+      required:
+        - url
+      properties:
+        url:
+          description: The URL of the iPXE boot script used to start the server.
+          type: string
+          pattern: ^https?://.+$
+          example: https://example.com/boot.ipxe
+        nativeVlanConfiguration:
+          type: object
+          description: Specifies the native VLAN configuration for the server.
+          properties:
+            vlanId:
+              description: |
+                The VLAN ID of the network to be used as the native VLAN.
+                The value must reference a public network with IP V4 block(s) or a public IP V4 block network to which the server is (or will be) attached.
+                If omitted during provisioning, the native VLAN is matched to the configured/auto-purchased public IP V4 block. If no public IP block is available, a VLAN ID must be provided. The VLAN ID must belong to one of the public networks for any of the specified servers.
+                During post-provisioning, if Native VLAN is omitted, the server will be configured with no native VLAN. If provided, the VLAN ID must be specified and must belong to any of the existing server public networks or IP block networks attached to the server.
+              type: integer
+              example: 10
+            staticDhcpAddressV4:
+              description: |
+                The static IP V4 address assigned to the server within the native VLAN. This address is set as the DHCP reservation and used for the iPXE boot process. 
+                Value must be an available/unused IP V4 address within the native network usable IP range.
+                If omitted, the first available IP in the native network will be automatically assigned. Therefore, at least one IP must be available within the native network.
+              type: string
+              format: ipv4
+              pattern: ^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.)){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$
+              example: 185.74.213.56
+            status:
+              description: (Read-only) The status of the native VLAN configuration.
+              readOnly: true
+              type: string
+              enum:
+                - in-progress
+                - assigned
+                - error
     OsConfiguration:
       type: object
       description: OS specific configuration properties.
@@ -1614,6 +1719,8 @@ components:
               type: string
               format: byte
               example: IyEvYmluL2Jhc2gKbWtkaXIgL3Jvb3QvY2xvdWQtaW5pdC1zY3JpcHQtZXhlY3V0ZWQ=
+        iPXE:
+          $ref: '#/components/schemas/OsConfigurationIPXE'
     ServerPrivateNetwork:
       type: object
       description: Private network details of bare metal server.
@@ -1853,7 +1960,7 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`, `proxmox/proxmox8`, `proxmox/proxmox9`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`, `proxmox/proxmox8`, `proxmox/proxmox9`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` , `netris/softgate_25g` or `ipxe`.
           type: string
           example: ubuntu/bionic
         type:
@@ -2011,7 +2118,7 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`, `proxmox/proxmox8`, `proxmox/proxmox9`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `rockylinux/rockylinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`, `proxmox/proxmox8`, `proxmox/proxmox9`, `netris/controller`, `netris/softgate_1g`, `netris/softgate_10g`, `netris/softgate_25g` or `ipxe`.
           type: string
           example: ubuntu/bionic
         type:
@@ -2145,7 +2252,7 @@ components:
           example: 'Server #1 used for computing.'
           maxLength: 250
         os:
-          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux8`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`, `proxmox/proxmox8`, `proxmox/proxmox9`,`netris/controller`, `netris/softgate_1g`, `netris/softgate_10g` or `netris/softgate_25g`.
+          description: The server’s OS ID used when the server was created. Currently this field should be set to either `ubuntu/bionic`, `ubuntu/focal`, `ubuntu/jammy`, `ubuntu/jammy+pytorch`, `ubuntu/noble`, `centos/centos7`, `centos/centos8`, `windows/srv2019std`, `windows/srv2019dc`, `windows/srv2022std`, `windows/srv2022dc`, `windows/srv2025std`, `windows/srv2025dc`, `esxi/esxi70`, `esxi/esxi80`, `almalinux/almalinux8`, `almalinux/almalinux9`, `rockylinux/rockylinux8`, `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`, `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`, `proxmox/proxmox8`, `proxmox/proxmox9`,`netris/controller`, `netris/softgate_1g`, `netris/softgate_10g`, `netris/softgate_25g` or `ipxe`.
           type: string
           example: ubuntu/bionic
         installDefaultSshKeys:
@@ -2197,6 +2304,23 @@ components:
           description: Message describing the action's result.
           type: string
           example: Powering on server.
+    RebootRequest:
+      type: object
+      properties:
+        bootType:
+          type: string
+          default: STANDARD
+          enum:
+            - IPXE
+            - STANDARD
+          description: Specifies whether to boot via `IPXE` (requires script) or `STANDARD` (default mechanism, incompatible with `ipxeUrl`).
+        ipxeUrl:
+          type: string
+          pattern: ^https?://.+$
+          nullable: true
+          default: null
+          example: https://example.com/boot.ipxe
+          description: The URL for the iPXE script, used only with `IPXE` boot type. If provided, it updates and replaces the existing stored URL; if not provided, the existing URL will be used.
     OsConfigurationMap:
       description: OS specific configuration properties.
       type: object

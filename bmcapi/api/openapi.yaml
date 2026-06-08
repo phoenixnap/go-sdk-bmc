@@ -1745,6 +1745,14 @@ paths:
         schema:
           type: string
         style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RebootRequest"
+        description: "Configuration option to specify the reboot type: STANDARD or\
+          \ IPXE (default: STANDARD)."
+        required: false
       responses:
         "200":
           content:
@@ -2069,6 +2077,97 @@ paths:
       - OAuth2:
         - bmc
       summary: Transfer server reservation.
+      tags:
+      - Servers
+  /servers/{serverId}/os-configuration/ipxe:
+    put:
+      description: Updates the iPXE OS configuration by updating the URL and the native
+        VLAN configuration.
+      operationId: serversServerIdOsConfigurationIpxePut
+      parameters:
+      - description: The server's ID.
+        example: 60473a6115e34466c9f8f083
+        explode: false
+        in: path
+        name: serverId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              url: https://example.com/boot.ipxe
+              nativeVlanConfiguration:
+                vlanId: 10
+                staticDhcpAddressV4: 185.74.213.56
+            schema:
+              $ref: "#/components/schemas/OsConfigurationIPXE"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                url: https://example.com/boot.ipxe
+                nativeVlanConfiguration:
+                  vlanId: 10
+                  staticDhcpAddressV4: 185.74.213.56
+                  status: assigned
+              schema:
+                $ref: "#/components/schemas/OsConfigurationIPXE"
+          description: Updated URL in iPXE OS configuration.
+        "202":
+          content:
+            application/json:
+              example:
+                url: https://example.com/boot.ipxe
+                nativeVlanConfiguration:
+                  vlanId: 10
+                  staticDhcpAddressV4: 185.74.213.56
+                  status: in-progress
+              schema:
+                $ref: "#/components/schemas/OsConfigurationIPXE"
+          description: The iPXE OS configuration is being updated.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: The request failed due to wrong data. Please check the provided
+            parameters and try again.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: The request failed due to invalid credentials. Please check
+            the provided credentials and try again.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: The request failed since this resource cannot be accessed by
+            the provided credentials.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: The resource is in an incompatible state.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+      security:
+      - OAuth2:
+        - bmc
+      summary: Updates the iPXE OS configuration.
       tags:
       - Servers
   /ssh-keys:
@@ -2671,6 +2770,27 @@ components:
         datastoreConfiguration:
           $ref: "#/components/schemas/EsxiDatastoreConfiguration"
       type: object
+    OsConfigurationIPXE:
+      description: iPXE configuration details. Configures the server to boot using
+        the iPXE network boot firmware with a custom boot script. Only applicable
+        when osName is 'ipxe' and must not be provided for any other OS.
+      example:
+        nativeVlanConfiguration:
+          vlanId: 10
+          staticDhcpAddressV4: 185.74.213.56
+          status: in-progress
+        url: https://example.com/boot.ipxe
+      properties:
+        url:
+          description: The URL of the iPXE boot script used to start the server.
+          example: https://example.com/boot.ipxe
+          pattern: ^https?://.+$
+          type: string
+        nativeVlanConfiguration:
+          $ref: "#/components/schemas/OsConfigurationIPXE_nativeVlanConfiguration"
+      required:
+      - url
+      type: object
     OsConfiguration:
       description: OS specific configuration properties.
       example:
@@ -2686,6 +2806,12 @@ components:
           netrisUserPassword: cNC1jPFXG2h7f
           netrisWebConsoleUrl: https://172.217.22.14
           hostOs: ubuntu/jammy
+        iPXE:
+          nativeVlanConfiguration:
+            vlanId: 10
+            staticDhcpAddressV4: 185.74.213.56
+            status: in-progress
+          url: https://example.com/boot.ipxe
         installOsToRam: true
         netrisSoftgate:
           hostOs: ubuntu/jammy
@@ -2750,6 +2876,8 @@ components:
           $ref: "#/components/schemas/EsxiOsConfiguration"
         cloudInit:
           $ref: "#/components/schemas/OsConfiguration_cloudInit"
+        iPXE:
+          $ref: "#/components/schemas/OsConfigurationIPXE"
       type: object
     ServerPrivateNetwork:
       description: Private network details of bare metal server.
@@ -3115,6 +3243,12 @@ components:
             netrisUserPassword: cNC1jPFXG2h7f
             netrisWebConsoleUrl: https://172.217.22.14
             hostOs: ubuntu/jammy
+          iPXE:
+            nativeVlanConfiguration:
+              vlanId: 10
+              staticDhcpAddressV4: 185.74.213.56
+              status: in-progress
+            url: https://example.com/boot.ipxe
           installOsToRam: true
           netrisSoftgate:
             hostOs: ubuntu/jammy
@@ -3216,7 +3350,7 @@ components:
             \ `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`,\
             \ `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`,\
             \ `proxmox/proxmox8`, `proxmox/proxmox9`, `netris/controller`, `netris/softgate_1g`,\
-            \ `netris/softgate_10g` or `netris/softgate_25g`."
+            \ `netris/softgate_10g` , `netris/softgate_25g` or `ipxe`."
           example: ubuntu/bionic
           type: string
         type:
@@ -3431,6 +3565,12 @@ components:
             netrisUserPassword: cNC1jPFXG2h7f
             netrisWebConsoleUrl: https://172.217.22.14
             hostOs: ubuntu/jammy
+          iPXE:
+            nativeVlanConfiguration:
+              vlanId: 10
+              staticDhcpAddressV4: 185.74.213.56
+              status: in-progress
+            url: https://example.com/boot.ipxe
           installOsToRam: true
           netrisSoftgate:
             hostOs: ubuntu/jammy
@@ -3523,7 +3663,7 @@ components:
             \ `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`,\
             \ `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`,\
             \ `proxmox/proxmox8`, `proxmox/proxmox9`, `netris/controller`, `netris/softgate_1g`,\
-            \ `netris/softgate_10g` or `netris/softgate_25g`."
+            \ `netris/softgate_10g`, `netris/softgate_25g` or `ipxe`."
           example: ubuntu/bionic
           type: string
         type:
@@ -3713,6 +3853,12 @@ components:
             netrisUserPassword: cNC1jPFXG2h7f
             netrisWebConsoleUrl: https://172.217.22.14
             hostOs: ubuntu/jammy
+          iPXE:
+            nativeVlanConfiguration:
+              vlanId: 10
+              staticDhcpAddressV4: 185.74.213.56
+              status: in-progress
+            url: https://example.com/boot.ipxe
           installOsToRam: true
           netrisSoftgate:
             hostOs: ubuntu/jammy
@@ -3800,7 +3946,7 @@ components:
             \ `rockylinux/rockylinux9`, `virtuozzo/virtuozzo7`, `oraclelinux/oraclelinux9`,\
             \ `debian/bullseye`, `debian/bookworm`, `debian/trixie`, `proxmox/bullseye`,\
             \ `proxmox/proxmox8`, `proxmox/proxmox9`,`netris/controller`, `netris/softgate_1g`,\
-            \ `netris/softgate_10g` or `netris/softgate_25g`."
+            \ `netris/softgate_10g`, `netris/softgate_25g` or `ipxe`."
           example: ubuntu/bionic
           type: string
         installDefaultSshKeys:
@@ -3865,6 +4011,28 @@ components:
           type: string
       required:
       - result
+      type: object
+    RebootRequest:
+      example:
+        bootType: STANDARD
+        ipxeUrl: https://example.com/boot.ipxe
+      properties:
+        bootType:
+          default: STANDARD
+          description: "Specifies whether to boot via `IPXE` (requires script) or\
+            \ `STANDARD` (default mechanism, incompatible with `ipxeUrl`)."
+          enum:
+          - IPXE
+          - STANDARD
+          type: string
+        ipxeUrl:
+          description: "The URL for the iPXE script, used only with `IPXE` boot type.\
+            \ If provided, it updates and replaces the existing stored URL; if not\
+            \ provided, the existing URL will be used."
+          example: https://example.com/boot.ipxe
+          nullable: true
+          pattern: ^https?://.+$
+          type: string
       type: object
     OsConfigurationMap:
       description: OS specific configuration properties.
@@ -4260,6 +4428,41 @@ components:
       - status
       - unit
       - used
+      type: object
+    OsConfigurationIPXE_nativeVlanConfiguration:
+      description: Specifies the native VLAN configuration for the server.
+      example:
+        vlanId: 10
+        staticDhcpAddressV4: 185.74.213.56
+        status: in-progress
+      properties:
+        vlanId:
+          description: |
+            The VLAN ID of the network to be used as the native VLAN.
+            The value must reference a public network with IP V4 block(s) or a public IP V4 block network to which the server is (or will be) attached.
+            If omitted during provisioning, the native VLAN is matched to the configured/auto-purchased public IP V4 block. If no public IP block is available, a VLAN ID must be provided. The VLAN ID must belong to one of the public networks for any of the specified servers.
+            During post-provisioning, if Native VLAN is omitted, the server will be configured with no native VLAN. If provided, the VLAN ID must be specified and must belong to any of the existing server public networks or IP block networks attached to the server.
+          example: 10
+          type: integer
+        staticDhcpAddressV4:
+          description: "The static IP V4 address assigned to the server within the\
+            \ native VLAN. This address is set as the DHCP reservation and used for\
+            \ the iPXE boot process. \nValue must be an available/unused IP V4 address\
+            \ within the native network usable IP range.\nIf omitted, the first available\
+            \ IP in the native network will be automatically assigned. Therefore,\
+            \ at least one IP must be available within the native network.\n"
+          example: 185.74.213.56
+          format: ipv4
+          pattern: "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.)){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
+          type: string
+        status:
+          description: (Read-only) The status of the native VLAN configuration.
+          enum:
+          - in-progress
+          - assigned
+          - error
+          readOnly: true
+          type: string
       type: object
     OsConfiguration_netrisController:
       description: Netris Controller configuration properties. Knowledge base article

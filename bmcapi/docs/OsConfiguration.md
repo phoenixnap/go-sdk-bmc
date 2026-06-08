@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **InstallOsToRam** | Pointer to **bool** | If true, OS will be installed to and booted from the server&#39;s RAM. On restart RAM OS will be lost and the server will not be reachable unless a custom bootable OS has been deployed. Follow the &lt;a href&#x3D;&#39;https://phoenixnap.com/kb/bmc-custom-os&#39; target&#x3D;&#39;_blank&#39;&gt;instructions&lt;/a&gt; on how to install custom OS on BMC. Only supported for ubuntu/focal and ubuntu/jammy. | [optional] [default to false]
 **Esxi** | Pointer to [**EsxiOsConfiguration**](EsxiOsConfiguration.md) |  | [optional] 
 **CloudInit** | Pointer to [**OsConfigurationCloudInit**](OsConfigurationCloudInit.md) |  | [optional] 
+**IPXE** | Pointer to [**OsConfigurationIPXE**](OsConfigurationIPXE.md) |  | [optional] 
 
 ## Methods
 
@@ -257,6 +258,31 @@ SetCloudInit sets CloudInit field to given value.
 `func (o *OsConfiguration) HasCloudInit() bool`
 
 HasCloudInit returns a boolean if a field has been set.
+
+### GetIPXE
+
+`func (o *OsConfiguration) GetIPXE() OsConfigurationIPXE`
+
+GetIPXE returns the IPXE field if non-nil, zero value otherwise.
+
+### GetIPXEOk
+
+`func (o *OsConfiguration) GetIPXEOk() (*OsConfigurationIPXE, bool)`
+
+GetIPXEOk returns a tuple with the IPXE field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIPXE
+
+`func (o *OsConfiguration) SetIPXE(v OsConfigurationIPXE)`
+
+SetIPXE sets IPXE field to given value.
+
+### HasIPXE
+
+`func (o *OsConfiguration) HasIPXE() bool`
+
+HasIPXE returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
