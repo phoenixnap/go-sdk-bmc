@@ -1,0 +1,438 @@
+name: prepare-release-prs
+
+# Triggered manually after generate-all and validate-all have passed on develop.
+#
+# Expected pipeline:
+#   generate-all → validate-all → (validate passes) → prepare-release-prs
+#
+# validate-all passing is the signal that no force_major is needed: if the
+# generated code compiled and all tests passed, no method signatures or model
+# shapes changed in a way that breaks consumers. In that case, run this workflow
+# with no inputs.
+#
+# If validate-all failed due to a genuine generator-level SDK break (not just a
+# test that needs updating for a new required field), pass the affected modules
+# via force_major_modules before triggering this workflow.
+#
+# This workflow:
+#   - Diffs each module's OpenAPI spec (develop vs master) to classify changes
+#   - Computes the next semver version per module and for the repo tag
+#   - Bumps VERSION.go for every module
+#   - Opens two draft PRs:
+#       PR 1 (release -> master):  clean release versions
+#       PR 2 (release -> develop): release versions + patch+1 -SNAPSHOT
+#
+# After this workflow completes, a developer must:
+#   1. Update hand-written tests on the release branch to reflect API changes
+#   2. Mark both draft PRs as ready for review
+#   3. Merge in order: master first, then develop — the snapshot commit on the
+#      develop PR must never land on master
+#
+# If the PR changelog looks wrong, close/delete the release branch and retrigger.
+#
+# The workflow file must live on master to appear in the GitHub Actions UI,
+# but all checkout and diff operations target develop and master explicitly
+# via git, so the file location has no effect on the logic.
+on:
+  workflow_dispatch:
+    inputs:
+      force_major_modules:
+        description: 'Comma-separated modules to force a major bump (e.g. "payments,invoicing"). Only needed after a validate-all failure caused by a genuine SDK break. Leave blank in normal operation.'
+        type: string
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+
+  # JOB 1: discover-modules
+  #
+  # Reads the specs/ directory to produce the list of modules dynamically.
+  # Adding a new module requires no changes to this workflow — it is picked
+  # up automatically as long as a spec file exists under specs/.
+  discover-modules:
+    name: Discover Modules
+    runs-on: ubuntu-latest
+    outputs:
+      modules: ${{ steps.list.outputs.modules }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: develop
+
+      - name: List modules from specs/
+        id: list
+        run: |
+          modules=$(ls specs/*.spec.yaml \
+            | sed 's|specs/||;s|\.spec\.yaml||' \
+            | jq -R . | jq -sc .)
+          echo "modules=$modules" >> $GITHUB_OUTPUT
+
+  # JOB 2: analyze-module
+  #
+  # Runs once per module in parallel. For each module it:
+  #   - Diffs the OpenAPI spec on develop vs master via oasdiff
+  #   - Applies force_major_modules override if present
+  #   - Computes the next version from the current VERSION.go
+  #   - Renders a human-readable markdown changelog
+  #   - Uploads results as an artifact for the prepare job to consume
+  #
+  # Results go via artifacts rather than job outputs because matrix outputs
+  # are unreliable when multiple parallel jobs write to the same key —
+  # the last writer wins and all others are lost.
+  analyze-module:
+    name: Analyze ${{ matrix.module }}
+    needs: discover-modules
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        module: ${{ fromJson(needs.discover-modules.outputs.modules) }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: develop
+
+      # oasdiff classifies OpenAPI changes:
+      #   level 3 = spec-breaking (removed endpoint, changed type, etc.)
+      #   level 1 = additive (new endpoint, new optional field, etc.)
+      #   level 2 = non-breaking (description changes, etc.)
+      #
+      # Both level 3 and level 1 default to a minor bump. Level 3 changes are
+      # labelled [SPEC-BREAKING] in the changelog — they are breaking per the
+      # spec definition but in practice typically reflect corrections for fields
+      # that were already logically required in backend services, not true
+      # consumer-visible SDK breaks. force_major_modules is the explicit escape
+      # hatch when a genuine major bump is warranted.
+      - name: Install oasdiff
+        run: |
+          OASDIFF_VERSION="1.10.14"
+          curl -sSL "https://github.com/tufin/oasdiff/releases/download/v${OASDIFF_VERSION}/oasdiff_${OASDIFF_VERSION}_linux_amd64.tar.gz" \
+            | tar -xz -C /usr/local/bin oasdiff
+
+      # Extract both spec versions from git's object store (no file checkout needed).
+      # If the spec doesn't exist on master this is a new module — skip the diff,
+      # write an empty changelog, and flag it so the next step handles it separately.
+      - name: Diff spec vs master
+        run: |
+          MODULE="${{ matrix.module }}"
+          SPEC_PATH="specs/${MODULE}.spec.yaml"
+
+          if git cat-file -e origin/master:${SPEC_PATH} 2>/dev/null; then
+            git show origin/master:${SPEC_PATH} > /tmp/master-spec.yaml
+            git show origin/develop:${SPEC_PATH} > /tmp/develop-spec.yaml
+            oasdiff changelog --format json /tmp/master-spec.yaml /tmp/develop-spec.yaml > /tmp/${MODULE}-changelog.json
+            echo "false" > /tmp/${MODULE}-new-module.txt
+          else
+            echo "[]" > /tmp/${MODULE}-changelog.json
+            echo "true" > /tmp/${MODULE}-new-module.txt
+          fi
+
+      # Semver bump rules:
+      #   force_major_modules flag  -> major (explicit override; use after validate-all failure)
+      #   any level 3 or level 1    -> minor
+      #   only level 2              -> patch
+      #   new module                -> 1.0.0
+      #
+      # Patch bump: -SNAPSHOT is stripped with no increment — the SNAPSHOT version
+      # already represents the intended next patch number.
+      - name: Compute bump type and next version
+        id: compute
+        run: |
+          MODULE="${{ matrix.module }}"
+
+          FORCE_MAJOR="false"
+          IFS=',' read -ra FLAGGED <<< "${{ inputs.force_major_modules }}"
+          for flagged in "${FLAGGED[@]}"; do
+            TRIMMED=$(echo "$flagged" | xargs)
+            if [ "$TRIMMED" = "$MODULE" ]; then
+              FORCE_MAJOR="true"
+              break
+            fi
+          done
+
+          NEW_MODULE=$(cat /tmp/${MODULE}-new-module.txt)
+          if [ "$NEW_MODULE" = "true" ]; then
+            CURRENT="none"
+            BUMP="new"
+            NEXT="1.0.0"
+          else
+            BREAKING=$(jq '[.[] | select(.level == 3)] | length' /tmp/${MODULE}-changelog.json)
+            ADDITIONS=$(jq '[.[] | select(.level == 1)] | length' /tmp/${MODULE}-changelog.json)
+
+            if [ "$FORCE_MAJOR" = "true" ]; then
+              BUMP="major"
+            elif [ "$BREAKING" -gt 0 ] || [ "$ADDITIONS" -gt 0 ]; then
+              BUMP="minor"
+            else
+              BUMP="patch"
+            fi
+
+            CURRENT=$(grep 'SdkVersion' ${MODULE}/VERSION.go | sed 's/.*"\(.*\)".*/\1/')
+            BASE=$(echo "$CURRENT" | sed 's/-SNAPSHOT$//')
+            MAJOR=$(echo "$BASE" | cut -d. -f1)
+            MINOR=$(echo "$BASE" | cut -d. -f2)
+            PATCH=$(echo "$BASE" | cut -d. -f3)
+
+            case "$BUMP" in
+              major) NEXT="$((MAJOR + 1)).0.0" ;;
+              minor) NEXT="${MAJOR}.$((MINOR + 1)).0" ;;
+              patch) NEXT="${MAJOR}.${MINOR}.${PATCH}" ;;
+            esac
+          fi
+
+          echo "bump=$BUMP"               >> $GITHUB_OUTPUT
+          echo "version=$NEXT"            >> $GITHUB_OUTPUT
+          echo "current=$CURRENT"         >> $GITHUB_OUTPUT
+          echo "force_major=$FORCE_MAJOR" >> $GITHUB_OUTPUT
+
+      - name: Render module changelog markdown
+        run: |
+          MODULE="${{ matrix.module }}"
+          BUMP="${{ steps.compute.outputs.bump }}"
+          CURRENT="${{ steps.compute.outputs.current }}"
+          NEXT="${{ steps.compute.outputs.version }}"
+          FORCE_MAJOR="${{ steps.compute.outputs.force_major }}"
+
+          {
+            echo "## \`${MODULE}\` ${CURRENT} -> ${NEXT} (\`${BUMP}\`)"
+            echo ""
+
+            if [ "$FORCE_MAJOR" = "true" ]; then
+              echo "> [!WARNING]"
+              echo "> **Force-major:** this module was explicitly flagged by the operator."
+              echo "> Carefully diff all generated code before approving —"
+              echo "> method signatures, model shapes, or serialization behaviour may have changed."
+              echo ""
+            fi
+
+            TOTAL=$(jq length /tmp/${MODULE}-changelog.json)
+
+            if [ "$TOTAL" -eq 0 ]; then
+              echo "_No spec changes detected. Stripping -SNAPSHOT as part of standard release._"
+              echo ""
+            else
+              jq -r 'group_by(.path + .operation) | .[] | "#### " + (.[0].operation | ascii_upcase) + " " + .[0].path + "\n" + (map(if .level == 3 then "- **[SPEC-BREAKING]** " + .text elif .level == 1 then "- **[ADDITION]** " + .text else "- **[CHANGE]** " + .text end) | unique | join("\n")) + "\n"' /tmp/${MODULE}-changelog.json
+            fi
+          } > /tmp/${MODULE}-changelog.md
+
+      - name: Save results as artifact
+        run: |
+          MODULE="${{ matrix.module }}"
+          mkdir -p /tmp/release-artifacts/${MODULE}
+          cp /tmp/${MODULE}-changelog.md                   /tmp/release-artifacts/${MODULE}/changelog.md
+          echo "${{ steps.compute.outputs.bump }}"        > /tmp/release-artifacts/${MODULE}/bump.txt
+          echo "${{ steps.compute.outputs.version }}"     > /tmp/release-artifacts/${MODULE}/next-version.txt
+          echo "${{ steps.compute.outputs.current }}"     > /tmp/release-artifacts/${MODULE}/current-version.txt
+          echo "${{ steps.compute.outputs.force_major }}" > /tmp/release-artifacts/${MODULE}/force-major.txt
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: release-data-${{ matrix.module }}
+          path: /tmp/release-artifacts/${{ matrix.module }}
+
+  # JOB 3: prepare-release
+  #
+  # Runs after all matrix jobs complete. It:
+  #   - Aggregates per-module artifacts
+  #   - Determines the repo-level semver bump (highest module bump wins)
+  #   - Computes the next repo tag from the latest semver git tag
+  #   - Bumps VERSION.go for every module
+  #   - Writes the job summary to the Actions UI
+  #   - Commits, pushes the release branch, and opens two draft PRs:
+  #       PR 1 (release -> master):  clean release versions
+  #       PR 2 (release -> develop): release versions + patch+1 -SNAPSHOT
+  prepare-release:
+    name: Prepare Release
+    needs:
+      - discover-modules
+      - analyze-module
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: develop
+
+      - name: Download all release artifacts
+        uses: actions/download-artifact@v7
+        with:
+          pattern: release-data-*
+          path: /tmp/release-artifacts
+          merge-multiple: false
+
+      # Repo-level tag bump follows highest-wins: if any module is major, tag is major.
+      # "new" module type is treated as minor for the repo tag calculation.
+      - name: Compute repo-level bump and next tag
+        id: repo-version
+        run: |
+          git fetch --tags
+          CURRENT_TAG=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
+          CURRENT_TAG="${CURRENT_TAG:-v0.0.0}"
+          BASE="${CURRENT_TAG#v}"
+          MAJOR=$(echo "$BASE" | cut -d. -f1)
+          MINOR=$(echo "$BASE" | cut -d. -f2)
+          PATCH=$(echo "$BASE" | cut -d. -f3)
+
+          HIGHEST="patch"
+          for bump_file in /tmp/release-artifacts/release-data-*/bump.txt; do
+            BUMP=$(cat "$bump_file")
+            if [ "$BUMP" = "major" ]; then
+              HIGHEST="major"
+            elif { [ "$BUMP" = "minor" ] || [ "$BUMP" = "new" ]; } && [ "$HIGHEST" != "major" ]; then
+              HIGHEST="minor"
+            fi
+          done
+
+          case "$HIGHEST" in
+            major) NEXT_TAG="v$((MAJOR + 1)).0.0" ;;
+            minor) NEXT_TAG="v${MAJOR}.$((MINOR + 1)).0" ;;
+            patch) NEXT_TAG="v${MAJOR}.${MINOR}.$((PATCH + 1))" ;;
+          esac
+
+          echo "current_tag=$CURRENT_TAG"   >> $GITHUB_OUTPUT
+          echo "next_tag=$NEXT_TAG"         >> $GITHUB_OUTPUT
+          echo "bump=$HIGHEST"              >> $GITHUB_OUTPUT
+          echo "branch=release/${NEXT_TAG}" >> $GITHUB_OUTPUT
+
+      - name: Bump VERSION.go for each module
+        run: |
+          for module_dir in /tmp/release-artifacts/release-data-*/; do
+            MODULE=$(basename "$module_dir" | sed 's/release-data-//')
+            NEXT=$(cat "${module_dir}/next-version.txt")
+            sed -i "s/SdkVersion = \".*\"/SdkVersion = \"${NEXT}\"/" ${MODULE}/VERSION.go
+          done
+
+      - name: Build aggregate changelog
+        id: changelog
+        run: |
+          NEXT_TAG="${{ steps.repo-version.outputs.next_tag }}"
+          CURRENT_TAG="${{ steps.repo-version.outputs.current_tag }}"
+          BUMP="${{ steps.repo-version.outputs.bump }}"
+          FORCE_MAJOR_INPUT="${{ inputs.force_major_modules }}"
+
+          {
+            echo "# Release ${NEXT_TAG}"
+            echo ""
+            echo "**Repo bump:** \`${BUMP}\` (${CURRENT_TAG} -> ${NEXT_TAG})"
+            echo ""
+
+            if [ -n "$FORCE_MAJOR_INPUT" ]; then
+              echo "> [!WARNING]"
+              echo "> **Force-major modules:** \`${FORCE_MAJOR_INPUT}\`"
+              echo "> These modules had their bump forced to \`major\`. Review their generated"
+              echo "> code diffs carefully before approving this PR."
+              echo ""
+            fi
+
+            echo "> **Next step:** Update tests on this branch to reflect the changes below, then mark both PRs ready for review."
+            echo ""
+            echo "---"
+            echo ""
+            for module_dir in /tmp/release-artifacts/release-data-*/; do
+              cat "${module_dir}/changelog.md"
+            done
+          } > /tmp/full-changelog.md
+
+          {
+            echo 'body<<EOF'
+            cat /tmp/full-changelog.md
+            echo EOF
+          } >> $GITHUB_OUTPUT
+          cp /tmp/full-changelog.md /tmp/pr-body.md
+
+      - name: Write job summary
+        run: |
+          NEXT_TAG="${{ steps.repo-version.outputs.next_tag }}"
+          CURRENT_TAG="${{ steps.repo-version.outputs.current_tag }}"
+          BUMP="${{ steps.repo-version.outputs.bump }}"
+
+          {
+            echo "# Release: ${NEXT_TAG}"
+            echo ""
+            echo "| Module | Current | Bump | Next | Force Major |"
+            echo "|--------|---------|------|------|-------------|"
+            for module_dir in /tmp/release-artifacts/release-data-*/; do
+              MODULE=$(basename "$module_dir" | sed 's/release-data-//')
+              CURRENT=$(cat "${module_dir}/current-version.txt")
+              MODULE_BUMP=$(cat "${module_dir}/bump.txt")
+              NEXT=$(cat "${module_dir}/next-version.txt")
+              FORCE_MAJOR=$(cat "${module_dir}/force-major.txt")
+              [ "$FORCE_MAJOR" = "true" ] && FORCE_LABEL="YES" || FORCE_LABEL=""
+              echo "| \`${MODULE}\` | ${CURRENT} | ${MODULE_BUMP} | ${NEXT} | ${FORCE_LABEL} |"
+            done
+            echo ""
+            echo "**Repo tag:** ${CURRENT_TAG} -> **${NEXT_TAG}** (\`${BUMP}\`)"
+            echo ""
+            echo "---"
+            echo ""
+            cat /tmp/full-changelog.md
+          } >> $GITHUB_STEP_SUMMARY
+
+      # Commit clean release versions (no -SNAPSHOT) and push the release branch.
+      # This is the commit the master PR targets.
+      - name: Create release branch and commit VERSION.go bumps
+        run: |
+          BRANCH="${{ steps.repo-version.outputs.branch }}"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git checkout -b "$BRANCH"
+          git add -A
+          if test "$(git status --porcelain=v1 2>/dev/null | wc -l)" -gt "0"; then
+            git commit -m "chore: bump versions for ${{ steps.repo-version.outputs.next_tag }}"
+          else
+            echo "No VERSION.go changes to commit (all modules already at release version)."
+          fi
+          git push origin "$BRANCH" --force
+
+      - name: Open draft PR to master
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --base master \
+            --head "${{ steps.repo-version.outputs.branch }}" \
+            --title "Release ${{ steps.repo-version.outputs.next_tag }}" \
+            --draft \
+            --body-file /tmp/pr-body.md \
+          || echo "PR to master already exists, skipping."
+
+      # Add a second commit on the release branch bumping all modules to
+      # patch+1 -SNAPSHOT. When the develop PR merges, develop is immediately
+      # ready for the next development cycle. Must merge master PR first so
+      # this snapshot commit never lands on master.
+      - name: Prepare snapshot versions for back-merge
+        run: |
+          for module_dir in /tmp/release-artifacts/release-data-*/; do
+            MODULE=$(basename "$module_dir" | sed 's/release-data-//')
+            NEXT=$(cat "${module_dir}/next-version.txt")
+            MAJOR=$(echo "$NEXT" | cut -d. -f1)
+            MINOR=$(echo "$NEXT" | cut -d. -f2)
+            PATCH=$(echo "$NEXT" | cut -d. -f3)
+            SNAPSHOT_VERSION="${MAJOR}.${MINOR}.$((PATCH + 1))-SNAPSHOT"
+            sed -i "s/SdkVersion = \".*\"/SdkVersion = \"${SNAPSHOT_VERSION}\"/" ${MODULE}/VERSION.go
+          done
+          git add -A
+          if test "$(git status --porcelain=v1 2>/dev/null | wc -l)" -gt "0"; then
+            git commit -m "chore: prepare next snapshot versions after ${{ steps.repo-version.outputs.next_tag }}"
+          else
+            echo "No snapshot version changes to commit."
+          fi
+          git push origin "${{ steps.repo-version.outputs.branch }}"
+
+      - name: Open draft PR to develop
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --base develop \
+            --head "${{ steps.repo-version.outputs.branch }}" \
+            --title "Release ${{ steps.repo-version.outputs.next_tag }} back-merge to develop" \
+            --draft \
+            --body "Back-merge of ${{ steps.repo-version.outputs.next_tag }} into develop. Bumps all modules to next patch -SNAPSHOT for continued development." \
+          || echo "PR to develop already exists, skipping."
