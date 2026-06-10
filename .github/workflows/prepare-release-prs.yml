@@ -408,6 +408,8 @@ jobs:
       # this snapshot commit never lands on master.
       - name: Prepare snapshot versions for back-merge
         run: |
+          SNAPSHOT_BRANCH="${{ steps.repo-version.outputs.snapshot_branch }}"
+          git checkout -b "$SNAPSHOT_BRANCH"
           for module_dir in /tmp/release-artifacts/release-data-*/; do
             MODULE=$(basename "$module_dir" | sed 's/release-data-//')
             NEXT=$(cat "${module_dir}/next-version.txt")
@@ -423,7 +425,7 @@ jobs:
           else
             echo "No snapshot version changes to commit."
           fi
-          git push origin "${{ steps.repo-version.outputs.branch }}"
+          git push origin "$SNAPSHOT_BRANCH" --force
 
       - name: Open draft PR to develop
         env:
@@ -431,7 +433,7 @@ jobs:
         run: |
           gh pr create \
             --base develop \
-            --head "${{ steps.repo-version.outputs.branch }}" \
+            --head "${{ steps.repo-version.outputs.snapshot_branch }}" \
             --title "Release ${{ steps.repo-version.outputs.next_tag }} back-merge to develop" \
             --draft \
             --body "Back-merge of ${{ steps.repo-version.outputs.next_tag }} into develop. Bumps all modules to next patch -SNAPSHOT for continued development." \
