@@ -6,6 +6,10 @@
             {
                 "name": "tag",
                 "values": ["env.dev"]
+            },
+            {
+                "name": "location",
+                "values": ["PHX"]
             }
         ]
     },

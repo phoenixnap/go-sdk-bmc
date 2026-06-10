@@ -758,6 +758,35 @@ func (suite *BmcApiTestSuite) TestCreatePublicNetworkOnServerById() {
 	suite.verifyCalledOnce(expectationId)
 }
 
+func (suite *BmcApiTestSuite) TestPutIpxeOsConfigurationOnServerById() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("bmcapi/servers/servers_put_os_configuration_ipxe_by_id", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	// Prepare request body
+	body, _ := json.Marshal(request.Body.Json)
+	var osConfigurationIPXE bmcapi.OsConfigurationIPXE
+	json.Unmarshal(body, &osConfigurationIPXE)
+
+	// Extract the serverId
+	serverId := request.PathParameters["id"][0]
+
+	// Operation Execution
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdOsConfigurationIpxePut(suite.Ctx, serverId).OsConfigurationIPXE(osConfigurationIPXE).Execute()
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	// Asserts
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
+
+	// Verify
+	suite.verifyCalledOnce(expectationId)
+}
+
 func (suite *BmcApiTestSuite) TestUpdateTagsOnServerById() {
 	// Generate payload
 	request, response := TestUtilsImpl{}.generatePayloadsFrom("bmcapi/servers/servers_put_tags_by_id", "./payloads")
