@@ -111,6 +111,15 @@ jobs:
             fi
           done
 
+          MATCHES=$(find "${MODULE}" -name "${VERSION_FILE}" -type f)
+          COUNT=$(printf '%s\n' "$MATCHES" | grep -c .)
+          if [ "$COUNT" -ne 1 ]; then
+            echo "::error::Expected exactly one '${VERSION_FILE}' under '${MODULE}/', found ${COUNT}" >&2
+            printf '%s\n' "$MATCHES" >&2
+            exit 1
+          fi
+          VERSION_PATH="$MATCHES"
+
           NEW_MODULE=$(cat /tmp/${MODULE}-new-module.txt)
           if [ "$NEW_MODULE" = "true" ]; then
             CURRENT="none"
@@ -130,7 +139,7 @@ jobs:
 
             # Read the first semver token from the VERSION file, regardless of the
             # surrounding syntax, then strip the configured development suffix.
-            CURRENT=$(grep -oE '[0-9]+\.[0-9]+\.[0-9]+[0-9A-Za-z.-]*' "${MODULE}/${VERSION_FILE}" | head -1)
+            CURRENT=$(grep -oE '[0-9]+\.[0-9]+\.[0-9]+[0-9A-Za-z.-]*' "$VERSION_PATH" | head -1)
             BASE="${CURRENT%"$SNAPSHOT_SUFFIX"}"
             MAJOR=$(echo "$BASE" | cut -d. -f1)
             MINOR=$(echo "$BASE" | cut -d. -f2)
@@ -143,10 +152,11 @@ jobs:
             esac
           fi
 
-          echo "bump=$BUMP"               >> $GITHUB_OUTPUT
-          echo "version=$NEXT"            >> $GITHUB_OUTPUT
-          echo "current=$CURRENT"         >> $GITHUB_OUTPUT
-          echo "force_major=$FORCE_MAJOR" >> $GITHUB_OUTPUT
+          echo "bump=$BUMP"                 >> $GITHUB_OUTPUT
+          echo "version=$NEXT"              >> $GITHUB_OUTPUT
+          echo "current=$CURRENT"           >> $GITHUB_OUTPUT
+          echo "force_major=$FORCE_MAJOR"   >> $GITHUB_OUTPUT
+          echo "version_path=$VERSION_PATH" >> $GITHUB_OUTPUT
 
       - name: Render module changelog markdown
         run: |
@@ -182,11 +192,12 @@ jobs:
         run: |
           MODULE="${{ matrix.module }}"
           mkdir -p /tmp/release-artifacts/${MODULE}
-          cp /tmp/${MODULE}-changelog.md                   /tmp/release-artifacts/${MODULE}/changelog.md
-          echo "${{ steps.compute.outputs.bump }}"        > /tmp/release-artifacts/${MODULE}/bump.txt
-          echo "${{ steps.compute.outputs.version }}"     > /tmp/release-artifacts/${MODULE}/next-version.txt
-          echo "${{ steps.compute.outputs.current }}"     > /tmp/release-artifacts/${MODULE}/current-version.txt
-          echo "${{ steps.compute.outputs.force_major }}" > /tmp/release-artifacts/${MODULE}/force-major.txt
+          cp /tmp/${MODULE}-changelog.md                    /tmp/release-artifacts/${MODULE}/changelog.md
+          echo "${{ steps.compute.outputs.bump }}"         > /tmp/release-artifacts/${MODULE}/bump.txt
+          echo "${{ steps.compute.outputs.version }}"      > /tmp/release-artifacts/${MODULE}/next-version.txt
+          echo "${{ steps.compute.outputs.current }}"      > /tmp/release-artifacts/${MODULE}/current-version.txt
+          echo "${{ steps.compute.outputs.force_major }}"  > /tmp/release-artifacts/${MODULE}/force-major.txt
+          echo "${{ steps.compute.outputs.version_path }}" > /tmp/release-artifacts/${MODULE}/version-path.txt
 
       - uses: actions/upload-artifact@v6
         with:
@@ -256,9 +267,9 @@ jobs:
       - name: Bump VERSION file for each module
         run: |
           for module_dir in /tmp/release-artifacts/release-data-*/; do
-            MODULE=$(basename "$module_dir" | sed 's/release-data-//')
             NEXT=$(cat "${module_dir}/next-version.txt")
-            sed -i -E "s/[0-9]+\.[0-9]+\.[0-9]+[0-9A-Za-z.-]*/${NEXT}/" "${MODULE}/${VERSION_FILE}"
+            VERSION_PATH=$(cat "${module_dir}/version-path.txt")
+            sed -i -E "s/[0-9]+\.[0-9]+\.[0-9]+[0-9A-Za-z.-]*/${NEXT}/" "$VERSION_PATH"
           done
 
       - name: Build aggregate changelog
