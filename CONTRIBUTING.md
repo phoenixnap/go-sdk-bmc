@@ -87,5 +87,5 @@ Once the workflow completes:
 2. Update any hand-written tests on the release branch to reflect API changes
 3. If any modules were passed via `force_major_modules`, diff their generated code carefully before approving
 4. Merge release to `master`
-5. Create Tags from `master` based on the PR sugggested version bumps
-6. Back-Merge release to develop
+5. Create Tags from `master` based on the PR suggested version bumps
+6. Back-Merge to develop with new SNAPSHOT versions (prep for next release) 
