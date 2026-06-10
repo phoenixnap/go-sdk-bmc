@@ -1,3 +1,3 @@
 package invoicingapi
 
-const SdkVersion = "1.0.7-SNAPSHOT"
+const SdkVersion = "1.0.7"
