@@ -274,9 +274,10 @@ func (suite *BmcApiTestSuite) TestGetServers() {
 	// Fetch a map of query parameters
 	qpMap := TestUtilsImpl{}.generateQueryParams(request)
 	tag := fmt.Sprintf("%v", qpMap["tag"])
+	location := fmt.Sprintf("%v", qpMap["location"])
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersAPI.ServersGet(suite.Ctx).Tag([]string{tag}).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersGet(suite.Ctx).Tag([]string{tag}).Location([]string{location}).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
@@ -746,6 +747,35 @@ func (suite *BmcApiTestSuite) TestCreatePublicNetworkOnServerById() {
 
 	// Operation Execution
 	result, _, _ := suite.Client.ServersAPI.ServersServerIdPublicNetworksPost(suite.Ctx, serverId).ServerPublicNetwork(serverPublicNetwork).Force(force).Execute()
+
+	// Convert the result and response body to json strings
+	jsonResult, _ := json.Marshal(result)
+	jsonResponseBody, _ := json.Marshal(response.Body)
+
+	// Asserts
+	suite.Equal(string(jsonResult), string(jsonResponseBody))
+
+	// Verify
+	suite.verifyCalledOnce(expectationId)
+}
+
+func (suite *BmcApiTestSuite) TestUpdateOsConfigurationIpxeOnServerById() {
+	// Generate payload
+	request, response := TestUtilsImpl{}.generatePayloadsFrom("bmcapi/servers/servers_put_os_configuration_ipxe_by_id", "./payloads")
+
+	// Extract the response expectation id
+	expectationId := TestUtilsImpl{}.setupExpectation(request, response, 1)
+
+	// Prepare request body
+	body, _ := json.Marshal(request.Body.Json)
+	var osConfigurationIPXE bmcapi.OsConfigurationIPXE
+	json.Unmarshal(body, &osConfigurationIPXE)
+
+	// Extract the serverId
+	serverId := request.PathParameters["id"][0]
+
+	// Operation Execution
+	result, _, _ := suite.Client.ServersAPI.ServersServerIdOsConfigurationIpxePut(suite.Ctx, serverId).OsConfigurationIPXE(osConfigurationIPXE).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
