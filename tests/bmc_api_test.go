@@ -274,9 +274,10 @@ func (suite *BmcApiTestSuite) TestGetServers() {
 	// Fetch a map of query parameters
 	qpMap := TestUtilsImpl{}.generateQueryParams(request)
 	tag := fmt.Sprintf("%v", qpMap["tag"])
+	location := fmt.Sprintf("%v", qpMap["location"])
 
 	// Operation Execution
-	result, _, _ := suite.Client.ServersAPI.ServersGet(suite.Ctx).Tag([]string{tag}).Execute()
+	result, _, _ := suite.Client.ServersAPI.ServersGet(suite.Ctx).Tag([]string{tag}).Location([]string{location}).Execute()
 
 	// Convert the result and response body to json strings
 	jsonResult, _ := json.Marshal(result)
