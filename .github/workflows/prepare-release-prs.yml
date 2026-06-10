@@ -1,38 +1,19 @@
 name: prepare-release-prs
 
-# Triggered manually after generate-all and validate-all have passed on develop.
-#
-# Expected pipeline:
-#   generate-all → validate-all → (validate passes) → prepare-release-prs
-#
-# validate-all passing is the signal that no force_major is needed: if the
-# generated code compiled and all tests passed, no method signatures or model
-# shapes changed in a way that breaks consumers. In that case, run this workflow
-# with no inputs.
-#
-# If validate-all failed due to a genuine generator-level SDK break (not just a
-# test that needs updating for a new required field), pass the affected modules
-# via force_major_modules before triggering this workflow.
-#
 # This workflow:
 #   - Diffs each module's OpenAPI spec (develop vs master) to classify changes
 #   - Computes the next semver version per module and for the repo tag
-#   - Bumps VERSION.go for every module
-#   - Opens two draft PRs:
-#       PR 1 (release -> master):  clean release versions
-#       PR 2 (release -> develop): release versions + patch+1 -SNAPSHOT
-#
-# After this workflow completes, a developer must:
-#   1. Update hand-written tests on the release branch to reflect API changes
-#   2. Mark both draft PRs as ready for review
-#   3. Merge in order: master first, then develop — the snapshot commit on the
-#      develop PR must never land on master
+#   - Bumps the VERSION file for every module (clean release versions)
+#   - Opens draft PR (release -> master) with the clean release versions
 #
 # If the PR changelog looks wrong, close/delete the release branch and retrigger.
-#
-# The workflow file must live on master to appear in the GitHub Actions UI,
-# but all checkout and diff operations target develop and master explicitly
-# via git, so the file location has no effect on the logic.
+
+
+# Change these according to the current repo SDK setup
+env:
+  VERSION_FILE: VERSION.go
+  SNAPSHOT_SUFFIX: -SNAPSHOT
+
 on:
   workflow_dispatch:
     inputs:
@@ -77,13 +58,9 @@ jobs:
   # Runs once per module in parallel. For each module it:
   #   - Diffs the OpenAPI spec on develop vs master via oasdiff
   #   - Applies force_major_modules override if present
-  #   - Computes the next version from the current VERSION.go
+  #   - Computes the next version from the current VERSION file
   #   - Renders a human-readable markdown changelog
   #   - Uploads results as an artifact for the prepare job to consume
-  #
-  # Results go via artifacts rather than job outputs because matrix outputs
-  # are unreliable when multiple parallel jobs write to the same key —
-  # the last writer wins and all others are lost.
   analyze-module:
     name: Analyze ${{ matrix.module }}
     needs: discover-modules
@@ -98,26 +75,12 @@ jobs:
           fetch-depth: 0
           ref: develop
 
-      # oasdiff classifies OpenAPI changes:
-      #   level 3 = spec-breaking (removed endpoint, changed type, etc.)
-      #   level 1 = additive (new endpoint, new optional field, etc.)
-      #   level 2 = non-breaking (description changes, etc.)
-      #
-      # Both level 3 and level 1 default to a minor bump. Level 3 changes are
-      # labelled [SPEC-BREAKING] in the changelog — they are breaking per the
-      # spec definition but in practice typically reflect corrections for fields
-      # that were already logically required in backend services, not true
-      # consumer-visible SDK breaks. force_major_modules is the explicit escape
-      # hatch when a genuine major bump is warranted.
       - name: Install oasdiff
         run: |
           OASDIFF_VERSION="1.10.14"
           curl -sSL "https://github.com/tufin/oasdiff/releases/download/v${OASDIFF_VERSION}/oasdiff_${OASDIFF_VERSION}_linux_amd64.tar.gz" \
             | tar -xz -C /usr/local/bin oasdiff
 
-      # Extract both spec versions from git's object store (no file checkout needed).
-      # If the spec doesn't exist on master this is a new module — skip the diff,
-      # write an empty changelog, and flag it so the next step handles it separately.
       - name: Diff spec vs master
         run: |
           MODULE="${{ matrix.module }}"
@@ -133,14 +96,6 @@ jobs:
             echo "true" > /tmp/${MODULE}-new-module.txt
           fi
 
-      # Semver bump rules:
-      #   force_major_modules flag  -> major (explicit override; use after validate-all failure)
-      #   any level 3 or level 1    -> minor
-      #   only level 2              -> patch
-      #   new module                -> 1.0.0
-      #
-      # Patch bump: -SNAPSHOT is stripped with no increment — the SNAPSHOT version
-      # already represents the intended next patch number.
       - name: Compute bump type and next version
         id: compute
         run: |
@@ -173,8 +128,10 @@ jobs:
               BUMP="patch"
             fi
 
-            CURRENT=$(grep 'SdkVersion' ${MODULE}/VERSION.go | sed 's/.*"\(.*\)".*/\1/')
-            BASE=$(echo "$CURRENT" | sed 's/-SNAPSHOT$//')
+            # Read the first semver token from the VERSION file, regardless of the
+            # surrounding syntax, then strip the configured development suffix.
+            CURRENT=$(grep -oE '[0-9]+\.[0-9]+\.[0-9]+[0-9A-Za-z.-]*' "${MODULE}/${VERSION_FILE}" | head -1)
+            BASE="${CURRENT%"$SNAPSHOT_SUFFIX"}"
             MAJOR=$(echo "$BASE" | cut -d. -f1)
             MINOR=$(echo "$BASE" | cut -d. -f2)
             PATCH=$(echo "$BASE" | cut -d. -f3)
@@ -214,7 +171,7 @@ jobs:
             TOTAL=$(jq length /tmp/${MODULE}-changelog.json)
 
             if [ "$TOTAL" -eq 0 ]; then
-              echo "_No spec changes detected. Stripping -SNAPSHOT as part of standard release._"
+              echo "_No spec changes detected. Stripping ${SNAPSHOT_SUFFIX} as part of standard release._"
               echo ""
             else
               jq -r 'group_by(.path + .operation) | .[] | "#### " + (.[0].operation | ascii_upcase) + " " + .[0].path + "\n" + (map(if .level == 3 then "- **[SPEC-BREAKING]** " + .text elif .level == 1 then "- **[ADDITION]** " + .text else "- **[CHANGE]** " + .text end) | unique | join("\n")) + "\n"' /tmp/${MODULE}-changelog.json
@@ -242,11 +199,9 @@ jobs:
   #   - Aggregates per-module artifacts
   #   - Determines the repo-level semver bump (highest module bump wins)
   #   - Computes the next repo tag from the latest semver git tag
-  #   - Bumps VERSION.go for every module
+  #   - Bumps the VERSION file for every module
   #   - Writes the job summary to the Actions UI
-  #   - Commits, pushes the release branch, and opens two draft PRs:
-  #       PR 1 (release -> master):  clean release versions
-  #       PR 2 (release -> develop): release versions + patch+1 -SNAPSHOT
+  #   - Commits, pushes the release branch, and opens release draft PR
   prepare-release:
     name: Prepare Release
     needs:
@@ -266,8 +221,6 @@ jobs:
           path: /tmp/release-artifacts
           merge-multiple: false
 
-      # Repo-level tag bump follows highest-wins: if any module is major, tag is major.
-      # "new" module type is treated as minor for the repo tag calculation.
       - name: Compute repo-level bump and next tag
         id: repo-version
         run: |
@@ -300,12 +253,12 @@ jobs:
           echo "bump=$HIGHEST"              >> $GITHUB_OUTPUT
           echo "branch=release/${NEXT_TAG}" >> $GITHUB_OUTPUT
 
-      - name: Bump VERSION.go for each module
+      - name: Bump VERSION file for each module
         run: |
           for module_dir in /tmp/release-artifacts/release-data-*/; do
             MODULE=$(basename "$module_dir" | sed 's/release-data-//')
             NEXT=$(cat "${module_dir}/next-version.txt")
-            sed -i "s/SdkVersion = \".*\"/SdkVersion = \"${NEXT}\"/" ${MODULE}/VERSION.go
+            sed -i -E "s/[0-9]+\.[0-9]+\.[0-9]+[0-9A-Za-z.-]*/${NEXT}/" "${MODULE}/${VERSION_FILE}"
           done
 
       - name: Build aggregate changelog
@@ -330,7 +283,7 @@ jobs:
               echo ""
             fi
 
-            echo "> **Next step:** Update tests on this branch to reflect the changes below, then mark both PRs ready for review."
+            echo "> **Next step:** Update tests on this branch to reflect the changes below, then mark this PR ready for review and merge to master. Back-merge to develop (bumping each module to its next dev version) is done manually after the merge."
             echo ""
             echo "---"
             echo ""
@@ -374,9 +327,7 @@ jobs:
             cat /tmp/full-changelog.md
           } >> $GITHUB_STEP_SUMMARY
 
-      # Commit clean release versions (no -SNAPSHOT) and push the release branch.
-      # This is the commit the master PR targets.
-      - name: Create release branch and commit VERSION.go bumps
+      - name: Create release branch and commit VERSION bumps
         run: |
           BRANCH="${{ steps.repo-version.outputs.branch }}"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -386,7 +337,7 @@ jobs:
           if test "$(git status --porcelain=v1 2>/dev/null | wc -l)" -gt "0"; then
             git commit -m "chore: bump versions for ${{ steps.repo-version.outputs.next_tag }}"
           else
-            echo "No VERSION.go changes to commit (all modules already at release version)."
+            echo "No VERSION changes to commit (all modules already at release version)."
           fi
           git push origin "$BRANCH" --force
 
@@ -401,40 +352,3 @@ jobs:
             --draft \
             --body-file /tmp/pr-body.md \
           || echo "PR to master already exists, skipping."
-
-      # Add a second commit on the release branch bumping all modules to
-      # patch+1 -SNAPSHOT. When the develop PR merges, develop is immediately
-      # ready for the next development cycle. Must merge master PR first so
-      # this snapshot commit never lands on master.
-      - name: Prepare snapshot versions for back-merge
-        run: |
-          SNAPSHOT_BRANCH="${{ steps.repo-version.outputs.snapshot_branch }}"
-          git checkout -b "$SNAPSHOT_BRANCH"
-          for module_dir in /tmp/release-artifacts/release-data-*/; do
-            MODULE=$(basename "$module_dir" | sed 's/release-data-//')
-            NEXT=$(cat "${module_dir}/next-version.txt")
-            MAJOR=$(echo "$NEXT" | cut -d. -f1)
-            MINOR=$(echo "$NEXT" | cut -d. -f2)
-            PATCH=$(echo "$NEXT" | cut -d. -f3)
-            SNAPSHOT_VERSION="${MAJOR}.${MINOR}.$((PATCH + 1))-SNAPSHOT"
-            sed -i "s/SdkVersion = \".*\"/SdkVersion = \"${SNAPSHOT_VERSION}\"/" ${MODULE}/VERSION.go
-          done
-          git add -A
-          if test "$(git status --porcelain=v1 2>/dev/null | wc -l)" -gt "0"; then
-            git commit -m "chore: prepare next snapshot versions after ${{ steps.repo-version.outputs.next_tag }}"
-          else
-            echo "No snapshot version changes to commit."
-          fi
-          git push origin "$SNAPSHOT_BRANCH" --force
-
-      - name: Open draft PR to develop
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr create \
-            --base develop \
-            --head "${{ steps.repo-version.outputs.snapshot_branch }}" \
-            --title "Release ${{ steps.repo-version.outputs.next_tag }} back-merge to develop" \
-            --draft \
-            --body "Back-merge of ${{ steps.repo-version.outputs.next_tag }} into develop. Bumps all modules to next patch -SNAPSHOT for continued development." \
-          || echo "PR to develop already exists, skipping."
