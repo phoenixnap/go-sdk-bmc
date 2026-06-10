@@ -3,11 +3,10 @@ name: prepare-release-prs
 # This workflow:
 #   - Diffs each module's OpenAPI spec (develop vs master) to classify changes
 #   - Computes the next semver version per module and for the repo tag
-#   - Bumps the VERSION file for every module (clean release versions)
+#   - Bumps every version reference for each module (clean release versions)
 #   - Opens draft PR (release -> master) with the clean release versions
 #
 # If the PR changelog looks wrong, close/delete the release branch and retrigger.
-
 
 # Change these according to the current repo SDK setup
 env:
@@ -210,7 +209,7 @@ jobs:
   #   - Aggregates per-module artifacts
   #   - Determines the repo-level semver bump (highest module bump wins)
   #   - Computes the next repo tag from the latest semver git tag
-  #   - Bumps the VERSION file for every module
+  #   - Bumps every version reference for each module
   #   - Writes the job summary to the Actions UI
   #   - Commits, pushes the release branch, and opens release draft PR
   prepare-release:
@@ -264,12 +263,26 @@ jobs:
           echo "bump=$HIGHEST"              >> $GITHUB_OUTPUT
           echo "branch=release/${NEXT_TAG}" >> $GITHUB_OUTPUT
 
-      - name: Bump VERSION file for each module
+      - name: Bump version references for each module
         run: |
           for module_dir in /tmp/release-artifacts/release-data-*/; do
+            MODULE=$(basename "$module_dir" | sed 's/release-data-//')
             NEXT=$(cat "${module_dir}/next-version.txt")
-            VERSION_PATH=$(cat "${module_dir}/version-path.txt")
-            sed -i -E "s/[0-9]+\.[0-9]+\.[0-9]+[0-9A-Za-z.-]*/${NEXT}/" "$VERSION_PATH"
+            CANONICAL=$(cat "${module_dir}/version-path.txt")
+
+            # Source-of-truth version, read before overwriting the canonical file.
+            OLD=$(grep -oE '[0-9]+\.[0-9]+\.[0-9]+[0-9A-Za-z.-]*' "$CANONICAL" | head -1)
+
+            sed -i -E "s/[0-9]+\.[0-9]+\.[0-9]+[0-9A-Za-z.-]*/${NEXT}/" "$CANONICAL"
+
+            # Replace the exact old version token everywhere else in the module.
+            # Whole-token boundaries (\b) keep it from matching inside a larger number.
+            if [ -n "$OLD" ] && [ "$OLD" != "$NEXT" ]; then
+              OLD_ESC=$(printf '%s' "$OLD" | sed 's/\./\\./g')
+              grep -rlIF -- "$OLD" "$MODULE" | while IFS= read -r f; do
+                sed -i -E "s/\b${OLD_ESC}\b/${NEXT}/g" "$f"
+              done
+            fi
           done
 
       - name: Build aggregate changelog
@@ -338,7 +351,7 @@ jobs:
             cat /tmp/full-changelog.md
           } >> $GITHUB_STEP_SUMMARY
 
-      - name: Create release branch and commit VERSION bumps
+      - name: Create release branch and commit version bumps
         run: |
           BRANCH="${{ steps.repo-version.outputs.branch }}"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -348,7 +361,7 @@ jobs:
           if test "$(git status --porcelain=v1 2>/dev/null | wc -l)" -gt "0"; then
             git commit -m "chore: bump versions for ${{ steps.repo-version.outputs.next_tag }}"
           else
-            echo "No VERSION changes to commit (all modules already at release version)."
+            echo "No version changes to commit (all modules already at release version)."
           fi
           git push origin "$BRANCH" --force
 
