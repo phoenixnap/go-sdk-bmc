@@ -1,91 +1,77 @@
-# Contributing: How to Release
+# Contributing
 
-This document explains how to prepare and release a new version.
+## Taking a Release
 
----
+Follow this process when preparing and publishing a new release.
 
-## Optional -  OpenAPI generator version bump
+### 1. Validate the current state
 
-If you intend to bump the OpenAPI generator version as part of this release, do it as a prerequisite step.
+Optionally run the following workflows manually:
 
-1. Update the version in `openapitools.json`.
-2. Make sure to update any custom mustache templates with newer version mustache files, keeping anything custom as it is.
-3. Commit and push to `develop`.
+* `generate-all`
+* `validate-all`
 
----
+Before continuing, confirm that the latest `validate-all` workflow completed successfully.
 
-## Workflows
+If `validate-all` failed:
 
-| Workflow | Purpose |
-|---|---|
-| `generate-all` | Regenerates all SDK modules by pulling the latest OpenAPI specs |
-| `validate-all` | Validates the generated output compiles and passes contract tests |
-| `prepare-release-prs` | Analysis openapi diffs, computes version bumps, openss draft PRs |
+* Review the failed jobs.
+* Identify whether the failures are caused by compilation issues or SDK breaking changes.
+* Record any modules affected by SDK breaking changes.
 
----
+### 2. Prepare the release PRs
 
-## Phase 1 - Generate and Validate All
+Run the `prepare-release-prs` workflow.
 
-1. Go to **Actions → generate-all → Run workflow**
-2. Select branch: `develop`
-3. Click **Run workflow**
+When starting the workflow:
 
-This regenerates every SDK module pulling its latest spec and automatically triggers `validate-all` on completion.
+* Provide any SDK breaking-change modules as a comma-separated input.
+* Modules listed as SDK breaking changes will receive a major version bump.
+* Any module not listed will be automatically bumped as either `minor` or `patch`, depending on the changes detected in the `spec` files.
+* Any new module will automatically start at version `1.0.0`.
 
-**If `validate-all` passes:** all modules compiled and contract tests passed. Proceed to Phase 2.
+Version handling is managed by the workflow. No manual version changes are expected.
 
-**If `validate-all` fails:** investigate the failing module before proceeding.
-- If the failure is a genuine SDK breaking change (renamed method, changed signature - typically caused by a generator version upgrade), take note the affected modules. You will pass them as `force_major_modules` in Phase 2.
+### 3. Review and update the draft release PR
 
----
+Open the generated draft release PR.
 
-## Phase 2 - Prepare Release PRs
+The PR includes human-readable notes describing the detected spec changes. Use these notes to identify which endpoints require review.
 
-1. Go to **Actions → prepare-release-prs → Run workflow**
-2. Select branch: `develop`
-3. (Optional) Fill in the input field:
+Using your preferred IDE:
 
-### Input: `force_major_modules`
+* Update the tests package with matching payloads and endpoints from the new spec changelog where applicable.
+* Add or update tests manually as needed.
 
-Leave blank in normal operation - this is an escape hatch for genuine SDK breaks identified during Phase 1. List the affected modules as a comma-separated string:
+### 4. Merge the release PR
 
-```
-payments,invoicing
-```
+Merge the `release/vX` branch PR into `master`.
 
-Modules listed here will have their bump forced to `major` regardless of what the spec diff shows. The release PR will include a prominent warning for reviewers to inspect those modules carefully.
+After the merge, an automatic workflow will create a back-merge PR from `release/vX` to `develop`.
 
-4. Click **Run workflow**
+Review and merge the back-merge PR as well.
 
-The workflow will:
-- Diff every module's OpenAPI spec (`develop` vs `master`) using [oasdiff](https://github.com/tufin/oasdiff)
-- Compute the correct semver bump for each module:
+Version handling remains automated throughout this step. No manual version changes are expected.
 
-  | Condition | Bump |
-  |---|---|
-  | Listed in `force_major_modules` | `major` |
-  | Spec-Breaking or Additive spec change | `minor` |
-  | No or Cosmetic spec changes | `patch` |
-  | Brand new module | starts at `1.0.0` |
+### 6. Publish GitHub tags
 
-Note: spec-breaking changes (labelled `[SPEC-BREAKING]` in the changelog) default to `minor`, not `major`.
-These typically reflect amendments to fields that were already required in backend services.
+After merging the release branch into master, manually dispatch the `publish-git-tags` workflow.
 
-- Automatically generates two draft PRs:
-  - **`release → master`** - clean release versions, no `-SNAPSHOT`
-  - **`release → develop`** - same, plus a `patch+1 -SNAPSHOT` commit on top to prepare `develop` for the next cycle
+Run it in the following order:
 
-If the PR changelog looks wrong, delete the release branch and retrigger this workflow.
+Run `publish-git-tags` as a dry run and confirm the output is correct.
+Run `publish-git-tags` normally.
 
----
+This workflow publishes Git tags for each sub-module and for the root repository module.
 
-## Phase 3 - Update, Review and Merge
+### 7. Take a release
 
-Once the workflow completes:
+Create a release based on the previously generated repo module release tag.
 
-1. Review the changelog in the release PR body
-2. Update any hand-written tests on the release branch to reflect API changes
-3. If any modules were passed via `force_major_modules`, diff their generated code carefully before approving
-4. Merge release to `master`
-5. Create Tags from `master` based on the PR suggested version bumps
-6. Back-Merge to develop with new SNAPSHOT versions (prep for next release) 
+### 8. Confirm release
+
+Confirm that the Go SDK release is available on pkg.go.dev:
+
+https://pkg.go.dev/github.com/<org>/<repo>
+
+The release is complete once the expected root module and sub-module versions are available.
