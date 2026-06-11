@@ -270,6 +270,21 @@ type ServersAPI interface {
 	ServersServerIdIpBlocksPostExecute(r ApiServersServerIdIpBlocksPostRequest) (*ServerIpBlock, *http.Response, error)
 
 	/*
+		ServersServerIdOsConfigurationIpxePut Updates the iPXE OS configuration.
+
+		Updates the iPXE OS configuration by updating the URL and the native VLAN configuration.
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param serverId The server's ID.
+		@return ApiServersServerIdOsConfigurationIpxePutRequest
+	*/
+	ServersServerIdOsConfigurationIpxePut(ctx context.Context, serverId string) ApiServersServerIdOsConfigurationIpxePutRequest
+
+	// ServersServerIdOsConfigurationIpxePutExecute executes the request
+	//  @return OsConfigurationIPXE
+	ServersServerIdOsConfigurationIpxePutExecute(r ApiServersServerIdOsConfigurationIpxePutRequest) (*OsConfigurationIPXE, *http.Response, error)
+
+	/*
 		ServersServerIdPatch Patch a Server.
 
 		Any changes to the hostname or description using the BMC API will reflect solely in the BMC API and portal. The changes are intended to keep the BMC data up to date with your server. We do not have access to your server's settings. Local changes to the server's hostname will not be reflected in the API or portal.
@@ -547,11 +562,18 @@ type ApiServersGetRequest struct {
 	ctx        context.Context
 	ApiService ServersAPI
 	tag        *[]string
+	location   *[]string
 }
 
 // A list of query parameters related to tags in the form of tagName.tagValue
 func (r ApiServersGetRequest) Tag(tag []string) ApiServersGetRequest {
 	r.tag = &tag
+	return r
+}
+
+// Filters servers by server location
+func (r ApiServersGetRequest) Location(location []string) ApiServersGetRequest {
+	r.location = &location
 	return r
 }
 
@@ -605,6 +627,17 @@ func (a *ServersAPIService) ServersGetExecute(r ApiServersGetRequest) ([]Server,
 			}
 		} else {
 			parameterAddToHeaderOrQuery(localVarQueryParams, "tag", t, "form", "multi")
+		}
+	}
+	if r.location != nil {
+		t := *r.location
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "location", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "location", t, "form", "multi")
 		}
 	}
 	// to determine the Content-Type header
@@ -1563,9 +1596,16 @@ func (a *ServersAPIService) ServersServerIdActionsProvisionPostExecute(r ApiServ
 }
 
 type ApiServersServerIdActionsRebootPostRequest struct {
-	ctx        context.Context
-	ApiService ServersAPI
-	serverId   string
+	ctx           context.Context
+	ApiService    ServersAPI
+	serverId      string
+	rebootRequest *RebootRequest
+}
+
+// Configuration option to specify the reboot type: STANDARD or IPXE (default: STANDARD).
+func (r ApiServersServerIdActionsRebootPostRequest) RebootRequest(rebootRequest RebootRequest) ApiServersServerIdActionsRebootPostRequest {
+	r.rebootRequest = &rebootRequest
+	return r
 }
 
 func (r ApiServersServerIdActionsRebootPostRequest) Execute() (*ActionResult, *http.Response, error) {
@@ -1613,7 +1653,7 @@ func (a *ServersAPIService) ServersServerIdActionsRebootPostExecute(r ApiServers
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1629,6 +1669,8 @@ func (a *ServersAPIService) ServersServerIdActionsRebootPostExecute(r ApiServers
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.rebootRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2938,6 +2980,175 @@ func (a *ServersAPIService) ServersServerIdIpBlocksPostExecute(r ApiServersServe
 	}
 	// body params
 	localVarPostBody = r.serverIpBlock
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiServersServerIdOsConfigurationIpxePutRequest struct {
+	ctx                 context.Context
+	ApiService          ServersAPI
+	serverId            string
+	osConfigurationIPXE *OsConfigurationIPXE
+}
+
+func (r ApiServersServerIdOsConfigurationIpxePutRequest) OsConfigurationIPXE(osConfigurationIPXE OsConfigurationIPXE) ApiServersServerIdOsConfigurationIpxePutRequest {
+	r.osConfigurationIPXE = &osConfigurationIPXE
+	return r
+}
+
+func (r ApiServersServerIdOsConfigurationIpxePutRequest) Execute() (*OsConfigurationIPXE, *http.Response, error) {
+	return r.ApiService.ServersServerIdOsConfigurationIpxePutExecute(r)
+}
+
+/*
+ServersServerIdOsConfigurationIpxePut Updates the iPXE OS configuration.
+
+Updates the iPXE OS configuration by updating the URL and the native VLAN configuration.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serverId The server's ID.
+	@return ApiServersServerIdOsConfigurationIpxePutRequest
+*/
+func (a *ServersAPIService) ServersServerIdOsConfigurationIpxePut(ctx context.Context, serverId string) ApiServersServerIdOsConfigurationIpxePutRequest {
+	return ApiServersServerIdOsConfigurationIpxePutRequest{
+		ApiService: a,
+		ctx:        ctx,
+		serverId:   serverId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return OsConfigurationIPXE
+func (a *ServersAPIService) ServersServerIdOsConfigurationIpxePutExecute(r ApiServersServerIdOsConfigurationIpxePutRequest) (*OsConfigurationIPXE, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *OsConfigurationIPXE
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersAPIService.ServersServerIdOsConfigurationIpxePut")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/servers/{serverId}/os-configuration/ipxe"
+	localVarPath = strings.Replace(localVarPath, "{"+"serverId"+"}", url.PathEscape(parameterValueToString(r.serverId, "serverId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.osConfigurationIPXE == nil {
+		return localVarReturnValue, nil, reportError("osConfigurationIPXE is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.osConfigurationIPXE
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

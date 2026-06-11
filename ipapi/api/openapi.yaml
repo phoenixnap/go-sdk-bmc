@@ -515,10 +515,14 @@ components:
         assignedResourceType: server
         createdOn: 2021-03-13T20:24:32.491Z
         tags:
-        - name: stage
+        - id: 60ffafcdffb8b074c7968dad
+          name: stage
           value: beta
-        - name: group
+          isBillingTag: false
+        - id: 60ffafcdffb8b074c7968dae
+          name: group
           value: discounted
+          isBillingTag: true
         parentIpBlockAllocationId: 5edf1c9b4212930ac543d999
         isSystemManaged: false
         ipVersion: V4
@@ -580,10 +584,14 @@ components:
         tags:
           description: The tags assigned if any.
           example:
-          - name: stage
+          - id: 60ffafcdffb8b074c7968dad
+            name: stage
             value: beta
-          - name: group
+            isBillingTag: false
+          - id: 60ffafcdffb8b074c7968dae
+            name: group
             value: discounted
+            isBillingTag: true
           items:
             $ref: "#/components/schemas/TagAssignment"
           type: array

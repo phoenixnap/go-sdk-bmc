@@ -1,13 +1,17 @@
 {
     "request": {
-        "method": "GET",
-        "path": "/bmc/v1/servers",
-        "queryStringParameters": [
-            {
-                "name": "tag",
-                "values": ["env.dev"]
-            }
-        ]
+      "method": "GET",
+      "path": "/bmc/v1/servers",
+      "queryStringParameters": [
+        {
+          "name": "tag",
+          "values": ["env.dev"]
+        },
+        {
+          "name": "location",
+          "values": ["PHX"]
+        }
+      ]
     },
     "response": {
         "statusCode": 200,

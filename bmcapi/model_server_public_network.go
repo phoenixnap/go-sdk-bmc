@@ -23,8 +23,8 @@ var _ MappedNullable = &ServerPublicNetwork{}
 type ServerPublicNetwork struct {
 	// The network identifier.
 	Id string `json:"id"`
-	// Configurable/configured IPs on the server.<br> At least 1 IP address is required. Valid IP formats include single IP addresses or IP ranges (IPv4 or IPv6). All IPs must be within the network's range.<br> Setting the `computeSlaacIp` field to `true` allows you to provide an empty array of IPs.<br> Additionally, setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
-	Ips []string `json:"ips,omitempty"`
+	// Configurable/configured IPs on the server.<br> At least 1 IP address is required. Valid IP formats include single IP addresses or IP ranges (IPv4 or IPv6). All IPs must be within the network's range.<br> Setting the `computeSlaacIp` field to `true` allows you to provide an empty array of IPs.<br> Referencing network as OS native network allows you to provide an empty array of IPs.<br> Additionally, setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
+	Ips []string `json:"ips"`
 	// (Read-only) The status of the assignment to the network.
 	StatusDescription *string `json:"statusDescription,omitempty"`
 	// (Write-only) Requests Stateless Address Autoconfiguration (SLAAC). Applicable for Network which contains IPv6 block(s).
@@ -40,9 +40,10 @@ type _ServerPublicNetwork ServerPublicNetwork
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServerPublicNetwork(id string) *ServerPublicNetwork {
+func NewServerPublicNetwork(id string, ips []string) *ServerPublicNetwork {
 	this := ServerPublicNetwork{}
 	this.Id = id
+	this.Ips = ips
 	return &this
 }
 
@@ -78,34 +79,26 @@ func (o *ServerPublicNetwork) SetId(v string) {
 	o.Id = v
 }
 
-// GetIps returns the Ips field value if set, zero value otherwise.
+// GetIps returns the Ips field value
 func (o *ServerPublicNetwork) GetIps() []string {
-	if o == nil || IsNil(o.Ips) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Ips
 }
 
-// GetIpsOk returns a tuple with the Ips field value if set, nil otherwise
+// GetIpsOk returns a tuple with the Ips field value
 // and a boolean to check if the value has been set.
 func (o *ServerPublicNetwork) GetIpsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Ips) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Ips, true
 }
 
-// HasIps returns a boolean if a field has been set.
-func (o *ServerPublicNetwork) HasIps() bool {
-	if o != nil && !IsNil(o.Ips) {
-		return true
-	}
-
-	return false
-}
-
-// SetIps gets a reference to the given []string and assigns it to the Ips field.
+// SetIps sets field value
 func (o *ServerPublicNetwork) SetIps(v []string) {
 	o.Ips = v
 }
@@ -217,9 +210,7 @@ func (o ServerPublicNetwork) MarshalJSON() ([]byte, error) {
 func (o ServerPublicNetwork) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
-	if !IsNil(o.Ips) {
-		toSerialize["ips"] = o.Ips
-	}
+	toSerialize["ips"] = o.Ips
 	if !IsNil(o.StatusDescription) {
 		toSerialize["statusDescription"] = o.StatusDescription
 	}
@@ -243,6 +234,7 @@ func (o *ServerPublicNetwork) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"id",
+		"ips",
 	}
 
 	allProperties := make(map[string]interface{})

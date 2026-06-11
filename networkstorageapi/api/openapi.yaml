@@ -335,7 +335,8 @@ paths:
           type: string
         style: simple
       - description: A list of query parameters related to tags in the form of tagName.tagValue
-        example: env.dev
+        example:
+        - env.dev
         explode: true
         in: query
         name: tag
@@ -819,10 +820,14 @@ components:
           deleteRequestedOn: 2022-04-07T08:50:20.359Z
           createdOn: 2021-03-13T20:24:32.491Z
           tags:
-          - name: stage
+          - id: 60ffafcdffb8b074c7968dad
+            name: stage
             value: beta
-          - name: group
+            isBillingTag: false
+          - id: 60ffafcdffb8b074c7968dae
+            name: group
             value: discounted
+            isBillingTag: true
           capacityInGb: 2000
           path: /qjul77ahf5fplr2ba484/shared-docs
           protocol: NFS
@@ -851,10 +856,14 @@ components:
           deleteRequestedOn: 2022-04-07T08:50:20.359Z
           createdOn: 2021-03-13T20:24:32.491Z
           tags:
-          - name: stage
+          - id: 60ffafcdffb8b074c7968dad
+            name: stage
             value: beta
-          - name: group
+            isBillingTag: false
+          - id: 60ffafcdffb8b074c7968dae
+            name: group
             value: discounted
+            isBillingTag: true
           capacityInGb: 2000
           path: /qjul77ahf5fplr2ba484/shared-docs
           protocol: NFS
@@ -1072,10 +1081,14 @@ components:
         deleteRequestedOn: 2022-04-07T08:50:20.359Z
         createdOn: 2021-03-13T20:24:32.491Z
         tags:
-        - name: stage
+        - id: 60ffafcdffb8b074c7968dad
+          name: stage
           value: beta
-        - name: group
+          isBillingTag: false
+        - id: 60ffafcdffb8b074c7968dae
+          name: group
           value: discounted
+          isBillingTag: true
         capacityInGb: 2000
         path: /qjul77ahf5fplr2ba484/shared-docs
         protocol: NFS
@@ -1150,10 +1163,14 @@ components:
         tags:
           description: The tags assigned if any.
           example:
-          - name: stage
+          - id: 60ffafcdffb8b074c7968dad
+            name: stage
             value: beta
-          - name: group
+            isBillingTag: false
+          - id: 60ffafcdffb8b074c7968dae
+            name: group
             value: discounted
+            isBillingTag: true
           items:
             $ref: "#/components/schemas/TagAssignment"
           type: array

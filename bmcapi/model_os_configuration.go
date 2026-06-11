@@ -33,6 +33,7 @@ type OsConfiguration struct {
 	InstallOsToRam       *bool                     `json:"installOsToRam,omitempty"`
 	Esxi                 *EsxiOsConfiguration      `json:"esxi,omitempty"`
 	CloudInit            *OsConfigurationCloudInit `json:"cloudInit,omitempty"`
+	IPXE                 *OsConfigurationIPXE      `json:"iPXE,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -347,6 +348,38 @@ func (o *OsConfiguration) SetCloudInit(v OsConfigurationCloudInit) {
 	o.CloudInit = &v
 }
 
+// GetIPXE returns the IPXE field value if set, zero value otherwise.
+func (o *OsConfiguration) GetIPXE() OsConfigurationIPXE {
+	if o == nil || IsNil(o.IPXE) {
+		var ret OsConfigurationIPXE
+		return ret
+	}
+	return *o.IPXE
+}
+
+// GetIPXEOk returns a tuple with the IPXE field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OsConfiguration) GetIPXEOk() (*OsConfigurationIPXE, bool) {
+	if o == nil || IsNil(o.IPXE) {
+		return nil, false
+	}
+	return o.IPXE, true
+}
+
+// HasIPXE returns a boolean if a field has been set.
+func (o *OsConfiguration) HasIPXE() bool {
+	if o != nil && !IsNil(o.IPXE) {
+		return true
+	}
+
+	return false
+}
+
+// SetIPXE gets a reference to the given OsConfigurationIPXE and assigns it to the IPXE field.
+func (o *OsConfiguration) SetIPXE(v OsConfigurationIPXE) {
+	o.IPXE = &v
+}
+
 func (o OsConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -384,6 +417,9 @@ func (o OsConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CloudInit) {
 		toSerialize["cloudInit"] = o.CloudInit
 	}
+	if !IsNil(o.IPXE) {
+		toSerialize["iPXE"] = o.IPXE
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -415,6 +451,7 @@ func (o *OsConfiguration) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "installOsToRam")
 		delete(additionalProperties, "esxi")
 		delete(additionalProperties, "cloudInit")
+		delete(additionalProperties, "iPXE")
 		o.AdditionalProperties = additionalProperties
 	}
 
