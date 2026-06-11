@@ -1,0 +1,31 @@
+{
+    "request": {
+        "method": "PUT",
+        "path": "/bmc/v1/servers/{id}/os-configuration/ipxe",
+        "pathParameters": {
+            "id": ["e6afba51-7de8-4080-83ab-0f915570659c"]
+        },
+        "body": {
+            "type": "JSON",
+            "json": {
+                "url": "https://example.com/boot.ipxe",
+                "nativeVlanConfiguration": {
+                    "vlanId": 10,
+                    "staticDhcpAddressV4": "185.74.213.56"
+                }
+            },
+            "matchType": "STRICT"
+        }
+    },
+    "response": {
+        "statusCode": 200,
+        "body": {
+            "url": "https://example.com/boot.ipxe",
+            "nativeVlanConfiguration": {
+                "vlanId": 10,
+                "staticDhcpAddressV4": "185.74.213.56",
+                "status": "assigned"
+            }
+        }
+    }
+}
