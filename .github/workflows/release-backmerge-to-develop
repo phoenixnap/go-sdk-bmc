@@ -4,7 +4,7 @@ name: release-backmerge-to-develop
 #   - Triggers automatically when a release PR (release/* -> master) is merged,
 #     or manually via workflow_dispatch
 #   - Reads each module's clean release version from master
-#   - Computes the next development version
+#   - Computes the next development version (patch + SNAPSHOT)
 #   - Bumps every version reference for each module
 #   - Opens a draft PR (backmerge -> develop) preparing develop for the next
 #     release iteration
@@ -21,15 +21,6 @@ on:
     branches:
       - master
   workflow_dispatch:
-    inputs:
-      dev_bump:
-        description: 'Which part to bump for the next development cycle (applies to all modules)'
-        type: choice
-        options:
-          - patch
-          - minor
-        required: false
-        default: patch
 
 permissions:
   contents: write
@@ -82,13 +73,9 @@ jobs:
           fetch-depth: 0
           ref: master
 
-      - name: Resolve dev bump kind and branch name
+      - name: Resolve branch name
         id: meta
         run: |
-          # Empty on pull_request events; fall back to the configured default.
-          DEV_BUMP="${{ inputs.dev_bump }}"
-          DEV_BUMP="${DEV_BUMP:-patch}"
-
           # Name the backmerge branch after the release that was just merged.
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             RELEASED="${{ github.event.pull_request.head.ref }}"
@@ -99,13 +86,11 @@ jobs:
             RELEASED="${RELEASED:-run-${GITHUB_RUN_ID}}"
           fi
 
-          echo "dev_bump=$DEV_BUMP"               >> $GITHUB_OUTPUT
           echo "released=$RELEASED"               >> $GITHUB_OUTPUT
           echo "branch=backmerge/${RELEASED}"     >> $GITHUB_OUTPUT
 
       - name: Bump each module to its next SNAPSHOT version
         run: |
-          DEV_BUMP="${{ steps.meta.outputs.dev_bump }}"
           mkdir -p /tmp/backmerge
 
           echo '${{ needs.discover-modules.outputs.modules }}' | jq -r '.[]' | while IFS= read -r MODULE; do
@@ -135,10 +120,7 @@ jobs:
             MINOR=$(echo "$OLD" | cut -d. -f2)
             PATCH=$(echo "$OLD" | cut -d. -f3)
 
-            case "$DEV_BUMP" in
-              minor) NEXT="${MAJOR}.$((MINOR + 1)).0${SNAPSHOT_SUFFIX}" ;;
-              patch) NEXT="${MAJOR}.${MINOR}.$((PATCH + 1))${SNAPSHOT_SUFFIX}" ;;
-            esac
+            NEXT="${MAJOR}.${MINOR}.$((PATCH + 1))${SNAPSHOT_SUFFIX}"
 
             # Canonical file first, then the exact old version token everywhere
             # else in the module. Whole-token boundaries (\b) keep it from
@@ -150,23 +132,22 @@ jobs:
               sed -i -E "s/\b${OLD_ESC}\b/${NEXT}/g" "$f"
             done
 
-            echo "${MODULE}|${OLD}|${NEXT}|${DEV_BUMP}" >> /tmp/backmerge/results.txt
+            echo "${MODULE}|${OLD}|${NEXT}|bumped" >> /tmp/backmerge/results.txt
           done
 
       - name: Build PR body
         run: |
           RELEASED="${{ steps.meta.outputs.released }}"
-          DEV_BUMP="${{ steps.meta.outputs.dev_bump }}"
 
           {
             echo "# Back-merge ${RELEASED} -> develop"
             echo ""
-            echo "Brings the release commits from \`master\` back into \`develop\` and bumps every module to its next development version (\`${DEV_BUMP}\` + \`${SNAPSHOT_SUFFIX}\`)."
+            echo "Brings the release commits from \`master\` back into \`develop\` and bumps every module to its next development version (\`patch\` + \`${SNAPSHOT_SUFFIX}\`)."
             echo ""
-            echo "| Module | Released | Next Dev Version | Bump |"
-            echo "|--------|----------|------------------|------|"
-            while IFS='|' read -r MODULE OLD NEXT KIND; do
-              echo "| \`${MODULE}\` | ${OLD} | ${NEXT} | ${KIND} |"
+            echo "| Module | Released | Next Dev Version | Status |"
+            echo "|--------|----------|------------------|--------|"
+            while IFS='|' read -r MODULE OLD NEXT STATUS; do
+              echo "| \`${MODULE}\` | ${OLD} | ${NEXT} | ${STATUS} |"
             done < /tmp/backmerge/results.txt
             echo ""
             echo "> **Next step:** Resolve any conflicts in favour of keeping develop's ongoing work, then merge. Develop is then ready for the next release cycle."
