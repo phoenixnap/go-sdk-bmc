@@ -1,0 +1,215 @@
+name: publish-git-tags
+
+# This workflow:
+#   - Triggers manually via workflow_dispatch (dry-run by default)
+#   - Reads each module's release version from master
+#   - Builds the per-module GO tag list:  <module>/v<version>
+#   - Resolves the repo-level tag (vX.Y.Z) from the last merged release/* PR
+#   - Creates and pushes the tags that don't exist yet (idempotent)
+#
+# The GitHub Release for the repo tag is created manually afterwards
+
+# Change these according to the current repo SDK setup
+env:
+  VERSION_FILE: VERSION.go
+  SNAPSHOT_SUFFIX: -SNAPSHOT
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run: report which tags would be created without pushing anything.'
+        type: boolean
+        required: false
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+
+  # JOB 1: discover-modules
+  #
+  # Reads the specs/ directory (on master) to produce the list of modules
+  # dynamically. Adding a new module requires no changes to this workflow —
+  # it is picked up automatically as long as a spec file exists under specs/.
+  discover-modules:
+    name: Discover Modules
+    runs-on: ubuntu-latest
+    outputs:
+      modules: ${{ steps.list.outputs.modules }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: master
+
+      - name: List modules from specs/
+        id: list
+        run: |
+          modules=$(ls specs/*.spec.yaml \
+            | sed 's|specs/||;s|\.spec\.yaml||' \
+            | jq -R . | jq -sc .)
+          echo "modules=$modules" >> $GITHUB_OUTPUT
+
+  # JOB 2: publish-tags
+  #
+  # Resolves the full tag list (one Go submodule tag per module, plus the
+  # repo tag), checks each against existing refs, and creates/pushes only
+  # the missing ones. In dry-run mode nothing is created or pushed.
+  publish-tags:
+    name: Publish Git Tags
+    needs: discover-modules
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: master
+
+      - name: Fetch existing tags
+        run: git fetch --tags --force
+
+      - name: Resolve repo-level tag
+        id: repo
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # The repo tag is named after the release branch that was last
+          # merged to master (release/vX.Y.Z -> vX.Y.Z).
+          REPO_TAG=$(gh pr list \
+            --base master \
+            --state merged \
+            --limit 50 \
+            --json headRefName \
+            --jq '[.[] | select(.headRefName | startswith("release/"))][0].headRefName // empty')
+          REPO_TAG="${REPO_TAG#release/}"
+
+          if ! echo "$REPO_TAG" | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "::error::Could not resolve a valid repo tag from the last merged release/* PR (got '${REPO_TAG}')." >&2
+            exit 1
+          fi
+
+          echo "tag=$REPO_TAG" >> $GITHUB_OUTPUT
+
+      - name: Build tag list from module versions on master
+        run: |
+          mkdir -p /tmp/tags
+          : > /tmp/tags/planned.txt
+          : > /tmp/tags/snapshot-violations.txt
+
+          echo '${{ needs.discover-modules.outputs.modules }}' | jq -r '.[]' | while IFS= read -r MODULE; do
+
+            MATCHES=$(find "${MODULE}" -name "${VERSION_FILE}" -type f)
+            COUNT=$(printf '%s\n' "$MATCHES" | grep -c .)
+            if [ "$COUNT" -ne 1 ]; then
+              echo "::error::Expected exactly one '${VERSION_FILE}' under '${MODULE}/', found ${COUNT}" >&2
+              printf '%s\n' "$MATCHES" >&2
+              exit 1
+            fi
+            CANONICAL="$MATCHES"
+
+            # Read the first semver token from the VERSION file, regardless of
+            # the surrounding syntax.
+            VERSION=$(grep -oE '[0-9]+\.[0-9]+\.[0-9]+[0-9A-Za-z.-]*' "$CANONICAL" | head -1)
+
+            # Master must only carry clean release versions. A SNAPSHOT here
+            # means the backmerge state leaked into master — refuse to tag it.
+            case "$VERSION" in
+              *"$SNAPSHOT_SUFFIX")
+                echo "${MODULE}|${VERSION}" >> /tmp/tags/snapshot-violations.txt
+                continue
+                ;;
+            esac
+
+            # Go submodule tag convention: <module-dir>/v<version>
+            echo "${MODULE}|${MODULE}/v${VERSION}" >> /tmp/tags/planned.txt
+          done
+
+          echo "repo|${{ steps.repo.outputs.tag }}" >> /tmp/tags/planned.txt
+
+      - name: Create missing tags (idempotent)
+        run: |
+          DRY_RUN="${{ inputs.dry_run }}"
+          HEAD_SHA=$(git rev-parse HEAD)
+          : > /tmp/tags/results.txt
+          : > /tmp/tags/to-push.txt
+
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+          while IFS='|' read -r SCOPE TAG; do
+            if git rev-parse -q --verify "refs/tags/${TAG}" > /dev/null; then
+              EXISTING_SHA=$(git rev-parse "refs/tags/${TAG}^{commit}")
+              if [ "$EXISTING_SHA" = "$HEAD_SHA" ]; then
+                echo "${SCOPE}|${TAG}|already exists" >> /tmp/tags/results.txt
+              else
+                # Never move a published tag — Go module proxies cache by tag,
+                # so re-pointing one would silently break consumers.
+                echo "::warning::Tag '${TAG}' exists but points at ${EXISTING_SHA}, not master HEAD (${HEAD_SHA}). Left untouched."
+                echo "${SCOPE}|${TAG}|exists (different commit — left untouched)" >> /tmp/tags/results.txt
+              fi
+              continue
+            fi
+
+            if [ "$DRY_RUN" = "true" ]; then
+              echo "${SCOPE}|${TAG}|would create (dry run)" >> /tmp/tags/results.txt
+            else
+              git tag -a "$TAG" -m "$TAG" "$HEAD_SHA"
+              echo "refs/tags/${TAG}" >> /tmp/tags/to-push.txt
+              echo "${SCOPE}|${TAG}|created" >> /tmp/tags/results.txt
+            fi
+          done < /tmp/tags/planned.txt
+
+      - name: Push created tags
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          if [ -s /tmp/tags/to-push.txt ]; then
+            # Push only the tags created by this run — never a blanket
+            # `--tags`, which could publish stray local refs.
+            xargs git push origin < /tmp/tags/to-push.txt
+          else
+            echo "No new tags to push."
+          fi
+
+      - name: Write job summary
+        if: always()
+        run: |
+          DRY_RUN="${{ inputs.dry_run }}"
+          HEAD_SHA=$(git rev-parse HEAD)
+
+          {
+            echo "# Publish git tags — ${{ steps.repo.outputs.tag }}"
+            echo ""
+            if [ "$DRY_RUN" = "true" ]; then
+              echo "> [!NOTE]"
+              echo "> **Dry run** — no tags were created or pushed. Re-run with \`dry_run: false\` to publish."
+              echo ""
+            fi
+            echo "**Target commit:** \`${HEAD_SHA}\` (master HEAD)"
+            echo ""
+            echo "| Scope | Tag | Status |"
+            echo "|-------|-----|--------|"
+            while IFS='|' read -r SCOPE TAG STATUS; do
+              echo "| \`${SCOPE}\` | \`${TAG}\` | ${STATUS} |"
+            done < /tmp/tags/results.txt
+            echo ""
+            echo "> **Next step:** Create the GitHub Release for \`${{ steps.repo.outputs.tag }}\` manually (releases are not automated)."
+
+            if [ -s /tmp/tags/snapshot-violations.txt ]; then
+              echo ""
+              echo "> [!CAUTION]"
+              echo "> The following modules are on a \`${SNAPSHOT_SUFFIX}\` version on master and were **not tagged**:"
+              while IFS='|' read -r MODULE VERSION; do
+                echo "> - \`${MODULE}\` (${VERSION})"
+              done < /tmp/tags/snapshot-violations.txt
+            fi
+          } >> $GITHUB_STEP_SUMMARY
+
+      - name: Fail on snapshot versions found on master
+        run: |
+          if [ -s /tmp/tags/snapshot-violations.txt ]; then
+            echo "::error::One or more modules on master still carry a ${SNAPSHOT_SUFFIX} version (see job summary). Master must only contain clean release versions before tagging." >&2
+            exit 1
+          fi
