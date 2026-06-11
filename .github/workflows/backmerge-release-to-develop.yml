@@ -1,12 +1,11 @@
 name: backmerge-release-to-develop
 
 # This workflow:
-#   - Triggers automatically when a release PR (release/* -> master) is merged
+#   - Triggers on every push to master, but proceeds only when that push is the merge of a release/* PR.
 #   - Reads each module's clean release version from master
-#   - Computes the next development version (patch + SNAPSHOT)
-#   - Bumps every version reference for each module
-#   - Opens a draft PR (backmerge -> develop) preparing develop for the next release iteration
-# If the PR looks wrong, close it, delete the backmerge branch and retrigger.
+#   - Bumps every module to its next development version (patch + SNAPSHOT)
+#   - Opens a draft PR (backmerge -> develop)
+# If the PR looks wrong, close it, delete the backmerge branch and retrigger via workflow_dispatch.
 
 # Change these according to the current repo SDK setup
 env:
@@ -14,8 +13,7 @@ env:
   SNAPSHOT_SUFFIX: -SNAPSHOT
 
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
       - master
   workflow_dispatch:
@@ -24,31 +22,71 @@ permissions:
   contents: write
   pull-requests: write
 
+# Never run two back-merges at once (e.g. quick successive releases).
+concurrency:
+  group: backmerge-to-develop
+  cancel-in-progress: false
+
 jobs:
 
-  # JOB 1: discover-modules
+  # JOB 1: resolve-release
   #
-  # Reads the specs/ directory (on master, post-release) to produce the list
-  # of modules dynamically. Adding a new module requires no changes to this
-  # workflow — it is picked up automatically as long as a spec file exists
-  # under specs/.
-  discover-modules:
-    name: Discover Modules
-    # Run only for merged release/* PRs, or any manual dispatch.
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      (github.event.pull_request.merged == true &&
-       startsWith(github.event.pull_request.head.ref, 'release/'))
+  # Determines whether this run corresponds to a merged release/* PR and
+  # resolves the release name from the PR itself — never from git tags, which
+  # previously produced stale names (v4.0.0) when the release was not tagged.
+  # Also discovers the module list from specs/ on master; adding a new module
+  # requires no changes to this workflow.
+  resolve-release:
+    name: Resolve Release & Discover Modules
     runs-on: ubuntu-latest
     outputs:
+      is_release: ${{ steps.meta.outputs.is_release }}
+      released: ${{ steps.meta.outputs.released }}
+      branch: ${{ steps.meta.outputs.branch }}
       modules: ${{ steps.list.outputs.modules }}
     steps:
       - uses: actions/checkout@v5
         with:
-          fetch-depth: 0
           ref: master
 
+      - name: Identify the merged release PR
+        id: meta
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            # Find the merged PR this pushed commit belongs to. Works for
+            # squash merges: the squash commit is the PR's merge commit.
+            HEAD_REF=$(gh api "repos/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}/pulls" \
+              --jq '[.[] | select(.merged_at != null and .base.ref == "master")][0].head.ref // empty')
+          else
+            # Manual run: use the most recently MERGED release/* PR into
+            # master, instead of relying on tags.
+            HEAD_REF=$(gh pr list --state merged --base master --limit 100 \
+              --json headRefName,mergedAt \
+              --jq '[.[] | select(.headRefName | startswith("release/"))] | sort_by(.mergedAt) | last | .headRefName // empty')
+          fi
+
+          case "$HEAD_REF" in
+            release/*)
+              RELEASED="${HEAD_REF#release/}"
+              echo "Detected release PR: ${HEAD_REF}"
+              echo "is_release=true"                >> $GITHUB_OUTPUT
+              echo "released=${RELEASED}"           >> $GITHUB_OUTPUT
+              echo "branch=backmerge/${RELEASED}"   >> $GITHUB_OUTPUT
+              ;;
+            *)
+              if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+                echo "::error::No merged release/* PR into master was found."
+                exit 1
+              fi
+              echo "Push to master is not the merge of a release/* PR — nothing to do."
+              echo "is_release=false" >> $GITHUB_OUTPUT
+              ;;
+          esac
+
       - name: List modules from specs/
+        if: steps.meta.outputs.is_release == 'true'
         id: list
         run: |
           modules=$(ls specs/*.spec.yaml \
@@ -56,14 +94,16 @@ jobs:
             | jq -R . | jq -sc .)
           echo "modules=$modules" >> $GITHUB_OUTPUT
 
-  # JOB 2: back-merge
+  # JOB 2: backmerge
   #
   # Branches off master (so the PR carries the release commits back into
-  # develop), bumps each module to its next SNAPSHOT version, and opens a
-  # draft PR targeting develop.
+  # develop), pre-merges develop into the branch (resolving conflicts in
+  # develop's favour, so the PR itself is conflict-free), bumps each module
+  # to its next SNAPSHOT version, and opens a draft PR targeting develop.
   backmerge:
     name: Prepare Back-Merge to Develop
-    needs: discover-modules
+    needs: resolve-release
+    if: needs.resolve-release.outputs.is_release == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -71,27 +111,14 @@ jobs:
           fetch-depth: 0
           ref: master
 
-      - name: Resolve branch name
-        id: meta
-        run: |
-          # Name the backmerge branch after the release that was just merged.
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            RELEASED="${{ github.event.pull_request.head.ref }}"
-            RELEASED="${RELEASED#release/}"
-          else
-            git fetch --tags
-            RELEASED=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
-            RELEASED="${RELEASED:-run-${GITHUB_RUN_ID}}"
-          fi
-
-          echo "released=$RELEASED"               >> $GITHUB_OUTPUT
-          echo "branch=backmerge/${RELEASED}"     >> $GITHUB_OUTPUT
-
-      - name: Bump each module to its next SNAPSHOT version
+      # Read the released (clean) versions from master BEFORE merging develop,
+      # since the merge will overwrite version files with develop's content.
+      - name: Plan version bumps from master's released versions
         run: |
           mkdir -p /tmp/backmerge
+          : > /tmp/backmerge/plan.txt
 
-          echo '${{ needs.discover-modules.outputs.modules }}' | jq -r '.[]' | while IFS= read -r MODULE; do
+          echo '${{ needs.resolve-release.outputs.modules }}' | jq -r '.[]' | while IFS= read -r MODULE; do
 
             MATCHES=$(find "${MODULE}" -name "${VERSION_FILE}" -type f)
             COUNT=$(printf '%s\n' "$MATCHES" | grep -c .)
@@ -100,16 +127,20 @@ jobs:
               printf '%s\n' "$MATCHES" >&2
               exit 1
             fi
-            CANONICAL="$MATCHES"
 
             # Read the first semver token from the VERSION file, regardless of
             # the surrounding syntax.
-            OLD=$(grep -oE '[0-9]+\.[0-9]+\.[0-9]+[0-9A-Za-z.-]*' "$CANONICAL" | head -1)
+            OLD=$(grep -oE '[0-9]+\.[0-9]+\.[0-9]+[0-9A-Za-z.-]*' "$MATCHES" | head -1)
+            if [ -z "$OLD" ]; then
+              echo "::error::No version token found in '${MATCHES}'" >&2
+              exit 1
+            fi
 
-            # Already a development version -> nothing to do (idempotency).
+            # Master already on a development version -> nothing to bump
+            # (idempotency).
             case "$OLD" in
               *"$SNAPSHOT_SUFFIX")
-                echo "${MODULE}|${OLD}|${OLD}|skipped" >> /tmp/backmerge/results.txt
+                echo "${MODULE}|${OLD}||skip" >> /tmp/backmerge/plan.txt
                 continue
                 ;;
             esac
@@ -117,30 +148,107 @@ jobs:
             MAJOR=$(echo "$OLD" | cut -d. -f1)
             MINOR=$(echo "$OLD" | cut -d. -f2)
             PATCH=$(echo "$OLD" | cut -d. -f3)
-
             NEXT="${MAJOR}.${MINOR}.$((PATCH + 1))${SNAPSHOT_SUFFIX}"
 
-            # Canonical file first, then the exact old version token everywhere
-            # else in the module. Whole-token boundaries (\b) keep it from
-            # matching inside a larger number.
-            sed -i -E "s/[0-9]+\.[0-9]+\.[0-9]+[0-9A-Za-z.-]*/${NEXT}/" "$CANONICAL"
+            echo "${MODULE}|${OLD}|${NEXT}|bump" >> /tmp/backmerge/plan.txt
+          done
 
-            OLD_ESC=$(printf '%s' "$OLD" | sed 's/\./\\./g')
-            grep -rlIF -- "$OLD" "$MODULE" | while IFS= read -r f; do
-              sed -i -E "s/\b${OLD_ESC}\b/${NEXT}/g" "$f"
+      # Merging develop into the branch here means the eventual PR already
+      # contains the resolved merge — GitHub has nothing left to conflict on
+      # (unless develop moves between PR creation and merge).
+      - name: Cut branch from master and pre-merge develop
+        run: |
+          BRANCH="${{ needs.resolve-release.outputs.branch }}"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git checkout -b "$BRANCH"
+          git fetch origin develop
+
+          # Prefer develop's side ("theirs") on conflicting hunks — this is
+          # exactly the manual guidance we previously put in the PR body.
+          if ! git merge origin/develop -X theirs --no-edit; then
+            # -X theirs cannot resolve modify/delete or rename conflicts;
+            # resolve those in develop's favour too.
+            git diff --name-only --diff-filter=U | while IFS= read -r f; do
+              if git cat-file -e "origin/develop:${f}" 2>/dev/null; then
+                git checkout --theirs -- "$f" && git add -- "$f"
+              else
+                git rm -f -- "$f"
+              fi
+            done
+            git commit --no-edit
+          fi
+
+      - name: Apply next SNAPSHOT versions
+        run: |
+          : > /tmp/backmerge/results.txt
+
+          while IFS='|' read -r MODULE OLD NEXT ACTION; do
+
+            if [ "$ACTION" = "skip" ]; then
+              echo "${MODULE}|${OLD}|${OLD}|skipped (already ${SNAPSHOT_SUFFIX#-})" >> /tmp/backmerge/results.txt
+              continue
+            fi
+
+            CANONICAL=$(find "${MODULE}" -name "${VERSION_FILE}" -type f | head -1)
+            if [ -z "$CANONICAL" ]; then
+              echo "::error::'${VERSION_FILE}' for '${MODULE}' disappeared after merging develop" >&2
+              exit 1
+            fi
+
+            # After the develop merge the file may carry develop's current dev
+            # version. If develop is already AHEAD of the computed next version
+            # (e.g. a planned minor bump like 4.2.0-SNAPSHOT), keep develop's
+            # version instead of downgrading it.
+            CUR=$(grep -oE '[0-9]+\.[0-9]+\.[0-9]+[0-9A-Za-z.-]*' "$CANONICAL" | head -1)
+            if [ -n "$CUR" ] && [ "$CUR" != "$NEXT" ]; then
+              case "$CUR" in
+                *"$SNAPSHOT_SUFFIX")
+                  BASE_CUR="${CUR%${SNAPSHOT_SUFFIX}}"
+                  BASE_NEXT="${NEXT%${SNAPSHOT_SUFFIX}}"
+                  if [ "$BASE_CUR" != "$BASE_NEXT" ] && \
+                     [ "$(printf '%s\n%s\n' "$BASE_CUR" "$BASE_NEXT" | sort -V | tail -1)" = "$BASE_CUR" ]; then
+                    echo "${MODULE}|${OLD}|${CUR}|kept develop's version" >> /tmp/backmerge/results.txt
+                    continue
+                  fi
+                  ;;
+              esac
+            fi
+
+            # Replace only the FIRST version token in the canonical file
+            # (0,/re/ limits the substitution to the first matching line).
+            sed -i -E "0,/[0-9]+\.[0-9]+\.[0-9]+[0-9A-Za-z.-]*/s//${NEXT}/" "$CANONICAL"
+
+            # Update remaining references in the module — both to the version
+            # released on master and to develop's current dev version. The
+            # (^|[^0-9A-Za-z.-]) ... ([^0-9A-Za-z.-]|$) guards are stricter
+            # than \b: they stop "4.1.0" matching inside "4.1.0-SNAPSHOT"
+            # (which previously produced "...-SNAPSHOT-SNAPSHOT").
+            # CHANGELOGs are excluded so historical release notes keep their
+            # real version numbers — adjust the exclude list to your repo.
+            for TOKEN in "$OLD" "$CUR"; do
+              if [ -z "$TOKEN" ] || [ "$TOKEN" = "$NEXT" ]; then
+                continue
+              fi
+              TOKEN_ESC=$(printf '%s' "$TOKEN" | sed 's/\./\\./g')
+              grep -rlIF --exclude-dir=.git --exclude='CHANGELOG*' -- "$TOKEN" "$MODULE" | while IFS= read -r f; do
+                sed -i -E "s/(^|[^0-9A-Za-z.-])${TOKEN_ESC}([^0-9A-Za-z.-]|\$)/\1${NEXT}\2/g" "$f"
+              done
             done
 
             echo "${MODULE}|${OLD}|${NEXT}|bumped" >> /tmp/backmerge/results.txt
-          done
+          done < /tmp/backmerge/plan.txt
 
       - name: Build PR body
         run: |
-          RELEASED="${{ steps.meta.outputs.released }}"
+          RELEASED="${{ needs.resolve-release.outputs.released }}"
 
           {
             echo "# Back-merge ${RELEASED} -> develop"
             echo ""
             echo "Brings the release commits from \`master\` back into \`develop\` and bumps every module to its next development version (\`patch\` + \`${SNAPSHOT_SUFFIX}\`)."
+            echo ""
+            echo "Conflicts with \`develop\` were already resolved inside this branch, in favour of develop's ongoing work."
             echo ""
             echo "| Module | Released | Next Dev Version | Status |"
             echo "|--------|----------|------------------|--------|"
@@ -148,21 +256,18 @@ jobs:
               echo "| \`${MODULE}\` | ${OLD} | ${NEXT} | ${STATUS} |"
             done < /tmp/backmerge/results.txt
             echo ""
-            echo "> **Next step:** Resolve any conflicts in favour of keeping develop's ongoing work, then merge. Develop is then ready for the next release cycle."
+            echo "> **Next step:** Review the version table above, then merge. Develop is then ready for the next release cycle."
           } > /tmp/backmerge/pr-body.md
 
       - name: Write job summary
         run: cat /tmp/backmerge/pr-body.md >> $GITHUB_STEP_SUMMARY
 
-      - name: Create back-merge branch and commit version bumps
+      - name: Commit version bumps and push
         run: |
-          BRANCH="${{ steps.meta.outputs.branch }}"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config user.name "github-actions[bot]"
-          git checkout -b "$BRANCH"
+          BRANCH="${{ needs.resolve-release.outputs.branch }}"
           git add -A
-          if test "$(git status --porcelain=v1 2>/dev/null | wc -l)" -gt "0"; then
-            git commit -m "chore: bump modules to next ${SNAPSHOT_SUFFIX#-} versions after ${{ steps.meta.outputs.released }}"
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: bump modules to next ${SNAPSHOT_SUFFIX#-} versions after ${{ needs.resolve-release.outputs.released }}"
           else
             echo "No version changes to commit (all modules already on a ${SNAPSHOT_SUFFIX} version)."
           fi
@@ -174,8 +279,8 @@ jobs:
         run: |
           gh pr create \
             --base develop \
-            --head "${{ steps.meta.outputs.branch }}" \
-            --title "Back-merge ${{ steps.meta.outputs.released }} to develop" \
+            --head "${{ needs.resolve-release.outputs.branch }}" \
+            --title "Back-merge ${{ needs.resolve-release.outputs.released }} to develop" \
             --draft \
             --body-file /tmp/backmerge/pr-body.md \
           || echo "PR to develop already exists, skipping."
