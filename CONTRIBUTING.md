@@ -72,6 +72,6 @@ Create a release based on the previously generated repo module release tag.
 
 Confirm that the Go SDK release is available on pkg.go.dev:
 
-https://pkg.go.dev/github.com/<org>/<repo>
+https://pkg.go.dev/github.com
 
 The release is complete once the expected root module and sub-module versions are available.
