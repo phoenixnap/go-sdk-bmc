@@ -155,7 +155,7 @@ jobs:
           HEAD_SHA=$(git rev-parse HEAD)
 
           {
-            echo "# Publish git submodule tags"
+            echo "# Publish git tags"
             echo ""
             if [ "$DRY_RUN" = "true" ]; then
               echo "> [!NOTE]"
