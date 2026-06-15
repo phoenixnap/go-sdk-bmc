@@ -4,10 +4,10 @@ name: publish-git-tags
 #   - Triggers manually via workflow_dispatch (dry-run by default)
 #   - Reads each module's release version from master
 #   - Builds the per-module GO tag list:  <module>/v<version>
-#   - Resolves the repo-level tag (vX.Y.Z) from the last merged release/* PR
 #   - Creates and pushes the tags that don't exist yet (idempotent)
 #
-# The GitHub Release for the repo tag is created manually afterwards
+# Only sub-module tags are published here. The repo-level tag (vX.Y.Z) is
+# created by the GitHub Release step, which is performed manually afterwards.
 
 # Change these according to the current repo SDK setup
 env:
@@ -25,7 +25,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: read
 
 jobs:
 
@@ -55,9 +54,9 @@ jobs:
 
   # JOB 2: publish-tags
   #
-  # Resolves the full tag list (one Go submodule tag per module, plus the
-  # repo tag), checks each against existing refs, and creates/pushes only
-  # the missing ones. In dry-run mode nothing is created or pushed.
+  # Resolves the per-module Go submodule tag list, checks each against
+  # existing refs, and creates/pushes only the missing ones. In dry-run mode
+  # nothing is created or pushed.
   publish-tags:
     name: Publish Git Tags
     needs: discover-modules
@@ -70,28 +69,6 @@ jobs:
 
       - name: Fetch existing tags
         run: git fetch --tags --force
-
-      - name: Resolve repo-level tag
-        id: repo
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # The repo tag is named after the release branch that was last
-          # merged to master (release/vX.Y.Z -> vX.Y.Z).
-          REPO_TAG=$(gh pr list \
-            --base master \
-            --state merged \
-            --limit 50 \
-            --json headRefName \
-            --jq '[.[] | select(.headRefName | startswith("release/"))][0].headRefName // empty')
-          REPO_TAG="${REPO_TAG#release/}"
-
-          if ! echo "$REPO_TAG" | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
-            echo "::error::Could not resolve a valid repo tag from the last merged release/* PR (got '${REPO_TAG}')." >&2
-            exit 1
-          fi
-
-          echo "tag=$REPO_TAG" >> $GITHUB_OUTPUT
 
       - name: Build tag list from module versions on master
         run: |
@@ -126,8 +103,6 @@ jobs:
             # Go submodule tag convention: <module-dir>/v<version>
             echo "${MODULE}|${MODULE}/v${VERSION}" >> /tmp/tags/planned.txt
           done
-
-          echo "repo|${{ steps.repo.outputs.tag }}" >> /tmp/tags/planned.txt
 
       - name: Create missing tags (idempotent)
         run: |
@@ -180,7 +155,7 @@ jobs:
           HEAD_SHA=$(git rev-parse HEAD)
 
           {
-            echo "# Publish git tags — ${{ steps.repo.outputs.tag }}"
+            echo "# Publish git submodule tags"
             echo ""
             if [ "$DRY_RUN" = "true" ]; then
               echo "> [!NOTE]"
@@ -195,7 +170,7 @@ jobs:
               echo "| \`${SCOPE}\` | \`${TAG}\` | ${STATUS} |"
             done < /tmp/tags/results.txt
             echo ""
-            echo "> **Next step:** Create the GitHub Release for \`${{ steps.repo.outputs.tag }}\` manually (releases are not automated)."
+            echo "> **Next step:** Create the GitHub Release (and repo tag \`vX.Y.Z\`) manually — releases and the repo-level tag are not automated."
 
             if [ -s /tmp/tags/snapshot-violations.txt ]; then
               echo ""
