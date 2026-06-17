@@ -1652,6 +1652,8 @@ components:
               writeOnly: true
               type: string
               example: 3.4.0-003
+              maxLength: 20
+              pattern: ^[a-zA-Z0-9.-]+$
             controllerAuthKey:
               description: (Write-only) The authentication key of the Netris Controller to connect to. Required for the softgate agent to be able to interact with the Netris Controller.
               writeOnly: true

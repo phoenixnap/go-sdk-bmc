@@ -4519,6 +4519,8 @@ components:
           description: (Write-only) The version of the Netris Controller to connect
             to.
           example: 3.4.0-003
+          maxLength: 20
+          pattern: "^[a-zA-Z0-9.-]+$"
           type: string
           writeOnly: true
         controllerAuthKey:
