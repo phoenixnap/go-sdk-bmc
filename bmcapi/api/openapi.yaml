@@ -521,7 +521,7 @@ paths:
       description: Adds an IP block to this server. <b>No actual configuration is
         performed on the operating system.</b> BMC configures exclusively the networking
         devices in the datacenter infrastructure. Manual network configuration changes
-        in the operating system of this server are required.  A server can have at
+        in the operating system of this server are required. A server can have at
         most one IPv4 block and one IPv6 block assigned simultaneously. Assigning
         IPv6 to server is only supported post-provision. Knowledge base article to
         help you can be found <a href='https://phoenixnap.com/kb/configure-server-with-public-ip-block#ftoc-heading-2'
@@ -2838,7 +2838,7 @@ components:
           $ref: "#/components/schemas/OsConfiguration_windows"
         rootPassword:
           description: (Read-only) Auto-generated password set for user 'root' on
-            an ESXi or Proxmox server.<br>  The password is not stored and therefore
+            an ESXi or Proxmox server.<br> The password is not stored and therefore
             will only be returned in response to provisioning a server. Copy and save
             it for future reference.
           example: MyP@ssw0rd_01
@@ -2921,7 +2921,7 @@ components:
             \ following restrictions apply when enabling DHCP:<ul> <li> DHCP support\
             \ is limited to servers configured exclusively with private networks (PRIVATE_ONLY).\
             \ <li> DHCP value needs to be consistent across all server-configured\
-            \ private networks.  <li> The server does not support manual gateway address\
+            \ private networks. <li> The server does not support manual gateway address\
             \ configuration. <li> Private IP addresses for network cannot be specified.</ul>\
             \ Note: Not supported on Proxmox OS."
           example: false
@@ -4486,7 +4486,7 @@ components:
           type: string
         netrisUserPassword:
           description: (Read-only) Auto-generated password set for user 'netris' in
-            the web console.<br>  The password is not stored and therefore will only
+            the web console.<br> The password is not stored and therefore will only
             be returned in response to provisioning a server. Copy and save it for
             future reference.
           example: cNC1jPFXG2h7f
