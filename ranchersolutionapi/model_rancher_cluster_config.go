@@ -21,17 +21,17 @@ var _ MappedNullable = &RancherClusterConfig{}
 // RancherClusterConfig (Write-only) Rancher configuration parameters.
 type RancherClusterConfig struct {
 	// Shared secret used to join a server or agent to a cluster.
-	Token *string `json:"token,omitempty"`
+	Token *string `json:"token,omitempty" validate:"regexp=^K10[0-9a-fA-F]+::.+$"`
 	// This maps to ranchers `tls-san`. Add additional hostname or IP as a Subject Alternative Name in the TLS cert.
-	TlsSan *string `json:"tlsSan,omitempty"`
-	// This maps to ranchers `etcd-snapshot-schedule-cron`. Snapshot interval time in cron spec. eg. every 5 hours ‘0 *_/5 * * *’. Default: at 12 am/pm
-	EtcdSnapshotScheduleCron *string `json:"etcdSnapshotScheduleCron,omitempty"`
+	TlsSan *string `json:"tlsSan,omitempty" validate:"regexp=^[a-zA-Z0-9]([a-zA-Z0-9.-]*[a-zA-Z0-9])?$"`
+	// This maps to ranchers `etcd-snapshot-schedule-cron`. Snapshot interval time in cron spec. eg. every 5 hours '0 *_/5 * * *'. Default: at 12 am/pm
+	EtcdSnapshotScheduleCron *string `json:"etcdSnapshotScheduleCron,omitempty" validate:"regexp=^(@(annually|yearly|monthly|weekly|daily|hourly|reboot)|([0-9*_\\/,-]+ ){4}[0-9*_\\/,-]+)$"`
 	// This maps to ranchers `etcd-snapshot-retention`. Number of snapshots to retain.
 	EtcdSnapshotRetention *int32 `json:"etcdSnapshotRetention,omitempty"`
 	// This maps to ranchers `node-taint`. Registering kubelet with set of taints. By default, server nodes will be schedulable and thus your workloads can get launched on them. If you wish to have a dedicated control plane where no user workloads will run, you can use taints.
-	NodeTaint *string `json:"nodeTaint,omitempty"`
+	NodeTaint *string `json:"nodeTaint,omitempty" validate:"regexp=^([a-z0-9]([a-z0-9.-]*[a-z0-9])?\\/)?[a-zA-Z0-9]([a-zA-Z0-9._-]*[a-zA-Z0-9])?(=[a-zA-Z0-9._-]+)?:(NoSchedule|PreferNoSchedule|NoExecute)$"`
 	// This maps to ranchers `cluster-domain`. Cluster Domain.
-	ClusterDomain        *string                     `json:"clusterDomain,omitempty"`
+	ClusterDomain        *string                     `json:"clusterDomain,omitempty" validate:"regexp=^([a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?[.])+[a-zA-Z]{2,}$"`
 	Certificates         *RancherClusterCertificates `json:"certificates,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
