@@ -2784,7 +2784,7 @@ components:
         url:
           description: The URL of the iPXE boot script used to start the server.
           example: https://example.com/boot.ipxe
-          pattern: ^https?://.+$
+          maxLength: 1000
           type: string
         nativeVlanConfiguration:
           $ref: "#/components/schemas/OsConfigurationIPXE_nativeVlanConfiguration"

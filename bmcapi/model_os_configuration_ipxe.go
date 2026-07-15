@@ -22,7 +22,7 @@ var _ MappedNullable = &OsConfigurationIPXE{}
 // OsConfigurationIPXE iPXE configuration details. Configures the server to boot using the iPXE network boot firmware with a custom boot script. Only applicable when osName is 'ipxe' and must not be provided for any other OS.
 type OsConfigurationIPXE struct {
 	// The URL of the iPXE boot script used to start the server.
-	Url                     string                                      `json:"url" validate:"regexp=^https?:\\/\\/.+$"`
+	Url                     string                                      `json:"url"`
 	NativeVlanConfiguration *OsConfigurationIPXENativeVlanConfiguration `json:"nativeVlanConfiguration,omitempty"`
 	AdditionalProperties    map[string]interface{}
 }
