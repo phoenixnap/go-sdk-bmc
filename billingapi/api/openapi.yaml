@@ -1200,6 +1200,24 @@ components:
       required:
       - capacityInGb
       type: object
+    Utilization:
+      example:
+        quantity:
+          unit: TB
+          quantity: 30
+        percentage: 30
+      properties:
+        quantity:
+          $ref: "#/components/schemas/Quantity"
+        percentage:
+          example: 30
+          maximum: 100
+          minimum: 0
+          type: number
+      required:
+      - percentage
+      - quantity
+      type: object
     StorageRecord:
       allOf:
       - $ref: "#/components/schemas/RatedUsageRecord"
@@ -1207,6 +1225,8 @@ components:
         properties:
           metadata:
             $ref: "#/components/schemas/StorageDetails"
+          utilization:
+            $ref: "#/components/schemas/Utilization"
         required:
         - metadata
         type: object
@@ -1591,24 +1611,6 @@ components:
       - ON_CREATION
       - CALENDAR_MONTH
       type: string
-    Utilization:
-      example:
-        quantity:
-          unit: TB
-          quantity: 30
-        percentage: 30
-      properties:
-        quantity:
-          $ref: "#/components/schemas/Quantity"
-        percentage:
-          example: 30
-          maximum: 100
-          minimum: 0
-          type: number
-      required:
-      - percentage
-      - quantity
-      type: object
     Reservation:
       description: Reservation details
       example:

@@ -61,6 +61,7 @@ type StorageRecord struct {
 	DiscountDetails      *ApplicableDiscountDetails `json:"discountDetails,omitempty"`
 	CreditDetails        []CreditDetails            `json:"creditDetails,omitempty"`
 	Metadata             StorageDetails             `json:"metadata"`
+	Utilization          *Utilization               `json:"utilization,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -699,6 +700,38 @@ func (o *StorageRecord) SetMetadata(v StorageDetails) {
 	o.Metadata = v
 }
 
+// GetUtilization returns the Utilization field value if set, zero value otherwise.
+func (o *StorageRecord) GetUtilization() Utilization {
+	if o == nil || IsNil(o.Utilization) {
+		var ret Utilization
+		return ret
+	}
+	return *o.Utilization
+}
+
+// GetUtilizationOk returns a tuple with the Utilization field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StorageRecord) GetUtilizationOk() (*Utilization, bool) {
+	if o == nil || IsNil(o.Utilization) {
+		return nil, false
+	}
+	return o.Utilization, true
+}
+
+// HasUtilization returns a boolean if a field has been set.
+func (o *StorageRecord) HasUtilization() bool {
+	if o != nil && !IsNil(o.Utilization) {
+		return true
+	}
+
+	return false
+}
+
+// SetUtilization gets a reference to the given Utilization and assigns it to the Utilization field.
+func (o *StorageRecord) SetUtilization(v Utilization) {
+	o.Utilization = &v
+}
+
 func (o StorageRecord) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -749,6 +782,9 @@ func (o StorageRecord) ToMap() (map[string]interface{}, error) {
 		toSerialize["creditDetails"] = o.CreditDetails
 	}
 	toSerialize["metadata"] = o.Metadata
+	if !IsNil(o.Utilization) {
+		toSerialize["utilization"] = o.Utilization
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -826,6 +862,7 @@ func (o *StorageRecord) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "discountDetails")
 		delete(additionalProperties, "creditDetails")
 		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "utilization")
 		o.AdditionalProperties = additionalProperties
 	}
 

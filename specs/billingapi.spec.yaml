@@ -914,6 +914,19 @@ components:
           example: '2020-03-19T16:39:00Z'
       required:
         - capacityInGb
+    Utilization:
+      type: object
+      properties:
+        quantity:
+          $ref: '#/components/schemas/Quantity'
+        percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+          example: 30
+      required:
+        - quantity
+        - percentage
     StorageRecord:
       allOf:
         - $ref: '#/components/schemas/RatedUsageRecord'
@@ -922,6 +935,8 @@ components:
           properties:
             metadata:
               $ref: '#/components/schemas/StorageDetails'
+            utilization:
+              $ref: '#/components/schemas/Utilization'
           required:
             - metadata
     Error:
@@ -1191,19 +1206,6 @@ components:
       enum:
         - ON_CREATION
         - CALENDAR_MONTH
-    Utilization:
-      type: object
-      properties:
-        quantity:
-          $ref: '#/components/schemas/Quantity'
-        percentage:
-          type: number
-          minimum: 0
-          maximum: 100
-          example: 30
-      required:
-        - quantity
-        - percentage
     Reservation:
       type: object
       description: Reservation details

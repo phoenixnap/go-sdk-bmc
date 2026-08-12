@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **DiscountDetails** | Pointer to [**ApplicableDiscountDetails**](ApplicableDiscountDetails.md) |  | [optional] 
 **CreditDetails** | Pointer to [**[]CreditDetails**](CreditDetails.md) |  | [optional] 
 **Metadata** | [**StorageDetails**](StorageDetails.md) |  | 
+**Utilization** | Pointer to [**Utilization**](Utilization.md) |  | [optional] 
 
 ## Methods
 
@@ -530,6 +531,31 @@ and a boolean to check if the value has been set.
 
 SetMetadata sets Metadata field to given value.
 
+
+### GetUtilization
+
+`func (o *StorageRecord) GetUtilization() Utilization`
+
+GetUtilization returns the Utilization field if non-nil, zero value otherwise.
+
+### GetUtilizationOk
+
+`func (o *StorageRecord) GetUtilizationOk() (*Utilization, bool)`
+
+GetUtilizationOk returns a tuple with the Utilization field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUtilization
+
+`func (o *StorageRecord) SetUtilization(v Utilization)`
+
+SetUtilization sets Utilization field to given value.
+
+### HasUtilization
+
+`func (o *StorageRecord) HasUtilization() bool`
+
+HasUtilization returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
