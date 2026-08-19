@@ -166,7 +166,7 @@ components:
           description: The UTC time the event initiated.
           type: string
           format: date-time
-          example: 2020-03-19T16:39.123Z
+          example: '2020-03-19T16:39:00.123Z'
         userInfo:
           $ref: '#/components/schemas/UserInfo'
     Error:

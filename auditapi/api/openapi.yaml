@@ -222,7 +222,7 @@ components:
           clientId: e9d335b1-3aa4-4760-9bad-2595c0449035
           username: johnd@phoenixnap.com
         name: API.CreateServer
-        timestamp: 2000-01-23T04:56:07.000+00:00
+        timestamp: 2020-03-19T16:39:00.123Z
       properties:
         name:
           description: The name of the event.
@@ -230,6 +230,7 @@ components:
           type: string
         timestamp:
           description: The UTC time the event initiated.
+          example: 2020-03-19T16:39:00.123Z
           format: date-time
           type: string
         userInfo:
