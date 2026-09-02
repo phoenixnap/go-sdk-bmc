@@ -220,7 +220,7 @@ components:
           items:
             type: string
             example: "DEV"
-          example: "[DEV, PROD]"
+          example: [ DEV, PROD ]
         description:
           description: "The description of the tag."
           type: string

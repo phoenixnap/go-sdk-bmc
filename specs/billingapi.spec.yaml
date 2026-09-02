@@ -226,7 +226,7 @@ paths:
           description: The product category
           schema:
             $ref: '#/components/schemas/ReservationProductCategoryEnum'
-          example: SERVER
+          example: server
       responses:
         '200':
           description: List of all reservations is returned if productCategory parameter is not specified.
@@ -627,7 +627,7 @@ components:
         appliedAmount:
           description: Amount applied.
           type: number
-          example: '50'
+          example: 50
         type:
           $ref: '#/components/schemas/CreditTypeEnum'
       required:

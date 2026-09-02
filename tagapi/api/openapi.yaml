@@ -336,7 +336,9 @@ components:
       description: Tag model.
       example:
         createdBy: USER
-        values: "[DEV, PROD]"
+        values:
+        - DEV
+        - PROD
         name: Environment
         description: This tag is used for all resources that need to be assigned to
           an environment.
@@ -358,7 +360,9 @@ components:
           type: string
         values:
           description: The optional values of the tag.
-          example: "[DEV, PROD]"
+          example:
+          - DEV
+          - PROD
           items:
             example: DEV
             type: string
