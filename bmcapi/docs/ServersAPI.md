@@ -13,7 +13,6 @@ Method | HTTP request | Description
 [**ServersServerIdActionsProvisionPost**](ServersAPI.md#ServersServerIdActionsProvisionPost) | **Post** /servers/{serverId}/actions/provision | Provision server.
 [**ServersServerIdActionsRebootPost**](ServersAPI.md#ServersServerIdActionsRebootPost) | **Post** /servers/{serverId}/actions/reboot | Reboot server.
 [**ServersServerIdActionsReservePost**](ServersAPI.md#ServersServerIdActionsReservePost) | **Post** /servers/{serverId}/actions/reserve | Reserve server.
-[**ServersServerIdActionsResetPost**](ServersAPI.md#ServersServerIdActionsResetPost) | **Post** /servers/{serverId}/actions/reset | Reset server.
 [**ServersServerIdActionsShutdownPost**](ServersAPI.md#ServersServerIdActionsShutdownPost) | **Post** /servers/{serverId}/actions/shutdown | Shutdown server.
 [**ServersServerIdActionsTransferReservation**](ServersAPI.md#ServersServerIdActionsTransferReservation) | **Post** /servers/{serverId}/actions/transfer-reservation | Transfer server reservation.
 [**ServersServerIdDelete**](ServersAPI.md#ServersServerIdDelete) | **Delete** /servers/{serverId} | Delete server.
@@ -655,78 +654,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Server**](Server.md)
-
-### Authorization
-
-[OAuth2](../README.md#OAuth2)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ServersServerIdActionsResetPost
-
-> ResetResult ServersServerIdActionsResetPost(ctx, serverId).ServerReset(serverReset).Execute()
-
-Reset server.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
-)
-
-func main() {
-	serverId := "60473a6115e34466c9f8f083" // string | The server's ID.
-	serverReset := *openapiclient.NewServerReset() // ServerReset | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ServersAPI.ServersServerIdActionsResetPost(context.Background(), serverId).ServerReset(serverReset).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ServersAPI.ServersServerIdActionsResetPost``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ServersServerIdActionsResetPost`: ResetResult
-	fmt.Fprintf(os.Stdout, "Response from `ServersAPI.ServersServerIdActionsResetPost`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serverId** | **string** | The server&#39;s ID. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiServersServerIdActionsResetPostRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **serverReset** | [**ServerReset**](ServerReset.md) |  | 
-
-### Return type
-
-[**ResetResult**](ResetResult.md)
 
 ### Authorization
 
