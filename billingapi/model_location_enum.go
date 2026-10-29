@@ -21,20 +21,26 @@ type LocationEnum string
 
 // List of LocationEnum
 const (
-	LOCATIONENUM_PHX LocationEnum = "PHX"
-	LOCATIONENUM_ASH LocationEnum = "ASH"
-	LOCATIONENUM_NLD LocationEnum = "NLD"
-	LOCATIONENUM_SGP LocationEnum = "SGP"
-	LOCATIONENUM_CHI LocationEnum = "CHI"
-	LOCATIONENUM_SEA LocationEnum = "SEA"
-	LOCATIONENUM_AUS LocationEnum = "AUS"
+	LOCATIONENUM_PHX  LocationEnum = "PHX"
+	LOCATIONENUM_PHX4 LocationEnum = "PHX4"
+	LOCATIONENUM_PHX5 LocationEnum = "PHX5"
+	LOCATIONENUM_ASH  LocationEnum = "ASH"
+	LOCATIONENUM_NLD  LocationEnum = "NLD"
+	LOCATIONENUM_NLD2 LocationEnum = "NLD2"
+	LOCATIONENUM_SGP  LocationEnum = "SGP"
+	LOCATIONENUM_CHI  LocationEnum = "CHI"
+	LOCATIONENUM_SEA  LocationEnum = "SEA"
+	LOCATIONENUM_AUS  LocationEnum = "AUS"
 )
 
 // All allowed values of LocationEnum enum
 var AllowedLocationEnumEnumValues = []LocationEnum{
 	"PHX",
+	"PHX4",
+	"PHX5",
 	"ASH",
 	"NLD",
+	"NLD2",
 	"SGP",
 	"CHI",
 	"SEA",

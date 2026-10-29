@@ -21,19 +21,25 @@ type ProductLocationEnum string
 
 // List of ProductLocationEnum
 const (
-	PRODUCTLOCATIONENUM_PHX ProductLocationEnum = "PHX"
-	PRODUCTLOCATIONENUM_ASH ProductLocationEnum = "ASH"
-	PRODUCTLOCATIONENUM_NLD ProductLocationEnum = "NLD"
-	PRODUCTLOCATIONENUM_SGP ProductLocationEnum = "SGP"
-	PRODUCTLOCATIONENUM_CHI ProductLocationEnum = "CHI"
-	PRODUCTLOCATIONENUM_SEA ProductLocationEnum = "SEA"
+	PRODUCTLOCATIONENUM_PHX  ProductLocationEnum = "PHX"
+	PRODUCTLOCATIONENUM_PHX4 ProductLocationEnum = "PHX4"
+	PRODUCTLOCATIONENUM_PHX5 ProductLocationEnum = "PHX5"
+	PRODUCTLOCATIONENUM_ASH  ProductLocationEnum = "ASH"
+	PRODUCTLOCATIONENUM_NLD  ProductLocationEnum = "NLD"
+	PRODUCTLOCATIONENUM_NLD2 ProductLocationEnum = "NLD2"
+	PRODUCTLOCATIONENUM_SGP  ProductLocationEnum = "SGP"
+	PRODUCTLOCATIONENUM_CHI  ProductLocationEnum = "CHI"
+	PRODUCTLOCATIONENUM_SEA  ProductLocationEnum = "SEA"
 )
 
 // All allowed values of ProductLocationEnum enum
 var AllowedProductLocationEnumEnumValues = []ProductLocationEnum{
 	"PHX",
+	"PHX4",
+	"PHX5",
 	"ASH",
 	"NLD",
+	"NLD2",
 	"SGP",
 	"CHI",
 	"SEA",

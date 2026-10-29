@@ -107,8 +107,11 @@ components:
       type: string
       enum:
         - PHX
+        - PHX4
+        - PHX5
         - ASH
         - NLD
+        - NLD2
         - SGP
         - CHI
         - SEA

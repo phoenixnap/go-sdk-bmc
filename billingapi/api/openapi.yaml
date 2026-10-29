@@ -811,8 +811,11 @@ components:
         \ which is deprecated and preserved only for legacy data."
       enum:
       - PHX
+      - PHX4
+      - PHX5
       - ASH
       - NLD
+      - NLD2
       - SGP
       - CHI
       - SEA
@@ -1366,8 +1369,11 @@ components:
           description: The code identifying the location.
           enum:
           - PHX
+          - PHX4
+          - PHX5
           - ASH
           - NLD
+          - NLD2
           - SGP
           - CHI
           - SEA
@@ -1789,8 +1795,11 @@ components:
         but those values are not part of this enum.
       enum:
       - PHX
+      - PHX4
+      - PHX5
       - ASH
       - NLD
+      - NLD2
       - SGP
       - CHI
       - SEA

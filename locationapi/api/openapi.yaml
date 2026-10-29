@@ -159,8 +159,11 @@ components:
         but those values are not part of this enum.
       enum:
       - PHX
+      - PHX4
+      - PHX5
       - ASH
       - NLD
+      - NLD2
       - SGP
       - CHI
       - SEA
