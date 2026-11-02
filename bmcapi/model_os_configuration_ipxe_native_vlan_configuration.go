@@ -24,7 +24,7 @@ type OsConfigurationIPXENativeVlanConfiguration struct {
 	VlanId *int32 `json:"vlanId,omitempty"`
 	// The static IP V4 address assigned to the server within the native VLAN. This address is set as the DHCP reservation and used for the iPXE boot process.  Value must be an available/unused IP V4 address within the native network usable IP range. If omitted, the first available IP in the native network will be automatically assigned. Therefore, at least one IP must be available within the native network.
 	StaticDhcpAddressV4 *string `json:"staticDhcpAddressV4,omitempty" validate:"regexp=^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\\\.)){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"`
-	// (Read-only) The status of the native VLAN configuration.
+	// The status of the native VLAN configuration.
 	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

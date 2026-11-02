@@ -20,11 +20,11 @@ var _ MappedNullable = &OsConfigurationNetrisController{}
 
 // OsConfigurationNetrisController Netris Controller configuration properties. Knowledge base article to help you can be found <a href='https://phoenixnap.com/kb/netris-bare-metal-cloud#deploy-netris-controller' target='_blank'>here</a>.
 type OsConfigurationNetrisController struct {
-	// (Read-only) Host OS on which the Netris Controller is installed.
+	// Host OS on which the Netris Controller is installed.
 	HostOs *string `json:"hostOs,omitempty"`
-	// (Read-only) The URL for the Netris Controller web console. It will only be returned in response to provisioning a server.
+	// The URL for the Netris Controller web console. It will only be returned in response to provisioning a server.
 	NetrisWebConsoleUrl *string `json:"netrisWebConsoleUrl,omitempty"`
-	// (Read-only) Auto-generated password set for user 'netris' in the web console.<br> The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
+	// Auto-generated password set for user 'netris' in the web console.<br> The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
 	NetrisUserPassword   *string `json:"netrisUserPassword,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -27,9 +27,9 @@ type ServerPrivateNetwork struct {
 	Ips []string `json:"ips,omitempty"`
 	// Determines whether DHCP is enabled for this server.<br> The following restrictions apply when enabling DHCP:<ul> <li> DHCP support is limited to servers configured exclusively with private networks (PRIVATE_ONLY). <li> DHCP value needs to be consistent across all server-configured private networks. <li> The server does not support manual gateway address configuration. <li> Private IP addresses for network cannot be specified.</ul> Note: Not supported on Proxmox OS.
 	Dhcp *bool `json:"dhcp,omitempty"`
-	// (Read-only) The status of the network.
+	// The status of the network.
 	StatusDescription *string `json:"statusDescription,omitempty"`
-	// (Read-only) The VLAN on which this network has been configured within the network switch.
+	// The VLAN on which this network has been configured within the network switch.
 	VlanId               *int32 `json:"vlanId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -18,7 +18,7 @@ import (
 // checks if the RancherServerMetadata type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &RancherServerMetadata{}
 
-// RancherServerMetadata (Read Only) Connection parameters to use to connect to the Rancher Server Administrative GUI.
+// RancherServerMetadata Connection parameters to use to connect to the Rancher Server Administrative GUI.
 type RancherServerMetadata struct {
 	// The Rancher Server URL.
 	Url *string `json:"url,omitempty"`

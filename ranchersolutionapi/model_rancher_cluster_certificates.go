@@ -18,7 +18,7 @@ import (
 // checks if the RancherClusterCertificates type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &RancherClusterCertificates{}
 
-// RancherClusterCertificates (Write-only) Define the custom SSL certificates to be used instead of defaults.
+// RancherClusterCertificates Define the custom SSL certificates to be used instead of defaults.
 type RancherClusterCertificates struct {
 	// The SSL CA certificate to be used for rancher admin.
 	CaCertificate *string `json:"caCertificate,omitempty"`

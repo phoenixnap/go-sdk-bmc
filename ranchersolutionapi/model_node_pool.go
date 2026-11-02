@@ -27,7 +27,7 @@ type NodePool struct {
 	// Node server type. Cannot be changed once a server is created. Currently this field should be set to either `s0.d1.small`, `s0.d1.medium`, `s1.c1.small`, `s1.c1.medium`, `s1.c2.medium`, `s1.c2.large`, `s2.c1.small`, `s2.c1.medium`, `s2.c1.large`, `s2.c2.small`, `s2.c2.medium`, `s2.c2.large`, `s1.e1.small`, `s1.e1.medium`, `s1.e1.large`.
 	ServerType *string    `json:"serverType,omitempty"`
 	SshConfig  *SshConfig `json:"sshConfig,omitempty"`
-	// (Read-only) The nodes associated with this node pool.
+	// The nodes associated with this node pool.
 	Nodes                []Node `json:"nodes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

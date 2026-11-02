@@ -1559,7 +1559,7 @@ components:
               pattern: ^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.)){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$
               example: 185.74.213.56
             status:
-              description: (Read-only) The status of the native VLAN configuration.
+              description: The status of the native VLAN configuration.
               readOnly: true
               type: string
               enum:
@@ -1575,17 +1575,17 @@ components:
           type: object
           properties:
             hostOs:
-              description: (Read-only) Host OS on which the Netris Controller is installed.
+              description: Host OS on which the Netris Controller is installed.
               readOnly: true
               type: string
               example: ubuntu/jammy
             netrisWebConsoleUrl:
-              description: (Read-only) The URL for the Netris Controller web console. It will only be returned in response to provisioning a server.
+              description: The URL for the Netris Controller web console. It will only be returned in response to provisioning a server.
               readOnly: true
               type: string
               example: https://172.217.22.14
             netrisUserPassword:
-              description: (Read-only) Auto-generated password set for user 'netris' in the web console.<br> The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
+              description: Auto-generated password set for user 'netris' in the web console.<br> The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
               readOnly: true
               type: string
               example: cNC1jPFXG2h7f
@@ -1594,26 +1594,26 @@ components:
           type: object
           properties:
             hostOs:
-              description: (Read-only) Host OS on which the Netris Softgate is installed.
+              description: Host OS on which the Netris Softgate is installed.
               readOnly: true
               type: string
               example: ubuntu/jammy
             controllerAddress:
-              description: (Write-only) IP address or hostname through which to reach the Netris Controller.
+              description: IP address or hostname through which to reach the Netris Controller.
               writeOnly: true
               type: string
               example: 120.153.203.227
               maxLength: 253
               pattern: ^(?!-)[\w\-]{1,63}(?<!-)(\.(?!-)[\w\-]{1,63}(?<!-))*$
             controllerVersion:
-              description: (Write-only) The version of the Netris Controller to connect to.
+              description: The version of the Netris Controller to connect to.
               writeOnly: true
               type: string
               example: 3.4.0-003
               maxLength: 20
               pattern: ^[a-zA-Z0-9.-]+$
             controllerAuthKey:
-              description: (Write-only) The authentication key of the Netris Controller to connect to. Required for the softgate agent to be able to interact with the Netris Controller.
+              description: The authentication key of the Netris Controller to connect to. Required for the softgate agent to be able to interact with the Netris Controller.
               writeOnly: true
               type: string
               example: w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw
@@ -1642,12 +1642,12 @@ components:
               example: false
               default: false
         rootPassword:
-          description: (Read-only) Auto-generated password set for user 'root' on an ESXi or Proxmox server.<br> The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
+          description: Auto-generated password set for user 'root' on an ESXi or Proxmox server.<br> The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
           readOnly: true
           type: string
           example: MyP@ssw0rd_01
         managementUiUrl:
-          description: (Read-only) The URL of the management UI which will only be returned in response to provisioning a server.
+          description: The URL of the management UI which will only be returned in response to provisioning a server.
           readOnly: true
           type: string
           example: https://172.217.22.14
@@ -1674,7 +1674,7 @@ components:
           description: Cloud-init configuration details.
           properties:
             userData:
-              description: (Write-only) User data for the <a href='https://cloudinit.readthedocs.io/en/latest/' target='_blank'>cloud-init</a> configuration in base64 encoding. NoCloud format is supported. Follow the <a href='https://phoenixnap.com/kb/bmc-cloud-init' target='_blank'>instructions</a> on how to provision a server using cloud-init. Only ubuntu/bionic, ubuntu/focal, ubuntu/jammy, debian/bullseye, debian/bookworm, centos/centos7, centos/centos8, almalinux/almalinux8, almalinux/almalinux9, rockylinux/rockylinux8, rockylinux/rockylinux9 and virtuozzo/virtuozzo7 are supported. User data will not be stored and cannot be retrieved once you deploy the server. Copy and save it for future reference.
+              description: User data for the <a href='https://cloudinit.readthedocs.io/en/latest/' target='_blank'>cloud-init</a> configuration in base64 encoding. NoCloud format is supported. Follow the <a href='https://phoenixnap.com/kb/bmc-cloud-init' target='_blank'>instructions</a> on how to provision a server using cloud-init. Only ubuntu/bionic, ubuntu/focal, ubuntu/jammy, debian/bullseye, debian/bookworm, centos/centos7, centos/centos8, almalinux/almalinux8, almalinux/almalinux9, rockylinux/rockylinux8, rockylinux/rockylinux9 and virtuozzo/virtuozzo7 are supported. User data will not be stored and cannot be retrieved once you deploy the server. Copy and save it for future reference.
               writeOnly: true
               type: string
               format: byte
@@ -1707,12 +1707,12 @@ components:
           default: false
           example: false
         statusDescription:
-          description: (Read-only) The status of the network.
+          description: The status of the network.
           readOnly: true
           type: string
           example: assigned
         vlanId:
-          description: (Read-only) The VLAN on which this network has been configured within the network switch.
+          description: The VLAN on which this network has been configured within the network switch.
           readOnly: true
           type: integer
           example: 10
@@ -1726,7 +1726,7 @@ components:
           type: string
           example: 10.0.0.10
         configurationType:
-          description: (Write-only) Determines the approach for configuring private network(s) for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT`, `USER_DEFINED` or `NONE`.
+          description: Determines the approach for configuring private network(s) for the server being provisioned. Currently this field should be set to `USE_OR_CREATE_DEFAULT`, `USER_DEFINED` or `NONE`.
           writeOnly: true
           type: string
           default: USE_OR_CREATE_DEFAULT
@@ -1757,7 +1757,7 @@ components:
           type: string
           example: 60473a6115e34466c9f8f083
         vlanId:
-          description: (Read-only) The VLAN on which this IP block has been configured within the network switch.
+          description: The VLAN on which this IP block has been configured within the network switch.
           readOnly: true
           type: integer
           example: 10
@@ -1766,7 +1766,7 @@ components:
       description: The IP blocks to assign to this server. <b>This is an exclusive allocation</b>, i.e. the IP blocks cannot be shared with other servers. If IpBlocksConfiguration is not defined, the purchase of a new IP block is determined by the networkType field.
       properties:
         configurationType:
-          description: (Write-only) Determines the approach for configuring IP blocks for the server being provisioned. If PURCHASE_NEW is selected, the smallest supported range, depending on the operating system, is allocated to the server.
+          description: Determines the approach for configuring IP blocks for the server being provisioned. If PURCHASE_NEW is selected, the smallest supported range, depending on the operating system, is allocated to the server.
           writeOnly: true
           type: string
           enum:
@@ -1803,17 +1803,17 @@ components:
             - 2001:db8::f
             - 2001:db8::b - 2001:db8::d
         statusDescription:
-          description: (Read-only) The status of the assignment to the network.
+          description: The status of the assignment to the network.
           readOnly: true
           type: string
           example: assigned
         computeSlaacIp:
-          description: (Write-only) Requests Stateless Address Autoconfiguration (SLAAC). Applicable for Network which contains IPv6 block(s).
+          description: Requests Stateless Address Autoconfiguration (SLAAC). Applicable for Network which contains IPv6 block(s).
           writeOnly: true
           type: boolean
           example: true
         vlanId:
-          description: (Read-only) The VLAN on which this network has been configured within the network switch.
+          description: The VLAN on which this network has been configured within the network switch.
           readOnly: true
           type: integer
           example: 10

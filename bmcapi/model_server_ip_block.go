@@ -23,7 +23,7 @@ var _ MappedNullable = &ServerIpBlock{}
 type ServerIpBlock struct {
 	// The IP block's ID.
 	Id string `json:"id"`
-	// (Read-only) The VLAN on which this IP block has been configured within the network switch.
+	// The VLAN on which this IP block has been configured within the network switch.
 	VlanId               *int32 `json:"vlanId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -244,7 +244,7 @@ components:
       description: Cluster details.
       properties:
         id:
-          description: (Read-only) The Cluster identifier.
+          description: The Cluster identifier.
           type: string
           readOnly: true
           example: 6047127fed34ecc3ba8402d2
@@ -261,7 +261,7 @@ components:
           type: string
           example: PHX
         initialClusterVersion:
-          description: (Read-only) The Rancher version that was installed on the cluster during the first creation process.
+          description: The Rancher version that was installed on the cluster during the first creation process.
           type: string
           readOnly: true
           example: v2.6.4
@@ -285,7 +285,7 @@ components:
           allOf:
             - $ref: '#/components/schemas/WorkloadClusterConfig'
         statusDescription:
-          description: (Read-Only) The cluster status
+          description: The cluster status
           type: string
           readOnly: true
           example: Creating
@@ -316,7 +316,7 @@ components:
           allOf:
             - $ref: '#/components/schemas/SshConfig'
         nodes:
-          description: (Read-only) The nodes associated with this node pool.
+          description: The nodes associated with this node pool.
           type: array
           readOnly: true
           items:
@@ -331,7 +331,8 @@ components:
           example: 60b08f04adab617be44068bb
     RancherClusterConfig:
       type: object
-      description: (Write-only) Rancher configuration parameters.
+      description: Rancher configuration parameters.
+      writeOnly: true
       properties:
         token:
           description: Shared secret used to join a server or agent to a cluster.
@@ -374,7 +375,7 @@ components:
             - $ref: '#/components/schemas/RancherClusterCertificates'
     WorkloadClusterConfig:
       type: object
-      description: (Write-only) Workload cluster configuration parameters.
+      description: Workload cluster configuration parameters.
       writeOnly: true
       required:
         - serverType
@@ -403,7 +404,8 @@ components:
           example: PHX
     SshConfig:
       type: object
-      description: (Write-only) Configuration defining which public SSH keys are pre-installed as authorized on the server.
+      description: Configuration defining which public SSH keys are pre-installed as authorized on the server.
+      writeOnly: true
       properties:
         installDefaultKeys:
           description: Define whether public keys marked as default should be installed on this node. These are public keys that were already recorded on this system. Use <a href='https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get' target='_blank'>GET /ssh-keys</a> to retrieve a list of possible values.
@@ -428,7 +430,8 @@ components:
             - 5fa54d1e91867c03a0a7b4a4
     RancherServerMetadata:
       type: object
-      description: (Read Only) Connection parameters to use to connect to the Rancher Server Administrative GUI.
+      description: Connection parameters to use to connect to the Rancher Server Administrative GUI.
+      readOnly: true
       properties:
         url:
           description: The Rancher Server URL.
@@ -444,7 +447,8 @@ components:
           example: 1234567890abcd!
     RancherClusterCertificates:
       type: object
-      description: (Write-only) Define the custom SSL certificates to be used instead of defaults.
+      description: Define the custom SSL certificates to be used instead of defaults.
+      writeOnly: true
       properties:
         caCertificate:
           description: The SSL CA certificate to be used for rancher admin.

@@ -23,9 +23,9 @@ type OsConfiguration struct {
 	NetrisController *OsConfigurationNetrisController `json:"netrisController,omitempty"`
 	NetrisSoftgate   *OsConfigurationNetrisSoftgate   `json:"netrisSoftgate,omitempty"`
 	Windows          *OsConfigurationWindows          `json:"windows,omitempty"`
-	// (Read-only) Auto-generated password set for user 'root' on an ESXi or Proxmox server.<br> The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
+	// Auto-generated password set for user 'root' on an ESXi or Proxmox server.<br> The password is not stored and therefore will only be returned in response to provisioning a server. Copy and save it for future reference.
 	RootPassword *string `json:"rootPassword,omitempty"`
-	// (Read-only) The URL of the management UI which will only be returned in response to provisioning a server.
+	// The URL of the management UI which will only be returned in response to provisioning a server.
 	ManagementUiUrl *string `json:"managementUiUrl,omitempty"`
 	// List of IPs allowed to access the Management UI. Supported in single IP, CIDR and range format. When undefined, Management UI is disabled. This will only be returned in response to provisioning a server.
 	ManagementAccessAllowedIps []string `json:"managementAccessAllowedIps,omitempty"`

@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | The network identifier. | 
 **Ips** | **[]string** | Configurable/configured IPs on the server.&lt;br&gt; At least 1 IP address is required. Valid IP formats include single IP addresses or IP ranges (IPv4 or IPv6). All IPs must be within the network&#39;s range.&lt;br&gt; Setting the &#x60;computeSlaacIp&#x60; field to &#x60;true&#x60; allows you to provide an empty array of IPs.&lt;br&gt; Referencing network as OS native network allows you to provide an empty array of IPs.&lt;br&gt; Additionally, setting the &#x60;force&#x60; query parameter to &#x60;true&#x60; allows you to:&lt;ul&gt; &lt;li&gt; Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. &lt;li&gt; Assign one or more IP addresses which are already configured on other resource(s) in network.&lt;/ul&gt; | 
-**StatusDescription** | Pointer to **string** | (Read-only) The status of the assignment to the network. | [optional] [readonly] 
-**ComputeSlaacIp** | Pointer to **bool** | (Write-only) Requests Stateless Address Autoconfiguration (SLAAC). Applicable for Network which contains IPv6 block(s). | [optional] 
-**VlanId** | Pointer to **int32** | (Read-only) The VLAN on which this network has been configured within the network switch. | [optional] [readonly] 
+**StatusDescription** | Pointer to **string** | The status of the assignment to the network. | [optional] [readonly] 
+**ComputeSlaacIp** | Pointer to **bool** | Requests Stateless Address Autoconfiguration (SLAAC). Applicable for Network which contains IPv6 block(s). | [optional] 
+**VlanId** | Pointer to **int32** | The VLAN on which this network has been configured within the network switch. | [optional] [readonly] 
 
 ## Methods
 

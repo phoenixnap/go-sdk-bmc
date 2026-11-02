@@ -20,13 +20,13 @@ var _ MappedNullable = &OsConfigurationNetrisSoftgate{}
 
 // OsConfigurationNetrisSoftgate Netris Softgate configuration properties. Follow <a href='https://phoenixnap.com/kb/netris-bare-metal-cloud#deploy-netris-softgate' target='_blank'>instructions</a> for retrieving the required details.
 type OsConfigurationNetrisSoftgate struct {
-	// (Read-only) Host OS on which the Netris Softgate is installed.
+	// Host OS on which the Netris Softgate is installed.
 	HostOs *string `json:"hostOs,omitempty"`
-	// (Write-only) IP address or hostname through which to reach the Netris Controller.
+	// IP address or hostname through which to reach the Netris Controller.
 	ControllerAddress *string `json:"controllerAddress,omitempty" validate:"regexp=^(?!-)[\\\\w\\\\-]{1,63}(?<!-)(\\\\.(?!-)[\\\\w\\\\-]{1,63}(?<!-))*$"`
-	// (Write-only) The version of the Netris Controller to connect to.
+	// The version of the Netris Controller to connect to.
 	ControllerVersion *string `json:"controllerVersion,omitempty" validate:"regexp=^[a-zA-Z0-9.-]+$"`
-	// (Write-only) The authentication key of the Netris Controller to connect to. Required for the softgate agent to be able to interact with the Netris Controller.
+	// The authentication key of the Netris Controller to connect to. Required for the softgate agent to be able to interact with the Netris Controller.
 	ControllerAuthKey    *string `json:"controllerAuthKey,omitempty" validate:"regexp=^\\\\S+$"`
 	AdditionalProperties map[string]interface{}
 }

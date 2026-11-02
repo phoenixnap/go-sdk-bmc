@@ -18,7 +18,7 @@ import (
 // checks if the SshConfig type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SshConfig{}
 
-// SshConfig (Write-only) Configuration defining which public SSH keys are pre-installed as authorized on the server.
+// SshConfig Configuration defining which public SSH keys are pre-installed as authorized on the server.
 type SshConfig struct {
 	// Define whether public keys marked as default should be installed on this node. These are public keys that were already recorded on this system. Use <a href='https://developers.phoenixnap.com/docs/bmc/1/routes/ssh-keys/get' target='_blank'>GET /ssh-keys</a> to retrieve a list of possible values.
 	InstallDefaultKeys *bool `json:"installDefaultKeys,omitempty"`

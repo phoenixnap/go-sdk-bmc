@@ -25,11 +25,11 @@ type ServerPublicNetwork struct {
 	Id string `json:"id"`
 	// Configurable/configured IPs on the server.<br> At least 1 IP address is required. Valid IP formats include single IP addresses or IP ranges (IPv4 or IPv6). All IPs must be within the network's range.<br> Setting the `computeSlaacIp` field to `true` allows you to provide an empty array of IPs.<br> Referencing network as OS native network allows you to provide an empty array of IPs.<br> Additionally, setting the `force` query parameter to `true` allows you to:<ul> <li> Assign no specific IP addresses by designating an empty array of IPs. Note that at least one IP is required for the gateway address to be selected from this network. <li> Assign one or more IP addresses which are already configured on other resource(s) in network.</ul>
 	Ips []string `json:"ips"`
-	// (Read-only) The status of the assignment to the network.
+	// The status of the assignment to the network.
 	StatusDescription *string `json:"statusDescription,omitempty"`
-	// (Write-only) Requests Stateless Address Autoconfiguration (SLAAC). Applicable for Network which contains IPv6 block(s).
+	// Requests Stateless Address Autoconfiguration (SLAAC). Applicable for Network which contains IPv6 block(s).
 	ComputeSlaacIp *bool `json:"computeSlaacIp,omitempty"`
-	// (Read-only) The VLAN on which this network has been configured within the network switch.
+	// The VLAN on which this network has been configured within the network switch.
 	VlanId               *int32 `json:"vlanId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

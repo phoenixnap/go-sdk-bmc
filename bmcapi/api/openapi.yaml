@@ -2759,16 +2759,15 @@ components:
         windows:
           $ref: "#/components/schemas/OsConfiguration_windows"
         rootPassword:
-          description: (Read-only) Auto-generated password set for user 'root' on
-            an ESXi or Proxmox server.<br> The password is not stored and therefore
-            will only be returned in response to provisioning a server. Copy and save
-            it for future reference.
+          description: Auto-generated password set for user 'root' on an ESXi or Proxmox
+            server.<br> The password is not stored and therefore will only be returned
+            in response to provisioning a server. Copy and save it for future reference.
           example: MyP@ssw0rd_01
           readOnly: true
           type: string
         managementUiUrl:
-          description: (Read-only) The URL of the management UI which will only be
-            returned in response to provisioning a server.
+          description: The URL of the management UI which will only be returned in
+            response to provisioning a server.
           example: https://172.217.22.14
           readOnly: true
           type: string
@@ -2849,13 +2848,13 @@ components:
           example: false
           type: boolean
         statusDescription:
-          description: (Read-only) The status of the network.
+          description: The status of the network.
           example: assigned
           readOnly: true
           type: string
         vlanId:
-          description: (Read-only) The VLAN on which this network has been configured
-            within the network switch.
+          description: The VLAN on which this network has been configured within the
+            network switch.
           example: 10
           readOnly: true
           type: integer
@@ -2890,9 +2889,9 @@ components:
           type: string
         configurationType:
           default: USE_OR_CREATE_DEFAULT
-          description: "(Write-only) Determines the approach for configuring private\
-            \ network(s) for the server being provisioned. Currently this field should\
-            \ be set to `USE_OR_CREATE_DEFAULT`, `USER_DEFINED` or `NONE`."
+          description: "Determines the approach for configuring private network(s)\
+            \ for the server being provisioned. Currently this field should be set\
+            \ to `USE_OR_CREATE_DEFAULT`, `USER_DEFINED` or `NONE`."
           example: USER_DEFINED
           type: string
           writeOnly: true
@@ -2926,8 +2925,8 @@ components:
           example: 60473a6115e34466c9f8f083
           type: string
         vlanId:
-          description: (Read-only) The VLAN on which this IP block has been configured
-            within the network switch.
+          description: The VLAN on which this IP block has been configured within
+            the network switch.
           example: 10
           readOnly: true
           type: integer
@@ -2947,8 +2946,8 @@ components:
       properties:
         configurationType:
           default: PURCHASE_NEW
-          description: "(Write-only) Determines the approach for configuring IP blocks\
-            \ for the server being provisioned. If PURCHASE_NEW is selected, the smallest\
+          description: "Determines the approach for configuring IP blocks for the\
+            \ server being provisioned. If PURCHASE_NEW is selected, the smallest\
             \ supported range, depending on the operating system, is allocated to\
             \ the server."
           enum:
@@ -3005,19 +3004,19 @@ components:
             type: string
           type: array
         statusDescription:
-          description: (Read-only) The status of the assignment to the network.
+          description: The status of the assignment to the network.
           example: assigned
           readOnly: true
           type: string
         computeSlaacIp:
-          description: (Write-only) Requests Stateless Address Autoconfiguration (SLAAC).
-            Applicable for Network which contains IPv6 block(s).
+          description: Requests Stateless Address Autoconfiguration (SLAAC). Applicable
+            for Network which contains IPv6 block(s).
           example: true
           type: boolean
           writeOnly: true
         vlanId:
-          description: (Read-only) The VLAN on which this network has been configured
-            within the network switch.
+          description: The VLAN on which this network has been configured within the
+            network switch.
           example: 10
           readOnly: true
           type: integer
@@ -4242,7 +4241,7 @@ components:
           pattern: "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.)){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
           type: string
         status:
-          description: (Read-only) The status of the native VLAN configuration.
+          description: The status of the native VLAN configuration.
           enum:
           - in-progress
           - assigned
@@ -4260,21 +4259,20 @@ components:
         hostOs: ubuntu/jammy
       properties:
         hostOs:
-          description: (Read-only) Host OS on which the Netris Controller is installed.
+          description: Host OS on which the Netris Controller is installed.
           example: ubuntu/jammy
           readOnly: true
           type: string
         netrisWebConsoleUrl:
-          description: (Read-only) The URL for the Netris Controller web console.
-            It will only be returned in response to provisioning a server.
+          description: The URL for the Netris Controller web console. It will only
+            be returned in response to provisioning a server.
           example: https://172.217.22.14
           readOnly: true
           type: string
         netrisUserPassword:
-          description: (Read-only) Auto-generated password set for user 'netris' in
-            the web console.<br> The password is not stored and therefore will only
-            be returned in response to provisioning a server. Copy and save it for
-            future reference.
+          description: Auto-generated password set for user 'netris' in the web console.<br>
+            The password is not stored and therefore will only be returned in response
+            to provisioning a server. Copy and save it for future reference.
           example: cNC1jPFXG2h7f
           readOnly: true
           type: string
@@ -4289,30 +4287,28 @@ components:
         controllerVersion: 3.4.0-003
       properties:
         hostOs:
-          description: (Read-only) Host OS on which the Netris Softgate is installed.
+          description: Host OS on which the Netris Softgate is installed.
           example: ubuntu/jammy
           readOnly: true
           type: string
         controllerAddress:
-          description: (Write-only) IP address or hostname through which to reach
-            the Netris Controller.
+          description: IP address or hostname through which to reach the Netris Controller.
           example: 120.153.203.227
           maxLength: 253
           pattern: "^(?!-)[\\w\\-]{1,63}(?<!-)(\\.(?!-)[\\w\\-]{1,63}(?<!-))*$"
           type: string
           writeOnly: true
         controllerVersion:
-          description: (Write-only) The version of the Netris Controller to connect
-            to.
+          description: The version of the Netris Controller to connect to.
           example: 3.4.0-003
           maxLength: 20
           pattern: "^[a-zA-Z0-9.-]+$"
           type: string
           writeOnly: true
         controllerAuthKey:
-          description: (Write-only) The authentication key of the Netris Controller
-            to connect to. Required for the softgate agent to be able to interact
-            with the Netris Controller.
+          description: The authentication key of the Netris Controller to connect
+            to. Required for the softgate agent to be able to interact with the Netris
+            Controller.
           example: w0OP8TjZaHO17DTwxtN5VYh5Bh1ZVH2s3WK1JRTw
           pattern: ^\S+$
           type: string
@@ -4358,7 +4354,7 @@ components:
           WGhsWTNWMFpXUT0=
       properties:
         userData:
-          description: "(Write-only) User data for the <a href='https://cloudinit.readthedocs.io/en/latest/'\
+          description: "User data for the <a href='https://cloudinit.readthedocs.io/en/latest/'\
             \ target='_blank'>cloud-init</a> configuration in base64 encoding. NoCloud\
             \ format is supported. Follow the <a href='https://phoenixnap.com/kb/bmc-cloud-init'\
             \ target='_blank'>instructions</a> on how to provision a server using\

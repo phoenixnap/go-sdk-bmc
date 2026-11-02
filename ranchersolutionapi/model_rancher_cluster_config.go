@@ -18,7 +18,7 @@ import (
 // checks if the RancherClusterConfig type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &RancherClusterConfig{}
 
-// RancherClusterConfig (Write-only) Rancher configuration parameters.
+// RancherClusterConfig Rancher configuration parameters.
 type RancherClusterConfig struct {
 	// Shared secret used to join a server or agent to a cluster.
 	Token *string `json:"token,omitempty" validate:"regexp=^K10[0-9a-fA-F]+::.+$"`
