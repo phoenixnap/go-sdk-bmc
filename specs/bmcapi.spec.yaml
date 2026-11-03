@@ -1928,7 +1928,7 @@ components:
           type: string
           example: s1.c1.small
         location:
-          description: Server location ID. Cannot be changed once a server is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI` or `SEA`.
+          description: Server location ID. Cannot be changed once a server is created. Currently this field should be set to `PHX`, `PHX4`, `PHX5`, `ASH`, `SGP`, `NLD`, `NLD2`, `CHI` or `SEA`.
           type: string
           example: PHX
         cpu:
@@ -2086,7 +2086,7 @@ components:
           type: string
           example: s1.c1.small
         location:
-          description: Server location ID. Cannot be changed once a server is created. Currently this field should be set to `PHX`, `ASH`, `SGP`, `NLD`, `CHI` or `SEA`.
+          description: Server location ID. Cannot be changed once a server is created. Currently this field should be set to `PHX`, `PHX4`, `PHX5`, `ASH`, `SGP`, `NLD`, `NLD2`, `CHI` or `SEA`.
           type: string
           example: PHX
         installDefaultSshKeys:
