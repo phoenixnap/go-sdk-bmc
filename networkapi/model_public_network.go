@@ -30,7 +30,7 @@ type PublicNetwork struct {
 	Memberships []NetworkMembership `json:"memberships"`
 	// The friendly name of this public network.
 	Name string `json:"name"`
-	// The location of this public network. Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`.
+	// The location of this public network. Supported values are `PHX`, `PHX4`, `PHX5`, `ASH`, `SGP`, `NLD`, `NLD2`, `CHI` or `SEA`.
 	Location string `json:"location"`
 	// The description of this public network.
 	Description *string `json:"description,omitempty"`

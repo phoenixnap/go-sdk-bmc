@@ -47,8 +47,8 @@ paths:
         name: location
         required: false
         schema:
-          description: "Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and\
-            \ `SEA`."
+          description: "Supported values are `PHX`, `PHX4`, `PHX5`, `ASH`, `SGP`,\
+            \ `NLD`, `NLD2`, `CHI` or `SEA`."
           type: string
         style: form
       responses:
@@ -520,8 +520,8 @@ paths:
         name: location
         required: false
         schema:
-          description: "Supported values are `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and\
-            \ `SEA`."
+          description: "Supported values are `PHX`, `PHX4`, `PHX5`, `ASH`, `SGP`,\
+            \ `NLD`, `NLD2`, `CHI` or `SEA`."
           type: string
         style: form
       responses:
@@ -2239,7 +2239,7 @@ components:
           type: string
         location:
           description: "The location of this private network. Supported values are\
-            \ `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`."
+            \ `PHX`, `PHX4`, `PHX5`, `ASH`, `SGP`, `NLD`, `NLD2`, `CHI` or `SEA`."
           example: PHX
           type: string
         locationDefault:
@@ -2370,7 +2370,7 @@ components:
           type: string
         location:
           description: "The location of this public network. Supported values are\
-            \ `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`."
+            \ `PHX`, `PHX4`, `PHX5`, `ASH`, `SGP`, `NLD`, `NLD2`, `CHI` or `SEA`."
           example: PHX
           type: string
         description:
@@ -2450,7 +2450,7 @@ components:
           type: string
         location:
           description: "The location of this public network. Supported values are\
-            \ `PHX`, `ASH`, `SGP`, `NLD`, `CHI` and `SEA`."
+            \ `PHX`, `PHX4`, `PHX5`, `ASH`, `SGP`, `NLD`, `NLD2`, `CHI` or `SEA`."
           example: PHX
           type: string
         vlanId:
