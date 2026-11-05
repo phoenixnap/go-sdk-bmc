@@ -279,6 +279,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/InvoicePaymentRequest"
+        required: false
       responses:
         "202":
           content:

@@ -307,6 +307,9 @@ func (a *ReservationsAPIService) ReservationsPostExecute(r ApiReservationsPostRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.reservationRequest == nil {
+		return localVarReturnValue, nil, reportError("reservationRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -462,6 +465,9 @@ func (a *ReservationsAPIService) ReservationsReservationIdActionsAutoRenewDisabl
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.reservationAutoRenewDisableRequest == nil {
+		return localVarReturnValue, nil, reportError("reservationAutoRenewDisableRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -786,6 +792,9 @@ func (a *ReservationsAPIService) ReservationsReservationIdActionsConvertPostExec
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.reservationRequest == nil {
+		return localVarReturnValue, nil, reportError("reservationRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}

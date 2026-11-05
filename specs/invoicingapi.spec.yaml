@@ -120,6 +120,7 @@ paths:
         - OAuth2:
             - invoices
       requestBody:
+        required: false
         content:
           application/json:
             schema:

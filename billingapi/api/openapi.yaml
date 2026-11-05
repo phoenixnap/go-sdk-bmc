@@ -288,6 +288,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/ReservationRequest"
+        required: true
       responses:
         "201":
           content:
@@ -417,6 +418,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/ReservationAutoRenewDisableRequest"
+        required: true
       responses:
         "200":
           content:
@@ -546,6 +548,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/ReservationRequest"
+        required: true
       responses:
         "200":
           content:
