@@ -1963,12 +1963,10 @@ components:
         createdOn:
           description: Date and time of creation.
           type: string
-          format: data-time
           example: '2024-03-01T10:30:00Z'
         lastUpdatedOn:
           description: Date and time of last update.
           type: string
-          format: data-time
           example: '2024-03-01T14:30:00Z'
     BgpPeerGroupCreate:
       type: object

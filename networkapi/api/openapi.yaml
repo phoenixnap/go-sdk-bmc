@@ -2740,12 +2740,10 @@ components:
         createdOn:
           description: Date and time of creation.
           example: 2024-03-01T10:30:00Z
-          format: data-time
           type: string
         lastUpdatedOn:
           description: Date and time of last update.
           example: 2024-03-01T14:30:00Z
-          format: data-time
           type: string
       readOnly: true
       required:
