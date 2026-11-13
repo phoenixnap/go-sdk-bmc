@@ -127,6 +127,7 @@ Class | Method | HTTP request | Description
  - [PublicNetworkIpBlock](docs/PublicNetworkIpBlock.md)
  - [PublicNetworkIpBlockCreate](docs/PublicNetworkIpBlockCreate.md)
  - [PublicNetworkModify](docs/PublicNetworkModify.md)
+ - [ReservedIp](docs/ReservedIp.md)
 
 
 ## Documentation For Authorization

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **Cidr** | Pointer to **string** | IP range associated with this private network in CIDR notation. | [optional] 
 **Servers** | [**[]PrivateNetworkServer**](PrivateNetworkServer.md) |  | 
 **Memberships** | [**[]NetworkMembership**](NetworkMembership.md) | A list of resources that are members of this private network. | 
+**ReservedIps** | [**[]ReservedIp**](ReservedIp.md) | Reserved IP addresses within this network. | 
 **Status** | **string** | The status of the private network. Can have one of the following values: &#x60;BUSY&#x60;, &#x60;READY&#x60;, &#x60;DELETING&#x60; or &#x60;ERROR&#x60;. | 
 **CreatedOn** | **time.Time** | Date and time when this private network was created. | 
 
@@ -21,7 +22,7 @@ Name | Type | Description | Notes
 
 ### NewPrivateNetwork
 
-`func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, servers []PrivateNetworkServer, memberships []NetworkMembership, status string, createdOn time.Time, ) *PrivateNetwork`
+`func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, servers []PrivateNetworkServer, memberships []NetworkMembership, reservedIps []ReservedIp, status string, createdOn time.Time, ) *PrivateNetwork`
 
 NewPrivateNetwork instantiates a new PrivateNetwork object
 This constructor will assign default values to properties that have it defined,
@@ -244,6 +245,26 @@ and a boolean to check if the value has been set.
 `func (o *PrivateNetwork) SetMemberships(v []NetworkMembership)`
 
 SetMemberships sets Memberships field to given value.
+
+
+### GetReservedIps
+
+`func (o *PrivateNetwork) GetReservedIps() []ReservedIp`
+
+GetReservedIps returns the ReservedIps field if non-nil, zero value otherwise.
+
+### GetReservedIpsOk
+
+`func (o *PrivateNetwork) GetReservedIpsOk() (*[]ReservedIp, bool)`
+
+GetReservedIpsOk returns a tuple with the ReservedIps field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReservedIps
+
+`func (o *PrivateNetwork) SetReservedIps(v []ReservedIp)`
+
+SetReservedIps sets ReservedIps field to given value.
 
 
 ### GetStatus

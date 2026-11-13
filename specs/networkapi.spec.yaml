@@ -85,6 +85,14 @@ paths:
                       ips:
                         - 10.0.0.2
                         - 10.0.0.3
+                  reservedIps:
+                    - ips:
+                        - 10.0.0.1 - 10.0.0.9
+                      assignableWithForce: true
+                    - ips:
+                        - 10.0.0.0
+                        - 10.0.0.255
+                      assignableWithForce: false
                   status: READY
                   createdOn: '2022-04-07T13:20:30.491Z'
                 - id: 604724ac9ed2abd18e9f1cb6
@@ -106,6 +114,14 @@ paths:
                       ips:
                         - 10.0.0.4
                         - 10.0.0.5
+                  reservedIps:
+                    - ips:
+                        - 10.0.0.1 - 10.0.0.9
+                      assignableWithForce: true
+                    - ips:
+                        - 10.0.0.0
+                        - 10.0.0.255
+                      assignableWithForce: false
                   status: READY
                   createdOn: '2022-04-07T13:20:30.491Z'
         '400':
@@ -168,6 +184,14 @@ paths:
                     cidr: 10.0.0.0/24
                     servers: []
                     memberships: []
+                    reservedIps:
+                      - ips:
+                          - 10.0.0.1 - 10.0.0.9
+                        assignableWithForce: true
+                      - ips:
+                          - 10.0.0.0
+                          - 10.0.0.255
+                        assignableWithForce: false
                     status: READY
                     createdOn: '2022-04-07T13:20:30.491Z'
                 PrivateNetworkNonDefaultCreated:
@@ -182,6 +206,14 @@ paths:
                     cidr: 10.0.0.0/24
                     servers: []
                     memberships: []
+                    reservedIps:
+                      - ips:
+                          - 10.0.0.1 - 10.0.0.9
+                        assignableWithForce: true
+                      - ips:
+                          - 10.0.0.0
+                          - 10.0.0.255
+                        assignableWithForce: false
                     status: READY
                     createdOn: '2022-04-07T13:20:30.491Z'
         '400':
@@ -233,6 +265,14 @@ paths:
                         ips:
                           - 10.0.0.2
                           - 10.0.0.3
+                    reservedIps:
+                      - ips:
+                          - 10.0.0.1 - 10.0.0.9
+                        assignableWithForce: true
+                      - ips:
+                          - 10.0.0.0
+                          - 10.0.0.255
+                        assignableWithForce: false
                     status: READY
                     createdOn: '2022-04-07T13:20:30.491Z'
                 AdditionalPrivateNetwork:
@@ -256,6 +296,14 @@ paths:
                         ips:
                           - 10.0.0.4
                           - 10.0.0.5
+                    reservedIps:
+                      - ips:
+                          - 10.0.0.1 - 10.0.0.9
+                        assignableWithForce: true
+                      - ips:
+                          - 10.0.0.0
+                          - 10.0.0.255
+                        assignableWithForce: false
                     status: READY
                     createdOn: '2022-04-07T13:20:30.491Z'
         '401':
@@ -319,6 +367,14 @@ paths:
                         ips:
                           - 10.0.0.2
                           - 10.0.0.3
+                    reservedIps:
+                      - ips:
+                          - 10.0.0.1 - 10.0.0.9
+                        assignableWithForce: true
+                      - ips:
+                          - 10.0.0.0
+                          - 10.0.0.255
+                        assignableWithForce: false
                     status: READY
                     createdOn: '2022-04-07T13:20:30.491Z'
                 PrivateNetworkNonDefaultModified:
@@ -342,6 +398,14 @@ paths:
                         ips:
                           - 10.0.0.4
                           - 10.0.0.5
+                    reservedIps:
+                      - ips:
+                          - 10.0.0.1 - 10.0.0.9
+                        assignableWithForce: true
+                      - ips:
+                          - 10.0.0.0
+                          - 10.0.0.255
+                        assignableWithForce: false
                     status: READY
                     createdOn: '2022-04-07T13:20:30.491Z'
         '400':
@@ -409,33 +473,83 @@ paths:
                     - id: 60473a6115e34466c9f8f083
                       cidr: 10.111.14.0/29
                       usedIpsCount: '3'
+                      reservedIps:
+                        - ips:
+                            - 10.111.14.0 - 10.111.14.1
+                            - 10.111.14.7
+                          assignableWithForce: false
                     - id: 616e6ec6d66b406a45ab8797
                       cidr: 10.111.15.0/29
                       usedIpsCount: '1'
+                      reservedIps:
+                        - ips:
+                            - 10.111.15.0 - 10.111.15.1
+                            - 10.111.15.7
+                          assignableWithForce: false
                     - id: 617d2d128bacbb05aca2caeb
                       cidr: 10.111.16.0/29
                       usedIpsCount: '0'
+                      reservedIps:
+                        - ips:
+                            - 10.111.16.0 - 10.111.16.1
+                            - 10.111.16.7
+                          assignableWithForce: false
                     - id: 617d2da78bacbb05aca2caef
                       cidr: 10.111.17.0/29
                       usedIpsCount: '0'
+                      reservedIps:
+                        - ips:
+                            - 10.111.17.0 - 10.111.17.1
+                            - 10.111.17.7
+                          assignableWithForce: false
                     - id: 618e5383a835704f8c59522d
                       cidr: 10.111.18.0/29
                       usedIpsCount: '0'
+                      reservedIps:
+                        - ips:
+                            - 10.111.18.0 - 10.111.18.1
+                            - 10.111.18.7
+                          assignableWithForce: false
                     - id: 617d2f834dcf2869f8e4ef0b
                       cidr: 10.111.19.0/29
                       usedIpsCount: '0'
+                      reservedIps:
+                        - ips:
+                            - 10.111.19.0 - 10.111.19.1
+                            - 10.111.19.7
+                          assignableWithForce: false
                     - id: 5f325c71b8a7ef1473e3c85b
                       cidr: 10.111.20.0/29
                       usedIpsCount: '0'
+                      reservedIps:
+                        - ips:
+                            - 10.111.20.0 - 10.111.20.1
+                            - 10.111.20.7
+                          assignableWithForce: false
                     - id: 5ff5cc9bc1acf144d9106233
                       cidr: 10.111.21.0/29
                       usedIpsCount: '0'
+                      reservedIps:
+                        - ips:
+                            - 10.111.21.0 - 10.111.21.1
+                            - 10.111.21.7
+                          assignableWithForce: false
                     - id: 610001e7da283e36d0a0df9f
                       cidr: 10.111.22.0/29
                       usedIpsCount: '0'
+                      reservedIps:
+                        - ips:
+                            - 10.111.22.0 - 10.111.22.1
+                            - 10.111.22.7
+                          assignableWithForce: false
                     - id: 613b51c01f4b04615ba1d3be
                       cidr: 10.111.23.0/29
                       usedIpsCount: '0'
+                      reservedIps:
+                        - ips:
+                            - 10.111.23.0 - 10.111.23.1
+                            - 10.111.23.7
+                          assignableWithForce: false
                   vlanId: 10
                   createdOn: '2022-04-05T13:50:30.491Z'
                   status: READY
@@ -543,9 +657,18 @@ paths:
                       - id: 60473a6115e34466c9f8f083
                         cidr: 10.111.14.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.14.0 - 10.111.14.1
+                              - 10.111.14.7
+                            assignableWithForce: false
                       - id: 60473a6115e34466c9f8f084
                         cidr: 2001:db8::/64
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - '2001:db8:: - 2001:db8::9'
+                            assignableWithForce: false
                     raEnabled: true
                     vlanId: 10
                     status: READY
@@ -561,36 +684,90 @@ paths:
                       - id: 60473a6115e34466c9f8f083
                         cidr: 10.111.14.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.14.0 - 10.111.14.1
+                              - 10.111.14.7
+                            assignableWithForce: false
                       - id: 616e6ec6d66b406a45ab8797
                         cidr: 10.111.15.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.15.0 - 10.111.15.1
+                              - 10.111.15.7
+                            assignableWithForce: false
                       - id: 617d2d128bacbb05aca2caeb
                         cidr: 10.111.16.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.16.0 - 10.111.16.1
+                              - 10.111.16.7
+                            assignableWithForce: false
                       - id: 617d2da78bacbb05aca2caef
                         cidr: 10.111.17.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.17.0 - 10.111.17.1
+                              - 10.111.17.7
+                            assignableWithForce: false
                       - id: 618e5383a835704f8c59522d
                         cidr: 10.111.18.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.18.0 - 10.111.18.1
+                              - 10.111.18.7
+                            assignableWithForce: false
                       - id: 617d2f834dcf2869f8e4ef0b
                         cidr: 10.111.19.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.19.0 - 10.111.19.1
+                              - 10.111.19.7
+                            assignableWithForce: false
                       - id: 5f325c71b8a7ef1473e3c85b
                         cidr: 10.111.20.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.20.0 - 10.111.20.1
+                              - 10.111.20.7
+                            assignableWithForce: false
                       - id: 5ff5cc9bc1acf144d9106233
                         cidr: 10.111.21.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.21.0 - 10.111.21.1
+                              - 10.111.21.7
+                            assignableWithForce: false
                       - id: 610001e7da283e36d0a0df9f
                         cidr: 10.111.22.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.22.0 - 10.111.22.1
+                              - 10.111.22.7
+                            assignableWithForce: false
                       - id: 613b51c01f4b04615ba1d3be
                         cidr: 10.111.23.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.23.0 - 10.111.23.1
+                              - 10.111.23.7
+                            assignableWithForce: false
                       - id: 613b51c01f4b04615oe4j3es
                         cidr: 2001:db8::/64
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - '2001:db8:: - 2001:db8::9'
+                            assignableWithForce: false
                     raEnabled: false
                     vlanId: 20
                     status: READY
@@ -657,33 +834,83 @@ paths:
                       - id: 60473a6115e34466c9f8f083
                         cidr: 10.111.14.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.14.0 - 10.111.14.1
+                              - 10.111.14.7
+                            assignableWithForce: false
                       - id: 616e6ec6d66b406a45ab8797
                         cidr: 10.111.15.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.15.0 - 10.111.15.1
+                              - 10.111.15.7
+                            assignableWithForce: false
                       - id: 617d2d128bacbb05aca2caeb
                         cidr: 10.111.16.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.16.0 - 10.111.16.1
+                              - 10.111.16.7
+                            assignableWithForce: false
                       - id: 617d2da78bacbb05aca2caef
                         cidr: 10.111.17.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.17.0 - 10.111.17.1
+                              - 10.111.17.7
+                            assignableWithForce: false
                       - id: 618e5383a835704f8c59522d
                         cidr: 10.111.18.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.18.0 - 10.111.18.1
+                              - 10.111.18.7
+                            assignableWithForce: false
                       - id: 617d2f834dcf2869f8e4ef0b
                         cidr: 10.111.19.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.19.0 - 10.111.19.1
+                              - 10.111.19.7
+                            assignableWithForce: false
                       - id: 5f325c71b8a7ef1473e3c85b
                         cidr: 10.111.20.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.20.0 - 10.111.20.1
+                              - 10.111.20.7
+                            assignableWithForce: false
                       - id: 5ff5cc9bc1acf144d9106233
                         cidr: 10.111.21.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.21.0 - 10.111.21.1
+                              - 10.111.21.7
+                            assignableWithForce: false
                       - id: 610001e7da283e36d0a0df9f
                         cidr: 10.111.22.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.22.0 - 10.111.22.1
+                              - 10.111.22.7
+                            assignableWithForce: false
                       - id: 613b51c01f4b04615ba1d3be
                         cidr: 10.111.23.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.23.0 - 10.111.23.1
+                              - 10.111.23.7
+                            assignableWithForce: false
                     vlanId: 10
                     status: READY
                     createdOn: '2022-04-05T13:50:30.491Z'
@@ -698,33 +925,83 @@ paths:
                       - id: 60473a6115e34466c9f8f083
                         cidr: 10.111.14.0/29
                         usedIpsCount: '4'
+                        reservedIps:
+                          - ips:
+                              - 10.111.14.0 - 10.111.14.1
+                              - 10.111.14.7
+                            assignableWithForce: false
                       - id: 616e6ec6d66b406a45ab8797
                         cidr: 10.111.15.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.15.0 - 10.111.15.1
+                              - 10.111.15.7
+                            assignableWithForce: false
                       - id: 617d2d128bacbb05aca2caeb
                         cidr: 10.111.16.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.16.0 - 10.111.16.1
+                              - 10.111.16.7
+                            assignableWithForce: false
                       - id: 617d2da78bacbb05aca2caef
                         cidr: 10.111.17.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.17.0 - 10.111.17.1
+                              - 10.111.17.7
+                            assignableWithForce: false
                       - id: 618e5383a835704f8c59522d
                         cidr: 10.111.18.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.18.0 - 10.111.18.1
+                              - 10.111.18.7
+                            assignableWithForce: false
                       - id: 617d2f834dcf2869f8e4ef0b
                         cidr: 10.111.19.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.19.0 - 10.111.19.1
+                              - 10.111.19.7
+                            assignableWithForce: false
                       - id: 5f325c71b8a7ef1473e3c85b
                         cidr: 10.111.20.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.20.0 - 10.111.20.1
+                              - 10.111.20.7
+                            assignableWithForce: false
                       - id: 5ff5cc9bc1acf144d9106233
                         cidr: 10.111.21.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.21.0 - 10.111.21.1
+                              - 10.111.21.7
+                            assignableWithForce: false
                       - id: 610001e7da283e36d0a0df9f
                         cidr: 10.111.22.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.22.0 - 10.111.22.1
+                              - 10.111.22.7
+                            assignableWithForce: false
                       - id: 613b51c01f4b04615ba1d3be
                         cidr: 10.111.23.0/29
                         usedIpsCount: '0'
+                        reservedIps:
+                          - ips:
+                              - 10.111.23.0 - 10.111.23.1
+                              - 10.111.23.7
+                            assignableWithForce: false
                     vlanId: 10
                     status: READY
                     createdOn: '2022-04-05T13:50:30.491Z'
@@ -791,6 +1068,11 @@ paths:
                   - id: 60473a6115e34466c9f8f083
                     cidr: 10.111.14.0/29
                     usedIpsCount: '0'
+                    reservedIps:
+                      - ips:
+                          - 10.111.14.0 - 10.111.14.1
+                          - 10.111.14.7
+                        assignableWithForce: false
                 vlanId: 10
                 status: READY
                 createdOn: '2022-04-05T13:50:30.491Z'
@@ -810,6 +1092,10 @@ paths:
                   - id: 60473a6115e34466c9f8f084
                     cidr: 2001:db8::/64
                     usedIpsCount: '1'
+                    reservedIps:
+                      - ips:
+                          - '2001:db8:: - 2001:db8::9'
+                        assignableWithForce: false
                 raEnabled: true
                 vlanId: 11
                 status: BUSY
@@ -882,6 +1168,11 @@ paths:
                 id: 60473a6115e34466c9f8f083
                 cidr: 10.111.14.0/29
                 usedIpsCount: '3'
+                reservedIps:
+                  - ips:
+                      - 10.111.14.0 - 10.111.14.1
+                      - 10.111.14.7
+                    assignableWithForce: false
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -1490,6 +1781,26 @@ components:
             - 10.111.14.104
             - 10.111.14.105
             - 10.111.14.106
+    ReservedIp:
+      type: object
+      description: Reserved IP addresses which are not available for regular assignment. Some may be assigned when explicitly forced, as indicated by assignableWithForce.
+      required:
+        - ips
+        - assignableWithForce
+      properties:
+        ips:
+          description: A list containing reserved IP addresses or inclusive IP ranges.
+          type: array
+          items:
+            type: string
+            example: 10.111.14.7
+          example:
+            - 10.111.14.0 - 10.111.14.1
+            - 10.111.14.7
+        assignableWithForce:
+          description: Indicates whether the reserved IP addresses can be assigned to a resource when the assignment request is made with `force` query parameter set to `true`.
+          type: boolean
+          example: true
     PrivateNetwork:
       type: object
       description: Private Network details.
@@ -1502,6 +1813,7 @@ components:
         - locationDefault
         - servers
         - memberships
+        - reservedIps
         - status
         - createdOn
       properties:
@@ -1550,6 +1862,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/NetworkMembership'
+        reservedIps:
+          description: Reserved IP addresses within this network.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReservedIp'
         status:
           description: 'The status of the private network. Can have one of the following values: `BUSY`, `READY`, `DELETING` or `ERROR`.'
           type: string
@@ -1642,6 +1959,7 @@ components:
         - id
         - cidr
         - usedIpsCount
+        - reservedIps
       properties:
         id:
           description: The IP Block identifier.
@@ -1655,6 +1973,11 @@ components:
           description: The number of IPs used in the IP block.
           type: string
           example: '3'
+        reservedIps:
+          description: Reserved IP addresses within this network IP block.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReservedIp'
     PublicNetwork:
       type: object
       description: Public Network details.

@@ -42,6 +42,8 @@ type PrivateNetwork struct {
 	Servers []PrivateNetworkServer `json:"servers"`
 	// A list of resources that are members of this private network.
 	Memberships []NetworkMembership `json:"memberships"`
+	// Reserved IP addresses within this network.
+	ReservedIps []ReservedIp `json:"reservedIps"`
 	// The status of the private network. Can have one of the following values: `BUSY`, `READY`, `DELETING` or `ERROR`.
 	Status string `json:"status"`
 	// Date and time when this private network was created.
@@ -55,7 +57,7 @@ type _PrivateNetwork PrivateNetwork
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, servers []PrivateNetworkServer, memberships []NetworkMembership, status string, createdOn time.Time) *PrivateNetwork {
+func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, location string, locationDefault bool, servers []PrivateNetworkServer, memberships []NetworkMembership, reservedIps []ReservedIp, status string, createdOn time.Time) *PrivateNetwork {
 	this := PrivateNetwork{}
 	this.Id = id
 	this.Name = name
@@ -65,6 +67,7 @@ func NewPrivateNetwork(id string, name string, vlanId int32, type_ string, locat
 	this.LocationDefault = locationDefault
 	this.Servers = servers
 	this.Memberships = memberships
+	this.ReservedIps = reservedIps
 	this.Status = status
 	this.CreatedOn = createdOn
 	return &this
@@ -337,6 +340,30 @@ func (o *PrivateNetwork) SetMemberships(v []NetworkMembership) {
 	o.Memberships = v
 }
 
+// GetReservedIps returns the ReservedIps field value
+func (o *PrivateNetwork) GetReservedIps() []ReservedIp {
+	if o == nil {
+		var ret []ReservedIp
+		return ret
+	}
+
+	return o.ReservedIps
+}
+
+// GetReservedIpsOk returns a tuple with the ReservedIps field value
+// and a boolean to check if the value has been set.
+func (o *PrivateNetwork) GetReservedIpsOk() ([]ReservedIp, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ReservedIps, true
+}
+
+// SetReservedIps sets field value
+func (o *PrivateNetwork) SetReservedIps(v []ReservedIp) {
+	o.ReservedIps = v
+}
+
 // GetStatus returns the Status field value
 func (o *PrivateNetwork) GetStatus() string {
 	if o == nil {
@@ -409,6 +436,7 @@ func (o PrivateNetwork) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["servers"] = o.Servers
 	toSerialize["memberships"] = o.Memberships
+	toSerialize["reservedIps"] = o.ReservedIps
 	toSerialize["status"] = o.Status
 	toSerialize["createdOn"] = o.CreatedOn
 
@@ -432,6 +460,7 @@ func (o *PrivateNetwork) UnmarshalJSON(data []byte) (err error) {
 		"locationDefault",
 		"servers",
 		"memberships",
+		"reservedIps",
 		"status",
 		"createdOn",
 	}
@@ -473,6 +502,7 @@ func (o *PrivateNetwork) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "cidr")
 		delete(additionalProperties, "servers")
 		delete(additionalProperties, "memberships")
+		delete(additionalProperties, "reservedIps")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "createdOn")
 		o.AdditionalProperties = additionalProperties

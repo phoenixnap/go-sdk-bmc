@@ -7,12 +7,13 @@ Name | Type | Description | Notes
 **Id** | **string** | The IP Block identifier. | 
 **Cidr** | **string** | The CIDR notation of the IP block. | 
 **UsedIpsCount** | **string** | The number of IPs used in the IP block. | 
+**ReservedIps** | [**[]ReservedIp**](ReservedIp.md) | Reserved IP addresses within this network IP block. | 
 
 ## Methods
 
 ### NewPublicNetworkIpBlock
 
-`func NewPublicNetworkIpBlock(id string, cidr string, usedIpsCount string, ) *PublicNetworkIpBlock`
+`func NewPublicNetworkIpBlock(id string, cidr string, usedIpsCount string, reservedIps []ReservedIp, ) *PublicNetworkIpBlock`
 
 NewPublicNetworkIpBlock instantiates a new PublicNetworkIpBlock object
 This constructor will assign default values to properties that have it defined,
@@ -85,6 +86,26 @@ and a boolean to check if the value has been set.
 `func (o *PublicNetworkIpBlock) SetUsedIpsCount(v string)`
 
 SetUsedIpsCount sets UsedIpsCount field to given value.
+
+
+### GetReservedIps
+
+`func (o *PublicNetworkIpBlock) GetReservedIps() []ReservedIp`
+
+GetReservedIps returns the ReservedIps field if non-nil, zero value otherwise.
+
+### GetReservedIpsOk
+
+`func (o *PublicNetworkIpBlock) GetReservedIpsOk() (*[]ReservedIp, bool)`
+
+GetReservedIpsOk returns a tuple with the ReservedIps field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReservedIps
+
+`func (o *PublicNetworkIpBlock) SetReservedIps(v []ReservedIp)`
+
+SetReservedIps sets ReservedIps field to given value.
 
 
 

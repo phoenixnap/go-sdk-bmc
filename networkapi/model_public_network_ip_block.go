@@ -26,7 +26,9 @@ type PublicNetworkIpBlock struct {
 	// The CIDR notation of the IP block.
 	Cidr string `json:"cidr"`
 	// The number of IPs used in the IP block.
-	UsedIpsCount         string `json:"usedIpsCount"`
+	UsedIpsCount string `json:"usedIpsCount"`
+	// Reserved IP addresses within this network IP block.
+	ReservedIps          []ReservedIp `json:"reservedIps"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -36,11 +38,12 @@ type _PublicNetworkIpBlock PublicNetworkIpBlock
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicNetworkIpBlock(id string, cidr string, usedIpsCount string) *PublicNetworkIpBlock {
+func NewPublicNetworkIpBlock(id string, cidr string, usedIpsCount string, reservedIps []ReservedIp) *PublicNetworkIpBlock {
 	this := PublicNetworkIpBlock{}
 	this.Id = id
 	this.Cidr = cidr
 	this.UsedIpsCount = usedIpsCount
+	this.ReservedIps = reservedIps
 	return &this
 }
 
@@ -124,6 +127,30 @@ func (o *PublicNetworkIpBlock) SetUsedIpsCount(v string) {
 	o.UsedIpsCount = v
 }
 
+// GetReservedIps returns the ReservedIps field value
+func (o *PublicNetworkIpBlock) GetReservedIps() []ReservedIp {
+	if o == nil {
+		var ret []ReservedIp
+		return ret
+	}
+
+	return o.ReservedIps
+}
+
+// GetReservedIpsOk returns a tuple with the ReservedIps field value
+// and a boolean to check if the value has been set.
+func (o *PublicNetworkIpBlock) GetReservedIpsOk() ([]ReservedIp, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ReservedIps, true
+}
+
+// SetReservedIps sets field value
+func (o *PublicNetworkIpBlock) SetReservedIps(v []ReservedIp) {
+	o.ReservedIps = v
+}
+
 func (o PublicNetworkIpBlock) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -137,6 +164,7 @@ func (o PublicNetworkIpBlock) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["cidr"] = o.Cidr
 	toSerialize["usedIpsCount"] = o.UsedIpsCount
+	toSerialize["reservedIps"] = o.ReservedIps
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -153,6 +181,7 @@ func (o *PublicNetworkIpBlock) UnmarshalJSON(data []byte) (err error) {
 		"id",
 		"cidr",
 		"usedIpsCount",
+		"reservedIps",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -185,6 +214,7 @@ func (o *PublicNetworkIpBlock) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "cidr")
 		delete(additionalProperties, "usedIpsCount")
+		delete(additionalProperties, "reservedIps")
 		o.AdditionalProperties = additionalProperties
 	}
 
