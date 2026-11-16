@@ -1905,6 +1905,7 @@ components:
       properties:
         productCategory:
           $ref: "#/components/schemas/RatedUsageProductCategoryEnum"
+      type: object
     productsGet_200_response_inner:
       discriminator:
         mapping:

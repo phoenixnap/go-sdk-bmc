@@ -79,6 +79,7 @@ paths:
               schema:
                 type: array
                 items:
+                  type: object
                   properties:
                     productCategory:
                       $ref: '#/components/schemas/RatedUsageProductCategoryEnum'
@@ -128,6 +129,7 @@ paths:
               schema:
                 type: array
                 items:
+                  type: object
                   properties:
                     productCategory:
                       $ref: '#/components/schemas/RatedUsageProductCategoryEnum'
